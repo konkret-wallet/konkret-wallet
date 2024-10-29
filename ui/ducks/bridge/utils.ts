@@ -5,7 +5,7 @@ import {
   AddNetworkFields,
   NetworkConfiguration,
 } from '@metamask/network-controller';
-import { toChecksumAddress } from 'ethereumjs-util';
+import { toChecksumAddress } from '@ethereumjs/util';
 import { decGWEIToHexWEI } from '../../../shared/modules/conversion.utils';
 import { Numeric } from '../../../shared/modules/Numeric';
 import { ChainId, type TxData } from '../../../shared/types/bridge';

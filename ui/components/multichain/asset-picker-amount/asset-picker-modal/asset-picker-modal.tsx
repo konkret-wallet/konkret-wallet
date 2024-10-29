@@ -6,7 +6,7 @@ import type {
   TokenListToken,
 } from '@metamask/assets-controllers';
 import { isCaipChainId, isStrictHexString, type Hex } from '@metamask/utils';
-import { zeroAddress } from 'ethereumjs-util';
+import { zeroAddress } from '@ethereumjs/util';
 import {
   Modal,
   ModalContent,

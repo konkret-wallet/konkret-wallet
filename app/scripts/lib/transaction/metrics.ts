@@ -1,5 +1,5 @@
 import { BigNumber } from 'bignumber.js';
-import { isHexString } from 'ethereumjs-util';
+import { isHexString } from '@ethereumjs/util';
 import {
   TransactionMeta,
   TransactionType,

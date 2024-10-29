@@ -1,7 +1,7 @@
 import { Web3Provider } from '@ethersproject/providers';
 import type { Provider } from '@metamask/network-controller';
 import type { Hex } from '@metamask/utils';
-import { zeroAddress } from 'ethereumjs-util';
+import { zeroAddress } from '@ethereumjs/util';
 import { getAddress } from 'ethers/lib/utils';
 import { fetchTokenBalance } from '../../lib/token-util';
 import { Numeric } from '../Numeric';

@@ -1,5 +1,5 @@
+import { zeroAddress } from '@ethereumjs/util';
 import { BigNumber } from 'bignumber.js';
-import { zeroAddress } from 'ethereumjs-util';
 import { createBridgeMockStore } from '../../../test/jest/mock-store';
 import { CHAIN_IDS, FEATURED_RPCS } from '../../../shared/constants/network';
 import { ALLOWED_BRIDGE_CHAIN_IDS } from '../../../shared/constants/bridge';

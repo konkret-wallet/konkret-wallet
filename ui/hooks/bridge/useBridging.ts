@@ -1,7 +1,7 @@
 import { useCallback, useContext, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { toChecksumAddress } from 'ethereumjs-util';
+import { toChecksumAddress } from '@ethereumjs/util';
 import { isStrictHexString } from '@metamask/utils';
 import { setBridgeFeatureFlags } from '../../ducks/bridge/actions';
 import {

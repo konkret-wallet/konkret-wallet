@@ -1,6 +1,6 @@
 import type { Provider } from '@metamask/network-controller';
 import type { Hex, JsonRpcParams } from '@metamask/utils';
-import { addHexPrefix, stripHexPrefix } from 'ethereumjs-util';
+import { addHexPrefix, stripHexPrefix } from '@ethereumjs/util';
 
 const IMPLEMENTATION_STORAGE_SLOTS = [
   // org.zeppelinos.proxy.implementation

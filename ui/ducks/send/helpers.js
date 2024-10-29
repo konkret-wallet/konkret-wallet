@@ -1,4 +1,4 @@
-import { addHexPrefix, toChecksumAddress } from 'ethereumjs-util';
+import { addHexPrefix, toChecksumAddress } from '@ethereumjs/util';
 import BigNumber from 'bignumber.js';
 import { TransactionEnvelopeType } from '@metamask/transaction-controller';
 import { getErrorMessage } from '../../../shared/modules/error';

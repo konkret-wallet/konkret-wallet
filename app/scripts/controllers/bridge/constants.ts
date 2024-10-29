@@ -1,4 +1,4 @@
-import { zeroAddress } from 'ethereumjs-util';
+import { zeroAddress } from '@ethereumjs/util';
 import type { Hex } from '@metamask/utils';
 import {
   DEFAULT_MAX_REFRESH_COUNT,

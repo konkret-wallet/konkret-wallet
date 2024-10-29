@@ -1,4 +1,4 @@
-import { zeroAddress } from 'ethereumjs-util';
+import { zeroAddress } from '@ethereumjs/util';
 import fetchWithCache from '../../lib/fetch-with-cache';
 import mockBridgeQuotesErc20Erc20 from '../../../test/data/bridge/mock-quotes-erc20-erc20.json';
 import mockBridgeQuotesNativeErc20 from '../../../test/data/bridge/mock-quotes-native-erc20.json';

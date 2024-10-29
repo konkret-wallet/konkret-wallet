@@ -2,7 +2,7 @@ import { useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import { ChainId } from '@metamask/controller-utils';
 import { type CaipChainId, isStrictHexString, type Hex } from '@metamask/utils';
-import { zeroAddress } from 'ethereumjs-util';
+import { zeroAddress } from '@ethereumjs/util';
 import {
   getAllDetectedTokensForSelectedAddress,
   selectERC20TokensByChain,

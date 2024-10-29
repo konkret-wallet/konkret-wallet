@@ -6,7 +6,7 @@ import {
   parseCaipChainId,
   isCaipReference,
 } from '@metamask/utils';
-import { zeroAddress, toChecksumAddress } from 'ethereumjs-util';
+import { zeroAddress, toChecksumAddress } from '@ethereumjs/util';
 import { toEvmCaipChainId } from '@metamask/multichain-network-controller';
 import { MultichainNetworks } from '../../constants/multichain/networks';
 import { ChainId } from '../../types/bridge';
