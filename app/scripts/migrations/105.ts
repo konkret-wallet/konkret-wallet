@@ -1,6 +1,8 @@
 import { EthAccountType } from '@metamask/keyring-api';
 import type { InternalAccount } from '@metamask/keyring-internal-api';
-import { sha256FromString } from 'ethereumjs-util';
+import { sha256 } from '@noble/hashes/sha256';
+import { toBuffer } from 'ethereumjs-util';
+
 import { v4 as uuid } from 'uuid';
 import { cloneDeep } from 'lodash';
 import { ETH_EOA_METHODS } from '../../../shared/constants/eth-methods';
@@ -92,7 +94,7 @@ function createInternalAccountsForAccountsController(
 
   Object.values(identities).forEach((identity) => {
     const expectedId = uuid({
-      random: sha256FromString(identity.address).slice(0, 16),
+      random: sha256(toBuffer(identity.address)).slice(0, 16),
     });
 
     accounts[expectedId] = {
