@@ -1,5 +1,4 @@
 import log from 'loglevel';
-import { captureException } from '@sentry/browser';
 import {
   CUSTODIAN_TYPES,
   CustodyKeyring,
@@ -244,7 +243,7 @@ export class MMIController {
       // @ts-expect-error not relevant
       trackTransactionEvent:
         this.trackTransactionEventFromCustodianEvent.bind(this),
-      captureException,
+      captureException: () => {},
     });
   }
 
@@ -307,7 +306,6 @@ export class MMIController {
           try {
             await this.storeCustodianSupportedChains(address);
           } catch (error) {
-            captureException(error);
             log.error('Error while unlocking extension.', error);
           }
         }
@@ -328,14 +326,12 @@ export class MMIController {
           } as UpdateCustodianTransactionsParameters);
         } catch (error) {
           log.error('Error doing offline transaction updates', error);
-          captureException(error);
         }
       } catch (error) {
         log.error(
           `Error while unlocking extension with custody type ${type}`,
           error,
         );
-        captureException(error);
       }
     }
 
@@ -343,14 +339,12 @@ export class MMIController {
       await this.mmiConfigurationController.storeConfiguration();
     } catch (error) {
       log.error('Error while unlocking extension.', error);
-      captureException(error);
     }
 
     try {
       await this.transactionUpdateController.subscribeToEvents();
     } catch (error) {
       log.error('Error while unlocking extension.', error);
-      captureException(error);
     }
 
     const mmiConfigData =
@@ -515,7 +509,6 @@ export class MMIController {
       try {
         await this.storeCustodianSupportedChains(address);
       } catch (error) {
-        captureException(error);
       }
     }
 

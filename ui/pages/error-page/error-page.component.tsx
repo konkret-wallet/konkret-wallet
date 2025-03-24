@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import * as Sentry from '@sentry/browser';
 import browser from 'webextension-polyfill';
 
 import { getParticipateInMetaMetrics } from '../../selectors';
@@ -68,12 +67,6 @@ const ErrorPage: React.FC<ErrorPageProps> = ({ error }) => {
 
   const handleSubmitFeedback = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
-    const eventId = Sentry.lastEventId();
-
-    Sentry.captureFeedback({
-      message: feedbackMessage,
-      associatedEventId: eventId,
-    });
     handleCloseDescribeModal();
     setIsSuccessModalShown(true);
   };

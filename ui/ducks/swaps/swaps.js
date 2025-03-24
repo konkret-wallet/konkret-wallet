@@ -2,8 +2,6 @@ import { createSlice } from '@reduxjs/toolkit';
 import BigNumber from 'bignumber.js';
 import log from 'loglevel';
 
-import { captureMessage } from '@sentry/browser';
-
 import { TransactionType } from '@metamask/transaction-controller';
 import { createProjectLogger } from '@metamask/utils';
 import { CHAIN_IDS } from '../../../shared/constants/network';
@@ -627,7 +625,6 @@ export const fetchQuotesAndSetQuoteState = (
   history,
   inputValue,
   maxSlippage,
-  trackEvent,
   pageRedirectionDisabled,
 ) => {
   return async (dispatch, getState) => {
@@ -753,24 +750,6 @@ export const fetchQuotesAndSetQuoteState = (
     const smartTransactionsEnabled = getSmartTransactionsEnabled(state);
     const currentSmartTransactionsEnabled =
       getCurrentSmartTransactionsEnabled(state);
-    trackEvent({
-      event: MetaMetricsEventName.QuotesRequested,
-      category: MetaMetricsEventCategory.Swaps,
-      sensitiveProperties: {
-        token_from: fromTokenSymbol,
-        token_from_amount: String(inputValue),
-        token_to: toTokenSymbol,
-        request_type: balanceError ? 'Quote' : 'Order',
-        slippage: maxSlippage,
-        custom_slippage: maxSlippage !== Slippage.default,
-        is_hardware_wallet: hardwareWalletUsed,
-        hardware_wallet_type: hardwareWalletType,
-        stx_enabled: smartTransactionsEnabled,
-        current_stx_enabled: currentSmartTransactionsEnabled,
-        stx_user_opt_in: getSmartTransactionsOptInStatusForMetrics(state),
-        anonymizedData: true,
-      },
-    });
 
     try {
       const fetchStartTime = Date.now();
@@ -809,23 +788,6 @@ export const fetchQuotesAndSetQuoteState = (
       ]);
 
       if (Object.values(fetchedQuotes)?.length === 0) {
-        trackEvent({
-          event: 'No Quotes Available',
-          category: MetaMetricsEventCategory.Swaps,
-          sensitiveProperties: {
-            token_from: fromTokenSymbol,
-            token_from_amount: String(inputValue),
-            token_to: toTokenSymbol,
-            request_type: balanceError ? 'Quote' : 'Order',
-            slippage: maxSlippage,
-            custom_slippage: maxSlippage !== Slippage.default,
-            is_hardware_wallet: hardwareWalletUsed,
-            hardware_wallet_type: hardwareWalletType,
-            stx_enabled: smartTransactionsEnabled,
-            current_stx_enabled: currentSmartTransactionsEnabled,
-            stx_user_opt_in: getSmartTransactionsOptInStatusForMetrics(state),
-          },
-        });
         dispatch(setSwapsErrorKey(QUOTES_NOT_AVAILABLE_ERROR));
       } else {
         const newSelectedQuote = fetchedQuotes[selectedAggId];
@@ -841,30 +803,6 @@ export const fetchQuotesAndSetQuoteState = (
         // Big Number objects. As such, we convert them here for both
         // browsers.
         const tokenToAmountToString = tokenToAmountBN.toString(10);
-
-        trackEvent({
-          event: MetaMetricsEventName.QuotesReceived,
-          category: MetaMetricsEventCategory.Swaps,
-          sensitiveProperties: {
-            token_from: fromTokenSymbol,
-            token_from_amount: String(inputValue),
-            token_to: toTokenSymbol,
-            token_to_amount: tokenToAmountToString,
-            request_type: balanceError ? 'Quote' : 'Order',
-            slippage: maxSlippage,
-            custom_slippage: maxSlippage !== Slippage.default,
-            response_time: Date.now() - fetchStartTime,
-            best_quote_source: newSelectedQuote.aggregator,
-            available_quotes: Object.values(fetchedQuotes)?.length,
-            is_hardware_wallet: hardwareWalletUsed,
-            hardware_wallet_type: hardwareWalletType,
-            stx_enabled: smartTransactionsEnabled,
-            current_stx_enabled: currentSmartTransactionsEnabled,
-            stx_user_opt_in: getSmartTransactionsOptInStatusForMetrics(state),
-            gas_included: newSelectedQuote.isGasIncludedTrade,
-            anonymizedData: true,
-          },
-        });
 
         dispatch(setInitialGasEstimate(selectedAggId));
       }
@@ -886,7 +824,6 @@ export const fetchQuotesAndSetQuoteState = (
 
 export const signAndSendSwapsSmartTransaction = ({
   unsignedTransaction,
-  trackEvent,
   history,
   additionalTrackingParams,
 }) => {
@@ -945,11 +882,6 @@ export const signAndSendSwapsSmartTransaction = ({
       gas_included: usedQuote.isGasIncludedTrade,
       ...additionalTrackingParams,
     };
-    trackEvent({
-      event: 'STX Swap Started',
-      category: MetaMetricsEventCategory.Swaps,
-      sensitiveProperties: swapMetaData,
-    });
 
     if (
       !isContractAddressValid(
@@ -957,7 +889,7 @@ export const signAndSendSwapsSmartTransaction = ({
         selectedNetwork.configuration.chainId,
       )
     ) {
-      captureMessage('Invalid contract address', {
+      console.warn('Invalid contract address', {
         extra: {
           token_from: swapMetaData.token_from,
           token_to: swapMetaData.token_to,
@@ -1232,14 +1164,8 @@ export const signAndSendTransactions = (
         tradeGasFeeEstimates?.baseAndPriorityFeePerGas;
     }
 
-    trackEvent({
-      event: MetaMetricsEventName.SwapStarted,
-      category: MetaMetricsEventCategory.Swaps,
-      sensitiveProperties: swapMetaData,
-    });
-
     if (!isContractAddressValid(usedTradeTxParams.to, chainId)) {
-      captureMessage('Invalid contract address', {
+      console.warn('Invalid contract address', {
         extra: {
           token_from: swapMetaData.token_from,
           token_to: swapMetaData.token_to,

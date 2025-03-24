@@ -5,7 +5,6 @@
 // declared using var and not const or let, which is why this rule is disabled
 /* eslint-disable no-var */
 
-import * as Sentry from '@sentry/browser';
 import {
   Success,
   Unsuccessful,
@@ -230,7 +229,7 @@ declare class Chrome {
   runtime: Runtime;
 }
 
-type SentryObject = Sentry & {
+type SentryObject = {} & {
   getMetaMetricsEnabled: () => Promise<boolean>;
 };
 
@@ -255,7 +254,7 @@ type StateHooks = {
 export declare global {
   var platform: Platform;
   // Sentry is undefined in dev, so use optional chaining
-  var sentry: SentryObject | undefined;
+  var sentry: undefined;
 
   var chrome: Chrome;
 

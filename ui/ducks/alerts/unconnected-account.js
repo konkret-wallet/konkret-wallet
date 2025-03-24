@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { captureException } from '@sentry/browser';
 
 import { AlertTypes } from '../../../shared/constants/alerts';
 import * as actionConstants from '../../store/actionConstants';

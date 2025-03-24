@@ -4141,7 +4141,7 @@
         "process": true
       }
     },
-    "@sentry/cli>which>isexe": {
+    "nyc>spawn-wrap>which>isexe": {
       "builtin": {
         "fs": true
       },
@@ -9135,7 +9135,7 @@
         "process.platform": true
       },
       "packages": {
-        "@sentry/cli>which>isexe": true
+        "nyc>spawn-wrap>which>isexe": true
       }
     },
     "@storybook/react>@storybook/node-logger>npmlog>gauge>wide-align": {

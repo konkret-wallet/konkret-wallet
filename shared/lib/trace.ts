@@ -1,5 +1,3 @@
-import * as Sentry from '@sentry/browser';
-import { MeasurementUnit, StartSpanOptions } from '@sentry/types';
 import { createModuleLogger } from '@metamask/utils';
 // TODO: Remove restricted import
 // eslint-disable-next-line import/no-restricted-paths
@@ -172,15 +170,11 @@ export function endTrace(request: EndTraceRequest) {
 function traceCallback<T>(request: TraceRequest, fn: TraceCallback<T>): T {
   const { name } = request;
 
-  const callback = (span: Sentry.Span | null) => {
+  const callback = (span: any | null) => {
     log('Starting trace', name, request);
 
     const start = Date.now();
     let error: unknown;
-
-    if (span) {
-      initSpan(span, request);
-    }
 
     return tryCatchMaybePromise<T>(
       () => fn(span),
@@ -205,14 +199,10 @@ function startTrace(request: TraceRequest): TraceContext {
   const startTime = requestStartTime ?? getPerformanceTimestamp();
   const id = getTraceId(request);
 
-  const callback = (span: Sentry.Span | null) => {
+  const callback = (span: any | null) => {
     const end = (timestamp?: number) => {
       span?.end(timestamp);
     };
-
-    if (span) {
-      initSpan(span, request);
-    }
 
     const pendingTrace = { end, request, startTime };
     const key = getTraceKey(request);
@@ -230,12 +220,12 @@ function startTrace(request: TraceRequest): TraceContext {
 
 function startSpan<T>(
   request: TraceRequest,
-  callback: (spanOptions: StartSpanOptions) => T,
+  callback: (spanOptions: any) => T,
 ) {
   const { data: attributes, name, parentContext, startTime } = request;
-  const parentSpan = (parentContext ?? null) as Sentry.Span | null;
+  const parentSpan = (parentContext ?? null) as any | null;
 
-  const spanOptions: StartSpanOptions = {
+  const spanOptions: any = {
     attributes,
     name,
     op: OP_DEFAULT,
@@ -243,7 +233,7 @@ function startSpan<T>(
     startTime,
   };
 
-  return sentryWithIsolationScope((scope: Sentry.Scope) => {
+  return sentryWithIsolationScope((scope: any) => {
     initScope(scope, request);
     return callback(spanOptions);
   });
@@ -287,31 +277,7 @@ function getPerformanceTimestamp(): number {
  * @param scope - The Sentry scope to initialise.
  * @param request - The trace request.
  */
-function initScope(scope: Sentry.Scope, request: TraceRequest) {
-  const tags = request.tags ?? {};
-
-  for (const [key, value] of Object.entries(tags)) {
-    if (typeof value !== 'number') {
-      scope.setTag(key, value);
-    }
-  }
-}
-
-/**
- * Initialise the Sentry span created for each trace.
- * Includes setting all numeric tags as measurements so they can be queried numerically in Sentry.
- *
- * @param _span - The Sentry span to initialise.
- * @param request - The trace request.
- */
-function initSpan(_span: Sentry.Span, request: TraceRequest) {
-  const tags = request.tags ?? {};
-
-  for (const [key, value] of Object.entries(tags)) {
-    if (typeof value === 'number') {
-      sentrySetMeasurement(key, value, 'none');
-    }
-  }
+function initScope(scope: any, request: TraceRequest) {
 }
 
 function tryCatchMaybePromise<T>(
@@ -344,56 +310,24 @@ function tryCatchMaybePromise<T>(
 }
 
 function sentryStartSpan<T>(
-  spanOptions: StartSpanOptions,
-  callback: (span: Sentry.Span | null) => T,
+  _spanOptions: any,
+  callback: (span: any | null) => T,
 ): T {
-  const actual = globalThis.sentry?.startSpan;
-
-  if (!actual) {
-    return callback(null);
-  }
-
-  return actual(spanOptions, callback);
+  return callback(null);
 }
 
 function sentryStartSpanManual<T>(
-  spanOptions: StartSpanOptions,
-  callback: (span: Sentry.Span | null) => T,
+  _spanOptions: any,
+  callback: (span: any | null) => T,
 ): T {
-  const actual = globalThis.sentry?.startSpanManual;
-
-  if (!actual) {
-    return callback(null);
-  }
-
-  return actual(spanOptions, callback);
+  return callback(null);
 }
 
-function sentryWithIsolationScope<T>(callback: (scope: Sentry.Scope) => T): T {
-  const actual = globalThis.sentry?.withIsolationScope;
+function sentryWithIsolationScope<T>(callback: (scope: any) => T): T {
+  const scope = {
+    // eslint-disable-next-line no-empty-function
+    setTag: () => {},
+  } as unknown as any;
 
-  if (!actual) {
-    const scope = {
-      // eslint-disable-next-line no-empty-function
-      setTag: () => {},
-    } as unknown as Sentry.Scope;
-
-    return callback(scope);
-  }
-
-  return actual(callback);
-}
-
-function sentrySetMeasurement(
-  key: string,
-  value: number,
-  unit: MeasurementUnit,
-) {
-  const actual = globalThis.sentry?.setMeasurement;
-
-  if (!actual) {
-    return;
-  }
-
-  actual(key, value, unit);
+  return callback(scope);
 }

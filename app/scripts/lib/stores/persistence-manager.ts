@@ -1,5 +1,4 @@
 import log from 'loglevel';
-import { captureException } from '@sentry/browser';
 import { isEmpty } from 'lodash';
 import { type MetaMaskStateType, MetaMaskStorageStructure } from './base-store';
 import ExtensionStore from './extension-store';
@@ -90,7 +89,6 @@ export class PersistenceManager {
     } catch (err) {
       if (!this.#dataPersistenceFailing) {
         this.#dataPersistenceFailing = true;
-        captureException(err);
       }
       log.error('error setting state in local store:', err);
     } finally {

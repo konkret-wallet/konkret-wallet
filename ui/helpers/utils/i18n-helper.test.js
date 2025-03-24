@@ -1,11 +1,9 @@
 import React from 'react';
-import * as Sentry from '@sentry/browser';
 import { getMessage as getMessageShared } from '../../../shared/modules/i18n';
 import { renderWithProvider } from '../../../test/lib/render-helpers';
 import { getMessage } from './i18n-helper';
 
 jest.mock('../../../shared/modules/i18n');
-jest.mock('@sentry/browser');
 
 const localeCodeMock = 'te';
 const keyMock = 'testKey';
@@ -35,16 +33,6 @@ describe('I18N Helper', () => {
         expect.any(Function),
         undefined,
       );
-    });
-
-    it('invokes getMessage from shared module with onError callback that logs Sentry exception', () => {
-      getMessage(localeCodeMock, localeMessagesMock, keyMock);
-
-      const onErrorCallback = getMessageShared.mock.calls[0][4];
-      onErrorCallback(errorMock);
-
-      expect(Sentry.captureException).toHaveBeenCalledTimes(1);
-      expect(Sentry.captureException).toHaveBeenCalledWith(errorMock);
     });
 
     it('does not provide custom join logic if only strings in substitutions', () => {

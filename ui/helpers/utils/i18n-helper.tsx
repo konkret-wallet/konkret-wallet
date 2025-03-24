@@ -1,5 +1,4 @@
 import React from 'react';
-import * as Sentry from '@sentry/browser';
 import {
   I18NMessageDict,
   I18NSubstitution,
@@ -33,7 +32,6 @@ export const getMessage = (
     : undefined;
 
   const onError = (error: Error) => {
-    Sentry.captureException(error);
   };
 
   return getMessageShared(

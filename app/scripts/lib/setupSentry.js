@@ -1,6 +1,4 @@
 import { createModuleLogger, createProjectLogger } from '@metamask/utils';
-import * as Sentry from '@sentry/browser';
-import { logger } from '@sentry/utils';
 import browser from 'webextension-polyfill';
 import { isManifestV3 } from '../../../shared/modules/mv3.utils';
 import { getManifestFlags } from '../../../shared/lib/manifestFlags';
@@ -67,7 +65,6 @@ export default function setupSentry() {
   setSentryClient();
 
   return {
-    ...Sentry,
     getMetaMetricsEnabled,
   };
 }
@@ -84,15 +81,6 @@ function getClientOptions() {
     dsn: sentryTarget,
     environment,
     integrations: [
-      Sentry.dedupeIntegration(),
-      Sentry.extraErrorDataIntegration(),
-      Sentry.browserTracingIntegration({
-        shouldCreateSpanForRequest: (url) => {
-          // Do not create spans for outgoing requests to a 'sentry.io' domain.
-          return !url.match(/^https?:\/\/([\w\d.@-]+\.)?sentry\.io(\/|$)/u);
-        },
-      }),
-      filterEvents({ getMetaMetricsEnabled, log }),
     ],
     release: RELEASE,
     // Client reports are automatically sent when a page's visibility changes to
@@ -114,32 +102,7 @@ function getClientOptions() {
  * @returns tracesSampleRate to setup Sentry
  */
 function getTracesSampleRate(sentryTarget) {
-  if (sentryTarget === SENTRY_DSN_FAKE) {
-    return 1.0;
-  }
-
-  const flags = getManifestFlags();
-
-  // Grab the tracesSampleRate that may have come in from a git message
-  // 0 is a valid value, so must explicitly check for undefined
-  if (flags.sentry?.tracesSampleRate !== undefined) {
-    return flags.sentry.tracesSampleRate;
-  }
-
-  if (flags.circleci) {
-    // Report very frequently on main branch, and never on other branches
-    // (Unless you use a `flags = {"sentry": {"tracesSampleRate": x.xx}}` override)
-    if (flags.circleci.branch === 'main') {
-      return 0.015;
-    }
-    return 0;
-  }
-
-  if (METAMASK_DEBUG) {
-    return 1.0;
-  }
-
-  return 0.01;
+  return 0;
 }
 
 /**
@@ -167,21 +130,6 @@ function setCircleCiTags() {
  * is enabled, `false` otherwise.
  */
 function getMetaMetricsEnabledFromAppState(appState) {
-  // during initialization after loading persisted state
-  if (appState.persistedState) {
-    return getMetaMetricsEnabledFromPersistedState(appState.persistedState);
-    // After initialization
-  } else if (appState.state) {
-    // UI
-    if (appState.state.metamask) {
-      return Boolean(appState.state.metamask.participateInMetaMetrics);
-    }
-    // background
-    return Boolean(
-      appState.state.MetaMetricsController?.participateInMetaMetrics,
-    );
-  }
-  // during initialization, before first persisted state is read
   return false;
 }
 
@@ -193,9 +141,7 @@ function getMetaMetricsEnabledFromAppState(appState) {
  * is enabled, `false` otherwise.
  */
 function getMetaMetricsEnabledFromPersistedState(persistedState) {
-  return Boolean(
-    persistedState?.data?.MetaMetricsController?.participateInMetaMetrics,
-  );
+  return false;
 }
 
 /**
@@ -234,36 +180,11 @@ function getOnboardingCompleteFromPersistedState(persistedState) {
 }
 
 function getSentryEnvironment() {
-  if (METAMASK_BUILD_TYPE === 'main') {
-    return METAMASK_ENVIRONMENT;
-  }
-
-  return `${METAMASK_ENVIRONMENT}-${METAMASK_BUILD_TYPE}`;
+  return METAMASK_ENVIRONMENT;
 }
 
 function getSentryTarget() {
-  if (
-    process.env.IN_TEST &&
-    (!SENTRY_DSN_DEV || !getManifestFlags().sentry?.forceEnable)
-  ) {
-    return SENTRY_DSN_FAKE;
-  }
-
-  if (METAMASK_ENVIRONMENT !== 'production') {
-    return SENTRY_DSN_DEV;
-  }
-
-  if (METAMASK_BUILD_TYPE === 'mmi') {
-    return SENTRY_DSN_MMI;
-  }
-
-  if (!SENTRY_DSN) {
-    throw new Error(
-      `Missing SENTRY_DSN environment variable in production environment`,
-    );
-  }
-
-  return SENTRY_DSN;
+  return SENTRY_DSN_FAKE;
 }
 
 /**
@@ -273,36 +194,7 @@ function getSentryTarget() {
  * @returns `true` if MetaMetrics is enabled, `false` otherwise.
  */
 async function getMetaMetricsEnabled() {
-  const flags = getManifestFlags();
-
-  if (
-    METAMASK_BUILD_TYPE === 'mmi' ||
-    (flags.circleci && flags.sentry.forceEnable)
-  ) {
-    return true;
-  }
-
-  const appState = getState();
-
-  if (appState.state || appState.persistedState) {
-    return (
-      getMetaMetricsEnabledFromAppState(appState) &&
-      getOnboardingCompleteFromAppState(appState)
-    );
-  }
-
-  // If we reach here, it means the error was thrown before initialization
-  // completed, and before we loaded the persisted state for the first time.
-  try {
-    const persistedState = await globalThis.stateHooks.getPersistedState();
-    return (
-      getMetaMetricsEnabledFromPersistedState(persistedState) &&
-      getOnboardingCompleteFromPersistedState(persistedState)
-    );
-  } catch (error) {
-    log('Error retrieving persisted state', error);
-    return false;
-  }
+  return false;
 }
 
 function setSentryClient() {
@@ -330,13 +222,6 @@ function setSentryClient() {
     tracesSampleRate,
   });
 
-  Sentry.registerSpanErrorInstrumentation();
-  Sentry.init(clientOptions);
-
-  setCircleCiTags();
-
-  addDebugListeners();
-
   return true;
 }
 
@@ -363,19 +248,7 @@ function hideUrlIfNotInternal(url) {
  */
 export function beforeBreadcrumb() {
   return (breadcrumb) => {
-    if (!getState) {
-      return null;
-    }
-    const appState = getState();
-    if (
-      !getMetaMetricsEnabledFromAppState(appState) ||
-      !getOnboardingCompleteFromAppState(appState) ||
-      breadcrumb?.category === 'ui.input'
-    ) {
-      return null;
-    }
-    const newBreadcrumb = removeUrlsFromBreadCrumb(breadcrumb);
-    return newBreadcrumb;
+    return null;
   };
 }
 
@@ -555,55 +428,19 @@ function toMetamaskUrl(origUrl) {
 }
 
 function getState() {
-  return globalThis.stateHooks?.getSentryState?.() || {};
+  return {};
 }
 
 function integrateLogging() {
-  if (!METAMASK_DEBUG) {
-    return;
-  }
-
-  for (const loggerType of ['log', 'error']) {
-    logger[loggerType] = (...args) => {
-      const message = args[0].replace(`Sentry Logger [${loggerType}]: `, '');
-      internalLog(message, ...args.slice(1));
-    };
-  }
-
-  log('Integrated logging');
+  return;
 }
 
 function addDebugListeners() {
-  if (!METAMASK_DEBUG) {
-    return;
-  }
-
-  const client = Sentry.getClient();
-
-  client?.on('beforeEnvelope', (event) => {
-    if (isCompletedSessionEnvelope(event)) {
-      log('Completed session', event);
-    }
-  });
-
-  client?.on('afterSendEvent', (event) => {
-    const type = getEventType(event);
-    log(type, event);
-  });
-
-  log('Added debug listeners');
+  return;
 }
 
 function makeTransport(options) {
-  return Sentry.makeFetchTransport(options, async (...args) => {
-    const metricsEnabled = await getMetaMetricsEnabled();
-
-    if (!metricsEnabled) {
-      throw new Error('Network request skipped as metrics disabled');
-    }
-
-    return await fetch(...args);
-  });
+  return () => {};
 }
 
 function isCompletedSessionEnvelope(envelope) {
