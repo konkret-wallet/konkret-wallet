@@ -4545,20 +4545,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@metamask/eth-json-rpc-provider@npm:^4.1.5, @metamask/eth-json-rpc-provider@npm:^4.1.6, @metamask/eth-json-rpc-provider@npm:^4.1.7":
-  version: 4.1.7
-  resolution: "@metamask/eth-json-rpc-provider@npm:4.1.7"
-  dependencies:
-    "@metamask/json-rpc-engine": "npm:^10.0.2"
-    "@metamask/rpc-errors": "npm:^7.0.2"
-    "@metamask/safe-event-emitter": "npm:^3.0.0"
-    "@metamask/utils": "npm:^11.0.1"
-    uuid: "npm:^8.3.2"
-  checksum: 10/ddfa2a888c83015672a6b879bad061f1e617d6875b741aa714cbe7ac0878dbc8beb9d4ce00ec61a2672d2dfe251f04c4d3eed77b8a9877b7aeb0034eec3e7c51
-  languageName: node
-  linkType: hard
-
-"@metamask/eth-json-rpc-provider@npm:^4.1.8":
+"@metamask/eth-json-rpc-provider@npm:^4.1.5, @metamask/eth-json-rpc-provider@npm:^4.1.6, @metamask/eth-json-rpc-provider@npm:^4.1.7, @metamask/eth-json-rpc-provider@npm:^4.1.8":
   version: 4.1.8
   resolution: "@metamask/eth-json-rpc-provider@npm:4.1.8"
   dependencies:
@@ -4838,18 +4825,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@metamask/json-rpc-engine@npm:^10.0.0, @metamask/json-rpc-engine@npm:^10.0.1, @metamask/json-rpc-engine@npm:^10.0.2":
-  version: 10.0.2
-  resolution: "@metamask/json-rpc-engine@npm:10.0.2"
-  dependencies:
-    "@metamask/rpc-errors": "npm:^7.0.2"
-    "@metamask/safe-event-emitter": "npm:^3.0.0"
-    "@metamask/utils": "npm:^11.0.1"
-  checksum: 10/479e4c36ee10ecaa9b26bf8aaea375f7dbe68b5379fabc0f78ac087e310d0040b0e7a2d55eccebd820089404a2170f498c4e2b82eb7f0d34c5becbd811340d49
-  languageName: node
-  linkType: hard
-
-"@metamask/json-rpc-engine@npm:^10.0.3":
+"@metamask/json-rpc-engine@npm:^10.0.0, @metamask/json-rpc-engine@npm:^10.0.1, @metamask/json-rpc-engine@npm:^10.0.2, @metamask/json-rpc-engine@npm:^10.0.3":
   version: 10.0.3
   resolution: "@metamask/json-rpc-engine@npm:10.0.3"
   dependencies:
@@ -9885,19 +9861,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@trufflesuite/uws-js-unofficial@npm:20.30.0-unofficial.0":
-  version: 20.30.0-unofficial.0
-  resolution: "@trufflesuite/uws-js-unofficial@npm:20.30.0-unofficial.0"
-  dependencies:
-    bufferutil: "npm:4.0.7"
-    utf-8-validate: "npm:6.0.3"
-    ws: "npm:8.13.0"
-  dependenciesMeta:
-    bufferutil:
-      optional: true
-    utf-8-validate:
-      optional: true
-  checksum: 10/4aa6c3c00e8d448c18c4fb5a3f61dd6f8b2162ed9bacf7ecc9f6750c81fd1befcda1b821563f65c4608890949bcd01a868166f9aba591939b6abdbed5c664576
+"@trufflesuite/uws-js-unofficial@npm:uws@10.148.1":
+  version: 10.148.1
+  resolution: "uws@npm:10.148.1"
+  checksum: 10/1af68ae0cccf78ad6c69a7ff6546c2a0bd94fdaec192a01a9749f7f4eeed7490a9f5cdde4c4714b1815a25bb504ebcdbbd98f51d96782492078cf6c8758f0cc9
   languageName: node
   linkType: hard
 
@@ -14195,16 +14162,6 @@ __metadata:
     node-gyp: "npm:latest"
     node-gyp-build: "npm:^4.3.0"
   checksum: 10/f6fadb1f024b355a3bb08cffbc56c5d013944d0229eb793e5308f86fc0d8e7f8f17b69958aa5baa84db8f11870c8b0e2383d501cf41e79b93a1f3a5ef257c6e6
-  languageName: node
-  linkType: hard
-
-"bufferutil@npm:4.0.7":
-  version: 4.0.7
-  resolution: "bufferutil@npm:4.0.7"
-  dependencies:
-    node-gyp: "npm:latest"
-    node-gyp-build: "npm:^4.3.0"
-  checksum: 10/01e2144e88a6cb1cd8e4e0bb1ec622c6e400646fb451a672d20e7d40cdc7d4a82a64dbcda6f5f92b36eeca0d1e5290baf7af707994f7b7c87e911d51a265bf07
   languageName: node
   linkType: hard
 
@@ -35616,16 +35573,6 @@ __metadata:
     node-gyp: "npm:latest"
     node-gyp-build: "npm:^4.3.0"
   checksum: 10/05045f5348747f63ad56caf93ceca240f180f341f7f6ea5c02625265293b0c237a726ff29e2cc2270037efd04cab6bdb4aff650dcdc0232d2c6c6e2809b479ad
-  languageName: node
-  linkType: hard
-
-"utf-8-validate@npm:6.0.3":
-  version: 6.0.3
-  resolution: "utf-8-validate@npm:6.0.3"
-  dependencies:
-    node-gyp: "npm:latest"
-    node-gyp-build: "npm:^4.3.0"
-  checksum: 10/d137d076c58d4b4ed1a5524f4a2aefbbd4983eda58246e2c45d2c93a55ccc3741923d54cdd9571bf1b8584a8f43dfcdac69fcdda0fbc543fa53587ce40c3cb0e
   languageName: node
   linkType: hard
 

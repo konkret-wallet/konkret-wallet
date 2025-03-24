@@ -132,6 +132,7 @@
   "resolutions": {
     "chokidar": "^3.6.0",
     "firebase": "npm:spdx-exceptions@^2.1.0",
+    "@trufflesuite/uws-js-unofficial": "npm:uws@10.148.1",
     "@types/react": "^16.9.53",
     "bn.js": "^5.2.1",
     "ganache/abstract-level": "1.0.4",
