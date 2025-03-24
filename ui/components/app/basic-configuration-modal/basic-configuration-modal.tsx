@@ -1,4 +1,4 @@
-import React, { useContext, useMemo, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -14,7 +14,6 @@ import {
 import { useI18nContext } from '../../../hooks/useI18nContext';
 import {
   setDataCollectionForMarketing,
-  setParticipateInMetaMetrics,
   toggleExternalServices,
 } from '../../../store/actions';
 import {
@@ -34,14 +33,7 @@ import {
   ButtonSize,
   Label,
 } from '../../component-library';
-import {
-  MetaMetricsEventCategory,
-  MetaMetricsEventName,
-} from '../../../../shared/constants/metametrics';
-import { MetaMetricsContext } from '../../../contexts/metametrics';
 import { getUseExternalServices } from '../../../selectors';
-import { selectIsMetamaskNotificationsEnabled } from '../../../selectors/metamask-notifications/metamask-notifications';
-import { selectIsProfileSyncingEnabled } from '../../../selectors/metamask-notifications/profile-syncing';
 import {
   hideBasicFunctionalityModal,
   onboardingToggleBasicFunctionalityOff,
@@ -52,12 +44,7 @@ export function BasicConfigurationModal() {
   const t = useI18nContext();
   const [hasAgreed, setHasAgreed] = useState(false);
   const dispatch = useDispatch();
-  const trackEvent = useContext(MetaMetricsContext);
   const isExternalServicesEnabled = useSelector(getUseExternalServices);
-  const isProfileSyncingEnabled = useSelector(selectIsProfileSyncingEnabled);
-  const isMetamaskNotificationsEnabled = useSelector(
-    selectIsMetamaskNotificationsEnabled,
-  );
   const { pathname } = useLocation();
   const onboardingFlow = useMemo(() => {
     return pathname === ONBOARDING_PRIVACY_SETTINGS_ROUTE;
@@ -151,35 +138,7 @@ export function BasicConfigurationModal() {
               variant={ButtonVariant.Primary}
               data-testid="basic-configuration-modal-toggle-button"
               onClick={() => {
-                const event = onboardingFlow
-                  ? {
-                      category: MetaMetricsEventCategory.Onboarding,
-                      event: MetaMetricsEventName.SettingsUpdated,
-                      properties: {
-                        settings_group: 'onboarding_advanced_configuration',
-                        settings_type: 'basic_functionality',
-                        old_value: true,
-                        new_value: false,
-                        was_profile_syncing_on: isProfileSyncingEnabled,
-                      },
-                    }
-                  : {
-                      category: MetaMetricsEventCategory.Settings,
-                      event: MetaMetricsEventName.SettingsUpdated,
-                      properties: {
-                        settings_group: 'security_privacy',
-                        settings_type: 'basic_functionality',
-                        old_value: isExternalServicesEnabled,
-                        new_value: !isExternalServicesEnabled,
-                        was_notifications_on: isMetamaskNotificationsEnabled,
-                        was_profile_syncing_on: isProfileSyncingEnabled,
-                      },
-                    };
-
-                trackEvent(event);
-
                 if (isExternalServicesEnabled || onboardingFlow) {
-                  dispatch(setParticipateInMetaMetrics(false));
                   dispatch(setDataCollectionForMarketing(false));
                 }
 

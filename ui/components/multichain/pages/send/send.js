@@ -27,7 +27,6 @@ import {
   getDraftTransactionID,
   getRecipient,
   getRecipientWarningAcknowledgement,
-  getSendAnalyticProperties,
   getSendErrors,
   getSendStage,
   isSendFormInvalid,
@@ -76,11 +75,7 @@ export const SendPage = () => {
 
   const draftTransaction = useSelector(getCurrentDraftTransaction);
 
-  const {
-    sendAsset: transactionAsset,
-    amount,
-    swapQuotesError,
-  } = draftTransaction;
+  const { sendAsset: transactionAsset, amount } = draftTransaction;
 
   const draftTransactionID = useSelector(getDraftTransactionID);
   const mostRecentOverviewPage = useSelector(getMostRecentOverviewPage);

@@ -391,7 +391,7 @@ export const SENTRY_BACKGROUND_STATE = {
     userOperations: false,
   },
   UserStorageController: {
-    isProfileSyncingEnabled: true,
+    isProfileSyncingEnabled: false,
     isProfileSyncingUpdateLoading: false,
     hasAccountSyncingSyncedAtLeastOnce: false,
     isAccountSyncingReadyToBeDispatched: false,

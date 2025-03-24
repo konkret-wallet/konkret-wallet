@@ -4,16 +4,10 @@ import { useHistory } from 'react-router-dom';
 import { I18nContext } from '../../../../contexts/i18n';
 import { useModalProps } from '../../../../hooks/useModalProps';
 import { useMetamaskNotificationsContext } from '../../../../contexts/metamask-notifications/metamask-notifications';
-import { MetaMetricsContext } from '../../../../contexts/metametrics';
-import {
-  MetaMetricsEventCategory,
-  MetaMetricsEventName,
-} from '../../../../../shared/constants/metametrics';
 import {
   selectIsMetamaskNotificationsEnabled,
   getIsUpdatingMetamaskNotifications,
 } from '../../../../selectors/metamask-notifications/metamask-notifications';
-import { selectIsProfileSyncingEnabled } from '../../../../selectors/metamask-notifications/profile-syncing';
 import { useCreateNotifications } from '../../../../hooks/metamask-notifications/useNotifications';
 import { NOTIFICATIONS_ROUTE } from '../../../../helpers/constants/routes';
 
@@ -40,7 +34,6 @@ export default function TurnOnMetamaskNotifications() {
   const { hideModal } = useModalProps();
   const history = useHistory();
   const t = useContext(I18nContext);
-  const trackEvent = useContext(MetaMetricsContext);
   const { listNotifications } = useMetamaskNotificationsContext();
 
   const isNotificationEnabled = useSelector(
@@ -49,7 +42,6 @@ export default function TurnOnMetamaskNotifications() {
   const isUpdatingMetamaskNotifications = useSelector(
     getIsUpdatingMetamaskNotifications,
   );
-  const isProfileSyncingEnabled = useSelector(selectIsProfileSyncingEnabled);
 
   const [isLoading, setIsLoading] = useState<boolean>(
     isUpdatingMetamaskNotifications,
@@ -59,30 +51,12 @@ export default function TurnOnMetamaskNotifications() {
 
   const handleTurnOnNotifications = async () => {
     setIsLoading(true);
-    trackEvent({
-      category: MetaMetricsEventCategory.NotificationsActivationFlow,
-      event: MetaMetricsEventName.NotificationsActivated,
-      properties: {
-        is_profile_syncing_enabled: true,
-        action_type: 'activated',
-      },
-    });
     await createNotifications();
   };
 
   const handleHideModal = () => {
     hideModal();
     setIsLoading((prevLoadingState) => {
-      if (!prevLoadingState) {
-        trackEvent({
-          category: MetaMetricsEventCategory.NotificationsActivationFlow,
-          event: MetaMetricsEventName.NotificationsActivated,
-          properties: {
-            is_profile_syncing_enabled: isProfileSyncingEnabled,
-            action_type: 'dismissed',
-          },
-        });
-      }
       return prevLoadingState;
     });
   };

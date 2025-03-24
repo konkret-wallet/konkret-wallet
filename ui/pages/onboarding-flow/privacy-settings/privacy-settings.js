@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import classnames from 'classnames';
@@ -56,7 +56,6 @@ import {
   setUse4ByteResolution,
   setUseTokenDetection,
   setUseAddressBarEnsResolution,
-  showModal,
   toggleNetworkMenu,
   setIncomingTransactionsPreferences,
   setUseTransactionSimulations,

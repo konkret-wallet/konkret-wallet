@@ -3,18 +3,10 @@ import { useSelector } from 'react-redux';
 import { fireEvent } from '@testing-library/react';
 import configureMockState from 'redux-mock-store';
 import thunk from 'redux-thunk';
-import { MetaMetricsContext } from '../../../../contexts/metametrics';
 import { openWindow } from '../../../../helpers/utils/window';
 import { SUPPORT_LINK } from '../../../../../shared/lib/ui-utils';
 import { renderWithProvider } from '../../../../../test/lib/render-helpers';
 import mockState from '../../../../../test/data/mock-state.json';
-import {
-  MetaMetricsContextProp,
-  MetaMetricsEventCategory,
-  MetaMetricsEventName,
-} from '../../../../../shared/constants/metametrics';
-import { selectSessionData } from '../../../../selectors/identity/authentication';
-import { getMetaMetricsId } from '../../../../selectors/selectors';
 import VisitSupportDataConsentModal from './visit-support-data-consent-modal';
 
 jest.mock('react-redux', () => ({
@@ -28,21 +20,13 @@ jest.mock('../../../../helpers/utils/window', () => ({
 
 describe('VisitSupportDataConsentModal', () => {
   const store = configureMockState([thunk])(mockState);
-  const mockTrackEvent = jest.fn();
   const mockOnClose = jest.fn();
   const mockProfileId = 'test-profile-id';
-  const mockMetaMetricsId = 'test-metrics-id';
 
   const useSelectorMock = useSelector as jest.Mock;
 
   beforeEach(() => {
     useSelectorMock.mockImplementation((selector) => {
-      if (selector === selectSessionData) {
-        return { profile: { profileId: mockProfileId } };
-      }
-      if (selector === getMetaMetricsId) {
-        return mockMetaMetricsId;
-      }
       return undefined;
     });
   });
@@ -59,9 +43,7 @@ describe('VisitSupportDataConsentModal', () => {
     };
 
     return renderWithProvider(
-      <MetaMetricsContext.Provider value={mockTrackEvent}>
-        <VisitSupportDataConsentModal {...defaultProps} />
-      </MetaMetricsContext.Provider>,
+      <VisitSupportDataConsentModal {...defaultProps} />
       store,
     );
   };
@@ -79,20 +61,8 @@ describe('VisitSupportDataConsentModal', () => {
       getByTestId('visit-support-data-consent-modal-accept-button'),
     );
 
-    const expectedUrl = `${SUPPORT_LINK}?metamask_version=MOCK_VERSION&metamask_profile_id=${mockProfileId}&metamask_metametrics_id=${mockMetaMetricsId}`;
+    const expectedUrl = `${SUPPORT_LINK}`;
 
-    expect(mockTrackEvent).toHaveBeenCalledWith(
-      expect.objectContaining({
-        category: MetaMetricsEventCategory.Settings,
-        event: MetaMetricsEventName.SupportLinkClicked,
-        properties: {
-          url: expectedUrl,
-        },
-      }),
-      {
-        contextPropsIntoEventProperties: [MetaMetricsContextProp.PageTitle],
-      },
-    );
     expect(openWindow).toHaveBeenCalledWith(expectedUrl);
   });
 
@@ -104,18 +74,6 @@ describe('VisitSupportDataConsentModal', () => {
     );
 
     expect(mockOnClose).toHaveBeenCalled();
-    expect(mockTrackEvent).toHaveBeenCalledWith(
-      expect.objectContaining({
-        category: MetaMetricsEventCategory.Settings,
-        event: MetaMetricsEventName.SupportLinkClicked,
-        properties: {
-          url: SUPPORT_LINK,
-        },
-      }),
-      {
-        contextPropsIntoEventProperties: [MetaMetricsContextProp.PageTitle],
-      },
-    );
     expect(openWindow).toHaveBeenCalledWith(SUPPORT_LINK);
   });
 
@@ -129,18 +87,6 @@ describe('VisitSupportDataConsentModal', () => {
 
     const expectedUrl = `${SUPPORT_LINK}?metamask_version=MOCK_VERSION`;
 
-    expect(mockTrackEvent).toHaveBeenCalledWith(
-      expect.objectContaining({
-        category: MetaMetricsEventCategory.Settings,
-        event: MetaMetricsEventName.SupportLinkClicked,
-        properties: {
-          url: expectedUrl,
-        },
-      }),
-      {
-        contextPropsIntoEventProperties: [MetaMetricsContextProp.PageTitle],
-      },
-    );
     expect(openWindow).toHaveBeenCalledWith(expectedUrl);
   });
 });

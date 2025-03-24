@@ -1,17 +1,6 @@
-import React, {
-  useEffect,
-  useState,
-  useMemo,
-  useCallback,
-  useContext,
-} from 'react';
+import React, { useEffect, useState, useMemo, useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import { useI18nContext } from '../../hooks/useI18nContext';
-import { MetaMetricsContext } from '../../contexts/metametrics';
-import {
-  MetaMetricsEventCategory,
-  MetaMetricsEventName,
-} from '../../../shared/constants/metametrics';
 import {
   useEnableNotifications,
   useDisableNotifications,
@@ -20,7 +9,6 @@ import {
   selectIsMetamaskNotificationsEnabled,
   getIsUpdatingMetamaskNotifications,
 } from '../../selectors/metamask-notifications/metamask-notifications';
-import { selectIsProfileSyncingEnabled } from '../../selectors/metamask-notifications/profile-syncing';
 import { useMetamaskNotificationsContext } from '../../contexts/metamask-notifications/metamask-notifications';
 import { Box, Text } from '../../components/component-library';
 import {
@@ -46,7 +34,6 @@ export function NotificationsSettingsAllowNotifications({
   disabled: boolean;
 }) {
   const t = useI18nContext();
-  const trackEvent = useContext(MetaMetricsContext);
   const { listNotifications } = useMetamaskNotificationsContext();
   const isMetamaskNotificationsEnabled = useSelector(
     selectIsMetamaskNotificationsEnabled,
@@ -57,7 +44,6 @@ export function NotificationsSettingsAllowNotifications({
   const isUpdatingMetamaskNotifications = useSelector(
     getIsUpdatingMetamaskNotifications,
   );
-  const isProfileSyncingEnabled = useSelector(selectIsProfileSyncingEnabled);
 
   const { enableNotifications, error: errorEnableNotifications } =
     useEnableNotifications();
@@ -82,28 +68,8 @@ export function NotificationsSettingsAllowNotifications({
   const toggleNotifications = useCallback(async () => {
     setLoading(true);
     if (isMetamaskNotificationsEnabled) {
-      trackEvent({
-        category: MetaMetricsEventCategory.NotificationSettings,
-        event: MetaMetricsEventName.NotificationsSettingsUpdated,
-        properties: {
-          settings_type: 'notifications',
-          was_profile_syncing_on: isProfileSyncingEnabled,
-          old_value: true,
-          new_value: false,
-        },
-      });
       await disableNotifications();
     } else {
-      trackEvent({
-        category: MetaMetricsEventCategory.NotificationSettings,
-        event: MetaMetricsEventName.NotificationsSettingsUpdated,
-        properties: {
-          settings_type: 'notifications',
-          was_profile_syncing_on: isProfileSyncingEnabled,
-          old_value: false,
-          new_value: true,
-        },
-      });
       await enableNotifications();
     }
     setLoading(false);

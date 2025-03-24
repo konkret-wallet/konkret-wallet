@@ -1,11 +1,8 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  useUnreadNotificationsCounter,
-  useReadNotificationsCounter,
-} from '../../../hooks/metamask-notifications/useCounter';
+import { useUnreadNotificationsCounter } from '../../../hooks/metamask-notifications/useCounter';
 import { NotificationsTagCounter } from '../notifications-tag-counter';
 import { NewFeatureTag } from '../../../pages/notifications/NewFeatureTag';
 import {
@@ -24,7 +21,6 @@ import {
   selectIsMetamaskNotificationsEnabled,
   selectIsMetamaskNotificationsFeatureSeen,
 } from '../../../selectors/metamask-notifications/metamask-notifications';
-import { selectIsProfileSyncingEnabled } from '../../../selectors/metamask-notifications/profile-syncing';
 import {
   Box,
   IconName,
@@ -41,13 +37,6 @@ import { SUPPORT_LINK } from '../../../../shared/lib/ui-utils';
 ///: BEGIN:ONLY_INCLUDE_IF(build-beta,build-flask)
 import { SUPPORT_REQUEST_LINK } from '../../../helpers/constants/common';
 ///: END:ONLY_INCLUDE_IF
-
-import { MetaMetricsContext } from '../../../contexts/metametrics';
-import {
-  MetaMetricsContextProp,
-  MetaMetricsEventCategory,
-  MetaMetricsEventName,
-} from '../../../../shared/constants/metametrics';
 
 import {
   getSelectedInternalAccount,
@@ -72,13 +61,11 @@ const METRICS_LOCATION = 'Global Menu';
 export const GlobalMenu = ({ closeMenu, anchorElement, isOpen }) => {
   const t = useI18nContext();
   const dispatch = useDispatch();
-  const trackEvent = useContext(MetaMetricsContext);
   const basicFunctionality = useSelector(getUseExternalServices);
 
   const history = useHistory();
 
   const { notificationsUnreadCount } = useUnreadNotificationsCounter();
-  const { notificationsReadCount } = useReadNotificationsCounter();
 
   const account = useSelector(getSelectedInternalAccount);
 
@@ -91,7 +78,6 @@ export const GlobalMenu = ({ closeMenu, anchorElement, isOpen }) => {
   const isMetamaskNotificationsEnabled = useSelector(
     selectIsMetamaskNotificationsEnabled,
   );
-  const isProfileSyncingEnabled = useSelector(selectIsProfileSyncingEnabled);
 
   const hasUnapprovedTransactions =
     Object.keys(unapprovedTransactions).length > 0;
@@ -135,14 +121,6 @@ export const GlobalMenu = ({ closeMenu, anchorElement, isOpen }) => {
       !hasNotifySnaps && !isMetamaskNotificationsEnabled;
 
     if (shouldShowEnableModal) {
-      trackEvent({
-        category: MetaMetricsEventCategory.NotificationsActivationFlow,
-        event: MetaMetricsEventName.NotificationsActivated,
-        properties: {
-          action_type: 'started',
-          is_profile_syncing_enabled: isProfileSyncingEnabled,
-        },
-      });
       dispatch(showConfirmTurnOnMetamaskNotifications());
 
       closeMenu();
@@ -150,14 +128,6 @@ export const GlobalMenu = ({ closeMenu, anchorElement, isOpen }) => {
     }
 
     // Otherwise we can navigate to the notifications page
-    trackEvent({
-      category: MetaMetricsEventCategory.NotificationInteraction,
-      event: MetaMetricsEventName.NotificationsMenuOpened,
-      properties: {
-        unread_count: notificationsUnreadCount,
-        read_count: notificationsReadCount,
-      },
-    });
     history.push(NOTIFICATIONS_ROUTE);
     closeMenu();
   };
@@ -226,13 +196,6 @@ export const GlobalMenu = ({ closeMenu, anchorElement, isOpen }) => {
         iconName={IconName.SecurityTick}
         onClick={() => {
           history.push(PERMISSIONS);
-          trackEvent({
-            event: MetaMetricsEventName.NavPermissionsOpened,
-            category: MetaMetricsEventCategory.Navigation,
-            properties: {
-              location: METRICS_LOCATION,
-            },
-          });
           closeMenu();
         }}
         data-testid="global-menu-connected-sites"
@@ -246,13 +209,6 @@ export const GlobalMenu = ({ closeMenu, anchorElement, isOpen }) => {
           iconName={IconName.Expand}
           onClick={() => {
             global.platform.openExtensionInBrowser();
-            trackEvent({
-              event: MetaMetricsEventName.AppWindowExpanded,
-              category: MetaMetricsEventCategory.Navigation,
-              properties: {
-                location: METRICS_LOCATION,
-              },
-            });
             closeMenu();
           }}
           data-testid="global-menu-expand"
@@ -274,21 +230,6 @@ export const GlobalMenu = ({ closeMenu, anchorElement, isOpen }) => {
         iconName={IconName.MessageQuestion}
         onClick={() => {
           global.platform.openTab({ url: supportLink });
-          trackEvent(
-            {
-              category: MetaMetricsEventCategory.Home,
-              event: MetaMetricsEventName.SupportLinkClicked,
-              properties: {
-                url: supportLink,
-                location: METRICS_LOCATION,
-              },
-            },
-            {
-              contextPropsIntoEventProperties: [
-                MetaMetricsContextProp.PageTitle,
-              ],
-            },
-          );
           closeMenu();
         }}
         data-testid="global-menu-support"
@@ -300,13 +241,6 @@ export const GlobalMenu = ({ closeMenu, anchorElement, isOpen }) => {
         disabled={hasUnapprovedTransactions}
         onClick={() => {
           history.push(SETTINGS_ROUTE);
-          trackEvent({
-            category: MetaMetricsEventCategory.Navigation,
-            event: MetaMetricsEventName.NavSettingsOpened,
-            properties: {
-              location: METRICS_LOCATION,
-            },
-          });
           closeMenu();
         }}
         data-testid="global-menu-settings"
@@ -319,13 +253,6 @@ export const GlobalMenu = ({ closeMenu, anchorElement, isOpen }) => {
         onClick={() => {
           dispatch(lockMetamask());
           history.push(DEFAULT_ROUTE);
-          trackEvent({
-            category: MetaMetricsEventCategory.Navigation,
-            event: MetaMetricsEventName.AppLocked,
-            properties: {
-              location: METRICS_LOCATION,
-            },
-          });
           closeMenu();
         }}
         data-testid="global-menu-lock"

@@ -1,7 +1,6 @@
 import React, {
   ///: BEGIN:ONLY_INCLUDE_IF(build-main,build-beta,build-flask)
   useState,
-  useContext,
   ///: END:ONLY_INCLUDE_IF
 } from 'react';
 import { useHistory } from 'react-router-dom';
@@ -28,18 +27,7 @@ import {
 } from '../../../helpers/constants/routes';
 import { Text } from '../../../components/component-library';
 ///: BEGIN:ONLY_INCLUDE_IF(build-main,build-beta,build-flask)
-import { MetaMetricsContext } from '../../../contexts/metametrics';
-import {
-  getFirstTimeFlowType,
-  getExternalServicesOnboardingToggleState,
-} from '../../../selectors';
-import { selectIsProfileSyncingEnabled } from '../../../selectors/metamask-notifications/profile-syncing';
-import { selectParticipateInMetaMetrics } from '../../../selectors/metamask-notifications/authentication';
-import {
-  MetaMetricsEventCategory,
-  MetaMetricsEventName,
-} from '../../../../shared/constants/metametrics';
-import { FirstTimeFlowType } from '../../../../shared/constants/onboarding';
+import { getExternalServicesOnboardingToggleState } from '../../../selectors';
 import OnboardingPinBillboard from './pin-billboard';
 ///: END:ONLY_INCLUDE_IF
 
@@ -49,14 +37,10 @@ export default function OnboardingPinExtension() {
   ///: BEGIN:ONLY_INCLUDE_IF(build-main,build-beta,build-flask)
   const [selectedIndex, setSelectedIndex] = useState(0);
   const dispatch = useDispatch();
-  const trackEvent = useContext(MetaMetricsContext);
-  const firstTimeFlowType = useSelector(getFirstTimeFlowType);
 
   const externalServicesOnboardingToggleState = useSelector(
     getExternalServicesOnboardingToggleState,
   );
-  const isProfileSyncingEnabled = useSelector(selectIsProfileSyncingEnabled);
-  const participateInMetaMetrics = useSelector(selectParticipateInMetaMetrics);
 
   const handleClick = async () => {
     if (selectedIndex === 0) {
@@ -68,20 +52,9 @@ export default function OnboardingPinExtension() {
       await dispatch(setCompletedOnboarding());
 
       if (externalServicesOnboardingToggleState) {
-        if (!isProfileSyncingEnabled || participateInMetaMetrics) {
-          await dispatch(performSignIn());
-        }
+        await dispatch(performSignIn());
       }
 
-      trackEvent({
-        category: MetaMetricsEventCategory.Onboarding,
-        event: MetaMetricsEventName.OnboardingWalletSetupComplete,
-        properties: {
-          wallet_setup_type:
-            firstTimeFlowType === FirstTimeFlowType.import ? 'import' : 'new',
-          new_wallet: firstTimeFlowType === FirstTimeFlowType.create,
-        },
-      });
       history.push(DEFAULT_ROUTE);
     }
   };
