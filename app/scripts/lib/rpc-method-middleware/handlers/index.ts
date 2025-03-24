@@ -7,14 +7,6 @@ import sendMetadata from './send-metadata';
 import switchEthereumChain from './switch-ethereum-chain';
 import watchAsset from './watch-asset';
 
-///: BEGIN:ONLY_INCLUDE_IF(build-mmi)
-import mmiSupported from './institutional/mmi-supported';
-import mmiAuthenticate from './institutional/mmi-authenticate';
-import mmiPortfolio from './institutional/mmi-portfolio';
-import mmiCheckIfTokenIsPresent from './institutional/mmi-check-if-token-is-present';
-import mmiSetAccountAndNetwork from './institutional/mmi-set-account-and-network';
-import mmiOpenAddHardwareWallet from './institutional/mmi-open-add-hardware-wallet';
-///: END:ONLY_INCLUDE_IF
 
 export const handlers = [
   addEthereumChain,
@@ -22,14 +14,6 @@ export const handlers = [
   logWeb3ShimUsage,
   sendMetadata,
   watchAsset,
-  ///: BEGIN:ONLY_INCLUDE_IF(build-mmi)
-  mmiAuthenticate,
-  mmiSupported,
-  mmiPortfolio,
-  mmiCheckIfTokenIsPresent,
-  mmiSetAccountAndNetwork,
-  mmiOpenAddHardwareWallet,
-  ///: END:ONLY_INCLUDE_IF
 ];
 
 export const eip1193OnlyHandlers = [

@@ -180,14 +180,6 @@ export default class ExtensionPlatform {
       nonce,
       errorMessage || txMeta.error.message,
     );
-    ///: BEGIN:ONLY_INCLUDE_IF(build-mmi)
-    if (isNaN(nonce)) {
-      message = t(
-        'notificationTransactionFailedMessageMMI',
-        errorMessage || txMeta.error.message,
-      );
-    }
-    ///: END:ONLY_INCLUDE_IF
     await this._showNotification(title, message);
   }
 

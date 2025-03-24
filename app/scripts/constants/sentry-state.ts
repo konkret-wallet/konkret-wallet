@@ -404,9 +404,6 @@ export const SENTRY_BACKGROUND_STATE = {
     hasAccountSyncingSyncedAtLeastOnce: false,
     isAccountSyncingReadyToBeDispatched: false,
   },
-  ///: BEGIN:ONLY_INCLUDE_IF(build-mmi)
-  ...MMI_SENTRY_BACKGROUND_STATE,
-  ///: END:ONLY_INCLUDE_IF
 };
 
 const flattenedBackgroundStateMask = Object.values(
