@@ -1,8 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import React, { useState } from 'react';
 import browser from 'webextension-polyfill';
 
-import { getParticipateInMetaMetrics } from '../../selectors';
 import { useI18nContext } from '../../hooks/useI18nContext';
 import {
   BannerAlert,
@@ -13,12 +11,6 @@ import {
   Text,
   Button,
   ButtonVariant,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
 } from '../../components/component-library';
 import {
   AlignItems,
@@ -33,9 +25,6 @@ import {
   TextVariant,
 } from '../../helpers/constants/design-system';
 
-import { Textarea } from '../../components/component-library/textarea/textarea';
-import { TextareaResize } from '../../components/component-library/textarea/textarea.types';
-import { ButtonSize } from '../../components/component-library/button/button.types';
 import VisitSupportDataConsentModal from '../../components/app/modals/visit-support-data-consent-modal';
 
 type ErrorPageProps = {
@@ -49,39 +38,9 @@ type ErrorPageProps = {
 
 const ErrorPage: React.FC<ErrorPageProps> = ({ error }) => {
   const t = useI18nContext();
-  const isMetaMetricsEnabled = useSelector(getParticipateInMetaMetrics);
 
-  const [feedbackMessage, setFeedbackMessage] = useState('');
-  const [isFeedbackModalOpen, setIsFeedbackModalOpen] = useState(false);
-  const [isSuccessModalShown, setIsSuccessModalShown] = useState(false);
   const [isSupportDataConsentModalOpen, setIsSupportDataConsentModalOpen] =
     useState(false);
-
-  const handleClickDescribeButton = (): void => {
-    setIsFeedbackModalOpen(true);
-  };
-
-  const handleCloseDescribeModal = (): void => {
-    setIsFeedbackModalOpen(false);
-  };
-
-  const handleSubmitFeedback = (e: React.MouseEvent<HTMLElement>) => {
-    e.preventDefault();
-    handleCloseDescribeModal();
-    setIsSuccessModalShown(true);
-  };
-
-  useEffect(() => {
-    if (isSuccessModalShown) {
-      const timeoutId = setTimeout(() => {
-        setIsSuccessModalShown(false); // Close the modal after 5 seconds
-      }, 5000);
-
-      // Cleanup function to clear timeout if the component unmounts or state changes
-      return () => clearTimeout(timeoutId);
-    }
-    return undefined;
-  }, [isSuccessModalShown]);
 
   return (
     <section className="error-page">
@@ -178,84 +137,6 @@ const ErrorPage: React.FC<ErrorPageProps> = ({ error }) => {
           ) : null}
         </Box>
 
-        {isFeedbackModalOpen && (
-          <Modal
-            isOpen={isFeedbackModalOpen}
-            onClose={handleCloseDescribeModal}
-            data-testid="error-page-sentry-feedback-modal"
-          >
-            <ModalOverlay />
-            <ModalContent>
-              <ModalHeader onClose={handleCloseDescribeModal}>
-                {t('errorPageSentryFormTitle')}
-              </ModalHeader>
-              <ModalBody>
-                <Textarea
-                  resize={TextareaResize.Vertical}
-                  required
-                  autoFocus
-                  cols={32}
-                  rows={6}
-                  placeholder={t('errorPageSentryMessagePlaceholder')}
-                  onChange={(e) => setFeedbackMessage(e.target.value)}
-                  data-testid="error-page-sentry-feedback-textarea"
-                />
-              </ModalBody>
-              <ModalFooter>
-                <Box display={Display.Flex} gap={4}>
-                  <Button
-                    variant={ButtonVariant.Secondary}
-                    width={BlockSize.Half}
-                    onClick={handleCloseDescribeModal}
-                    size={ButtonSize.Md}
-                  >
-                    {t('cancel')}
-                  </Button>
-                  <Button
-                    variant={ButtonVariant.Primary}
-                    width={BlockSize.Half}
-                    onClick={handleSubmitFeedback}
-                    size={ButtonSize.Md}
-                    data-testid="error-page-sentry-feedback-submit-button"
-                  >
-                    {t('submit')}
-                  </Button>
-                </Box>
-              </ModalFooter>
-            </ModalContent>
-          </Modal>
-        )}
-        {isSuccessModalShown && (
-          <Modal
-            isOpen={isSuccessModalShown}
-            onClose={() => setIsSuccessModalShown(false)}
-            data-testid="error-page-sentry-feedback-success-modal"
-          >
-            <ModalOverlay />
-            <ModalContent>
-              <ModalBody
-                display={Display.Flex}
-                flexDirection={FlexDirection.Row}
-                alignItems={AlignItems.center}
-                justifyContent={JustifyContent.center}
-                gap={4}
-              >
-                <Icon
-                  name={IconName.CheckBold}
-                  color={IconColor.successDefault}
-                  size={IconSize.Md}
-                  marginRight={2}
-                />
-                <Text
-                  variant={TextVariant.bodyMdMedium}
-                  color={TextColor.successDefault}
-                >
-                  {t('errorPageSentrySuccessMessageText')}
-                </Text>
-              </ModalBody>
-            </ModalContent>
-          </Modal>
-        )}
         {isSupportDataConsentModalOpen && (
           <VisitSupportDataConsentModal
             isOpen={isSupportDataConsentModalOpen}
@@ -270,17 +151,6 @@ const ErrorPage: React.FC<ErrorPageProps> = ({ error }) => {
           justifyContent={JustifyContent.center}
           marginTop={4}
         >
-          {isMetaMetricsEnabled && (
-            <Button
-              className="error-page__report-to-sentry-button"
-              marginBottom={2}
-              block
-              data-testid="error-page-describe-what-happened-button"
-              onClick={handleClickDescribeButton}
-            >
-              {t('errorPageDescribeUsWhatHappened')}
-            </Button>
-          )}
           <Button
             marginBottom={2}
             variant={ButtonVariant.Secondary}

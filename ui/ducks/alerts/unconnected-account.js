@@ -109,7 +109,6 @@ export const dismissAndDisableAlert = () => {
       await dispatch(disableAlertSucceeded());
     } catch (error) {
       console.error(error);
-      captureException(error);
       await dispatch(disableAlertFailed());
     }
   };
@@ -126,7 +125,6 @@ export const switchToAccount = (accountId) => {
       await dispatch(switchAccountSucceeded());
     } catch (error) {
       console.error(error);
-      captureException(error);
       await dispatch(switchAccountFailed());
     }
   };
@@ -143,7 +141,6 @@ export const connectAccount = () => {
       await dispatch(connectAccountSucceeded());
     } catch (error) {
       console.error(error);
-      captureException(error);
       await dispatch(connectAccountFailed());
     }
   };

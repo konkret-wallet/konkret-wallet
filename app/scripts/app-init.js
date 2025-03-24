@@ -61,8 +61,6 @@ function importAllScripts() {
     throw new Error('Missing APPLY_LAVAMOAT environment variable');
   }
 
-  loadFile('../scripts/sentry-install.js');
-
   if (useSnow) {
     // eslint-disable-next-line no-undef
     const isWorker = !self.document;

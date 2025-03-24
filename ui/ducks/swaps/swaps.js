@@ -73,10 +73,6 @@ import {
   getSmartTransactionsPreferenceEnabled,
 } from '../../../shared/modules/selectors';
 import {
-  MetaMetricsEventCategory,
-  MetaMetricsEventName,
-} from '../../../shared/constants/metametrics';
-import {
   ERROR_FETCHING_QUOTES,
   QUOTES_NOT_AVAILABLE_ERROR,
   CONTRACT_DATA_DISABLED_ERROR,
@@ -743,11 +739,8 @@ export const fetchQuotesAndSetQuoteState = (
 
     dispatch(setFromToken(selectedFromToken));
 
-    const hardwareWalletUsed = isHardwareWallet(state);
-    const hardwareWalletType = getHardwareWalletType(state);
     const networkAndAccountSupports1559 =
       checkNetworkAndAccountSupports1559(state);
-    const smartTransactionsEnabled = getSmartTransactionsEnabled(state);
     const currentSmartTransactionsEnabled =
       getCurrentSmartTransactionsEnabled(state);
 
@@ -790,20 +783,6 @@ export const fetchQuotesAndSetQuoteState = (
       if (Object.values(fetchedQuotes)?.length === 0) {
         dispatch(setSwapsErrorKey(QUOTES_NOT_AVAILABLE_ERROR));
       } else {
-        const newSelectedQuote = fetchedQuotes[selectedAggId];
-
-        const tokenToAmountBN = calcTokenAmount(
-          newSelectedQuote.destinationAmount,
-          newSelectedQuote.decimals || 18,
-        );
-
-        // Firefox and Chrome have different implementations of the APIs
-        // that we rely on for communication across the app. On Chrome big
-        // numbers are converted into number strings, on firefox they remain
-        // Big Number objects. As such, we convert them here for both
-        // browsers.
-        const tokenToAmountToString = tokenToAmountBN.toString(10);
-
         dispatch(setInitialGasEstimate(selectedAggId));
       }
     } catch (e) {
@@ -995,7 +974,7 @@ export const signAndSendSwapsSmartTransaction = ({
 
 export const signAndSendTransactions = (
   history,
-  trackEvent,
+  _trackEvent,
   additionalTrackingParams,
 ) => {
   return async (dispatch, getState) => {

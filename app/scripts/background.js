@@ -2,12 +2,6 @@
  * @file The entry point for the web extension singleton process.
  */
 
-// Disabled to allow setting up initial state hooks first
-
-// This import sets up global functions required for Sentry to function.
-// It must be run first in case an error is thrown later during initialization.
-import './lib/setup-initial-state-hooks';
-
 import EventEmitter from 'events';
 import { finished, pipeline } from 'readable-stream';
 import debounce from 'debounce-stream';
@@ -29,13 +23,9 @@ import {
 import {
   REJECT_NOTIFICATION_CLOSE,
   REJECT_NOTIFICATION_CLOSE_SIG,
-  MetaMetricsEventCategory,
-  MetaMetricsEventName,
-  MetaMetricsUserTrait,
 } from '../../shared/constants/metametrics';
 import { checkForLastErrorAndLog } from '../../shared/modules/browser-runtime.utils';
 import { isManifestV3 } from '../../shared/modules/mv3.utils';
-import { maskObject } from '../../shared/modules/object.utils';
 import { FIXTURE_STATE_METADATA_VERSION } from '../../test/e2e/default-fixture';
 import { getSocketBackgroundToMocha } from '../../test/e2e/background-socket/socket-background-to-mocha';
 import {
@@ -53,7 +43,6 @@ import ReadOnlyNetworkStore from './lib/stores/read-only-network-store';
 import migrations from './migrations';
 import Migrator from './lib/migrator';
 import ExtensionPlatform from './platforms/extension';
-import { SENTRY_BACKGROUND_STATE } from './constants/sentry-state';
 
 import createStreamSink from './lib/createStreamSink';
 import NotificationManager, {
@@ -65,18 +54,12 @@ import MetamaskController, {
 import getFirstPreferredLangCode from './lib/get-first-preferred-lang-code';
 import getObjStructure from './lib/getObjStructure';
 import setupEnsIpfsResolver from './lib/ens-ipfs/setup';
-import {
-  deferredPromise,
-  getPlatform,
-  shouldEmitDappViewedEvent,
-} from './lib/util';
+import { deferredPromise, getPlatform } from './lib/util';
 import { createOffscreen } from './offscreen';
 import { generateWalletState } from './fixtures/generate-wallet-state';
 import rawFirstTimeState from './first-time-state';
 
 /* eslint-enable import/first */
-
-import { COOKIE_ID_MARKETING_WHITELIST_ORIGINS } from './constants/marketing-site-whitelist';
 
 // eslint-disable-next-line @metamask/design-tokens/color-no-hex
 const BADGE_COLOR_APPROVAL = '#0376C9';
@@ -95,10 +78,12 @@ const migrator = new Migrator({
 
 const localStore = inTest ? new ReadOnlyNetworkStore() : new ExtensionStore();
 const persistenceManager = new PersistenceManager({ localStore });
+if (!global.stateHooks) {
+  global.stateHooks = {};
+}
 global.stateHooks.getMostRecentPersistedState = () =>
   persistenceManager.mostRecentRetrievedState;
 
-const { sentry } = global;
 let firstTimeState = { ...rawFirstTimeState };
 
 const metamaskInternalProcessHash = {
@@ -238,7 +223,7 @@ function maybeDetectPhishing(theController) {
         url,
       });
     } catch (error) {
-      return sentry?.captureException(error);
+      return console.warn('maybeDetectPhishing error', error);
     }
   }
   // we can use the blocking API in MV2, but not in MV3
@@ -301,31 +286,6 @@ function maybeDetectPhishing(theController) {
         return {};
       }
 
-      // Determine the block reason based on the type
-      let blockReason;
-      let blockedUrl = hostname;
-      if (phishingTestResponse?.result && blockedRequestResponse.result) {
-        blockReason = `${phishingTestResponse.type} and ${blockedRequestResponse.type}`;
-      } else if (phishingTestResponse?.result) {
-        blockReason = phishingTestResponse.type;
-      } else {
-        blockReason = blockedRequestResponse.type;
-        blockedUrl = details.initiator;
-      }
-
-      theController.metaMetricsController.trackEvent({
-        // should we differentiate between background redirection and content script redirection?
-        event: MetaMetricsEventName.PhishingPageDisplayed,
-        category: MetaMetricsEventCategory.Phishing,
-        properties: {
-          url: blockedUrl,
-          referrer: {
-            url: blockedUrl,
-          },
-          reason: blockReason,
-          requestDomain: blockedRequestResponse.result ? hostname : undefined,
-        },
-      });
       const querystring = new URLSearchParams({ hostname, href });
       const redirectUrl = new URL(phishingPageHref);
       redirectUrl.hash = querystring.toString();
@@ -605,12 +565,10 @@ export async function loadStateFromPersistence() {
     (await persistenceManager.get()) ||
     migrator.generateInitialState(firstTimeState);
 
-  // report migration errors to sentry
   migrator.on('error', (err) => {
     // get vault structure without secrets
     const vaultStructure = getObjStructure(preMigrationVersionedData);
-    sentry.captureException(err, {
-      // "extra" key is required by Sentry
+    console.error('migrator error', err, {
       extra: { vaultStructure },
     });
   });
@@ -644,43 +602,6 @@ export async function loadStateFromPersistence() {
 }
 
 /**
- * Emit event of DappViewed,
- * which should only be tracked only after a user opts into metrics and connected to the dapp
- *
- * @param {string} origin - URL of visited dapp
- */
-function emitDappViewedMetricEvent(origin) {
-  const { metaMetricsId } = controller.metaMetricsController.state;
-  if (!shouldEmitDappViewedEvent(metaMetricsId)) {
-    return;
-  }
-
-  const numberOfConnectedAccounts =
-    controller.getPermittedAccounts(origin).length;
-  if (numberOfConnectedAccounts === 0) {
-    return;
-  }
-
-  const preferencesState = controller.controllerMessenger.call(
-    'PreferencesController:getState',
-  );
-  const numberOfTotalAccounts = Object.keys(preferencesState.identities).length;
-
-  controller.metaMetricsController.trackEvent({
-    event: MetaMetricsEventName.DappViewed,
-    category: MetaMetricsEventCategory.InpageProvider,
-    referrer: {
-      url: origin,
-    },
-    properties: {
-      is_first_visit: false,
-      number_of_accounts: numberOfTotalAccounts,
-      number_of_accounts_connected: numberOfConnectedAccounts,
-    },
-  });
-}
-
-/**
  * Track dapp connection when loaded and permissioned
  *
  * @param {Port} remotePort - The port provided by a new context.
@@ -696,64 +617,6 @@ function trackDappView(remotePort) {
   // store the orgin to corresponding tab so it can provide infor for onActivated listener
   if (!Object.keys(tabOriginMapping).includes(tabId)) {
     tabOriginMapping[tabId] = origin;
-  }
-
-  const isConnectedToDapp = controller.controllerMessenger.call(
-    'PermissionController:hasPermissions',
-    origin,
-  );
-
-  // when open a new tab, this event will trigger twice, only 2nd time is with dapp loaded
-  const isTabLoaded = remotePort.sender.tab.title !== 'New Tab';
-
-  // *** Emit DappViewed metric event when ***
-  // - refresh the dapp
-  // - open dapp in a new tab
-  if (isConnectedToDapp && isTabLoaded) {
-    emitDappViewedMetricEvent(origin);
-  }
-}
-
-/**
- * Emit App Opened event
- */
-function emitAppOpenedMetricEvent() {
-  const { metaMetricsId, participateInMetaMetrics } =
-    controller.metaMetricsController.state;
-
-  // Skip if user hasn't opted into metrics
-  if (metaMetricsId === null && !participateInMetaMetrics) {
-    return;
-  }
-
-  controller.metaMetricsController.trackEvent({
-    event: MetaMetricsEventName.AppOpened,
-    category: MetaMetricsEventCategory.App,
-  });
-}
-
-/**
- * This function checks if the app is being opened
- * and emits an event only if no other UI instances are currently open.
- *
- * @param {string} environment - The environment type where the app is opening
- */
-function trackAppOpened(environment) {
-  // List of valid environment types to track
-  const environmentTypeList = [
-    ENVIRONMENT_TYPE_POPUP,
-    ENVIRONMENT_TYPE_NOTIFICATION,
-    ENVIRONMENT_TYPE_FULLSCREEN,
-  ];
-
-  // Check if any UI instances are currently open
-  const isFullscreenOpen = Object.values(openMetamaskTabsIDs).some(Boolean);
-  const isAlreadyOpen =
-    isFullscreenOpen || notificationIsOpen || openPopupCount > 0;
-
-  // Only emit event if no UI is open and environment is valid
-  if (!isAlreadyOpen && environmentTypeList.includes(environment)) {
-    emitAppOpenedMetricEvent();
   }
 }
 
@@ -831,8 +694,6 @@ export function setupController(
     },
   );
 
-  setupSentryGetStateGlobal(controller);
-
   const isClientOpenStatus = () => {
     return (
       openPopupCount > 0 ||
@@ -898,7 +759,6 @@ export function setupController(
       // communication with popup
       controller.isClientOpen = true;
       controller.setupTrustedCommunication(portStream, remotePort.sender);
-      trackAppOpened(processName);
 
       initializeRemoteFeatureFlags();
 
@@ -966,18 +826,6 @@ export function setupController(
           ) {
             requestAccountTabIds[origin] = tabId;
           }
-        });
-      }
-      if (
-        senderUrl &&
-        COOKIE_ID_MARKETING_WHITELIST_ORIGINS.some(
-          (origin) => origin === senderUrl.origin,
-        )
-      ) {
-        const portStreamForCookieHandlerPage =
-          overrides?.getPortStream?.(remotePort) || new PortStream(remotePort);
-        controller.setUpCookieHandlerCommunication({
-          connectionStream: portStreamForCookieHandlerPage,
         });
       }
       connectExternalExtension(remotePort);
@@ -1258,27 +1106,6 @@ async function triggerUi() {
   }
 }
 
-// It adds the "App Installed" event into a queue of events, which will be tracked only after a user opts into metrics.
-const addAppInstalledEvent = () => {
-  if (controller) {
-    controller.metaMetricsController.updateTraits({
-      [MetaMetricsUserTrait.InstallDateExt]: new Date()
-        .toISOString()
-        .split('T')[0], // yyyy-mm-dd
-    });
-    controller.metaMetricsController.addEventBeforeMetricsOptIn({
-      category: MetaMetricsEventCategory.App,
-      event: MetaMetricsEventName.AppInstalled,
-      properties: {},
-    });
-    return;
-  }
-  setTimeout(() => {
-    // If the controller is not set yet, we wait and try to add the "App Installed" event again.
-    addAppInstalledEvent();
-  }, 500);
-};
-
 // On first install, open a new tab with MetaMask
 async function onInstall() {
   const sessionData =
@@ -1288,42 +1115,14 @@ async function onInstall() {
 
   const isFirstTimeInstall = sessionData?.isFirstTimeInstall;
 
-  if (process.env.IN_TEST) {
-    addAppInstalledEvent();
-  } else if (!isFirstTimeInstall && !process.env.METAMASK_DEBUG) {
-    // If storeAlreadyExisted is true then this is a fresh installation
-    // and an app installed event should be tracked.
-    addAppInstalledEvent();
+  if (
+    !process.env.IN_TEST &&
+    !isFirstTimeInstall &&
+    !process.env.METAMASK_DEBUG
+  ) {
     platform.openExtensionInBrowser();
   }
-  onNavigateToTab();
-}
-
-function onNavigateToTab() {
-  browser.tabs.onActivated.addListener((onActivatedTab) => {
-    if (controller) {
-      const { tabId } = onActivatedTab;
-      const currentOrigin = tabOriginMapping[tabId];
-      // *** Emit DappViewed metric event when ***
-      // - navigate to a connected dapp
-      if (currentOrigin) {
-        const connectSitePermissions =
-          controller.permissionController.state.subjects[currentOrigin];
-        // when the dapp is not connected, connectSitePermissions is undefined
-        const isConnectedToDapp = connectSitePermissions !== undefined;
-        if (isConnectedToDapp) {
-          emitDappViewedMetricEvent(currentOrigin);
-        }
-      }
-    }
-  });
-}
-
-function setupSentryGetStateGlobal(store) {
-  global.stateHooks.getSentryAppState = function () {
-    const backgroundState = store.memStore.getState();
-    return maskObject(backgroundState, SENTRY_BACKGROUND_STATE);
-  };
+  // onNavigateToTab();
 }
 
 async function initBackground() {

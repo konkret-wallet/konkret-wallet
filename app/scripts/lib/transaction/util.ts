@@ -4,7 +4,6 @@ import {
   TransactionController,
   TransactionMeta,
   TransactionParams,
-  TransactionType,
 } from '@metamask/transaction-controller';
 import {
   AddUserOperationOptions,
@@ -13,10 +12,6 @@ import {
 import type { Hex } from '@metamask/utils';
 import { addHexPrefix } from '@ethereumjs/util';
 
-import {
-  LOADING_SECURITY_ALERT_RESPONSE,
-  SECURITY_PROVIDER_EXCLUDED_TRANSACTION_TYPES,
-} from '../../../../shared/constants/security-provider';
 import { endTrace, TraceName } from '../../../../shared/lib/trace';
 
 export type AddTransactionOptions = NonNullable<
@@ -84,8 +79,6 @@ export async function addDappTransaction(
 export async function addTransaction(
   request: AddTransactionRequest,
 ): Promise<TransactionMeta> {
-  await validateSecurity(request);
-
   const { transactionMeta, waitForHash } = await addTransactionOrUserOperation(
     request,
   );
@@ -212,9 +205,4 @@ function getTransactionByHash(
   return transactionController.state.transactions.find(
     (tx) => tx.hash === transactionHash,
   );
-}
-
-async function validateSecurity(request: AddTransactionRequest) {
-  console.warn('validateSecurity called when blockaid integration disabled. this is ok.');
-  return;
 }

@@ -1,7 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable no-empty-function */
 import { createModuleLogger } from '@metamask/utils';
 // TODO: Remove restricted import
 // eslint-disable-next-line import/no-restricted-paths
-import { log as sentryLogger } from '../../app/scripts/lib/setupSentry';
+import { log as parentLogger } from '../../app/scripts/lib/setupLogger';
 
 /**
  * The supported trace names.
@@ -29,7 +31,7 @@ export enum TraceName {
   UIStartup = 'UI Startup',
 }
 
-const log = createModuleLogger(sentryLogger, 'trace');
+const log = createModuleLogger(parentLogger, 'trace');
 
 const ID_DEFAULT = 'default';
 const OP_DEFAULT = 'custom';
@@ -274,11 +276,10 @@ function getPerformanceTimestamp(): number {
  * Initialise the isolated Sentry scope created for each trace.
  * Includes setting all non-numeric tags.
  *
- * @param scope - The Sentry scope to initialise.
- * @param request - The trace request.
+ * @param _scope - The Sentry scope to initialise.
+ * @param _request - The trace request.
  */
-function initScope(scope: any, request: TraceRequest) {
-}
+function initScope(_scope: any, _request: TraceRequest) {}
 
 function tryCatchMaybePromise<T>(
   tryFn: () => T,

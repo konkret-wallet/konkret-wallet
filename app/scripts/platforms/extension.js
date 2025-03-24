@@ -175,7 +175,7 @@ export default class ExtensionPlatform {
   async _showFailedTransaction(txMeta, errorMessage) {
     const nonce = parseInt(txMeta.txParams.nonce, 16);
     const title = t('notificationTransactionFailedTitle');
-    let message = t(
+    const message = t(
       'notificationTransactionFailedMessage',
       nonce,
       errorMessage || txMeta.error.message,

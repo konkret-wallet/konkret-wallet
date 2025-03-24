@@ -8,10 +8,6 @@ import { InternalAccount } from '@metamask/keyring-internal-api';
 import { SnapId } from '@metamask/snaps-sdk';
 import { SNAP_MANAGE_ACCOUNTS_CONFIRMATION_TYPES } from '../../../../shared/constants/app';
 import {
-  MetaMetricsEventCategory,
-  MetaMetricsEventName,
-} from '../../../../shared/constants/metametrics';
-import {
   showAccountCreationDialog,
   showAccountNameSuggestionDialog,
   snapKeyringBuilder,
@@ -34,7 +30,6 @@ const mockPersistKeyringHelper = jest.fn();
 const mockSetSelectedAccount = jest.fn();
 const mockSetAccountName = jest.fn();
 const mockRemoveAccountHelper = jest.fn();
-const mockTrackEvent = jest.fn();
 const mockGetAccountByAddress = jest.fn();
 const mockLocale = 'en';
 const mockPreferencesControllerGetState = jest.fn();
@@ -175,7 +170,6 @@ const createSnapKeyringBuilder = ({
   return snapKeyringBuilder(createControllerMessenger(), {
     persistKeyringHelper: mockPersistKeyringHelper,
     removeAccountHelper: mockRemoveAccountHelper,
-    trackEvent: mockTrackEvent,
   });
 };
 
@@ -285,34 +279,6 @@ describe('Snap Keyring Methods', () => {
         },
         true,
       ]);
-      expect(mockTrackEvent).toHaveBeenCalledTimes(3);
-      expect(mockTrackEvent).toHaveBeenNthCalledWith(1, {
-        category: MetaMetricsEventCategory.Accounts,
-        event: MetaMetricsEventName.AddSnapAccountSuccessViewed,
-        properties: {
-          account_type: 'snap',
-          snap_id: mockSnapId,
-          snap_name: mockSnapName,
-        },
-      });
-      expect(mockTrackEvent).toHaveBeenNthCalledWith(2, {
-        category: MetaMetricsEventCategory.Accounts,
-        event: MetaMetricsEventName.AddSnapAccountSuccessClicked,
-        properties: {
-          account_type: 'snap',
-          snap_id: mockSnapId,
-          snap_name: mockSnapName,
-        },
-      });
-      expect(mockTrackEvent).toHaveBeenNthCalledWith(3, {
-        category: MetaMetricsEventCategory.Accounts,
-        event: MetaMetricsEventName.AccountAdded,
-        properties: {
-          account_type: 'snap',
-          snap_id: mockSnapId,
-          snap_name: mockSnapName,
-        },
-      });
       expect(mockShowSuccess).toHaveBeenCalledTimes(1);
       expect(mockSetAccountName).not.toHaveBeenCalled();
       expect(mockEndFlow).toHaveBeenCalledTimes(2);
@@ -345,16 +311,6 @@ describe('Snap Keyring Methods', () => {
         },
         true,
       ]);
-      expect(mockTrackEvent).toHaveBeenCalledTimes(1);
-      expect(mockTrackEvent).toHaveBeenNthCalledWith(1, {
-        category: MetaMetricsEventCategory.Accounts,
-        event: MetaMetricsEventName.AccountAdded,
-        properties: {
-          account_type: 'snap',
-          snap_id: mockSnapId,
-          snap_name: mockSnapName,
-        },
-      });
       expect(mockSetAccountName).not.toHaveBeenCalled();
       expect(mockEndFlow).toHaveBeenCalledTimes(2);
       expect(mockEndFlow).toHaveBeenNthCalledWith(1, [{ id: mockFlowId }]);
@@ -399,34 +355,6 @@ describe('Snap Keyring Methods', () => {
         },
         true,
       ]);
-      expect(mockTrackEvent).toHaveBeenCalledTimes(3);
-      expect(mockTrackEvent).toHaveBeenNthCalledWith(1, {
-        category: MetaMetricsEventCategory.Accounts,
-        event: MetaMetricsEventName.AddSnapAccountSuccessViewed,
-        properties: {
-          account_type: 'snap',
-          snap_id: mockSnapId,
-          snap_name: mockSnapName,
-        },
-      });
-      expect(mockTrackEvent).toHaveBeenNthCalledWith(2, {
-        category: MetaMetricsEventCategory.Accounts,
-        event: MetaMetricsEventName.AddSnapAccountSuccessClicked,
-        properties: {
-          account_type: 'snap',
-          snap_id: mockSnapId,
-          snap_name: mockSnapName,
-        },
-      });
-      expect(mockTrackEvent).toHaveBeenNthCalledWith(3, {
-        category: MetaMetricsEventCategory.Accounts,
-        event: MetaMetricsEventName.AccountAdded,
-        properties: {
-          account_type: 'snap',
-          snap_id: mockSnapId,
-          snap_name: mockSnapName,
-        },
-      });
       expect(mockSetAccountName).toHaveBeenCalledWith([
         mockAccount.id,
         mockNameSuggestion,
@@ -466,16 +394,6 @@ describe('Snap Keyring Methods', () => {
         },
         true,
       ]);
-      expect(mockTrackEvent).toHaveBeenCalledTimes(1);
-      expect(mockTrackEvent).toHaveBeenNthCalledWith(1, {
-        category: MetaMetricsEventCategory.Accounts,
-        event: MetaMetricsEventName.AccountAdded,
-        properties: {
-          account_type: 'snap',
-          snap_id: mockSnapId,
-          snap_name: mockSnapName,
-        },
-      });
       expect(mockSetAccountName).toHaveBeenCalledTimes(1);
       expect(mockSetAccountName).toHaveBeenCalledWith([
         mockAccount.id,
@@ -524,34 +442,6 @@ describe('Snap Keyring Methods', () => {
         },
         true,
       ]);
-      expect(mockTrackEvent).toHaveBeenCalledTimes(3);
-      expect(mockTrackEvent).toHaveBeenNthCalledWith(1, {
-        category: MetaMetricsEventCategory.Accounts,
-        event: MetaMetricsEventName.AddSnapAccountSuccessViewed,
-        properties: {
-          account_type: 'snap',
-          snap_id: mockSnapId,
-          snap_name: mockSnapName,
-        },
-      });
-      expect(mockTrackEvent).toHaveBeenNthCalledWith(2, {
-        category: MetaMetricsEventCategory.Accounts,
-        event: MetaMetricsEventName.AddSnapAccountSuccessClicked,
-        properties: {
-          account_type: 'snap',
-          snap_id: mockSnapId,
-          snap_name: mockSnapName,
-        },
-      });
-      expect(mockTrackEvent).toHaveBeenNthCalledWith(3, {
-        category: MetaMetricsEventCategory.Accounts,
-        event: MetaMetricsEventName.AccountAdded,
-        properties: {
-          account_type: 'snap',
-          snap_id: mockSnapId,
-          snap_name: mockSnapName,
-        },
-      });
       expect(mockSetAccountName).toHaveBeenCalledTimes(1);
       expect(mockSetAccountName).toHaveBeenCalledWith([
         mockAccount.id,

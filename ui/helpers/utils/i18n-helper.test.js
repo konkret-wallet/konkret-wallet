@@ -8,7 +8,6 @@ jest.mock('../../../shared/modules/i18n');
 const localeCodeMock = 'te';
 const keyMock = 'testKey';
 const localeMessagesMock = { [keyMock]: { message: 'testMessage' } };
-const errorMock = new Error('testError');
 const messageMock = 'testMessage';
 
 describe('I18N Helper', () => {

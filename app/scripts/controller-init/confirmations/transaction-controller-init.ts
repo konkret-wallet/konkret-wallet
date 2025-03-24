@@ -20,23 +20,12 @@ import {
 } from '../../lib/transaction/smart-transactions';
 import { trace } from '../../../../shared/lib/trace';
 import {
-  handlePostTransactionBalanceUpdate,
-  handleTransactionAdded,
-  handleTransactionApproved,
-  handleTransactionConfirmed,
-  handleTransactionDropped,
-  handleTransactionFailed,
-  handleTransactionRejected,
-  handleTransactionSubmitted,
-} from '../../lib/transaction/metrics';
-import {
   ControllerInitFunction,
   ControllerInitRequest,
   ControllerInitResult,
 } from '../types';
 import { TransactionControllerInitMessenger } from '../messengers/transaction-controller-messenger';
 import { ControllerFlatState } from '../controller-list';
-import { TransactionMetricsRequest } from '../../../../shared/types/metametrics';
 
 export const TransactionControllerInit: ControllerInitFunction<
   TransactionController,
@@ -49,7 +38,6 @@ export const TransactionControllerInit: ControllerInitFunction<
     getFlatState,
     getGlobalChainId,
     getPermittedAccounts,
-    getTransactionMetricsRequest,
     persistedState,
   } = request;
 
@@ -133,10 +121,7 @@ export const TransactionControllerInit: ControllerInitFunction<
     state: persistedState.TransactionController,
   });
 
-  addTransactionControllerListeners(
-    initMessenger,
-    getTransactionMetricsRequest,
-  );
+  addTransactionControllerListeners(initMessenger);
 
   const api = getApi(controller);
 
@@ -226,42 +211,7 @@ function getExternalPendingTransactions(
 
 function addTransactionControllerListeners(
   initMessenger: TransactionControllerInitMessenger,
-  getTransactionMetricsRequest: () => TransactionMetricsRequest,
 ) {
-  const transactionMetricsRequest = getTransactionMetricsRequest();
-
-  initMessenger.subscribe(
-    'TransactionController:postTransactionBalanceUpdated',
-    handlePostTransactionBalanceUpdate.bind(null, transactionMetricsRequest),
-  );
-
-  initMessenger.subscribe(
-    'TransactionController:unapprovedTransactionAdded',
-    (transactionMeta) =>
-      handleTransactionAdded(transactionMetricsRequest, { transactionMeta }),
-  );
-
-  initMessenger.subscribe(
-    'TransactionController:transactionApproved',
-    handleTransactionApproved.bind(null, transactionMetricsRequest),
-  );
-
-  initMessenger.subscribe(
-    'TransactionController:transactionDropped',
-    handleTransactionDropped.bind(null, transactionMetricsRequest),
-  );
-
-  initMessenger.subscribe(
-    'TransactionController:transactionConfirmed',
-    // @ts-expect-error Error is string in metrics code but TransactionError in TransactionMeta type from controller
-    handleTransactionConfirmed.bind(null, transactionMetricsRequest),
-  );
-
-  initMessenger.subscribe(
-    'TransactionController:transactionFailed',
-    handleTransactionFailed.bind(null, transactionMetricsRequest),
-  );
-
   initMessenger.subscribe(
     'TransactionController:transactionNewSwap',
     ({ transactionMeta }) =>
@@ -276,16 +226,6 @@ function addTransactionControllerListeners(
       // TODO: This can be called internally by the TransactionController
       // since Swaps Controller registers this action handler
       initMessenger.call('SwapsController:setApproveTxId', transactionMeta.id),
-  );
-
-  initMessenger.subscribe(
-    'TransactionController:transactionRejected',
-    handleTransactionRejected.bind(null, transactionMetricsRequest),
-  );
-
-  initMessenger.subscribe(
-    'TransactionController:transactionSubmitted',
-    handleTransactionSubmitted.bind(null, transactionMetricsRequest),
   );
 }
 

@@ -229,23 +229,12 @@ declare class Chrome {
   runtime: Runtime;
 }
 
-type SentryObject = {} & {
-  getMetaMetricsEnabled: () => Promise<boolean>;
-};
-
 type StateHooks = {
   getCustomTraces?: () => { [name: string]: number };
   getCleanAppState?: () => Promise<any>;
   getLogs?: () => any[];
   getMostRecentPersistedState?: () => any;
   getPersistedState: () => Promise<any>;
-  getSentryAppState?: () => any;
-  getSentryState: () => {
-    browser: string;
-    version: string;
-    state?: any;
-    persistedState?: any;
-  };
   metamaskGetState?: () => Promise<any>;
   throwTestBackgroundError?: (msg?: string) => Promise<void>;
   throwTestError?: (msg?: string) => void;
@@ -254,7 +243,11 @@ type StateHooks = {
 export declare global {
   var platform: Platform;
   // Sentry is undefined in dev, so use optional chaining
-  var sentry: undefined;
+  var sentry:
+    | undefined
+    | {
+        captureException: (...args: any[]) => void;
+      };
 
   var chrome: Chrome;
 

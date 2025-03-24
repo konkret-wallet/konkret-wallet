@@ -226,6 +226,7 @@ describe('Transaction metrics', () => {
         sensitiveProperties: expectedSensitiveProperties,
       });
     });
+  });
 
   describe('handleTransactionApproved', () => {
     it('should return if transaction meta is not defined', async () => {

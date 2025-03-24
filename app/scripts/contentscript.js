@@ -10,19 +10,11 @@ import {
   isDetectedPhishingSite,
   initPhishingStreams,
 } from './streams/phishing-stream';
-import {
-  initializeCookieHandlerSteam,
-  isDetectedCookieMarketingSite,
-} from './streams/cookie-handler-stream';
 
 const start = () => {
   if (isDetectedPhishingSite) {
     initPhishingStreams();
     return;
-  }
-
-  if (isDetectedCookieMarketingSite) {
-    initializeCookieHandlerSteam();
   }
 
   if (shouldInjectProvider()) {

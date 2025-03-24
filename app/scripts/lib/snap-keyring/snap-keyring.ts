@@ -2,18 +2,12 @@ import { SnapKeyring, SnapKeyringCallbacks } from '@metamask/eth-snap-keyring';
 import browser from 'webextension-polyfill';
 import { SnapId } from '@metamask/snaps-sdk';
 import { assertIsValidSnapId } from '@metamask/snaps-utils';
-import {
-  MetaMetricsEventAccountType,
-  MetaMetricsEventCategory,
-  MetaMetricsEventName,
-} from '../../../../shared/constants/metametrics';
 import { SNAP_MANAGE_ACCOUNTS_CONFIRMATION_TYPES } from '../../../../shared/constants/app';
 import { t } from '../../translate';
 import MetamaskController from '../../metamask-controller';
 // TODO: Remove restricted import
 // eslint-disable-next-line import/no-restricted-paths
 import { IconName } from '../../../../ui/components/component-library/icon';
-import MetaMetricsController from '../../controllers/metametrics-controller';
 import { getUniqueAccountName } from '../../../../shared/lib/accounts';
 import { isBlockedUrl } from './utils/isBlockedUrl';
 import { showError, showSuccess } from './utils/showResult';
@@ -32,7 +26,6 @@ export type SnapKeyringBuilder = {
  * Helpers for the Snap keyring implementation.
  */
 export type SnapKeyringHelpers = {
-  trackEvent: MetaMetricsController['trackEvent'];
   persistKeyringHelper: () => Promise<void>;
   removeAccountHelper: (address: string) => Promise<void>;
 };
@@ -117,22 +110,15 @@ export async function showAccountNameSuggestionDialog(
 class SnapKeyringImpl implements SnapKeyringCallbacks {
   readonly #messenger: SnapKeyringBuilderMessenger;
 
-  readonly #trackEvent: SnapKeyringHelpers['trackEvent'];
-
   readonly #persistKeyringHelper: SnapKeyringHelpers['persistKeyringHelper'];
 
   readonly #removeAccountHelper: SnapKeyringHelpers['removeAccountHelper'];
 
   constructor(
     messenger: SnapKeyringBuilderMessenger,
-    {
-      trackEvent,
-      persistKeyringHelper,
-      removeAccountHelper,
-    }: SnapKeyringHelpers,
+    { persistKeyringHelper, removeAccountHelper }: SnapKeyringHelpers,
   ) {
     this.#messenger = messenger;
-    this.#trackEvent = trackEvent;
     this.#persistKeyringHelper = persistKeyringHelper;
     this.#removeAccountHelper = removeAccountHelper;
   }
@@ -304,18 +290,6 @@ class SnapKeyringImpl implements SnapKeyringCallbacks {
 
     const snapName = getSnapName(snapId, this.#messenger);
 
-    const trackSnapAccountEvent = (event: MetaMetricsEventName) => {
-      this.#trackEvent({
-        event,
-        category: MetaMetricsEventCategory.Accounts,
-        properties: {
-          account_type: MetaMetricsEventAccountType.Snap,
-          snap_id: snapId,
-          snap_name: snapName,
-        },
-      });
-    };
-
     await this.#withApprovalFlow(async (_) => {
       try {
         // First, wait for the account to be fully saved.
@@ -341,12 +315,6 @@ class SnapKeyringImpl implements SnapKeyringCallbacks {
         }
 
         if (!skipConfirmationDialog) {
-          // TODO: Add events tracking to the dialog itself, so that events are more
-          // "linked" to UI actions
-          // User should now see the "Successfuly added account" page
-          trackSnapAccountEvent(
-            MetaMetricsEventName.AddSnapAccountSuccessViewed,
-          );
           await showSuccess(
             this.#messenger,
             snapId,
@@ -360,13 +328,7 @@ class SnapKeyringImpl implements SnapKeyringCallbacks {
               learnMoreLink,
             },
           );
-          // User has clicked on "OK"
-          trackSnapAccountEvent(
-            MetaMetricsEventName.AddSnapAccountSuccessClicked,
-          );
         }
-
-        trackSnapAccountEvent(MetaMetricsEventName.AccountAdded);
       } catch (e) {
         // Error occurred while naming the account
         const error = (e as Error).message;
@@ -451,18 +413,6 @@ class SnapKeyringImpl implements SnapKeyringCallbacks {
     const learnMoreLink =
       'https://support.metamask.io/managing-my-wallet/accounts-and-addresses/how-to-remove-an-account-from-your-metamask-wallet/';
 
-    const trackSnapAccountEvent = (event: MetaMetricsEventName) => {
-      this.#trackEvent({
-        event,
-        category: MetaMetricsEventCategory.Accounts,
-        properties: {
-          account_type: MetaMetricsEventAccountType.Snap,
-          snap_id: snapId,
-          snap_name: snapName,
-        },
-      });
-    };
-
     // Since we use this in the finally, better to give it a default value if the controller call fails
     let confirmationResult = false;
     try {
@@ -487,9 +437,6 @@ class SnapKeyringImpl implements SnapKeyringCallbacks {
           // TODO: Add events tracking to the dialog itself, so that events are more
           // "linked" to UI actions
           // User should now see the "Successfuly removed account" page
-          trackSnapAccountEvent(
-            MetaMetricsEventName.RemoveSnapAccountSuccessViewed,
-          );
           // This isn't actually an error, but we show it as one for styling reasons
           await showError(
             this.#messenger,
@@ -502,11 +449,6 @@ class SnapKeyringImpl implements SnapKeyringCallbacks {
               message: t('snapAccountRemovedDescription') as string,
               learnMoreLink,
             },
-          );
-
-          // User has clicked on "OK"
-          trackSnapAccountEvent(
-            MetaMetricsEventName.RemoveSnapAccountSuccessClicked,
           );
         } catch (e) {
           const error = (e as Error).message;
@@ -528,8 +470,6 @@ class SnapKeyringImpl implements SnapKeyringCallbacks {
             },
           );
 
-          trackSnapAccountEvent(MetaMetricsEventName.AccountRemoveFailed);
-
           throw new Error(
             `Error occurred while removing snap account: ${error}`,
           );
@@ -540,12 +480,6 @@ class SnapKeyringImpl implements SnapKeyringCallbacks {
         throw new Error('User denied account removal');
       }
     } finally {
-      // We do not have a `else` clause here, as it's used if the request was
-      // canceled by the user, thus it's not a "fail" (not an error).
-      if (confirmationResult) {
-        trackSnapAccountEvent(MetaMetricsEventName.AccountRemoved);
-      }
-
       this.#messenger.call('ApprovalController:endFlow', {
         id: removeAccountApprovalId,
       });

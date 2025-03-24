@@ -15,7 +15,6 @@ import {
   CONSENSYS_PRIVACY_LINK,
   CRYPTOCOMPARE_LINK,
   PRIVACY_POLICY_LINK,
-  SECURITY_ALERTS_LEARN_MORE_LINK,
   TRANSACTION_SIMULATIONS_LEARN_MORE_LINK,
 } from '../../../../shared/lib/ui-utils';
 import SRPQuiz from '../../../components/app/srp-quiz-modal/SRPQuiz';
@@ -61,8 +60,6 @@ export default class SecurityTab extends PureComponent {
     setOpenSeaEnabled: PropTypes.func,
     useNftDetection: PropTypes.bool,
     setUseNftDetection: PropTypes.func,
-    dataCollectionForMarketing: PropTypes.bool,
-    setDataCollectionForMarketing: PropTypes.func.isRequired,
     incomingTransactionsPreferences: PropTypes.object.isRequired,
     networkConfigurations: PropTypes.object.isRequired,
     setIncomingTransactionsPreferences: PropTypes.func.isRequired,
@@ -89,10 +86,8 @@ export default class SecurityTab extends PureComponent {
     setUseTransactionSimulations: PropTypes.func.isRequired,
     useTransactionSimulations: PropTypes.bool.isRequired,
     petnamesEnabled: PropTypes.bool.isRequired,
-    securityAlertsEnabled: PropTypes.bool,
     useExternalServices: PropTypes.bool,
     toggleExternalServices: PropTypes.func.isRequired,
-    setSecurityAlertsEnabled: PropTypes.func,
     metaMetricsDataDeletionId: PropTypes.string,
   };
 
@@ -117,17 +112,9 @@ export default class SecurityTab extends PureComponent {
       return React.createRef();
     });
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate() {
     const { t } = this.context;
     handleSettingsRefs(t, t('securityAndPrivacy'), this.settingsRefs);
-
-    if (
-      prevProps.dataCollectionForMarketing === true &&
-      this.props.participateInMetaMetrics === true &&
-      this.props.dataCollectionForMarketing === false
-    ) {
-      this.setState({ showDataCollectionDisclaimer: true });
-    }
   }
 
   async componentDidMount() {
@@ -138,7 +125,7 @@ export default class SecurityTab extends PureComponent {
     }
   }
 
-  toggleSetting(value, eventName, eventAction, toggleMethod) {
+  toggleSetting(value, _eventName, _eventAction, toggleMethod) {
     toggleMethod(!value);
   }
 
@@ -949,9 +936,7 @@ export default class SecurityTab extends PureComponent {
   };
 
   render() {
-    const {
-      petnamesEnabled,
-    } = this.props;
+    const { petnamesEnabled } = this.props;
     const { showDataCollectionDisclaimer } = this.state;
 
     return (
@@ -1027,10 +1012,6 @@ export default class SecurityTab extends PureComponent {
             </div>
           </>
         )}
-
-        <span className="settings-page__security-tab-sub-header">
-          {this.context.t('metrics')}
-        </span>
       </div>
     );
   }

@@ -12,7 +12,6 @@ import {
   CONTENT_SCRIPT,
   LEGACY_PROVIDER,
   LEGACY_PUBLIC_CONFIG,
-  METAMASK_COOKIE_HANDLER,
   METAMASK_PROVIDER,
   PHISHING_SAFELIST,
   PHISHING_STREAM,
@@ -52,7 +51,6 @@ function setupPhishingPageStreams(): void {
   );
 
   phishingPageChannel = phishingPageMux.createStream(PHISHING_SAFELIST);
-  phishingPageMux.ignoreStream(METAMASK_COOKIE_HANDLER);
   phishingPageMux.ignoreStream(LEGACY_PUBLIC_CONFIG);
   phishingPageMux.ignoreStream(LEGACY_PROVIDER);
   phishingPageMux.ignoreStream(METAMASK_PROVIDER);
@@ -112,7 +110,6 @@ export const setupPhishingExtStreams = (): void => {
       ),
   );
 
-  phishingExtMux.ignoreStream(METAMASK_COOKIE_HANDLER);
   phishingExtMux.ignoreStream(LEGACY_PUBLIC_CONFIG);
   phishingExtMux.ignoreStream(LEGACY_PROVIDER);
   phishingExtMux.ignoreStream(METAMASK_PROVIDER);
@@ -202,7 +199,6 @@ export function connectPhishingChannelToWarningSystem(
 ): void {
   // create a stream specifically for handling phishing-related communications
   extensionPhishingStream = extensionMux.createStream(PHISHING_STREAM);
-  extensionMux.ignoreStream(METAMASK_COOKIE_HANDLER);
   extensionMux.ignoreStream(LEGACY_PROVIDER);
   extensionMux.ignoreStream(PHISHING_SAFELIST);
   // an event listener for the first piece of data received on this "phishing" channel.

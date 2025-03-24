@@ -32,6 +32,7 @@ export const getMessage = (
     : undefined;
 
   const onError = (error: Error) => {
+    console.warn('getMessage Error', error);
   };
 
   return getMessageShared(

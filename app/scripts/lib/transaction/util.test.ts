@@ -112,7 +112,6 @@ describe('Transaction Utils', () => {
       transactionHash: jest.fn().mockResolvedValue(TRANSACTION_META_MOCK.hash),
     });
 
-
     request.transactionController = transactionController;
     request.userOperationController = userOperationController;
 

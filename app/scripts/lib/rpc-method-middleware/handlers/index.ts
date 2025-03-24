@@ -7,7 +7,6 @@ import sendMetadata from './send-metadata';
 import switchEthereumChain from './switch-ethereum-chain';
 import watchAsset from './watch-asset';
 
-
 export const handlers = [
   addEthereumChain,
   getProviderState,

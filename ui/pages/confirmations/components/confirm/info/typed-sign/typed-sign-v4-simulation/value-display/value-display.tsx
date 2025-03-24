@@ -131,7 +131,7 @@ const PermitSimulationValueDisplay: React.FC<
 
   /** Temporary error capturing as we are building out Permit Simulations */
   if (!tokenContract) {
-    console.warning(
+    console.warn(
       new Error(
         `PermitSimulationValueDisplay: Token contract address is missing where primaryType === ${primaryType}`,
       ),

@@ -74,7 +74,6 @@ describe('PersistenceManager', () => {
 
       await manager.set({ appState: { broken: true } });
       await manager.set({ appState: { broken: true } });
-
     });
 
     it('captures exception twice if store.set fails, then succeeds and then fails again', async () => {
@@ -93,7 +92,6 @@ describe('PersistenceManager', () => {
       mockStoreSet.mockRejectedValueOnce(error);
 
       await manager.set({ appState: { broken: true } });
-
     });
   });
 

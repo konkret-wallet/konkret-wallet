@@ -31,10 +31,7 @@ ${Object.entries(env)
     it('should return valid build variables for the default build', () => {
       const buildTypes = config.getBuildTypes();
       const { args } = parseArgv([], buildTypes);
-      const { variables, safeVariables } = config.getVariables(
-        args,
-        buildTypes,
-      );
+      const { variables } = config.getVariables(args, buildTypes);
 
       assert.strictEqual(variables.get('METAMASK_VERSION'), version);
       assert.strictEqual(variables.get('IN_TEST'), args.test);

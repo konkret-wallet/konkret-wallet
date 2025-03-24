@@ -1,3 +1,4 @@
+/* eslint-disable no-empty-function */
 import { v4 as uuid } from 'uuid';
 import log from 'loglevel';
 import { ApprovalType } from '@metamask/controller-utils';
@@ -943,17 +944,13 @@ export class AppStateController extends BaseController<
     });
   }
 
-
-  getSignatureSecurityAlertResponse(
-    securityAlertId: string,
-  ): any {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  getSignatureSecurityAlertResponse(_securityAlertId: string): [] {
     return [];
   }
 
-  addSignatureSecurityAlertResponse(
-    securityAlertResponse: any,
-  ): void {
-  }
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  addSignatureSecurityAlertResponse(_securityAlertResponse: any): void {}
 
   /**
    * A setter for the currentPopupId which indicates the id of popup window that's currently active

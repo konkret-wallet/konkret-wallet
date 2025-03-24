@@ -1,13 +1,9 @@
-import React, { useCallback, useContext, useEffect, useRef } from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { MetaMetricsContext } from '../../../contexts/metametrics';
 import { useI18nContext } from '../../../hooks/useI18nContext';
-import { getCurrentChainId } from '../../../../shared/modules/selectors/networks';
 import {
-  getHardwareWalletType,
-  getAccountTypeForKeyring,
   getPinnedAccountsList,
   getHiddenAccountsList,
 } from '../../../selectors';
@@ -22,16 +18,11 @@ import {
   Text,
 } from '../../component-library';
 import {
-  MetaMetricsEventCategory,
-  MetaMetricsEventName,
-} from '../../../../shared/constants/metametrics';
-import {
   showModal,
   updateAccountsList,
   updateHiddenAccountsList,
 } from '../../../store/actions';
 import { TextVariant } from '../../../helpers/constants/design-system';
-import { formatAccountType } from '../../../helpers/utils/metrics';
 import { AccountDetailsMenuItem, ViewExplorerMenuItem } from '../menu-items';
 
 const METRICS_LOCATION = 'Account Options';
@@ -47,15 +38,7 @@ export const AccountListItemMenu = ({
   isHidden,
 }) => {
   const t = useI18nContext();
-  const trackEvent = useContext(MetaMetricsContext);
   const dispatch = useDispatch();
-
-  const chainId = useSelector(getCurrentChainId);
-
-  const deviceName = useSelector(getHardwareWalletType);
-
-  const { keyring } = account.metadata;
-  const accountType = formatAccountType(getAccountTypeForKeyring(keyring));
 
   const pinnedAccountList = useSelector(getPinnedAccountsList);
   const hiddenAccountList = useSelector(getHiddenAccountsList);
@@ -210,15 +193,6 @@ export const AccountListItemMenu = ({
                     account,
                   }),
                 );
-                trackEvent({
-                  event: MetaMetricsEventName.AccountRemoved,
-                  category: MetaMetricsEventCategory.Accounts,
-                  properties: {
-                    account_hardware_type: deviceName,
-                    chain_id: chainId,
-                    account_type: accountType,
-                  },
-                });
                 onClose();
                 closeMenu?.();
               }}

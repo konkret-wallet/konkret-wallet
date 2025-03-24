@@ -4,9 +4,6 @@
 // It must be run before any less trusted code so that no such code can undermine it.
 import '@lavamoat/lavadome-react';
 
-// This import sets up global functions required for Sentry to function.
-// It must be run as soon as possible in case an error is thrown later during initialization.
-import './lib/setup-initial-state-hooks';
 import '../../development/wdyr';
 
 // dev only, "react-devtools" import is skipped in prod builds

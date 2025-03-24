@@ -10,10 +10,8 @@ import browser from 'webextension-polyfill';
 // eslint-disable-next-line import/no-restricted-paths
 import { getEnvironmentType } from '../app/scripts/lib/util';
 import { AlertTypes } from '../shared/constants/alerts';
-import { maskObject } from '../shared/modules/object.utils';
 // TODO: Remove restricted import
 // eslint-disable-next-line import/no-restricted-paths
-import { SENTRY_UI_STATE } from '../app/scripts/constants/sentry-state';
 import { ENVIRONMENT_TYPE_POPUP } from '../shared/constants/app';
 import { COPY_OPTIONS } from '../shared/constants/copy';
 import switchDirection from '../shared/lib/switch-direction';
@@ -256,6 +254,9 @@ async function runInitialActions(store) {
  * @param {object} store - The Redux store.
  */
 function setupStateHooks(store) {
+  if (!window.stateHooks) {
+    window.stateHooks = {};
+  }
   if (
     process.env.METAMASK_DEBUG ||
     process.env.IN_TEST ||
@@ -295,10 +296,6 @@ function setupStateHooks(store) {
     state.browser = window.navigator.userAgent;
     return state;
   };
-  window.stateHooks.getSentryAppState = function () {
-    const reduxState = store.getState();
-    return maskObject(reduxState, SENTRY_UI_STATE);
-  };
   window.stateHooks.getLogs = function () {
     // These logs are logged by LoggingController
     const reduxState = store.getState();
@@ -313,13 +310,17 @@ function setupStateHooks(store) {
 }
 
 window.logStateString = async function (cb) {
-  const state = await window.stateHooks.getCleanAppState();
-  const logs = window.stateHooks.getLogs();
+  const state = (await window?.stateHooks?.getCleanAppState()) || {};
+  const logs = window?.stateHooks?.getLogs();
   browser.runtime
     .getPlatformInfo()
     .then((platform) => {
-      state.platform = platform;
-      state.logs = logs;
+      if (platform) {
+        state.platform = platform;
+      }
+      if (logs) {
+        state.logs = logs;
+      }
       const stateString = JSON.stringify(state, null, 2);
       cb(null, stateString);
     })

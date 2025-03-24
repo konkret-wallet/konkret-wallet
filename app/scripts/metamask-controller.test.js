@@ -58,7 +58,6 @@ import {
   RestrictedMethods,
 } from '../../shared/constants/permissions';
 import { deferredPromise } from './lib/util';
-import { METAMASK_COOKIE_HANDLER } from './constants/stream';
 import MetaMaskController, {
   ONE_KEY_VIA_TREZOR_MINOR_VERSION,
 } from './metamask-controller';
@@ -2860,73 +2859,6 @@ describe('MetaMaskController', () => {
           expect(
             metamaskController.backToSafetyPhishingWarning,
           ).toHaveBeenCalled();
-          resolveStream();
-        });
-
-        await promise;
-        streamTest.end();
-        await promiseStream;
-      });
-    });
-
-    describe('#setUpCookieHandlerCommunication', () => {
-      let localMetaMaskController;
-      beforeEach(() => {
-        localMetaMaskController = new MetaMaskController({
-          showUserConfirmation: noop,
-          encryptor: mockEncryptor,
-          initState: {
-            ...cloneDeep(firstTimeState),
-            MetaMetricsController: {
-              metaMetricsId: 'MOCK_METRICS_ID',
-              participateInMetaMetrics: true,
-              dataCollectionForMarketing: true,
-            },
-          },
-          initLangCode: 'en_US',
-          platform: {
-            showTransactionNotification: () => undefined,
-            getVersion: () => 'foo',
-          },
-          browser: browserPolyfillMock,
-          infuraProjectId: 'foo',
-          isFirstMetaMaskControllerSetup: true,
-        });
-        jest.spyOn(localMetaMaskController, 'getCookieFromMarketingPage');
-      });
-      afterEach(() => {
-        jest.clearAllMocks();
-      });
-      it('creates a cookie handler communication stream with getCookieFromMarketingPage handler', async () => {
-        const attributionRequest = {
-          name: METAMASK_COOKIE_HANDLER,
-          data: {
-            id: 1,
-            method: 'getCookieFromMarketingPage',
-            params: [{ ga_client_id: 'XYZ.ABC' }],
-          },
-        };
-
-        const { promise, resolve } = deferredPromise();
-        const { promise: promiseStream, resolve: resolveStream } =
-          deferredPromise();
-        const streamTest = createThroughStream((chunk, _, cb) => {
-          if (chunk.name !== METAMASK_COOKIE_HANDLER) {
-            cb();
-            return;
-          }
-          resolve();
-          cb(null, chunk);
-        });
-
-        localMetaMaskController.setUpCookieHandlerCommunication({
-          connectionStream: streamTest,
-        });
-
-        streamTest.write(attributionRequest, null, () => {
-          expect(
-            localMetaMaskController.getCookieFromMarketingPage,
-          ).toHaveBeenCalledWith({ ga_client_id: 'XYZ.ABC' });
           resolveStream();
         });
 

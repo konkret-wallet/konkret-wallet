@@ -23,6 +23,7 @@ class Index extends PureComponent {
   }
 
   componentDidCatch(error) {
+    console.warn(error);
   }
 
   render() {

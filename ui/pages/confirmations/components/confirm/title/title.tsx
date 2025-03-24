@@ -32,13 +32,6 @@ function ConfirmBannerAlert({ ownerId }: { ownerId: string }) {
     return null;
   }
 
-  const onClickSupportLink = () => {
-    const properties = {
-      properties: {
-        external_link_clicked: 'security_alert_support_link',
-      },
-    };
-  };
   return (
     <Box marginTop={3}>
       {generalAlerts.map((alert) => (
@@ -52,7 +45,8 @@ function ConfirmBannerAlert({ ownerId }: { ownerId: string }) {
             details={alert.alertDetails}
             reportUrl={alert.reportUrl}
             children={alert.content}
-            onClickSupportLink={onClickSupportLink}
+            // eslint-disable-next-line no-empty-function
+            onClickSupportLink={() => {}}
           />
         </Box>
       ))}

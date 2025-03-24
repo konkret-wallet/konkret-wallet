@@ -77,10 +77,6 @@ export type MetaMetricsContext = {
    * The dapp that triggered an interaction (MetaMask only).
    */
   referrer?: MetaMetricsReferrerObject;
-  /**
-   * The marketing campaign cookie ID.
-   */
-  marketingCampaignCookieId?: string | null;
 };
 
 export type MetaMetricsEventPayload = {
@@ -459,11 +455,11 @@ export type MetaMetricsUserTraits = {
   /**
    * Does the user opt in for metrics
    */
-  is_metrics_opted_in?: boolean;
+  is_metrics_opted_in?: false;
   /**
    * Does the user accepted marketing consent
    */
-  has_marketing_consent?: boolean;
+  has_marketing_consent?: false;
   /**
    * The date the extension was installed.
    */

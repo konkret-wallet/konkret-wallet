@@ -398,7 +398,6 @@ export const handlePostTransactionBalanceUpdate = async (
   }
 };
 
-
 function calculateTransactionsCost(
   transactionMeta: TransactionMeta,
   approvalTransactionMeta?: TransactionMeta,

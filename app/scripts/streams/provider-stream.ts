@@ -12,7 +12,6 @@ import {
   LEGACY_INPAGE,
   LEGACY_PROVIDER,
   LEGACY_PUBLIC_CONFIG,
-  METAMASK_COOKIE_HANDLER,
   METAMASK_INPAGE,
   METAMASK_PROVIDER,
   PHISHING_SAFELIST,
@@ -55,7 +54,6 @@ const setupPageStreams = () => {
   );
 
   pageChannel = pageMux.createStream(METAMASK_PROVIDER);
-  pageMux.ignoreStream(METAMASK_COOKIE_HANDLER);
   pageMux.ignoreStream(LEGACY_PROVIDER);
   pageMux.ignoreStream(LEGACY_PUBLIC_CONFIG);
   pageMux.ignoreStream(PHISHING_SAFELIST);
@@ -136,7 +134,6 @@ const setupLegacyPageStreams = () => {
   legacyPagePublicConfigChannel =
     legacyPageMux.createStream(LEGACY_PUBLIC_CONFIG);
 
-  legacyPageMux.ignoreStream(METAMASK_COOKIE_HANDLER);
   legacyPageMux.ignoreStream(METAMASK_PROVIDER);
   legacyPageMux.ignoreStream(PHISHING_SAFELIST);
   legacyPageMux.ignoreStream(PHISHING_STREAM);
@@ -183,7 +180,6 @@ const setupLegacyExtensionStreams = () => {
         error,
       ),
   );
-  legacyExtMux.ignoreStream(METAMASK_COOKIE_HANDLER);
   legacyExtMux.ignoreStream(LEGACY_PROVIDER);
   legacyExtMux.ignoreStream(PHISHING_SAFELIST);
   legacyExtMux.ignoreStream(PHISHING_STREAM);

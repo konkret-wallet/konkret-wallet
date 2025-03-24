@@ -3,6 +3,7 @@
 // TypeScript 5.3.3. We can't update them because we rely on an old version of
 // @reduxjs/toolkit to be patched by our patch files. The patch is 6000+ lines.
 // I don't want to try to figure that one out.
+/* eslint-disable no-empty-function */
 import { ReactFragment } from 'react';
 import log from 'loglevel';
 import { capitalize, isEqual } from 'lodash';
@@ -93,7 +94,6 @@ import {
 } from '../../shared/constants/hardware-wallets';
 import { parseSmartTransactionsError } from '../pages/swaps/swaps.util';
 import { isEqualCaseInsensitive } from '../../shared/modules/string-utils';
-import { getSmartTransactionsOptInStatusInternal } from '../../shared/modules/selectors';
 import {
   fetchLocale,
   loadRelativeTimeFormatLocaleData,
@@ -3211,12 +3211,9 @@ export function setTokenNetworkFilter(value: Record<string, boolean>) {
 }
 
 export function setSmartTransactionsPreferenceEnabled(
-  value: boolean,
+  _value: boolean,
 ): ThunkAction<void, MetaMaskReduxState, unknown, AnyAction> {
-  return async (dispatch, getState) => {
-    const smartTransactionsOptInStatus =
-      getSmartTransactionsOptInStatusInternal(getState());
-    await dispatch(setPreference('smartTransactionsOptInStatus', value));
+  return async (dispatch, _getState) => {
     await forceUpdateMetamaskState(dispatch);
   };
 }
@@ -3361,13 +3358,12 @@ export function setParticipateInMetaMetrics(
 > {
   return (dispatch: MetaMaskReduxDispatch) => {
     log.debug(`background.setParticipateInMetaMetrics`);
-    return new Promise((resolve, reject) => {
-        dispatch({
-          type: actionConstants.SET_PARTICIPATE_IN_METAMETRICS,
-          value: false,
-        });
-
-        resolve([false, metaMetricsId as string]);
+    return new Promise((resolve) => {
+      dispatch({
+        type: actionConstants.SET_PARTICIPATE_IN_METAMETRICS,
+        value: false,
+      });
+      resolve([false, '']);
     });
   };
 }
@@ -4793,15 +4789,13 @@ export async function closeNotificationPopup() {
 }
 
 /**
- * @param payload - details of the event to track
- * @param options - options for routing/handling of event
- * @returns
+ * @param _payload - details of the event to track
+ * @param _options - options for routing/handling of event
  */
 export function trackMetaMetricsEvent(
-  payload: MetaMetricsEventPayload,
-  options?: MetaMetricsEventOptions,
-) {
-}
+  _payload: MetaMetricsEventPayload,
+  _options?: MetaMetricsEventOptions,
+) {}
 
 export function createEventFragment(
   _options: MetaMetricsEventFragment,
@@ -4825,8 +4819,7 @@ export function createTransactionEventFragment(
 export function updateEventFragment(
   _id: string,
   _payload: Partial<MetaMetricsEventFragment>,
-) {
-}
+) {}
 
 export function finalizeEventFragment(
   _id: string,
@@ -4835,18 +4828,16 @@ export function finalizeEventFragment(
     page?: MetaMetricsPageObject;
     referrer?: MetaMetricsReferrerObject;
   },
-) {
-}
+) {}
 
 /**
- * @param payload - details of the page viewed
- * @param options - options for handling the page view
+ * @param _payload - details of the page viewed
+ * @param _options - options for handling the page view
  */
 export function trackMetaMetricsPage(
-  payload: MetaMetricsPagePayload,
-  options: MetaMetricsPageOptions,
-) {
-}
+  _payload: MetaMetricsPagePayload,
+  _options: MetaMetricsPageOptions,
+) {}
 
 export function resetViewedNotifications() {
   return submitRequestToBackground('resetViewedNotifications');
