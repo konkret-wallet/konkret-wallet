@@ -225,7 +225,7 @@ env:
   # Modified in <root>/development/build/scripts.js:@getPhishingWarningPageUrl
   - PHISHING_WARNING_PAGE_URL: null
   # Modified in <root>/development/build/scripts.js:@getInfuraProjectId
-  - INFURA_PROJECT_ID
+  - INFURA_PROJECT_ID: 'none'
   # Modified in <root>/development/build/scripts.js:@getSegmentWriteKey
   - SEGMENT_WRITE_KEY: ''
   # Modified in <root>/development/build/scripts.js:@getAnalyticsDataDeletionSourceId
@@ -263,11 +263,11 @@ env:
   # Determines if feature flagged Chain permissions
   - CHAIN_PERMISSIONS: ''
   # Determines if Portfolio View UI should be shown
-  - PORTFOLIO_VIEW: 'true'
+  - PORTFOLIO_VIEW: false
   # Enables use of test gas fee flow to debug gas fee estimation
   - TEST_GAS_FEE_FLOWS: false
   # Temporary mechanism to enable security alerts API prior to release
-  - SECURITY_ALERTS_API_ENABLED: 'true'
+  - SECURITY_ALERTS_API_ENABLED: false
   # URL of security alerts API used to validate dApp requests
   - SECURITY_ALERTS_API_URL: 'https://security-alerts.api.cx.metamask.io'
   # API key to authenticate Etherscan requests to avoid rate limiting

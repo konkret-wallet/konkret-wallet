@@ -1685,13 +1685,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@blockaid/ppom_release@npm:^1.5.3":
-  version: 1.5.3
-  resolution: "@blockaid/ppom_release@npm:1.5.3"
-  checksum: 10/3e8a16866b477eef247c4a65c80d361e7429389e7e760c0497bc69269526e2325fa15cdbf93455c1655877a7760c6b4fc9ce87d80f0290483160632300bcfbc8
-  languageName: node
-  linkType: hard
-
 "@bufbuild/protobuf@npm:^1.0.0":
   version: 1.6.0
   resolution: "@bufbuild/protobuf@npm:1.6.0"
@@ -27122,7 +27115,6 @@ __metadata:
     "@babel/preset-typescript": "npm:^7.25.9"
     "@babel/register": "npm:^7.25.9"
     "@babel/runtime": "patch:@babel/runtime@npm%3A7.25.9#~/.yarn/patches/@babel-runtime-npm-7.25.9-fe8c62510a.patch"
-    "@blockaid/ppom_release": "npm:^1.5.3"
     "@ensdomains/content-hash": "npm:^2.5.7"
     "@ethereumjs/tx": "npm:^5.4.0"
     "@ethereumjs/util": "npm:^8.1.0"

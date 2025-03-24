@@ -8,11 +8,6 @@ import {
   // eslint-disable-next-line import/no-restricted-paths
 } from '../../../../app/scripts/lib/util';
 import { ENVIRONMENT_TYPE_POPUP } from '../../../../shared/constants/app';
-import {
-  MetaMetricsEventCategory,
-  MetaMetricsEventKeyType,
-  MetaMetricsEventName,
-} from '../../../../shared/constants/metametrics';
 import { IPFS_DEFAULT_GATEWAY_URL } from '../../../../shared/constants/network';
 import {
   AUTO_DETECT_TOKEN_LEARN_MORE_LINK,
@@ -54,14 +49,10 @@ import {
 
 import IncomingTransactionToggle from '../../../components/app/incoming-trasaction-toggle/incoming-transaction-toggle';
 import { updateDataDeletionTaskStatus } from '../../../store/actions';
-import MetametricsToggle from './metametrics-toggle';
-import ProfileSyncToggle from './profile-sync-toggle';
-import DeleteMetametricsDataButton from './delete-metametrics-data-button';
 
 export default class SecurityTab extends PureComponent {
   static contextTypes = {
     t: PropTypes.func,
-    trackEvent: PropTypes.func,
   };
 
   static propTypes = {
@@ -72,8 +63,6 @@ export default class SecurityTab extends PureComponent {
     setUseNftDetection: PropTypes.func,
     dataCollectionForMarketing: PropTypes.bool,
     setDataCollectionForMarketing: PropTypes.func.isRequired,
-    participateInMetaMetrics: PropTypes.bool.isRequired,
-    setParticipateInMetaMetrics: PropTypes.func.isRequired,
     incomingTransactionsPreferences: PropTypes.object.isRequired,
     networkConfigurations: PropTypes.object.isRequired,
     setIncomingTransactionsPreferences: PropTypes.func.isRequired,
@@ -150,14 +139,6 @@ export default class SecurityTab extends PureComponent {
   }
 
   toggleSetting(value, eventName, eventAction, toggleMethod) {
-    this.context.trackEvent({
-      category: MetaMetricsEventCategory.Settings,
-      event: eventName,
-      properties: {
-        action: eventAction,
-        legacy_event: true,
-      },
-    });
     toggleMethod(!value);
   }
 
@@ -181,22 +162,6 @@ export default class SecurityTab extends PureComponent {
             size={ButtonSize.Lg}
             onClick={(event) => {
               event.preventDefault();
-              this.context.trackEvent({
-                category: MetaMetricsEventCategory.Settings,
-                event: MetaMetricsEventName.KeyExportSelected,
-                properties: {
-                  key_type: MetaMetricsEventKeyType.Srp,
-                  location: 'Settings',
-                },
-              });
-              this.context.trackEvent({
-                category: MetaMetricsEventCategory.Settings,
-                event: MetaMetricsEventName.SrpRevealClicked,
-                properties: {
-                  key_type: MetaMetricsEventKeyType.Srp,
-                  location: 'Settings',
-                },
-              });
               this.setState({ srpQuizModalVisible: true });
             }}
           >
@@ -208,57 +173,6 @@ export default class SecurityTab extends PureComponent {
               onClose={this.hideSrpQuizModal}
             />
           )}
-        </div>
-      </>
-    );
-  }
-
-  renderSecurityAlertsToggle() {
-    const { t } = this.context;
-    const { securityAlertsEnabled } = this.props;
-
-    return (
-      <>
-        <div ref={this.settingsRefs[16]}>
-          <span className="settings-page__security-tab-sub-header">
-            {t('securityAlerts')}
-          </span>
-        </div>
-        <div className="settings-page__content-padded">
-          <Box
-            ref={this.settingsRefs[3]}
-            className="settings-page__content-row"
-            display={Display.Flex}
-            flexDirection={FlexDirection.Row}
-            justifyContent={JustifyContent.spaceBetween}
-            gap={4}
-          >
-            <div className="settings-page__content-item">
-              <div className="settings-page__content-description">
-                {t('securityAlertsDescription', [
-                  <a
-                    key="learn_more_link"
-                    href={SECURITY_ALERTS_LEARN_MORE_LINK}
-                    rel="noreferrer"
-                    target="_blank"
-                  >
-                    {t('learnMoreUpperCase')}
-                  </a>,
-                ])}
-              </div>
-            </div>
-            <div
-              className="settings-page__content-item-col"
-              data-testid="securityAlert"
-            >
-              <ToggleButton
-                value={securityAlertsEnabled}
-                onToggle={this.toggleSecurityAlert.bind(this)}
-                offLabel={t('off')}
-                onLabel={t('on')}
-              />
-            </div>
-          </Box>
         </div>
       </>
     );
@@ -342,64 +256,6 @@ export default class SecurityTab extends PureComponent {
           <ToggleButton
             value={use4ByteResolution}
             onToggle={(value) => setUse4ByteResolution(!value)}
-            offLabel={t('off')}
-            onLabel={t('on')}
-          />
-        </div>
-      </Box>
-    );
-  }
-
-  renderDataCollectionForMarketing() {
-    const { t } = this.context;
-    const {
-      dataCollectionForMarketing,
-      participateInMetaMetrics,
-      setDataCollectionForMarketing,
-      setParticipateInMetaMetrics,
-      useExternalServices,
-    } = this.props;
-
-    return (
-      <Box
-        ref={this.settingsRefs[19]}
-        className="settings-page__content-row"
-        display={Display.Flex}
-        flexDirection={FlexDirection.Row}
-        justifyContent={JustifyContent.spaceBetween}
-        gap={4}
-      >
-        <div className="settings-page__content-item">
-          <span>{t('dataCollectionForMarketing')}</span>
-          <div className="settings-page__content-description">
-            <span>{t('dataCollectionForMarketingDescription')}</span>
-          </div>
-        </div>
-
-        <div
-          className="settings-page__content-item-col"
-          data-testid="data-collection-for-marketing-toggle"
-        >
-          <ToggleButton
-            value={dataCollectionForMarketing}
-            disabled={!useExternalServices}
-            onToggle={(value) => {
-              const newMarketingConsent = Boolean(!value);
-              setDataCollectionForMarketing(newMarketingConsent);
-              if (participateInMetaMetrics) {
-                this.context.trackEvent({
-                  category: MetaMetricsEventCategory.Settings,
-                  event: MetaMetricsEventName.AnalyticsPreferenceSelected,
-                  properties: {
-                    is_metrics_opted_in: true,
-                    has_marketing_consent: Boolean(newMarketingConsent),
-                    location: 'Settings',
-                  },
-                });
-              } else {
-                setParticipateInMetaMetrics(true);
-              }
-            }}
             offLabel={t('off')}
             onLabel={t('on')}
           />
@@ -706,8 +562,8 @@ export default class SecurityTab extends PureComponent {
             onToggle={(value) => {
               this.toggleSetting(
                 value,
-                MetaMetricsEventName.KeyAutoDetectTokens,
-                MetaMetricsEventName.KeyAutoDetectTokens,
+                'MetaMetricsEventName.KeyAutoDetectTokens',
+                'MetaMetricsEventName.KeyAutoDetectTokens',
                 setUseTokenDetection,
               );
             }}
@@ -749,8 +605,8 @@ export default class SecurityTab extends PureComponent {
             onToggle={(value) => {
               this.toggleSetting(
                 value,
-                MetaMetricsEventName.KeyBatchAccountBalanceRequests,
-                MetaMetricsEventName.KeyBatchAccountBalanceRequests,
+                'MetaMetricsEventName.KeyBatchAccountBalanceRequests',
+                'MetaMetricsEventName.KeyBatchAccountBalanceRequests',
                 setUseMultiAccountBalanceChecker,
               );
             }}
@@ -854,14 +710,6 @@ export default class SecurityTab extends PureComponent {
           <ToggleButton
             value={openSeaEnabled}
             onToggle={(value) => {
-              this.context.trackEvent({
-                category: MetaMetricsEventCategory.Settings,
-                event: 'Enabled/Disable OpenSea',
-                properties: {
-                  action: 'Enabled/Disable OpenSea',
-                  legacy_event: true,
-                },
-              });
               // value is positive when being toggled off
               if (value && useNftDetection) {
                 setUseNftDetection(false);
@@ -907,14 +755,6 @@ export default class SecurityTab extends PureComponent {
           <ToggleButton
             value={useNftDetection}
             onToggle={(value) => {
-              this.context.trackEvent({
-                category: MetaMetricsEventCategory.Settings,
-                event: 'NFT Detected',
-                properties: {
-                  action: 'NFT Detected',
-                  legacy_event: true,
-                },
-              });
               if (!value && !openSeaEnabled) {
                 setOpenSeaEnabled(!value);
               }
@@ -1008,24 +848,6 @@ export default class SecurityTab extends PureComponent {
     );
   }
 
-  /**
-   * toggleSecurityAlert
-   *
-   * @param {boolean} oldValue - the current securityAlertEnabled value.
-   */
-  toggleSecurityAlert(oldValue) {
-    const newValue = !oldValue;
-    const { setSecurityAlertsEnabled } = this.props;
-    this.context.trackEvent({
-      category: MetaMetricsEventCategory.Settings,
-      event: MetaMetricsEventName.SettingsUpdated,
-      properties: {
-        blockaid_alerts_enabled: newValue,
-      },
-    });
-    setSecurityAlertsEnabled(newValue);
-  }
-
   renderUseExternalServices() {
     const { t } = this.context;
     const {
@@ -1062,20 +884,6 @@ export default class SecurityTab extends PureComponent {
                   setBasicFunctionalityModalOpen();
                 } else {
                   toggleExternalServices(true);
-                  this.context.trackEvent({
-                    category: MetaMetricsEventCategory.Settings,
-                    event: MetaMetricsEventName.SettingsUpdated,
-                    properties: {
-                      settings_group: 'security_privacy',
-                      settings_type: 'basic_functionality',
-                      old_value: false,
-                      new_value: true,
-                      // these values will always be set to false
-                      // when basic functionality is re-enabled
-                      was_notifications_on: false,
-                      was_profile_syncing_on: false,
-                    },
-                  });
                 }
               }}
               offLabel={t('off')}
@@ -1143,8 +951,6 @@ export default class SecurityTab extends PureComponent {
   render() {
     const {
       petnamesEnabled,
-      dataCollectionForMarketing,
-      setDataCollectionForMarketing,
     } = this.props;
     const { showDataCollectionDisclaimer } = this.state;
 
@@ -1158,14 +964,9 @@ export default class SecurityTab extends PureComponent {
           {this.context.t('security')}
         </span>
         {this.renderSeedWords()}
-        {this.renderSecurityAlertsToggle()}
         <span className="settings-page__security-tab-sub-header__bold">
           {this.context.t('privacy')}
         </span>
-
-        <div className="settings-page__content-padded">
-          <ProfileSyncToggle />
-        </div>
 
         <div>
           <span className="settings-page__security-tab-sub-header">
@@ -1230,14 +1031,6 @@ export default class SecurityTab extends PureComponent {
         <span className="settings-page__security-tab-sub-header">
           {this.context.t('metrics')}
         </span>
-        <div className="settings-page__content-padded">
-          <MetametricsToggle
-            dataCollectionForMarketing={dataCollectionForMarketing}
-            setDataCollectionForMarketing={setDataCollectionForMarketing}
-          />
-          {this.renderDataCollectionForMarketing()}
-          <DeleteMetametricsDataButton ref={this.settingsRefs[20]} />
-        </div>
       </div>
     );
   }
