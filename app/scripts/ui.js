@@ -6,9 +6,6 @@ import '@lavamoat/lavadome-react';
 
 import '../../development/wdyr';
 
-// dev only, "react-devtools" import is skipped in prod builds
-import 'react-devtools';
-
 import PortStream from 'extension-port-stream';
 import browser from 'webextension-polyfill';
 

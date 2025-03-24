@@ -232,13 +232,15 @@ const config = {
     // it fails it will load the fallback.
     fallback: {
       // #region conditionally remove developer tooling
-      'react-devtools': isDevelopment
-        ? require.resolve('react-devtools')
-        : false,
+      'react-devtools':
+        isDevelopment && variables.get('METAMASK_DEBUG')
+          ? require.resolve('react-devtools')
+          : false,
       // remove remote-redux-devtools unless METAMASK_DEBUG is enabled
-      'remote-redux-devtools': variables.get('METAMASK_DEBUG')
-        ? require.resolve('remote-redux-devtools')
-        : false,
+      'remote-redux-devtools':
+        isDevelopment && variables.get('METAMASK_DEBUG')
+          ? require.resolve('remote-redux-devtools')
+          : false,
       // #endregion conditionally remove developer tooling
       // #region node polyfills
       crypto: require.resolve('crypto-browserify'),

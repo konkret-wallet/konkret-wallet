@@ -1,6 +1,5 @@
 import { StoreEnhancer } from 'redux';
 import { configureStore as baseConfigureStore } from '@reduxjs/toolkit';
-import devtoolsEnhancer from 'remote-redux-devtools';
 import { ApprovalControllerState } from '@metamask/approval-controller';
 import { GasEstimateType, GasFeeEstimates } from '@metamask/gas-fee-controller';
 import { TransactionMeta } from '@metamask/transaction-controller';
@@ -106,20 +105,7 @@ export type CombinedBackgroundAndReduxState = RootReducerReturnType & {
 // TODO: Replace `any` with type
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default function configureStore(preloadedState: any) {
-  const debugModeEnabled = Boolean(process.env.METAMASK_DEBUG);
-  const isDev = debugModeEnabled && !process.env.IN_TEST;
   const enhancers: StoreEnhancer[] = [];
-
-  if (isDev) {
-    enhancers.push(
-      devtoolsEnhancer({
-        name: 'MetaMask',
-        hostname: 'localhost',
-        port: 8000,
-        realtime: true,
-      }) as StoreEnhancer,
-    );
-  }
 
   return baseConfigureStore({
     reducer: rootReducer as () => CombinedBackgroundAndReduxState,
