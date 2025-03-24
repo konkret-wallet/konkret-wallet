@@ -1,0 +1,206 @@
+diff --git a/dist/NotificationServicesPushController/services/push/push-web.cjs b/dist/NotificationServicesPushController/services/push/push-web.cjs
+index 1e0a288713ce030249f64095913d1ca9dc5a3d04..24f9766aa7dee92bc5e292b666086c620dff005e 100644
+--- a/dist/NotificationServicesPushController/services/push/push-web.cjs
++++ b/dist/NotificationServicesPushController/services/push/push-web.cjs
+@@ -4,33 +4,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
+ };
+ Object.defineProperty(exports, "__esModule", { value: true });
+ exports.listenToPushNotificationsClicked = exports.listenToPushNotificationsReceived = exports.deleteRegToken = exports.createRegToken = void 0;
+-const app_1 = require("firebase/app");
+-const messaging_1 = require("firebase/messaging");
+-const sw_1 = require("firebase/messaging/sw");
+ const loglevel_1 = __importDefault(require("loglevel"));
+ const NotificationServicesController_1 = require("../../../NotificationServicesController/index.cjs");
+ const to_raw_notification_1 = require("../../../shared/to-raw-notification.cjs");
+-const createFirebaseApp = async (env) => {
+-    try {
+-        return (0, app_1.getApp)();
+-    }
+-    catch {
+-        const firebaseConfig = {
+-            apiKey: env.apiKey,
+-            authDomain: env.authDomain,
+-            storageBucket: env.storageBucket,
+-            projectId: env.projectId,
+-            messagingSenderId: env.messagingSenderId,
+-            appId: env.appId,
+-            measurementId: env.measurementId,
+-        };
+-        return (0, app_1.initializeApp)(firebaseConfig);
+-    }
+-};
+-const getFirebaseMessaging = async (env) => {
+-    const app = await createFirebaseApp(env);
+-    return (0, sw_1.getMessaging)(app);
+-};
+ /**
+  * Creates a registration token for Firebase Cloud Messaging.
+  *
+@@ -38,17 +14,7 @@ const getFirebaseMessaging = async (env) => {
+  * @returns A promise that resolves with the registration token or null if an error occurs.
+  */
+ async function createRegToken(env) {
+-    try {
+-        const messaging = await getFirebaseMessaging(env);
+-        const token = await (0, messaging_1.getToken)(messaging, {
+-            serviceWorkerRegistration: self.registration,
+-            vapidKey: env.vapidKey,
+-        });
+-        return token;
+-    }
+-    catch {
+-        return null;
+-    }
++  return null;
+ }
+ exports.createRegToken = createRegToken;
+ /**
+@@ -58,14 +24,7 @@ exports.createRegToken = createRegToken;
+  * @returns A promise that resolves with true if the token was successfully deleted, false otherwise.
+  */
+ async function deleteRegToken(env) {
+-    try {
+-        const messaging = await getFirebaseMessaging(env);
+-        await (0, messaging_1.deleteToken)(messaging);
+-        return true;
+-    }
+-    catch (error) {
+         return false;
+-    }
+ }
+ exports.deleteRegToken = deleteRegToken;
+ /**
+@@ -75,29 +34,7 @@ exports.deleteRegToken = deleteRegToken;
+  * @returns unsubscribe handler
+  */
+ async function listenToPushNotificationsReceived(env, handler) {
+-    const messaging = await getFirebaseMessaging(env);
+-    const unsubscribePushNotifications = (0, sw_1.onBackgroundMessage)(messaging, 
+-    // eslint-disable-next-line @typescript-eslint/no-misused-promises
+-    async (payload) => {
+-        try {
+-            const data = payload?.data?.data ? JSON.parse(payload?.data?.data) : undefined;
+-            if (!data) {
+-                return;
+-            }
+-            const notificationData = (0, to_raw_notification_1.toRawOnChainNotification)(data);
+-            const notification = NotificationServicesController_1.Processors.processNotification(notificationData);
+-            await handler(notification);
+-        }
+-        catch (error) {
+-            // Do Nothing, cannot parse a bad notification
+-            loglevel_1.default.error('Unable to send push notification:', {
+-                notification: payload?.data?.data,
+-                error,
+-            });
+-            throw new Error('Unable to send push notification');
+-        }
+-    });
+-    const unsubscribe = () => unsubscribePushNotifications();
++    const unsubscribe = () => null;
+     return unsubscribe;
+ }
+ exports.listenToPushNotificationsReceived = listenToPushNotificationsReceived;
+diff --git a/dist/NotificationServicesPushController/services/push/push-web.mjs b/dist/NotificationServicesPushController/services/push/push-web.mjs
+index cb7c7a3595b87991350f9f048f29e172513eed41..79704415c4c4ec43dac573436dc554f99fea3297 100644
+--- a/dist/NotificationServicesPushController/services/push/push-web.mjs
++++ b/dist/NotificationServicesPushController/services/push/push-web.mjs
+@@ -4,34 +4,10 @@ function $importDefault(module) {
+     }
+     return module;
+ }
+-import { getApp, initializeApp } from "firebase/app";
+-import { getToken, deleteToken } from "firebase/messaging";
+-import { getMessaging, onBackgroundMessage } from "firebase/messaging/sw";
+ import $log from "loglevel";
+ const log = $importDefault($log);
+ import { Processors } from "../../../NotificationServicesController/index.mjs";
+ import { toRawOnChainNotification } from "../../../shared/to-raw-notification.mjs";
+-const createFirebaseApp = async (env) => {
+-    try {
+-        return getApp();
+-    }
+-    catch {
+-        const firebaseConfig = {
+-            apiKey: env.apiKey,
+-            authDomain: env.authDomain,
+-            storageBucket: env.storageBucket,
+-            projectId: env.projectId,
+-            messagingSenderId: env.messagingSenderId,
+-            appId: env.appId,
+-            measurementId: env.measurementId,
+-        };
+-        return initializeApp(firebaseConfig);
+-    }
+-};
+-const getFirebaseMessaging = async (env) => {
+-    const app = await createFirebaseApp(env);
+-    return getMessaging(app);
+-};
+ /**
+  * Creates a registration token for Firebase Cloud Messaging.
+  *
+@@ -39,17 +15,7 @@ const getFirebaseMessaging = async (env) => {
+  * @returns A promise that resolves with the registration token or null if an error occurs.
+  */
+ export async function createRegToken(env) {
+-    try {
+-        const messaging = await getFirebaseMessaging(env);
+-        const token = await getToken(messaging, {
+-            serviceWorkerRegistration: self.registration,
+-            vapidKey: env.vapidKey,
+-        });
+-        return token;
+-    }
+-    catch {
+         return null;
+-    }
+ }
+ /**
+  * Deletes the Firebase Cloud Messaging registration token.
+@@ -58,14 +24,7 @@ export async function createRegToken(env) {
+  * @returns A promise that resolves with true if the token was successfully deleted, false otherwise.
+  */
+ export async function deleteRegToken(env) {
+-    try {
+-        const messaging = await getFirebaseMessaging(env);
+-        await deleteToken(messaging);
+-        return true;
+-    }
+-    catch (error) {
+         return false;
+-    }
+ }
+ /**
+  * Service Worker Listener for when push notifications are received.
+@@ -74,29 +33,7 @@ export async function deleteRegToken(env) {
+  * @returns unsubscribe handler
+  */
+ export async function listenToPushNotificationsReceived(env, handler) {
+-    const messaging = await getFirebaseMessaging(env);
+-    const unsubscribePushNotifications = onBackgroundMessage(messaging, 
+-    // eslint-disable-next-line @typescript-eslint/no-misused-promises
+-    async (payload) => {
+-        try {
+-            const data = payload?.data?.data ? JSON.parse(payload?.data?.data) : undefined;
+-            if (!data) {
+-                return;
+-            }
+-            const notificationData = toRawOnChainNotification(data);
+-            const notification = Processors.processNotification(notificationData);
+-            await handler(notification);
+-        }
+-        catch (error) {
+-            // Do Nothing, cannot parse a bad notification
+-            log.error('Unable to send push notification:', {
+-                notification: payload?.data?.data,
+-                error,
+-            });
+-            throw new Error('Unable to send push notification');
+-        }
+-    });
+-    const unsubscribe = () => unsubscribePushNotifications();
++    const unsubscribe = () => null;
+     return unsubscribe;
+ }
+ /**
