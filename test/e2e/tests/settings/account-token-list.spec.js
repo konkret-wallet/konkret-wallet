@@ -8,7 +8,7 @@ const {
   switchToNetworkFlow,
 } = require('../../page-objects/flows/network.flow');
 
-const { mockServerJsonRpc } = require('../ppom/mocks/mock-server-json-rpc');
+const { mockServerJsonRpc } = require('../../mock-server-json-rpc/mock-server-json-rpc');
 const FixtureBuilder = require('../../fixture-builder');
 
 const infuraSepoliaUrl =

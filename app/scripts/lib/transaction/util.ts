@@ -12,17 +12,7 @@ import {
 } from '@metamask/user-operation-controller';
 import type { Hex } from '@metamask/utils';
 import { addHexPrefix } from '@ethereumjs/util';
-import { PPOMController } from '@metamask/ppom-validator';
 
-import {
-  generateSecurityAlertId,
-  handlePPOMError,
-  validateRequestWithPPOM,
-} from '../ppom/ppom-util';
-import {
-  SecurityAlertResponse,
-  UpdateSecurityAlertResponse,
-} from '../ppom/types';
 import {
   LOADING_SECURITY_ALERT_RESPONSE,
   SECURITY_PROVIDER_EXCLUDED_TRANSACTION_TYPES,
@@ -36,12 +26,10 @@ export type AddTransactionOptions = NonNullable<
 type BaseAddTransactionRequest = {
   chainId: Hex;
   networkClientId: string;
-  ppomController: PPOMController;
   securityAlertsEnabled: boolean;
   selectedAccount: InternalAccount;
   transactionParams: TransactionParams;
   transactionController: TransactionController;
-  updateSecurityAlertResponse: UpdateSecurityAlertResponse;
   userOperationController: UserOperationController;
   internalAccounts: InternalAccount[];
 };
@@ -227,74 +215,6 @@ function getTransactionByHash(
 }
 
 async function validateSecurity(request: AddTransactionRequest) {
-  const {
-    chainId,
-    ppomController,
-    securityAlertsEnabled,
-    transactionOptions,
-    transactionParams,
-    updateSecurityAlertResponse,
-    internalAccounts,
-  } = request;
-
-  const { type } = transactionOptions;
-
-  const typeIsExcludedFromPPOM =
-    SECURITY_PROVIDER_EXCLUDED_TRANSACTION_TYPES.includes(
-      type as TransactionType,
-    );
-
-  if (!securityAlertsEnabled || typeIsExcludedFromPPOM) {
-    return;
-  }
-
-  if (
-    internalAccounts.some(
-      ({ address }) =>
-        address.toLowerCase() === transactionParams.to?.toLowerCase(),
-    )
-  ) {
-    return;
-  }
-
-  try {
-    const { from, to, value, data } = transactionParams;
-    const { actionId, origin } = transactionOptions;
-
-    const ppomRequest = {
-      method: 'eth_sendTransaction',
-      id: actionId ?? '',
-      origin: origin ?? '',
-      params: [
-        {
-          from,
-          to: to ?? '',
-          value: value ?? '',
-          data: data ?? '',
-        },
-      ],
-      jsonrpc: '2.0' as const,
-    };
-
-    const securityAlertId = generateSecurityAlertId();
-
-    // Intentionally not awaited to avoid blocking the confirmation process while the validation occurs.
-    validateRequestWithPPOM({
-      ppomController,
-      request: ppomRequest,
-      securityAlertId,
-      chainId,
-      updateSecurityAlertResponse,
-    });
-
-    const securityAlertResponseLoading: SecurityAlertResponse = {
-      ...LOADING_SECURITY_ALERT_RESPONSE,
-      securityAlertId,
-    };
-
-    request.transactionOptions.securityAlertResponse =
-      securityAlertResponseLoading;
-  } catch (error) {
-    handlePPOMError(error, 'Error validating JSON RPC using PPOM: ');
-  }
+  console.warn('validateSecurity called when blockaid integration disabled. this is ok.');
+  return;
 }

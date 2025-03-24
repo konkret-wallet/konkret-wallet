@@ -48,7 +48,6 @@ export type ControllersToInitialize =
   | 'SnapController'
   | 'SnapInsightsController'
   | 'SnapInterfaceController'
-  | 'PPOMController'
   | 'TransactionController';
 
 type InitFunction<Name extends ControllersToInitialize> =

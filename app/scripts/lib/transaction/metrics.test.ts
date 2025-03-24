@@ -21,10 +21,6 @@ import {
   MetaMetricsEventTransactionEstimateType,
 } from '../../../../shared/constants/metametrics';
 import { TRANSACTION_ENVELOPE_TYPE_NAMES } from '../../../../shared/lib/transactions-controller-utils';
-import {
-  BlockaidReason,
-  BlockaidResultType,
-} from '../../../../shared/constants/security-provider';
 import { decimalToHex } from '../../../../shared/modules/conversion.utils';
 import { TransactionMetricsRequest } from '../../../../shared/types/metametrics';
 import {
@@ -87,9 +83,6 @@ describe('Transaction metrics', () => {
     mockTransactionMeta: TransactionMeta,
     // TODO: Replace `any` with type
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    mockTransactionMetaWithBlockaid: any,
-    // TODO: Replace `any` with type
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     expectedProperties: any,
     // TODO: Replace `any` with type
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -121,22 +114,6 @@ describe('Transaction metrics', () => {
       defaultGasEstimates: {
         gas: '0x7b0d',
         gasPrice: '0x77359400',
-      },
-      securityProviderResponse: {
-        flagAsDangerous: 0,
-      },
-    };
-
-    // copy mockTransactionMeta and add blockaid data
-    mockTransactionMetaWithBlockaid = {
-      ...JSON.parse(JSON.stringify(mockTransactionMeta)),
-      securityAlertResponse: {
-        result_type: BlockaidResultType.Malicious,
-        reason: BlockaidReason.maliciousDomain,
-        providerRequestsCount: {
-          eth_call: 5,
-          eth_getCode: 3,
-        },
       },
     };
 
@@ -250,41 +227,6 @@ describe('Transaction metrics', () => {
       });
     });
 
-    it('should create event fragment with blockaid', async () => {
-      await handleTransactionAdded(mockTransactionMetricsRequest, {
-        // TODO: Replace `any` with type
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        transactionMeta: mockTransactionMetaWithBlockaid as any,
-        actionId: mockActionId,
-      });
-
-      expect(mockTransactionMetricsRequest.createEventFragment).toBeCalledTimes(
-        1,
-      );
-      expect(mockTransactionMetricsRequest.createEventFragment).toBeCalledWith({
-        actionId: mockActionId,
-        category: MetaMetricsEventCategory.Transactions,
-        failureEvent: TransactionMetaMetricsEvent.rejected,
-        initialEvent: TransactionMetaMetricsEvent.added,
-        successEvent: TransactionMetaMetricsEvent.approved,
-        uniqueIdentifier: 'transaction-added-1',
-        persist: true,
-        properties: {
-          ...expectedProperties,
-          security_alert_reason: BlockaidReason.maliciousDomain,
-          security_alert_response: 'Malicious',
-          ui_customizations: [
-            'flagged_as_malicious',
-            'redesigned_confirmation',
-          ],
-          ppom_eth_call_count: 5,
-          ppom_eth_getCode_count: 3,
-        },
-        sensitiveProperties: expectedSensitiveProperties,
-      });
-    });
-  });
-
   describe('handleTransactionApproved', () => {
     it('should return if transaction meta is not defined', async () => {
       // TODO: Replace `any` with type
@@ -332,69 +274,6 @@ describe('Transaction metrics', () => {
         expectedUniqueId,
         {
           properties: expectedProperties,
-          sensitiveProperties: expectedSensitiveProperties,
-        },
-      );
-
-      expect(
-        mockTransactionMetricsRequest.finalizeEventFragment,
-      ).toBeCalledTimes(1);
-      expect(
-        mockTransactionMetricsRequest.finalizeEventFragment,
-      ).toBeCalledWith(expectedUniqueId);
-    });
-
-    it('should create, update, finalize event fragment with blockaid', async () => {
-      await handleTransactionApproved(mockTransactionMetricsRequest, {
-        // TODO: Replace `any` with type
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        transactionMeta: mockTransactionMetaWithBlockaid as any,
-        actionId: mockActionId,
-      });
-
-      const expectedUniqueId = 'transaction-added-1';
-
-      expect(mockTransactionMetricsRequest.createEventFragment).toBeCalledTimes(
-        1,
-      );
-      expect(mockTransactionMetricsRequest.createEventFragment).toBeCalledWith({
-        actionId: mockActionId,
-        category: MetaMetricsEventCategory.Transactions,
-        successEvent: TransactionMetaMetricsEvent.approved,
-        failureEvent: TransactionMetaMetricsEvent.rejected,
-        uniqueIdentifier: expectedUniqueId,
-        persist: true,
-        properties: {
-          ...expectedProperties,
-          ui_customizations: [
-            'flagged_as_malicious',
-            'redesigned_confirmation',
-          ],
-          security_alert_reason: BlockaidReason.maliciousDomain,
-          security_alert_response: 'Malicious',
-          ppom_eth_call_count: 5,
-          ppom_eth_getCode_count: 3,
-        },
-        sensitiveProperties: expectedSensitiveProperties,
-      });
-
-      expect(mockTransactionMetricsRequest.updateEventFragment).toBeCalledTimes(
-        1,
-      );
-      expect(mockTransactionMetricsRequest.updateEventFragment).toBeCalledWith(
-        expectedUniqueId,
-        {
-          properties: {
-            ...expectedProperties,
-            ui_customizations: [
-              'flagged_as_malicious',
-              'redesigned_confirmation',
-            ],
-            security_alert_reason: BlockaidReason.maliciousDomain,
-            security_alert_response: 'Malicious',
-            ppom_eth_call_count: 5,
-            ppom_eth_getCode_count: 3,
-          },
           sensitiveProperties: expectedSensitiveProperties,
         },
       );
@@ -465,82 +344,6 @@ describe('Transaction metrics', () => {
         expectedUniqueId,
         {
           properties: expectedProperties,
-          sensitiveProperties: {
-            ...expectedSensitiveProperties,
-            error: mockErrorMessage,
-          },
-        },
-      );
-
-      expect(
-        mockTransactionMetricsRequest.finalizeEventFragment,
-      ).toBeCalledTimes(1);
-      expect(
-        mockTransactionMetricsRequest.finalizeEventFragment,
-      ).toBeCalledWith(expectedUniqueId);
-    });
-
-    it('should create, update, finalize event fragment with blockaid', async () => {
-      const mockErrorMessage = 'Unexpected error';
-      mockTransactionMetaWithBlockaid.txReceipt = {
-        gasUsed: '0x123',
-        status: '0x0',
-      };
-      mockTransactionMetaWithBlockaid.submittedTime = 123;
-
-      await handleTransactionFailed(mockTransactionMetricsRequest, {
-        transactionMeta: mockTransactionMetaWithBlockaid,
-        actionId: mockActionId,
-        error: mockErrorMessage,
-        // TODO: Replace `any` with type
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      } as any);
-
-      const expectedUniqueId = 'transaction-submitted-1';
-
-      expect(mockTransactionMetricsRequest.createEventFragment).toBeCalledTimes(
-        1,
-      );
-      expect(mockTransactionMetricsRequest.createEventFragment).toBeCalledWith({
-        actionId: mockActionId,
-        category: MetaMetricsEventCategory.Transactions,
-        successEvent: TransactionMetaMetricsEvent.finalized,
-        uniqueIdentifier: expectedUniqueId,
-        persist: true,
-        properties: {
-          ...expectedProperties,
-          ui_customizations: [
-            'flagged_as_malicious',
-            'redesigned_confirmation',
-          ],
-          security_alert_reason: BlockaidReason.maliciousDomain,
-          security_alert_response: 'Malicious',
-          ppom_eth_call_count: 5,
-          ppom_eth_getCode_count: 3,
-        },
-        sensitiveProperties: {
-          ...expectedSensitiveProperties,
-          error: mockErrorMessage,
-        },
-      });
-
-      expect(mockTransactionMetricsRequest.updateEventFragment).toBeCalledTimes(
-        1,
-      );
-      expect(mockTransactionMetricsRequest.updateEventFragment).toBeCalledWith(
-        expectedUniqueId,
-        {
-          properties: {
-            ...expectedProperties,
-            ui_customizations: [
-              'flagged_as_malicious',
-              'redesigned_confirmation',
-            ],
-            security_alert_reason: BlockaidReason.maliciousDomain,
-            security_alert_response: 'Malicious',
-            ppom_eth_call_count: 5,
-            ppom_eth_getCode_count: 3,
-          },
           sensitiveProperties: {
             ...expectedSensitiveProperties,
             error: mockErrorMessage,
@@ -668,84 +471,6 @@ describe('Transaction metrics', () => {
         expectedUniqueId,
         {
           properties: expectedProperties,
-          sensitiveProperties: {
-            ...expectedSensitiveProperties,
-            completion_time: expect.any(String),
-            gas_used: '0.000000291',
-            status: METRICS_STATUS_FAILED,
-          },
-        },
-      );
-
-      expect(
-        mockTransactionMetricsRequest.finalizeEventFragment,
-      ).toBeCalledTimes(1);
-      expect(
-        mockTransactionMetricsRequest.finalizeEventFragment,
-      ).toBeCalledWith(expectedUniqueId);
-    });
-
-    it('should create, update, finalize event fragment with blockaid', async () => {
-      mockTransactionMetaWithBlockaid.txReceipt = {
-        gasUsed: '0x123',
-        status: '0x0',
-      };
-      mockTransactionMetaWithBlockaid.submittedTime = 123;
-
-      await handleTransactionConfirmed(mockTransactionMetricsRequest, {
-        ...mockTransactionMetaWithBlockaid,
-        actionId: mockActionId,
-        // TODO: Replace `any` with type
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      } as any);
-
-      const expectedUniqueId = 'transaction-submitted-1';
-
-      expect(mockTransactionMetricsRequest.createEventFragment).toBeCalledTimes(
-        1,
-      );
-      expect(mockTransactionMetricsRequest.createEventFragment).toBeCalledWith({
-        actionId: mockActionId,
-        category: MetaMetricsEventCategory.Transactions,
-        successEvent: TransactionMetaMetricsEvent.finalized,
-        uniqueIdentifier: expectedUniqueId,
-        persist: true,
-        properties: {
-          ...expectedProperties,
-          ui_customizations: [
-            'flagged_as_malicious',
-            'redesigned_confirmation',
-          ],
-          security_alert_reason: BlockaidReason.maliciousDomain,
-          security_alert_response: 'Malicious',
-          ppom_eth_call_count: 5,
-          ppom_eth_getCode_count: 3,
-        },
-        sensitiveProperties: {
-          ...expectedSensitiveProperties,
-          completion_time: expect.any(String),
-          gas_used: '0.000000291',
-          status: METRICS_STATUS_FAILED,
-        },
-      });
-
-      expect(mockTransactionMetricsRequest.updateEventFragment).toBeCalledTimes(
-        1,
-      );
-      expect(mockTransactionMetricsRequest.updateEventFragment).toBeCalledWith(
-        expectedUniqueId,
-        {
-          properties: {
-            ...expectedProperties,
-            ui_customizations: [
-              'flagged_as_malicious',
-              'redesigned_confirmation',
-            ],
-            security_alert_reason: BlockaidReason.maliciousDomain,
-            security_alert_response: 'Malicious',
-            ppom_eth_call_count: 5,
-            ppom_eth_getCode_count: 3,
-          },
           sensitiveProperties: {
             ...expectedSensitiveProperties,
             completion_time: expect.any(String),
@@ -956,76 +681,6 @@ describe('Transaction metrics', () => {
         mockTransactionMetricsRequest.finalizeEventFragment,
       ).toBeCalledWith(expectedUniqueId);
     });
-
-    it('should create, update, finalize event fragment with blockaid', async () => {
-      await handleTransactionDropped(mockTransactionMetricsRequest, {
-        transactionMeta: mockTransactionMetaWithBlockaid,
-        actionId: mockActionId,
-        // TODO: Replace `any` with type
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      } as any);
-
-      const expectedUniqueId = 'transaction-submitted-1';
-
-      expect(mockTransactionMetricsRequest.createEventFragment).toBeCalledTimes(
-        1,
-      );
-      expect(mockTransactionMetricsRequest.createEventFragment).toBeCalledWith({
-        actionId: mockActionId,
-        category: MetaMetricsEventCategory.Transactions,
-        successEvent: TransactionMetaMetricsEvent.finalized,
-        uniqueIdentifier: expectedUniqueId,
-        persist: true,
-        properties: {
-          ...expectedProperties,
-          ui_customizations: [
-            'flagged_as_malicious',
-            'redesigned_confirmation',
-          ],
-          security_alert_reason: BlockaidReason.maliciousDomain,
-          security_alert_response: 'Malicious',
-          ppom_eth_call_count: 5,
-          ppom_eth_getCode_count: 3,
-        },
-        sensitiveProperties: {
-          ...expectedSensitiveProperties,
-          dropped: true,
-          transaction_replaced: 'other',
-        },
-      });
-
-      expect(mockTransactionMetricsRequest.updateEventFragment).toBeCalledTimes(
-        1,
-      );
-      expect(mockTransactionMetricsRequest.updateEventFragment).toBeCalledWith(
-        expectedUniqueId,
-        {
-          properties: {
-            ...expectedProperties,
-            ui_customizations: [
-              'flagged_as_malicious',
-              'redesigned_confirmation',
-            ],
-            security_alert_reason: BlockaidReason.maliciousDomain,
-            security_alert_response: 'Malicious',
-            ppom_eth_call_count: 5,
-            ppom_eth_getCode_count: 3,
-          },
-          sensitiveProperties: {
-            ...expectedSensitiveProperties,
-            dropped: true,
-            transaction_replaced: 'other',
-          },
-        },
-      );
-
-      expect(
-        mockTransactionMetricsRequest.finalizeEventFragment,
-      ).toBeCalledTimes(1);
-      expect(
-        mockTransactionMetricsRequest.finalizeEventFragment,
-      ).toBeCalledWith(expectedUniqueId);
-    });
   });
 
   describe('handleTransactionRejected', () => {
@@ -1075,71 +730,6 @@ describe('Transaction metrics', () => {
         expectedUniqueId,
         {
           properties: expectedProperties,
-          sensitiveProperties: expectedSensitiveProperties,
-        },
-      );
-
-      expect(
-        mockTransactionMetricsRequest.finalizeEventFragment,
-      ).toBeCalledTimes(1);
-      expect(
-        mockTransactionMetricsRequest.finalizeEventFragment,
-      ).toBeCalledWith(expectedUniqueId, {
-        abandoned: true,
-      });
-    });
-
-    it('should create, update, finalize event fragment with blockaid', async () => {
-      await handleTransactionRejected(mockTransactionMetricsRequest, {
-        transactionMeta: mockTransactionMetaWithBlockaid,
-        actionId: mockActionId,
-        // TODO: Replace `any` with type
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      } as any);
-
-      const expectedUniqueId = 'transaction-added-1';
-
-      expect(mockTransactionMetricsRequest.createEventFragment).toBeCalledTimes(
-        1,
-      );
-      expect(mockTransactionMetricsRequest.createEventFragment).toBeCalledWith({
-        actionId: mockActionId,
-        category: MetaMetricsEventCategory.Transactions,
-        successEvent: TransactionMetaMetricsEvent.approved,
-        failureEvent: TransactionMetaMetricsEvent.rejected,
-        uniqueIdentifier: expectedUniqueId,
-        persist: true,
-        properties: {
-          ...expectedProperties,
-          ui_customizations: [
-            'flagged_as_malicious',
-            'redesigned_confirmation',
-          ],
-          security_alert_reason: BlockaidReason.maliciousDomain,
-          security_alert_response: 'Malicious',
-          ppom_eth_call_count: 5,
-          ppom_eth_getCode_count: 3,
-        },
-        sensitiveProperties: expectedSensitiveProperties,
-      });
-
-      expect(mockTransactionMetricsRequest.updateEventFragment).toBeCalledTimes(
-        1,
-      );
-      expect(mockTransactionMetricsRequest.updateEventFragment).toBeCalledWith(
-        expectedUniqueId,
-        {
-          properties: {
-            ...expectedProperties,
-            ui_customizations: [
-              'flagged_as_malicious',
-              'redesigned_confirmation',
-            ],
-            security_alert_reason: BlockaidReason.maliciousDomain,
-            security_alert_response: 'Malicious',
-            ppom_eth_call_count: 5,
-            ppom_eth_getCode_count: 3,
-          },
           sensitiveProperties: expectedSensitiveProperties,
         },
       );

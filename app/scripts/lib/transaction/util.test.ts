@@ -8,10 +8,6 @@ import {
 import { UserOperationController } from '@metamask/user-operation-controller';
 import { cloneDeep } from 'lodash';
 import {
-  generateSecurityAlertId,
-  validateRequestWithPPOM,
-} from '../ppom/ppom-util';
-import {
   BlockaidReason,
   BlockaidResultType,
 } from '../../../../shared/constants/security-provider';
@@ -24,8 +20,6 @@ import {
   addDappTransaction,
   addTransaction,
 } from './util';
-
-jest.mock('../ppom/ppom-util');
 
 jest.mock('uuid', () => {
   const actual = jest.requireActual('uuid');
@@ -97,8 +91,6 @@ describe('Transaction Utils', () => {
   let dappRequest: AddDappTransactionRequest;
   let transactionController: jest.Mocked<TransactionController>;
   let userOperationController: jest.Mocked<UserOperationController>;
-  const validateRequestWithPPOMMock = jest.mocked(validateRequestWithPPOM);
-  const generateSecurityAlertIdMock = jest.mocked(generateSecurityAlertId);
 
   beforeEach(() => {
     jest.resetAllMocks();
@@ -106,8 +98,6 @@ describe('Transaction Utils', () => {
     request = cloneDeep(TRANSACTION_REQUEST_MOCK);
     transactionController = createTransactionControllerMock();
     userOperationController = createUserOperationControllerMock();
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    request.ppomController = {} as any;
 
     transactionController.addTransaction.mockResolvedValue({
       result: Promise.resolve('testHash'),
@@ -122,11 +112,9 @@ describe('Transaction Utils', () => {
       transactionHash: jest.fn().mockResolvedValue(TRANSACTION_META_MOCK.hash),
     });
 
-    generateSecurityAlertIdMock.mockReturnValue(SECURITY_ALERT_ID_MOCK);
 
     request.transactionController = transactionController;
     request.userOperationController = userOperationController;
-    request.updateSecurityAlertResponse = jest.fn();
 
     dappRequest = {
       ...request,
@@ -420,8 +408,6 @@ describe('Transaction Utils', () => {
           TRANSACTION_PARAMS_MOCK,
           TRANSACTION_OPTIONS_MOCK,
         );
-
-        expect(validateRequestWithPPOMMock).toHaveBeenCalledTimes(0);
       });
 
       it('send to users own account', async () => {
@@ -449,8 +435,6 @@ describe('Transaction Utils', () => {
           sendRequest.transactionParams,
           TRANSACTION_OPTIONS_MOCK,
         );
-
-        expect(validateRequestWithPPOMMock).toHaveBeenCalledTimes(0);
       });
 
       it('unless transaction type is swap', async () => {
@@ -473,8 +457,6 @@ describe('Transaction Utils', () => {
           ...TRANSACTION_OPTIONS_MOCK,
           type: TransactionType.swap,
         });
-
-        expect(validateRequestWithPPOMMock).toHaveBeenCalledTimes(0);
       });
 
       it('unless transaction type is swapApproval', async () => {
@@ -497,8 +479,6 @@ describe('Transaction Utils', () => {
           ...TRANSACTION_OPTIONS_MOCK,
           type: TransactionType.swapApproval,
         });
-
-        expect(validateRequestWithPPOMMock).toHaveBeenCalledTimes(0);
       });
     });
   });

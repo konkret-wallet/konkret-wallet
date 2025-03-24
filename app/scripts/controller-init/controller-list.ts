@@ -6,10 +6,8 @@ import {
   PermissionController,
   PermissionSpecificationConstraint,
 } from '@metamask/permission-controller';
-import { PPOMController } from '@metamask/ppom-validator';
 import SmartTransactionsController from '@metamask/smart-transactions-controller';
 import { TransactionController } from '@metamask/transaction-controller';
-import { TransactionUpdateController } from '@metamask-institutional/transaction-update';
 import { AccountsController } from '@metamask/accounts-controller';
 import {
   MultichainAssetsController,
@@ -54,18 +52,13 @@ export type Controller =
       PermissionSpecificationConstraint,
       CaveatSpecificationConstraint
     >
-  | PPOMController
   | PreferencesController
   | RateLimitController<RateLimitedApiMap>
   | SmartTransactionsController
   | SnapController
   | SnapInterfaceController
   | SnapInsightsController
-  | TransactionController
-  | (TransactionUpdateController & {
-      name: 'TransactionUpdateController';
-      state: Record<string, unknown>;
-    });
+  | TransactionController;
 
 /**
  * Flat state object for all controllers supporting or required by modular initialization.
@@ -87,7 +80,6 @@ export type ControllerFlatState = AccountsController['state'] &
     PermissionSpecificationConstraint,
     CaveatSpecificationConstraint
   >['state'] &
-  PPOMController['state'] &
   PreferencesController['state'] &
   SmartTransactionsController['state'] &
   SnapController['state'] &

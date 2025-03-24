@@ -62,8 +62,6 @@ const removedBackgroundFields = [
   'AppStateController.lastInteractedConfirmationInfo',
   'BridgeController.bridgeState.quoteRequest.walletAddress',
   'BridgeController.bridgeState.quoteRequest.slippage',
-  'PPOMController.chainStatus.0x539.lastVisited',
-  'PPOMController.versionInfo',
   // This property is timing-dependent
   'MetaMetricsController.latestNonAnonymousEventTimestamp',
 ];

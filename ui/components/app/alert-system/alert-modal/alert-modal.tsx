@@ -135,15 +135,6 @@ function AlertHeader({
   );
 }
 
-function BlockaidAlertDetails() {
-  const t = useI18nContext();
-  return (
-    <Text textAlign={TextAlign.Center} variant={TextVariant.bodyMd}>
-      {t('blockaidAlertInfo')}
-    </Text>
-  );
-}
-
 function AlertDetails({
   selectedAlert,
   customDetails,
@@ -362,14 +353,10 @@ export function AlertModal({
         />
         <AlertHeader selectedAlert={selectedAlert} customTitle={customTitle} />
         <ModalBody>
-          {selectedAlert.provider === SecurityProvider.Blockaid ? (
-            <BlockaidAlertDetails />
-          ) : (
-            <AlertDetails
-              selectedAlert={selectedAlert}
-              customDetails={customDetails}
-            />
-          )}
+          <AlertDetails
+            selectedAlert={selectedAlert}
+            customDetails={customDetails}
+          />
           {customAcknowledgeCheckbox ?? (
             <AcknowledgeCheckboxBase
               selectedAlert={selectedAlert}

@@ -567,7 +567,6 @@ describe('MetaMaskController', () => {
           transactionParams,
           userOperationController: expect.any(Object),
           chainId: '0x1',
-          ppomController: expect.any(Object),
           securityAlertsEnabled: expect.any(Boolean),
           updateSecurityAlertResponse: expect.any(Function),
         });

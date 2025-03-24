@@ -27,7 +27,6 @@ import {
 } from '../../../shared/constants/app';
 import { DEFAULT_AUTO_LOCK_TIME_LIMIT } from '../../../shared/constants/preferences';
 import { LastInteractedConfirmationInfo } from '../../../shared/types/confirm';
-import { SecurityAlertResponse } from '../lib/ppom/types';
 import {
   AccountOverviewTabKey,
   CarouselSlide,
@@ -73,7 +72,6 @@ export type AppStateControllerState = {
   qrHardware: Json;
   nftsDropdownState: Json;
   surveyLinkLastClickedOrClosed: number | null;
-  signatureSecurityAlertResponses: Record<string, SecurityAlertResponse>;
   // States used for displaying the changed network toast
   switchedNetworkDetails: Record<string, string> | null;
   switchedNetworkNeverShowMessage: boolean;
@@ -156,7 +154,6 @@ type AppStateControllerInitState = Partial<
     AppStateControllerState,
     | 'qrHardware'
     | 'nftsDropdownState'
-    | 'signatureSecurityAlertResponses'
     | 'switchedNetworkDetails'
     | 'currentExtensionPopupId'
   >
@@ -206,7 +203,6 @@ function getInitialStateOverrides() {
   return {
     qrHardware: {},
     nftsDropdownState: {},
-    signatureSecurityAlertResponses: {},
     switchedNetworkDetails: null,
     currentExtensionPopupId: 0,
   };
@@ -319,10 +315,6 @@ const controllerMetadata = {
   },
   surveyLinkLastClickedOrClosed: {
     persist: true,
-    anonymous: true,
-  },
-  signatureSecurityAlertResponses: {
-    persist: false,
     anonymous: true,
   },
   switchedNetworkDetails: {
@@ -954,20 +946,13 @@ export class AppStateController extends BaseController<
 
   getSignatureSecurityAlertResponse(
     securityAlertId: string,
-  ): SecurityAlertResponse {
-    return this.state.signatureSecurityAlertResponses[securityAlertId];
+  ): any {
+    return [];
   }
 
   addSignatureSecurityAlertResponse(
-    securityAlertResponse: SecurityAlertResponse,
+    securityAlertResponse: any,
   ): void {
-    if (securityAlertResponse.securityAlertId) {
-      this.update((state) => {
-        state.signatureSecurityAlertResponses[
-          String(securityAlertResponse.securityAlertId)
-        ] = securityAlertResponse;
-      });
-    }
   }
 
   /**

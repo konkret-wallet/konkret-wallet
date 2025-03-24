@@ -5,6 +5,7 @@ import {
 
 export enum SecurityProvider {
   Blockaid = 'blockaid',
+  Static = 'staticc',
 }
 
 type SecurityProviderConfig = Record<
@@ -20,7 +21,11 @@ type SecurityProviderConfig = Record<
 export const SECURITY_PROVIDER_CONFIG: Readonly<SecurityProviderConfig> = {
   [SecurityProvider.Blockaid]: {
     tKeyName: 'blockaid',
-    url: 'https://blockaid.io/',
+    url: 'https://blockaid.example.com/',
+  },
+  [SecurityProvider.Static]: {
+    tKeyName: 'staticc',
+    url: 'https://staticprovider.example.com/',
   },
 };
 
@@ -69,7 +74,7 @@ export enum BlockaidResultType {
 }
 
 export const FALSE_POSITIVE_REPORT_BASE_URL =
-  'https://blockaid-false-positive-portal.metamask.io';
+  'https://blockaid-false-positive-portal.example.com';
 
 export const SECURITY_PROVIDER_UTM_SOURCE = 'metamask-ppom';
 

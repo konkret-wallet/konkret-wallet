@@ -1,4 +1,4 @@
-import { PPOMController } from '@metamask/ppom-validator';
+import { SnapController } from '@metamask/snaps-controllers';
 import { Messenger } from '@metamask/base-controller';
 import { buildControllerInitRequestMock } from './test/utils';
 import { ControllerApi, ControllerName } from './types';
@@ -6,11 +6,11 @@ import { initControllers } from './utils';
 
 type InitFunctions = Parameters<typeof initControllers>[0]['initFunctions'];
 
-const CONTROLLER_NAME_MOCK = 'PPOMController';
+const CONTROLLER_NAME_MOCK = 'SnapController';
 const CONTROLLER_NAME_2_MOCK = 'TransactionController';
 
 function buildControllerMock(name?: string) {
-  return { name: name ?? CONTROLLER_NAME_MOCK } as unknown as PPOMController;
+  return { name: name ?? CONTROLLER_NAME_MOCK } as unknown as SnapController;
 }
 
 function buildControllerInitResultMock({

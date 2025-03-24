@@ -16,7 +16,6 @@ import { useFirstTimeInteractionAlert } from './alerts/transactions/useFirstTime
 import { useSigningOrSubmittingAlerts } from './alerts/transactions/useSigningOrSubmittingAlerts';
 ///: END:ONLY_INCLUDE_IF
 import useConfirmationOriginAlerts from './alerts/useConfirmationOriginAlerts';
-import useBlockaidAlerts from './alerts/useBlockaidAlerts';
 import { useSelectedAccountAlerts } from './alerts/useSelectedAccountAlerts';
 import { useNonContractAddressAlerts } from './alerts/transactions/useNonContractAddressAlerts';
 
@@ -83,7 +82,6 @@ function useTransactionAlerts(): Alert[] {
 }
 
 export default function useConfirmationAlerts(): Alert[] {
-  const blockaidAlerts = useBlockaidAlerts();
   const confirmationOriginAlerts = useConfirmationOriginAlerts();
   const signatureAlerts = useSignatureAlerts();
   const transactionAlerts = useTransactionAlerts();
@@ -91,14 +89,12 @@ export default function useConfirmationAlerts(): Alert[] {
 
   return useMemo(
     () => [
-      ...blockaidAlerts,
       ...confirmationOriginAlerts,
       ...signatureAlerts,
       ...transactionAlerts,
       ...selectedAccountAlerts,
     ],
     [
-      blockaidAlerts,
       confirmationOriginAlerts,
       signatureAlerts,
       transactionAlerts,

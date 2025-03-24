@@ -6,7 +6,7 @@ import FixtureBuilder from '../../fixture-builder';
 import { loginWithoutBalanceValidation } from '../../page-objects/flows/login.flow';
 import HomePage from '../../page-objects/pages/home/homepage';
 import SendTokenPage from '../../page-objects/pages/send/send-token-page';
-import { mockServerJsonRpc } from '../ppom/mocks/mock-server-json-rpc';
+import { mockServerJsonRpc } from '../../mock-server-json-rpc/mock-server-json-rpc';
 import { mockMultiNetworkBalancePolling } from '../../mock-balance-polling/mock-balance-polling';
 
 describe('ENS', function (this: Suite) {

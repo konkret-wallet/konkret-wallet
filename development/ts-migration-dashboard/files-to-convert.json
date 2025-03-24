@@ -66,8 +66,6 @@
   "app/scripts/lib/createMetaRPCHandler.test.js",
   "app/scripts/lib/createOnboardingMiddleware.js",
   "app/scripts/lib/createOriginMiddleware.js",
-  "app/scripts/lib/createRPCMethodTrackingMiddleware.js",
-  "app/scripts/lib/createRPCMethodTrackingMiddleware.test.js",
   "app/scripts/lib/createStreamSink.js",
   "app/scripts/lib/createTabIdMiddleware.js",
   "app/scripts/lib/ens-ipfs/contracts/registry.js",

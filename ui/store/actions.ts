@@ -91,17 +91,6 @@ import {
   LedgerTransportTypes,
   LEDGER_USB_VENDOR_ID,
 } from '../../shared/constants/hardware-wallets';
-import {
-  MetaMetricsEventFragment,
-  MetaMetricsEventOptions,
-  MetaMetricsEventPayload,
-  MetaMetricsPageObject,
-  MetaMetricsPageOptions,
-  MetaMetricsPagePayload,
-  MetaMetricsReferrerObject,
-  MetaMetricsEventCategory,
-  MetaMetricsEventName,
-} from '../../shared/constants/metametrics';
 import { parseSmartTransactionsError } from '../pages/swaps/swaps.util';
 import { isEqualCaseInsensitive } from '../../shared/modules/string-utils';
 import { getSmartTransactionsOptInStatusInternal } from '../../shared/modules/selectors';
@@ -3227,14 +3216,6 @@ export function setSmartTransactionsPreferenceEnabled(
   return async (dispatch, getState) => {
     const smartTransactionsOptInStatus =
       getSmartTransactionsOptInStatusInternal(getState());
-    trackMetaMetricsEvent({
-      category: MetaMetricsEventCategory.Settings,
-      event: MetaMetricsEventName.SettingsUpdated,
-      properties: {
-        stx_opt_in: value,
-        prev_stx_opt_in: smartTransactionsOptInStatus,
-      },
-    });
     await dispatch(setPreference('smartTransactionsOptInStatus', value));
     await forceUpdateMetamaskState(dispatch);
   };
@@ -3371,7 +3352,7 @@ export function setAccountDetailsAddress(address: string) {
 }
 
 export function setParticipateInMetaMetrics(
-  participationPreference: boolean,
+  _participationPreference: boolean,
 ): ThunkAction<
   Promise<[boolean, string]>,
   MetaMaskReduxState,
@@ -3381,31 +3362,18 @@ export function setParticipateInMetaMetrics(
   return (dispatch: MetaMaskReduxDispatch) => {
     log.debug(`background.setParticipateInMetaMetrics`);
     return new Promise((resolve, reject) => {
-      callBackgroundMethod<string>(
-        'setParticipateInMetaMetrics',
-        [participationPreference],
-        (err, metaMetricsId) => {
-          log.debug(err);
-          if (err) {
-            dispatch(displayWarning(err));
-            reject(err);
-            return;
-          }
+        dispatch({
+          type: actionConstants.SET_PARTICIPATE_IN_METAMETRICS,
+          value: false,
+        });
 
-          dispatch({
-            type: actionConstants.SET_PARTICIPATE_IN_METAMETRICS,
-            value: participationPreference,
-          });
-
-          resolve([participationPreference, metaMetricsId as string]);
-        },
-      );
+        resolve([false, metaMetricsId as string]);
     });
   };
 }
 
 export function setDataCollectionForMarketing(
-  dataCollectionPreference: boolean,
+  _dataCollectionPreference: boolean,
 ): ThunkAction<
   Promise<[boolean, string]>,
   MetaMaskReduxState,
@@ -3414,12 +3382,9 @@ export function setDataCollectionForMarketing(
 > {
   return async (dispatch: MetaMaskReduxDispatch) => {
     log.debug(`background.setDataCollectionForMarketing`);
-    await submitRequestToBackground('setDataCollectionForMarketing', [
-      dataCollectionPreference,
-    ]);
     dispatch({
       type: actionConstants.SET_DATA_COLLECTION_FOR_MARKETING,
-      value: dataCollectionPreference,
+      value: false,
     });
   };
 }
@@ -4836,49 +4801,41 @@ export function trackMetaMetricsEvent(
   payload: MetaMetricsEventPayload,
   options?: MetaMetricsEventOptions,
 ) {
-  return submitRequestToBackground('trackMetaMetricsEvent', [
-    { ...payload, actionId: generateActionId() },
-    options,
-  ]);
 }
 
 export function createEventFragment(
-  options: MetaMetricsEventFragment,
+  _options: MetaMetricsEventFragment,
 ): Promise<string> {
   const actionId = generateActionId();
+  /*
   return submitRequestToBackground('createEventFragment', [
     { ...options, actionId },
   ]);
+  */
+  return `createEventFragment-${actionId}`;
 }
 
 export function createTransactionEventFragment(
   transactionId: string,
 ): Promise<string> {
-  const actionId = generateActionId();
-  return submitRequestToBackground('createTransactionEventFragment', [
-    {
-      transactionId,
-      actionId,
-    },
-  ]);
+  const actionId = generateActionId(transactionId);
+  return `createTransactionEventFragment${actionId}`;
 }
 
 export function updateEventFragment(
-  id: string,
-  payload: Partial<MetaMetricsEventFragment>,
+  _id: string,
+  _payload: Partial<MetaMetricsEventFragment>,
 ) {
-  return submitRequestToBackground('updateEventFragment', [id, payload]);
 }
 
 export function finalizeEventFragment(
-  id: string,
-  options?: {
+  _id: string,
+  _options?: {
     abandoned?: boolean;
     page?: MetaMetricsPageObject;
     referrer?: MetaMetricsReferrerObject;
   },
 ) {
-  return submitRequestToBackground('finalizeEventFragment', [id, options]);
 }
 
 /**
@@ -4889,10 +4846,6 @@ export function trackMetaMetricsPage(
   payload: MetaMetricsPagePayload,
   options: MetaMetricsPageOptions,
 ) {
-  return submitRequestToBackground('trackMetaMetricsPage', [
-    { ...payload, actionId: generateActionId() },
-    options,
-  ]);
 }
 
 export function resetViewedNotifications() {

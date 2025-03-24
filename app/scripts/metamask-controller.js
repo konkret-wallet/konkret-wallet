@@ -244,7 +244,6 @@ import { keyringSnapPermissionsBuilder } from './lib/snap-keyring/keyring-snaps-
 import { SnapsNameProvider } from './lib/SnapsNameProvider';
 import { AddressBookPetnamesBridge } from './lib/AddressBookPetnamesBridge';
 import { AccountIdentitiesPetnamesBridge } from './lib/AccountIdentitiesPetnamesBridge';
-import { createPPOMMiddleware } from './lib/ppom/ppom-middleware';
 import {
   onMessageReceived,
   checkForMultipleVersionsRunning,
@@ -300,7 +299,6 @@ import {
 } from './controllers/permissions';
 import { MetaMetricsDataDeletionController } from './controllers/metametrics-data-deletion/metametrics-data-deletion';
 import { DataDeletionService } from './services/data-deletion-service';
-import createRPCMethodTrackingMiddleware from './lib/createRPCMethodTrackingMiddleware';
 import { updateCurrentLocale } from './translate';
 import { TrezorOffscreenBridge } from './lib/offscreen-bridge/trezor-offscreen-bridge';
 import { LedgerOffscreenBridge } from './lib/offscreen-bridge/ledger-offscreen-bridge';
@@ -318,7 +316,6 @@ import { METAMASK_COOKIE_HANDLER } from './constants/stream';
 
 // Notification controllers
 import { createTxVerificationMiddleware } from './lib/tx-verification/tx-verification-middleware';
-import { updateSecurityAlertResponse } from './lib/ppom/ppom-util';
 import createEvmMethodsToNonEvmAccountReqFilterMiddleware from './lib/createEvmMethodsToNonEvmAccountReqFilterMiddleware';
 import { isEthAddress } from './lib/multichain/address';
 import { decodeTransactionData } from './lib/transaction/decode/util';
@@ -350,7 +347,6 @@ import {
   MultichainNetworkControllerInit,
 } from './controller-init/multichain';
 import { TransactionControllerInit } from './controller-init/confirmations/transaction-controller-init';
-import { PPOMControllerInit } from './controller-init/confirmations/ppom-controller-init';
 import { initControllers } from './controller-init/utils';
 import {
   CronjobControllerInit,
@@ -1833,7 +1829,6 @@ export default class MetamaskController extends EventEmitter {
       SnapInsightsController: SnapInsightsControllerInit,
       SnapInterfaceController: SnapInterfaceControllerInit,
       CronjobController: CronjobControllerInit,
-      PPOMController: PPOMControllerInit,
       TransactionController: TransactionControllerInit,
       ///: BEGIN:ONLY_INCLUDE_IF(multichain)
       MultichainAssetsController: MultichainAssetsControllerInit,
@@ -1867,7 +1862,6 @@ export default class MetamaskController extends EventEmitter {
     this.snapInsightsController = controllersByName.SnapInsightsController;
     this.snapInterfaceController = controllersByName.SnapInterfaceController;
     this.snapsRegistry = controllersByName.SnapsRegistry;
-    this.ppomController = controllersByName.PPOMController;
     this.txController = controllersByName.TransactionController;
     ///: BEGIN:ONLY_INCLUDE_IF(multichain)
     this.multichainAssetsController =
@@ -5080,10 +5074,8 @@ export default class MetamaskController extends EventEmitter {
       transactionParams,
       userOperationController: this.userOperationController,
       chainId: this.#getGlobalChainId(),
-      ppomController: this.ppomController,
       securityAlertsEnabled:
         this.preferencesController.state?.securityAlertsEnabled,
-      updateSecurityAlertResponse: this.updateSecurityAlertResponse.bind(this),
       ...otherParams,
     };
   }
@@ -5172,21 +5164,6 @@ export default class MetamaskController extends EventEmitter {
         throw new Error(`Asset type ${type} not supported`);
     }
   };
-
-  async updateSecurityAlertResponse(
-    method,
-    securityAlertId,
-    securityAlertResponse,
-  ) {
-    await updateSecurityAlertResponse({
-      appStateController: this.appStateController,
-      method,
-      securityAlertId,
-      securityAlertResponse,
-      signatureController: this.signatureController,
-      transactionController: this.txController,
-    });
-  }
 
   //=============================================================================
   // PASSWORD MANAGEMENT
@@ -5699,35 +5676,6 @@ export default class MetamaskController extends EventEmitter {
           this.appStateController.updateThrottledOriginState.bind(
             this.appStateController,
           ),
-      }),
-    );
-
-    engine.push(
-      createPPOMMiddleware(
-        this.ppomController,
-        this.preferencesController,
-        this.networkController,
-        this.appStateController,
-        this.accountsController,
-        this.updateSecurityAlertResponse.bind(this),
-      ),
-    );
-
-    engine.push(
-      createRPCMethodTrackingMiddleware({
-        getAccountType: this.getAccountType.bind(this),
-        getDeviceModel: this.getDeviceModel.bind(this),
-        getHardwareTypeForMetric: this.getHardwareTypeForMetric.bind(this),
-        snapAndHardwareMessenger: this.controllerMessenger.getRestricted({
-          name: 'SnapAndHardwareMessenger',
-          allowedActions: [
-            'KeyringController:getKeyringForAccount',
-            'SnapController:get',
-            'AccountsController:getSelectedAccount',
-          ],
-        }),
-        appStateController: this.appStateController,
-        metaMetricsController: this.metaMetricsController,
       }),
     );
 

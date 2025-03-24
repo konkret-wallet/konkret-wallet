@@ -5,7 +5,6 @@ import {
   ButtonLinkSize,
   Text,
 } from '../../../component-library';
-import { SecurityProvider } from '../../../../../shared/constants/security-provider';
 import GeneralAlert from './general-alert';
 
 const mockPlainText =
@@ -52,7 +51,7 @@ export default {
       control: {
         type: 'select',
       },
-      options: ['none', ...Object.values(SecurityProvider)],
+      options: ['none'],
       mapping: {
         none: null,
       },
@@ -78,7 +77,6 @@ Default.args = {
   description: 'This is a default security alert banner.',
   severity: Severity.Warning,
   title: 'Security Alert',
-  provider: SecurityProvider.Blockaid,
 };
 
 export const WithDetailsList = (args) => <GeneralAlert {...args} />;
