@@ -41,7 +41,6 @@ import {
 import { InterfaceState } from '@metamask/snaps-sdk';
 import { KeyringTypes } from '@metamask/keyring-controller';
 import type { NotificationServicesController } from '@metamask/notification-services-controller';
-import { USER_STORAGE_FEATURE_NAMES } from '@metamask/profile-sync-controller/sdk';
 import { Patch } from 'immer';
 ///: BEGIN:ONLY_INCLUDE_IF(multichain)
 import { HandlerType } from '@metamask/snaps-utils';
@@ -5683,34 +5682,6 @@ export function syncInternalAccountsWithUserStorage(): ThunkAction<
 }
 
 /**
- * Delete all of current user's accounts data from user storage.
- *
- * This function sends a request to the background script to sync accounts data and update the state accordingly.
- * If the operation encounters an error, it logs the error message and rethrows the error to ensure it is handled appropriately.
- *
- * @returns A thunk action that, when dispatched, attempts to synchronize accounts data with user storage between devices.
- */
-export function deleteAccountSyncingDataFromUserStorage(): ThunkAction<
-  void,
-  MetaMaskReduxState,
-  unknown,
-  AnyAction
-> {
-  return async () => {
-    try {
-      const response = await submitRequestToBackground(
-        'deleteAccountSyncingDataFromUserStorage',
-        [USER_STORAGE_FEATURE_NAMES.accounts],
-      );
-      return response;
-    } catch (error) {
-      logErrorWithMessage(error);
-      throw error;
-    }
-  };
-}
-
-/**
  * Marks MetaMask notifications as read.
  *
  * This function sends a request to the background script to mark the specified notifications as read.
@@ -5784,27 +5755,6 @@ export function checkAccountsPresence(
       logErrorWithMessage(error);
       throw error;
     }
-  };
-}
-
-/**
- * Triggers a modal to confirm the action of turning off profile syncing.
- * This function dispatches an action to show a modal dialog asking the user to confirm if they want to turn off profile syncing.
- *
- * @returns A thunk action that, when dispatched, shows the confirmation modal.
- */
-export function showConfirmTurnOffProfileSyncing(): ThunkAction<
-  void,
-  MetaMaskReduxState,
-  unknown,
-  AnyAction
-> {
-  return (dispatch: MetaMaskReduxDispatch) => {
-    dispatch(
-      showModal({
-        name: 'CONFIRM_TURN_OFF_PROFILE_SYNCING',
-      }),
-    );
   };
 }
 

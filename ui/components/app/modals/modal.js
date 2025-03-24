@@ -26,7 +26,6 @@ import RejectTransactions from './reject-transactions';
 import TransactionAlreadyConfirmed from './transaction-already-confirmed';
 
 // Metamask Notifications
-import ConfirmTurnOffProfileSyncing from './confirm-turn-off-profile-syncing';
 import TurnOnMetamaskNotifications from './turn-on-metamask-notifications/turn-on-metamask-notifications';
 
 const modalContainerBaseStyle = {
@@ -226,19 +225,6 @@ const MODALS = {
 
   CUSTOMIZE_NONCE: {
     contents: <CustomizeNonceModal />,
-    mobileModalStyle: {
-      ...modalContainerMobileStyle,
-    },
-    laptopModalStyle: {
-      ...modalContainerLaptopStyle,
-    },
-    contentStyle: {
-      borderRadius: '8px',
-    },
-  },
-
-  CONFIRM_TURN_OFF_PROFILE_SYNCING: {
-    contents: <ConfirmTurnOffProfileSyncing />,
     mobileModalStyle: {
       ...modalContainerMobileStyle,
     },
