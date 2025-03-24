@@ -26,11 +26,6 @@ class SettingsPage {
     css: 'h3',
   };
 
-  private readonly notificationsSettingsButton = {
-    text: 'Notifications',
-    css: '.tab-bar__tab__content__title',
-  };
-
   constructor(driver: Driver) {
     this.driver = driver;
   }
@@ -92,11 +87,6 @@ class SettingsPage {
   async goToPrivacySettings(): Promise<void> {
     console.log('Navigating to Privacy & Security Settings page');
     await this.driver.clickElement(this.privacySettingsButton);
-  }
-
-  async goToNotificationsSettings(): Promise<void> {
-    console.log('Navigating to Notifications Settings page');
-    await this.driver.clickElement(this.notificationsSettingsButton);
   }
 }
 

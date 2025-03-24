@@ -1,5 +1,4 @@
 import React, { useState, useCallback, useContext } from 'react';
-import { toChecksumHexAddress } from '@metamask/controller-utils';
 import { MetaMetricsContext } from '../../contexts/metametrics';
 import {
   MetaMetricsEventCategory,
@@ -11,7 +10,6 @@ import {
   NotificationsSettingsAccount,
 } from '../../components/multichain';
 import { useListNotifications } from '../../hooks/metamask-notifications/useNotifications';
-import { shortenAddress } from '../../helpers/utils/util';
 
 type NotificationsSettingsPerAccountProps = {
   address: string;
@@ -84,9 +82,6 @@ export const NotificationsSettingsPerAccount = ({
     await toggleAccount(!isEnabled);
   }, [address, isEnabled, toggleAccount, trackEvent]);
 
-  const checksumAddress = toChecksumHexAddress(address);
-  const shortenedAddress = shortenAddress(checksumAddress);
-
   return (
     <>
       <NotificationsSettingsBox
@@ -96,7 +91,6 @@ export const NotificationsSettingsPerAccount = ({
         disabled={disabledSwitch}
         loading={loading}
         error={error}
-        dataTestId={`${shortenedAddress}-notifications-settings`}
       >
         <NotificationsSettingsAccount address={address} name={name} />
       </NotificationsSettingsBox>

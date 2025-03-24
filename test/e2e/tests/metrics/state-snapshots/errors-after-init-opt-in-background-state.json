@@ -191,11 +191,6 @@
     "isUpdatingMetamaskNotificationsAccount": "object",
     "isCheckingAccountsPresence": "boolean"
   },
-  "NotificationServicesPushController": {
-    "fcmToken": "string",
-    "isPushEnabled": "boolean",
-    "isUpdatingFCMToken": "boolean"
-  },
   "OnboardingController": {
     "seedPhraseBackedUp": true,
     "firstTimeFlowType": "import",
@@ -352,7 +347,6 @@
     "isProfileSyncingEnabled": null,
     "isProfileSyncingUpdateLoading": "boolean",
     "hasAccountSyncingSyncedAtLeastOnce": "boolean",
-    "isAccountSyncingReadyToBeDispatched": "boolean",
-    "isAccountSyncingInProgress": "boolean"
+    "isAccountSyncingReadyToBeDispatched": "boolean"
   }
 }

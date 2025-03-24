@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Carousel } from 'react-responsive-carousel';
 import {
   setCompletedOnboarding,
+  performSignIn,
   toggleExternalServices,
 } from '../../../store/actions';
 ///: END:ONLY_INCLUDE_IF
@@ -32,6 +33,8 @@ import {
   getFirstTimeFlowType,
   getExternalServicesOnboardingToggleState,
 } from '../../../selectors';
+import { selectIsProfileSyncingEnabled } from '../../../selectors/metamask-notifications/profile-syncing';
+import { selectParticipateInMetaMetrics } from '../../../selectors/metamask-notifications/authentication';
 import {
   MetaMetricsEventCategory,
   MetaMetricsEventName,
@@ -52,6 +55,8 @@ export default function OnboardingPinExtension() {
   const externalServicesOnboardingToggleState = useSelector(
     getExternalServicesOnboardingToggleState,
   );
+  const isProfileSyncingEnabled = useSelector(selectIsProfileSyncingEnabled);
+  const participateInMetaMetrics = useSelector(selectParticipateInMetaMetrics);
 
   const handleClick = async () => {
     if (selectedIndex === 0) {
@@ -61,6 +66,12 @@ export default function OnboardingPinExtension() {
         toggleExternalServices(externalServicesOnboardingToggleState),
       );
       await dispatch(setCompletedOnboarding());
+
+      if (externalServicesOnboardingToggleState) {
+        if (!isProfileSyncingEnabled || participateInMetaMetrics) {
+          await dispatch(performSignIn());
+        }
+      }
 
       trackEvent({
         category: MetaMetricsEventCategory.Onboarding,

@@ -1762,7 +1762,7 @@
       },
       "packages": {
         "postcss-discard-font-face>postcss>chalk>ansi-styles": true,
-        "postcss-discard-font-face>postcss>chalk>escape-string-regexp": true,
+        "gulp-livereload>chalk>escape-string-regexp": true,
         "prettier-eslint>loglevel-colored-level-prefix>chalk>has-ansi": true,
         "postcss-discard-font-face>postcss>chalk>strip-ansi": true,
         "postcss-discard-font-face>postcss>chalk>supports-color": true
@@ -2615,7 +2615,7 @@
         "eslint>ajv": true,
         "nock>debug": true,
         "eslint>doctrine": true,
-        "mocha>escape-string-regexp": true,
+        "eslint>escape-string-regexp": true,
         "eslint>eslint-scope": true,
         "eslint>eslint-visitor-keys": true,
         "eslint>espree": true,
@@ -2748,7 +2748,7 @@
         "eslint-plugin-jsdoc>are-docs-informative": true,
         "eslint-plugin-jsdoc>comment-parser": true,
         "nock>debug": true,
-        "mocha>escape-string-regexp": true,
+        "eslint-plugin-jsdoc>escape-string-regexp": true,
         "eslint": true,
         "eslint>esquery": true,
         "semver": true,

@@ -2,7 +2,9 @@ import { createSelector } from 'reselect';
 import type { AuthenticationController } from '@metamask/profile-sync-controller';
 
 type AppState = {
-  metamask: AuthenticationController.AuthenticationControllerState;
+  metamask: AuthenticationController.AuthenticationControllerState & {
+    participateInMetaMetrics: boolean;
+  };
 };
 
 const getMetamask = (state: AppState) => state.metamask;
@@ -19,6 +21,20 @@ const getMetamask = (state: AppState) => state.metamask;
 export const selectIsSignedIn = createSelector(
   [getMetamask],
   (metamask) => metamask.isSignedIn,
+);
+
+/**
+ * Selector to determine if the user participates in MetaMetrics.
+ *
+ * This selector accesses the `participateInMetaMetrics` property from the `metamask` state using the `createSelector` function.
+ * It provides a memoized selector that returns whether the user has opted into MetaMetrics.
+ *
+ * @param {AppState} state - The current state of the Redux store.
+ * @returns {boolean} Returns true if the user participates in MetaMetrics, false otherwise.
+ */
+export const selectParticipateInMetaMetrics = createSelector(
+  [getMetamask],
+  (metamask) => metamask.participateInMetaMetrics,
 );
 
 /**

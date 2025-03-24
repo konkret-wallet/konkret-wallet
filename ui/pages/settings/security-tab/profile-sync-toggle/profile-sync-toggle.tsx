@@ -5,7 +5,7 @@ import { MetaMetricsContext } from '../../../../contexts/metametrics';
 import {
   useEnableProfileSyncing,
   useDisableProfileSyncing,
-} from '../../../../hooks/identity/useProfileSyncing';
+} from '../../../../hooks/metamask-notifications/useProfileSyncing';
 import {
   MetaMetricsEventCategory,
   MetaMetricsEventName,
@@ -13,7 +13,7 @@ import {
 import {
   selectIsProfileSyncingEnabled,
   selectIsProfileSyncingUpdateLoading,
-} from '../../../../selectors/identity/profile-syncing';
+} from '../../../../selectors/metamask-notifications/profile-syncing';
 import { selectIsMetamaskNotificationsEnabled } from '../../../../selectors/metamask-notifications/metamask-notifications';
 import { showModal } from '../../../../store/actions';
 import { Box, Text } from '../../../../components/component-library';
@@ -28,20 +28,36 @@ import {
 import Preloader from '../../../../components/ui/icon/preloader/preloader-icon.component';
 import { getUseExternalServices } from '../../../../selectors';
 
+function ProfileSyncBasicFunctionalitySetting() {
+  const basicFunctionality: boolean = useSelector(getUseExternalServices);
+  const { disableProfileSyncing } = useDisableProfileSyncing();
+
+  // Effect - disable profile syncing when basic functionality is off
+  useEffect(() => {
+    if (basicFunctionality === false) {
+      disableProfileSyncing();
+    }
+  }, [basicFunctionality, disableProfileSyncing]);
+
+  return {
+    isProfileSyncDisabled: !basicFunctionality,
+  };
+}
+
 const ProfileSyncToggle = () => {
   const trackEvent = useContext(MetaMetricsContext);
   const t = useI18nContext();
   const dispatch = useDispatch();
-  const basicFunctionality: boolean = useSelector(getUseExternalServices);
   const { enableProfileSyncing, error: enableProfileSyncingError } =
     useEnableProfileSyncing();
   const { disableProfileSyncing, error: disableProfileSyncingError } =
     useDisableProfileSyncing();
 
-  const isProfileSyncingEnabled = useSelector(selectIsProfileSyncingEnabled);
+  const { isProfileSyncDisabled } = ProfileSyncBasicFunctionalitySetting();
 
   const error = enableProfileSyncingError || disableProfileSyncingError;
 
+  const isProfileSyncingEnabled = useSelector(selectIsProfileSyncingEnabled);
   const isProfileSyncingUpdateLoading = useSelector(
     selectIsProfileSyncingUpdateLoading,
   );
@@ -49,13 +65,7 @@ const ProfileSyncToggle = () => {
     selectIsMetamaskNotificationsEnabled,
   );
 
-  useEffect(() => {
-    if (basicFunctionality === false) {
-      disableProfileSyncing();
-    }
-  }, [basicFunctionality, disableProfileSyncing]);
-
-  const handleProfileSyncToggleSetValue = async () => {
+  const handleUseProfileSync = async () => {
     if (isProfileSyncingEnabled) {
       dispatch(
         showModal({
@@ -131,9 +141,9 @@ const ProfileSyncToggle = () => {
         {!isProfileSyncingUpdateLoading && (
           <div className="settings-page__content-item-col">
             <ToggleButton
-              disabled={!basicFunctionality}
+              disabled={isProfileSyncDisabled}
               value={isProfileSyncingEnabled}
-              onToggle={handleProfileSyncToggleSetValue}
+              onToggle={handleUseProfileSync}
               offLabel={t('off')}
               onLabel={t('on')}
               dataTestId="toggleButton"

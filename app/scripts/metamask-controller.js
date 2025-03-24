@@ -132,16 +132,7 @@ import {
   AuthenticationController,
   UserStorageController,
 } from '@metamask/profile-sync-controller';
-import {
-  TRIGGER_TYPES,
-  Controller as NotificationServicesController,
-} from '@metamask/notification-services-controller/notification-services';
-import { Controller as NotificationServicesPushController } from '@metamask/notification-services-controller/push-services';
-import {
-  createRegToken,
-  deleteRegToken,
-  createSubscribeToPushNotifications,
-} from '@metamask/notification-services-controller/push-services/web';
+import { NotificationServicesController } from '@metamask/notification-services-controller';
 import {
   Caip25CaveatMutators,
   Caip25CaveatType,
@@ -301,10 +292,6 @@ import { isEthAddress } from './lib/multichain/address';
 import { decodeTransactionData } from './lib/transaction/decode/util';
 import BridgeController from './controllers/bridge/bridge-controller';
 import { BRIDGE_CONTROLLER_NAME } from './controllers/bridge/constants';
-import {
-  onPushNotificationClicked,
-  onPushNotificationReceived,
-} from './controllers/push-notifications';
 import createTracingMiddleware from './lib/createTracingMiddleware';
 import createOriginThrottlingMiddleware from './lib/createOriginThrottlingMiddleware';
 import { PatchStore } from './lib/PatchStore';
@@ -1189,112 +1176,57 @@ export default class MetamaskController extends EventEmitter {
         name: 'UserStorageController',
         allowedActions: [
           'KeyringController:getState',
-          'KeyringController:withKeyring',
+          'KeyringController:addNewAccount',
           'SnapController:handleRequest',
           'AuthenticationController:getBearerToken',
           'AuthenticationController:getSessionProfile',
           'AuthenticationController:isSignedIn',
           'AuthenticationController:performSignOut',
           'AuthenticationController:performSignIn',
+          'NotificationServicesController:disableNotificationServices',
+          'NotificationServicesController:selectIsNotificationServicesEnabled',
           'AccountsController:listAccounts',
           'AccountsController:updateAccountMetadata',
-          'NetworkController:getState',
-          'NetworkController:addNetwork',
-          'NetworkController:removeNetwork',
-          'NetworkController:updateNetwork',
         ],
         allowedEvents: [
           'KeyringController:lock',
           'KeyringController:unlock',
           'AccountsController:accountAdded',
           'AccountsController:accountRenamed',
-          'NetworkController:networkRemoved',
         ],
       }),
     });
 
-    /** @type {import('@metamask/notification-services-controller/push-services').NotificationServicesPushControllerMessenger} */
-    const notificationServicesPushControllerMessenger =
-      this.controllerMessenger.getRestricted({
-        name: 'NotificationServicesPushController',
-        allowedActions: ['AuthenticationController:getBearerToken'],
-        allowedEvents: [],
-      });
-    this.notificationServicesPushController =
-      new NotificationServicesPushController({
-        messenger: notificationServicesPushControllerMessenger,
-        state: initState.NotificationServicesPushController,
+    this.notificationServicesController =
+      new NotificationServicesController.Controller({
+        messenger: this.controllerMessenger.getRestricted({
+          name: 'NotificationServicesController',
+          allowedActions: [
+            'KeyringController:getAccounts',
+            'KeyringController:getState',
+            'AuthenticationController:getBearerToken',
+            'AuthenticationController:isSignedIn',
+            'UserStorageController:enableProfileSyncing',
+            'UserStorageController:getStorageKey',
+            'UserStorageController:performGetStorage',
+            'UserStorageController:performSetStorage',
+          ],
+          allowedEvents: [
+            'KeyringController:stateChange',
+            'KeyringController:lock',
+            'KeyringController:unlock',
+          ],
+        }),
+        state: initState.NotificationServicesController,
         env: {
-          apiKey: process.env.FIREBASE_API_KEY ?? '',
-          authDomain: process.env.FIREBASE_AUTH_DOMAIN ?? '',
-          storageBucket: process.env.FIREBASE_STORAGE_BUCKET ?? '',
-          projectId: process.env.FIREBASE_PROJECT_ID ?? '',
-          messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID ?? '',
-          appId: process.env.FIREBASE_APP_ID ?? '',
-          measurementId: process.env.FIREBASE_MEASUREMENT_ID ?? '',
-          vapidKey: process.env.VAPID_KEY ?? '',
-        },
-        config: {
-          isPushFeatureEnabled: isManifestV3,
-          platform: 'extension',
-          pushService: {
-            createRegToken,
-            deleteRegToken,
-            subscribeToPushNotifications: createSubscribeToPushNotifications({
-              messenger: notificationServicesPushControllerMessenger,
-              onReceivedHandler: onPushNotificationReceived,
-              onClickHandler: onPushNotificationClicked,
-            }),
+          isPushIntegrated: false,
+          featureAnnouncements: {
+            platform: 'extension',
+            spaceId: process.env.CONTENTFUL_ACCESS_SPACE_ID ?? '',
+            accessToken: process.env.CONTENTFUL_ACCESS_TOKEN ?? '',
           },
         },
       });
-    notificationServicesPushControllerMessenger.subscribe(
-      'NotificationServicesPushController:onNewNotifications',
-      () => {},
-    );
-    notificationServicesPushControllerMessenger.subscribe(
-      'NotificationServicesPushController:pushNotificationClicked',
-      () => {},
-    );
-
-    /** @type {import('@metamask/notification-services-controller/notification-services').NotificationServicesControllerMessenger} */
-    const notificationServicesControllerMessenger =
-      this.controllerMessenger.getRestricted({
-        name: 'NotificationServicesController',
-        allowedActions: [
-          'KeyringController:getAccounts',
-          'KeyringController:getState',
-          'AuthenticationController:getBearerToken',
-          'AuthenticationController:isSignedIn',
-          'AuthenticationController:performSignIn',
-          'UserStorageController:getStorageKey',
-          'UserStorageController:performGetStorage',
-          'UserStorageController:performSetStorage',
-          'NotificationServicesPushController:enablePushNotifications',
-          'NotificationServicesPushController:disablePushNotifications',
-          'NotificationServicesPushController:subscribeToPushNotifications',
-          'NotificationServicesPushController:updateTriggerPushNotifications',
-        ],
-        allowedEvents: [
-          'KeyringController:stateChange',
-          'KeyringController:lock',
-          'KeyringController:unlock',
-          'NotificationServicesPushController:onNewNotifications',
-          'NotificationServicesPushController:stateChange',
-        ],
-      });
-    this.notificationServicesController = new NotificationServicesController({
-      messenger: notificationServicesControllerMessenger,
-      state: initState.NotificationServicesController,
-      env: {
-        isPushIntegrated: isManifestV3,
-        featureAnnouncements: {
-          platform: 'extension',
-          spaceId: process.env.CONTENTFUL_ACCESS_SPACE_ID ?? '',
-          accessToken: process.env.CONTENTFUL_ACCESS_TOKEN ?? '',
-        },
-      },
-    });
 
     // account tracker watches balances, nonces, and any code at their address
     this.accountTrackerController = new AccountTrackerController({
@@ -1951,8 +1883,6 @@ export default class MetamaskController extends EventEmitter {
       AuthenticationController: this.authenticationController,
       UserStorageController: this.userStorageController,
       NotificationServicesController: this.notificationServicesController,
-      NotificationServicesPushController:
-        this.notificationServicesPushController,
       RemoteFeatureFlagController: this.remoteFeatureFlagController,
       ...resetOnRestartStore,
       ...controllerPersistedState,
@@ -2004,8 +1934,6 @@ export default class MetamaskController extends EventEmitter {
         UserStorageController: this.userStorageController,
         NotificationServicesController: this.notificationServicesController,
         QueuedRequestController: this.queuedRequestController,
-        NotificationServicesPushController:
-          this.notificationServicesPushController,
         RemoteFeatureFlagController: this.remoteFeatureFlagController,
         ...resetOnRestartStore,
         ...controllerMemState,
@@ -2547,22 +2475,6 @@ export default class MetamaskController extends EventEmitter {
         }
       },
     );
-
-    this.controllerMessenger.subscribe(
-      `${this.snapController.name}:snapUninstalled`,
-      (truncatedSnap) => {
-        const notificationIds = this.notificationServicesController
-          .getNotificationsByType(TRIGGER_TYPES.SNAP)
-          .filter(
-            (notification) => notification.data.origin === truncatedSnap.id,
-          )
-          .map((notification) => notification.id);
-
-        this.notificationServicesController.deleteNotificationsById(
-          notificationIds,
-        );
-      },
-    );
   }
 
   /**
@@ -2764,7 +2676,6 @@ export default class MetamaskController extends EventEmitter {
       authenticationController,
       userStorageController,
       notificationServicesController,
-      notificationServicesPushController,
     } = this;
 
     return {
@@ -3534,6 +3445,10 @@ export default class MetamaskController extends EventEmitter {
       disableProfileSyncing: userStorageController.disableProfileSyncing.bind(
         userStorageController,
       ),
+      setIsProfileSyncingEnabled:
+        userStorageController.setIsProfileSyncingEnabled.bind(
+          userStorageController,
+        ),
       syncInternalAccountsWithUserStorage:
         userStorageController.syncInternalAccountsWithUserStorage.bind(
           userStorageController,
@@ -3579,18 +3494,6 @@ export default class MetamaskController extends EventEmitter {
       setFeatureAnnouncementsEnabled:
         notificationServicesController.setFeatureAnnouncementsEnabled.bind(
           notificationServicesController,
-        ),
-      enablePushNotifications:
-        notificationServicesPushController.enablePushNotifications.bind(
-          notificationServicesPushController,
-        ),
-      disablePushNotifications:
-        notificationServicesPushController.disablePushNotifications.bind(
-          notificationServicesPushController,
-        ),
-      updateTriggerPushNotifications:
-        notificationServicesPushController.updateTriggerPushNotifications.bind(
-          notificationServicesPushController,
         ),
       enableMetamaskNotifications:
         notificationServicesController.enableMetamaskNotifications.bind(

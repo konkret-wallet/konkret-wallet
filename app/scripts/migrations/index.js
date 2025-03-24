@@ -161,7 +161,7 @@ const migrations = [
   require('./134.1'),
   require('./135'),
   require('./136'),
-  require('./137'),
+  // require('./137'), // Never applied on fork
   require('./138'),
   require('./139'),
   require('./140'),

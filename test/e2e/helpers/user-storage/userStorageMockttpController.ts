@@ -19,7 +19,7 @@ export const pathRegexps = {
   ),
 };
 
-export type UserStorageResponseData = { HashedKey: string; Data: string };
+type UserStorageResponseData = { HashedKey: string; Data: string };
 
 const determineIfFeatureEntryFromURL = (url: string) =>
   url.substring(url.lastIndexOf('userstorage') + 12).split('/').length === 2;

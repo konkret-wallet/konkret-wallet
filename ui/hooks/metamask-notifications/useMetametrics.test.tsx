@@ -4,13 +4,15 @@ import { renderHook, act } from '@testing-library/react-hooks';
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import type { Store } from 'redux';
-import * as actions from '../store/actions';
+import * as actions from '../../store/actions';
 import { useEnableMetametrics, useDisableMetametrics } from './useMetametrics';
 
 const middlewares = [thunk];
 const mockStore = configureStore(middlewares);
 
-jest.mock('../store/actions', () => ({
+jest.mock('../../store/actions', () => ({
+  performSignOut: jest.fn(),
+  performSignIn: jest.fn(),
   setParticipateInMetaMetrics: jest.fn(),
   showLoadingIndication: jest.fn(),
   hideLoadingIndication: jest.fn(),
@@ -23,6 +25,8 @@ describe('useMetametrics', () => {
     store = mockStore({
       metamask: {
         participateInMetaMetrics: false,
+        isProfileSyncingEnabled: false,
+        isSignedIn: false,
       },
     });
 
@@ -36,10 +40,12 @@ describe('useMetametrics', () => {
     jest.clearAllMocks();
   });
 
-  it('should enable MetaMetrics', async () => {
+  it('should enable MetaMetrics when user is not signed in and profile syncing enabled', async () => {
     store.getState = () => ({
       metamask: {
-        participateInMetaMetrics: false,
+        participateInMetaMetrics: true,
+        isProfileSyncingEnabled: true,
+        isSignedIn: false,
       },
     });
 
@@ -58,15 +64,18 @@ describe('useMetametrics', () => {
 
     await waitForNextUpdate();
 
+    expect(actions.performSignIn).toHaveBeenCalled();
     expect(actions.setParticipateInMetaMetrics).toHaveBeenCalledWith(true);
     expect(store.dispatch).toHaveBeenCalled();
     expect(result.current.loading).toBe(false);
   });
 
-  it('should disable MetaMetrics', async () => {
+  it('should disable MetaMetrics and sign out if profile syncing is enabled', async () => {
     store.getState = () => ({
       metamask: {
         participateInMetaMetrics: true,
+        isProfileSyncingEnabled: true,
+        isSignedIn: true,
       },
     });
 
@@ -85,6 +94,7 @@ describe('useMetametrics', () => {
 
     await waitForNextUpdate();
 
+    expect(actions.performSignOut).toHaveBeenCalled();
     expect(actions.setParticipateInMetaMetrics).toHaveBeenCalledWith(false);
     expect(result.current.loading).toBe(false);
   });

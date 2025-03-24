@@ -7,7 +7,6 @@ describe('Profile Syncing Selectors', () => {
       isProfileSyncingUpdateLoading: false,
       isAccountSyncingReadyToBeDispatched: false,
       hasAccountSyncingSyncedAtLeastOnce: false,
-      isAccountSyncingInProgress: false,
     },
   };
 

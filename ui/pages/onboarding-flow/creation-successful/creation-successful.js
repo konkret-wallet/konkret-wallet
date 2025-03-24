@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import {
@@ -29,25 +29,16 @@ import {
 import { FirstTimeFlowType } from '../../../../shared/constants/onboarding';
 import { getFirstTimeFlowType } from '../../../selectors';
 import { getSeedPhraseBackedUp } from '../../../ducks/metamask/metamask';
-import {
-  MetaMetricsEventCategory,
-  MetaMetricsEventName,
-} from '../../../../shared/constants/metametrics';
-import { MetaMetricsContext } from '../../../contexts/metametrics';
-import { selectIsProfileSyncingEnabled } from '../../../selectors/identity/profile-syncing';
 
 export default function CreationSuccessful() {
   const history = useHistory();
   const t = useI18nContext();
-  const trackEvent = useContext(MetaMetricsContext);
   const firstTimeFlowType = useSelector(getFirstTimeFlowType);
   const seedPhraseBackedUp = useSelector(getSeedPhraseBackedUp);
   const learnMoreLink =
     'https://support.metamask.io/hc/en-us/articles/360015489591-Basic-Safety-and-Security-Tips-for-MetaMask';
   const learnHowToKeepWordsSafe =
     'https://community.metamask.io/t/what-is-a-secret-recovery-phrase-and-how-to-keep-your-crypto-wallet-secure/3440';
-
-  const isProfileSyncingEnabled = useSelector(selectIsProfileSyncingEnabled);
 
   return (
     <Box
@@ -194,14 +185,6 @@ export default function CreationSuccessful() {
           }}
           marginTop={6}
           onClick={() => {
-            trackEvent({
-              category: MetaMetricsEventCategory.Onboarding,
-              event: MetaMetricsEventName.OnboardingWalletCreationComplete,
-              properties: {
-                method: firstTimeFlowType,
-                is_profile_syncing_enabled: isProfileSyncingEnabled,
-              },
-            });
             history.push(ONBOARDING_PIN_EXTENSION_ROUTE);
           }}
         >

@@ -275,9 +275,6 @@ export const SENTRY_BACKGROUND_STATE = {
     remoteFeatureFlags: true,
     cacheTimestamp: false,
   },
-  NotificationServicesPushController: {
-    fcmToken: false,
-  },
   MultichainRatesController: {
     fiatCurrency: true,
     rates: true,

@@ -1,9 +1,9 @@
 export {
   useDisableProfileSyncing,
   useEnableProfileSyncing,
+  useSetIsProfileSyncingEnabled,
 } from './profileSyncing';
 export {
-  useAccountSyncing,
-  useShouldDispatchAccountSyncing,
+  useAccountSyncingEffect,
   useDeleteAccountSyncingDataFromUserStorage,
 } from './accountSyncing';
