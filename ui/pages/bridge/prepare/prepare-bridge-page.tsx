@@ -11,7 +11,7 @@ import { debounce } from 'lodash';
 import { useHistory, useLocation } from 'react-router-dom';
 import { BigNumber } from 'bignumber.js';
 import { type TokenListMap } from '@metamask/assets-controllers';
-import { toChecksumAddress, zeroAddress } from 'ethereumjs-util';
+import { toChecksumAddress, zeroAddress } from '@ethereumjs/util';
 import {
   setFromToken,
   setFromTokenInputValue,

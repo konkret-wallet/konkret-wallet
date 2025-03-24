@@ -1,5 +1,5 @@
 import React, { memo } from 'react';
-import { toChecksumAddress } from 'ethereumjs-util';
+import { toChecksumAddress } from '@ethereumjs/util';
 import { NameType } from '@metamask/name-controller';
 import { Text } from '../../../component-library';
 import { shortenAddress } from '../../../../helpers/utils/util';
