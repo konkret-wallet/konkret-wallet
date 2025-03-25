@@ -61,10 +61,6 @@ import {
 import { formatDateWithYearContext } from '../../../helpers/utils/util';
 ///: BEGIN:ONLY_INCLUDE_IF(build-main,build-beta,build-flask)
 import { useAccountTotalFiatBalance } from '../../../hooks/useAccountTotalFiatBalance';
-import {
-  RAMPS_CARD_VARIANT_TYPES,
-  RampsCard,
-} from '../../multichain/ramps-card/ramps-card';
 import { getIsNativeTokenBuyable } from '../../../ducks/ramps';
 ///: END:ONLY_INCLUDE_IF
 ///: BEGIN:ONLY_INCLUDE_IF(multichain)
@@ -226,7 +222,6 @@ export default function TransactionList({
   );
   const balanceIsZero = Number(totalFiatBalance) === 0;
   const isBuyableChain = useSelector(getIsNativeTokenBuyable);
-  const showRampsCard = isBuyableChain && balanceIsZero;
   ///: END:ONLY_INCLUDE_IF
 
   const renderDateStamp = (index, dateGroup) => {
@@ -406,13 +401,6 @@ export default function TransactionList({
 
   return (
     <>
-      {
-        ///: BEGIN:ONLY_INCLUDE_IF(build-main,build-beta,build-flask)
-        showRampsCard ? (
-          <RampsCard variant={RAMPS_CARD_VARIANT_TYPES.ACTIVITY} />
-        ) : null
-        ///: END:ONLY_INCLUDE_IF
-      }
       <Box className="transaction-list" {...boxProps}>
         <Box className="transaction-list__transactions">
           {pendingTransactions.length > 0 && (
