@@ -8,7 +8,6 @@ import Authenticated from '../../helpers/higher-order-components/authenticated';
 import Initialized from '../../helpers/higher-order-components/initialized';
 import PermissionsConnect from '../permissions-connect';
 import Loading from '../../components/ui/loading-screen';
-import LoadingNetwork from '../../components/app/loading-network-screen';
 import { Modal } from '../../components/app/modals';
 import Alert from '../../components/ui/alert';
 import {
@@ -144,7 +143,6 @@ export default class Routes extends Component {
     loadingMessage: PropTypes.string,
     alertMessage: PropTypes.string,
     textDirection: PropTypes.string,
-    isNetworkLoading: PropTypes.bool,
     alertOpen: PropTypes.bool,
     isUnlocked: PropTypes.bool,
     setLastActiveTime: PropTypes.func,
@@ -379,7 +377,6 @@ export default class Routes extends Component {
       alertMessage,
       textDirection,
       loadingMessage,
-      isNetworkLoading,
       browserEnvironmentOs: os,
       browserEnvironmentBrowser: browser,
       shouldShowSeedPhraseReminder,
@@ -412,10 +409,9 @@ export default class Routes extends Component {
       ///: END:ONLY_INCLUDE_IF
     } = this.props;
 
-    const loadMessage =
-      loadingMessage || isNetworkLoading
-        ? getConnectingLabel(loadingMessage, this.props, this.context)
-        : null;
+    const loadMessage = loadingMessage
+      ? getConnectingLabel(loadingMessage, this.props, this.context)
+      : null;
 
     const windowType = getEnvironmentType();
 
@@ -527,9 +523,6 @@ export default class Routes extends Component {
         }
         <Box className="main-container-wrapper">
           {isLoadingShown ? <Loading loadingMessage={loadMessage} /> : null}
-          {!isLoading && isNetworkLoading && completedOnboarding ? (
-            <LoadingNetwork />
-          ) : null}
           {this.renderRoutes()}
         </Box>
         {isUnlocked ? <Alerts history={this.props.history} /> : null}
