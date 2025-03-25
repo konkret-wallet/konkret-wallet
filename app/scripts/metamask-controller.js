@@ -173,7 +173,7 @@ import {
   CaveatTypes,
 } from '../../shared/constants/permissions';
 import { UI_NOTIFICATIONS } from '../../shared/notifications';
-import { MILLISECOND, MINUTE, SECOND } from '../../shared/constants/time';
+import { MILLISECOND, SECOND } from '../../shared/constants/time';
 import {
   ORIGIN_METAMASK,
   POLLING_TOKEN_ENVIRONMENT_TYPES,
@@ -207,7 +207,6 @@ import { getProviderConfig } from '../../shared/modules/selectors/networks';
 import { endTrace, trace } from '../../shared/lib/trace';
 import { BridgeStatusAction } from '../../shared/types/bridge-status';
 import { ENVIRONMENT } from '../../development/build/constants';
-import fetchWithCache from '../../shared/lib/fetch-with-cache';
 import {
   BridgeUserAction,
   BridgeBackgroundAction,
@@ -1561,21 +1560,6 @@ export default class MetamaskController extends EventEmitter {
       clearPendingConfirmations.bind(this),
     );
 
-    // RemoteFeatureFlagController has subscription for preferences changes
-    this.controllerMessenger.subscribe(
-      'PreferencesController:stateChange',
-      previousValueComparator((prevState, currState) => {
-        const { useExternalServices: prevUseExternalServices } = prevState;
-        const { useExternalServices: currUseExternalServices } = currState;
-        if (currUseExternalServices && !prevUseExternalServices) {
-          this.remoteFeatureFlagController.enable();
-          this.remoteFeatureFlagController.updateRemoteFeatureFlags();
-        } else if (!currUseExternalServices && prevUseExternalServices) {
-          this.remoteFeatureFlagController.disable();
-        }
-      }, this.preferencesController.state),
-    );
-
     // Initialize RemoteFeatureFlagController
     this.remoteFeatureFlagController = new RemoteFeatureFlagController({
       messenger: this.controllerMessenger.getRestricted({
@@ -1583,11 +1567,11 @@ export default class MetamaskController extends EventEmitter {
         allowedActions: [],
         allowedEvents: [],
       }),
-      fetchInterval: 15 * 60 * 1000, // 15 minutes in milliseconds
-      disabled: !this.preferencesController.state.useExternalServices,
-      getMetaMetricsId: () => null,
+      fetchInterval: Number.MAX_SAFE_INTEGER,
+      disabled: true,
+      getMetaMetricsId: () => '',
       clientConfigApiService: new ClientConfigApiService({
-        fetch: globalThis.fetch.bind(globalThis),
+        fetch: () => Promise.resolve(''),
         config: {
           client: ClientType.Extension,
           distribution:
@@ -1917,29 +1901,6 @@ export default class MetamaskController extends EventEmitter {
     }
   }
 
-  // Provides a method for getting feature flags for the multichain
-  // initial rollout, such that we can remotely modify polling interval
-  getInfuraFeatureFlags() {
-    fetchWithCache({
-      url: 'https://swap.api.cx.metamask.io/featureFlags',
-      cacheRefreshTime: MINUTE * 20,
-    })
-      .then(this.onFeatureFlagResponseReceived)
-      .catch((e) => {
-        // API unreachable (?)
-        log.warn('Feature flag endpoint is unreachable', e);
-      });
-  }
-
-  onFeatureFlagResponseReceived(response) {
-    const { multiChainAssets = {} } = response;
-    const { pollInterval } = multiChainAssets;
-    // Polling interval is provided in seconds
-    if (pollInterval > 0) {
-      this.tokenBalancesController.setIntervalLength(pollInterval * SECOND);
-    }
-  }
-
   postOnboardingInitialization() {
     const { usePhishDetect } = this.preferencesController.state;
 
@@ -1958,7 +1919,6 @@ export default class MetamaskController extends EventEmitter {
     ]);
 
     this.tokenDetectionController.enable();
-    this.getInfuraFeatureFlags();
   }
 
   stopNetworkRequests() {
