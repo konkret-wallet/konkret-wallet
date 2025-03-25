@@ -33,10 +33,6 @@ import { MenuItem } from '../../ui/menu';
 // eslint-disable-next-line import/no-restricted-paths
 import { getEnvironmentType } from '../../../../app/scripts/lib/util';
 import { ENVIRONMENT_TYPE_FULLSCREEN } from '../../../../shared/constants/app';
-import { SUPPORT_LINK } from '../../../../shared/lib/ui-utils';
-///: BEGIN:ONLY_INCLUDE_IF(build-beta,build-flask)
-import { SUPPORT_REQUEST_LINK } from '../../../helpers/constants/common';
-///: END:ONLY_INCLUDE_IF
 
 import {
   getSelectedInternalAccount,
@@ -85,13 +81,6 @@ export const GlobalMenu = ({ closeMenu, anchorElement, isOpen }) => {
   let hasNotifySnaps = false;
   const snapsUpdatesAvailable = useSelector(getAnySnapUpdateAvailable);
   hasNotifySnaps = useSelector(getNotifySnaps).length > 0;
-
-  let supportText = t('support');
-  let supportLink = SUPPORT_LINK;
-  ///: BEGIN:ONLY_INCLUDE_IF(build-beta,build-flask)
-  supportText = t('needHelpSubmitTicket');
-  supportLink = SUPPORT_REQUEST_LINK;
-  ///: END:ONLY_INCLUDE_IF
 
   // Accessibility improvement for popover
   const lastItemRef = React.useRef(null);
@@ -225,16 +214,6 @@ export const GlobalMenu = ({ closeMenu, anchorElement, isOpen }) => {
         showInfoDot={snapsUpdatesAvailable}
       >
         {t('snaps')}
-      </MenuItem>
-      <MenuItem
-        iconName={IconName.MessageQuestion}
-        onClick={() => {
-          global.platform.openTab({ url: supportLink });
-          closeMenu();
-        }}
-        data-testid="global-menu-support"
-      >
-        {supportText}
       </MenuItem>
       <MenuItem
         iconName={IconName.Setting}
