@@ -6,10 +6,7 @@ import {
   getMultichainNetwork,
 } from '../../../../selectors/multichain';
 import DetectedToken from '../../detected-token/detected-token';
-import {
-  useAssetListTokenDetection,
-  usePrimaryCurrencyProperties,
-} from '../hooks';
+import { useAssetListTokenDetection } from '../hooks';
 import { getSelectedInternalAccount } from '../../../../selectors';
 import { useMultichainSelector } from '../../../../hooks/useMultichainSelector';
 import AssetListControlBar from './asset-list-control-bar';
@@ -27,8 +24,6 @@ const TokenListContainer = React.memo(
       getMultichainNetwork,
       account,
     );
-    const { primaryCurrencyProperties } = usePrimaryCurrencyProperties();
-
     const onTokenClick = useCallback(
       (chainId: string, tokenAddress: string) => {
         if (isEvmNetwork) {

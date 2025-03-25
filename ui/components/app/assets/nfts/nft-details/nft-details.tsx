@@ -188,12 +188,10 @@ export function NftDetailsComponent({
   const { chainId } = currentChain;
 
   const onRemove = async () => {
-    let isSuccessfulEvent = false;
     try {
       await dispatch(removeAndIgnoreNft(address, tokenId));
       dispatch(setNewNftAddedMessage(''));
       dispatch(setRemoveNftMessage('success'));
-      isSuccessfulEvent = true;
     } catch (err) {
       dispatch(setNewNftAddedMessage(''));
       dispatch(setRemoveNftMessage('error'));

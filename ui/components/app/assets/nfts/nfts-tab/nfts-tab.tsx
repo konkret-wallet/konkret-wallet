@@ -68,8 +68,6 @@ export default function NftsTab() {
   const { currentlyOwnedNfts, previouslyOwnedNfts } = useNfts();
 
   const hasAnyNfts = Object.keys(collections).length > 0;
-  const showNftBanner = hasAnyNfts === false;
-  const { chainId, nickname } = useSelector(getCurrentNetwork);
 
   useEffect(() => {
     if (!nftsLoading && !nftsStillFetchingIndication) {
