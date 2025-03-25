@@ -2,11 +2,6 @@ import * as React from 'react';
 import { NameType } from '@metamask/name-controller';
 import configureStore from 'redux-mock-store';
 import { renderWithProvider } from '../../../../test/lib/render-helpers';
-import { MetaMetricsContext } from '../../../contexts/metametrics';
-import {
-  MetaMetricsEventCategory,
-  MetaMetricsEventName,
-} from '../../../../shared/constants/metametrics';
 import { useDisplayName } from '../../../hooks/useDisplayName';
 import { mockNetworkState } from '../../../../test/stub/networks';
 import { CHAIN_IDS } from '../../../../shared/constants/network';
@@ -127,43 +122,5 @@ describe('Name', () => {
     );
 
     expect(container).toMatchSnapshot();
-  });
-
-  describe('metrics', () => {
-    // @ts-expect-error This is missing from the Mocha type definitions
-    it.each([
-      ['saved', ADDRESS_SAVED_NAME_MOCK, true],
-      ['not saved', ADDRESS_NO_SAVED_NAME_MOCK, false],
-    ])(
-      'sends displayed event with %s name',
-      async (_: string, value: string, hasPetname: boolean) => {
-        const trackEventMock = jest.fn();
-
-        useDisplayNameMock.mockReturnValue({
-          name: hasPetname ? SAVED_NAME_MOCK : null,
-          hasPetname,
-        });
-
-        renderWithProvider(
-          <MetaMetricsContext.Provider value={trackEventMock}>
-            <Name
-              type={NameType.ETHEREUM_ADDRESS}
-              value={value}
-              variation={VARIATION_MOCK}
-            />
-          </MetaMetricsContext.Provider>,
-          store,
-        );
-
-        expect(trackEventMock).toHaveBeenCalledWith({
-          event: MetaMetricsEventName.PetnameDisplayed,
-          category: MetaMetricsEventCategory.Petnames,
-          properties: {
-            petname_category: NameType.ETHEREUM_ADDRESS,
-            has_petname: hasPetname,
-          },
-        });
-      },
-    );
   });
 });

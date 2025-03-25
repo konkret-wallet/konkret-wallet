@@ -1,19 +1,7 @@
-import React, {
-  memo,
-  useCallback,
-  useContext,
-  useEffect,
-  useState,
-} from 'react';
+import React, { memo, useCallback, useState } from 'react';
 import { NameType } from '@metamask/name-controller';
 import { Box } from '../../component-library';
-import { MetaMetricsContext } from '../../../contexts/metametrics';
-import {
-  MetaMetricsEventCategory,
-  MetaMetricsEventName,
-} from '../../../../shared/constants/metametrics';
 import { Display } from '../../../helpers/constants/design-system';
-import { useDisplayName } from '../../../hooks/useDisplayName';
 import NameDisplay from './name-details/name-display';
 import NameDetails from './name-details/name-details';
 
@@ -40,26 +28,6 @@ export type NameProps = {
 const Name = memo(
   ({ value, type, preferContractSymbol = false, variation }: NameProps) => {
     const [modalOpen, setModalOpen] = useState(false);
-    const trackEvent = useContext(MetaMetricsContext);
-
-    const { name } = useDisplayName({
-      value,
-      type,
-      preferContractSymbol,
-      variation,
-    });
-
-    useEffect(() => {
-      trackEvent({
-        event: MetaMetricsEventName.PetnameDisplayed,
-        category: MetaMetricsEventCategory.Petnames,
-        properties: {
-          petname_category: type,
-          has_petname: Boolean(name?.length),
-        },
-      });
-      // using `[]` as we only want to call `trackEvent` on the initial render
-    }, []);
 
     const handleClick = useCallback(() => {
       setModalOpen(true);

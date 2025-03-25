@@ -55,7 +55,6 @@ import { useName } from '../../../../hooks/useName';
 import { useDisplayName } from '../../../../hooks/useDisplayName';
 import { useI18nContext } from '../../../../hooks/useI18nContext';
 import NameDisplay from './name-display';
-import { usePetnamesMetrics } from './metrics';
 
 const UPDATE_DELAY = 1000 * 2; // 2 Seconds
 
@@ -224,7 +223,6 @@ export default function NameDetails({
 
   const nameSources = useSelector(getNameSources, isEqual);
   const [name, setName] = useState('');
-  const [openMetricSent, setOpenMetricSent] = useState(false);
   const [selectedSourceId, setSelectedSourceId] = useState<string>();
   const [selectedSourceName, setSelectedSourceName] = useState<string>();
   const dispatch = useDispatch();
@@ -233,11 +231,7 @@ export default function NameDetails({
   const isRecognizedUnsaved = !hasSavedPetname && Boolean(displayName);
   const formattedValue = formatValue(value, type);
 
-  const { proposedNames, initialSources } = useProposedNames(
-    value,
-    type,
-    variation,
-  );
+  const { proposedNames } = useProposedNames(value, type, variation);
 
   const [copiedAddress, handleCopyAddress] = useCopyToClipboard() as [
     boolean,
@@ -257,28 +251,7 @@ export default function NameDetails({
     [proposedNames, nameSources],
   );
 
-  const { trackPetnamesOpenEvent, trackPetnamesSaveEvent } = usePetnamesMetrics(
-    {
-      initialSources,
-      name,
-      proposedNameOptions,
-      savedName: savedPetname,
-      savedSourceId,
-      selectedSourceId,
-      type,
-    },
-  );
-
-  useEffect(() => {
-    if (initialSources && !openMetricSent) {
-      trackPetnamesOpenEvent();
-      setOpenMetricSent(true);
-    }
-  }, [initialSources, openMetricSent, trackPetnamesOpenEvent]);
-
   const handleSaveClick = useCallback(async () => {
-    trackPetnamesSaveEvent();
-
     await dispatch(
       saveName({
         value,
@@ -290,7 +263,7 @@ export default function NameDetails({
     );
 
     onClose();
-  }, [name, selectedSourceId, onClose, trackPetnamesSaveEvent, variation]);
+  }, [name, selectedSourceId, onClose, variation]);
 
   const handleClose = useCallback(() => {
     onClose();
