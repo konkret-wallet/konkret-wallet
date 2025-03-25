@@ -42,7 +42,7 @@ const initialState = {
     showExtensionInFullSizeView: false,
     showFiatInTestnets: false,
     showTestNetworks: false,
-    smartTransactionsOptInStatus: true,
+    smartTransactionsOptInStatus: false,
     petnamesEnabled: true,
     featureNotificationsEnabled: false,
     privacyMode: false,
@@ -51,9 +51,10 @@ const initialState = {
   firstTimeFlowType: null,
   completedOnboarding: false,
   knownMethodData: {},
-  use4ByteResolution: true,
-  participateInMetaMetrics: null,
-  dataCollectionForMarketing: null,
+  use4ByteResolution: false,
+  useSafeChainsListValidation: false,
+  participateInMetaMetrics: false,
+  dataCollectionForMarketing: false,
   currencyRates: {
     ETH: {
       conversionRate: null,

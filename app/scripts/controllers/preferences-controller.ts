@@ -32,14 +32,15 @@ type AccountIdentityEntry = {
 };
 
 const mainNetworks = {
-  [CHAIN_IDS.MAINNET]: true,
-  [CHAIN_IDS.LINEA_MAINNET]: true,
+  [CHAIN_IDS.MAINNET]: false,
+  [CHAIN_IDS.LINEA_MAINNET]: false,
 };
 
 const testNetworks = {
-  [CHAIN_IDS.GOERLI]: true,
-  [CHAIN_IDS.SEPOLIA]: true,
-  [CHAIN_IDS.LINEA_SEPOLIA]: true,
+  [CHAIN_IDS.GOERLI]: false,
+  [CHAIN_IDS.SEPOLIA]: false,
+  [CHAIN_IDS.LINEA_SEPOLIA]: false,
+  [CHAIN_IDS.LOCALHOST]: false,
 };
 
 const controllerName = 'PreferencesController';
@@ -172,19 +173,19 @@ export const getDefaultPreferencesControllerState =
   (): PreferencesControllerState => ({
     selectedAddress: '',
     useBlockie: false,
-    usePhishDetect: true,
+    usePhishDetect: false,
     dismissSeedBackUpReminder: false,
     overrideContentSecurityPolicyHeader: true,
-    useMultiAccountBalanceChecker: true,
-    useSafeChainsListValidation: true,
+    useMultiAccountBalanceChecker: false,
+    useSafeChainsListValidation: false,
     // set to true means the dynamic list from the API is being used
     // set to false will be using the static list from contract-metadata
-    useTokenDetection: true,
-    useNftDetection: true,
-    use4ByteResolution: true,
+    useTokenDetection: false,
+    useNftDetection: false,
+    use4ByteResolution: false,
     useCurrencyRateCheck: true,
-    openSeaEnabled: true,
-    securityAlertsEnabled: true,
+    openSeaEnabled: false,
+    securityAlertsEnabled: false,
     watchEthereumAccountEnabled: false,
     bitcoinSupportEnabled: false,
     bitcoinTestnetSupportEnabled: false,
@@ -207,7 +208,7 @@ export const getDefaultPreferencesControllerState =
       showExtensionInFullSizeView: false,
       showFiatInTestnets: false,
       showTestNetworks: false,
-      smartTransactionsOptInStatus: true,
+      smartTransactionsOptInStatus: false,
       smartTransactionsMigrationApplied: false,
       showNativeTokenAsMainBalance: false,
       useNativeCurrencyAsPrimaryCurrency: true,
@@ -226,9 +227,10 @@ export const getDefaultPreferencesControllerState =
       tokenNetworkFilter: {},
     },
     // ENS decentralized website resolution
+    // TODO
     ipfsGateway: IPFS_DEFAULT_GATEWAY_URL,
-    isIpfsGatewayEnabled: true,
-    useAddressBarEnsResolution: true,
+    isIpfsGatewayEnabled: false,
+    useAddressBarEnsResolution: false,
     // Ledger transport type is deprecated. We currently only support webhid
     // on chrome, and u2f on firefox.
     ledgerTransportType: window.navigator.hid
@@ -239,36 +241,35 @@ export const getDefaultPreferencesControllerState =
     ///: BEGIN:ONLY_INCLUDE_IF(keyring-snaps)
     snapsAddSnapAccountModalDismissed: false,
     ///: END:ONLY_INCLUDE_IF
-    useExternalNameSources: true,
+    useExternalNameSources: false,
     useTransactionSimulations: true,
     enableMV3TimestampSave: true,
     // Turning OFF basic functionality toggle means turning OFF this useExternalServices flag.
     // Whenever useExternalServices is false, certain features will be disabled.
-    // The flag is true by Default, meaning the toggle is ON by default.
-    useExternalServices: true,
+    useExternalServices: false,
     // from core PreferencesController
     isMultiAccountBalancesEnabled: true,
     showIncomingTransactions: {
-      [ETHERSCAN_SUPPORTED_CHAIN_IDS.MAINNET]: true,
-      [ETHERSCAN_SUPPORTED_CHAIN_IDS.GOERLI]: true,
-      [ETHERSCAN_SUPPORTED_CHAIN_IDS.BSC]: true,
-      [ETHERSCAN_SUPPORTED_CHAIN_IDS.BSC_TESTNET]: true,
-      [ETHERSCAN_SUPPORTED_CHAIN_IDS.OPTIMISM]: true,
-      [ETHERSCAN_SUPPORTED_CHAIN_IDS.OPTIMISM_SEPOLIA]: true,
-      [ETHERSCAN_SUPPORTED_CHAIN_IDS.POLYGON]: true,
-      [ETHERSCAN_SUPPORTED_CHAIN_IDS.POLYGON_TESTNET]: true,
-      [ETHERSCAN_SUPPORTED_CHAIN_IDS.AVALANCHE]: true,
-      [ETHERSCAN_SUPPORTED_CHAIN_IDS.AVALANCHE_TESTNET]: true,
-      [ETHERSCAN_SUPPORTED_CHAIN_IDS.FANTOM]: true,
-      [ETHERSCAN_SUPPORTED_CHAIN_IDS.FANTOM_TESTNET]: true,
-      [ETHERSCAN_SUPPORTED_CHAIN_IDS.SEPOLIA]: true,
-      [ETHERSCAN_SUPPORTED_CHAIN_IDS.LINEA_GOERLI]: true,
-      [ETHERSCAN_SUPPORTED_CHAIN_IDS.LINEA_SEPOLIA]: true,
-      [ETHERSCAN_SUPPORTED_CHAIN_IDS.LINEA_MAINNET]: true,
-      [ETHERSCAN_SUPPORTED_CHAIN_IDS.MOONBEAM]: true,
-      [ETHERSCAN_SUPPORTED_CHAIN_IDS.MOONBEAM_TESTNET]: true,
-      [ETHERSCAN_SUPPORTED_CHAIN_IDS.MOONRIVER]: true,
-      [ETHERSCAN_SUPPORTED_CHAIN_IDS.GNOSIS]: true,
+      [ETHERSCAN_SUPPORTED_CHAIN_IDS.MAINNET]: false,
+      [ETHERSCAN_SUPPORTED_CHAIN_IDS.GOERLI]: false,
+      [ETHERSCAN_SUPPORTED_CHAIN_IDS.BSC]: false,
+      [ETHERSCAN_SUPPORTED_CHAIN_IDS.BSC_TESTNET]: false,
+      [ETHERSCAN_SUPPORTED_CHAIN_IDS.OPTIMISM]: false,
+      [ETHERSCAN_SUPPORTED_CHAIN_IDS.OPTIMISM_SEPOLIA]: false,
+      [ETHERSCAN_SUPPORTED_CHAIN_IDS.POLYGON]: false,
+      [ETHERSCAN_SUPPORTED_CHAIN_IDS.POLYGON_TESTNET]: false,
+      [ETHERSCAN_SUPPORTED_CHAIN_IDS.AVALANCHE]: false,
+      [ETHERSCAN_SUPPORTED_CHAIN_IDS.AVALANCHE_TESTNET]: false,
+      [ETHERSCAN_SUPPORTED_CHAIN_IDS.FANTOM]: false,
+      [ETHERSCAN_SUPPORTED_CHAIN_IDS.FANTOM_TESTNET]: false,
+      [ETHERSCAN_SUPPORTED_CHAIN_IDS.SEPOLIA]: false,
+      [ETHERSCAN_SUPPORTED_CHAIN_IDS.LINEA_GOERLI]: false,
+      [ETHERSCAN_SUPPORTED_CHAIN_IDS.LINEA_SEPOLIA]: false,
+      [ETHERSCAN_SUPPORTED_CHAIN_IDS.LINEA_MAINNET]: false,
+      [ETHERSCAN_SUPPORTED_CHAIN_IDS.MOONBEAM]: false,
+      [ETHERSCAN_SUPPORTED_CHAIN_IDS.MOONBEAM_TESTNET]: false,
+      [ETHERSCAN_SUPPORTED_CHAIN_IDS.MOONRIVER]: false,
+      [ETHERSCAN_SUPPORTED_CHAIN_IDS.GNOSIS]: false,
     },
   });
 
@@ -466,7 +467,7 @@ export class PreferencesController extends BaseController<
     const addedNonMainNetwork: Record<Hex, boolean> = Object.values(
       networkConfigurationsByChainId ?? {},
     ).reduce((acc: Record<Hex, boolean>, element) => {
-      acc[element.chainId] = true;
+      acc[element.chainId] = false;
       return acc;
     }, {});
     super({
