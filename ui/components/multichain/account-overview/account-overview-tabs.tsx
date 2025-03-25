@@ -5,7 +5,7 @@ import { endTrace, trace } from '../../../../shared/lib/trace';
 import { useI18nContext } from '../../../hooks/useI18nContext';
 import { ASSET_ROUTE } from '../../../helpers/constants/routes';
 import {
-  ///: BEGIN:ONLY_INCLUDE_IF(build-main)
+  ///: BEGIN:ONLY_INCLUDE_IF(build-beta)
   SUPPORT_LINK,
   ///: END:ONLY_INCLUDE_IF
 } from '../../../../shared/lib/ui-utils';
@@ -13,19 +13,19 @@ import NftsTab from '../../app/assets/nfts/nfts-tab';
 import AssetList from '../../app/assets/asset-list';
 import TransactionList from '../../app/transaction-list';
 import { Tabs, Tab } from '../../ui/tabs';
-///: BEGIN:ONLY_INCLUDE_IF(build-main)
+///: BEGIN:ONLY_INCLUDE_IF(build-beta)
 import {
   ///: END:ONLY_INCLUDE_IF
-  ///: BEGIN:ONLY_INCLUDE_IF(build-main)
+  ///: BEGIN:ONLY_INCLUDE_IF(build-beta)
   Display,
   ///: END:ONLY_INCLUDE_IF
-  ///: BEGIN:ONLY_INCLUDE_IF(build-main)
+  ///: BEGIN:ONLY_INCLUDE_IF(build-beta)
   JustifyContent,
 } from '../../../helpers/constants/design-system';
 ///: END:ONLY_INCLUDE_IF
 import {
   Box,
-  ///: BEGIN:ONLY_INCLUDE_IF(build-main)
+  ///: BEGIN:ONLY_INCLUDE_IF(build-beta)
   ButtonLink,
   ButtonLinkSize,
   IconName,
@@ -48,7 +48,7 @@ export type AccountOverviewTabsProps = AccountOverviewCommonProps & {
 
 export const AccountOverviewTabs = ({
   onTabClick,
-  ///: BEGIN:ONLY_INCLUDE_IF(build-main)
+  ///: BEGIN:ONLY_INCLUDE_IF(build-beta)
   onSupportLinkClick,
   ///: END:ONLY_INCLUDE_IF
   defaultHomeActiveTabName,
@@ -87,7 +87,7 @@ export const AccountOverviewTabs = ({
     [onTabClick],
   );
 
-  ///: BEGIN:ONLY_INCLUDE_IF(build-main)
+  ///: BEGIN:ONLY_INCLUDE_IF(build-beta)
   const NeedHelpButtonLink = React.memo((props: Record<string, unknown>) => (
     <ButtonLink
       size={ButtonLinkSize.Md}
@@ -130,7 +130,7 @@ export const AccountOverviewTabs = ({
                 onClickAsset={onClickAsset}
               />
               {
-                ///: BEGIN:ONLY_INCLUDE_IF(build-main)
+                ///: BEGIN:ONLY_INCLUDE_IF(build-beta)
                 <NeedHelpButtonLink
                   justifyContent={JustifyContent.flexStart}
                   paddingLeft={4}
@@ -151,7 +151,7 @@ export const AccountOverviewTabs = ({
           >
             <NftsTab />
             {
-              ///: BEGIN:ONLY_INCLUDE_IF(build-main)
+              ///: BEGIN:ONLY_INCLUDE_IF(build-beta)
               <NeedHelpButtonLink
                 justifyContent={JustifyContent.flexStart}
                 paddingLeft={4}
@@ -171,7 +171,7 @@ export const AccountOverviewTabs = ({
           >
             <TransactionList boxProps={{ paddingTop: 4 }} />
             {
-              ///: BEGIN:ONLY_INCLUDE_IF(build-main)
+              ///: BEGIN:ONLY_INCLUDE_IF(build-beta)
               <NeedHelpButtonLink
                 justifyContent={JustifyContent.center}
                 marginBottom={4}
