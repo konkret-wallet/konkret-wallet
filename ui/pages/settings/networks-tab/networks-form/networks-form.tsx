@@ -1,16 +1,11 @@
 import log from 'loglevel';
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   type UpdateNetworkFields,
   RpcEndpointType,
 } from '@metamask/network-controller';
 import { Hex, isStrictHexString } from '@metamask/utils';
-import {
-  MetaMetricsEventCategory,
-  MetaMetricsEventName,
-  MetaMetricsNetworkEventSource,
-} from '../../../../../shared/constants/metametrics';
 import {
   CHAIN_ID_TO_CURRENCY_SYMBOL_MAP,
   CHAIN_IDS,
@@ -26,7 +21,6 @@ import {
   isSafeChainId,
 } from '../../../../../shared/modules/network.utils';
 import { jsonRpcRequest } from '../../../../../shared/modules/rpc.utils';
-import { MetaMetricsContext } from '../../../../contexts/metametrics';
 import { useI18nContext } from '../../../../hooks/useI18nContext';
 import { getNetworkConfigurationsByChainId } from '../../../../../shared/modules/selectors/networks';
 import {
@@ -84,7 +78,6 @@ export const NetworksForm = ({
 }) => {
   const t = useI18nContext();
   const dispatch = useDispatch();
-  const trackEvent = useContext(MetaMetricsContext);
   const scrollableRef = useRef<HTMLDivElement>(null);
   const networkConfigurations = useSelector(getNetworkConfigurationsByChainId);
 
@@ -281,28 +274,6 @@ export const NetworksForm = ({
         } else {
           await dispatch(addNetwork(networkPayload));
         }
-
-        trackEvent({
-          event: MetaMetricsEventName.CustomNetworkAdded,
-          category: MetaMetricsEventCategory.Network,
-          properties: {
-            block_explorer_url:
-              blockExplorers?.blockExplorerUrls?.[
-                blockExplorers?.defaultBlockExplorerUrlIndex ?? -1
-              ],
-            chain_id: chainIdHex,
-            network_name: name,
-            source_connection_method:
-              MetaMetricsNetworkEventSource.CustomNetworkForm,
-            token_symbol: ticker,
-          },
-          sensitiveProperties: {
-            rpcUrl: rpcIdentifierUtility(
-              rpcUrls?.rpcEndpoints[rpcUrls.defaultRpcEndpointIndex ?? -1]?.url,
-              safeChains ?? [],
-            ),
-          },
-        });
 
         dispatch(
           setEditedNetwork({

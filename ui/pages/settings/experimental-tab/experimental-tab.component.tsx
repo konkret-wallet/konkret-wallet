@@ -5,12 +5,6 @@ import {
   getNumberOfSettingRoutesInTab,
   handleSettingsRefs,
 } from '../../../helpers/utils/settings-search';
-///: BEGIN:ONLY_INCLUDE_IF(keyring-snaps)
-import {
-  MetaMetricsEventCategory,
-  MetaMetricsEventName,
-} from '../../../../shared/constants/metametrics';
-///: END:ONLY_INCLUDE_IF
 
 import {
   ///: BEGIN:ONLY_INCLUDE_IF(keyring-snaps)
@@ -55,7 +49,6 @@ type ExperimentalTabProps = {
 export default class ExperimentalTab extends PureComponent<ExperimentalTabProps> {
   static contextTypes = {
     t: PropTypes.func,
-    trackEvent: PropTypes.func,
   };
 
   settingsRefs = Array(
@@ -143,7 +136,7 @@ export default class ExperimentalTab extends PureComponent<ExperimentalTabProps>
 
   ///: BEGIN:ONLY_INCLUDE_IF(keyring-snaps)
   renderKeyringSnapsToggle() {
-    const { t, trackEvent } = this.context;
+    const { t } = this.context;
     const { addSnapAccountEnabled, setAddSnapAccountEnabled } = this.props;
 
     return (
@@ -174,13 +167,6 @@ export default class ExperimentalTab extends PureComponent<ExperimentalTabProps>
           description: t('addSnapAccountsDescription'),
           toggleValue: addSnapAccountEnabled,
           toggleCallback: (value) => {
-            trackEvent({
-              event: MetaMetricsEventName.AddSnapAccountEnabled,
-              category: MetaMetricsEventCategory.Settings,
-              properties: {
-                enabled: !value,
-              },
-            });
             setAddSnapAccountEnabled(!value);
           },
           toggleContainerDataTestId: 'add-account-snap-toggle-div',
@@ -211,7 +197,7 @@ export default class ExperimentalTab extends PureComponent<ExperimentalTabProps>
 
   ///: BEGIN:ONLY_INCLUDE_IF(build-flask)
   renderWatchAccountToggle() {
-    const { t, trackEvent } = this.context;
+    const { t } = this.context;
     const { watchAccountEnabled, setWatchAccountEnabled } = this.props;
 
     return this.renderToggleSection({
@@ -228,13 +214,6 @@ export default class ExperimentalTab extends PureComponent<ExperimentalTabProps>
       ]),
       toggleValue: watchAccountEnabled,
       toggleCallback: (value) => {
-        trackEvent({
-          event: MetaMetricsEventName.WatchEthereumAccountsToggled,
-          category: MetaMetricsEventCategory.Settings,
-          properties: {
-            enabled: !value,
-          },
-        });
         setWatchAccountEnabled(!value);
       },
       toggleContainerDataTestId: 'watch-account-toggle-div',
@@ -249,7 +228,7 @@ export default class ExperimentalTab extends PureComponent<ExperimentalTabProps>
   // we should remove it for the feature release
   ///: BEGIN:ONLY_INCLUDE_IF(bitcoin)
   renderBitcoinSupport() {
-    const { t, trackEvent } = this.context;
+    const { t } = this.context;
     const {
       bitcoinSupportEnabled,
       setBitcoinSupportEnabled,
@@ -282,13 +261,6 @@ export default class ExperimentalTab extends PureComponent<ExperimentalTabProps>
           ]),
           toggleValue: bitcoinSupportEnabled,
           toggleCallback: (value) => {
-            trackEvent({
-              event: MetaMetricsEventName.BitcoinSupportToggled,
-              category: MetaMetricsEventCategory.Settings,
-              properties: {
-                enabled: !value,
-              },
-            });
             setBitcoinSupportEnabled(!value);
           },
           toggleContainerDataTestId: 'bitcoin-support-toggle-div',
@@ -301,13 +273,6 @@ export default class ExperimentalTab extends PureComponent<ExperimentalTabProps>
           description: t('bitcoinTestnetSupportToggleDescription'),
           toggleValue: bitcoinTestnetSupportEnabled,
           toggleCallback: (value) => {
-            trackEvent({
-              event: MetaMetricsEventName.BitcoinTestnetSupportToggled,
-              category: MetaMetricsEventCategory.Settings,
-              properties: {
-                enabled: !value,
-              },
-            });
             setBitcoinTestnetSupportEnabled(!value);
           },
           toggleDataTestId: 'bitcoin-testnet-accounts-toggle',

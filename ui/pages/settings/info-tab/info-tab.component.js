@@ -10,11 +10,6 @@ import {
   getNumberOfSettingRoutesInTab,
   handleSettingsRefs,
 } from '../../../helpers/utils/settings-search';
-import {
-  MetaMetricsContextProp,
-  MetaMetricsEventCategory,
-  MetaMetricsEventName,
-} from '../../../../shared/constants/metametrics';
 import VisitSupportDataConsentModal from '../../../components/app/modals/visit-support-data-consent-modal';
 
 export default class InfoTab extends PureComponent {
@@ -25,7 +20,6 @@ export default class InfoTab extends PureComponent {
 
   static contextTypes = {
     t: PropTypes.func,
-    trackEvent: PropTypes.func,
   };
 
   settingsRefs = Array(
@@ -140,22 +134,6 @@ export default class InfoTab extends PureComponent {
             target="_blank"
             rel="noopener noreferrer"
             className="info-tab__link-text"
-            onClick={() => {
-              this.context.trackEvent(
-                {
-                  category: MetaMetricsEventCategory.Settings,
-                  event: MetaMetricsEventName.SupportLinkClicked,
-                  properties: {
-                    url: SUPPORT_REQUEST_LINK,
-                  },
-                },
-                {
-                  contextPropsIntoEventProperties: [
-                    MetaMetricsContextProp.PageTitle,
-                  ],
-                },
-              );
-            }}
           >
             {t('contactUs')}
           </Button>
