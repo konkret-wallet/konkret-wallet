@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import classnames from 'classnames';
@@ -40,11 +40,6 @@ import { getMarketData, getCurrencyRates } from '../../../selectors';
 import { getMultichainIsEvm } from '../../../selectors/multichain';
 import Tooltip from '../../ui/tooltip';
 import { useI18nContext } from '../../../hooks/useI18nContext';
-import { MetaMetricsContext } from '../../../contexts/metametrics';
-import {
-  MetaMetricsEventCategory,
-  MetaMetricsEventName,
-} from '../../../../shared/constants/metametrics';
 import {
   CURRENCY_SYMBOLS,
   NON_EVM_CURRENCY_SYMBOLS,
@@ -104,7 +99,6 @@ export const TokenListItemComponent = ({
 }: TokenListItemProps) => {
   const t = useI18nContext();
   const isEvm = useSelector(getMultichainIsEvm);
-  const trackEvent = useContext(MetaMetricsContext);
   const { safeChains } = useSafeChains();
   const currencyRates = useSelector(getCurrencyRates);
 
@@ -201,16 +195,6 @@ export const TokenListItemComponent = ({
             }
 
             onClick();
-            trackEvent({
-              category: MetaMetricsEventCategory.Tokens,
-              event: MetaMetricsEventName.TokenDetailsOpened,
-              properties: {
-                location: 'Home',
-                // FIXME: This might not be a number for non-EVM accounts
-                chain_id: chainId,
-                token_symbol: tokenSymbol,
-              },
-            });
           },
         })}
       >

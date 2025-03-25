@@ -1,9 +1,4 @@
-import React, { useContext, useState } from 'react';
-import { MetaMetricsContext } from '../../../contexts/metametrics';
-import {
-  MetaMetricsEventCategory,
-  MetaMetricsEventName,
-} from '../../../../shared/constants/metametrics';
+import React, { useState } from 'react';
 import {
   Button,
   ButtonVariant,
@@ -35,7 +30,6 @@ export const NotificationDetailButton = ({
   isExternal = false,
   endIconName = true,
 }: NotificationDetailButtonProps) => {
-  const trackEvent = useContext(MetaMetricsContext);
   const { navigate } = useSnapNavigation();
   const isMetaMaskUrl = href.startsWith('metamask:');
   const [isOpen, setIsOpen] = useState(false);
@@ -46,28 +40,7 @@ export const NotificationDetailButton = ({
     setIsOpen(false);
   };
 
-  // this logic can be expanded once this detail button is used outside of the current use cases
-  const getClickedItem = () => {
-    if (notification.type === TRIGGER_TYPES.FEATURES_ANNOUNCEMENT) {
-      return 'block_explorer';
-    }
-    return isExternal ? 'external_link' : 'internal_link';
-  };
-
   const onClick = () => {
-    trackEvent({
-      category: MetaMetricsEventCategory.NotificationInteraction,
-      event: MetaMetricsEventName.NotificationDetailClicked,
-      properties: {
-        notification_id: notification.id,
-        notification_type: notification.type,
-        ...('chain_id' in notification && {
-          chain_id: notification.chain_id,
-        }),
-        clicked_item: getClickedItem(),
-      },
-    });
-
     if (isSnapNotification) {
       if (isMetaMaskUrl) {
         navigate(href);

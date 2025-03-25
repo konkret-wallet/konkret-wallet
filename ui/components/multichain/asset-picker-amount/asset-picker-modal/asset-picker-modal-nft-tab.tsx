@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import {
@@ -28,16 +28,8 @@ import NFTsDetectionNoticeNFTsTab from '../../../app/assets/nfts/nfts-detection-
 import NftGrid from '../../../app/assets/nfts/nft-grid/nft-grid';
 import { useNfts } from '../../../../hooks/useNfts';
 import { SEND_ROUTE } from '../../../../helpers/constants/routes';
-import { MetaMetricsContext } from '../../../../contexts/metametrics';
-import {
-  MetaMetricsEventCategory,
-  MetaMetricsEventName,
-} from '../../../../../shared/constants/metametrics';
 import { AssetType } from '../../../../../shared/constants/transaction';
-import {
-  getSendAnalyticProperties,
-  updateSendAsset,
-} from '../../../../ducks/send';
+import { updateSendAsset } from '../../../../ducks/send';
 import { NFT } from './types';
 
 export type PreviouslyOwnedCollections = {
@@ -66,8 +58,6 @@ export function AssetPickerModalNftTab({
   );
 
   const { currentlyOwnedNfts } = useNfts();
-  const trackEvent = useContext(MetaMetricsContext);
-  const sendAnalytics = useSelector(getSendAnalyticProperties);
 
   const filteredNfts = currentlyOwnedNfts.reduce((acc: NFT[], nft: NFT) => {
     // Assuming `nft` has a `name` property
@@ -85,22 +75,6 @@ export function AssetPickerModalNftTab({
   const hasAnyNfts = filteredNfts.length > 0;
 
   const handleNftClick = async (nft: NFT) => {
-    trackEvent(
-      {
-        event: MetaMetricsEventName.sendAssetSelected,
-        category: MetaMetricsEventCategory.Send,
-        properties: {
-          is_destination_asset_picker_modal: false,
-          is_nft: true,
-        },
-        sensitiveProperties: {
-          ...sendAnalytics,
-          new_asset_symbol: nft.name,
-          new_asset_address: nft.address,
-        },
-      },
-      { excludeMetaMetricsId: false },
-    );
     await dispatch(
       updateSendAsset({
         type: AssetType.NFT,

@@ -1,16 +1,9 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { getErrorMessage } from '../../../../shared/modules/error';
-import {
-  MetaMetricsEventAccountImportType,
-  MetaMetricsEventAccountType,
-  MetaMetricsEventCategory,
-  MetaMetricsEventName,
-} from '../../../../shared/constants/metametrics';
 import { Box, ButtonLink, Label, Text } from '../../component-library';
 import Dropdown from '../../ui/dropdown';
-import { MetaMetricsContext } from '../../../contexts/metametrics';
 import {
   BlockSize,
   FontWeight,
@@ -29,7 +22,6 @@ import PrivateKeyImportView from './private-key';
 export const ImportAccount = ({ onActionComplete }) => {
   const t = useI18nContext();
   const dispatch = useDispatch();
-  const trackEvent = useContext(MetaMetricsContext);
 
   const menuItems = [t('privateKey'), t('jsonFile')];
 
@@ -43,7 +35,6 @@ export const ImportAccount = ({ onActionComplete }) => {
         actions.importNewAccount(strategy, importArgs, loadingMessage),
       );
       if (selectedAddress) {
-        trackImportEvent(strategy, true);
         dispatch(actions.hideWarning());
         onActionComplete(true);
       } else {
@@ -52,32 +43,11 @@ export const ImportAccount = ({ onActionComplete }) => {
       }
     } catch (error) {
       const message = getErrorMessage(error);
-      trackImportEvent(strategy, message);
       translateWarning(message);
       return false;
     }
 
     return true;
-  }
-
-  function trackImportEvent(strategy, wasSuccessful) {
-    const accountImportType =
-      strategy === 'Private Key'
-        ? MetaMetricsEventAccountImportType.PrivateKey
-        : MetaMetricsEventAccountImportType.Json;
-
-    const event = wasSuccessful
-      ? MetaMetricsEventName.AccountAdded
-      : MetaMetricsEventName.AccountAddFailed;
-
-    trackEvent({
-      category: MetaMetricsEventCategory.Accounts,
-      event,
-      properties: {
-        account_type: MetaMetricsEventAccountType.Imported,
-        account_import_type: accountImportType,
-      },
-    });
   }
 
   function getLoadingMessage(strategy) {

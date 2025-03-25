@@ -1,11 +1,6 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import type { FC } from 'react';
 import { NotificationServicesController } from '@metamask/notification-services-controller';
-import { MetaMetricsContext } from '../../../contexts/metametrics';
-import {
-  MetaMetricsEventCategory,
-  MetaMetricsEventName,
-} from '../../../../shared/constants/metametrics';
 import {
   ButtonBase,
   IconName,
@@ -48,6 +43,7 @@ export type NotificationDetailCopyButtonProps = {
 export const NotificationDetailCopyButton: FC<
   NotificationDetailCopyButtonProps
 > = ({
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   notification,
   text,
   displayText,
@@ -55,27 +51,12 @@ export const NotificationDetailCopyButton: FC<
 }): JSX.Element => {
   const [copied, handleCopy] = useCopyToClipboard(MINUTE);
   const t = useI18nContext();
-  const trackEvent = useContext(MetaMetricsContext);
 
   const tooltipText = copied ? t('copiedExclamation') : t('copyToClipboard');
   const tooltipTitle = tooltipText;
 
   const onClick = () => {
     typeof handleCopy === 'function' && handleCopy(text);
-    if (notification) {
-      trackEvent({
-        category: MetaMetricsEventCategory.NotificationInteraction,
-        event: MetaMetricsEventName.NotificationDetailClicked,
-        properties: {
-          notification_id: notification.id,
-          notification_type: notification.type,
-          ...('chain_id' in notification && {
-            chain_id: notification.chain_id,
-          }),
-          clicked_item: 'tx_id',
-        },
-      });
-    }
   };
 
   return (

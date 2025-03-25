@@ -21,17 +21,11 @@ import {
   TextColor,
 } from '../../../../../helpers/constants/design-system';
 import { CONTACT_LIST_ROUTE } from '../../../../../helpers/constants/routes';
-import { MetaMetricsContext } from '../../../../../contexts/metametrics';
-import {
-  MetaMetricsEventCategory,
-  MetaMetricsEventName,
-} from '../../../../../../shared/constants/metametrics';
 import { SendPageRow } from './send-page-row';
 
 export const SendPageAddressBook = () => {
   const t = useContext(I18nContext);
   const dispatch = useDispatch();
-  const trackEvent = useContext(MetaMetricsContext);
 
   const addressBook = useSelector(getAddressBook);
   const internalAccounts = useSelector(getInternalAccounts);
@@ -100,17 +94,6 @@ export const SendPageAddressBook = () => {
       addHistoryEntry(
         `sendFlow - User clicked recipient from ${type}. address: ${address}, nickname ${nickname}`,
       ),
-    );
-    trackEvent(
-      {
-        event: MetaMetricsEventName.sendRecipientSelected,
-        category: MetaMetricsEventCategory.Send,
-        properties: {
-          location: 'address book',
-          inputType: type,
-        },
-      },
-      { excludeMetaMetricsId: false },
     );
     dispatch(updateRecipient({ address, nickname }));
     dispatch(updateRecipientUserInput(address));

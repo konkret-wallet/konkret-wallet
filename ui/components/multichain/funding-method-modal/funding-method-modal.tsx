@@ -1,4 +1,4 @@
-import React, { useCallback, useContext } from 'react';
+import React, { useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import { CaipChainId } from '@metamask/utils';
 import {
@@ -13,27 +13,12 @@ import {
   TextVariant,
   TextAlign,
 } from '../../../helpers/constants/design-system';
-import {
-  getMultichainCurrentNetwork,
-  getMultichainDefaultToken,
-} from '../../../selectors/multichain';
-import useRamps, {
-  RampsMetaMaskEntry,
-} from '../../../hooks/ramps/useRamps/useRamps';
+import { getMultichainCurrentNetwork } from '../../../selectors/multichain';
+import useRamps from '../../../hooks/ramps/useRamps/useRamps';
 import { getPortfolioUrl } from '../../../helpers/utils/portfolio';
-import {
-  getMetaMetricsId,
-  getParticipateInMetaMetrics,
-  getDataCollectionForMarketing,
-  getSelectedAccount,
-} from '../../../selectors';
+import { getSelectedAccount } from '../../../selectors';
 import { useI18nContext } from '../../../hooks/useI18nContext';
 import { ChainId } from '../../../../shared/constants/network';
-import {
-  MetaMetricsEventCategory,
-  MetaMetricsEventName,
-} from '../../../../shared/constants/metametrics';
-import { MetaMetricsContext } from '../../../contexts/metametrics';
 import FundingMethodItem from './funding-method-item';
 
 type FundingMethodModalProps = {
@@ -50,59 +35,26 @@ export const FundingMethodModal: React.FC<FundingMethodModalProps> = ({
   onClickReceive,
 }) => {
   const t = useI18nContext();
-  const trackEvent = useContext(MetaMetricsContext);
   const { openBuyCryptoInPdapp } = useRamps();
   const { address: accountAddress } = useSelector(getSelectedAccount);
   const { chainId } = useSelector(getMultichainCurrentNetwork);
-  const { symbol } = useSelector(getMultichainDefaultToken);
-  const metaMetricsId = useSelector(getMetaMetricsId);
-  const isMetaMetricsEnabled = useSelector(getParticipateInMetaMetrics);
-  const isMarketingEnabled = useSelector(getDataCollectionForMarketing);
 
   const handleTransferCryptoClick = useCallback(() => {
-    trackEvent({
-      event: MetaMetricsEventName.NavSendButtonClicked,
-      category: MetaMetricsEventCategory.Navigation,
-      properties: {
-        location: RampsMetaMaskEntry?.TokensBanner,
-        text: 'Transfer crypto',
-        chain_id: chainId,
-        token_symbol: symbol,
-      },
-    });
-
     const url = getPortfolioUrl(
       'transfer',
       'ext_funding_method_modal',
-      metaMetricsId,
-      isMetaMetricsEnabled,
-      isMarketingEnabled,
+      'metaMetricsId',
+      false,
+      false,
       accountAddress,
       'transfer',
     );
     global.platform.openTab({ url });
-  }, [
-    metaMetricsId,
-    isMetaMetricsEnabled,
-    isMarketingEnabled,
-    chainId,
-    symbol,
-    accountAddress,
-  ]);
+  }, [accountAddress]);
 
   const handleBuyCryptoClick = useCallback(() => {
-    trackEvent({
-      event: MetaMetricsEventName.NavBuyButtonClicked,
-      category: MetaMetricsEventCategory.Navigation,
-      properties: {
-        location: RampsMetaMaskEntry?.TokensBanner,
-        text: 'Buy crypto',
-        chain_id: chainId,
-        token_symbol: symbol,
-      },
-    });
     openBuyCryptoInPdapp(chainId as ChainId | CaipChainId);
-  }, [chainId, symbol]);
+  }, [chainId, openBuyCryptoInPdapp]);
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} data-testid="funding-method-modal">

@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useMemo } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { endTrace, trace } from '../../../../shared/lib/trace';
@@ -9,8 +9,6 @@ import {
   SUPPORT_LINK,
   ///: END:ONLY_INCLUDE_IF
 } from '../../../../shared/lib/ui-utils';
-import { MetaMetricsEventCategory } from '../../../../shared/constants/metametrics';
-import { MetaMetricsContext } from '../../../contexts/metametrics';
 import NftsTab from '../../app/assets/nfts/nfts-tab';
 import AssetList from '../../app/assets/asset-list';
 import TransactionList from '../../app/transaction-list';
@@ -35,7 +33,6 @@ import {
 } from '../../component-library';
 
 import {
-  ACCOUNT_OVERVIEW_TAB_KEY_TO_METAMETRICS_EVENT_NAME_MAP,
   ACCOUNT_OVERVIEW_TAB_KEY_TO_TRACE_NAME_MAP,
   AccountOverviewTabKey,
 } from '../../../../shared/constants/app-state';
@@ -62,7 +59,6 @@ export const AccountOverviewTabs = ({
 }: AccountOverviewTabsProps) => {
   const history = useHistory();
   const t = useI18nContext();
-  const trackEvent = useContext(MetaMetricsContext);
   const dispatch = useDispatch();
 
   const tabProps = useMemo(
@@ -79,10 +75,6 @@ export const AccountOverviewTabs = ({
       if (tabName === AccountOverviewTabKey.Nfts) {
         dispatch(detectNfts());
       }
-      trackEvent({
-        category: MetaMetricsEventCategory.Home,
-        event: ACCOUNT_OVERVIEW_TAB_KEY_TO_METAMETRICS_EVENT_NAME_MAP[tabName],
-      });
       if (defaultHomeActiveTabName) {
         endTrace({
           name: ACCOUNT_OVERVIEW_TAB_KEY_TO_TRACE_NAME_MAP[

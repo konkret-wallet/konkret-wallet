@@ -1,10 +1,4 @@
-import React, {
-  useContext,
-  useState,
-  useMemo,
-  useCallback,
-  useEffect,
-} from 'react';
+import React, { useState, useMemo, useCallback, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import {
   useHistory,
@@ -23,10 +17,10 @@ import {
   ///: END:ONLY_INCLUDE_IF
 } from '@metamask/keyring-api';
 ///: BEGIN:ONLY_INCLUDE_IF(build-flask)
-import {
-  BITCOIN_WALLET_NAME,
-  BITCOIN_WALLET_SNAP_ID,
-} from '../../../../shared/lib/accounts/bitcoin-wallet-snap';
+// import {
+//   BITCOIN_WALLET_NAME,
+//   BITCOIN_WALLET_SNAP_ID,
+// } from '../../../../shared/lib/accounts/bitcoin-wallet-snap';
 ///: END:ONLY_INCLUDE_IF
 import {
   Box,
@@ -56,7 +50,6 @@ import {
   TextVariant,
 } from '../../../helpers/constants/design-system';
 import { useI18nContext } from '../../../hooks/useI18nContext';
-import { MetaMetricsContext } from '../../../contexts/metametrics';
 import {
   getConnectedSubjectsForAllAddresses,
   getHiddenAccountsList,
@@ -80,11 +73,6 @@ import {
 } from '../../../selectors';
 import { setSelectedAccount } from '../../../store/actions';
 import {
-  MetaMetricsEventAccountType,
-  MetaMetricsEventCategory,
-  MetaMetricsEventName,
-} from '../../../../shared/constants/metametrics';
-import {
   CONNECT_HARDWARE_ROUTE,
   ///: BEGIN:ONLY_INCLUDE_IF(build-flask)
   CONFIRMATION_V_NEXT_ROUTE,
@@ -97,7 +85,7 @@ import { getEnvironmentType } from '../../../../app/scripts/lib/util';
 import { ENVIRONMENT_TYPE_POPUP } from '../../../../shared/constants/app';
 ///: BEGIN:ONLY_INCLUDE_IF(build-flask)
 import {
-  ACCOUNT_WATCHER_NAME,
+  //   ACCOUNT_WATCHER_NAME,
   ACCOUNT_WATCHER_SNAP_ID,
   // TODO: Remove restricted import
   // eslint-disable-next-line import/no-restricted-paths
@@ -128,10 +116,10 @@ import {
 import { CreateEthAccount } from '../create-eth-account';
 import { ImportAccount } from '../import-account';
 ///: BEGIN:ONLY_INCLUDE_IF(solana)
-import {
-  SOLANA_WALLET_NAME,
-  SOLANA_WALLET_SNAP_ID,
-} from '../../../../shared/lib/accounts/solana-wallet-snap';
+// import {
+//  SOLANA_WALLET_NAME,
+//  SOLANA_WALLET_SNAP_ID,
+// } from '../../../../shared/lib/accounts/solana-wallet-snap';
 ///: END:ONLY_INCLUDE_IF
 ///: BEGIN:ONLY_INCLUDE_IF(multi-srp)
 import { ImportSrp } from '../multi-srp/import-srp';
@@ -214,7 +202,6 @@ export const AccountListMenu = ({
   ],
 }: AccountListMenuProps) => {
   const t = useI18nContext();
-  const trackEvent = useContext(MetaMetricsContext);
   useEffect(() => {
     endTrace({ name: TraceName.AccountList });
   }, []);
@@ -263,19 +250,9 @@ export const AccountListMenu = ({
     getIsWatchEthereumAccountEnabled,
   );
   const handleAddWatchAccount = useCallback(async () => {
-    await trackEvent({
-      category: MetaMetricsEventCategory.Navigation,
-      event: MetaMetricsEventName.AccountAddSelected,
-      properties: {
-        account_type: MetaMetricsEventAccountType.Snap,
-        snap_id: ACCOUNT_WATCHER_SNAP_ID,
-        snap_name: ACCOUNT_WATCHER_NAME,
-        location: 'Main Menu',
-      },
-    });
     onClose();
     history.push(`/snaps/view/${encodeURIComponent(ACCOUNT_WATCHER_SNAP_ID)}`);
-  }, [trackEvent, onClose, history]);
+  }, [onClose, history]);
 
   const bitcoinSupportEnabled = useSelector(getIsBitcoinSupportEnabled);
   const bitcoinTestnetSupportEnabled = useSelector(
@@ -345,13 +322,6 @@ export const AccountListMenu = ({
     (account) => {
       return () => {
         onClose();
-        trackEvent({
-          category: MetaMetricsEventCategory.Navigation,
-          event: MetaMetricsEventName.NavAccountSwitched,
-          properties: {
-            location: 'Main Menu',
-          },
-        });
         endTrace({
           name: ACCOUNT_OVERVIEW_TAB_KEY_TO_TRACE_NAME_MAP[
             defaultHomeActiveTabName
@@ -365,7 +335,7 @@ export const AccountListMenu = ({
         dispatch(setSelectedAccount(account.address));
       };
     },
-    [dispatch, onClose, trackEvent],
+    [dispatch, onClose],
   );
 
   return (
@@ -453,14 +423,6 @@ export const AccountListMenu = ({
                 startIconName={IconName.Add}
                 startIconProps={{ size: IconSize.Md }}
                 onClick={() => {
-                  trackEvent({
-                    category: MetaMetricsEventCategory.Navigation,
-                    event: MetaMetricsEventName.AccountAddSelected,
-                    properties: {
-                      account_type: MetaMetricsEventAccountType.Default,
-                      location: 'Main Menu',
-                    },
-                  });
                   setActionMode(ACTION_MODES.ADD);
                 }}
                 data-testid="multichain-account-menu-popover-add-account"
@@ -477,17 +439,6 @@ export const AccountListMenu = ({
                     startIconName={IconName.Add}
                     startIconProps={{ size: IconSize.Md }}
                     onClick={async () => {
-                      trackEvent({
-                        category: MetaMetricsEventCategory.Navigation,
-                        event: MetaMetricsEventName.AccountAddSelected,
-                        properties: {
-                          account_type: MetaMetricsEventAccountType.Snap,
-                          snap_id: SOLANA_WALLET_SNAP_ID,
-                          snap_name: SOLANA_WALLET_NAME,
-                          location: 'Main Menu',
-                        },
-                      });
-
                       // The account creation + renaming is handled by the
                       // Snap account bridge, so we need to close the current
                       // modal
@@ -516,17 +467,6 @@ export const AccountListMenu = ({
                     startIconName={IconName.Add}
                     startIconProps={{ size: IconSize.Md }}
                     onClick={async () => {
-                      trackEvent({
-                        category: MetaMetricsEventCategory.Navigation,
-                        event: MetaMetricsEventName.AccountAddSelected,
-                        properties: {
-                          account_type: MetaMetricsEventAccountType.Snap,
-                          snap_id: BITCOIN_WALLET_SNAP_ID,
-                          snap_name: BITCOIN_WALLET_NAME,
-                          location: 'Main Menu',
-                        },
-                      });
-
                       await handleAccountCreation(MultichainNetworks.BITCOIN);
                     }}
                     data-testid="multichain-account-menu-popover-add-btc-account"
@@ -592,14 +532,6 @@ export const AccountListMenu = ({
                 startIconProps={{ size: IconSize.Md }}
                 data-testid="multichain-account-menu-popover-add-imported-account"
                 onClick={() => {
-                  trackEvent({
-                    category: MetaMetricsEventCategory.Navigation,
-                    event: MetaMetricsEventName.AccountAddSelected,
-                    properties: {
-                      account_type: MetaMetricsEventAccountType.Imported,
-                      location: 'Main Menu',
-                    },
-                  });
                   setActionMode(ACTION_MODES.IMPORT);
                 }}
               >
@@ -621,14 +553,6 @@ export const AccountListMenu = ({
                 startIconProps={{ size: IconSize.Md }}
                 onClick={() => {
                   onClose();
-                  trackEvent({
-                    category: MetaMetricsEventCategory.Navigation,
-                    event: MetaMetricsEventName.AccountAddSelected,
-                    properties: {
-                      account_type: MetaMetricsEventAccountType.Hardware,
-                      location: 'Main Menu',
-                    },
-                  });
                   if (getEnvironmentType() === ENVIRONMENT_TYPE_POPUP) {
                     global.platform.openExtensionInBrowser?.(
                       CONNECT_HARDWARE_ROUTE,
@@ -651,14 +575,6 @@ export const AccountListMenu = ({
                     startIconProps={{ size: IconSize.Md }}
                     onClick={() => {
                       onClose();
-                      trackEvent({
-                        category: MetaMetricsEventCategory.Navigation,
-                        event: MetaMetricsEventName.AccountAddSelected,
-                        properties: {
-                          account_type: MetaMetricsEventAccountType.Snap,
-                          location: 'Main Menu',
-                        },
-                      });
                       global.platform.openTab({
                         url: process.env.ACCOUNT_SNAPS_DIRECTORY_URL as string,
                       });

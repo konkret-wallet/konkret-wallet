@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 
@@ -6,22 +6,11 @@ import { setAccountDetailsAddress } from '../../../store/actions';
 
 import { MenuItem } from '../../ui/menu';
 import { useI18nContext } from '../../../hooks/useI18nContext';
-import { MetaMetricsContext } from '../../../contexts/metametrics';
-import {
-  MetaMetricsEventCategory,
-  MetaMetricsEventName,
-} from '../../../../shared/constants/metametrics';
 import { IconName, Text } from '../../component-library';
 
-export const AccountDetailsMenuItem = ({
-  metricsLocation,
-  closeMenu,
-  address,
-  textProps,
-}) => {
+export const AccountDetailsMenuItem = ({ closeMenu, address, textProps }) => {
   const t = useI18nContext();
   const dispatch = useDispatch();
-  const trackEvent = useContext(MetaMetricsContext);
 
   const LABEL = t('accountDetails');
 
@@ -29,13 +18,6 @@ export const AccountDetailsMenuItem = ({
     <MenuItem
       onClick={() => {
         dispatch(setAccountDetailsAddress(address));
-        trackEvent({
-          event: MetaMetricsEventName.AccountDetailsOpened,
-          category: MetaMetricsEventCategory.Navigation,
-          properties: {
-            location: metricsLocation,
-          },
-        });
         closeMenu?.();
       }}
       iconName={IconName.ScanBarcode}
@@ -47,10 +29,6 @@ export const AccountDetailsMenuItem = ({
 };
 
 AccountDetailsMenuItem.propTypes = {
-  /**
-   * Represents the "location" property of the metrics event
-   */
-  metricsLocation: PropTypes.string.isRequired,
   /**
    * Closes the menu
    */

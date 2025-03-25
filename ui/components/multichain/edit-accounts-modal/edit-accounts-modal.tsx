@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useI18nContext } from '../../../hooks/useI18nContext';
 import {
   Modal,
@@ -30,11 +30,6 @@ import {
   BlockSize,
 } from '../../../helpers/constants/design-system';
 import { MergedInternalAccount } from '../../../selectors/selectors.types';
-import {
-  MetaMetricsEventCategory,
-  MetaMetricsEventName,
-} from '../../../../shared/constants/metametrics';
-import { MetaMetricsContext } from '../../../contexts/metametrics';
 import { isEqualCaseInsensitive } from '../../../../shared/modules/string-utils';
 
 type EditAccountsModalProps = {
@@ -51,7 +46,6 @@ export const EditAccountsModal: React.FC<EditAccountsModalProps> = ({
   onSubmit,
 }) => {
   const t = useI18nContext();
-  const trackEvent = useContext(MetaMetricsContext);
 
   const [showAddNewAccounts, setShowAddNewAccounts] = useState(false);
   const [selectedAccountAddresses, setSelectedAccountAddresses] = useState(
@@ -88,9 +82,6 @@ export const EditAccountsModal: React.FC<EditAccountsModalProps> = ({
     accounts.length === selectedAccountAddresses.length;
   const checked = allAreSelected();
   const isIndeterminate = !checked && selectedAccountAddresses.length > 0;
-
-  const defaultSet = new Set(defaultSelectedAccountAddresses);
-  const selectedSet = new Set(selectedAccountAddresses);
 
   return (
     <Modal
@@ -201,23 +192,7 @@ export const EditAccountsModal: React.FC<EditAccountsModalProps> = ({
             <ButtonPrimary
               data-testid="connect-more-accounts-button"
               onClick={() => {
-                const addedAccounts = selectedAccountAddresses.filter(
-                  (address) => !defaultSet.has(address),
-                );
-                const removedAccounts = defaultSelectedAccountAddresses.filter(
-                  (address) => !selectedSet.has(address),
-                );
-
                 onSubmit(selectedAccountAddresses);
-                trackEvent({
-                  category: MetaMetricsEventCategory.Permissions,
-                  event: MetaMetricsEventName.UpdatePermissionedAccounts,
-                  properties: {
-                    addedAccounts: addedAccounts.length,
-                    removedAccounts: removedAccounts.length,
-                    location: 'Edit Accounts Modal',
-                  },
-                });
 
                 onClose();
               }}

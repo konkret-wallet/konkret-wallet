@@ -10,11 +10,6 @@ import {
 } from '../../../selectors';
 import { formatBalance } from '../../../helpers/utils/util';
 import { getMostRecentOverviewPage } from '../../../ducks/history/history';
-import {
-  MetaMetricsEventAccountType,
-  MetaMetricsEventCategory,
-  MetaMetricsEventName,
-} from '../../../../shared/constants/metametrics';
 import { SECOND } from '../../../../shared/constants/time';
 import {
   HardwareDeviceNames,
@@ -300,29 +295,9 @@ class ConnectHardwareForm extends Component {
       description,
     )
       .then((_) => {
-        this.context.trackEvent({
-          category: MetaMetricsEventCategory.Accounts,
-          event: MetaMetricsEventName.AccountAdded,
-          properties: {
-            account_type: MetaMetricsEventAccountType.Hardware,
-            // For now we keep using the device name to avoid any discrepancies with our current metrics.
-            // TODO: This will be addressed later, see: https://github.com/MetaMask/metamask-extension/issues/29777
-            account_hardware_type: deviceName,
-          },
-        });
         history.push(mostRecentOverviewPage);
       })
       .catch((e) => {
-        this.context.trackEvent({
-          category: MetaMetricsEventCategory.Accounts,
-          event: MetaMetricsEventName.AccountAddFailed,
-          properties: {
-            account_type: MetaMetricsEventAccountType.Hardware,
-            // See comment above about `account_hardware_type`.
-            account_hardware_type: deviceName,
-            error: e.message,
-          },
-        });
         this.setState({ error: e.message });
       });
   };
@@ -506,7 +481,6 @@ const mapDispatchToProps = (dispatch) => {
 
 ConnectHardwareForm.contextTypes = {
   t: PropTypes.func,
-  trackEvent: PropTypes.func,
 };
 
 export default connect(

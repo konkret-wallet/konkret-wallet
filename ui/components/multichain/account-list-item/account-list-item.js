@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 ///: BEGIN:ONLY_INCLUDE_IF(build-main)
@@ -43,11 +43,6 @@ import { KeyringType } from '../../../../shared/constants/keyring';
 import UserPreferencedCurrencyDisplay from '../../app/user-preferenced-currency-display/user-preferenced-currency-display.component';
 import { PRIMARY, SECONDARY } from '../../../helpers/constants/common';
 import Tooltip from '../../ui/tooltip/tooltip';
-import {
-  MetaMetricsEventCategory,
-  MetaMetricsEventName,
-} from '../../../../shared/constants/metametrics';
-import { MetaMetricsContext } from '../../../contexts/metametrics';
 import {
   isAccountConnectedToCurrentTab,
   getUseBlockie,
@@ -203,7 +198,6 @@ const AccountListItem = ({
     }
   }, [itemRef, selected, shouldScrollToWhenSelected]);
 
-  const trackEvent = useContext(MetaMetricsContext);
   const primaryTokenImage = useMultichainSelector(
     getMultichainNativeCurrencyImage,
     account,
@@ -457,15 +451,6 @@ const AccountListItem = ({
           ref={setAccountListItemMenuRef}
           onClick={(e) => {
             e.stopPropagation();
-            if (!accountOptionsMenuOpen) {
-              trackEvent({
-                event: MetaMetricsEventName.AccountDetailMenuOpened,
-                category: MetaMetricsEventCategory.Navigation,
-                properties: {
-                  location: 'Account Options',
-                },
-              });
-            }
             setAccountOptionsMenuOpen(!accountOptionsMenuOpen);
           }}
           data-testid="account-list-item-menu-button"

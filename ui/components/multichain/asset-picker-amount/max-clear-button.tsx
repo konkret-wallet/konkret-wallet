@@ -1,13 +1,10 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   Asset,
-  getSendAnalyticProperties,
   getSendMaxModeState,
   toggleSendMaxMode,
 } from '../../../ducks/send';
-import { MetaMetricsContext } from '../../../contexts/metametrics';
-import { MetaMetricsEventCategory } from '../../../../shared/constants/metametrics';
 import { ButtonLink } from '../../component-library';
 import { useI18nContext } from '../../../hooks/useI18nContext';
 import { TextVariant } from '../../../helpers/constants/design-system';
@@ -19,19 +16,8 @@ export default function MaxClearButton({ asset }: { asset: Asset }) {
   const t = useI18nContext();
   const maxModeOn = useSelector(getSendMaxModeState);
   const dispatch = useDispatch();
-  const trackEvent = useContext(MetaMetricsContext);
-  const sendAnalytics = useSelector(getSendAnalyticProperties);
 
   const onClick = () => {
-    trackEvent({
-      event: 'Clicked "Amount Max"',
-      category: MetaMetricsEventCategory.Transactions,
-      properties: {
-        ...sendAnalytics,
-        action: 'Edit Screen',
-        legacy_event: true,
-      },
-    });
     dispatch(toggleSendMaxMode());
   };
 

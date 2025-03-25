@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import { Hex } from '@metamask/utils';
 import {
   BackgroundColor,
@@ -14,11 +14,6 @@ import {
 } from '../../../../component-library';
 import { EditAccountsModal, EditNetworksModal } from '../../..';
 import { MergedInternalAccount } from '../../../../../selectors/selectors.types';
-import { MetaMetricsContext } from '../../../../../contexts/metametrics';
-import {
-  MetaMetricsEventCategory,
-  MetaMetricsEventName,
-} from '../../../../../../shared/constants/metametrics';
 import { isEqualCaseInsensitive } from '../../../../../../shared/modules/string-utils';
 import { SiteCellTooltip } from './site-cell-tooltip';
 import { SiteCellConnectionListItem } from './site-cell-connection-list-item';
@@ -53,7 +48,6 @@ export const SiteCell: React.FC<SiteCellProps> = ({
   hideAllToasts = () => undefined,
 }) => {
   const t = useI18nContext();
-  const trackEvent = useContext(MetaMetricsContext);
   const allNetworks = [...nonTestNetworks, ...testNetworks];
 
   const [showEditAccountsModal, setShowEditAccountsModal] = useState(false);
@@ -96,27 +90,11 @@ export const SiteCell: React.FC<SiteCellProps> = ({
   const handleOpenAccountsModal = () => {
     hideAllToasts?.();
     setShowEditAccountsModal(true);
-    trackEvent({
-      category: MetaMetricsEventCategory.Navigation,
-      event: MetaMetricsEventName.ViewPermissionedAccounts,
-      properties: {
-        location:
-          'Connect view (permissions tab), Permissions toast, Permissions (dapp)',
-      },
-    });
   };
 
   const handleOpenNetworksModal = () => {
     hideAllToasts?.();
     setShowEditNetworksModal(true);
-    trackEvent({
-      category: MetaMetricsEventCategory.Navigation,
-      event: MetaMetricsEventName.ViewPermissionedNetworks,
-      properties: {
-        location:
-          'Connect view (permissions tab), Permissions toast, Permissions (dapp)',
-      },
-    });
   };
 
   return (

@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect } from 'react';
+import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import classnames from 'classnames';
@@ -19,20 +19,10 @@ import {
   TextVariant,
 } from '../../../helpers/constants/design-system';
 import { useI18nContext } from '../../../hooks/useI18nContext';
-import {
-  getMultichainDefaultToken,
-  getMultichainCurrentNetwork,
-} from '../../../selectors/multichain';
-import {
-  MetaMetricsEventCategory,
-  MetaMetricsEventName,
-} from '../../../../shared/constants/metametrics';
-import { MetaMetricsContext } from '../../../contexts/metametrics';
 import useRamps, {
   RampsMetaMaskEntry,
 } from '../../../hooks/ramps/useRamps/useRamps';
-import { ORIGIN_METAMASK } from '../../../../shared/constants/app';
-import { getCurrentLocale } from '../../../ducks/locale/locale';
+import { getMultichainCurrentNetwork } from '../../../selectors/multichain';
 import { submitRequestToBackground } from '../../../store/background-connection';
 
 const darkenGradient =
@@ -83,62 +73,24 @@ export const RampsCard = ({ variant, handleOnClick }) => {
   const { gradient, illustrationSrc, title, body } =
     RAMPS_CARD_VARIANTS[variant];
   const { openBuyCryptoInPdapp } = useRamps(metamaskEntryMap[variant]);
-  const trackEvent = useContext(MetaMetricsContext);
-  const currentLocale = useSelector(getCurrentLocale);
-  const { chainId, nickname } = useSelector(getMultichainCurrentNetwork);
-  const { symbol } = useSelector(getMultichainDefaultToken);
+  const { chainId } = useSelector(getMultichainCurrentNetwork);
 
   const isRampsCardClosed = useSelector(
     (state) => state.metamask.isRampCardClosed,
   );
 
-  useEffect(() => {
-    trackEvent({
-      event: MetaMetricsEventName.EmptyBuyBannerDisplayed,
-      category: MetaMetricsEventCategory.Navigation,
-      properties: {
-        // FIXME: This might not be a number for non-EVM networks
-        chain_id: chainId,
-        locale: currentLocale,
-        network: nickname,
-        referrer: ORIGIN_METAMASK,
-      },
-    });
-  }, [currentLocale, chainId, nickname, trackEvent]);
-
   const onClick = useCallback(() => {
     openBuyCryptoInPdapp(chainId);
-    trackEvent({
-      event: MetaMetricsEventName.NavBuyButtonClicked,
-      category: MetaMetricsEventCategory.Navigation,
-      properties: {
-        location: `${variant} tab`,
-        text: `Token Marketplace`,
-        // FIXME: This might not be a number for non-EVM networks
-        chain_id: chainId,
-        token_symbol: symbol,
-      },
-    });
-  }, [chainId, openBuyCryptoInPdapp, symbol, trackEvent, variant]);
+  }, [chainId, openBuyCryptoInPdapp]);
 
   const onClose = useCallback(() => {
-    trackEvent({
-      event: MetaMetricsEventName.EmptyBuyBannerClosed,
-      category: MetaMetricsEventCategory.Navigation,
-      properties: {
-        location: `${variant} tab`,
-        chain_id: chainId,
-        token_symbol: symbol,
-      },
-    });
-
     submitRequestToBackground('setRampCardClosed')?.catch((error) => {
       console.error(
         'Error caught in setRampCardClosed submitRequestToBackground',
         error,
       );
     });
-  }, [chainId, symbol, trackEvent, variant]);
+  }, []);
 
   if (isRampsCardClosed) {
     return null;

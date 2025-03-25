@@ -1,11 +1,6 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  MetaMetricsEventCategory,
-  MetaMetricsEventName,
-} from '../../../../shared/constants/metametrics';
-import { MetaMetricsContext } from '../../../contexts/metametrics';
 import {
   AlignItems,
   BackgroundColor,
@@ -40,7 +35,6 @@ import {
 
 export const HiddenAccountList = ({ onClose }) => {
   const t = useI18nContext();
-  const trackEvent = useContext(MetaMetricsContext);
   const dispatch = useDispatch();
   const hiddenAddresses = useSelector(getHiddenAccountsList);
   const accounts = useSelector(getMetaMaskAccountsOrdered);
@@ -114,13 +108,6 @@ export const HiddenAccountList = ({ onClose }) => {
                 <AccountListItem
                   onClick={() => {
                     onClose();
-                    trackEvent({
-                      category: MetaMetricsEventCategory.Navigation,
-                      event: MetaMetricsEventName.NavAccountSwitched,
-                      properties: {
-                        location: 'Main Menu',
-                      },
-                    });
                     dispatch(setSelectedAccount(account.address));
                   }}
                   account={account}

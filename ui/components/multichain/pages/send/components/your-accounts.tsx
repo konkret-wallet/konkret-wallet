@@ -1,4 +1,4 @@
-import React, { useContext, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { EthAccountType, KeyringAccountType } from '@metamask/keyring-api';
 import { InternalAccount } from '@metamask/keyring-internal-api';
@@ -12,11 +12,6 @@ import {
   updateRecipient,
   updateRecipientUserInput,
 } from '../../../../../ducks/send';
-import { MetaMetricsContext } from '../../../../../contexts/metametrics';
-import {
-  MetaMetricsEventCategory,
-  MetaMetricsEventName,
-} from '../../../../../../shared/constants/metametrics';
 import { SendPageRow } from './send-page-row';
 
 type SendPageYourAccountsProps = {
@@ -29,7 +24,6 @@ export const SendPageYourAccounts = ({
   allowedAccountTypes = defaultAllowedAccountTypes,
 }: SendPageYourAccountsProps) => {
   const dispatch = useDispatch();
-  const trackEvent = useContext(MetaMetricsContext);
 
   // Your Accounts
   const accounts = useSelector(getUpdatedAndSortedAccounts);
@@ -56,17 +50,6 @@ export const SendPageYourAccounts = ({
               addHistoryEntry(
                 `sendFlow - User clicked recipient from my accounts. address: ${account.address}, nickname ${account.name}`,
               ),
-            );
-            trackEvent(
-              {
-                event: MetaMetricsEventName.sendRecipientSelected,
-                category: MetaMetricsEventCategory.Send,
-                properties: {
-                  location: 'my accounts',
-                  inputType: 'click',
-                },
-              },
-              { excludeMetaMetricsId: false },
             );
             dispatch(
               updateRecipient({

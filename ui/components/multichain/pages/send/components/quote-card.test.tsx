@@ -1,7 +1,6 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { useDispatch, useSelector } from 'react-redux';
-import { MetaMetricsContext } from '../../../../../contexts/metametrics';
 import {
   getCurrentDraftTransaction,
   getBestQuote,
@@ -35,7 +34,6 @@ describe('QuoteCard', () => {
 
   const scrollRef = { current: document.createElement('div') };
   const mockDispatch = jest.fn();
-  const trackEventMock = jest.fn();
 
   beforeEach(() => {
     useDispatchMock.mockReturnValue(mockDispatch);
@@ -66,11 +64,7 @@ describe('QuoteCard', () => {
   });
 
   it('renders quote card with correct data', () => {
-    render(
-      <MetaMetricsContext.Provider value={trackEventMock}>
-        <QuoteCard scrollRef={scrollRef} />
-      </MetaMetricsContext.Provider>,
-    );
+    render(<QuoteCard scrollRef={scrollRef} />);
 
     expect(screen.getByTestId('quote-card__conversion-rate')).toHaveTextContent(
       '1 ETH = 2000 USD',
@@ -84,11 +78,7 @@ describe('QuoteCard', () => {
   });
 
   it('do not fetch quote on render', () => {
-    render(
-      <MetaMetricsContext.Provider value={trackEventMock}>
-        <QuoteCard scrollRef={scrollRef} />
-      </MetaMetricsContext.Provider>,
-    );
+    render(<QuoteCard scrollRef={scrollRef} />);
 
     expect(mockDispatch).not.toHaveBeenCalled();
   });
@@ -104,11 +94,7 @@ describe('QuoteCard', () => {
       return undefined;
     });
 
-    render(
-      <MetaMetricsContext.Provider value={trackEventMock}>
-        <QuoteCard scrollRef={scrollRef} />
-      </MetaMetricsContext.Provider>,
-    );
+    render(<QuoteCard scrollRef={scrollRef} />);
 
     expect(screen.getByText('swapFetchingQuotes')).toBeInTheDocument();
   });

@@ -1,12 +1,6 @@
 import PropTypes from 'prop-types';
-import React, { useCallback, useContext, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  MetaMetricsEventCategory,
-  MetaMetricsEventKeyType,
-  MetaMetricsEventName,
-} from '../../../../shared/constants/metametrics';
-import { MetaMetricsContext } from '../../../contexts/metametrics';
 import {
   AlignItems,
   Display,
@@ -45,7 +39,6 @@ import { AccountDetailsKey } from './account-details-key';
 export const AccountDetails = ({ address }) => {
   const dispatch = useDispatch();
   const t = useI18nContext();
-  const trackEvent = useContext(MetaMetricsContext);
   const useBlockie = useSelector(getUseBlockie);
   const accounts = useSelector(getMetaMaskAccountsOrdered);
   const {
@@ -149,13 +142,6 @@ export const AccountDetails = ({ address }) => {
       <HoldToRevealModal
         isOpen={showHoldToReveal}
         onClose={() => {
-          trackEvent({
-            category: MetaMetricsEventCategory.Keys,
-            event: MetaMetricsEventName.KeyExportCanceled,
-            properties: {
-              key_type: MetaMetricsEventKeyType.Pkey,
-            },
-          });
           setPrivateKey('');
           setShowHoldToReveal(false);
         }}

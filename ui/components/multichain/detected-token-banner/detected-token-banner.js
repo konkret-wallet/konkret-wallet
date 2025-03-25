@@ -1,24 +1,15 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import { useI18nContext } from '../../../hooks/useI18nContext';
-import {
-  getCurrentChainId,
-  getNetworkConfigurationsByChainId,
-} from '../../../../shared/modules/selectors/networks';
+import { getNetworkConfigurationsByChainId } from '../../../../shared/modules/selectors/networks';
 import {
   getDetectedTokensInCurrentNetwork,
   getAllDetectedTokensForSelectedAddress,
   getIsTokenNetworkFilterEqualCurrentNetwork,
 } from '../../../selectors';
-import { MetaMetricsContext } from '../../../contexts/metametrics';
-import {
-  MetaMetricsEventCategory,
-  MetaMetricsEventName,
-  MetaMetricsTokenEventSource,
-} from '../../../../shared/constants/metametrics';
 import { BannerAlert } from '../../component-library';
 
 export const DetectedTokensBanner = ({
@@ -27,7 +18,6 @@ export const DetectedTokensBanner = ({
   ...props
 }) => {
   const t = useI18nContext();
-  const trackEvent = useContext(MetaMetricsContext);
   const isTokenNetworkFilterEqualCurrentNetwork = useSelector(
     getIsTokenNetworkFilterEqualCurrentNetwork,
   );
@@ -44,14 +34,6 @@ export const DetectedTokensBanner = ({
   const detectedTokensMultichain = useSelector(
     getAllDetectedTokensForSelectedAddress,
   );
-  const chainId = useSelector(getCurrentChainId);
-
-  const detectedTokensDetails =
-    process.env.PORTFOLIO_VIEW && !isTokenNetworkFilterEqualCurrentNetwork
-      ? Object.values(detectedTokensMultichain)
-          .flat()
-          .map(({ address, symbol }) => `${symbol} - ${address}`)
-      : detectedTokens.map(({ address, symbol }) => `${symbol} - ${address}`);
 
   const totalTokens =
     process.env.PORTFOLIO_VIEW && !isTokenNetworkFilterEqualCurrentNetwork
@@ -63,15 +45,6 @@ export const DetectedTokensBanner = ({
 
   const handleOnClick = () => {
     actionButtonOnClick();
-    trackEvent({
-      event: MetaMetricsEventName.TokenImportClicked,
-      category: MetaMetricsEventCategory.Wallet,
-      properties: {
-        source_connection_method: MetaMetricsTokenEventSource.Detected,
-        tokens: detectedTokensDetails,
-        chain_id: chainId,
-      },
-    });
   };
   return (
     <BannerAlert

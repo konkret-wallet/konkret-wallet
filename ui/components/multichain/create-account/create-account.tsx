@@ -2,7 +2,6 @@ import React, {
   ChangeEvent,
   KeyboardEvent,
   useCallback,
-  useContext,
   useEffect,
   useState,
 } from 'react';
@@ -22,12 +21,6 @@ import { useI18nContext } from '../../../hooks/useI18nContext';
 import { getAccountNameErrorMessage } from '../../../helpers/utils/accounts';
 import { getMetaMaskAccountsOrdered } from '../../../selectors';
 import { getMostRecentOverviewPage } from '../../../ducks/history/history';
-import {
-  MetaMetricsEventAccountType,
-  MetaMetricsEventCategory,
-  MetaMetricsEventName,
-} from '../../../../shared/constants/metametrics';
-import { MetaMetricsContext } from '../../../contexts/metametrics';
 import { Display } from '../../../helpers/constants/design-system';
 
 type Props = {
@@ -67,7 +60,6 @@ export const CreateAccount: CreateAccountComponent = React.memo(
       const t = useI18nContext();
 
       const history = useHistory();
-      const trackEvent = useContext(MetaMetricsContext);
 
       const mostRecentOverviewPage = useSelector(getMostRecentOverviewPage);
 
@@ -98,23 +90,10 @@ export const CreateAccount: CreateAccountComponent = React.memo(
 
           try {
             await onCreateAccount(trimmedAccountName || defaultAccountName);
-            trackEvent({
-              category: MetaMetricsEventCategory.Accounts,
-              event: MetaMetricsEventName.AccountAdded,
-              properties: {
-                account_type: MetaMetricsEventAccountType.Default,
-                location: 'Home',
-              },
-            });
             history.push(mostRecentOverviewPage);
           } catch (error) {
-            trackEvent({
-              category: MetaMetricsEventCategory.Accounts,
-              event: MetaMetricsEventName.AccountAddFailed,
-              properties: {
-                account_type: MetaMetricsEventAccountType.Default,
-                error: (error as Error).message,
-              },
+            console.warn('createAccount error', {
+              error: (error as Error).message,
             });
           }
         },

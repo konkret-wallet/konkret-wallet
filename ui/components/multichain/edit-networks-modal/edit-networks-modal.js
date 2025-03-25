@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import {
   AlignItems,
@@ -29,11 +29,6 @@ import {
 } from '../../component-library';
 import { NetworkListItem } from '..';
 import { CHAIN_ID_TO_NETWORK_IMAGE_URL_MAP } from '../../../../shared/constants/network';
-import {
-  MetaMetricsEventCategory,
-  MetaMetricsEventName,
-} from '../../../../shared/constants/metametrics';
-import { MetaMetricsContext } from '../../../contexts/metametrics';
 
 export const EditNetworksModal = ({
   nonTestNetworks,
@@ -43,7 +38,6 @@ export const EditNetworksModal = ({
   onSubmit,
 }) => {
   const t = useI18nContext();
-  const trackEvent = useContext(MetaMetricsContext);
   const allNetworks = [...nonTestNetworks, ...testNetworks];
 
   const [selectedChainIds, setSelectedChainIds] = useState(
@@ -82,9 +76,6 @@ export const EditNetworksModal = ({
 
   const checked = allAreSelected();
   const isIndeterminate = !checked && selectedChainIds.length > 0;
-
-  const defaultChainIdsSet = new Set(defaultSelectedChainIds);
-  const selectedChainIdsSet = new Set(selectedChainIds);
 
   return (
     <Modal
@@ -183,25 +174,7 @@ export const EditNetworksModal = ({
                 data-testid="disconnect-chains-button"
                 onClick={() => {
                   onSubmit(selectedChainIds);
-                  // Get networks that are in `selectedChainIds` but not in `defaultSelectedChainIds`
-                  const addedNetworks = selectedChainIds.filter(
-                    (chainId) => !defaultChainIdsSet.has(chainId),
-                  );
 
-                  // Get networks that are in `defaultSelectedChainIds` but not in `selectedChainIds`
-                  const removedNetworks = defaultSelectedChainIds.filter(
-                    (chainId) => !selectedChainIdsSet.has(chainId),
-                  );
-
-                  trackEvent({
-                    category: MetaMetricsEventCategory.Permissions,
-                    event: MetaMetricsEventName.UpdatePermissionedNetworks,
-                    properties: {
-                      addedNetworks: addedNetworks.length,
-                      removedNetworks: removedNetworks.length,
-                      location: 'Edit Networks Modal',
-                    },
-                  });
                   onClose();
                 }}
                 size={ButtonPrimarySize.Lg}

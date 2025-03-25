@@ -1,15 +1,9 @@
 import { isValidHexAddress } from '@metamask/controller-utils';
 import PropTypes from 'prop-types';
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { getErrorMessage } from '../../../../shared/modules/error';
-import {
-  MetaMetricsEventName,
-  MetaMetricsTokenEventSource,
-} from '../../../../shared/constants/metametrics';
-import { AssetType } from '../../../../shared/constants/transaction';
-import { MetaMetricsContext } from '../../../contexts/metametrics';
 import { getNftsDropdownState } from '../../../ducks/metamask/metamask';
 import {
   AlignItems,
@@ -30,7 +24,6 @@ import {
 } from '../../../selectors';
 import {
   addNftVerifyOwnership,
-  getTokenStandardAndDetails,
   ignoreTokens,
   setNewNftAddedMessage,
   updateNftDropDownState,
@@ -75,7 +68,6 @@ export const ImportNftsModal = ({ onClose }) => {
   const [tokenId, setTokenId] = useState(initialTokenId ?? '');
   const [disabled, setDisabled] = useState(true);
   const [nftAddFailed, setNftAddFailed] = useState(false);
-  const trackEvent = useContext(MetaMetricsContext);
 
   const [nftAddressValidationError, setNftAddressValidationError] =
     useState(null);
@@ -111,25 +103,6 @@ export const ImportNftsModal = ({ onClose }) => {
       );
     }
     dispatch(setNewNftAddedMessage('success'));
-
-    const tokenDetails = await getTokenStandardAndDetails(
-      nftAddress,
-      null,
-      tokenId.toString(),
-    ).catch(() => ({}));
-
-    trackEvent({
-      event: MetaMetricsEventName.TokenAdded,
-      category: 'Wallet',
-      sensitiveProperties: {
-        token_contract_address: nftAddress,
-        token_symbol: tokenDetails?.symbol,
-        tokenId: tokenId.toString(),
-        asset_type: AssetType.NFT,
-        token_standard: tokenDetails?.standard,
-        source_connection_method: MetaMetricsTokenEventSource.Custom,
-      },
-    });
 
     history.push(DEFAULT_ROUTE);
     onClose();

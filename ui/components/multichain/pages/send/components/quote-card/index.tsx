@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Box, ButtonLink, Text } from '../../../../../component-library';
 import {
@@ -15,7 +15,6 @@ import {
   getCurrentDraftTransaction,
   getBestQuote,
   updateSendQuote,
-  getSendAnalyticProperties,
 } from '../../../../../../ducks/send';
 import { useI18nContext } from '../../../../../../hooks/useI18nContext';
 import { SECOND } from '../../../../../../../shared/constants/time';
@@ -23,14 +22,9 @@ import { Quote } from '../../../../../../ducks/send/swap-and-send-utils';
 import Tooltip from '../../../../../ui/tooltip';
 import InfoTooltipIcon from '../../../../../ui/info-tooltip/info-tooltip-icon';
 import {
-  MetaMetricsEventCategory,
-  MetaMetricsEventName,
-} from '../../../../../../../shared/constants/metametrics';
-import {
   CONSENSYS_TERMS_OF_USE,
   GAS_FEES_LEARN_MORE_URL,
 } from '../../../../../../../shared/lib/ui-utils';
-import { MetaMetricsContext } from '../../../../../../contexts/metametrics';
 import { hexToDecimal } from '../../../../../../../shared/modules/conversion.utils';
 import useEthFeeData from './hooks/useEthFeeData';
 import useTranslatedNetworkName from './hooks/useTranslatedNetworkName';
@@ -52,10 +46,8 @@ const REFRESH_INTERVAL = 30;
 export function QuoteCard({ scrollRef }: QuoteCardProps) {
   const t = useI18nContext();
   const dispatch = useDispatch();
-  const sendAnalytics = useSelector(getSendAnalyticProperties);
 
   const translatedNetworkName = useTranslatedNetworkName();
-  const trackEvent = useContext(MetaMetricsContext);
 
   const { isSwapQuoteLoading } = useSelector(getCurrentDraftTransaction);
 
@@ -85,19 +77,6 @@ export function QuoteCard({ scrollRef }: QuoteCardProps) {
     }
 
     if (bestQuote) {
-      trackEvent(
-        {
-          event: MetaMetricsEventName.sendSwapQuoteReceived,
-          category: MetaMetricsEventCategory.Send,
-          properties: {
-            is_first_fetch: isQuoteJustLoaded,
-          },
-          sensitiveProperties: {
-            ...sendAnalytics,
-          },
-        },
-        { excludeMetaMetricsId: false },
-      );
       setTimeLeft(REFRESH_INTERVAL);
     } else {
       setTimeLeft(undefined);
@@ -117,33 +96,6 @@ export function QuoteCard({ scrollRef }: QuoteCardProps) {
     // eslint-disable-next-line consistent-return
     return () => clearTimeout(timeout);
   }, [timeLeft]);
-
-  // use to track when a quote is requested and received
-  useEffect(() => {
-    if (isSwapQuoteLoading) {
-      trackEvent(
-        {
-          event: MetaMetricsEventName.sendSwapQuoteRequested,
-          category: MetaMetricsEventCategory.Send,
-          sensitiveProperties: {
-            ...sendAnalytics,
-          },
-        },
-        { excludeMetaMetricsId: false },
-      );
-    } else if (bestQuote) {
-      trackEvent(
-        {
-          event: MetaMetricsEventName.sendSwapQuoteReceived,
-          category: MetaMetricsEventCategory.Send,
-          sensitiveProperties: {
-            ...sendAnalytics,
-          },
-        },
-        { excludeMetaMetricsId: false },
-      );
-    }
-  }, [isSwapQuoteLoading]);
 
   const infoText = useMemo(() => {
     if (isSwapQuoteLoading) {
@@ -234,10 +186,6 @@ export function QuoteCard({ scrollRef }: QuoteCardProps) {
                       <a
                         onClick={() => {
                           /* istanbul ignore next */
-                          trackEvent({
-                            event: 'Clicked "Gas Fees: Learn More" Link',
-                            category: MetaMetricsEventCategory.Swaps,
-                          });
                           global.platform.openTab({
                             url: GAS_FEES_LEARN_MORE_URL,
                           });

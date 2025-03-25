@@ -1,13 +1,8 @@
-import React, { useCallback, useContext, useRef } from 'react';
+import React, { useCallback, useRef } from 'react';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { matchPath } from 'react-router-dom';
-import { MetaMetricsContext } from '../../../contexts/metametrics';
-import {
-  MetaMetricsEventCategory,
-  MetaMetricsEventName,
-} from '../../../../shared/constants/metametrics';
 import {
   CONFIRM_TRANSACTION_ROUTE,
   SWAPS_ROUTE,
@@ -41,7 +36,6 @@ import { AppHeaderUnlockedContent } from './app-header-unlocked-content';
 import { AppHeaderLockedContent } from './app-header-locked-content';
 
 export const AppHeader = ({ location }) => {
-  const trackEvent = useContext(MetaMetricsContext);
   const menuRef = useRef(null);
   const isUnlocked = useSelector(getIsUnlocked);
 
@@ -91,15 +85,7 @@ export const AppHeader = ({ location }) => {
   // Callback for network dropdown
   const networkOpenCallback = useCallback(() => {
     dispatch(toggleNetworkMenu());
-    trackEvent({
-      event: MetaMetricsEventName.NavNetworkMenuOpened,
-      category: MetaMetricsEventCategory.Navigation,
-      properties: {
-        location: 'App header',
-        chain_id: chainId,
-      },
-    });
-  }, [chainId, dispatch, trackEvent]);
+  }, [chainId, dispatch]);
 
   // This is required to ensure send and confirmation screens
   // look as desired
