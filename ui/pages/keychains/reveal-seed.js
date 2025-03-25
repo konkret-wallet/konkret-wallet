@@ -125,9 +125,7 @@ export default function RevealSeedPage() {
   const renderRevealSeedContent = () => {
     return (
       <div>
-        <Tabs
-          defaultActiveTabName={t('revealSeedWordsText')}
-        >
+        <Tabs defaultActiveTabName={t('revealSeedWordsText')}>
           <Tab
             name={t('revealSeedWordsText')}
             className="reveal-seed__tab"
@@ -135,9 +133,7 @@ export default function RevealSeedPage() {
             tabKey="text-seed"
           >
             <Label marginTop={4}>{t('yourPrivateSeedPhrase')}</Label>
-            <ExportTextContainer
-              text={seedWords}
-            />
+            <ExportTextContainer text={seedWords} />
           </Tab>
           <Tab
             name={t('revealSeedWordsQR')}
