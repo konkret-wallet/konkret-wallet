@@ -451,7 +451,7 @@
     "description": "The name of the application (Flask)"
   },
   "appNameMmi": {
-    "message": "MetaMask Institutional",
+    "message": "Konkret Wallet",
     "description": "The name of the application (MMI)"
   },
   "approve": {
