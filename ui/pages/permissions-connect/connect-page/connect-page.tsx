@@ -1,4 +1,4 @@
-import React, { useContext, useMemo, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { InternalAccount } from '@metamask/keyring-internal-api';
 import { isEvmAccountType } from '@metamask/keyring-api';
@@ -57,11 +57,6 @@ import {
 } from '../../../helpers/utils/util';
 import ZENDESK_URLS from '../../../helpers/constants/zendesk-url';
 import {
-  MetaMetricsEventCategory,
-  MetaMetricsEventName,
-} from '../../../../shared/constants/metametrics';
-import { MetaMetricsContext } from '../../../contexts/metametrics';
-import {
   getCaip25PermissionsResponse,
   PermissionsRequest,
   getRequestedCaip25CaveatValue,
@@ -96,7 +91,6 @@ export const ConnectPage: React.FC<ConnectPageProps> = ({
   targetSubjectMetadata,
 }) => {
   const t = useI18nContext();
-  const trackEvent = useContext(MetaMetricsContext);
 
   const requestedCaip25CaveatValue = getRequestedCaip25CaveatValue(
     request.permissions,
@@ -199,14 +193,6 @@ export const ConnectPage: React.FC<ConnectPageProps> = ({
 
   const handleOpenAccountsModal = () => {
     setShowEditAccountsModal(true);
-    trackEvent({
-      category: MetaMetricsEventCategory.Navigation,
-      event: MetaMetricsEventName.ViewPermissionedAccounts,
-      properties: {
-        location:
-          'Connect view (accounts tab), Permissions toast, Permissions (dapp)',
-      },
-    });
   };
 
   return (
