@@ -1,21 +1,21 @@
 export function getPortfolioUrl(
   endpoint = '',
-  metamaskEntry = '',
-  metaMetricsId = '',
-  metricsEnabled = false,
-  marketingEnabled = false,
+  _metamaskEntry = '',
+  _metaMetricsId = '',
+  _metricsEnabled = false,
+  _marketingEnabled = false,
   accountAddress,
   tab,
 ) {
   const baseUrl = process.env.PORTFOLIO_URL || '';
   const url = new URL(endpoint, baseUrl);
 
-  url.searchParams.append('metamaskEntry', metamaskEntry);
-  url.searchParams.append('metametricsId', metaMetricsId);
+  url.searchParams.append('metamaskEntry', '');
+  url.searchParams.append('metametricsId', '');
 
   // Append privacy preferences for metrics + marketing on user navigation to Portfolio
-  url.searchParams.append('metricsEnabled', String(metricsEnabled));
-  url.searchParams.append('marketingEnabled', String(marketingEnabled));
+  url.searchParams.append('metricsEnabled', 'false');
+  url.searchParams.append('marketingEnabled', 'false');
 
   if (accountAddress) {
     url.searchParams.append('accountAddress', accountAddress);
