@@ -30,10 +30,8 @@ import {
 import { useI18nContext } from '../../../../hooks/useI18nContext';
 import { BalanceChangeList } from './balance-change-list';
 import { useBalanceChanges } from './useBalanceChanges';
-import { useSimulationMetrics } from './useSimulationMetrics';
 
 export type SimulationDetailsProps = {
-  enableMetrics?: boolean;
   isTransactionsRedesign?: boolean;
   metricsOnly?: boolean;
   transaction: TransactionMeta;
@@ -248,14 +246,12 @@ const SimulationDetailsLayout: React.FC<{
  *
  * @param props
  * @param props.transaction - Metadata of the transaction that was simulated.
- * @param props.enableMetrics - Whether to enable simulation metrics.
  * @param props.isTransactionsRedesign - Whether or not the component is being
  * used inside the transaction redesign flow.
- * @param props.metricsOnly - Whether to only track metrics and not render the UI.
+ * @param props.metricsOnly - Whether to skip rendering UI
  */
 export const SimulationDetails: React.FC<SimulationDetailsProps> = ({
   transaction,
-  enableMetrics = false,
   isTransactionsRedesign = false,
   metricsOnly = false,
 }: SimulationDetailsProps) => {
@@ -263,14 +259,6 @@ export const SimulationDetails: React.FC<SimulationDetailsProps> = ({
   const { chainId, id: transactionId, simulationData } = transaction;
   const balanceChangesResult = useBalanceChanges({ chainId, simulationData });
   const loading = !simulationData || balanceChangesResult.pending;
-
-  useSimulationMetrics({
-    enableMetrics,
-    balanceChanges: balanceChangesResult.value,
-    loading,
-    simulationData,
-    transactionId,
-  });
 
   if (metricsOnly) {
     return null;

@@ -24,8 +24,6 @@ jest.mock('./balance-change-list', () => ({
   BalanceChangeList: jest.fn(() => null),
 }));
 
-jest.mock('./useSimulationMetrics');
-
 jest.mock(
   '../../../../components/app/confirm/info/row/alert-row/alert-row',
   () => ({

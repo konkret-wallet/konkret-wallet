@@ -32,7 +32,6 @@ import {
 } from '../../../../../../../selectors';
 import { useConfirmContext } from '../../../../../context/confirm';
 import { formatAmount } from '../../../../simulation-details/formatAmount';
-import { useSendingValueMetric } from '../../hooks/useSendingValueMetric';
 
 const NativeSendHeading = () => {
   const { currentConfirmation: transactionMeta } =
@@ -117,8 +116,6 @@ const NativeSendHeading = () => {
         {fiatDisplayValue}
       </Text>
     );
-
-  useSendingValueMetric({ transactionMeta, fiatValue });
 
   return (
     <Box

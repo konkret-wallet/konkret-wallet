@@ -22,7 +22,6 @@ import { useI18nContext } from '../../../../../../../hooks/useI18nContext';
 import { getPreferences } from '../../../../../../../selectors';
 import { useConfirmContext } from '../../../../../context/confirm';
 import { useTokenValues } from '../../hooks/use-token-values';
-import { useSendingValueMetric } from '../../hooks/useSendingValueMetric';
 import { useTokenDetails } from '../../hooks/useTokenDetails';
 
 const SendHeading = () => {
@@ -30,12 +29,8 @@ const SendHeading = () => {
   const { currentConfirmation: transactionMeta } =
     useConfirmContext<TransactionMeta>();
   const { tokenImage, tokenSymbol } = useTokenDetails(transactionMeta);
-  const {
-    decodedTransferValue,
-    displayTransferValue,
-    fiatDisplayValue,
-    fiatValue,
-  } = useTokenValues(transactionMeta);
+  const { decodedTransferValue, displayTransferValue, fiatDisplayValue } =
+    useTokenValues(transactionMeta);
 
   type TestNetChainId = (typeof TEST_CHAINS)[number];
   const isTestnet = TEST_CHAINS.includes(
@@ -84,8 +79,6 @@ const SendHeading = () => {
         {fiatDisplayValue}
       </Text>
     );
-
-  useSendingValueMetric({ transactionMeta, fiatValue });
 
   return (
     <Box
