@@ -11,13 +11,10 @@ export const importAllDetectedTokens = async (
   },
   allNetworks: Record<string, NetworkConfiguration>,
   networkClientId: NetworkClientId,
-  currentChainId: string,
+  _currentChainId: string,
   detectedTokens: Token[],
   addImportedTokens: (tokens: Token[], networkClientId: string) => void,
-  trackTokenAddedEvent: (importedToken: Token, chainId: string) => void,
 ) => {
-  // TODO add event for MetaMetricsEventName.TokenAdded
-
   if (process.env.PORTFOLIO_VIEW && !isOnCurrentNetwork) {
     const importPromises = Object.entries(detectedTokensMultichain).map(
       async ([networkId, tokens]) => {
@@ -27,21 +24,11 @@ export const importAllDetectedTokens = async (
           chainConfig.rpcEndpoints[defaultRpcEndpointIndex];
 
         await addImportedTokens(tokens as Token[], networkInstanceId);
-
-        tokens.forEach((importedToken) => {
-          // when multichain is fully integrated, we should change these event signatures for analytics
-          trackTokenAddedEvent(importedToken, chainConfig.chainId);
-        });
       },
     );
 
     await Promise.all(importPromises);
   } else if (detectedTokens.length > 0) {
     await addImportedTokens(detectedTokens, networkClientId);
-
-    detectedTokens.forEach((importedToken: Token) => {
-      // when multichain is fully integrated, we should change these event signatures for analytics
-      trackTokenAddedEvent(importedToken, currentChainId);
-    });
   }
 };
