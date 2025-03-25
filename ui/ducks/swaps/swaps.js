@@ -69,7 +69,6 @@ import {
 } from '../../selectors';
 import {
   getSmartTransactionsEnabled,
-  getSmartTransactionsOptInStatusForMetrics,
   getSmartTransactionsPreferenceEnabled,
 } from '../../../shared/modules/selectors';
 import {
@@ -804,7 +803,6 @@ export const fetchQuotesAndSetQuoteState = (
 export const signAndSendSwapsSmartTransaction = ({
   unsignedTransaction,
   history,
-  additionalTrackingParams,
 }) => {
   return async (dispatch, getState) => {
     dispatch(setSwapsSTXSubmitLoading(true));
@@ -857,9 +855,7 @@ export const signAndSendSwapsSmartTransaction = ({
       hardware_wallet_type: hardwareWalletType,
       stx_enabled: smartTransactionsEnabled,
       current_stx_enabled: currentSmartTransactionsEnabled,
-      stx_user_opt_in: getSmartTransactionsOptInStatusForMetrics(state),
       gas_included: usedQuote.isGasIncludedTrade,
-      ...additionalTrackingParams,
     };
 
     if (
@@ -972,11 +968,7 @@ export const signAndSendSwapsSmartTransaction = ({
   };
 };
 
-export const signAndSendTransactions = (
-  history,
-  _trackEvent,
-  additionalTrackingParams,
-) => {
+export const signAndSendTransactions = (history) => {
   return async (dispatch, getState) => {
     const state = getState();
     const chainId = getCurrentChainId(state);
@@ -1131,8 +1123,6 @@ export const signAndSendTransactions = (
       hardware_wallet_type: getHardwareWalletType(state),
       stx_enabled: smartTransactionsEnabled,
       current_stx_enabled: currentSmartTransactionsEnabled,
-      stx_user_opt_in: getSmartTransactionsOptInStatusForMetrics(state),
-      ...additionalTrackingParams,
     };
 
     if (networkAndAccountSupports1559) {

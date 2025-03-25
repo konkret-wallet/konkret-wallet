@@ -12,10 +12,8 @@ import {
   getRpcPrefsForCurrentProvider,
   getUseCurrencyRateCheck,
 } from '../../../../selectors';
-import { MetaMetricsEventCategory } from '../../../../../shared/constants/metametrics';
 import { CHAINID_DEFAULT_BLOCK_EXPLORER_URL_MAP } from '../../../../../shared/constants/common';
 import { getURLHostName } from '../../../../helpers/utils/util';
-import { MetaMetricsContext } from '../../../../contexts/metametrics';
 
 export default function ItemList({
   results = [],
@@ -39,7 +37,6 @@ export default function ItemList({
     null;
   const useCurrencyRateCheck = useSelector(getUseCurrencyRateCheck);
   const blockExplorerHostName = getURLHostName(blockExplorerLink);
-  const trackEvent = useContext(MetaMetricsContext);
 
   // If there is a token for import based on a contract address, it's the only one in the list.
   const hasTokenForImport = results.length === 1 && results[0].notImported;
@@ -168,16 +165,6 @@ export default function ItemList({
                 <a
                   key="searchable-item-list__etherscan-link"
                   onClick={() => {
-                    /* istanbul ignore next */
-                    trackEvent({
-                      event: 'Clicked Block Explorer Link',
-                      category: MetaMetricsEventCategory.Swaps,
-                      properties: {
-                        link_type: 'Token Tracker',
-                        action: 'Verify Contract Address',
-                        block_explorer_domain: blockExplorerHostName,
-                      },
-                    });
                     global.platform.openTab({
                       url: blockExplorerLink,
                     });

@@ -1,10 +1,4 @@
-import React, {
-  useEffect,
-  useRef,
-  useContext,
-  useState,
-  useCallback,
-} from 'react';
+import React, { useEffect, useRef, useContext } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import {
   Switch,
@@ -20,8 +14,6 @@ import { I18nContext } from '../../contexts/i18n';
 import {
   getSelectedAccount,
   getIsSwapsChain,
-  isHardwareWallet,
-  getHardwareWalletType,
   getTokenList,
 } from '../../selectors/selectors';
 import { getCurrentChainId } from '../../../shared/modules/selectors/networks';
@@ -37,18 +29,11 @@ import {
   getSwapsErrorKey,
   getSwapsFeatureIsLive,
   prepareToLeaveSwaps,
-  fetchSwapsLivenessAndFeatureFlags,
   getReviewSwapClickedTimestamp,
-  getCurrentSmartTransactionsEnabled,
-  getCurrentSmartTransactionsError,
   setTransactionSettingsOpened,
   getLatestAddedTokenTo,
 } from '../../ducks/swaps/swaps';
 import { getCurrentNetworkTransactions } from '../../selectors';
-import {
-  getSmartTransactionsEnabled,
-  getSmartTransactionsOptInStatusForMetrics,
-} from '../../../shared/modules/selectors';
 import {
   AWAITING_SIGNATURES_ROUTE,
   AWAITING_SWAP_ROUTE,
@@ -77,8 +62,6 @@ import {
 
 import { useGasFeeEstimates } from '../../hooks/useGasFeeEstimates';
 import FeatureToggledRoute from '../../helpers/higher-order-components/feature-toggled-route';
-import { MetaMetricsEventCategory } from '../../../shared/constants/metametrics';
-import { MetaMetricsContext } from '../../contexts/metametrics';
 import { getSwapsTokensReceivedFromTxMeta } from '../../../shared/lib/transactions-controller-utils';
 import { Icon, IconName, IconSize } from '../../components/component-library';
 import Box from '../../components/ui/box';
@@ -100,7 +83,6 @@ export default function Swap() {
   const t = useContext(I18nContext);
   const history = useHistory();
   const dispatch = useDispatch();
-  const trackEvent = useContext(MetaMetricsContext);
 
   const { pathname } = useLocation();
   const isAwaitingSwapRoute = pathname === AWAITING_SWAP_ROUTE;
@@ -111,7 +93,6 @@ export default function Swap() {
     pathname === SMART_TRANSACTION_STATUS_ROUTE;
   const isPrepareSwapRoute = pathname === PREPARE_SWAP_ROUTE;
 
-  const [currentStxErrorTracked, setCurrentStxErrorTracked] = useState(false);
   const fetchParams = useSelector(getFetchParams, isEqual);
   const { destinationTokenInfo = {} } = fetchParams?.metaData || {};
 
@@ -132,16 +113,6 @@ export default function Swap() {
   const shuffledTokensList = shuffle(Object.values(tokenList));
   const reviewSwapClickedTimestamp = useSelector(getReviewSwapClickedTimestamp);
   const reviewSwapClicked = Boolean(reviewSwapClickedTimestamp);
-  const smartTransactionsOptInStatus = useSelector(
-    getSmartTransactionsOptInStatusForMetrics,
-  );
-  const smartTransactionsEnabled = useSelector(getSmartTransactionsEnabled);
-  const currentSmartTransactionsEnabled = useSelector(
-    getCurrentSmartTransactionsEnabled,
-  );
-  const currentSmartTransactionsError = useSelector(
-    getCurrentSmartTransactionsError,
-  );
 
   useEffect(() => {
     const leaveSwaps = async () => {
@@ -217,45 +188,6 @@ export default function Swap() {
 
   useUpdateSwapsState();
 
-  const hardwareWalletUsed = useSelector(isHardwareWallet);
-  const hardwareWalletType = useSelector(getHardwareWalletType);
-  const trackExitedSwapsEvent = () => {
-    trackEvent({
-      event: 'Exited Swaps',
-      category: MetaMetricsEventCategory.Swaps,
-      sensitiveProperties: {
-        token_from: fetchParams?.sourceTokenInfo?.symbol,
-        token_from_amount: fetchParams?.value,
-        request_type: fetchParams?.balanceError,
-        token_to: fetchParams?.destinationTokenInfo?.symbol,
-        slippage: fetchParams?.slippage,
-        custom_slippage: fetchParams?.slippage !== 2,
-        current_screen: pathname.match(/\/swaps\/(.+)/u)[1],
-        is_hardware_wallet: hardwareWalletUsed,
-        hardware_wallet_type: hardwareWalletType,
-        stx_enabled: smartTransactionsEnabled,
-        current_stx_enabled: currentSmartTransactionsEnabled,
-        stx_user_opt_in: smartTransactionsOptInStatus,
-      },
-    });
-  };
-  const exitEventRef = useRef();
-  useEffect(() => {
-    exitEventRef.current = () => {
-      trackExitedSwapsEvent();
-    };
-  });
-
-  useEffect(() => {
-    const fetchSwapsLivenessAndFeatureFlagsWrapper = async () => {
-      await dispatch(fetchSwapsLivenessAndFeatureFlags());
-    };
-    fetchSwapsLivenessAndFeatureFlagsWrapper();
-    return () => {
-      exitEventRef.current();
-    };
-  }, [dispatch]);
-
   useEffect(() => {
     // If there is a swapsErrorKey and reviewSwapClicked is false, there was an error in silent quotes prefetching
     // and we don't want to show the error page in that case, because another API call for quotes can be successful.
@@ -279,53 +211,6 @@ export default function Swap() {
     }
     return () => window.removeEventListener('beforeunload', fn);
   }, [dispatch, isLoadingQuotesRoute]);
-
-  const trackErrorStxEvent = useCallback(() => {
-    trackEvent({
-      event: 'Error Smart Transactions',
-      category: MetaMetricsEventCategory.Swaps,
-      sensitiveProperties: {
-        token_from: fetchParams?.sourceTokenInfo?.symbol,
-        token_from_amount: fetchParams?.value,
-        request_type: fetchParams?.balanceError,
-        token_to: fetchParams?.destinationTokenInfo?.symbol,
-        slippage: fetchParams?.slippage,
-        custom_slippage: fetchParams?.slippage !== 2,
-        current_screen: pathname.match(/\/swaps\/(.+)/u)[1],
-        is_hardware_wallet: hardwareWalletUsed,
-        hardware_wallet_type: hardwareWalletType,
-        stx_enabled: smartTransactionsEnabled,
-        current_stx_enabled: currentSmartTransactionsEnabled,
-        stx_user_opt_in: smartTransactionsOptInStatus,
-        stx_error: currentSmartTransactionsError,
-      },
-    });
-  }, [
-    currentSmartTransactionsError,
-    currentSmartTransactionsEnabled,
-    trackEvent,
-    fetchParams?.balanceError,
-    fetchParams?.destinationTokenInfo?.symbol,
-    fetchParams?.slippage,
-    fetchParams?.sourceTokenInfo?.symbol,
-    fetchParams?.value,
-    hardwareWalletType,
-    hardwareWalletUsed,
-    pathname,
-    smartTransactionsEnabled,
-    smartTransactionsOptInStatus,
-  ]);
-
-  useEffect(() => {
-    if (currentSmartTransactionsError && !currentStxErrorTracked) {
-      setCurrentStxErrorTracked(true);
-      trackErrorStxEvent();
-    }
-  }, [
-    currentSmartTransactionsError,
-    trackErrorStxEvent,
-    currentStxErrorTracked,
-  ]);
 
   if (!isSwapsChain) {
     // A user is being redirected outside of Swaps via the async "leaveSwaps" function above. In the meantime

@@ -8,21 +8,12 @@ import {
   getFetchParams,
   prepareToLeaveSwaps,
   getCurrentSmartTransactions,
-  getCurrentSmartTransactionsEnabled,
   getSwapsNetworkConfig,
   cancelSwapsSmartTransaction,
   getUsedQuote,
 } from '../../../ducks/swaps/swaps';
 import { getCurrentChainId } from '../../../../shared/modules/selectors/networks';
-import {
-  isHardwareWallet,
-  getHardwareWalletType,
-  getRpcPrefsForCurrentProvider,
-} from '../../../selectors';
-import {
-  getSmartTransactionsEnabled,
-  getSmartTransactionsOptInStatusForMetrics,
-} from '../../../../shared/modules/selectors';
+import { getRpcPrefsForCurrentProvider } from '../../../selectors';
 import { CHAINID_DEFAULT_BLOCK_EXPLORER_URL_MAP } from '../../../../shared/constants/common';
 import {
   DEFAULT_ROUTE,
@@ -44,12 +35,10 @@ import {
   stopPollingForQuotes,
   setBackgroundSwapRouteState,
 } from '../../../store/actions';
-import { MetaMetricsEventCategory } from '../../../../shared/constants/metametrics';
 import { SmartTransactionStatus } from '../../../../shared/constants/transaction';
 
 import SwapsFooter from '../swaps-footer';
 import { showRemainingTimeInMinAndSec } from '../swaps.util';
-import { MetaMetricsContext } from '../../../contexts/metametrics';
 import CreateNewSwap from '../create-new-swap';
 import ViewOnBlockExplorer from '../view-on-block-explorer';
 import { calcTokenAmount } from '../../../../shared/lib/transactions-controller-utils';
@@ -70,9 +59,6 @@ export default function SmartTransactionStatusPage() {
     destinationTokenInfo: fetchParamsDestinationTokenInfo = {},
     sourceTokenInfo: fetchParamsSourceTokenInfo = {},
   } = fetchParams?.metaData || {};
-  const hardwareWalletUsed = useSelector(isHardwareWallet);
-  const hardwareWalletType = useSelector(getHardwareWalletType);
-  const needsTwoConfirmations = true;
   const usedQuote = useSelector(getUsedQuote, isEqual);
   const currentSmartTransactions = useSelector(
     getCurrentSmartTransactions,
@@ -81,10 +67,6 @@ export default function SmartTransactionStatusPage() {
   const chainId = useSelector(getCurrentChainId);
   const rpcPrefs = useSelector(getRpcPrefsForCurrentProvider, shallowEqual);
   const swapsNetworkConfig = useSelector(getSwapsNetworkConfig, shallowEqual);
-  const smartTransactionsEnabled = useSelector(getSmartTransactionsEnabled);
-  const currentSmartTransactionsEnabled = useSelector(
-    getCurrentSmartTransactionsEnabled,
-  );
   const baseNetworkUrl =
     rpcPrefs.blockExplorerUrl ??
     CHAINID_DEFAULT_BLOCK_EXPLORER_URL_MAP[chainId] ??
@@ -108,26 +90,6 @@ export default function SmartTransactionStatusPage() {
     swapsNetworkConfig.stxStatusDeadline,
   );
 
-  const sensitiveProperties = {
-    needs_two_confirmations: needsTwoConfirmations,
-    token_from:
-      fetchParamsSourceTokenInfo.symbol ??
-      latestSmartTransaction?.sourceTokenSymbol,
-    token_from_amount:
-      fetchParams?.value ?? latestSmartTransaction?.swapTokenValue,
-    token_to:
-      fetchParamsDestinationTokenInfo.symbol ??
-      latestSmartTransaction?.destinationTokenSymbol,
-    request_type: fetchParams?.balanceError ? 'Quote' : 'Order',
-    slippage: fetchParams?.slippage,
-    custom_slippage: fetchParams?.slippage === 2,
-    is_hardware_wallet: hardwareWalletUsed,
-    hardware_wallet_type: hardwareWalletType,
-    stx_enabled: smartTransactionsEnabled,
-    current_stx_enabled: currentSmartTransactionsEnabled,
-    stx_user_opt_in: useSelector(getSmartTransactionsOptInStatusForMetrics),
-  };
-
   let destinationValue;
   if (usedQuote?.destinationAmount) {
     destinationValue = calcTokenAmount(
@@ -136,23 +98,12 @@ export default function SmartTransactionStatusPage() {
         latestSmartTransaction?.destinationTokenDecimals,
     ).toPrecision(8);
   }
-  const trackEvent = useContext(MetaMetricsContext);
-
   const isSmartTransactionPending =
     smartTransactionStatus === SmartTransactionStatus.pending;
   const showCloseButtonOnly =
     isSmartTransactionPending ||
     smartTransactionStatus === SmartTransactionStatus.success;
   const txHash = latestSmartTransaction?.statusMetadata?.minedHash;
-
-  useEffect(() => {
-    trackEvent({
-      event: 'STX Status Page Loaded',
-      category: MetaMetricsEventCategory.Swaps,
-      sensitiveProperties,
-    });
-    // eslint-disable-next-line
-  }, []);
 
   useEffect(() => {
     let intervalId;
@@ -269,11 +220,6 @@ export default function SmartTransactionStatusPage() {
           onClick={(e) => {
             e?.preventDefault();
             setCancelSwapLinkClicked(true); // We want to hide it after a user clicks on it.
-            trackEvent({
-              event: 'Cancel STX',
-              category: MetaMetricsEventCategory.Swaps,
-              sensitiveProperties,
-            });
             dispatch(cancelSwapsSmartTransaction(latestSmartTransactionUuid));
           }}
         >
@@ -432,10 +378,7 @@ export default function SmartTransactionStatusPage() {
           </Text>
         )}
         {blockExplorerUrl && (
-          <ViewOnBlockExplorer
-            blockExplorerUrl={blockExplorerUrl}
-            sensitiveTrackingProperties={sensitiveProperties}
-          />
+          <ViewOnBlockExplorer blockExplorerUrl={blockExplorerUrl} />
         )}
         <Box
           marginTop={3}
@@ -456,7 +399,7 @@ export default function SmartTransactionStatusPage() {
         latestSmartTransactionUuid &&
         isSmartTransactionPending && <CancelSwap />}
       {smartTransactionStatus === SmartTransactionStatus.success ? (
-        <CreateNewSwap sensitiveTrackingProperties={sensitiveProperties} />
+        <CreateNewSwap />
       ) : null}
       <SwapsFooter
         onSubmit={async () => {

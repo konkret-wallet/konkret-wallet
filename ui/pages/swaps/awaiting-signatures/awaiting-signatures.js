@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import isEqual from 'lodash/isEqual';
@@ -8,16 +8,7 @@ import {
   getFetchParams,
   getApproveTxParams,
   prepareToLeaveSwaps,
-  getCurrentSmartTransactionsEnabled,
 } from '../../../ducks/swaps/swaps';
-import {
-  isHardwareWallet,
-  getHardwareWalletType,
-} from '../../../selectors/selectors';
-import {
-  getSmartTransactionsEnabled,
-  getSmartTransactionsOptInStatusForMetrics,
-} from '../../../../shared/modules/selectors';
 import {
   DEFAULT_ROUTE,
   PREPARE_SWAP_ROUTE,
@@ -32,8 +23,6 @@ import {
   TextColor,
 } from '../../../helpers/constants/design-system';
 import SwapsFooter from '../swaps-footer';
-import { MetaMetricsContext } from '../../../contexts/metametrics';
-import { MetaMetricsEventCategory } from '../../../../shared/constants/metametrics';
 import { Text } from '../../../components/component-library';
 import SwapStepIcon from './swap-step-icon';
 
@@ -44,39 +33,7 @@ export default function AwaitingSignatures() {
   const fetchParams = useSelector(getFetchParams, isEqual);
   const { destinationTokenInfo, sourceTokenInfo } = fetchParams?.metaData || {};
   const approveTxParams = useSelector(getApproveTxParams, shallowEqual);
-  const hardwareWalletUsed = useSelector(isHardwareWallet);
-  const hardwareWalletType = useSelector(getHardwareWalletType);
-  const smartTransactionsOptInStatus = useSelector(
-    getSmartTransactionsOptInStatusForMetrics,
-  );
-  const smartTransactionsEnabled = useSelector(getSmartTransactionsEnabled);
-  const currentSmartTransactionsEnabled = useSelector(
-    getCurrentSmartTransactionsEnabled,
-  );
   const needsTwoConfirmations = Boolean(approveTxParams);
-  const trackEvent = useContext(MetaMetricsContext);
-
-  useEffect(() => {
-    trackEvent({
-      event: 'Awaiting Signature(s) on a HW wallet',
-      category: MetaMetricsEventCategory.Swaps,
-      sensitiveProperties: {
-        needs_two_confirmations: needsTwoConfirmations,
-        token_from: sourceTokenInfo?.symbol,
-        token_from_amount: fetchParams?.value,
-        token_to: destinationTokenInfo?.symbol,
-        request_type: fetchParams?.balanceError ? 'Quote' : 'Order',
-        slippage: fetchParams?.slippage,
-        custom_slippage: fetchParams?.slippage === 2,
-        is_hardware_wallet: hardwareWalletUsed,
-        hardware_wallet_type: hardwareWalletType,
-        stx_enabled: smartTransactionsEnabled,
-        current_stx_enabled: currentSmartTransactionsEnabled,
-        stx_user_opt_in: smartTransactionsOptInStatus,
-      },
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   const headerText = needsTwoConfirmations
     ? t('swapTwoTransactions')
@@ -146,7 +103,7 @@ export default function AwaitingSignatures() {
       </Box>
       <SwapsFooter
         onSubmit={async () => {
-          await dispatch(prepareToLeaveSwaps());
+          dispatch(prepareToLeaveSwaps());
           // Go to the default route and then to the build quote route in order to clean up
           // the `inputValue` local state in `pages/swaps/index.js`
           history.push(DEFAULT_ROUTE);

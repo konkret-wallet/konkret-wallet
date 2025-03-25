@@ -7,7 +7,6 @@ import { useHistory } from 'react-router-dom';
 import { getAccountLink, getTokenTrackerLink } from '@metamask/etherscan-link';
 import classnames from 'classnames';
 
-import { MetaMetricsContext } from '../../../contexts/metametrics';
 import {
   useTokensToSearch,
   getRenderableTokenData,
@@ -65,31 +64,19 @@ import {
   getTokenExchangeRates,
   getRpcPrefsForCurrentProvider,
   getTokenList,
-  isHardwareWallet,
-  getHardwareWalletType,
   getIsBridgeChain,
   getIsBridgeEnabled,
 } from '../../../selectors';
-import {
-  getSmartTransactionsEnabled,
-  getSmartTransactionsPreferenceEnabled,
-  getSmartTransactionsOptInStatusForMetrics,
-} from '../../../../shared/modules/selectors';
+import { getSmartTransactionsPreferenceEnabled } from '../../../../shared/modules/selectors';
 import {
   getValueFromWeiHex,
   hexToDecimal,
 } from '../../../../shared/modules/conversion.utils';
-import { getURLHostName } from '../../../helpers/utils/util';
 import { usePrevious } from '../../../hooks/usePrevious';
 import { useTokenTracker } from '../../../hooks/useTokenTracker';
 import { useTokenFiatAmount } from '../../../hooks/useTokenFiatAmount';
 import { useEthFiatAmount } from '../../../hooks/useEthFiatAmount';
 import { isSwapsDefaultTokenAddress } from '../../../../shared/modules/swaps.utils';
-import {
-  MetaMetricsEventCategory,
-  MetaMetricsEventLinkType,
-  MetaMetricsEventName,
-} from '../../../../shared/constants/metametrics';
 import {
   TokenBucketPriority,
   ERROR_FETCHING_QUOTES,
@@ -161,7 +148,6 @@ export default function PrepareSwapPage({
   const t = useContext(I18nContext);
   const dispatch = useDispatch();
   const history = useHistory();
-  const trackEvent = useContext(MetaMetricsContext);
   const { openBridgeExperience } = useBridging();
 
   const [fetchedTokenExchangeRate, setFetchedTokenExchangeRate] =
@@ -219,12 +205,6 @@ export default function PrepareSwapPage({
 
   const tokenConversionRates = useSelector(getTokenExchangeRates, isEqual);
   const conversionRate = useSelector(getConversionRate);
-  const hardwareWalletUsed = useSelector(isHardwareWallet);
-  const hardwareWalletType = useSelector(getHardwareWalletType);
-  const smartTransactionsOptInStatus = useSelector(
-    getSmartTransactionsOptInStatusForMetrics,
-  );
-  const smartTransactionsEnabled = useSelector(getSmartTransactionsEnabled);
   const currentSmartTransactionsEnabled = useSelector(
     getCurrentSmartTransactionsEnabled,
   );
@@ -355,7 +335,7 @@ export default function PrepareSwapPage({
     }
 
     const onQuotesLoadingDone = async () => {
-      await dispatch(setBackgroundSwapRouteState(''));
+      dispatch(setBackgroundSwapRouteState(''));
       setPrefetchingQuotes(false);
       if (
         swapsErrorKey === ERROR_FETCHING_QUOTES ||
@@ -567,32 +547,10 @@ export default function PrepareSwapPage({
     fromTokenBalance,
   ]);
 
-  const trackPrepareSwapPageLoadedEvent = useCallback(() => {
-    trackEvent({
-      event: 'Prepare Swap Page Loaded',
-      category: MetaMetricsEventCategory.Swaps,
-      sensitiveProperties: {
-        is_hardware_wallet: hardwareWalletUsed,
-        hardware_wallet_type: hardwareWalletType,
-        stx_enabled: smartTransactionsEnabled,
-        current_stx_enabled: currentSmartTransactionsEnabled,
-        stx_user_opt_in: smartTransactionsOptInStatus,
-      },
-    });
-  }, [
-    trackEvent,
-    hardwareWalletUsed,
-    hardwareWalletType,
-    smartTransactionsEnabled,
-    currentSmartTransactionsEnabled,
-    smartTransactionsOptInStatus,
-  ]);
-
   useEffect(() => {
     dispatch(resetSwapsPostFetchState());
     dispatch(setReviewSwapClickedTimestamp());
-    trackPrepareSwapPageLoadedEvent();
-  }, [dispatch, trackPrepareSwapPageLoadedEvent]);
+  }, [dispatch]);
 
   const BlockExplorerLink = () => {
     return (
@@ -600,16 +558,6 @@ export default function PrepareSwapPage({
         className="prepare-swap-page__token-etherscan-link"
         key="prepare-swap-page-etherscan-link"
         onClick={() => {
-          /* istanbul ignore next */
-          trackEvent({
-            event: MetaMetricsEventName.ExternalLinkClicked,
-            category: MetaMetricsEventCategory.Swaps,
-            properties: {
-              link_type: MetaMetricsEventLinkType.TokenTracker,
-              location: 'Swaps Confirmation',
-              url_domain: getURLHostName(blockExplorerTokenLink),
-            },
-          });
           global.platform.openTab({
             url: blockExplorerTokenLink,
           });
@@ -654,10 +602,9 @@ export default function PrepareSwapPage({
           history,
           fromTokenInputValue,
           maxSlippage,
-          trackEvent,
           pageRedirectionDisabled,
         ),
-      );
+      )();
     };
     // Delay fetching quotes until a user is done typing an input value. If they type a new char in less than a second,
     // we will cancel previous setTimeout call and start running a new one.
@@ -680,12 +627,10 @@ export default function PrepareSwapPage({
     dispatch,
     history,
     maxSlippage,
-    trackEvent,
     isReviewSwapButtonDisabled,
     fromTokenInputValue,
     fromTokenAddress,
     toTokenAddress,
-    smartTransactionsOptInStatus,
     isSmartTransaction,
   ]);
 
@@ -763,20 +708,6 @@ export default function PrepareSwapPage({
 
   /* istanbul ignore next */
   const onImportTokenClick = () => {
-    trackEvent({
-      event: 'Token Imported',
-      category: MetaMetricsEventCategory.Swaps,
-      sensitiveProperties: {
-        symbol: tokenForImport?.symbol,
-        address: tokenForImport?.address,
-        chain_id: chainId,
-        is_hardware_wallet: hardwareWalletUsed,
-        hardware_wallet_type: hardwareWalletType,
-        stx_enabled: smartTransactionsEnabled,
-        current_stx_enabled: currentSmartTransactionsEnabled,
-        stx_user_opt_in: smartTransactionsOptInStatus,
-      },
-    });
     // Only when a user confirms import of a token, we add it and show it in a dropdown.
     onToSelect?.(tokenForImport);
     setTokenForImport(null);
