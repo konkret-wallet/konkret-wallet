@@ -1,4 +1,4 @@
-import { useCallback, useContext, useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { toChecksumAddress } from '@ethereumjs/util';
@@ -6,21 +6,12 @@ import { isStrictHexString } from '@metamask/utils';
 import { setBridgeFeatureFlags } from '../../ducks/bridge/actions';
 import {
   ///: BEGIN:ONLY_INCLUDE_IF(build-main,build-beta,build-flask)
-  getDataCollectionForMarketing,
   getIsBridgeChain,
   getIsBridgeEnabled,
-  getMetaMetricsId,
-  getParticipateInMetaMetrics,
   getUseExternalServices,
   SwapsEthToken,
   ///: END:ONLY_INCLUDE_IF
 } from '../../selectors';
-import { MetaMetricsContext } from '../../contexts/metametrics';
-import {
-  MetaMetricsEventCategory,
-  MetaMetricsEventName,
-  MetaMetricsSwapsEventSource,
-} from '../../../shared/constants/metametrics';
 
 import {
   ///: BEGIN:ONLY_INCLUDE_IF(build-main,build-beta,build-flask)
@@ -34,18 +25,12 @@ import { SwapsTokenObject } from '../../../shared/constants/swaps';
 import { getProviderConfig } from '../../../shared/modules/selectors/networks';
 // eslint-disable-next-line import/no-restricted-paths
 import { formatChainIdToCaip } from '../../../shared/modules/bridge-utils/caip-formatters';
-import { useCrossChainSwapsEventTracker } from './useCrossChainSwapsEventTracker';
 ///: END:ONLY_INCLUDE_IF
 
 const useBridging = () => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const trackEvent = useContext(MetaMetricsContext);
-  const trackCrossChainSwapsEvent = useCrossChainSwapsEventTracker();
 
-  const metaMetricsId = useSelector(getMetaMetricsId);
-  const isMetaMetricsEnabled = useSelector(getParticipateInMetaMetrics);
-  const isMarketingEnabled = useSelector(getDataCollectionForMarketing);
   const providerConfig = useSelector(getProviderConfig);
   const isExternalServicesEnabled = useSelector(getUseExternalServices);
 
@@ -70,29 +55,6 @@ const useBridging = () => {
       }
 
       if (isBridgeSupported) {
-        trackCrossChainSwapsEvent({
-          event: MetaMetricsEventName.ActionOpened,
-          category: MetaMetricsEventCategory.Navigation,
-          properties: {
-            location:
-              location === 'Home'
-                ? MetaMetricsSwapsEventSource.MainView
-                : MetaMetricsSwapsEventSource.TokenView,
-            chain_id_source: formatChainIdToCaip(providerConfig.chainId),
-            token_symbol_source: token.symbol,
-            token_address_source: token.address,
-          },
-        });
-        trackEvent({
-          event: MetaMetricsEventName.BridgeLinkClicked,
-          category: MetaMetricsEventCategory.Navigation,
-          properties: {
-            token_symbol: token.symbol,
-            location,
-            text: 'Bridge',
-            chain_id: providerConfig.chainId,
-          },
-        });
         let url = `${CROSS_CHAIN_SWAP_ROUTE}${PREPARE_SWAP_ROUTE}`;
         url += `?token=${
           isStrictHexString(token.address)
@@ -107,25 +69,11 @@ const useBridging = () => {
         const portfolioUrl = getPortfolioUrl(
           'bridge',
           'ext_bridge_button',
-          metaMetricsId,
-          isMetaMetricsEnabled,
-          isMarketingEnabled,
         );
         global.platform.openTab({
           url: `${portfolioUrl}${
             portfolioUrlSuffix ?? `&token=${token.address}`
           }`,
-        });
-        trackEvent({
-          category: MetaMetricsEventCategory.Navigation,
-          event: MetaMetricsEventName.BridgeLinkClicked,
-          properties: {
-            location,
-            text: 'Bridge',
-            url: portfolioUrl,
-            chain_id: providerConfig.chainId,
-            token_symbol: token.symbol,
-          },
         });
       }
     },
@@ -134,11 +82,6 @@ const useBridging = () => {
       isBridgeChain,
       dispatch,
       history,
-      metaMetricsId,
-      trackEvent,
-      trackCrossChainSwapsEvent,
-      isMetaMetricsEnabled,
-      isMarketingEnabled,
       providerConfig,
     ],
   );

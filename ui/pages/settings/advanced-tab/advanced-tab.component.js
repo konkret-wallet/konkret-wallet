@@ -1,9 +1,5 @@
 import PropTypes from 'prop-types';
 import React, { PureComponent } from 'react';
-import {
-  MetaMetricsEventCategory,
-  MetaMetricsEventName,
-} from '../../../../shared/constants/metametrics';
 import { DEFAULT_AUTO_LOCK_TIME_LIMIT } from '../../../../shared/constants/preferences';
 import { SMART_TRANSACTIONS_LEARN_MORE_URL } from '../../../../shared/constants/smartTransactions';
 import {
@@ -33,7 +29,6 @@ import {
 export default class AdvancedTab extends PureComponent {
   static contextTypes = {
     t: PropTypes.func,
-    trackEvent: PropTypes.func,
   };
 
   static propTypes = {
@@ -103,12 +98,6 @@ export default class AdvancedTab extends PureComponent {
   backupUserData = async () => {
     const { fileName, data } = await this.props.backupUserData();
     exportAsFile(fileName, data, ExportableContentType.JSON);
-
-    this.context.trackEvent({
-      event: 'User Data Exported',
-      category: 'Backup',
-      properties: {},
-    });
   };
 
   renderStateLogs() {
@@ -187,11 +176,6 @@ export default class AdvancedTab extends PureComponent {
               className="settings-tab__button--red"
               onClick={(event) => {
                 event.preventDefault();
-                this.context.trackEvent({
-                  category: MetaMetricsEventCategory.Settings,
-                  event: MetaMetricsEventName.AccountReset,
-                  properties: {},
-                });
                 showResetAccountConfirmationModal();
               }}
             >

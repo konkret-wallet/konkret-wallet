@@ -6,18 +6,11 @@ import { getTokenTrackerLink } from '@metamask/etherscan-link';
 import classnames from 'classnames';
 import { PageContainerFooter } from '../../components/ui/page-container';
 import { I18nContext } from '../../contexts/i18n';
-import { MetaMetricsContext } from '../../contexts/metametrics';
 import { getMostRecentOverviewPage } from '../../ducks/history/history';
 import {
   resolvePendingApproval,
   rejectPendingApproval,
 } from '../../store/actions';
-import {
-  MetaMetricsEventCategory,
-  MetaMetricsEventName,
-  MetaMetricsTokenEventSource,
-} from '../../../shared/constants/metametrics';
-import { AssetType } from '../../../shared/constants/transaction';
 import {
   BUTTON_SIZES,
   ButtonIcon,
@@ -75,7 +68,6 @@ const ConfirmAddSuggestedNFT = () => {
   const rpcPrefs = useSelector(getRpcPrefsForCurrentProvider);
   const chainId = useSelector(getCurrentChainId);
   const ipfsGateway = useSelector(getIpfsGateway);
-  const trackEvent = useContext(MetaMetricsContext);
   const networkIdentifier = useSelector(getNetworkIdentifier);
   const { address: selectedAddress } = useSelector(getSelectedInternalAccount);
   const selectedAccountBalance = useSelector(getSelectedAccountCachedBalance);
@@ -101,25 +93,12 @@ const ConfirmAddSuggestedNFT = () => {
 
   const handleAddNftsClick = useCallback(async () => {
     await Promise.all(
-      suggestedNfts.map(async ({ requestData: { asset }, id }) => {
+      suggestedNfts.map(async ({ id }) => {
         await dispatch(resolvePendingApproval(id, null));
-
-        trackEvent({
-          event: MetaMetricsEventName.NftAdded,
-          category: MetaMetricsEventCategory.Wallet,
-          sensitiveProperties: {
-            token_contract_address: asset.address,
-            token_symbol: asset.symbol,
-            token_id: asset.tokenId,
-            token_standard: asset.standard,
-            asset_type: AssetType.NFT,
-            source: MetaMetricsTokenEventSource.Dapp,
-          },
-        });
       }),
     );
     history.push(mostRecentOverviewPage);
-  }, [dispatch, history, trackEvent, mostRecentOverviewPage, suggestedNfts]);
+  }, [dispatch, history, mostRecentOverviewPage, suggestedNfts]);
 
   const handleCancelNftClick = useCallback(async () => {
     await Promise.all(

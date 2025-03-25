@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import browser from 'webextension-polyfill';
 
 import { type MultichainNetworkConfiguration } from '@metamask/multichain-network-controller';
@@ -29,10 +29,6 @@ import {
   Text,
 } from '../../component-library';
 import Tooltip from '../../ui/tooltip';
-import {
-  MetaMetricsEventName,
-  MetaMetricsEventCategory,
-} from '../../../../shared/constants/metametrics';
 import { useI18nContext } from '../../../hooks/useI18nContext';
 import { toggleAccountMenu } from '../../../store/actions';
 import ConnectedStatusIndicator from '../../app/connected-status-indicator';
@@ -51,7 +47,6 @@ import { getEnvironmentType } from '../../../../app/scripts/lib/util';
 import { normalizeSafeAddress } from '../../../../app/scripts/lib/multichain/address';
 import { shortenAddress } from '../../../helpers/utils/util';
 import { ENVIRONMENT_TYPE_POPUP } from '../../../../shared/constants/app';
-import { MetaMetricsContext } from '../../../contexts/metametrics';
 import { useCopyToClipboard } from '../../../hooks/useCopyToClipboard';
 import { MINUTE } from '../../../../shared/constants/time';
 import { NotificationsTagCounter } from '../notifications-tag-counter';
@@ -77,7 +72,6 @@ export const AppHeaderUnlockedContent = ({
   disableAccountPicker,
   menuRef,
 }: AppHeaderUnlockedContentProps) => {
-  const trackEvent = useContext(MetaMetricsContext);
   const t = useI18nContext();
   const history = useHistory();
   const dispatch = useDispatch();
@@ -108,13 +102,6 @@ export const AppHeaderUnlockedContent = ({
     origin !== browser.runtime.id;
 
   const handleMainMenuOpened = () => {
-    trackEvent({
-      event: MetaMetricsEventName.NavMainMenuOpened,
-      category: MetaMetricsEventCategory.Navigation,
-      properties: {
-        location: 'Home',
-      },
-    });
     setAccountOptionsMenuOpen(true);
   };
 
@@ -190,14 +177,6 @@ export const AppHeaderUnlockedContent = ({
             name={internalAccount.metadata.name}
             onClick={() => {
               dispatch(toggleAccountMenu());
-
-              trackEvent({
-                event: MetaMetricsEventName.NavAccountMenuOpened,
-                category: MetaMetricsEventCategory.Navigation,
-                properties: {
-                  location: 'Home',
-                },
-              });
             }}
             disabled={disableAccountPicker}
             labelProps={{ fontWeight: FontWeight.Bold }}

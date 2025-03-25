@@ -19,7 +19,6 @@ import {
 import { shortenString } from '../../../../../../../../helpers/utils/util';
 import { useI18nContext } from '../../../../../../../../hooks/useI18nContext';
 import { useGetTokenStandardAndDetails } from '../../../../../../hooks/useGetTokenStandardAndDetails';
-import { TokenDetailsERC20 } from '../../../../../../utils/token';
 import { IndividualFiatDisplay } from '../../../../../simulation-details/fiat-display';
 import {
   formatAmount,

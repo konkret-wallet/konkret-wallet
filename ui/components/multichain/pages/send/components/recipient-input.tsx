@@ -13,11 +13,6 @@ import {
   updateRecipientUserInput,
 } from '../../../../../ducks/send';
 import { showQrScanner } from '../../../../../store/actions';
-import { MetaMetricsContext } from '../../../../../contexts/metametrics';
-import {
-  MetaMetricsEventCategory,
-  MetaMetricsEventName,
-} from '../../../../../../shared/constants/metametrics';
 import { shortenAddress } from '../../../../../helpers/utils/util';
 import { toChecksumHexAddress } from '../../../../../../shared/modules/hexstring-utils';
 import { SendPageRow } from './send-page-row';
@@ -25,7 +20,6 @@ import { SendPageRow } from './send-page-row';
 export const SendPageRecipientInput = () => {
   const t = useContext(I18nContext);
   const dispatch = useDispatch();
-  const trackEvent = useContext(MetaMetricsContext);
 
   const recipient = useSelector(getRecipient);
   const userInput = useSelector(getRecipientUserInput);
@@ -46,17 +40,6 @@ export const SendPageRecipientInput = () => {
             addHistoryEntry(`sendFlow - Valid address typed ${address}`),
           );
           await dispatch(updateRecipientUserInput(address));
-          trackEvent(
-            {
-              event: MetaMetricsEventName.sendRecipientSelected,
-              category: MetaMetricsEventCategory.Send,
-              properties: {
-                location: 'send page recipient input',
-                inputType: 'user input',
-              },
-            },
-            { excludeMetaMetricsId: false },
-          );
           dispatch(updateRecipient({ address, nickname: '' }));
         }}
         internalSearch={isUsingMyAccountsForRecipientSearch}
@@ -75,14 +58,6 @@ export const SendPageRecipientInput = () => {
         }}
         onReset={() => dispatch(resetRecipientInput())}
         scanQrCode={() => {
-          trackEvent({
-            event: 'Used QR scanner',
-            category: MetaMetricsEventCategory.Transactions,
-            properties: {
-              action: 'Edit Screen',
-              legacy_event: true,
-            },
-          });
           dispatch(showQrScanner());
         }}
       />

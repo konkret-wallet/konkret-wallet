@@ -1,10 +1,4 @@
-import React, {
-  useContext,
-  useEffect,
-  useMemo,
-  useState,
-  useCallback,
-} from 'react';
+import React, { useEffect, useMemo, useState, useCallback } from 'react';
 import {
   DragDropContext,
   Droppable,
@@ -92,11 +86,6 @@ import {
   ModalHeader,
   AvatarNetworkSize,
 } from '../../component-library';
-import { MetaMetricsContext } from '../../../contexts/metametrics';
-import {
-  MetaMetricsEventCategory,
-  MetaMetricsEventName,
-} from '../../../../shared/constants/metametrics';
 import {
   convertCaipToHexChainId,
   sortNetworks,
@@ -134,7 +123,6 @@ export enum ACTION_MODE {
 export const NetworkListMenu = ({ onClose }: { onClose: () => void }) => {
   const t = useI18nContext();
   const dispatch = useDispatch();
-  const trackEvent = useContext(MetaMetricsContext);
   const { hasAnyAccountsInNetwork } = useAccountCreationOnNetworkChange();
 
   const { tokenNetworkFilter } = useSelector(getPreferences);
@@ -352,8 +340,6 @@ export const NetworkListMenu = ({ onClose }: { onClose: () => void }) => {
   };
 
   const handleNetworkChange = async (chainId: CaipChainId) => {
-    const currentChain =
-      getMultichainNetworkConfigurationOrThrow(currentChainId);
     const chain = getMultichainNetworkConfigurationOrThrow(chainId);
 
     if (chain.isEvm) {
@@ -361,24 +347,6 @@ export const NetworkListMenu = ({ onClose }: { onClose: () => void }) => {
     } else {
       await handleNonEvmNetworkChange(chainId);
     }
-
-    const chainIdToTrack = chain.isEvm
-      ? convertCaipToHexChainId(chainId)
-      : chainId;
-    const currentChainIdToTrack = currentChain.isEvm
-      ? convertCaipToHexChainId(currentChainId)
-      : currentChainId;
-
-    trackEvent({
-      event: MetaMetricsEventName.NavNetworkSwitched,
-      category: MetaMetricsEventCategory.Network,
-      properties: {
-        location: 'Network Menu',
-        chain_id: currentChainIdToTrack,
-        from_network: currentChainIdToTrack,
-        to_network: chainIdToTrack,
-      },
-    });
   };
 
   const hasMultiRpcOptions = useCallback(
@@ -601,12 +569,6 @@ export const NetworkListMenu = ({ onClose }: { onClose: () => void }) => {
                     disabled={currentlyOnTestnet}
                     onToggle={(value: boolean) => {
                       dispatch(setShowTestNetworks(!value));
-                      if (!value) {
-                        trackEvent({
-                          event: MetaMetricsEventName.TestNetworksDisplayed,
-                          category: MetaMetricsEventCategory.Network,
-                        });
-                      }
                     }}
                   />
                 </Box>
@@ -629,10 +591,6 @@ export const NetworkListMenu = ({ onClose }: { onClose: () => void }) => {
               startIconProps={{ marginRight: 2 }}
               block
               onClick={() => {
-                trackEvent({
-                  event: MetaMetricsEventName.AddNetworkButtonClick,
-                  category: MetaMetricsEventCategory.Network,
-                });
                 setActionMode(ACTION_MODE.ADD_EDIT);
               }}
             >
