@@ -1,7 +1,7 @@
 import React, {
   useContext,
   useState,
-  ///: BEGIN:ONLY_INCLUDE_IF(build-main,build-beta,build-flask)
+  ///: BEGIN:ONLY_INCLUDE_IF(build-beta)
   useCallback,
   ///: END:ONLY_INCLUDE_IF
 } from 'react';
@@ -31,7 +31,7 @@ import {
   TextVariant,
   IconColor,
 } from '../../../helpers/constants/design-system';
-///: BEGIN:ONLY_INCLUDE_IF(build-main,build-beta,build-flask)
+///: BEGIN:ONLY_INCLUDE_IF(build-beta)
 import { getPortfolioUrl } from '../../../helpers/utils/portfolio';
 ///: END:ONLY_INCLUDE_IF
 
@@ -245,7 +245,7 @@ export const CoinOverview = ({
     }
   };
 
-  ///: BEGIN:ONLY_INCLUDE_IF(build-main,build-beta,build-flask)
+  ///: BEGIN:ONLY_INCLUDE_IF(build-beta)
   const handlePortfolioOnClick = useCallback(() => {
     const url = getPortfolioUrl('', 'ext_portfolio_button');
     global.platform.openTab({ url });
@@ -254,7 +254,7 @@ export const CoinOverview = ({
 
   const renderPercentageAndAmountChange = () => {
     const renderPortfolioButton = () => {
-      ///: BEGIN:ONLY_INCLUDE_IF(build-main,build-beta,build-flask)
+      ///: BEGIN:ONLY_INCLUDE_IF(build-beta)
       return (
         <ButtonLink
           endIconName={IconName.Export}
