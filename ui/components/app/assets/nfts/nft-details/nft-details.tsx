@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 import { isEqual } from 'lodash';
@@ -63,11 +63,6 @@ import {
   Icon,
 } from '../../../../component-library';
 import { NftItem } from '../../../../multichain/nft-item';
-import {
-  MetaMetricsEventName,
-  MetaMetricsEventCategory,
-} from '../../../../../../shared/constants/metametrics';
-import { MetaMetricsContext } from '../../../../../contexts/metametrics';
 import { Content, Footer, Page } from '../../../../multichain/pages/page';
 import { formatCurrency } from '../../../../../helpers/utils/confirm-tx.util';
 import { getShortDateFormatterV2 } from '../../../../../pages/asset/util';
@@ -117,7 +112,6 @@ export function NftDetailsComponent({
   const ipfsGateway = useSelector(getIpfsGateway);
   const currentNetwork = useSelector(getCurrentChainId);
   const currentChain = useSelector(getCurrentNetwork);
-  const trackEvent = useContext(MetaMetricsContext);
   const currency = useSelector(getCurrentCurrency);
   const selectedNativeConversionRate = useSelector(getConversionRate);
 
@@ -193,16 +187,6 @@ export function NftDetailsComponent({
 
   const { chainId } = currentChain;
 
-  useEffect(() => {
-    trackEvent({
-      event: MetaMetricsEventName.NftDetailsOpened,
-      category: MetaMetricsEventCategory.Tokens,
-      properties: {
-        chain_id: chainId,
-      },
-    });
-  }, [trackEvent, chainId]);
-
   const onRemove = async () => {
     let isSuccessfulEvent = false;
     try {
@@ -214,19 +198,6 @@ export function NftDetailsComponent({
       dispatch(setNewNftAddedMessage(''));
       dispatch(setRemoveNftMessage('error'));
     } finally {
-      // track event
-      trackEvent({
-        event: MetaMetricsEventName.NFTRemoved,
-        category: 'Wallet',
-        properties: {
-          token_contract_address: address,
-          tokenId: tokenId.toString(),
-          asset_type: AssetType.NFT,
-          token_standard: standard,
-          chain_id: currentNetwork,
-          isSuccessful: isSuccessfulEvent,
-        },
-      });
       history.push(DEFAULT_ROUTE);
     }
   };

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { Hex } from '@metamask/utils';
@@ -28,13 +28,6 @@ import {
   Text,
 } from '../../../../component-library';
 import NFTsDetectionNoticeNFTsTab from '../nfts-detection-notice-nfts-tab/nfts-detection-notice-nfts-tab';
-import { MetaMetricsContext } from '../../../../../contexts/metametrics';
-import { ORIGIN_METAMASK } from '../../../../../../shared/constants/app';
-import {
-  MetaMetricsEventCategory,
-  MetaMetricsEventName,
-} from '../../../../../../shared/constants/metametrics';
-import { getCurrentLocale } from '../../../../../ducks/locale/locale';
 import Spinner from '../../../../ui/spinner';
 import { endTrace, TraceName } from '../../../../../../shared/lib/trace';
 import { useNfts } from '../../../../../hooks/useNfts';
@@ -61,7 +54,6 @@ export default function NftsTab() {
   const isMainnet = useSelector(getIsMainnet);
   const { privacyMode } = useSelector(getPreferences);
   const t = useI18nContext();
-  const trackEvent = useContext(MetaMetricsContext);
   const nftsStillFetchingIndication = useSelector(
     getNftIsStillFetchingIndication,
   );
@@ -78,30 +70,6 @@ export default function NftsTab() {
   const hasAnyNfts = Object.keys(collections).length > 0;
   const showNftBanner = hasAnyNfts === false;
   const { chainId, nickname } = useSelector(getCurrentNetwork);
-  const currentLocale = useSelector(getCurrentLocale);
-
-  useEffect(() => {
-    if (nftsLoading || !showNftBanner) {
-      return;
-    }
-    trackEvent({
-      event: MetaMetricsEventName.EmptyNftsBannerDisplayed,
-      category: MetaMetricsEventCategory.Navigation,
-      properties: {
-        chain_id: chainId,
-        locale: currentLocale,
-        network: nickname,
-        referrer: ORIGIN_METAMASK,
-      },
-    });
-  }, [
-    nftsLoading,
-    showNftBanner,
-    trackEvent,
-    chainId,
-    nickname,
-    currentLocale,
-  ]);
 
   useEffect(() => {
     if (!nftsLoading && !nftsStillFetchingIndication) {

@@ -1,15 +1,10 @@
-import React, { useCallback, useContext } from 'react';
+import React, { useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import TokenList from '../token-list';
 import {
   getMultichainIsEvm,
   getMultichainNetwork,
 } from '../../../../selectors/multichain';
-import { MetaMetricsContext } from '../../../../contexts/metametrics';
-import {
-  MetaMetricsEventCategory,
-  MetaMetricsEventName,
-} from '../../../../../shared/constants/metametrics';
 import DetectedToken from '../../detected-token/detected-token';
 import {
   useAssetListTokenDetection,
@@ -32,21 +27,12 @@ const TokenListContainer = React.memo(
       getMultichainNetwork,
       account,
     );
-    const trackEvent = useContext(MetaMetricsContext);
     const { primaryCurrencyProperties } = usePrimaryCurrencyProperties();
 
     const onTokenClick = useCallback(
       (chainId: string, tokenAddress: string) => {
         if (isEvmNetwork) {
           onClickAsset(chainId, tokenAddress);
-          trackEvent({
-            event: MetaMetricsEventName.TokenScreenOpened,
-            category: MetaMetricsEventCategory.Navigation,
-            properties: {
-              token_symbol: primaryCurrencyProperties.suffix,
-              location: 'Home',
-            },
-          });
         }
       },
       [],

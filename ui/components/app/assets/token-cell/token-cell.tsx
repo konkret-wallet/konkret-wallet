@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { useTokenDisplayInfo } from '../hooks';
@@ -20,11 +20,6 @@ import {
 } from '../../../component-library';
 import { getMultichainIsEvm } from '../../../../selectors/multichain';
 import { useI18nContext } from '../../../../hooks/useI18nContext';
-import { MetaMetricsContext } from '../../../../contexts/metametrics';
-import {
-  MetaMetricsEventCategory,
-  MetaMetricsEventName,
-} from '../../../../../shared/constants/metametrics';
 import { hexToDecimal } from '../../../../../shared/modules/conversion.utils';
 import { NETWORKS_ROUTE } from '../../../../helpers/constants/routes';
 import { setEditedNetwork } from '../../../../store/actions';
@@ -56,7 +51,6 @@ export default function TokenCell({
   const history = useHistory();
   const t = useI18nContext();
   const isEvm = useSelector(getMultichainIsEvm);
-  const trackEvent = useContext(MetaMetricsContext);
   const { safeChains } = useSafeChains();
   const [showScamWarningModal, setShowScamWarningModal] = useState(false);
 
@@ -89,17 +83,6 @@ export default function TokenCell({
 
       // Call the onClick handler with chainId and address if needed
       onClick(token.chainId, token.address);
-
-      // Track the event
-      trackEvent({
-        category: MetaMetricsEventCategory.Tokens,
-        event: MetaMetricsEventName.TokenDetailsOpened,
-        properties: {
-          location: 'Home',
-          chain_id: token.chainId, // FIXME: Ensure this is a number for EVM accounts
-          token_symbol: token.symbol,
-        },
-      });
     },
     [onClick, token.chainId, token.address],
   );

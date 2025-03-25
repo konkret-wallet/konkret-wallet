@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState, useContext, useMemo } from 'react';
+import React, { useEffect, useRef, useState, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   getCurrentNetwork,
@@ -27,15 +27,10 @@ import {
 } from '../../../../../helpers/constants/design-system';
 import ImportControl from '../import-control';
 import { useI18nContext } from '../../../../../hooks/useI18nContext';
-import { MetaMetricsContext } from '../../../../../contexts/metametrics';
 import {
   FEATURED_NETWORK_CHAIN_IDS,
   TEST_CHAINS,
 } from '../../../../../../shared/constants/network';
-import {
-  MetaMetricsEventCategory,
-  MetaMetricsEventName,
-} from '../../../../../../shared/constants/metametrics';
 // TODO: Remove restricted import
 // eslint-disable-next-line import/no-restricted-paths
 import { getEnvironmentType } from '../../../../../../app/scripts/lib/util';
@@ -60,7 +55,6 @@ type AssetListControlBarProps = {
 const AssetListControlBar = ({ showTokensLinks }: AssetListControlBarProps) => {
   const t = useI18nContext();
   const dispatch = useDispatch();
-  const trackEvent = useContext(MetaMetricsContext);
   const popoverRef = useRef<HTMLDivElement>(null);
   const currentNetwork = useSelector(getCurrentNetwork);
   const allNetworks = useSelector(getNetworkConfigurationsByChainId);
@@ -147,23 +141,12 @@ const AssetListControlBar = ({ showTokensLinks }: AssetListControlBarProps) => {
 
   const handleImport = () => {
     dispatch(showImportTokensModal());
-    trackEvent({
-      category: MetaMetricsEventCategory.Navigation,
-      event: MetaMetricsEventName.TokenImportButtonClicked,
-      properties: {
-        location: 'HOME',
-      },
-    });
     closePopover();
   };
 
   const handleRefresh = () => {
     dispatch(detectTokens());
     closePopover();
-    trackEvent({
-      category: MetaMetricsEventCategory.Tokens,
-      event: MetaMetricsEventName.TokenListRefreshed,
-    });
   };
 
   return (
