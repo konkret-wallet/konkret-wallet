@@ -4,11 +4,8 @@ import configureMockState from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import { renderWithProvider } from '../../../../test/lib/render-helpers';
 import mockState from '../../../../test/data/mock-state.json';
-import { MetaMetricsContext } from '../../../contexts/metametrics';
 import IncomingTransactionToggle from './incoming-transaction-toggle';
 import { ALL_NETWORKS_DATA, INCOMING_DATA } from './mock-data';
-
-const mockTrackEvent = jest.fn();
 
 describe('IncomingTransactionToggle', () => {
   const mockStore = configureMockState([thunk])(mockState);
@@ -20,15 +17,13 @@ describe('IncomingTransactionToggle', () => {
 
   it('should render existing incoming transaction preferences', () => {
     const { container, getByTestId } = renderWithProvider(
-      <MetaMetricsContext.Provider value={mockTrackEvent}>
-        <IncomingTransactionToggle
-          setIncomingTransactionsPreferences={
-            setIncomingTransactionsPreferencesStub
-          }
-          networkConfigurations={ALL_NETWORKS_DATA}
-          incomingTransactionsPreferences={INCOMING_DATA}
-        />
-      </MetaMetricsContext.Provider>,
+      <IncomingTransactionToggle
+        setIncomingTransactionsPreferences={
+          setIncomingTransactionsPreferencesStub
+        }
+        networkConfigurations={ALL_NETWORKS_DATA}
+        incomingTransactionsPreferences={INCOMING_DATA}
+      />,
       mockStore,
     );
     expect(container).toMatchSnapshot();
@@ -65,15 +60,13 @@ describe('IncomingTransactionToggle', () => {
 
   it('should settle the preference when click toggle one button', () => {
     const { getByTestId } = renderWithProvider(
-      <MetaMetricsContext.Provider value={mockTrackEvent}>
-        <IncomingTransactionToggle
-          setIncomingTransactionsPreferences={
-            setIncomingTransactionsPreferencesStub
-          }
-          networkConfigurations={ALL_NETWORKS_DATA}
-          incomingTransactionsPreferences={INCOMING_DATA}
-        />
-      </MetaMetricsContext.Provider>,
+      <IncomingTransactionToggle
+        setIncomingTransactionsPreferences={
+          setIncomingTransactionsPreferencesStub
+        }
+        networkConfigurations={ALL_NETWORKS_DATA}
+        incomingTransactionsPreferences={INCOMING_DATA}
+      />,
       mockStore,
     );
     const lineaMainnetCheckbox = within(

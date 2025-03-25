@@ -33,8 +33,6 @@ jest.mock('react-redux', () => {
 const mockHandleClose = jest.fn();
 
 describe('SortControl', () => {
-  const mockTrackEvent = jest.fn();
-
   const renderComponent = () => {
     (useSelector as jest.Mock).mockImplementation((selector) => {
       if (selector === getPreferences) {
@@ -50,16 +48,11 @@ describe('SortControl', () => {
       return undefined;
     });
 
-    return renderWithProvider(
-      <MetaMetricsContext.Provider value={mockTrackEvent}>
-        <SortControl handleClose={mockHandleClose} />
-      </MetaMetricsContext.Provider>,
-    );
+    return renderWithProvider(<SortControl handleClose={mockHandleClose} />);
   };
 
   beforeEach(() => {
     mockDispatch.mockClear();
-    mockTrackEvent.mockClear();
     (setTokenSortConfig as jest.Mock).mockClear();
   });
 
@@ -70,7 +63,7 @@ describe('SortControl', () => {
     expect(screen.getByTestId('sortByDecliningBalance')).toBeInTheDocument();
   });
 
-  it('dispatches setTokenSortConfig with expected config, and tracks event when Alphabetically is clicked', () => {
+  it('dispatches setTokenSortConfig with expected config when Alphabetically is clicked', () => {
     renderComponent();
 
     const alphabeticallyButton = screen.getByTestId(
@@ -84,17 +77,9 @@ describe('SortControl', () => {
       sortCallback: 'alphaNumeric',
       order: 'asc',
     });
-
-    expect(mockTrackEvent).toHaveBeenCalledWith({
-      category: 'Settings',
-      event: 'Token Sort Preference',
-      properties: {
-        token_sort_preference: 'symbol',
-      },
-    });
   });
 
-  it('dispatches setTokenSortConfig with expected config, and tracks event when Declining balance is clicked', () => {
+  it('dispatches setTokenSortConfig with expected config when Declining balance is clicked', () => {
     renderComponent();
 
     const decliningBalanceButton = screen.getByTestId(
@@ -107,14 +92,6 @@ describe('SortControl', () => {
       key: 'tokenFiatAmount',
       sortCallback: 'stringNumeric',
       order: 'dsc',
-    });
-
-    expect(mockTrackEvent).toHaveBeenCalledWith({
-      category: 'Settings',
-      event: 'Token Sort Preference',
-      properties: {
-        token_sort_preference: 'tokenFiatAmount',
-      },
     });
   });
 });

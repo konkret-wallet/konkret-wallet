@@ -1,22 +1,11 @@
 const fs = require('fs');
 
 const {
-  BRIDGE_DEV_API_BASE_URL,
-  BRIDGE_PROD_API_BASE_URL,
-} = require('../../shared/constants/bridge');
-const {
-  ACCOUNTS_DEV_API_BASE_URL,
-  ACCOUNTS_PROD_API_BASE_URL,
-} = require('../../shared/constants/accounts');
-const {
   GAS_API_BASE_URL,
   SWAPS_API_V2_BASE_URL,
   TOKEN_API_BASE_URL,
 } = require('../../shared/constants/swaps');
 const { TX_SENTINEL_URL } = require('../../shared/constants/transaction');
-const {
-  DEFAULT_FEATURE_FLAGS_RESPONSE: BRIDGE_DEFAULT_FEATURE_FLAGS_RESPONSE,
-} = require('./tests/bridge/constants');
 
 const AGGREGATOR_METADATA_PATH =
   'test/e2e/mock-response-data/aggregator-metadata.json';
@@ -162,30 +151,6 @@ async function setupMocking(
       };
     });
 
-  await server.forPost('https://api.segment.io/v1/batch').thenCallback(() => {
-    return {
-      statusCode: 200,
-    };
-  });
-
-  await server
-    .forPost('https://sentry.io/api/0000000/envelope/')
-    .thenCallback(() => {
-      return {
-        statusCode: 200,
-        json: {},
-      };
-    });
-
-  await server
-    .forPost('https://sentry.io/api/0000000/store/')
-    .thenCallback(() => {
-      return {
-        statusCode: 200,
-        json: {},
-      };
-    });
-
   await server
     .forGet('https://www.4byte.directory/api/v1/signatures/')
     .thenCallback(() => {
@@ -298,100 +263,6 @@ async function setupMocking(
     smartTransactions: true,
     hidden: false,
   });
-
-  await server
-    .forGet(`${SWAPS_API_V2_BASE_URL}/featureFlags`)
-    .thenCallback(() => {
-      return {
-        statusCode: 200,
-        json: {
-          ethereum: {
-            fallbackToV1: false,
-            mobileActive: true,
-            extensionActive: true,
-          },
-          bsc: {
-            fallbackToV1: false,
-            mobileActive: true,
-            extensionActive: true,
-          },
-          polygon: {
-            fallbackToV1: false,
-            mobileActive: true,
-            extensionActive: true,
-          },
-          avalanche: {
-            fallbackToV1: false,
-            mobileActive: true,
-            extensionActive: true,
-          },
-          smartTransactions: {
-            mobileActive: false,
-            extensionActive: true,
-          },
-          updated_at: '2022-03-17T15:54:00.360Z',
-        },
-      };
-    });
-
-  [
-    `${BRIDGE_DEV_API_BASE_URL}/getAllFeatureFlags`,
-    `${BRIDGE_PROD_API_BASE_URL}/getAllFeatureFlags`,
-  ].forEach(
-    async (url) =>
-      await server.forGet(url).thenCallback(() => {
-        return {
-          statusCode: 200,
-          json: BRIDGE_DEFAULT_FEATURE_FLAGS_RESPONSE,
-        };
-      }),
-  );
-
-  [
-    `${ACCOUNTS_DEV_API_BASE_URL}/v1/users/fake-metrics-id/surveys`,
-    `${ACCOUNTS_DEV_API_BASE_URL}/v1/users/fake-metrics-fd20/surveys`,
-    `${ACCOUNTS_DEV_API_BASE_URL}/v1/users/test-metrics-id/surveys`,
-    `${ACCOUNTS_DEV_API_BASE_URL}/v1/users/invalid-metrics-id/surveys`,
-    `${ACCOUNTS_PROD_API_BASE_URL}/v1/users/fake-metrics-id/surveys`,
-    `${ACCOUNTS_PROD_API_BASE_URL}/v1/users/fake-metrics-fd20/surveys`,
-    `${ACCOUNTS_PROD_API_BASE_URL}/v1/users/test-metrics-id/surveys`,
-    `${ACCOUNTS_PROD_API_BASE_URL}/v1/users/invalid-metrics-id/surveys`,
-  ].forEach(
-    async (url) =>
-      await server.forGet(url).thenCallback(() => {
-        return {
-          statusCode: 200,
-          json: {
-            userId: '0x123',
-            surveys: {},
-          },
-        };
-      }),
-  );
-
-  let surveyCallCount = 0;
-  [
-    `${ACCOUNTS_DEV_API_BASE_URL}/v1/users/fake-metrics-id-power-user/surveys`,
-    `${ACCOUNTS_PROD_API_BASE_URL}/v1/users/fake-metrics-id-power-user/surveys`,
-  ].forEach(
-    async (url) =>
-      await server.forGet(url).thenCallback(() => {
-        const surveyId = surveyCallCount > 2 ? 2 : surveyCallCount;
-        surveyCallCount += 1;
-        return {
-          statusCode: 200,
-          json: {
-            userId: '0x123',
-            surveys: {
-              url: 'https://example.com',
-              description: `Test survey ${surveyId}`,
-              cta: 'Take survey',
-              id: surveyId,
-            },
-          },
-        };
-      }),
-  );
 
   await server
     .forGet(`https://token.api.cx.metamask.io/tokens/${chainId}`)

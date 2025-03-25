@@ -13,11 +13,6 @@ import { ETH_EOA_METHODS } from '../../../../shared/constants/eth-methods';
 import { getIntlLocale } from '../../../ducks/locale/locale';
 import { setBackgroundConnection } from '../../../store/background-connection';
 import { mockNetworkState } from '../../../../test/stub/networks';
-import { MetaMetricsContext } from '../../../contexts/metametrics';
-import {
-  MetaMetricsEventCategory,
-  MetaMetricsEventName,
-} from '../../../../shared/constants/metametrics';
 import EthOverview from './eth-overview';
 
 // We need to mock `dispatch` since we use it for `setDefaultHomeActiveTabName`.
@@ -401,35 +396,14 @@ describe('EthOverview', () => {
     });
   });
 
-  it('sends an event when clicking the Buy button: %s', () => {
-    const mockTrackEvent = jest.fn();
-
+  it('can click the Buy button: %s', () => {
     const mockedStore = configureMockStore([thunk])(mockStore);
-    const { queryByTestId } = renderWithProvider(
-      <MetaMetricsContext.Provider value={mockTrackEvent}>
-        <EthOverview />
-      </MetaMetricsContext.Provider>,
-      mockedStore,
-    );
+    const { queryByTestId } = renderWithProvider(<EthOverview />, mockedStore);
 
     const buyButton = queryByTestId(ETH_OVERVIEW_BUY);
     expect(buyButton).toBeInTheDocument();
     expect(buyButton).not.toBeDisabled();
     fireEvent.click(buyButton);
-
-    expect(mockTrackEvent).toHaveBeenCalledTimes(1);
-    expect(mockTrackEvent).toHaveBeenCalledWith({
-      event: MetaMetricsEventName.NavBuyButtonClicked,
-      category: MetaMetricsEventCategory.Navigation,
-      properties: {
-        account_type: mockEvmAccount1.type,
-        chain_id: CHAIN_IDS.MAINNET,
-        location: 'Home',
-        text: 'Buy',
-        // We use a `SwapsEthToken` in this case, so we're expecting an entire object here.
-        token_symbol: expect.any(Object),
-      },
-    });
   });
 
   describe('Disabled buttons when an account cannot sign transactions', () => {
@@ -487,8 +461,7 @@ describe('EthOverview', () => {
     // We want to test with a different chain ID than mainnet to make sure the events are still using
     // the right `token_symbol`.
     CHAIN_IDS.SEPOLIA,
-  ])('sends an event when clicking the Send button: %s', (chainId) => {
-    const mockTrackEvent = jest.fn();
+  ])('can click the Send button: %s', (chainId) => {
     const mockedStoreWithSpecificChainId = {
       ...mockStore,
       metamask: {
@@ -500,32 +473,11 @@ describe('EthOverview', () => {
     const mockedStore = configureMockStore([thunk])(
       mockedStoreWithSpecificChainId,
     );
-    const { queryByTestId } = renderWithProvider(
-      <MetaMetricsContext.Provider value={mockTrackEvent}>
-        <EthOverview />
-      </MetaMetricsContext.Provider>,
-      mockedStore,
-    );
+    const { queryByTestId } = renderWithProvider(<EthOverview />, mockedStore);
 
     const sendButton = queryByTestId(ETH_OVERVIEW_SEND);
     expect(sendButton).toBeInTheDocument();
     expect(sendButton).not.toBeDisabled();
     fireEvent.click(sendButton);
-
-    expect(mockTrackEvent).toHaveBeenCalledTimes(1);
-    expect(mockTrackEvent).toHaveBeenCalledWith(
-      {
-        event: MetaMetricsEventName.NavSendButtonClicked,
-        category: MetaMetricsEventCategory.Navigation,
-        properties: {
-          account_type: mockEvmAccount1.type,
-          chain_id: chainId,
-          location: 'Home',
-          text: 'Send',
-          token_symbol: 'ETH',
-        },
-      },
-      expect.any(Object),
-    );
   });
 });

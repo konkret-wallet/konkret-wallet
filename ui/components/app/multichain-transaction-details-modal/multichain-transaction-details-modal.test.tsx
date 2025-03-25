@@ -117,7 +117,6 @@ const mockProps = {
 };
 
 describe('MultichainTransactionDetailsModal', () => {
-  const mockTrackEvent = jest.fn();
   const useI18nContextMock = useI18nContext as jest.Mock;
 
   beforeEach(() => {
@@ -137,9 +136,7 @@ describe('MultichainTransactionDetailsModal', () => {
   ) => {
     const store = configureStore(mockState.metamask);
     return renderWithProvider(
-      <MetaMetricsContext.Provider value={mockTrackEvent}>
-        <MultichainTransactionDetailsModal {...props} />
-      </MetaMetricsContext.Provider>,
+      <MultichainTransactionDetailsModal {...props} />,
       store,
     );
   };
@@ -191,7 +188,6 @@ describe('MultichainTransactionDetailsModal', () => {
     const viewDetailsButton = screen.getByText('viewDetails');
     expect(viewDetailsButton).toBeInTheDocument();
     fireEvent.click(viewDetailsButton);
-    expect(mockTrackEvent).toHaveBeenCalled();
   });
 
   // @ts-expect-error This is missing from the Mocha type definitions

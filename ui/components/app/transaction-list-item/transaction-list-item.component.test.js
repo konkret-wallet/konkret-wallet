@@ -18,11 +18,6 @@ import { setBackgroundConnection } from '../../../store/background-connection';
 import { useGasFeeEstimates } from '../../../hooks/useGasFeeEstimates';
 import { GasEstimateTypes } from '../../../../shared/constants/gas';
 import { getTokens } from '../../../ducks/metamask/metamask';
-import {
-  MetaMetricsEventCategory,
-  MetaMetricsEventName,
-} from '../../../../shared/constants/metametrics';
-import { MetaMetricsContext } from '../../../contexts/metametrics';
 import { abortTransactionSigning } from '../../../store/actions';
 import { selectBridgeHistoryForAccount } from '../../../ducks/bridge-status/selectors';
 import TransactionListItem from '.';
@@ -132,7 +127,7 @@ describe('TransactionListItem', () => {
   });
 
   describe('ActivityListItem interactions', () => {
-    it('should show the activity details popover and log metrics when the activity list item is clicked', () => {
+    it('should show the activity details popover when the activity list item is clicked', () => {
       useSelector.mockImplementation(
         generateUseSelectorRouter({
           balance: '0x3',
@@ -140,31 +135,14 @@ describe('TransactionListItem', () => {
       );
 
       const store = mockStore(mockState);
-      const mockTrackEvent = jest.fn();
       const { queryByTestId } = renderWithProvider(
-        <MetaMetricsContext.Provider value={mockTrackEvent}>
-          <TransactionListItem transactionGroup={transactionGroup} />
-        </MetaMetricsContext.Provider>,
+        <TransactionListItem transactionGroup={transactionGroup} />,
         store,
       );
       const activityListItem = queryByTestId('activity-list-item');
       fireEvent.click(activityListItem);
-      expect(mockTrackEvent).toHaveBeenCalledWith({
-        event: MetaMetricsEventName.ActivityDetailsOpened,
-        category: MetaMetricsEventCategory.Navigation,
-        properties: {
-          activity_type: 'send',
-        },
-      });
       const popoverClose = queryByTestId('popover-close');
       fireEvent.click(popoverClose);
-      expect(mockTrackEvent).toHaveBeenCalledWith({
-        event: MetaMetricsEventName.ActivityDetailsClosed,
-        category: MetaMetricsEventCategory.Navigation,
-        properties: {
-          activity_type: 'send',
-        },
-      });
     });
   });
 

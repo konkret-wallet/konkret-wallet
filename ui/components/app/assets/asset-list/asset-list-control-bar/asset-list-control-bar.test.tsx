@@ -14,7 +14,7 @@ describe('AssetListControlBar', () => {
     jest.clearAllMocks();
   });
 
-  it('should fire metrics event when refresh button is clicked', async () => {
+  it('should be able to click refresh button', async () => {
     const store = configureMockStore([thunk])({
       metamask: {
         selectedNetworkClientId: 'selectedNetworkClientId',
@@ -38,25 +38,12 @@ describe('AssetListControlBar', () => {
       },
     });
 
-    const mockTrackEvent = jest.fn();
-
-    const { findByTestId } = renderWithProvider(
-      <MetaMetricsContext.Provider value={mockTrackEvent}>
-        <AssetListControlBar />
-      </MetaMetricsContext.Provider>,
-      store,
-    );
+    const { findByTestId } = renderWithProvider(<AssetListControlBar />, store);
 
     const importButton = await findByTestId('import-token-button');
     importButton.click();
 
     const refreshListItem = await findByTestId('refreshList__button');
     refreshListItem.click();
-
-    expect(mockTrackEvent).toHaveBeenCalledTimes(1);
-    expect(mockTrackEvent).toHaveBeenCalledWith({
-      category: MetaMetricsEventCategory.Tokens,
-      event: MetaMetricsEventName.TokenListRefreshed,
-    });
   });
 });

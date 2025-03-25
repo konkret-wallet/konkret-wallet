@@ -29,7 +29,6 @@ jest.mock('react-redux', () => ({
 
 describe('ErrorPage', () => {
   const useSelectorMock = useSelector as jest.Mock;
-  const mockTrackEvent = jest.fn();
   const MockError = new Error(
     "Cannot read properties of undefined (reading 'message')",
   ) as Error & { code?: string };
@@ -57,11 +56,7 @@ describe('ErrorPage', () => {
   });
 
   it('should render the error message, code, and name if provided', () => {
-    const { getByTestId } = renderWithProvider(
-      <MetaMetricsContext.Provider value={mockTrackEvent}>
-        <ErrorPage error={MockError} />
-      </MetaMetricsContext.Provider>,
-    );
+    const { getByTestId } = renderWithProvider(<ErrorPage error={MockError} />);
 
     expect(
       getByTestId('error-page-error-message').textContent,
@@ -79,11 +74,7 @@ describe('ErrorPage', () => {
   it('should not render error details if no error information is provided', () => {
     const error = {};
 
-    const { queryByTestId } = renderWithProvider(
-      <MetaMetricsContext.Provider value={mockTrackEvent}>
-        <ErrorPage error={error} />
-      </MetaMetricsContext.Provider>,
-    );
+    const { queryByTestId } = renderWithProvider(<ErrorPage error={error} />);
 
     expect(queryByTestId('error-page-error-message')).toBeNull();
     expect(queryByTestId('error-page-error-code')).toBeNull();
@@ -93,9 +84,7 @@ describe('ErrorPage', () => {
 
   it('should render sentry user feedback form and submit sentry report successfully when metrics is opted in', () => {
     const { getByTestId, queryByTestId } = renderWithProvider(
-      <MetaMetricsContext.Provider value={mockTrackEvent}>
-        <ErrorPage error={MockError} />
-      </MetaMetricsContext.Provider>,
+      <ErrorPage error={MockError} />,
     );
     const describeButton = getByTestId(
       'error-page-describe-what-happened-button',
@@ -132,9 +121,7 @@ describe('ErrorPage', () => {
       return undefined;
     });
     const { queryByTestId } = renderWithProvider(
-      <MetaMetricsContext.Provider value={mockTrackEvent}>
-        <ErrorPage error={MockError} />
-      </MetaMetricsContext.Provider>,
+      <ErrorPage error={MockError} />,
     );
     const describeButton = queryByTestId(
       'error-page-describe-what-happened-button',
@@ -144,11 +131,7 @@ describe('ErrorPage', () => {
   });
 
   it('should reload the extension when the "Try Again" button is clicked', () => {
-    const { getByTestId } = renderWithProvider(
-      <MetaMetricsContext.Provider value={mockTrackEvent}>
-        <ErrorPage error={MockError} />
-      </MetaMetricsContext.Provider>,
-    );
+    const { getByTestId } = renderWithProvider(<ErrorPage error={MockError} />);
     const tryAgainButton = getByTestId('error-page-try-again-button');
     fireEvent.click(tryAgainButton);
     expect(browser.runtime.reload).toHaveBeenCalled();
@@ -157,11 +140,7 @@ describe('ErrorPage', () => {
   it('should open the support consent modal when the "Contact Support" button is clicked', () => {
     window.open = jest.fn();
 
-    const { getByTestId } = renderWithProvider(
-      <MetaMetricsContext.Provider value={mockTrackEvent}>
-        <ErrorPage error={MockError} />
-      </MetaMetricsContext.Provider>,
-    );
+    const { getByTestId } = renderWithProvider(<ErrorPage error={MockError} />);
 
     const contactSupportButton = getByTestId(
       'error-page-contact-support-button',

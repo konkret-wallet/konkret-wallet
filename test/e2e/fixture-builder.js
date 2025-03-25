@@ -284,11 +284,6 @@ class FixtureBuilder {
     });
   }
 
-  withMetaMetricsController(data) {
-    merge(this.fixture.data.MetaMetricsController, data);
-    return this;
-  }
-
   withNetworkController(data) {
     merge(this.fixture.data.NetworkController, data);
     this.fixture.data.NetworkController.providerConfig = {

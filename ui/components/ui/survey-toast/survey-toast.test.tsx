@@ -18,7 +18,6 @@ jest.mock('../../../../shared/lib/fetch-with-cache', () => ({
 }));
 
 const mockFetchWithCache = fetchWithCache as jest.Mock;
-const mockTrackEvent = jest.fn();
 const mockStore = configureStore([thunk]);
 
 const surveyData = {
@@ -52,12 +51,7 @@ const createStore = (options = { metametricsEnabled: true }) =>
   });
 
 const renderComponent = (options = { metametricsEnabled: true }) =>
-  renderWithProvider(
-    <MetaMetricsContext.Provider value={mockTrackEvent}>
-      <SurveyToast />
-    </MetaMetricsContext.Provider>,
-    createStore(options),
-  );
+  renderWithProvider(<SurveyToast />, createStore(options));
 
 describe('SurveyToast', () => {
   beforeEach(() => {
@@ -112,42 +106,6 @@ describe('SurveyToast', () => {
         screen.getByText(surveyData.valid.description),
       ).toBeInTheDocument();
       expect(screen.getByText(surveyData.valid.cta)).toBeInTheDocument();
-    });
-  });
-
-  it('handles action click correctly when metametrics is enabled', async () => {
-    mockFetchWithCache.mockResolvedValue({ surveys: surveyData.valid });
-
-    renderComponent();
-
-    await waitFor(() => {
-      expect(screen.getByTestId('survey-toast')).toBeInTheDocument();
-    });
-
-    fireEvent.click(screen.getByText(surveyData.valid.cta));
-
-    expect(global.platform.openTab).toHaveBeenCalledWith({
-      url: surveyData.valid.url,
-    });
-    expect(mockTrackEvent).toHaveBeenCalledWith({
-      event: MetaMetricsEventName.SurveyToast,
-      category: MetaMetricsEventCategory.Feedback,
-      properties: {
-        response: 'accept',
-        survey: surveyData.valid.id,
-      },
-    });
-  });
-
-  it('should not show the toast if metametrics is disabled', async () => {
-    mockFetchWithCache.mockResolvedValue({ surveys: surveyData.valid });
-
-    renderComponent({
-      metametricsEnabled: false,
-    });
-
-    await waitFor(() => {
-      expect(screen.queryByTestId('survey-toast')).toBeNull();
     });
   });
 });

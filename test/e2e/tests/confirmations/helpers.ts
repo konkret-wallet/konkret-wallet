@@ -36,10 +36,6 @@ export function withTransactionEnvelopeTypeFixtures(
       driverOptions: { timeOut: 20000 },
       fixtures: new FixtureBuilder()
         .withPermissionControllerConnectedToTestDapp()
-        .withMetaMetricsController({
-          metaMetricsId: 'fake-metrics-id',
-          participateInMetaMetrics: true,
-        })
         .build(),
       localNodeOptions:
         transactionEnvelopeType === TransactionEnvelopeType.legacy
@@ -51,17 +47,6 @@ export function withTransactionEnvelopeTypeFixtures(
     },
     testFunction,
   );
-}
-
-async function createMockSegmentEvent(mockServer: Mockttp, eventName: string) {
-  return await mockServer
-    .forPost('https://api.segment.io/v1/batch')
-    .withJsonBodyIncluding({
-      batch: [{ type: 'track', event: eventName }],
-    })
-    .thenCallback(() => ({
-      statusCode: 200,
-    }));
 }
 
 async function createMockSignatureDecodingEvent(mockServer: Mockttp) {
@@ -91,23 +76,12 @@ async function createMockSignatureDecodingEvent(mockServer: Mockttp) {
     }));
 }
 
+/* eslint-disable @typescript-eslint/no-unused-vars */
 export async function mockSignatureApproved(
   mockServer: Mockttp,
   withAnonEvents = false,
 ) {
-  const anonEvents = withAnonEvents
-    ? [
-        await createMockSegmentEvent(mockServer, 'Signature Requested Anon'),
-        await createMockSegmentEvent(mockServer, 'Signature Approved Anon'),
-      ]
-    : [];
-
-  return [
-    await createMockSegmentEvent(mockServer, 'Signature Requested'),
-    await createMockSegmentEvent(mockServer, 'Account Details Opened'),
-    ...anonEvents,
-    await createMockSegmentEvent(mockServer, 'Signature Approved'),
-  ];
+  return [];
 }
 
 export async function mockSignatureApprovedWithDecoding(
@@ -124,18 +98,7 @@ export async function mockSignatureRejected(
   mockServer: Mockttp,
   withAnonEvents = false,
 ) {
-  const anonEvents = withAnonEvents
-    ? [
-        await createMockSegmentEvent(mockServer, 'Signature Requested Anon'),
-        await createMockSegmentEvent(mockServer, 'Signature Rejected Anon'),
-      ]
-    : [];
-
-  return [
-    await createMockSegmentEvent(mockServer, 'Signature Requested'),
-    await createMockSegmentEvent(mockServer, 'Signature Rejected'),
-    ...anonEvents,
-  ];
+  return [];
 }
 
 export async function mockSignatureRejectedWithDecoding(

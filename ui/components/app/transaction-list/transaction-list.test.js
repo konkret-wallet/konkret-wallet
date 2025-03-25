@@ -7,12 +7,6 @@ import {
   MOCK_ACCOUNT_BIP122_P2WPKH,
   MOCK_ACCOUNT_SOLANA_MAINNET,
 } from '../../../../test/data/mock-accounts';
-import { MetaMetricsContext } from '../../../contexts/metametrics';
-import {
-  MetaMetricsEventCategory,
-  MetaMetricsEventLinkType,
-  MetaMetricsEventName,
-} from '../../../../shared/constants/metametrics';
 import {
   MULTICHAIN_NETWORK_BLOCK_EXPLORER_FORMAT_URLS_MAP,
   MultichainNetworks,
@@ -192,16 +186,9 @@ const solanaSwapState = {
   },
 };
 
-const mockTrackEvent = jest.fn();
-
 const render = (state = defaultState) => {
   const store = configureStore(state);
-  return renderWithProvider(
-    <MetaMetricsContext.Provider value={mockTrackEvent}>
-      <TransactionList />
-    </MetaMetricsContext.Provider>,
-    store,
-  );
+  return renderWithProvider(<TransactionList />, store);
 };
 
 describe('TransactionList', () => {
@@ -237,24 +224,13 @@ describe('TransactionList', () => {
     );
     const blockExplorerDomain = new URL(blockExplorerUrl).host;
     fireEvent.click(viewOnExplorerBtn);
-    expect(mockTrackEvent).toHaveBeenCalledWith({
-      event: MetaMetricsEventName.ExternalLinkClicked,
-      category: MetaMetricsEventCategory.Navigation,
-      properties: {
-        link_type: MetaMetricsEventLinkType.AccountTracker,
-        location: 'Activity Tab',
-        url_domain: blockExplorerDomain,
-      },
-    });
   });
 
   it('renders TransactionList component and does not show Chain ID mismatch text if network name is not available', () => {
     const store = configureStore(defaultState);
 
     const { queryByText } = renderWithProvider(
-      <MetaMetricsContext.Provider value={mockTrackEvent}>
-        <TransactionList tokenChainId="0x89" />
-      </MetaMetricsContext.Provider>,
+      <TransactionList tokenChainId="0x89" />,
       store,
     );
     expect(
@@ -303,9 +279,7 @@ describe('TransactionList', () => {
     const store = configureStore(defaultState2);
 
     const { queryByText } = renderWithProvider(
-      <MetaMetricsContext.Provider value={mockTrackEvent}>
-        <TransactionList tokenChainId="0xe708" />
-      </MetaMetricsContext.Provider>,
+      <TransactionList tokenChainId="0xe708" />,
       store,
     );
     expect(

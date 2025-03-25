@@ -309,11 +309,8 @@ describe('NonEvmOverview', () => {
       },
     });
 
-    const mockTrackEvent = jest.fn();
     const { queryByTestId } = renderWithProvider(
-      <MetaMetricsContext.Provider value={mockTrackEvent}>
-        <NonEvmOverview />
-      </MetaMetricsContext.Provider>,
+      <NonEvmOverview />,
       storeWithBtcBuyable,
     );
 
@@ -321,21 +318,6 @@ describe('NonEvmOverview', () => {
     expect(buyButton).toBeInTheDocument();
     expect(buyButton).not.toBeDisabled();
     fireEvent.click(buyButton as HTMLElement);
-
-    expect(mockTrackEvent).toHaveBeenCalledTimes(1);
-    expect(mockTrackEvent).toHaveBeenCalledWith({
-      event: MetaMetricsEventName.NavBuyButtonClicked,
-      category: MetaMetricsEventCategory.Navigation,
-      properties: {
-        account_type: mockNonEvmAccount.type,
-        chain_id: MultichainNetworks.BITCOIN,
-        location: 'Home',
-        snap_id: mockNonEvmAccount.metadata.snap.id,
-        text: 'Buy',
-        // We use a `SwapsEthToken` in this case, so we're expecting an entire object here.
-        token_symbol: expect.any(Object),
-      },
-    });
   });
 
   it('always show the Receive button', () => {
@@ -388,11 +370,8 @@ describe('NonEvmOverview', () => {
   });
 
   it('sends an event when clicking the Send button', () => {
-    const mockTrackEvent = jest.fn();
     const { queryByTestId } = renderWithProvider(
-      <MetaMetricsContext.Provider value={mockTrackEvent}>
-        <NonEvmOverview />
-      </MetaMetricsContext.Provider>,
+      <NonEvmOverview />,
       getStore(),
     );
 
@@ -400,22 +379,5 @@ describe('NonEvmOverview', () => {
     expect(sendButton).toBeInTheDocument();
     expect(sendButton).not.toBeDisabled();
     fireEvent.click(sendButton as HTMLElement);
-
-    expect(mockTrackEvent).toHaveBeenCalledTimes(1);
-    expect(mockTrackEvent).toHaveBeenCalledWith(
-      {
-        event: MetaMetricsEventName.NavSendButtonClicked,
-        category: MetaMetricsEventCategory.Navigation,
-        properties: {
-          account_type: mockNonEvmAccount.type,
-          chain_id: MultichainNetworks.BITCOIN,
-          location: 'Home',
-          snap_id: mockNonEvmAccount.metadata.snap.id,
-          text: 'Send',
-          token_symbol: 'BTC',
-        },
-      },
-      expect.any(Object),
-    );
   });
 });

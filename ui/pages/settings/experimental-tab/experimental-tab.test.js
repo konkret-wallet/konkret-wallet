@@ -2,7 +2,6 @@ import React from 'react';
 import { fireEvent, renderWithProvider, waitFor } from '../../../../test/jest';
 import configureStore from '../../../store/store';
 import mockState from '../../../../test/data/mock-state.json';
-import { LegacyMetaMetricsProvider } from '../../../contexts/metametrics';
 import ExperimentalTab from './experimental-tab.component';
 
 const render = (overrideMetaMaskState, props = {}) => {
@@ -13,10 +12,7 @@ const render = (overrideMetaMaskState, props = {}) => {
     },
   });
   const comp = <ExperimentalTab {...props} />;
-  return renderWithProvider(
-    <LegacyMetaMetricsProvider>{comp}</LegacyMetaMetricsProvider>,
-    store,
-  );
+  return renderWithProvider(<>{comp}</>, store);
 };
 
 describe('ExperimentalTab', () => {

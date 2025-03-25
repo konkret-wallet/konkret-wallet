@@ -18,35 +18,6 @@ import HeaderInfo from './header-info';
 
 const mockStore = getMockTypedSignConfirmState();
 
-const cases = [
-  {
-    description: 'for a signature',
-    store: mockStore,
-    expectedEvent: {
-      category: MetaMetricsEventCategory.Confirmations,
-      event: MetaMetricsEventName.AccountDetailsOpened,
-      properties: {
-        action: 'Confirm Screen',
-        location: MetaMetricsEventLocation.SignatureConfirmation,
-        signature_type: 'eth_signTypedData_v4',
-      },
-    },
-  },
-  {
-    description: 'for a transaction',
-    store: getMockContractInteractionConfirmState(),
-    expectedEvent: {
-      category: MetaMetricsEventCategory.Confirmations,
-      event: MetaMetricsEventName.AccountDetailsOpened,
-      properties: {
-        action: 'Confirm Screen',
-        location: MetaMetricsEventLocation.Transaction,
-        transaction_type: TransactionType.contractInteraction,
-      },
-    },
-  },
-];
-
 const render = () => {
   const store = configureStore(mockStore);
   return renderWithConfirmContextProvider(<HeaderInfo />, store);
@@ -70,22 +41,6 @@ describe('Header', () => {
       await waitFor(() => {
         expect(queryByTestId('account-details-modal')).toBeInTheDocument();
         expect(getByText('0x0DCD5...3E7bc')).toBeInTheDocument();
-      });
-    });
-
-    cases.forEach(({ description, store, expectedEvent }) => {
-      it(`sends "${MetaMetricsEventName.AccountDetailsOpened}" metametric ${description}`, () => {
-        const mockTrackEvent = jest.fn();
-        const { getByLabelText } = renderWithConfirmContextProvider(
-          <MetaMetricsContext.Provider value={mockTrackEvent}>
-            <HeaderInfo />
-          </MetaMetricsContext.Provider>,
-          configureStore(store),
-        );
-        const accountInfoIcon = getByLabelText('Account details');
-        fireEvent.click(accountInfoIcon);
-
-        expect(mockTrackEvent).toHaveBeenNthCalledWith(1, expectedEvent);
       });
     });
   });

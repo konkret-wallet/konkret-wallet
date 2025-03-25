@@ -37,9 +37,6 @@ describe('Incremental Security', function () {
         // welcome
         await driver.clickElement('[data-testid="onboarding-create-wallet"]');
 
-        // metrics
-        await driver.clickElement('[data-testid="metametrics-no-thanks"]');
-
         // create password
         await driver.fill(
           '[data-testid="create-password-new"]',

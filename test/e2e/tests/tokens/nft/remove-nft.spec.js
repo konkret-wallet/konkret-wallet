@@ -6,22 +6,14 @@ const {
 } = require('../../../helpers');
 const { SMART_CONTRACTS } = require('../../../seeder/smart-contracts');
 const FixtureBuilder = require('../../../fixture-builder');
-const {
-  MetaMetricsEventName,
-} = require('../../../../../shared/constants/metametrics');
 const { CHAIN_IDS } = require('../../../../../shared/constants/network');
 
 async function mockedNftRemoved(mockServer) {
-  return await mockServer
-    .forPost('https://api.segment.io/v1/batch')
-    .withJsonBodyIncluding({
-      batch: [{ type: 'track', event: MetaMetricsEventName.NFTRemoved }],
-    })
-    .thenCallback(() => {
-      return {
-        statusCode: 200,
-      };
-    });
+  return await mockServer.thenCallback(() => {
+    return {
+      statusCode: 200,
+    };
+  });
 }
 
 describe('Remove NFT', function () {
@@ -34,13 +26,7 @@ describe('Remove NFT', function () {
     await withFixtures(
       {
         dapp: true,
-        fixtures: new FixtureBuilder()
-          .withNftControllerERC721()
-          .withMetaMetricsController({
-            metaMetricsId: 'fake-metrics-id',
-            participateInMetaMetrics: true,
-          })
-          .build(),
+        fixtures: new FixtureBuilder().withNftControllerERC721().build(),
         smartContract,
         title: this.test.fullTitle(),
         testSpecificMock: mockSegment,

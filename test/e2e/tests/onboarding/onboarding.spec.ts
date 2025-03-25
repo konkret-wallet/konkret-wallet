@@ -10,7 +10,6 @@ import FixtureBuilder from '../../fixture-builder';
 import { FirstTimeFlowType } from '../../../../shared/constants/onboarding';
 import HomePage from '../../page-objects/pages/home/homepage';
 import OnboardingCompletePage from '../../page-objects/pages/onboarding/onboarding-complete-page';
-import OnboardingMetricsPage from '../../page-objects/pages/onboarding/onboarding-metrics-page';
 import OnboardingPasswordPage from '../../page-objects/pages/onboarding/onboarding-password-page';
 import OnboardingPrivacySettingsPage from '../../page-objects/pages/onboarding/onboarding-privacy-settings-page';
 import OnboardingSrpPage from '../../page-objects/pages/onboarding/onboarding-srp-page';
@@ -115,10 +114,6 @@ describe('MetaMask onboarding', function () {
         await startOnboardingPage.checkTermsCheckbox();
         await startOnboardingPage.clickImportWalletButton();
 
-        const onboardingMetricsPage = new OnboardingMetricsPage(driver);
-        await onboardingMetricsPage.check_pageIsLoaded();
-        await onboardingMetricsPage.clickNoThanksButton();
-
         const onboardingSrpPage = new OnboardingSrpPage(driver);
         await onboardingSrpPage.check_pageIsLoaded();
         await onboardingSrpPage.fillSrp(wrongSeedPhrase);
@@ -143,10 +138,6 @@ describe('MetaMask onboarding', function () {
         await startOnboardingPage.checkTermsCheckbox();
         await startOnboardingPage.clickImportWalletButton();
 
-        const onboardingMetricsPage = new OnboardingMetricsPage(driver);
-        await onboardingMetricsPage.check_pageIsLoaded();
-        await onboardingMetricsPage.clickNoThanksButton();
-
         const onboardingSrpPage = new OnboardingSrpPage(driver);
         await onboardingSrpPage.check_pageIsLoaded();
         await onboardingSrpPage.check_srpDropdownIterations();
@@ -167,10 +158,6 @@ describe('MetaMask onboarding', function () {
         await startOnboardingPage.check_pageIsLoaded();
         await startOnboardingPage.checkTermsCheckbox();
         await startOnboardingPage.clickCreateWalletButton();
-
-        const onboardingMetricsPage = new OnboardingMetricsPage(driver);
-        await onboardingMetricsPage.check_pageIsLoaded();
-        await onboardingMetricsPage.clickNoThanksButton();
 
         const onboardingPasswordPage = new OnboardingPasswordPage(driver);
         await onboardingPasswordPage.check_pageIsLoaded();
@@ -296,19 +283,11 @@ describe('MetaMask onboarding', function () {
             firstTimeFlowType: FirstTimeFlowType.restore,
             seedPhraseBackedUp: null,
           })
-          .withMetaMetricsController({
-            participateInMetaMetrics: null,
-            metaMetricsId: null,
-          })
           .build(),
         title: this.test?.fullTitle(),
       },
       async ({ driver }) => {
         await loginWithoutBalanceValidation(driver);
-        // First screen we should be on is MetaMetrics
-        const onboardingMetricsPage = new OnboardingMetricsPage(driver);
-        await onboardingMetricsPage.check_pageIsLoaded();
-        await onboardingMetricsPage.clickNoThanksButton();
 
         // Next screen should be Secure your wallet screen
         const secureWalletPage = new SecureWalletPage(driver);

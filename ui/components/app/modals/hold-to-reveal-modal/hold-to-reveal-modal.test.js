@@ -14,14 +14,12 @@ import {
 } from '../../../../../app/_locales/en/messages.json';
 import mockState from '../../../../../test/data/mock-state.json';
 import { renderWithProvider } from '../../../../../test/lib/render-helpers';
-import { MetaMetricsContext } from '../../../../contexts/metametrics';
 import HoldToRevealModal from '.';
 
 describe('Hold to Reveal Modal', () => {
   const mockStore = configureMockState([thunk])(mockState);
   const onCloseStub = jest.fn();
   const onLongPressStub = jest.fn();
-  const mockTrackEvent = jest.fn();
 
   afterEach(() => {
     jest.resetAllMocks();
@@ -29,14 +27,12 @@ describe('Hold to Reveal Modal', () => {
 
   function render(holdToRevealType = 'SRP') {
     return renderWithProvider(
-      <MetaMetricsContext.Provider value={mockTrackEvent}>
-        <HoldToRevealModal
-          isOpen
-          onClose={onCloseStub}
-          onLongPressed={onLongPressStub}
-          holdToRevealType={holdToRevealType}
-        />
-      </MetaMetricsContext.Provider>,
+      <HoldToRevealModal
+        isOpen
+        onClose={onCloseStub}
+        onLongPressed={onLongPressStub}
+        holdToRevealType={holdToRevealType}
+      />,
       mockStore,
     );
   }
