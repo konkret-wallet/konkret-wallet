@@ -27,8 +27,13 @@ buildTypes:
       - ALLOW_LOCAL_SNAPS: false
       - REQUIRE_SNAPS_ALLOWLIST: true
       - REJECT_INVALID_SNAPS_PLATFORM_VERSION: true
-      - IFRAME_EXECUTION_ENVIRONMENT_URL: https://execution.metamask.io/iframe/7.0.0/index.html
-      - ACCOUNT_SNAPS_DIRECTORY_URL: https://snaps.metamask.io/account-management
+      - IFRAME_EXECUTION_ENVIRONMENT_URL: 'http://localhost:1238/execution.metamask.io/iframe/7.0.0/index.html'
+      #
+      - SUPPORT_LINK: 'http://localhost:1238/support'
+      - SUPPORT_REQUEST_LINK: 'http://localhost:1238/support'
+      - EIP_4337_ENTRYPOINT: '0x5FF137D4b0FDCD49DcA30c7CF57E578a026d2789'
+      # TODO: bundle/mirror
+      - ACCOUNT_SNAPS_DIRECTORY_URL: 'http://localhost:1238/snaps.metamask.io/account-management'
     # Main build uses the default browser manifest
     manifestOverrides: false
     # Build name used in multiple user-readable places
@@ -134,7 +139,7 @@ env:
   - ACCOUNTS_USE_DEV_APIS: false
   - BRIDGE_USE_DEV_APIS: false
   - SWAPS_USE_DEV_APIS: false
-  - PORTFOLIO_URL: https://portfolio.metamask.io
+  - PORTFOLIO_URL: 'http://localhost:1238/portfolio.metamask.io'
   - TOKEN_ALLOWANCE_IMPROVEMENTS: false
   - TRANSACTION_SECURITY_PROVIDER: false
   # The unlock password
@@ -148,9 +153,9 @@ env:
   - SKIP_BACKGROUND_INITIALIZATION: false
   - PPOM_URI: ./ppom_bg.wasm
   # CDN for blockaid files
-  - BLOCKAID_FILE_CDN: static.cx.metamask.io/api/v1/confirmations/ppom
+  - BLOCKAID_FILE_CDN: 'localhost:1238/static.cx.metamask.io/api/v1/confirmations/ppom'
   # Blockaid public key for verifying signatures of data files downloaded from CDN
-  - BLOCKAID_PUBLIC_KEY: 066ad3e8af5583385e312c156d238055215d5f25247c1e91055afa756cb98a88
+  - BLOCKAID_PUBLIC_KEY: 'none'
   - REMOVE_GNS: ''
 
   - ENABLE_MV3: true
@@ -178,16 +183,16 @@ env:
   ###
   # Notifications Feature
   ###
-  - AUTH_API: https://authentication.api.cx.metamask.io
-  - OIDC_API: https://oidc.api.cx.metamask.io
-  - OIDC_CLIENT_ID: 1132f10a-b4e5-4390-a5f2-d9c6022db564
-  - OIDC_GRANT_TYPE: urn:ietf:params:oauth:grant-type:jwt-bearer
-  - USER_STORAGE_API: https://user-storage.api.cx.metamask.io
+  - AUTH_API: ''
+  - OIDC_API: ''
+  - OIDC_CLIENT_ID: ''
+  - OIDC_GRANT_TYPE: ''
+  - USER_STORAGE_API: 'http://localhost:1238/user-storage.api.cx.metamask.io'
   - CONTENTFUL_ACCESS_SPACE_ID:
   - CONTENTFUL_ACCESS_TOKEN:
-  - NOTIFICATIONS_SERVICE_URL: https://notification.api.cx.metamask.io
-  - TRIGGERS_SERVICE_URL: https://trigger.api.cx.metamask.io
-  - PUSH_NOTIFICATIONS_SERVICE_URL: https://push.api.cx.metamask.io
+  - NOTIFICATIONS_SERVICE_URL: 'http://localhost:1238/notification.api.cx.metamask.io'
+  - TRIGGERS_SERVICE_URL: ''
+  - PUSH_NOTIFICATIONS_SERVICE_URL: ''
   - VAPID_KEY:
   - FIREBASE_API_KEY:
   - FIREBASE_AUTH_DOMAIN:
@@ -219,7 +224,7 @@ env:
   ###
 
   # URL of the decoding API used to provide additional data from signature requests
-  - DECODING_API_URL: 'https://signature-insights.api.cx.metamask.io/v1'
+  - DECODING_API_URL: 'http://localhost:1238/signature-insights.api.cx.metamask.io/v1'
   # Determines if feature flagged Settings Page - Developer Options should be used
   - ENABLE_SETTINGS_PAGE_DEV_OPTIONS: false
   # Used for debugging changes to the phishing warning page.
@@ -270,7 +275,7 @@ env:
   # Temporary mechanism to enable security alerts API prior to release
   - SECURITY_ALERTS_API_ENABLED: false
   # URL of security alerts API used to validate dApp requests
-  - SECURITY_ALERTS_API_URL: 'https://security-alerts.api.cx.metamask.io'
+  - SECURITY_ALERTS_API_URL: 'http://localhost:1238/security-alerts.api.cx.metamask.io'
   # API key to authenticate Etherscan requests to avoid rate limiting
   - ETHERSCAN_API_KEY: ''
 
@@ -280,7 +285,7 @@ env:
   # This will be defined if running a unit test
   - JEST_WORKER_ID: undefined
 
-  - METAMASK_RAMP_API_CONTENT_BASE_URL: https://on-ramp-content.api.cx.metamask.io
+  - METAMASK_RAMP_API_CONTENT_BASE_URL: 'http://localhost:1238/on-ramp-content.api.cx.metamask.io'
 
   ###
   # Meta variables
