@@ -187,8 +187,10 @@ export const getDefaultPreferencesControllerState =
     openSeaEnabled: false,
     securityAlertsEnabled: false,
     watchEthereumAccountEnabled: false,
-    bitcoinSupportEnabled: false,
-    bitcoinTestnetSupportEnabled: false,
+    ///: BEGIN:ONLY_INCLUDE_IF(bitcoin)
+    bitcoinSupportEnabled: true,
+    bitcoinTestnetSupportEnabled: true,
+    ///: END:ONLY_INCLUDE_IF
     ///: BEGIN:ONLY_INCLUDE_IF(keyring-snaps)
     addSnapAccountEnabled: false,
     ///: END:ONLY_INCLUDE_IF
@@ -207,7 +209,7 @@ export const getDefaultPreferencesControllerState =
       autoLockTimeLimit: undefined,
       showExtensionInFullSizeView: false,
       showFiatInTestnets: false,
-      showTestNetworks: false,
+      showTestNetworks: true,
       smartTransactionsOptInStatus: false,
       smartTransactionsMigrationApplied: false,
       showNativeTokenAsMainBalance: false,
@@ -215,10 +217,10 @@ export const getDefaultPreferencesControllerState =
       hideZeroBalanceTokens: false,
       petnamesEnabled: true,
       featureNotificationsEnabled: false,
-      showConfirmationAdvancedDetails: false,
+      showConfirmationAdvancedDetails: true,
       showMultiRpcModal: false,
       privacyMode: false,
-      shouldShowAggregatedBalancePopover: true, // by default user should see popover;
+      shouldShowAggregatedBalancePopover: false,
       tokenSortConfig: {
         key: 'tokenFiatAmount',
         order: 'dsc',

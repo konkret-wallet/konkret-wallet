@@ -17,15 +17,19 @@ buildTypes:
     id: 10
     features:
       - build-main
-      - keyring-snaps
+      #- keyring-snaps
+      #- bitcoin
+      - multichain
+      #- solana
+      - multi-srp
     # Additional env variables that are specific to this build
     env:
       - INFURA_PROD_PROJECT_ID
       - SEGMENT_PROD_WRITE_KEY
       - INFURA_ENV_KEY_REF: INFURA_PROD_PROJECT_ID
       - SEGMENT_WRITE_KEY_REF: SEGMENT_PROD_WRITE_KEY
-      - ALLOW_LOCAL_SNAPS: false
-      - REQUIRE_SNAPS_ALLOWLIST: true
+      - ALLOW_LOCAL_SNAPS: true
+      - REQUIRE_SNAPS_ALLOWLIST: false
       - REJECT_INVALID_SNAPS_PLATFORM_VERSION: true
       - IFRAME_EXECUTION_ENVIRONMENT_URL: 'http://localhost:1238/execution.metamask.io/iframe/7.0.0/index.html'
       #

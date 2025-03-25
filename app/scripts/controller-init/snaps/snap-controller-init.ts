@@ -68,10 +68,8 @@ export const SnapControllerInit: ControllerInitFunction<
    * @returns The feature flags.
    */
   function getFeatureFlags() {
-    const preferences = initMessenger.call('PreferencesController:getState');
-
     return {
-      disableSnaps: preferences.useExternalServices === false,
+      disableSnaps: true,
     };
   }
 

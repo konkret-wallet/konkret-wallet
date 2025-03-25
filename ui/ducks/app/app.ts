@@ -158,7 +158,7 @@ const initialState: AppState = {
   showPermittedNetworkToastOpen: false,
   showIpfsModalOpen: false,
   showBasicFunctionalityModal: false,
-  externalServicesOnboardingToggleState: true,
+  externalServicesOnboardingToggleState: false,
   keyringRemovalSnapModal: {
     snapName: '',
     result: 'none',
