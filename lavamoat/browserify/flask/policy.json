@@ -744,102 +744,6 @@
         "ethers>@ethersproject/strings": true
       }
     },
-    "@metamask/notification-services-controller>firebase>@firebase/app": {
-      "globals": {
-        "FinalizationRegistry": true,
-        "console.warn": true
-      },
-      "packages": {
-        "@metamask/notification-services-controller>firebase>@firebase/app>@firebase/component": true,
-        "@metamask/notification-services-controller>firebase>@firebase/app>@firebase/logger": true,
-        "@metamask/notification-services-controller>firebase>@firebase/util": true,
-        "@metamask/notification-services-controller>firebase>@firebase/app>idb": true
-      }
-    },
-    "@metamask/notification-services-controller>firebase>@firebase/app>@firebase/component": {
-      "packages": {
-        "@metamask/notification-services-controller>firebase>@firebase/util": true
-      }
-    },
-    "@metamask/notification-services-controller>firebase>@firebase/installations": {
-      "globals": {
-        "BroadcastChannel": true,
-        "Headers": true,
-        "btoa": true,
-        "console.error": true,
-        "crypto": true,
-        "fetch": true,
-        "msCrypto": true,
-        "navigator.onLine": true,
-        "setTimeout": true
-      },
-      "packages": {
-        "@metamask/notification-services-controller>firebase>@firebase/app": true,
-        "@metamask/notification-services-controller>firebase>@firebase/app>@firebase/component": true,
-        "@metamask/notification-services-controller>firebase>@firebase/util": true,
-        "@metamask/notification-services-controller>firebase>@firebase/app>idb": true
-      }
-    },
-    "@metamask/notification-services-controller>firebase>@firebase/app>@firebase/logger": {
-      "globals": {
-        "console": true
-      },
-      "packages": {
-        "tslib": true
-      }
-    },
-    "@metamask/notification-services-controller>firebase>@firebase/messaging": {
-      "globals": {
-        "Headers": true,
-        "Notification.maxActions": true,
-        "Notification.permission": true,
-        "Notification.requestPermission": true,
-        "PushSubscription.prototype.hasOwnProperty": true,
-        "ServiceWorkerRegistration": true,
-        "URL": true,
-        "addEventListener": true,
-        "atob": true,
-        "btoa": true,
-        "clients.matchAll": true,
-        "clients.openWindow": true,
-        "console.warn": true,
-        "document": true,
-        "fetch": true,
-        "indexedDB": true,
-        "location.href": true,
-        "location.origin": true,
-        "navigator": true,
-        "origin.replace": true,
-        "registration.showNotification": true,
-        "setTimeout": true
-      },
-      "packages": {
-        "@metamask/notification-services-controller>firebase>@firebase/app": true,
-        "@metamask/notification-services-controller>firebase>@firebase/app>@firebase/component": true,
-        "@metamask/notification-services-controller>firebase>@firebase/installations": true,
-        "@metamask/notification-services-controller>firebase>@firebase/util": true,
-        "@metamask/notification-services-controller>firebase>@firebase/app>idb": true,
-        "tslib": true
-      }
-    },
-    "@metamask/notification-services-controller>firebase>@firebase/util": {
-      "globals": {
-        "atob": true,
-        "browser": true,
-        "btoa": true,
-        "chrome": true,
-        "console": true,
-        "document": true,
-        "indexedDB": true,
-        "navigator": true,
-        "process": true,
-        "self": true,
-        "setTimeout": true
-      },
-      "packages": {
-        "process": true
-      }
-    },
     "@metamask/multichain>@open-rpc/schema-utils-js>@json-schema-tools/dereferencer": {
       "packages": {
         "@open-rpc/schema-utils-js>@json-schema-tools/reference-resolver": true,
@@ -1195,6 +1099,22 @@
       }
     },
     "@metamask/network-controller>@metamask/base-controller": {
+      "globals": {
+        "setTimeout": true
+      },
+      "packages": {
+        "immer": true
+      }
+    },
+    "@metamask/notification-services-controller>@metamask/base-controller": {
+      "globals": {
+        "setTimeout": true
+      },
+      "packages": {
+        "immer": true
+      }
+    },
+    "@metamask/profile-sync-controller>@metamask/base-controller": {
       "globals": {
         "setTimeout": true
       },
@@ -1667,6 +1587,17 @@
         "@metamask/keyring-api>bech32": true
       }
     },
+    "@metamask/profile-sync-controller>@metamask/keyring-api": {
+      "globals": {
+        "URL": true
+      },
+      "packages": {
+        "@metamask/utils>@metamask/superstruct": true,
+        "@metamask/profile-sync-controller>@metamask/keyring-api>@metamask/utils": true,
+        "@metamask/keyring-api>bech32": true,
+        "@metamask/profile-sync-controller>@metamask/keyring-api>uuid": true
+      }
+    },
     "@metamask/keyring-controller": {
       "globals": {
         "console.log": true
@@ -1843,17 +1774,15 @@
         "Intl.NumberFormat": true,
         "addEventListener": true,
         "fetch": true,
-        "registration": true,
         "removeEventListener": true
       },
       "packages": {
         "@metamask/notification-services-controller>@contentful/rich-text-html-renderer": true,
-        "@metamask/base-controller": true,
+        "@metamask/notification-services-controller>@metamask/base-controller": true,
         "@metamask/controller-utils": true,
         "@metamask/profile-sync-controller": true,
-        "@metamask/utils": true,
+        "@metamask/notification-services-controller>@metamask/utils": true,
         "@metamask/notification-services-controller>bignumber.js": true,
-        "@metamask/notification-services-controller>firebase": true,
         "loglevel": true,
         "uuid": true
       }
@@ -1966,8 +1895,8 @@
         "setTimeout": true
       },
       "packages": {
-        "@metamask/base-controller": true,
-        "@metamask/keyring-api": true,
+        "@metamask/profile-sync-controller>@metamask/base-controller": true,
+        "@metamask/profile-sync-controller>@metamask/keyring-api": true,
         "@metamask/keyring-controller": true,
         "@metamask/profile-sync-controller>@noble/ciphers": true,
         "@noble/hashes": true,
@@ -2441,7 +2370,37 @@
         "semver": true
       }
     },
+    "@metamask/profile-sync-controller>@metamask/keyring-api>@metamask/utils": {
+      "globals": {
+        "TextDecoder": true,
+        "TextEncoder": true
+      },
+      "packages": {
+        "@metamask/utils>@metamask/superstruct": true,
+        "@noble/hashes": true,
+        "@metamask/utils>@scure/base": true,
+        "browserify>buffer": true,
+        "nock>debug": true,
+        "@metamask/utils>pony-cause": true,
+        "semver": true
+      }
+    },
     "@metamask/network-controller>@metamask/utils": {
+      "globals": {
+        "TextDecoder": true,
+        "TextEncoder": true
+      },
+      "packages": {
+        "@metamask/utils>@metamask/superstruct": true,
+        "@noble/hashes": true,
+        "@metamask/utils>@scure/base": true,
+        "browserify>buffer": true,
+        "nock>debug": true,
+        "@metamask/utils>pony-cause": true,
+        "semver": true
+      }
+    },
+    "@metamask/notification-services-controller>@metamask/utils": {
       "globals": {
         "TextDecoder": true,
         "TextEncoder": true
@@ -3857,12 +3816,6 @@
         "@metamask/snaps-utils>fast-xml-parser>strnum": true
       }
     },
-    "@metamask/notification-services-controller>firebase": {
-      "packages": {
-        "@metamask/notification-services-controller>firebase>@firebase/app": true,
-        "@metamask/notification-services-controller>firebase>@firebase/messaging": true
-      }
-    },
     "react-focus-lock>focus-lock": {
       "globals": {
         "HTMLIFrameElement": true,
@@ -4043,19 +3996,6 @@
       "packages": {
         "stream-http": true,
         "browserify>url": true
-      }
-    },
-    "@metamask/notification-services-controller>firebase>@firebase/app>idb": {
-      "globals": {
-        "DOMException": true,
-        "IDBCursor": true,
-        "IDBDatabase": true,
-        "IDBIndex": true,
-        "IDBObjectStore": true,
-        "IDBRequest": true,
-        "IDBTransaction": true,
-        "indexedDB.deleteDatabase": true,
-        "indexedDB.open": true
       }
     },
     "eth-ens-namehash>idna-uts46-hx": {
@@ -5571,6 +5511,11 @@
       }
     },
     "@metamask/eth-snap-keyring>uuid": {
+      "globals": {
+        "crypto": true
+      }
+    },
+    "@metamask/profile-sync-controller>@metamask/keyring-api>uuid": {
       "globals": {
         "crypto": true
       }
