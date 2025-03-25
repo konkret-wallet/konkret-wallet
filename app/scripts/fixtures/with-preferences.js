@@ -7,10 +7,10 @@ export const FIXTURES_PREFERENCES = {
     smartTransactionsOptInStatus: false,
     useNativeCurrencyAsPrimaryCurrency: true,
     petnamesEnabled: true,
-    showTokenAutodetectModal: false,
-    showNftAutodetectModal: false,
-    showConfirmationAdvancedDetails: false,
     featureNotificationsEnabled: false,
+    showTokenAutodetectModal: true,
+    showNftAutodetectModal: true,
+    showConfirmationAdvancedDetails: true,
     privacyMode: false,
   },
   featureFlags: {
