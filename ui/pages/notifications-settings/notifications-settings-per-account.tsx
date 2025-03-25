@@ -1,9 +1,4 @@
 import React, { useState, useCallback, useContext } from 'react';
-import { MetaMetricsContext } from '../../contexts/metametrics';
-import {
-  MetaMetricsEventCategory,
-  MetaMetricsEventName,
-} from '../../../shared/constants/metametrics';
 import { useSwitchAccountNotificationsChange } from '../../hooks/metamask-notifications/useSwitchNotifications';
 import {
   NotificationsSettingsBox,
@@ -58,8 +53,6 @@ export const NotificationsSettingsPerAccount = ({
   disabledSwitch,
   refetchAccountSettings,
 }: NotificationsSettingsPerAccountProps) => {
-  const trackEvent = useContext(MetaMetricsContext);
-
   const {
     toggleAccount,
     loading: isUpdatingAccount,
@@ -70,17 +63,8 @@ export const NotificationsSettingsPerAccount = ({
   const error = accountError;
 
   const handleToggleAccountNotifications = useCallback(async () => {
-    trackEvent({
-      category: MetaMetricsEventCategory.NotificationSettings,
-      event: MetaMetricsEventName.NotificationsSettingsUpdated,
-      properties: {
-        settings_type: 'account_notifications',
-        old_value: isEnabled,
-        new_value: !isEnabled,
-      },
-    });
     await toggleAccount(!isEnabled);
-  }, [address, isEnabled, toggleAccount, trackEvent]);
+  }, [address, isEnabled, toggleAccount]);
 
   return (
     <>

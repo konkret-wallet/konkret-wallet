@@ -1,11 +1,6 @@
-import React, { useContext, useCallback } from 'react';
+import React, { useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
 import { hasProperty } from '@metamask/utils';
-import { MetaMetricsContext } from '../../contexts/metametrics';
-import {
-  MetaMetricsEventCategory,
-  MetaMetricsEventName,
-} from '../../../shared/constants/metametrics';
 import { Box } from '../../components/component-library';
 import {
   BlockSize,
@@ -28,25 +23,11 @@ export function NotificationsListItem({
   notification: Notification;
 }) {
   const history = useHistory();
-  const trackEvent = useContext(MetaMetricsContext);
   const { setNotificationTimeout } = useSnapNotificationTimeouts();
 
   const { markNotificationAsRead } = useMarkNotificationAsRead();
 
   const handleNotificationClick = useCallback(() => {
-    trackEvent({
-      category: MetaMetricsEventCategory.NotificationInteraction,
-      event: MetaMetricsEventName.NotificationClicked,
-      properties: {
-        notification_id: notification.id,
-        notification_type: notification.type,
-        ...('chain_id' in notification && {
-          chain_id: notification.chain_id,
-        }),
-        previously_read: notification.isRead,
-      },
-    });
-
     markNotificationAsRead([
       {
         id: notification.id,
