@@ -400,20 +400,6 @@ const SETTINGS_CONSTANTS = [
     route: `${ABOUT_US_ROUTE}#links`,
     iconName: IconName.Info,
   },
-  {
-    tabMessage: (t) => t('about'),
-    sectionMessage: (t) => t('privacyMsg'),
-    descriptionMessage: (t) => t('privacyMsg'),
-    route: `${ABOUT_US_ROUTE}#privacy-policy`,
-    iconName: IconName.Info,
-  },
-  {
-    tabMessage: (t) => t('about'),
-    sectionMessage: (t) => t('terms'),
-    descriptionMessage: (t) => t('terms'),
-    route: `${ABOUT_US_ROUTE}#terms`,
-    iconName: IconName.Info,
-  },
 
   {
     tabMessage: (t) => t('about'),
@@ -444,13 +430,6 @@ const SETTINGS_CONSTANTS = [
     sectionMessage: (t) => t('contactUs'),
     descriptionMessage: (t) => t('contactUs'),
     route: `${ABOUT_US_ROUTE}#contactus`,
-    iconName: IconName.Info,
-  },
-  {
-    tabMessage: (t) => t('about'),
-    sectionMessage: (t) => t('betaTerms'),
-    descriptionMessage: (t) => t('betaTerms'),
-    route: `${ABOUT_US_ROUTE}#beta-terms`,
     iconName: IconName.Info,
   },
   // experimental settingsRefs[0]

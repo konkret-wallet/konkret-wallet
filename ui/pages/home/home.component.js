@@ -2,7 +2,6 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { Redirect, Route } from 'react-router-dom';
 ///: BEGIN:ONLY_INCLUDE_IF(build-main,build-beta,build-flask)
-import TermsOfUsePopup from '../../components/app/terms-of-use-popup';
 import RecoveryPhraseReminder from '../../components/app/recovery-phrase-reminder';
 import WhatsNewPopup from '../../components/app/whats-new-popup';
 import { FirstTimeFlowType } from '../../../shared/constants/onboarding';
@@ -87,7 +86,6 @@ export default class Home extends PureComponent {
     isPopup: PropTypes.bool,
     connectedStatusPopoverHasBeenShown: PropTypes.bool,
     showRecoveryPhraseReminder: PropTypes.bool.isRequired,
-    showTermsOfUsePopup: PropTypes.bool.isRequired,
     seedPhraseBackedUp: (props) => {
       if (
         props.seedPhraseBackedUp !== null &&
@@ -127,7 +125,6 @@ export default class Home extends PureComponent {
     infuraBlocked: PropTypes.bool.isRequired,
     setRecoveryPhraseReminderHasBeenShown: PropTypes.func.isRequired,
     setRecoveryPhraseReminderLastShown: PropTypes.func.isRequired,
-    setTermsOfUseLastAgreed: PropTypes.func.isRequired,
     showOutdatedBrowserWarning: PropTypes.bool.isRequired,
     setOutdatedBrowserWarningLastShown: PropTypes.func.isRequired,
     newNetworkAddedName: PropTypes.string,
@@ -271,11 +268,6 @@ export default class Home extends PureComponent {
     } = this.props;
     setRecoveryPhraseReminderHasBeenShown(true);
     setRecoveryPhraseReminderLastShown(new Date().getTime());
-  };
-
-  onAcceptTermsOfUse = () => {
-    const { setTermsOfUseLastAgreed } = this.props;
-    setTermsOfUseLastAgreed(new Date().getTime());
   };
 
   ///: BEGIN:ONLY_INCLUDE_IF(build-main)
@@ -650,7 +642,6 @@ export default class Home extends PureComponent {
       isPopup,
       seedPhraseBackedUp,
       showRecoveryPhraseReminder,
-      showTermsOfUsePopup,
       showWhatsNewPopup,
       hideWhatsNewPopup,
       completedOnboarding,
@@ -681,9 +672,6 @@ export default class Home extends PureComponent {
 
     const showMultiRpcEditModal =
       canSeeModals && showMultiRpcModal && !showWhatsNew;
-
-    const showTermsOfUse =
-      completedOnboarding && !onboardedInThisUISession && showTermsOfUsePopup;
     ///: END:ONLY_INCLUDE_IF
 
     return (
@@ -705,9 +693,6 @@ export default class Home extends PureComponent {
               hasBackedUp={seedPhraseBackedUp}
               onConfirm={this.onRecoveryPhraseReminderClose}
             />
-          ) : null}
-          {showTermsOfUse ? (
-            <TermsOfUsePopup onAccept={this.onAcceptTermsOfUse} />
           ) : null}
           {isPopup && !connectedStatusPopoverHasBeenShown
             ? this.renderPopover()

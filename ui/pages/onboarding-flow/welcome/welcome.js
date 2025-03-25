@@ -75,11 +75,11 @@ export default function OnboardingWelcome() {
     <a
       className="create-new-vault__terms-link"
       key="create-new-vault__link-text"
-      href="https://metamask.io/terms.html"
+      href="https://raw.githubusercontent.com/MetaMask/metamask-extension/a3713ad7f27d43e6a68bcacd71812babefa6c2fc/LICENSE"
       target="_blank"
       rel="noopener noreferrer"
     >
-      {t('terms')}
+      {t('license')}
     </a>,
   ]);
 

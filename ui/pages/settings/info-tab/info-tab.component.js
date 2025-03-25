@@ -2,7 +2,6 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
 import Button from '../../../components/ui/button';
-import { Tag } from '../../../components/component-library';
 
 import { SUPPORT_REQUEST_LINK } from '../../../helpers/constants/common';
 import { isBeta } from '../../../helpers/utils/build-types';
@@ -71,28 +70,14 @@ export default class InfoTab extends PureComponent {
         <div ref={this.settingsRefs[3]} className="info-tab__link-item">
           <Button
             type="link"
-            href="https://metamask.io/terms.html"
+            href="https://raw.githubusercontent.com/MetaMask/metamask-extension/a3713ad7f27d43e6a68bcacd71812babefa6c2fc/LICENSE"
             target="_blank"
             rel="noopener noreferrer"
             className="info-tab__link-text"
           >
-            {t('terms')}
+            {t('license')}
           </Button>
         </div>
-        {isBeta() ? (
-          <div ref={this.settingsRefs[8]} className="info-tab__link-item">
-            <Button
-              type="link"
-              href="https://metamask.io/beta-terms.html"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="info-tab__link-text"
-            >
-              {t('betaTerms')}
-              <Tag label={t('new')} className="info-tab__tag" />
-            </Button>
-          </div>
-        ) : null}
         <div ref={this.settingsRefs[4]} className="info-tab__link-item">
           <Button
             type="link"
