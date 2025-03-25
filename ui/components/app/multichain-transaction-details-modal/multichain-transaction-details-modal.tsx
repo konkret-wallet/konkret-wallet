@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { capitalize } from 'lodash';
 import { Transaction, TransactionStatus } from '@metamask/keyring-api';
 import {
@@ -30,14 +30,8 @@ import {
   ButtonLink,
   ButtonLinkSize,
 } from '../../component-library';
-import {
-  MetaMetricsEventCategory,
-  MetaMetricsEventName,
-  MetaMetricsEventLinkType,
-} from '../../../../shared/constants/metametrics';
-import { MetaMetricsContext } from '../../../contexts/metametrics';
 import { ConfirmInfoRowDivider as Divider } from '../confirm/info/row';
-import { getURLHostName, shortenAddress } from '../../../helpers/utils/util';
+import { shortenAddress } from '../../../helpers/utils/util';
 import { useMultichainTransactionDisplay } from '../../../hooks/useMultichainTransactionDisplay';
 import {
   formatTimestamp,
@@ -58,7 +52,6 @@ export function MultichainTransactionDetailsModal({
   userAddress,
 }: MultichainTransactionDetailsModalProps) {
   const t = useI18nContext();
-  const trackEvent = useContext(MetaMetricsContext);
 
   const {
     id,
@@ -368,16 +361,6 @@ export function MultichainTransactionDetailsModal({
             onClick={() => {
               global.platform.openTab({
                 url: getTransactionUrl(id, chain),
-              });
-
-              trackEvent({
-                event: MetaMetricsEventName.ExternalLinkClicked,
-                category: MetaMetricsEventCategory.Navigation,
-                properties: {
-                  link_type: MetaMetricsEventLinkType.AccountTracker,
-                  location: 'Transaction Details',
-                  url_domain: getURLHostName(getTransactionUrl(id, chain)),
-                },
               });
             }}
             endIconName={IconName.Export}

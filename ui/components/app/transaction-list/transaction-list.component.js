@@ -3,9 +3,6 @@ import React, {
   useState,
   useCallback,
   Fragment,
-  ///: BEGIN:ONLY_INCLUDE_IF(multichain)
-  useContext,
-  ///: END:ONLY_INCLUDE_IF
   useEffect,
 } from 'react';
 import PropTypes from 'prop-types';
@@ -74,7 +71,6 @@ import { getIsNativeTokenBuyable } from '../../../ducks/ramps';
 import { openBlockExplorer } from '../../multichain/menu-items/view-explorer-menu-item';
 import { getMultichainAccountUrl } from '../../../helpers/utils/multichain/blockExplorer';
 import { ActivityListItem } from '../../multichain';
-import { MetaMetricsContext } from '../../../contexts/metametrics';
 import { useMultichainSelector } from '../../../hooks/useMultichainSelector';
 import {
   getMultichainNetwork,
@@ -338,15 +334,12 @@ export default function TransactionList({
     selectedAccount,
   );
 
-  const trackEvent = useContext(MetaMetricsContext);
-
   if (!isEvmAccountType(selectedAccount.type)) {
     const addressLink = getMultichainAccountUrl(
       selectedAccount.address,
       multichainNetwork,
     );
 
-    const metricsLocation = 'Activity Tab';
     return (
       <>
         {selectedTransaction && (
@@ -391,13 +384,7 @@ export default function TransactionList({
                     variant={ButtonVariant.Primary}
                     size={ButtonSize.Sm}
                     endIconName={IconName.Export}
-                    onClick={() =>
-                      openBlockExplorer(
-                        addressLink,
-                        metricsLocation,
-                        trackEvent,
-                      )
-                    }
+                    onClick={() => openBlockExplorer(addressLink)}
                   >
                     {t('viewOnBlockExplorer')}
                   </Button>

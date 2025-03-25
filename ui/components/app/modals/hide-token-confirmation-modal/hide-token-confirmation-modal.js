@@ -6,10 +6,6 @@ import Identicon from '../../../ui/identicon';
 import Button from '../../../ui/button';
 import { DEFAULT_ROUTE } from '../../../../helpers/constants/routes';
 import {
-  MetaMetricsEventCategory,
-  MetaMetricsEventName,
-} from '../../../../../shared/constants/metametrics';
-import {
   getCurrentChainId,
   getNetworkConfigurationsByChainId,
 } from '../../../../../shared/modules/selectors/networks';
@@ -41,7 +37,6 @@ function mapDispatchToProps(dispatch) {
 class HideTokenConfirmationModal extends Component {
   static contextTypes = {
     t: PropTypes.func,
-    trackEvent: PropTypes.func,
   };
 
   static propTypes = {
@@ -106,15 +101,6 @@ class HideTokenConfirmationModal extends Component {
             className="hide-token-confirmation__button"
             data-testid="hide-token-confirmation__hide"
             onClick={() => {
-              this.context.trackEvent({
-                event: MetaMetricsEventName.TokenRemoved,
-                category: MetaMetricsEventCategory.Tokens,
-                sensitiveProperties: {
-                  chain_id: chainId,
-                  token_contract_address: address,
-                  token_symbol: symbol,
-                },
-              });
               hideToken(address, networkInstanceId);
               history.push(DEFAULT_ROUTE);
             }}

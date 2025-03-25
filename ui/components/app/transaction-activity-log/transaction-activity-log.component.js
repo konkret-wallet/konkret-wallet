@@ -3,8 +3,7 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
 import { getBlockExplorerLink } from '@metamask/etherscan-link';
-import { formatDate, getURLHostName } from '../../../helpers/utils/util';
-import { MetaMetricsEventCategory } from '../../../../shared/constants/metametrics';
+import { formatDate } from '../../../helpers/utils/util';
 import { getValueFromWeiHex } from '../../../../shared/modules/conversion.utils';
 import TransactionActivityLogIcon from './transaction-activity-log-icon';
 import { CONFIRMED_STATUS } from './transaction-activity-log.constants';
@@ -12,7 +11,6 @@ import { CONFIRMED_STATUS } from './transaction-activity-log.constants';
 export default class TransactionActivityLog extends PureComponent {
   static contextTypes = {
     t: PropTypes.func,
-    trackEvent: PropTypes.func,
   };
 
   static propTypes = {
@@ -32,16 +30,6 @@ export default class TransactionActivityLog extends PureComponent {
   handleActivityClick = (activity) => {
     const { rpcPrefs } = this.props;
     const etherscanUrl = getBlockExplorerLink(activity, rpcPrefs);
-
-    this.context.trackEvent({
-      category: MetaMetricsEventCategory.Transactions,
-      event: 'Clicked Block Explorer Link',
-      properties: {
-        link_type: 'Transaction Block Explorer',
-        action: 'Activity Details',
-        block_explorer_domain: getURLHostName(etherscanUrl),
-      },
-    });
 
     global.platform.openTab({ url: etherscanUrl });
   };
