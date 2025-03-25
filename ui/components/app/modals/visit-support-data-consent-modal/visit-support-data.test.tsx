@@ -21,12 +21,11 @@ jest.mock('../../../../helpers/utils/window', () => ({
 describe('VisitSupportDataConsentModal', () => {
   const store = configureMockState([thunk])(mockState);
   const mockOnClose = jest.fn();
-  const mockProfileId = 'test-profile-id';
 
   const useSelectorMock = useSelector as jest.Mock;
 
   beforeEach(() => {
-    useSelectorMock.mockImplementation((selector) => {
+    useSelectorMock.mockImplementation((_selector) => {
       return undefined;
     });
   });
@@ -43,7 +42,7 @@ describe('VisitSupportDataConsentModal', () => {
     };
 
     return renderWithProvider(
-      <VisitSupportDataConsentModal {...defaultProps} />
+      <VisitSupportDataConsentModal {...defaultProps} />,
       store,
     );
   };

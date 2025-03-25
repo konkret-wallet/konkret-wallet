@@ -34,12 +34,6 @@ import {
   setSwitchedNetworkDetails,
   setActiveNetworkWithError,
 } from '../../../store/actions';
-import { MetaMetricsContext } from '../../../contexts/metametrics';
-import {
-  MetaMetricsEventCategory,
-  MetaMetricsEventName,
-  MetaMetricsSwapsEventSource,
-} from '../../../../shared/constants/metametrics';
 import { AssetType } from '../../../../shared/constants/transaction';
 import {
   Display,
@@ -65,7 +59,6 @@ const TokenButtons = ({
 }) => {
   const dispatch = useDispatch();
   const t = useContext(I18nContext);
-  const trackEvent = useContext(MetaMetricsContext);
   const history = useHistory();
   ///: BEGIN:ONLY_INCLUDE_IF(build-main,build-beta,build-flask)
   const keyring = useSelector(getCurrentKeyring);
@@ -134,16 +127,6 @@ const TokenButtons = ({
           data-testid="token-overview-buy"
           onClick={() => {
             openBuyCryptoInPdapp();
-            trackEvent({
-              event: MetaMetricsEventName.NavBuyButtonClicked,
-              category: MetaMetricsEventCategory.Navigation,
-              properties: {
-                location: 'Token Overview',
-                text: 'Buy',
-                chain_id: currentChainId,
-                token_symbol: token.symbol,
-              },
-            });
           }}
           disabled={token.isERC721 || !isBuyableChain}
           tooltipRender={null}
@@ -154,19 +137,6 @@ const TokenButtons = ({
       <IconButton
         className="token-overview__button"
         onClick={async () => {
-          trackEvent(
-            {
-              event: MetaMetricsEventName.NavSendButtonClicked,
-              category: MetaMetricsEventCategory.Navigation,
-              properties: {
-                token_symbol: token.symbol,
-                location: MetaMetricsSwapsEventSource.TokenView,
-                text: 'Send',
-                chain_id: token.chainId,
-              },
-            },
-            { excludeMetaMetricsId: false },
-          );
           try {
             await setCorrectChain();
             await dispatch(
@@ -209,16 +179,6 @@ const TokenButtons = ({
             await setCorrectChain();
 
             ///: BEGIN:ONLY_INCLUDE_IF(build-main,build-beta,build-flask)
-            trackEvent({
-              event: MetaMetricsEventName.NavSwapButtonClicked,
-              category: MetaMetricsEventCategory.Swaps,
-              properties: {
-                token_symbol: token.symbol,
-                location: MetaMetricsSwapsEventSource.TokenView,
-                text: 'Swap',
-                chain_id: currentChainId,
-              },
-            });
             dispatch(
               setSwapsFromToken({
                 ...token,
@@ -260,7 +220,7 @@ const TokenButtons = ({
             label={t('bridge')}
             onClick={async () => {
               await setCorrectChain();
-              openBridgeExperience(MetaMetricsSwapsEventSource.TokenView, {
+              openBridgeExperience('MetaMetricsSwapsEventSource.TokenView', {
                 ...token,
                 iconUrl: token.image,
                 balance: token?.balance?.value,

@@ -17,10 +17,6 @@ import ToggleButton from '../../../components/ui/toggle-button';
 import locales from '../../../../app/_locales/index.json';
 import Jazzicon from '../../../components/ui/jazzicon';
 import BlockieIdenticon from '../../../components/ui/identicon/blockieIdenticon';
-import {
-  MetaMetricsEventCategory,
-  MetaMetricsEventName,
-} from '../../../../shared/constants/metametrics';
 
 import {
   getNumberOfSettingRoutesInTab,
@@ -50,8 +46,6 @@ const localeOptions = locales.map((locale) => {
 export default class SettingsTab extends PureComponent {
   static contextTypes = {
     t: PropTypes.func,
-    metricsEvent: PropTypes.func,
-    trackEvent: PropTypes.func,
   };
 
   static propTypes = {
@@ -118,13 +112,6 @@ export default class SettingsTab extends PureComponent {
               selectedOption={currentCurrency}
               onChange={(newCurrency) => {
                 setCurrentCurrency(newCurrency);
-                this.context.trackEvent({
-                  category: MetaMetricsEventCategory.Settings,
-                  event: MetaMetricsEventName.CurrentCurrency,
-                  properties: {
-                    current_currency: newCurrency,
-                  },
-                });
               }}
               className="settings-page__content-item__dropdown"
             />
@@ -316,15 +303,6 @@ export default class SettingsTab extends PureComponent {
 
   renderShowNativeTokenAsMainBalance() {
     const { t } = this.context;
-    const geShowNativeTokenAsMainBalanceForMetrics = (value) => {
-      this.context.trackEvent({
-        category: MetaMetricsEventCategory.Settings,
-        event: MetaMetricsEventName.ShowNativeTokenAsMainBalance,
-        properties: {
-          show_native_token_as_main_balance: value,
-        },
-      });
-    };
     const {
       setShowNativeTokenAsMainBalancePreference,
       showNativeTokenAsMainBalance,
@@ -355,7 +333,6 @@ export default class SettingsTab extends PureComponent {
             value={showNativeTokenAsMainBalance}
             onToggle={(value) => {
               setShowNativeTokenAsMainBalancePreference(!value);
-              geShowNativeTokenAsMainBalanceForMetrics(!value);
             }}
           />
         </div>
@@ -383,13 +360,6 @@ export default class SettingsTab extends PureComponent {
     ];
 
     const onChange = (newTheme) => {
-      this.context.trackEvent({
-        category: MetaMetricsEventCategory.Settings,
-        event: 'Theme Changed',
-        properties: {
-          theme_selected: newTheme,
-        },
-      });
       setTheme(newTheme);
     };
 

@@ -1,5 +1,4 @@
-import React, { useCallback, useContext } from 'react';
-import { useSelector } from 'react-redux';
+import React, { useCallback } from 'react';
 import { useI18nContext } from '../../../../hooks/useI18nContext';
 import { openWindow } from '../../../../helpers/utils/window';
 import {
@@ -34,8 +33,8 @@ const VisitSupportDataConsentModal: React.FC<
   const t = useI18nContext();
 
   const handleClickContactSupportButton = useCallback(
-    (params: {
-    }) => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (_params: any) => {
       onClose();
       let supportLinkWithUserId = SUPPORT_LINK as string;
 
@@ -87,10 +86,7 @@ const VisitSupportDataConsentModal: React.FC<
             <ButtonPrimary
               size={ButtonPrimarySize.Lg}
               width={BlockSize.Half}
-              onClick={() =>
-                handleClickContactSupportButton({
-                })
-              }
+              onClick={() => handleClickContactSupportButton({})}
               data-testid="visit-support-data-consent-modal-accept-button"
             >
               {t('visitSupportDataConsentModalAccept')}

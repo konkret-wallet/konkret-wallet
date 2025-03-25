@@ -1,8 +1,7 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
-import { parseCaipChainId } from '@metamask/utils';
 import { InternalAccount } from '@metamask/keyring-internal-api';
 import {
   getMultichainAccountUrl,
@@ -11,14 +10,6 @@ import {
 
 import { MenuItem } from '../../ui/menu';
 import { useI18nContext } from '../../../hooks/useI18nContext';
-import { MetaMetricsContext } from '../../../contexts/metametrics';
-import {
-  MetaMetricsEventCategory,
-  MetaMetricsEventLinkType,
-  MetaMetricsEventName,
-  MetaMetricsEventOptions,
-  MetaMetricsEventPayload,
-} from '../../../../shared/constants/metametrics';
 import { IconName, Text } from '../../component-library';
 import { getBlockExplorerLinkText } from '../../../selectors';
 import { getURLHostName } from '../../../helpers/utils/util';
@@ -30,7 +21,7 @@ export type ViewExplorerMenuItemProps = {
   /**
    * Represents the "location" property of the metrics event
    */
-  metricsLocation: string;
+  metricsLocation?: string;
   /**
    * Closes the menu
    */
@@ -47,23 +38,8 @@ export type ViewExplorerMenuItemProps = {
 
 export const openBlockExplorer = (
   addressLink: string,
-  metricsLocation: string,
-  trackEvent: (
-    payload: MetaMetricsEventPayload,
-    options?: MetaMetricsEventOptions,
-  ) => Promise<void>,
   closeMenu?: () => void,
 ) => {
-  trackEvent({
-    event: MetaMetricsEventName.ExternalLinkClicked,
-    category: MetaMetricsEventCategory.Navigation,
-    properties: {
-      link_type: MetaMetricsEventLinkType.AccountTracker,
-      location: metricsLocation,
-      url_domain: getURLHostName(addressLink),
-    },
-  });
-
   global.platform.openTab({
     url: addressLink,
   });
@@ -71,13 +47,11 @@ export const openBlockExplorer = (
 };
 
 export const ViewExplorerMenuItem = ({
-  metricsLocation,
   closeMenu,
   textProps,
   account,
 }: ViewExplorerMenuItemProps) => {
   const t = useI18nContext();
-  const trackEvent = useContext(MetaMetricsContext);
   const history = useHistory();
 
   const multichainNetwork = useMultichainSelector(
@@ -88,8 +62,6 @@ export const ViewExplorerMenuItem = ({
     account.address,
     multichainNetwork,
   );
-  // TODO: Re-use CAIP-2 for metrics once event schemas support it
-  const chainId = parseCaipChainId(multichainNetwork.chainId).reference;
   const blockExplorerUrl = getMultichainBlockExplorerUrl(multichainNetwork);
   const blockExplorerUrlSubTitle = getURLHostName(blockExplorerUrl);
   const blockExplorerLinkText = useSelector(getBlockExplorerLinkText);
@@ -106,21 +78,7 @@ export const ViewExplorerMenuItem = ({
       onClick={() => {
         blockExplorerLinkText.firstPart === 'addBlockExplorer'
           ? routeToAddBlockExplorerUrl()
-          : openBlockExplorer(
-              addressLink,
-              metricsLocation,
-              trackEvent,
-              closeMenu,
-            );
-
-        trackEvent({
-          event: MetaMetricsEventName.BlockExplorerLinkClicked,
-          category: MetaMetricsEventCategory.Accounts,
-          properties: {
-            location: metricsLocation,
-            chain_id: chainId,
-          },
-        });
+          : openBlockExplorer(addressLink, closeMenu);
 
         closeMenu?.();
       }}

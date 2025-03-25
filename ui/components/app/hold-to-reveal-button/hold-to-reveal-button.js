@@ -1,13 +1,7 @@
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
 import React, { useCallback, useContext, useRef, useState } from 'react';
-import {
-  MetaMetricsEventCategory,
-  MetaMetricsEventKeyType,
-  MetaMetricsEventName,
-} from '../../../../shared/constants/metametrics';
 import { I18nContext } from '../../../contexts/i18n';
-import { MetaMetricsContext } from '../../../contexts/metametrics';
 import {
   AlignItems,
   BlockSize,
@@ -25,7 +19,6 @@ export default function HoldToRevealButton({ buttonText, onLongPressed }) {
   const isLongPressing = useRef(false);
   const [isUnlocking, setIsUnlocking] = useState(false);
   const [hasTriggeredUnlock, setHasTriggeredUnlock] = useState(false);
-  const trackEvent = useContext(MetaMetricsContext);
 
   /**
    * Prevent animation events from propogating up
@@ -41,13 +34,6 @@ export default function HoldToRevealButton({ buttonText, onLongPressed }) {
    */
   const onMouseDown = () => {
     isLongPressing.current = true;
-    trackEvent({
-      category: MetaMetricsEventCategory.Keys,
-      event: MetaMetricsEventName.SrpHoldToRevealClickStarted,
-      properties: {
-        key_type: MetaMetricsEventKeyType.Srp,
-      },
-    });
   };
 
   /**
@@ -71,25 +57,11 @@ export default function HoldToRevealButton({ buttonText, onLongPressed }) {
    */
   const triggerOnLongPressed = useCallback(
     (e) => {
-      trackEvent({
-        category: MetaMetricsEventCategory.Keys,
-        event: MetaMetricsEventName.SrpHoldToRevealCompleted,
-        properties: {
-          key_type: MetaMetricsEventKeyType.Srp,
-        },
-      });
-      trackEvent({
-        category: MetaMetricsEventCategory.Keys,
-        event: MetaMetricsEventName.SrpRevealViewed,
-        properties: {
-          key_type: MetaMetricsEventKeyType.Srp,
-        },
-      });
       onLongPressed();
       setHasTriggeredUnlock(true);
       preventPropogation(e);
     },
-    [onLongPressed, trackEvent],
+    [onLongPressed],
   );
 
   /**

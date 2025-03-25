@@ -7,18 +7,12 @@ import Button from '../../components/ui/button';
 import TextField from '../../components/ui/text-field';
 import Mascot from '../../components/ui/mascot';
 import { DEFAULT_ROUTE } from '../../helpers/constants/routes';
-import {
-  MetaMetricsContextProp,
-  MetaMetricsEventCategory,
-  MetaMetricsEventName,
-} from '../../../shared/constants/metametrics';
 import { SUPPORT_LINK } from '../../../shared/lib/ui-utils';
 import { isFlask, isBeta } from '../../helpers/utils/build-types';
 import { getCaretCoordinates } from './unlock-page.util';
 
 export default class UnlockPage extends Component {
   static contextTypes = {
-    trackEvent: PropTypes.func,
     t: PropTypes.func,
   };
 
@@ -80,31 +74,11 @@ export default class UnlockPage extends Component {
 
     try {
       await onSubmit(password);
-      this.context.trackEvent(
-        {
-          category: MetaMetricsEventCategory.Navigation,
-          event: MetaMetricsEventName.AppUnlocked,
-          properties: {
-            failed_attempts: this.failed_attempts,
-          },
-        },
-        {
-          isNewVisit: true,
-        },
-      );
     } catch ({ message }) {
       this.failed_attempts += 1;
 
       if (message === 'Incorrect password') {
         await forceUpdateMetamaskState();
-        this.context.trackEvent({
-          category: MetaMetricsEventCategory.Navigation,
-          event: MetaMetricsEventName.AppUnlockedFailed,
-          properties: {
-            reason: 'incorrect_password',
-            failed_attempts: this.failed_attempts,
-          },
-        });
       }
 
       this.setState({ error: message });
@@ -233,22 +207,6 @@ export default class UnlockPage extends Component {
                 target="_blank"
                 rel="noopener noreferrer"
                 key="need-help-link"
-                onClick={() => {
-                  this.context.trackEvent(
-                    {
-                      category: MetaMetricsEventCategory.Navigation,
-                      event: MetaMetricsEventName.SupportLinkClicked,
-                      properties: {
-                        url: SUPPORT_LINK,
-                      },
-                    },
-                    {
-                      contextPropsIntoEventProperties: [
-                        MetaMetricsContextProp.PageTitle,
-                      ],
-                    },
-                  );
-                }}
               >
                 {needHelpText}
               </a>,

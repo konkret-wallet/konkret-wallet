@@ -6,7 +6,6 @@ import AccountListItem from '../../components/app/account-list-item';
 import Identicon from '../../components/ui/identicon';
 import { PageContainerFooter } from '../../components/ui/page-container';
 
-import { MetaMetricsEventCategory } from '../../../shared/constants/metametrics';
 import SiteOrigin from '../../components/ui/site-origin';
 import { Numeric } from '../../../shared/modules/Numeric';
 import { EtherDenomination } from '../../../shared/constants/common';
@@ -15,7 +14,6 @@ import { Nav } from '../confirmations/components/confirm/nav';
 export default class ConfirmEncryptionPublicKey extends Component {
   static contextTypes = {
     t: PropTypes.func.isRequired,
-    trackEvent: PropTypes.func.isRequired,
   };
 
   static propTypes = {
@@ -166,7 +164,7 @@ export default class ConfirmEncryptionPublicKey extends Component {
       mostRecentOverviewPage,
       txData,
     } = this.props;
-    const { t, trackEvent } = this.context;
+    const { t } = this.context;
 
     return (
       <PageContainerFooter
@@ -174,27 +172,11 @@ export default class ConfirmEncryptionPublicKey extends Component {
         submitText={t('provide')}
         onCancel={async (event) => {
           await cancelEncryptionPublicKey(txData, event);
-          trackEvent({
-            category: MetaMetricsEventCategory.Messages,
-            event: 'Cancel',
-            properties: {
-              action: 'Encryption public key Request',
-              legacy_event: true,
-            },
-          });
           clearConfirmTransaction();
           history.push(mostRecentOverviewPage);
         }}
         onSubmit={async (event) => {
           await encryptionPublicKey(txData, event);
-          this.context.trackEvent({
-            category: MetaMetricsEventCategory.Messages,
-            event: 'Confirm',
-            properties: {
-              action: 'Encryption public key Request',
-              legacy_event: true,
-            },
-          });
           clearConfirmTransaction();
           history.push(mostRecentOverviewPage);
         }}

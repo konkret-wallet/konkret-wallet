@@ -5,7 +5,6 @@ import React, {
   useMemo,
   useReducer,
   useState,
-  useContext,
 } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
@@ -17,15 +16,10 @@ import { ApprovalType } from '@metamask/controller-utils';
 import { DIALOG_APPROVAL_TYPES } from '@metamask/snaps-rpc-methods';
 import { CHAIN_SPEC_URL } from '../../../../shared/constants/network';
 import fetchWithCache from '../../../../shared/lib/fetch-with-cache';
-import {
-  MetaMetricsEventCategory,
-  MetaMetricsEventName,
-} from '../../../../shared/constants/metametrics';
 import MetaMaskTemplateRenderer from '../../../components/app/metamask-template-renderer';
 import ConfirmationWarningModal from '../components/confirmation-warning-modal';
 import { DEFAULT_ROUTE } from '../../../helpers/constants/routes';
 import { useI18nContext } from '../../../hooks/useI18nContext';
-import { MetaMetricsContext } from '../../../contexts/metametrics';
 import {
   getMemoizedUnapprovedTemplatedConfirmations,
   getUnapprovedTxCount,
@@ -222,7 +216,6 @@ export default function ConfirmationPage({
   redirectToHomeOnZeroConfirmations = true,
 }) {
   const t = useI18nContext();
-  const trackEvent = useContext(MetaMetricsContext);
   const dispatch = useDispatch();
   const history = useHistory();
   const pendingConfirmations = useSelector(
@@ -323,7 +316,7 @@ export default function ConfirmationPage({
           },
           // Passing `t` in the contexts object is a bit redundant but since it's a
           // context too, it makes sense (for completeness)
-          { t, trackEvent },
+          { t },
         )
       : {};
   }, [
@@ -333,7 +326,6 @@ export default function ConfirmationPage({
     history,
     matchedChain,
     currencySymbolWarning,
-    trackEvent,
     isSnapDialog,
     snapName,
     networkConfigurationsByChainId,
@@ -452,26 +444,6 @@ export default function ConfirmationPage({
   };
   const handleSubmit = async () => {
     setLoading(true);
-
-    if (
-      pendingConfirmation?.requestData?.fromNetworkConfiguration?.chainId &&
-      pendingConfirmation?.requestData?.toNetworkConfiguration?.chainId
-    ) {
-      trackEvent({
-        category: MetaMetricsEventCategory.Network,
-        event: MetaMetricsEventName.NavNetworkSwitched,
-        properties: {
-          location: 'Switch Modal',
-          from_network:
-            pendingConfirmation.requestData.fromNetworkConfiguration.chainId,
-          to_network:
-            pendingConfirmation.requestData.toNetworkConfiguration.chainId,
-          referrer: {
-            url: window.location.origin,
-          },
-        },
-      });
-    }
 
     if (templateState[pendingConfirmation.id]?.useWarningModal) {
       setShowWarningModal(true);

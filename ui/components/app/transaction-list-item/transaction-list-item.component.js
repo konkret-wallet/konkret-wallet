@@ -34,10 +34,6 @@ import {
   Text,
 } from '../../component-library';
 
-import {
-  MetaMetricsEventCategory,
-  MetaMetricsEventName,
-} from '../../../../shared/constants/metametrics';
 import { TransactionGroupCategory } from '../../../../shared/constants/transaction';
 import { EditGasModes } from '../../../../shared/constants/gas';
 import {
@@ -60,7 +56,6 @@ import AdvancedGasFeePopover from '../../../pages/confirmations/components/advan
 import CancelButton from '../cancel-button';
 import EditGasFeePopover from '../../../pages/confirmations/components/edit-gas-fee-popover';
 import EditGasPopover from '../../../pages/confirmations/components/edit-gas-popover';
-import { MetaMetricsContext } from '../../../contexts/metametrics';
 import { ActivityListItem } from '../../multichain';
 import { abortTransactionSigning } from '../../../store/actions';
 import { getIsSmartTransaction } from '../../../../shared/modules/selectors';
@@ -102,19 +97,9 @@ function TransactionListItemInner({
     primaryTransaction: { error, status },
   } = transactionGroup;
 
-  const trackEvent = useContext(MetaMetricsContext);
-
   const retryTransaction = useCallback(
     async (event) => {
       event.stopPropagation();
-      trackEvent({
-        event: 'Clicked "Speed Up"',
-        category: MetaMetricsEventCategory.Navigation,
-        properties: {
-          action: 'Activity Log',
-          legacy_event: true,
-        },
-      });
       if (supportsEIP1559) {
         setEditGasMode(EditGasModes.speedUp);
         openModal('cancelSpeedUpTransaction');
@@ -122,20 +107,12 @@ function TransactionListItemInner({
         setShowRetryEditGasPopover(true);
       }
     },
-    [openModal, setEditGasMode, trackEvent, supportsEIP1559],
+    [openModal, setEditGasMode, supportsEIP1559],
   );
 
   const cancelTransaction = useCallback(
     (event) => {
       event.stopPropagation();
-      trackEvent({
-        event: 'Clicked "Cancel"',
-        category: MetaMetricsEventCategory.Navigation,
-        properties: {
-          action: 'Activity Log',
-          legacy_event: true,
-        },
-      });
       if (status === TransactionStatus.approved) {
         dispatch(abortTransactionSigning(id));
       } else if (supportsEIP1559) {
@@ -145,15 +122,7 @@ function TransactionListItemInner({
         setShowCancelEditGasPopover(true);
       }
     },
-    [
-      trackEvent,
-      openModal,
-      setEditGasMode,
-      supportsEIP1559,
-      status,
-      dispatch,
-      id,
-    ],
+    [openModal, setEditGasMode, supportsEIP1559, status, dispatch, id],
   );
 
   const shouldShowSpeedUp = useShouldShowSpeedUp(
@@ -202,18 +171,9 @@ function TransactionListItemInner({
       return;
     }
     setShowDetails((prev) => {
-      trackEvent({
-        event: prev
-          ? MetaMetricsEventName.ActivityDetailsClosed
-          : MetaMetricsEventName.ActivityDetailsOpened,
-        category: MetaMetricsEventCategory.Navigation,
-        properties: {
-          activity_type: category,
-        },
-      });
       return !prev;
     });
-  }, [isUnapproved, history, id, trackEvent, category]);
+  }, [isUnapproved, history, id, category]);
 
   const speedUpButton = useMemo(() => {
     if (

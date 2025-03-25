@@ -1,13 +1,7 @@
 import { renderHook } from '@testing-library/react-hooks';
 import { useContext } from 'react';
 import { useSelector } from 'react-redux';
-import {
-  MetaMetricsEventCategory,
-  MetaMetricsEventName,
-  QueueType,
-} from '../../../../../../shared/constants/metametrics';
 import { I18nContext } from '../../../../../contexts/i18n';
-import { MetaMetricsContext } from '../../../../../contexts/metametrics';
 import {
   getQueuedRequestCount,
   pendingApprovalsSortedSelector,
@@ -47,13 +41,11 @@ describe('useQueuedConfirmationsAlerts', () => {
   const useSelectorMock = useSelector as jest.Mock;
   const useContextMock = jest.mocked(useContext);
 
-  const trackEventMock = jest.fn();
-
   beforeEach(() => {
     jest.resetAllMocks();
   });
 
-  it('returns alert and sends metrics if requests have been queued', () => {
+  it('returns alert and if requests have been queued', () => {
     useSelectorMock.mockImplementation((selector) => {
       if (selector === pendingApprovalsSortedSelector) {
         return pendingApprovalsMock;
@@ -65,9 +57,7 @@ describe('useQueuedConfirmationsAlerts', () => {
     });
 
     useContextMock.mockImplementation((context) => {
-      if (context === MetaMetricsContext) {
-        return trackEventMock;
-      } else if (context === I18nContext) {
+      if (context === I18nContext) {
         return (translationKey: string) => `[${translationKey}]`;
       }
 
@@ -84,18 +74,6 @@ describe('useQueuedConfirmationsAlerts', () => {
         severity: 'info',
       },
     ]);
-
-    expect(trackEventMock).toHaveBeenCalledTimes(1);
-    expect(trackEventMock).toHaveBeenCalledWith({
-      category: MetaMetricsEventCategory.Confirmations,
-      event: MetaMetricsEventName.ConfirmationQueued,
-      properties: {
-        confirmation_type: 'transaction',
-        queue_size: 5,
-        queue_type: QueueType.QueueController,
-        referrer: 'http://127.0.0.1:8080',
-      },
-    });
   });
 
   it("returns no alerts and doesn't send metrics if no requests have been queued", () => {
@@ -110,21 +88,15 @@ describe('useQueuedConfirmationsAlerts', () => {
     });
 
     useContextMock.mockImplementation((context) => {
-      if (context === MetaMetricsContext) {
-        return trackEventMock;
-      } else if (context === I18nContext) {
+      if (context === I18nContext) {
         return (translationKey: string) => `[${translationKey}]`;
       }
 
       return undefined;
     });
 
-    useContextMock.mockReturnValue(trackEventMock);
-
     const response = renderHook(() => useQueuedConfirmationsAlerts());
 
     expect(response.result.current).toEqual([]);
-
-    expect(trackEventMock).not.toHaveBeenCalled();
   });
 });

@@ -20,15 +20,12 @@ import {
 } from '../../component-library/banner-alert';
 import { TextVariant } from '../../../helpers/constants/design-system';
 import { SECOND } from '../../../../shared/constants/time';
-import { MetaMetricsEventCategory } from '../../../../shared/constants/metametrics';
-import { getURLHostName } from '../../../helpers/utils/util';
 import { NETWORKS_ROUTE } from '../../../helpers/constants/routes';
 import { COPY_OPTIONS } from '../../../../shared/constants/copy';
 
 export default class TransactionListItemDetails extends PureComponent {
   static contextTypes = {
     t: PropTypes.func,
-    trackEvent: PropTypes.func,
   };
 
   static defaultProps = {
@@ -83,16 +80,6 @@ export default class TransactionListItemDetails extends PureComponent {
       onClose();
       history.push(`${NETWORKS_ROUTE}#blockExplorerUrl`);
     } else {
-      this.context.trackEvent({
-        category: MetaMetricsEventCategory.Transactions,
-        event: 'Clicked Block Explorer Link',
-        properties: {
-          link_type: 'Transaction Block Explorer',
-          action: 'Transaction Details',
-          block_explorer_domain: getURLHostName(blockExplorerLink),
-        },
-      });
-
       global.platform.openTab({
         url: blockExplorerLink,
       });
@@ -115,15 +102,6 @@ export default class TransactionListItemDetails extends PureComponent {
     const { transactionGroup } = this.props;
     const { primaryTransaction: transaction } = transactionGroup;
     const { hash } = transaction;
-
-    this.context.trackEvent({
-      category: MetaMetricsEventCategory.Navigation,
-      event: 'Copied Transaction ID',
-      properties: {
-        action: 'Activity Log',
-        legacy_event: true,
-      },
-    });
 
     this.setState({ justCopied: true }, () => {
       copyToClipboard(hash, COPY_OPTIONS);
@@ -268,26 +246,6 @@ export default class TransactionListItemDetails extends PureComponent {
                 senderName={senderNickname}
                 senderAddress={senderAddress}
                 chainId={chainId}
-                onRecipientClick={() => {
-                  this.context.trackEvent({
-                    category: MetaMetricsEventCategory.Navigation,
-                    event: 'Copied "To" Address',
-                    properties: {
-                      action: 'Activity Log',
-                      legacy_event: true,
-                    },
-                  });
-                }}
-                onSenderClick={() => {
-                  this.context.trackEvent({
-                    category: MetaMetricsEventCategory.Navigation,
-                    event: 'Copied "From" Address',
-                    properties: {
-                      action: 'Activity Log',
-                      legacy_event: true,
-                    },
-                  });
-                }}
               />
             </div>
             <div className="transaction-list-item-details__cards-container">

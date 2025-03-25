@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { useState, useContext, forwardRef } from 'react';
+import React, { useState, forwardRef } from 'react';
 import PropTypes from 'prop-types';
 import copyToClipboard from 'copy-to-clipboard';
 import classnames from 'classnames';
@@ -13,7 +13,6 @@ import Tooltip from '../../components/ui/tooltip';
 import { PageContainerFooter } from '../../components/ui/page-container';
 import { getMostRecentOverviewPage } from '../../ducks/history/history';
 import { getNativeCurrency } from '../../ducks/metamask/metamask';
-import { MetaMetricsEventCategory } from '../../../shared/constants/metametrics';
 import { SECOND } from '../../../shared/constants/time';
 import { Numeric } from '../../../shared/modules/Numeric';
 import { EtherDenomination } from '../../../shared/constants/common';
@@ -26,7 +25,6 @@ import {
 import { COPY_OPTIONS } from '../../../shared/constants/copy';
 import { useI18nContext } from '../../hooks/useI18nContext';
 import { useScrollRequired } from '../../hooks/useScrollRequired';
-import { MetaMetricsContext } from '../../contexts/metametrics';
 import {
   BackgroundColor,
   BorderRadius,
@@ -186,7 +184,6 @@ const MessageBody = forwardRef(
     ref,
   ) => {
     const dispatch = useDispatch();
-    const trackEvent = useContext(MetaMetricsContext);
     const t = useI18nContext();
 
     const [copyToClipboardPressed, setCopyToClipboardPressed] = useState(false);
@@ -197,14 +194,6 @@ const MessageBody = forwardRef(
 
     const copyMessage = () => {
       copyToClipboard(rawMessage, COPY_OPTIONS);
-      trackEvent({
-        category: MetaMetricsEventCategory.Messages,
-        event: 'Copy',
-        properties: {
-          action: 'Decrypt Message Copy',
-          legacy_event: true,
-        },
-      });
       setHasCopied(true);
       setTimeout(() => setHasCopied(false), SECOND * 3);
     };
@@ -329,20 +318,11 @@ const Footer = ({
   const dispatch = useDispatch();
   const history = useHistory();
   const t = useI18nContext();
-  const trackEvent = useContext(MetaMetricsContext);
 
   const onCancelClick = async (event) => {
     event.stopPropagation(event);
 
     await dispatch(cancelDecryptMsg(messageData));
-    trackEvent({
-      category: MetaMetricsEventCategory.Messages,
-      event: 'Cancel',
-      properties: {
-        action: 'Decrypt Message Request',
-        legacy_event: true,
-      },
-    });
     dispatch(clearConfirmTransaction());
     history.push(mostRecentOverviewPage);
   };
@@ -353,14 +333,6 @@ const Footer = ({
     params.metamaskId = messageData.id;
 
     await dispatch(decryptMsg(params));
-    trackEvent({
-      category: MetaMetricsEventCategory.Messages,
-      event: 'Confirm',
-      properties: {
-        action: 'Decrypt Message Request',
-        legacy_event: true,
-      },
-    });
     dispatch(clearConfirmTransaction());
     history.push(mostRecentOverviewPage);
   };

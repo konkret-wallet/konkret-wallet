@@ -5,15 +5,10 @@ import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import {
-  MetaMetricsEventCategory,
-  MetaMetricsEventName,
-} from '../../../../shared/constants/metametrics';
-import {
   NOTIFICATION_DROP_LEDGER_FIREFOX,
   getTranslatedUINotifications,
 } from '../../../../shared/notifications';
 import { I18nContext } from '../../../contexts/i18n';
-import { MetaMetricsContext } from '../../../contexts/metametrics';
 import { getCurrentLocale } from '../../../ducks/locale/locale';
 import { TextVariant } from '../../../helpers/constants/design-system';
 import { useEqualityCheck } from '../../../hooks/useEqualityCheck';
@@ -57,12 +52,7 @@ const renderDescription = (description) => {
   );
 };
 
-const renderFirstNotification = ({
-  notification,
-  idRefMap,
-  isLast,
-  trackEvent,
-}) => {
+const renderFirstNotification = ({ notification, idRefMap, isLast }) => {
   const { id, date, title, description, image, actionText } = notification;
   const actionFunction = getActionFunctionById(id);
 
@@ -103,10 +93,6 @@ const renderFirstNotification = ({
           className="whats-new-popup__button"
           onClick={() => {
             actionFunction();
-            trackEvent({
-              category: MetaMetricsEventCategory.Home,
-              event: MetaMetricsEventName.WhatsNewClicked,
-            });
           }}
           block
         >
@@ -183,8 +169,6 @@ export default function WhatsNewPopup({ onClose }) {
     [memoizedNotifications],
   );
 
-  const trackEvent = useContext(MetaMetricsContext);
-
   const handleDebouncedScroll = debounce((target) => {
     setShouldShowScrollButton(
       target.scrollHeight - target.scrollTop !== target.clientHeight,
@@ -250,14 +234,6 @@ export default function WhatsNewPopup({ onClose }) {
       className="whats-new-popup__popover"
       onClose={() => {
         updateViewedNotifications(seenNotifications);
-        trackEvent({
-          category: MetaMetricsEventCategory.Home,
-          event: MetaMetricsEventName.WhatsNewViewed,
-          properties: {
-            number_viewed: Object.keys(seenNotifications).pop(),
-            completed_all: true,
-          },
-        });
         onClose();
       }}
       popoverRef={popoverRef}
@@ -280,7 +256,6 @@ export default function WhatsNewPopup({ onClose }) {
             idRefMap,
             history,
             isLast,
-            trackEvent,
           });
         })}
       </div>

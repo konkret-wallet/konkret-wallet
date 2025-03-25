@@ -1,4 +1,4 @@
-import React, { useEffect, useContext, useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 ///: BEGIN:ONLY_INCLUDE_IF(build-main,build-beta,build-flask)
 import { isEqual } from 'lodash';
@@ -16,12 +16,6 @@ import {
 ///: BEGIN:ONLY_INCLUDE_IF(build-main,build-beta,build-flask)
 import useBridging from '../../../hooks/bridge/useBridging';
 ///: END:ONLY_INCLUDE_IF
-import { MetaMetricsContext } from '../../../contexts/metametrics';
-import {
-  MetaMetricsEventName,
-  MetaMetricsEventCategory,
-} from '../../../../shared/constants/metametrics';
-import type { CarouselSlide } from '../../../../shared/constants/app-state';
 import {
   AccountOverviewTabsProps,
   AccountOverviewTabs,
@@ -48,7 +42,6 @@ export const AccountOverviewLayout = ({
   const slides = useSelector(getSlides);
   const totalBalance = useSelector(getSelectedAccountCachedBalance);
   const isLoading = useSelector(getAppIsLoading);
-  const trackEvent = useContext(MetaMetricsContext);
   const [hasRendered, setHasRendered] = useState(false);
 
   ///: BEGIN:ONLY_INCLUDE_IF(build-main,build-beta,build-flask)
@@ -94,46 +87,20 @@ export const AccountOverviewLayout = ({
       );
     }
     ///: END:ONLY_INCLUDE_IF
-
-    trackEvent({
-      event: MetaMetricsEventName.BannerSelect,
-      category: MetaMetricsEventCategory.Banner,
-      properties: {
-        banner_name: id,
-      },
-    });
   };
 
-  const handleRemoveSlide = (isLastSlide: boolean, id: string) => {
+  const handleRemoveSlide = (_isLastSlide: boolean, id: string) => {
     if (id === 'fund' && hasZeroBalance) {
       return;
-    }
-    if (isLastSlide) {
-      trackEvent({
-        event: MetaMetricsEventName.BannerCloseAll,
-        category: MetaMetricsEventCategory.Banner,
-      });
     }
     dispatch(removeSlide(id));
   };
 
-  const handleRenderSlides = useCallback(
-    (renderedSlides: CarouselSlide[]) => {
-      if (!hasRendered) {
-        renderedSlides.forEach((slide) => {
-          trackEvent({
-            event: MetaMetricsEventName.BannerDisplay,
-            category: MetaMetricsEventCategory.Banner,
-            properties: {
-              banner_name: slide.id,
-            },
-          });
-        });
-        setHasRendered(true);
-      }
-    },
-    [hasRendered, trackEvent],
-  );
+  const handleRenderSlides = useCallback(() => {
+    if (!hasRendered) {
+      setHasRendered(true);
+    }
+  }, [hasRendered]);
 
   return (
     <>

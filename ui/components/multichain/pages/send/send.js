@@ -41,17 +41,12 @@ import {
   AssetType,
   SmartTransactionStatus,
 } from '../../../../../shared/constants/transaction';
-import { MetaMetricsContext } from '../../../../contexts/metametrics';
 import { INSUFFICIENT_FUNDS_ERROR } from '../../../../pages/confirmations/send/send.constants';
 import { cancelTx, showQrScanner } from '../../../../store/actions';
 import {
   DEFAULT_ROUTE,
   SEND_ROUTE,
 } from '../../../../helpers/constants/routes';
-import {
-  MetaMetricsEventCategory,
-  MetaMetricsEventName,
-} from '../../../../../shared/constants/metametrics';
 import { getMostRecentOverviewPage } from '../../../../ducks/history/history';
 import { AssetPickerAmount } from '../..';
 import useUpdateSwapsState from '../../../../pages/swaps/hooks/useUpdateSwapsState';
@@ -84,8 +79,6 @@ export const SendPage = () => {
 
   const history = useHistory();
   const location = useLocation();
-  const trackEvent = useContext(MetaMetricsContext);
-  const sendAnalytics = useSelector(getSendAnalyticProperties);
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState(undefined);
@@ -141,45 +134,9 @@ export const SendPage = () => {
           }),
         );
       }
-
-      trackEvent(
-        {
-          event: MetaMetricsEventName.sendAssetSelected,
-          category: MetaMetricsEventCategory.Send,
-          properties: {
-            is_destination_asset_picker_modal: Boolean(isReceived),
-            is_nft: false,
-          },
-          sensitiveProperties: {
-            ...sendAnalytics,
-            new_asset_symbol: token.symbol,
-            new_asset_address: token.address,
-          },
-        },
-        { excludeMetaMetricsId: false },
-      );
       history.push(SEND_ROUTE);
     },
-    [dispatch, history, sendAnalytics, trackEvent],
-  );
-
-  const handleAssetPickerClick = useCallback(
-    (isDest) => {
-      trackEvent(
-        {
-          event: MetaMetricsEventName.sendTokenModalOpened,
-          category: MetaMetricsEventCategory.Send,
-          properties: {
-            is_destination_asset_picker_modal: Boolean(isDest),
-          },
-          sensitiveProperties: {
-            ...sendAnalytics,
-          },
-        },
-        { excludeMetaMetricsId: false },
-      );
-    },
-    [sendAnalytics, trackEvent],
+    [dispatch, history],
   );
 
   const cleanup = useCallback(() => {
@@ -233,41 +190,10 @@ export const SendPage = () => {
     }
     dispatch(resetSendState());
 
-    trackEvent(
-      {
-        event: MetaMetricsEventName.sendFlowExited,
-        category: MetaMetricsEventCategory.Send,
-        sensitiveProperties: {
-          ...sendAnalytics,
-        },
-      },
-      { excludeMetaMetricsId: false },
-    );
-
     const nextRoute =
       sendStage === SEND_STAGES.EDIT ? DEFAULT_ROUTE : mostRecentOverviewPage;
     history.push(nextRoute);
   };
-
-  useEffect(() => {
-    if (swapQuotesError) {
-      trackEvent(
-        {
-          event: MetaMetricsEventName.sendSwapQuoteError,
-          category: MetaMetricsEventCategory.Send,
-          properties: {
-            error: swapQuotesError,
-          },
-          sensitiveProperties: {
-            ...sendAnalytics,
-          },
-        },
-        { excludeMetaMetricsId: false },
-      );
-    }
-    // sendAnalytics should not result in the event refiring
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [trackEvent, swapQuotesError]);
 
   const onSubmit = async (event) => {
     event.preventDefault();
@@ -277,16 +203,6 @@ export const SendPage = () => {
 
     try {
       await dispatch(signTransaction(history));
-
-      trackEvent({
-        category: MetaMetricsEventCategory.Transactions,
-        event: 'Complete',
-        properties: {
-          ...sendAnalytics,
-          action: isSwapAndSend ? 'Submit Immediately' : 'Edit Screen',
-          legacy_event: true,
-        },
-      });
     } catch {
       setError(TRANSACTION_ERRORED_EVENT);
     } finally {
@@ -380,7 +296,6 @@ export const SendPage = () => {
             amount={amount}
             onAssetChange={handleSelectSendToken}
             onAmountChange={onAmountChange}
-            onClick={() => handleAssetPickerClick(false)}
           />
         )}
         <Box marginTop={6}>
@@ -391,7 +306,6 @@ export const SendPage = () => {
                 requireContractAddressAcknowledgement
               }
               onAssetChange={handleSelectToken}
-              onClick={() => handleAssetPickerClick(true)}
             />
           ) : (
             <SendPageRecipient />

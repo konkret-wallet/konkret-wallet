@@ -58,15 +58,7 @@ import Tooltip from '../../ui/tooltip';
 import { setSwapsFromToken } from '../../../ducks/swaps/swaps';
 import { isHardwareKeyring } from '../../../helpers/utils/hardware';
 ///: END:ONLY_INCLUDE_IF
-import {
-  MetaMetricsEventCategory,
-  MetaMetricsEventName,
-  ///: BEGIN:ONLY_INCLUDE_IF(build-main,build-beta,build-flask)
-  MetaMetricsSwapsEventSource,
-  ///: END:ONLY_INCLUDE_IF
-} from '../../../../shared/constants/metametrics';
 import { AssetType } from '../../../../shared/constants/transaction';
-import { MetaMetricsContext } from '../../../contexts/metametrics';
 import { startNewDraftTransaction } from '../../../ducks/send';
 import {
   Display,
@@ -91,11 +83,6 @@ import {
 ///: BEGIN:ONLY_INCLUDE_IF(multichain)
 import { isMultichainWalletSnap } from '../../../../shared/lib/accounts/snaps';
 ///: END:ONLY_INCLUDE_IF
-import {
-  getMultichainNativeCurrency,
-  getMultichainNetwork,
-} from '../../../selectors/multichain';
-import { useMultichainSelector } from '../../../hooks/useMultichainSelector';
 import { getCurrentChainId } from '../../../../shared/modules/selectors/networks';
 ///: BEGIN:ONLY_INCLUDE_IF(solana-swaps)
 import { MultichainNetworks } from '../../../../shared/constants/multichain/networks';
@@ -104,7 +91,6 @@ import { MultichainNetworks } from '../../../../shared/constants/multichain/netw
 type CoinButtonsProps = {
   account: InternalAccount;
   chainId: `0x${string}` | CaipChainId | number;
-  trackingLocation: string;
   isSwapsChain: boolean;
   isSigningEnabled: boolean;
   ///: BEGIN:ONLY_INCLUDE_IF(build-main,build-beta,build-flask)
@@ -119,7 +105,6 @@ type CoinButtonsProps = {
 const CoinButtons = ({
   account,
   chainId,
-  trackingLocation,
   isSwapsChain,
   isSigningEnabled,
   ///: BEGIN:ONLY_INCLUDE_IF(build-main,build-beta,build-flask)
@@ -133,7 +118,6 @@ const CoinButtons = ({
   const t = useContext(I18nContext);
   const dispatch = useDispatch();
 
-  const trackEvent = useContext(MetaMetricsContext);
   const [showReceiveModal, setShowReceiveModal] = useState(false);
 
   const { address: selectedAddress } = account;
@@ -154,19 +138,6 @@ const CoinButtons = ({
   const keyring = useSelector(getCurrentKeyring);
   const usingHardwareWallet = isHardwareKeyring(keyring?.type);
   ///: END:ONLY_INCLUDE_IF
-
-  // Initially, those events were using a "ETH" as `token_symbol`, so we keep this behavior
-  // for EVM, no matter the currently selected native token (e.g. SepoliaETH if you are on Sepolia
-  // network).
-  const { isEvmNetwork, chainId: multichainChainId } = useMultichainSelector(
-    getMultichainNetwork,
-    account,
-  );
-  const multichainNativeToken = useMultichainSelector(
-    getMultichainNativeCurrency,
-    account,
-  );
-  const nativeToken = isEvmNetwork ? 'ETH' : multichainNativeToken;
 
   const isExternalServicesEnabled = useSelector(getUseExternalServices);
 
@@ -217,23 +188,6 @@ const CoinButtons = ({
   };
   ///: END:ONLY_INCLUDE_IF
 
-  const getSnapAccountMetaMetricsPropertiesIfAny = (
-    internalAccount: InternalAccount,
-  ): { snap_id?: string } => {
-    // Some accounts might be Snap accounts, in this case we add some extra properties
-    // to the metrics:
-    const snapId = internalAccount.metadata.snap?.id;
-    if (snapId) {
-      return {
-        snap_id: snapId,
-      };
-    }
-
-    // If the account is not a Snap account or that we could not get the Snap ID for
-    // some reason, we don't add any extra property.
-    return {};
-  };
-
   ///: BEGIN:ONLY_INCLUDE_IF(build-main,build-beta,build-flask)
   const { openBuyCryptoInPdapp } = useRamps();
 
@@ -283,22 +237,6 @@ const CoinButtons = ({
   }, [currentChainId, chainId, networks, dispatch]);
 
   const handleSendOnClick = useCallback(async () => {
-    trackEvent(
-      {
-        event: MetaMetricsEventName.NavSendButtonClicked,
-        category: MetaMetricsEventCategory.Navigation,
-        properties: {
-          account_type: account.type,
-          token_symbol: nativeToken,
-          location: 'Home',
-          text: 'Send',
-          chain_id: chainId,
-          ...getSnapAccountMetaMetricsPropertiesIfAny(account),
-        },
-      },
-      { excludeMetaMetricsId: false },
-    );
-
     ///: BEGIN:ONLY_INCLUDE_IF(multichain)
     if (!isEvmAccountType(account.type)) {
       // Non-EVM (Snap) Send flow
@@ -340,19 +278,10 @@ const CoinButtons = ({
   ///: BEGIN:ONLY_INCLUDE_IF(build-main,build-beta,build-flask)
   const handleBuyAndSellOnClick = useCallback(() => {
     openBuyCryptoInPdapp(getChainId());
-    trackEvent({
-      event: MetaMetricsEventName.NavBuyButtonClicked,
-      category: MetaMetricsEventCategory.Navigation,
-      properties: {
-        account_type: account.type,
-        location: 'Home',
-        text: 'Buy',
-        chain_id: chainId,
-        token_symbol: defaultSwapsToken,
-        ...getSnapAccountMetaMetricsPropertiesIfAny(account),
-      },
-    });
-  }, [chainId, defaultSwapsToken]);
+    // TODO: memozie chainId?
+    // openBuyCryptoInPdapp(chainId);
+    // }, [chainId]);
+  }, []);
 
   const handleBridgeOnClick = useCallback(
     async (isSwap: boolean) => {
@@ -361,7 +290,7 @@ const CoinButtons = ({
       }
       await setCorrectChain();
       openBridgeExperience(
-        MetaMetricsSwapsEventSource.MainView,
+        'MetaMetricsSwapsEventSource.MainView',
         defaultSwapsToken,
         location.pathname.includes('asset') ? '&token=native' : '',
         isSwap,
@@ -383,16 +312,6 @@ const CoinButtons = ({
 
     ///: BEGIN:ONLY_INCLUDE_IF(build-main,build-beta,build-flask)
     if (isSwapsChain) {
-      trackEvent({
-        event: MetaMetricsEventName.NavSwapButtonClicked,
-        category: MetaMetricsEventCategory.Swaps,
-        properties: {
-          token_symbol: 'ETH',
-          location: MetaMetricsSwapsEventSource.MainView,
-          text: 'Swap',
-          chain_id: chainId,
-        },
-      });
       dispatch(setSwapsFromToken(defaultSwapsToken));
       if (usingHardwareWallet) {
         if (global.platform.openExtensionInBrowser) {
@@ -519,15 +438,6 @@ const CoinButtons = ({
             }
             label={t('receive')}
             onClick={() => {
-              trackEvent({
-                event: MetaMetricsEventName.NavReceiveButtonClicked,
-                category: MetaMetricsEventCategory.Navigation,
-                properties: {
-                  text: 'Receive',
-                  location: trackingLocation,
-                  chain_id: chainId,
-                },
-              });
               setShowReceiveModal(true);
             }}
           />

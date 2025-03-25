@@ -1,12 +1,6 @@
 /* eslint-disable @typescript-eslint/no-var-requires, @typescript-eslint/no-require-imports, import/no-commonjs */
-import React, { useCallback, useContext, useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import {
-  MetaMetricsEventCategory,
-  MetaMetricsEventKeyType,
-  MetaMetricsEventName,
-} from '../../../../../shared/constants/metametrics';
-import { MetaMetricsContext } from '../../../../contexts/metametrics';
 import {
   BlockSize,
   Display,
@@ -62,7 +56,6 @@ const openSupportArticle = (): void => {
 export default function SRPQuiz(props: any) {
   const [stage, setStage] = useState<QuizStage>(QuizStage.introduction);
 
-  const trackEvent = useContext(MetaMetricsContext);
   const history = useHistory();
   const t = useI18nContext();
 
@@ -257,25 +250,6 @@ export default function SRPQuiz(props: any) {
       />
     );
   };
-
-  // trackEvent shortcut specific to the SRP quiz
-  const trackEventSrp = useCallback((location) => {
-    trackEvent(
-      {
-        category: MetaMetricsEventCategory.Keys,
-        event: MetaMetricsEventName.KeyExportSelected,
-        properties: {
-          key_type: MetaMetricsEventKeyType.Srp,
-          location,
-        },
-      },
-      {},
-    );
-  }, []);
-
-  useEffect(() => {
-    trackEventSrp(`stage_${stage}`); // Call MetaMetrics based on the current stage
-  }, [stage]); // Only call this when the stage changes
 
   const quizContent = stages[stage](); // Pick the content using the right stage from the JSXDict
 
