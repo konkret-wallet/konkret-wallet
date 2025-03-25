@@ -40,7 +40,7 @@ const unique = (struct, eq) =>
     if (uniqWith(value, eq).length === value.length) {
       return true;
     }
-    return 'Array contains duplicated values';
+    return `Array contains duplicated values: ${JSON.stringify(value)}`;
   });
 
 const EnvDefinitionStruct = coerce(
