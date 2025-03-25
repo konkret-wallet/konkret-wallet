@@ -511,6 +511,9 @@ module.exports = {
       ],
       rules: {
         '@metamask/design-tokens/color-no-hex': 'off',
+        // custom: leaving some disabled stuff in tests
+        '@typescript-eslint/no-unused-vars': 'off',
+        'no-unused-vars': 'off',
       },
     },
     {
