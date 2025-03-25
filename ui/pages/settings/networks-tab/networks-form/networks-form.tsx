@@ -62,7 +62,7 @@ import {
   DropdownEditorStyle,
 } from '../../../../components/multichain/dropdown-editor/dropdown-editor';
 import { getTokenNetworkFilter } from '../../../../selectors';
-import { useSafeChains, rpcIdentifierUtility } from './use-safe-chains';
+import { useSafeChains } from './use-safe-chains';
 import { useNetworkFormState } from './networks-form-state';
 
 export const NetworksForm = ({
