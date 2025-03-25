@@ -6,7 +6,6 @@ import {
 } from '@metamask/snaps-rpc-methods';
 import { Caip25EndowmentPermissionName } from '@metamask/multichain';
 import { SubjectType } from '@metamask/permission-controller';
-import { MetaMetricsEventCategory } from '../../../../shared/constants/metametrics';
 import { PageContainerFooter } from '../../ui/page-container';
 import PermissionsConnectFooter from '../permissions-connect-footer';
 import { RestrictedMethods } from '../../../../shared/constants/permissions';
@@ -60,7 +59,6 @@ export default class PermissionPageContainer extends Component {
 
   static contextTypes = {
     t: PropTypes.func,
-    trackEvent: PropTypes.func,
   };
 
   state = {};
@@ -110,15 +108,6 @@ export default class PermissionPageContainer extends Component {
   }
 
   componentDidMount() {
-    this.context.trackEvent({
-      category: MetaMetricsEventCategory.Auth,
-      event: 'Tab Opened',
-      properties: {
-        action: 'Connect',
-        legacy_event: true,
-      },
-    });
-
     if (this.props.request.permissions[WALLET_SNAP_PERMISSION_KEY]) {
       if (this.props.snapsInstallPrivacyWarningShown === false) {
         this.showSnapsPrivacyWarning();

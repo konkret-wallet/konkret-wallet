@@ -1,15 +1,8 @@
-import React, { useContext, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 
 import { useI18nContext } from '../../../../hooks/useI18nContext';
-import { MetaMetricsContext } from '../../../../contexts/metametrics';
-import {
-  MetaMetricsEventCategory,
-  MetaMetricsEventName,
-  MetaMetricsTokenEventSource,
-} from '../../../../../shared/constants/metametrics';
-import { getCurrentChainId } from '../../../../../shared/modules/selectors/networks';
 import {
   getAllDetectedTokensForSelectedAddress,
   getCurrentNetwork,
@@ -32,9 +25,6 @@ const DetectedTokenSelectionPopover = ({
   sortingBasedOnTokenSelection,
 }) => {
   const t = useI18nContext();
-  const trackEvent = useContext(MetaMetricsContext);
-
-  const chainId = useSelector(getCurrentChainId);
 
   const detectedTokens = useSelector(getDetectedTokensInCurrentNetwork);
   const isTokenNetworkFilterEqualCurrentNetwork = useSelector(
@@ -65,23 +55,7 @@ const DetectedTokenSelectionPopover = ({
     sortingBasedOnTokenSelection(tokensListDetected);
 
   const onClose = () => {
-    const chainIds = Object.keys(detectedTokensMultichain);
-
     setShowDetectedTokens(false);
-    const eventTokensDetails = detectedTokens.map(
-      ({ address, symbol }) => `${symbol} - ${address}`,
-    );
-    trackEvent({
-      event: MetaMetricsEventName.TokenImportCanceled,
-      category: MetaMetricsEventCategory.Wallet,
-      properties: {
-        source_connection_method: MetaMetricsTokenEventSource.Detected,
-        tokens: eventTokensDetails,
-        ...(process.env.PORTFOLIO_VIEW
-          ? { chain_ids: chainIds }
-          : { chain_id: chainId }),
-      },
-    });
   };
 
   const footer = (

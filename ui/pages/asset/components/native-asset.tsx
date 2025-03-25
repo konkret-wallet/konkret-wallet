@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Token } from '@metamask/assets-controllers';
 import { useSelector } from 'react-redux';
 import { getAccountLink } from '@metamask/etherscan-link';
@@ -11,9 +11,6 @@ import {
 import { getProviderConfig } from '../../../../shared/modules/selectors/networks';
 import { AssetType } from '../../../../shared/constants/transaction';
 import { useIsOriginalNativeTokenSymbol } from '../../../hooks/useIsOriginalNativeTokenSymbol';
-import { MetaMetricsEventCategory } from '../../../../shared/constants/metametrics';
-import { getURLHostName } from '../../../helpers/utils/util';
-import { MetaMetricsContext } from '../../../contexts/metametrics';
 import AssetOptions from './asset-options';
 import AssetPage from './asset-page';
 
@@ -25,7 +22,6 @@ const NativeAsset = ({ token, chainId }: { token: Token; chainId: Hex }) => {
   const rpcPrefs = useSelector(getRpcPrefsForCurrentProvider);
 
   const accountLink = getAccountLink(address, chainId, rpcPrefs);
-  const trackEvent = useContext(MetaMetricsContext);
   const isOriginalNativeSymbol = useIsOriginalNativeTokenSymbol(
     chainId,
     symbol,
@@ -46,15 +42,6 @@ const NativeAsset = ({ token, chainId }: { token: Token; chainId: Hex }) => {
         <AssetOptions
           isNativeAsset={true}
           onClickBlockExplorer={() => {
-            trackEvent({
-              event: 'Clicked Block Explorer Link',
-              category: MetaMetricsEventCategory.Navigation,
-              properties: {
-                link_type: 'Account Tracker',
-                action: 'Asset Options',
-                block_explorer_domain: getURLHostName(accountLink),
-              },
-            });
             global.platform.openTab({
               url: accountLink,
             });

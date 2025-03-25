@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, { useContext } from 'react';
+import React from 'react';
 import qrCode from 'qrcode-generator';
 import { connect } from 'react-redux';
 import { isHexPrefixed } from '@ethereumjs/util';
@@ -7,7 +7,6 @@ import { isHexPrefixed } from '@ethereumjs/util';
 // eslint-disable-next-line import/no-restricted-paths
 import { normalizeSafeAddress } from '../../../../app/scripts/lib/multichain/address';
 import { Box, Icon, IconName, IconSize, Text } from '../../component-library';
-import { MetaMetricsContext } from '../../../contexts/metametrics';
 import type { CombinedBackgroundAndReduxState } from '../../../store/store';
 import {
   AlignItems,
@@ -19,10 +18,6 @@ import {
 } from '../../../helpers/constants/design-system';
 import { useI18nContext } from '../../../hooks/useI18nContext';
 import { MINUTE } from '../../../../shared/constants/time';
-import {
-  MetaMetricsEventCategory,
-  MetaMetricsEventName,
-} from '../../../../shared/constants/metametrics';
 import { useCopyToClipboard } from '../../../hooks/useCopyToClipboard';
 
 function mapStateToProps(state: CombinedBackgroundAndReduxState) {
@@ -44,7 +39,6 @@ function QrCodeView({
   warning: null | string;
   accountName?: string;
 }) {
-  const trackEvent = useContext(MetaMetricsContext);
   const [copied, handleCopy] = useCopyToClipboard(MINUTE);
   const t = useI18nContext();
   const { message, data } = Qr;
@@ -130,13 +124,6 @@ function QrCodeView({
         data-testid="address-copy-button-text"
         onClick={() => {
           handleCopy(checksummedAddress);
-          trackEvent({
-            category: MetaMetricsEventCategory.Accounts,
-            event: MetaMetricsEventName.PublicAddressCopied,
-            properties: {
-              location: 'Account Details Modal',
-            },
-          });
         }}
       >
         <Icon

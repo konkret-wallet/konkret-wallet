@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Token } from '@metamask/assets-controllers';
 import { useSelector, useDispatch } from 'react-redux';
 import { getTokenTrackerLink } from '@metamask/etherscan-link';
@@ -14,13 +14,8 @@ import { isEqualCaseInsensitive } from '../../../../shared/modules/string-utils'
 import { useTokenTracker } from '../../../hooks/useTokenTracker';
 import { AssetType } from '../../../../shared/constants/transaction';
 import { useTokenFiatAmount } from '../../../hooks/useTokenFiatAmount';
-import {
-  getURLHostName,
-  roundToDecimalPlacesRemovingExtraZeroes,
-} from '../../../helpers/utils/util';
-import { MetaMetricsContext } from '../../../contexts/metametrics';
+import { roundToDecimalPlacesRemovingExtraZeroes } from '../../../helpers/utils/util';
 import { showModal } from '../../../store/actions';
-import { MetaMetricsEventCategory } from '../../../../shared/constants/metametrics';
 import { getNetworkConfigurationsByChainId } from '../../../../shared/modules/selectors/networks';
 import AssetOptions from './asset-options';
 import AssetPage from './asset-page';
@@ -44,7 +39,6 @@ const TokenAsset = ({ token, chainId }: { token: Token; chainId: Hex }) => {
 
   const history = useHistory();
   const dispatch = useDispatch();
-  const trackEvent = useContext(MetaMetricsContext);
 
   // Fetch token data from tokenList
   const tokenData = Object.values(tokenList).find(
@@ -107,15 +101,6 @@ const TokenAsset = ({ token, chainId }: { token: Token; chainId: Hex }) => {
             )
           }
           onClickBlockExplorer={() => {
-            trackEvent({
-              event: 'Clicked Block Explorer Link',
-              category: MetaMetricsEventCategory.Navigation,
-              properties: {
-                link_type: 'Token Tracker',
-                action: 'Token Options',
-                block_explorer_domain: getURLHostName(tokenTrackerLink),
-              },
-            });
             global.platform.openTab({ url: tokenTrackerLink });
           }}
           tokenSymbol={token.symbol}

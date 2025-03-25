@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import { chain } from 'lodash';
@@ -18,18 +18,7 @@ import {
   getDetectedTokensInCurrentNetwork,
   getIsTokenNetworkFilterEqualCurrentNetwork,
 } from '../../../selectors';
-import { MetaMetricsContext } from '../../../contexts/metametrics';
 
-import {
-  AssetType,
-  TokenStandard,
-} from '../../../../shared/constants/transaction';
-import {
-  MetaMetricsEventCategory,
-  MetaMetricsEventLocation,
-  MetaMetricsEventName,
-  MetaMetricsTokenEventSource,
-} from '../../../../shared/constants/metametrics';
 import DetectedTokenSelectionPopover from './detected-token-selection-popover/detected-token-selection-popover';
 import DetectedTokenIgnoredPopover from './detected-token-ignored-popover/detected-token-ignored-popover';
 
@@ -54,7 +43,6 @@ const sortingBasedOnTokenSelection = (tokensDetected) => {
 
 const DetectedToken = ({ setShowDetectedTokens }) => {
   const dispatch = useDispatch();
-  const trackEvent = useContext(MetaMetricsContext);
 
   const detectedTokens = useSelector(getDetectedTokensInCurrentNetwork);
   const networkClientId = useSelector(getSelectedNetworkClientId);
@@ -127,23 +115,6 @@ const DetectedToken = ({ setShowDetectedTokens }) => {
     useState(false);
 
   const importSelectedTokens = async (selectedTokens) => {
-    selectedTokens.forEach((importedToken) => {
-      trackEvent({
-        event: MetaMetricsEventName.TokenAdded,
-        category: MetaMetricsEventCategory.Wallet,
-        sensitiveProperties: {
-          token_symbol: importedToken.symbol,
-          token_contract_address: importedToken.address,
-          token_decimal_precision: importedToken.decimals,
-          source: MetaMetricsTokenEventSource.Detected,
-          token_standard: TokenStandard.ERC20,
-          asset_type: AssetType.token,
-          token_added_type: 'detected',
-          chain_id: importedToken.chainId,
-        },
-      });
-    });
-
     if (
       process.env.PORTFOLIO_VIEW &&
       !isTokenNetworkFilterEqualCurrentNetwork
@@ -188,20 +159,6 @@ const DetectedToken = ({ setShowDetectedTokens }) => {
     if (deSelectedTokens.length < totalDetectedTokens) {
       await importSelectedTokens(selectedTokens);
     }
-
-    const tokensDetailsList = deSelectedTokens.map(
-      ({ symbol, address }) => `${symbol} - ${address}`,
-    );
-    trackEvent({
-      event: MetaMetricsEventName.TokenHidden,
-      category: MetaMetricsEventCategory.Wallet,
-      sensitiveProperties: {
-        tokens: tokensDetailsList,
-        location: MetaMetricsEventLocation.TokenDetection,
-        token_standard: TokenStandard.ERC20,
-        asset_type: AssetType.token,
-      },
-    });
 
     if (
       process.env.PORTFOLIO_VIEW &&

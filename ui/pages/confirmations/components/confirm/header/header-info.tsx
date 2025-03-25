@@ -1,9 +1,4 @@
-import React, { useContext } from 'react';
-import {
-  MetaMetricsEventCategory,
-  MetaMetricsEventLocation,
-  MetaMetricsEventName,
-} from '../../../../../../shared/constants/metametrics';
+import React from 'react';
 import { ConfirmInfoRow } from '../../../../../components/app/confirm/info/row';
 import { ConfirmInfoRowCurrency } from '../../../../../components/app/confirm/info/row/currency';
 import {
@@ -20,7 +15,6 @@ import {
 } from '../../../../../components/component-library';
 import { AddressCopyButton } from '../../../../../components/multichain';
 import Tooltip from '../../../../../components/ui/tooltip/tooltip';
-import { MetaMetricsContext } from '../../../../../contexts/metametrics';
 import {
   AlignItems,
   Display,
@@ -35,15 +29,11 @@ import { useI18nContext } from '../../../../../hooks/useI18nContext';
 import { useConfirmContext } from '../../../context/confirm';
 import { useBalance } from '../../../hooks/useBalance';
 import useConfirmationRecipientInfo from '../../../hooks/useConfirmationRecipientInfo';
-import { SignatureRequestType } from '../../../types/confirm';
-import { isSignatureTransactionType } from '../../../utils/confirm';
 import { isCorrectDeveloperTransactionType } from '../../../../../../shared/lib/confirmation.utils';
 import Identicon from '../../../../../components/ui/identicon';
 import { AdvancedDetailsButton } from './advanced-details-button';
 
 const HeaderInfo = () => {
-  const trackEvent = useContext(MetaMetricsContext);
-
   const [showAccountInfo, setShowAccountInfo] = React.useState(false);
 
   const { currentConfirmation } = useConfirmContext();
@@ -54,32 +44,6 @@ const HeaderInfo = () => {
   const t = useI18nContext();
 
   const { balance: balanceToUse } = useBalance(fromAddress);
-
-  const isSignature = isSignatureTransactionType(currentConfirmation);
-
-  const eventProps = isSignature
-    ? {
-        location: MetaMetricsEventLocation.SignatureConfirmation,
-        signature_type: (currentConfirmation as SignatureRequestType)?.msgParams
-          ?.signatureMethod,
-      }
-    : {
-        location: MetaMetricsEventLocation.Transaction,
-        transaction_type: currentConfirmation?.type,
-      };
-
-  function trackAccountModalOpened() {
-    const event = {
-      category: MetaMetricsEventCategory.Confirmations,
-      event: MetaMetricsEventName.AccountDetailsOpened,
-      properties: {
-        action: 'Confirm Screen',
-        ...eventProps,
-      },
-    };
-
-    trackEvent(event);
-  }
 
   const isShowAdvancedDetailsToggle = isCorrectDeveloperTransactionType(
     currentConfirmation?.type,
@@ -101,7 +65,6 @@ const HeaderInfo = () => {
             iconName={IconName.Info}
             size={ButtonIconSize.Md}
             onClick={() => {
-              trackAccountModalOpened();
               setShowAccountInfo(true);
             }}
             data-testid="header-info__account-details-button"

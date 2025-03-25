@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { useDispatch } from 'react-redux';
 import {
   hideDeleteMetaMetricsDataModal,
@@ -26,16 +26,10 @@ import {
   TextVariant,
 } from '../../../helpers/constants/design-system';
 import { createMetaMetricsDataDeletionTask } from '../../../store/actions';
-import { MetaMetricsContext } from '../../../contexts/metametrics';
-import {
-  MetaMetricsEventCategory,
-  MetaMetricsEventName,
-} from '../../../../shared/constants/metametrics';
 
 export default function ClearMetaMetricsData() {
   const t = useI18nContext();
   const dispatch = useDispatch();
-  const trackEvent = useContext(MetaMetricsContext);
 
   const closeModal = () => {
     dispatch(hideDeleteMetaMetricsDataModal());
@@ -44,26 +38,8 @@ export default function ClearMetaMetricsData() {
   const deleteMetaMetricsData = async () => {
     try {
       await createMetaMetricsDataDeletionTask();
-      trackEvent(
-        {
-          category: MetaMetricsEventCategory.Settings,
-          event: MetaMetricsEventName.MetricsDataDeletionRequest,
-        },
-        {
-          excludeMetaMetricsId: true,
-        },
-      );
     } catch (error: unknown) {
       dispatch(openDataDeletionErrorModal());
-      trackEvent(
-        {
-          category: MetaMetricsEventCategory.Settings,
-          event: MetaMetricsEventName.ErrorOccured,
-        },
-        {
-          excludeMetaMetricsId: true,
-        },
-      );
     } finally {
       dispatch(hideDeleteMetaMetricsDataModal());
     }

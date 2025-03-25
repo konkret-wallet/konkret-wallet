@@ -33,11 +33,6 @@ import {
 } from '../../../helpers/constants/design-system';
 ///: BEGIN:ONLY_INCLUDE_IF(build-main,build-beta,build-flask)
 import { getPortfolioUrl } from '../../../helpers/utils/portfolio';
-import { MetaMetricsContext } from '../../../contexts/metametrics';
-import {
-  MetaMetricsEventCategory,
-  MetaMetricsEventName,
-} from '../../../../shared/constants/metametrics';
 ///: END:ONLY_INCLUDE_IF
 
 import { I18nContext } from '../../../contexts/i18n';
@@ -53,9 +48,6 @@ import {
   getIsTokenNetworkFilterEqualCurrentNetwork,
   getChainIdsToPoll,
   ///: BEGIN:ONLY_INCLUDE_IF(build-main,build-beta,build-flask)
-  getDataCollectionForMarketing,
-  getMetaMetricsId,
-  getParticipateInMetaMetrics,
   SwapsEthToken,
   ///: END:ONLY_INCLUDE_IF
 } from '../../../selectors';
@@ -210,15 +202,6 @@ export const CoinOverview = ({
 
   const t: ReturnType<typeof useI18nContext> = useContext(I18nContext);
 
-  ///: BEGIN:ONLY_INCLUDE_IF(build-main,build-beta,build-flask)
-  const trackEvent = useContext(MetaMetricsContext);
-
-  const metaMetricsId = useSelector(getMetaMetricsId);
-  const isMetaMetricsEnabled = useSelector(getParticipateInMetaMetrics);
-  const isMarketingEnabled = useSelector(getDataCollectionForMarketing);
-
-  ///: END:ONLY_INCLUDE_IF
-
   const showNativeTokenAsMainBalanceRoute = getSpecificSettingsRoute(
     t,
     t('general'),
@@ -264,23 +247,9 @@ export const CoinOverview = ({
 
   ///: BEGIN:ONLY_INCLUDE_IF(build-main,build-beta,build-flask)
   const handlePortfolioOnClick = useCallback(() => {
-    const url = getPortfolioUrl(
-      '',
-      'ext_portfolio_button',
-      metaMetricsId,
-      isMetaMetricsEnabled,
-      isMarketingEnabled,
-    );
+    const url = getPortfolioUrl('', 'ext_portfolio_button');
     global.platform.openTab({ url });
-    trackEvent({
-      category: MetaMetricsEventCategory.Navigation,
-      event: MetaMetricsEventName.PortfolioLinkClicked,
-      properties: {
-        location: 'Home',
-        text: 'Portfolio',
-      },
-    });
-  }, [isMarketingEnabled, isMetaMetricsEnabled, metaMetricsId, trackEvent]);
+  }, []);
   ///: END:ONLY_INCLUDE_IF
 
   const renderPercentageAndAmountChange = () => {

@@ -1,18 +1,11 @@
-import React, { useEffect, useState, useContext, useMemo } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import fetchWithCache from '../../../../shared/lib/fetch-with-cache';
 import { DAY } from '../../../../shared/constants/time';
-import { MetaMetricsContext } from '../../../contexts/metametrics';
-import {
-  MetaMetricsEventCategory,
-  MetaMetricsEventName,
-} from '../../../../shared/constants/metametrics';
 import {
   getSelectedInternalAccount,
   getLastViewedUserSurvey,
   getUseExternalServices,
-  getMetaMetricsId,
-  getParticipateInMetaMetrics,
 } from '../../../selectors';
 import { ACCOUNTS_API_BASE_URL } from '../../../../shared/constants/accounts';
 import { setLastViewedUserSurvey } from '../../../store/actions';
@@ -28,20 +21,17 @@ type Survey = {
 export function SurveyToast() {
   const [survey, setSurvey] = useState<Survey | null>(null);
   const dispatch = useDispatch();
-  const trackEvent = useContext(MetaMetricsContext);
   const lastViewedUserSurvey = useSelector(getLastViewedUserSurvey);
-  const participateInMetaMetrics = useSelector(getParticipateInMetaMetrics);
   const basicFunctionality = useSelector(getUseExternalServices);
   const internalAccount = useSelector(getSelectedInternalAccount);
-  const metaMetricsId = useSelector(getMetaMetricsId);
 
   const surveyUrl = useMemo(
-    () => `${ACCOUNTS_API_BASE_URL}/v1/users/${metaMetricsId}/surveys`,
-    [metaMetricsId],
+    () => `${ACCOUNTS_API_BASE_URL}/v1/users/0/surveys`,
+    [],
   );
 
   useEffect(() => {
-    if (!basicFunctionality || !metaMetricsId || !participateInMetaMetrics) {
+    if (!basicFunctionality) {
       return undefined;
     }
 
@@ -75,7 +65,7 @@ export function SurveyToast() {
         setSurvey(_survey);
       } catch (error: unknown) {
         if (error instanceof Error && error.name !== 'AbortError') {
-          console.error('Failed to fetch survey:', metaMetricsId, error);
+          console.error('Failed to fetch survey:', error);
         }
       }
     };
@@ -89,7 +79,6 @@ export function SurveyToast() {
     internalAccount?.address,
     lastViewedUserSurvey,
     basicFunctionality,
-    metaMetricsId,
     dispatch,
   ]);
 
@@ -101,7 +90,6 @@ export function SurveyToast() {
       url: survey.url,
     });
     dispatch(setLastViewedUserSurvey(survey.id));
-    trackAction('accept');
   }
 
   function handleClose() {
@@ -109,22 +97,6 @@ export function SurveyToast() {
       return;
     }
     dispatch(setLastViewedUserSurvey(survey.id));
-    trackAction('deny');
-  }
-
-  function trackAction(response: 'accept' | 'deny') {
-    if (!participateInMetaMetrics || !survey) {
-      return;
-    }
-
-    trackEvent({
-      event: MetaMetricsEventName.SurveyToast,
-      category: MetaMetricsEventCategory.Feedback,
-      properties: {
-        response,
-        survey: survey.id,
-      },
-    });
   }
 
   if (!survey || survey.id <= lastViewedUserSurvey) {

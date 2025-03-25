@@ -3,9 +3,8 @@ import PropTypes from 'prop-types';
 import { isEvmAccountType } from '@metamask/keyring-api';
 import { getMultichainAccountUrl } from '../../../../helpers/utils/multichain/blockExplorer';
 import Modal from '../../modal';
-import { addressSummary, getURLHostName } from '../../../../helpers/utils/util';
+import { addressSummary } from '../../../../helpers/utils/util';
 import Identicon from '../../../ui/identicon';
-import { MetaMetricsEventCategory } from '../../../../../shared/constants/metametrics';
 import ZENDESK_URLS from '../../../../helpers/constants/zendesk-url';
 import {
   InternalAccountPropType,
@@ -22,7 +21,6 @@ export default class ConfirmRemoveAccount extends Component {
 
   static contextTypes = {
     t: PropTypes.func,
-    trackEvent: PropTypes.func,
   };
 
   handleRemove = () => {
@@ -70,15 +68,6 @@ export default class ConfirmRemoveAccount extends Component {
                 account.address,
                 network,
               );
-              this.context.trackEvent({
-                category: MetaMetricsEventCategory.Accounts,
-                event: 'Clicked Block Explorer Link',
-                properties: {
-                  link_type: 'Account Tracker',
-                  action: 'Remove Account',
-                  block_explorer_domain: getURLHostName(accountLink),
-                },
-              });
               global.platform.openTab({
                 url: accountLink,
               });

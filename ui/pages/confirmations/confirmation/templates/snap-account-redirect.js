@@ -1,25 +1,6 @@
-import {
-  MetaMetricsEventCategory,
-  MetaMetricsEventName,
-  MetaMetricsEventAccountType,
-} from '../../../../../shared/constants/metametrics';
-
-function getValues(pendingApproval, t, actions, _history, _data, contexts) {
+function getValues(pendingApproval, t, actions, _history, _data, _contexts) {
   const { origin: snapId, snapName } = pendingApproval;
   const { url, message, isBlockedUrl } = pendingApproval.requestData;
-  const { trackEvent } = contexts;
-
-  const trackSnapAccountEvent = (event) => {
-    trackEvent({
-      event,
-      category: MetaMetricsEventCategory.Transactions,
-      properties: {
-        account_type: MetaMetricsEventAccountType.Snap,
-        snap_id: snapId,
-        snap_name: snapName,
-      },
-    });
-  };
 
   const hasValidNonBlockedUrl = () => {
     return (
@@ -31,12 +12,11 @@ function getValues(pendingApproval, t, actions, _history, _data, contexts) {
   };
 
   // We can only submit if the URL is valid and non-blocked
-  const onSubmit = (event) => {
+  const onSubmit = () => {
     return hasValidNonBlockedUrl()
       ? {
           submitText: t('goToSite'),
           onSubmit: () => {
-            trackSnapAccountEvent(event);
             actions.resolvePendingApproval(pendingApproval.id, true);
           },
         }
@@ -54,26 +34,15 @@ function getValues(pendingApproval, t, actions, _history, _data, contexts) {
           snapId,
           snapName,
           isBlockedUrl,
-          ...onSubmit(
-            MetaMetricsEventName.SnapAccountTransactionFinalizeRedirectSnapUrlClicked,
-          ),
+          ...onSubmit(),
         },
       },
     ],
     cancelText: t('close'),
-    onLoad: () =>
-      trackSnapAccountEvent(
-        MetaMetricsEventName.SnapAccountTransactionFinalizeViewed,
-      ),
     onCancel: () => {
-      trackSnapAccountEvent(
-        MetaMetricsEventName.SnapAccountTransactionFinalizeClosed,
-      );
       actions.resolvePendingApproval(pendingApproval.id, false);
     },
-    ...onSubmit(
-      MetaMetricsEventName.SnapAccountTransactionFinalizeRedirectGoToSiteClicked,
-    ),
+    ...onSubmit(),
   };
 }
 
