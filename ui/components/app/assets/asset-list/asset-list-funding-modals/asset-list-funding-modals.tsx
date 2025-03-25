@@ -4,7 +4,7 @@ import { ReceiveModal } from '../../../../multichain';
 import { FundingMethodModal } from '../../../../multichain/funding-method-modal/funding-method-modal';
 import { useI18nContext } from '../../../../../hooks/useI18nContext';
 import { getSelectedAccount } from '../../../../../selectors';
-///: BEGIN:ONLY_INCLUDE_IF(build-main,build-beta,build-flask)
+///: BEGIN:ONLY_INCLUDE_IF(build-beta)
 import {
   getMultichainIsBitcoin,
   getMultichainSelectedAccountCachedBalanceIsZero,
@@ -26,7 +26,7 @@ const AssetListFundingModals = () => {
     setShowReceiveModal(true);
   };
 
-  ///: BEGIN:ONLY_INCLUDE_IF(build-main,build-beta,build-flask)
+  ///: BEGIN:ONLY_INCLUDE_IF(build-beta)
   const balanceIsZero = useSelector(
     getMultichainSelectedAccountCachedBalanceIsZero,
   );
@@ -38,7 +38,7 @@ const AssetListFundingModals = () => {
   return (
     <>
       {
-        ///: BEGIN:ONLY_INCLUDE_IF(build-main,build-beta,build-flask)
+        ///: BEGIN:ONLY_INCLUDE_IF(build-beta)
         shouldShowBuy ? (
           <RampsCard
             variant={
