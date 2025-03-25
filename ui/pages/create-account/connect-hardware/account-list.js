@@ -9,7 +9,6 @@ import Dropdown from '../../../components/ui/dropdown';
 import { getURLHostName } from '../../../helpers/utils/util';
 
 import { HardwareDeviceNames } from '../../../../shared/constants/hardware-wallets';
-import { MetaMetricsEventCategory } from '../../../../shared/constants/metametrics';
 
 class AccountList extends Component {
   state = {
@@ -143,15 +142,6 @@ class AccountList extends Component {
               <a
                 className="hw-account-list__item__link"
                 onClick={() => {
-                  this.context.trackEvent({
-                    category: MetaMetricsEventCategory.Accounts,
-                    event: 'Clicked Block Explorer Link',
-                    properties: {
-                      actions: 'Hardware Connect',
-                      link_type: 'Account Tracker',
-                      block_explorer_domain: blockExplorerDomain,
-                    },
-                  });
                   global.platform.openTab({
                     url: accountLink,
                   });
@@ -272,7 +262,6 @@ AccountList.propTypes = {
 
 AccountList.contextTypes = {
   t: PropTypes.func,
-  trackEvent: PropTypes.func,
 };
 
 export default AccountList;

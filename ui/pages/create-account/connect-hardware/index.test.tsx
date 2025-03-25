@@ -42,7 +42,6 @@ jest.mock('../../../ducks/history/history', () => ({
     .mockImplementation(() => MOCK_RECENT_PAGE),
 }));
 
-const mockTrackEvent = jest.fn();
 const mockHistoryPush = jest.fn();
 const mockProps = {
   forgetDevice: () => jest.fn(),
@@ -55,7 +54,6 @@ const mockProps = {
   },
   defaultHdPath: "m/44'/60'/0'/0",
   mostRecentOverviewPage: '',
-  trackEvent: () => mockTrackEvent,
 };
 
 const mockState = {
