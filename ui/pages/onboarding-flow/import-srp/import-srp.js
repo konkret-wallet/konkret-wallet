@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -19,11 +19,6 @@ import { useI18nContext } from '../../../hooks/useI18nContext';
 import ZENDESK_URLS from '../../../helpers/constants/zendesk-url';
 import SrpInput from '../../../components/app/srp-input';
 import { getCurrentKeyring } from '../../../selectors';
-import { MetaMetricsContext } from '../../../contexts/metametrics';
-import {
-  MetaMetricsEventCategory,
-  MetaMetricsEventName,
-} from '../../../../shared/constants/metametrics';
 
 export default function ImportSRP({ submitSecretRecoveryPhrase }) {
   const [secretRecoveryPhrase, setSecretRecoveryPhrase] = useState('');
@@ -36,7 +31,6 @@ export default function ImportSRP({ submitSecretRecoveryPhrase }) {
       history.replace(ONBOARDING_CREATE_PASSWORD_ROUTE);
     }
   }, [currentKeyring, history]);
-  const trackEvent = useContext(MetaMetricsContext);
 
   return (
     <div className="import-srp" data-testid="import-srp">
@@ -80,11 +74,6 @@ export default function ImportSRP({ submitSecretRecoveryPhrase }) {
             large
             onClick={() => {
               submitSecretRecoveryPhrase(secretRecoveryPhrase);
-              trackEvent({
-                category: MetaMetricsEventCategory.Onboarding,
-                event:
-                  MetaMetricsEventName.OnboardingWalletSecurityPhraseConfirmed,
-              });
               history.replace(ONBOARDING_CREATE_PASSWORD_ROUTE);
             }}
             disabled={!secretRecoveryPhrase.trim()}

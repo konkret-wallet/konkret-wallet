@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
@@ -22,18 +22,12 @@ import {
 import { setSeedPhraseBackedUp } from '../../../store/actions';
 import Checkbox from '../../../components/ui/check-box';
 import { ONBOARDING_COMPLETION_ROUTE } from '../../../helpers/constants/routes';
-import {
-  MetaMetricsEventCategory,
-  MetaMetricsEventName,
-} from '../../../../shared/constants/metametrics';
-import { MetaMetricsContext } from '../../../contexts/metametrics';
 
 export default function SkipSRPBackup({ handleClose }) {
   const [checked, setChecked] = useState(false);
   const t = useI18nContext();
   const history = useHistory();
   const dispatch = useDispatch();
-  const trackEvent = useContext(MetaMetricsContext);
 
   return (
     <Popover
@@ -46,11 +40,6 @@ export default function SkipSRPBackup({ handleClose }) {
         >
           <Button
             onClick={() => {
-              trackEvent({
-                category: MetaMetricsEventCategory.Onboarding,
-                event:
-                  MetaMetricsEventName.OnboardingWalletSecuritySkipCanceled,
-              });
               handleClose();
             }}
             type="secondary"
@@ -65,11 +54,6 @@ export default function SkipSRPBackup({ handleClose }) {
             rounded
             onClick={async () => {
               await dispatch(setSeedPhraseBackedUp(false));
-              trackEvent({
-                category: MetaMetricsEventCategory.Onboarding,
-                event:
-                  MetaMetricsEventName.OnboardingWalletSecuritySkipConfirmed,
-              });
               history.push(ONBOARDING_COMPLETION_ROUTE);
             }}
           >

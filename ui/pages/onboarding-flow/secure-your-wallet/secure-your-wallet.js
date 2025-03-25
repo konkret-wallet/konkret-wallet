@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 
 import {
@@ -17,12 +17,7 @@ import {
   threeStepStages,
 } from '../../../components/app/step-progress-bar';
 import { useI18nContext } from '../../../hooks/useI18nContext';
-import { MetaMetricsContext } from '../../../contexts/metametrics';
 import { ONBOARDING_REVIEW_SRP_ROUTE } from '../../../helpers/constants/routes';
-import {
-  MetaMetricsEventCategory,
-  MetaMetricsEventName,
-} from '../../../../shared/constants/metametrics';
 import {
   Box,
   Button,
@@ -43,21 +38,11 @@ export default function SecureYourWallet() {
     ? '/?isFromReminder=true'
     : '';
 
-  const trackEvent = useContext(MetaMetricsContext);
-
   const handleClickRecommended = () => {
-    trackEvent({
-      category: MetaMetricsEventCategory.Onboarding,
-      event: MetaMetricsEventName.OnboardingWalletSecurityStarted,
-    });
     history.push(`${ONBOARDING_REVIEW_SRP_ROUTE}${isFromReminderParam}`);
   };
 
   const handleClickNotRecommended = () => {
-    trackEvent({
-      category: MetaMetricsEventCategory.Onboarding,
-      event: MetaMetricsEventName.OnboardingWalletSecuritySkipInitiated,
-    });
     setShowSkipSRPBackupPopover(true);
   };
 

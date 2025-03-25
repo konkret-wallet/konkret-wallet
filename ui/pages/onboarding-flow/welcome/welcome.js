@@ -1,5 +1,5 @@
 import EventEmitter from 'events';
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 ///: BEGIN:ONLY_INCLUDE_IF(build-main,build-beta,build-flask)
@@ -17,19 +17,13 @@ import {
   FontWeight,
 } from '../../../helpers/constants/design-system';
 import { useI18nContext } from '../../../hooks/useI18nContext';
-import { MetaMetricsContext } from '../../../contexts/metametrics';
-import {
-  MetaMetricsEventCategory,
-  MetaMetricsEventName,
-} from '../../../../shared/constants/metametrics';
 import {
   setFirstTimeFlowType,
   setTermsOfUseLastAgreed,
 } from '../../../store/actions';
 import {
-  ///: BEGIN:ONLY_INCLUDE_IF(build-main,build-beta,build-flask)
-  ONBOARDING_METAMETRICS,
-  ///: END:ONLY_INCLUDE_IF
+  ONBOARDING_CREATE_PASSWORD_ROUTE,
+  ONBOARDING_IMPORT_WITH_SRP_ROUTE,
   ONBOARDING_SECURE_YOUR_WALLET_ROUTE,
   ONBOARDING_COMPLETION_ROUTE,
 } from '../../../helpers/constants/routes';
@@ -67,23 +61,12 @@ export default function OnboardingWelcome() {
     firstTimeFlowType,
     newAccountCreationInProgress,
   ]);
-  const trackEvent = useContext(MetaMetricsContext);
 
   const onCreateClick = async () => {
     setNewAccountCreationInProgress(true);
     dispatch(setFirstTimeFlowType(FirstTimeFlowType.create));
-    trackEvent({
-      category: MetaMetricsEventCategory.Onboarding,
-      event: MetaMetricsEventName.OnboardingWalletCreationStarted,
-      properties: {
-        account_type: 'metamask',
-      },
-    });
     dispatch(setTermsOfUseLastAgreed(new Date().getTime()));
-
-    ///: BEGIN:ONLY_INCLUDE_IF(build-main,build-beta,build-flask)
-    history.push(ONBOARDING_METAMETRICS);
-    ///: END:ONLY_INCLUDE_IF
+    history.push(ONBOARDING_CREATE_PASSWORD_ROUTE);
   };
   const toggleTermsCheck = () => {
     setTermsChecked((currentTermsChecked) => !currentTermsChecked);
@@ -102,18 +85,8 @@ export default function OnboardingWelcome() {
 
   const onImportClick = async () => {
     await dispatch(setFirstTimeFlowType(FirstTimeFlowType.import));
-    trackEvent({
-      category: MetaMetricsEventCategory.Onboarding,
-      event: MetaMetricsEventName.OnboardingWalletImportStarted,
-      properties: {
-        account_type: 'imported',
-      },
-    });
     dispatch(setTermsOfUseLastAgreed(new Date().getTime()));
-
-    ///: BEGIN:ONLY_INCLUDE_IF(build-main,build-beta,build-flask)
-    history.push(ONBOARDING_METAMETRICS);
-    ///: END:ONLY_INCLUDE_IF
+    history.push(ONBOARDING_IMPORT_WITH_SRP_ROUTE);
   };
 
   const renderMascot = () => {

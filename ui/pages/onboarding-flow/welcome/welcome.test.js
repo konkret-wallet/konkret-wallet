@@ -1,15 +1,10 @@
 import React from 'react';
-import { fireEvent, screen, waitFor } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import initializedMockState from '../../../../test/data/mock-state.json';
 import { renderWithProvider } from '../../../../test/lib/render-helpers';
 import {
-  setFirstTimeFlowType,
-  setTermsOfUseLastAgreed,
-} from '../../../store/actions';
-import {
-  ONBOARDING_METAMETRICS,
   ONBOARDING_SECURE_YOUR_WALLET_ROUTE,
   ONBOARDING_COMPLETION_ROUTE,
 } from '../../../helpers/constants/routes';
@@ -18,24 +13,6 @@ import OnboardingWelcome from './welcome';
 
 const mockHistoryReplace = jest.fn();
 const mockHistoryPush = jest.fn();
-
-jest.mock('../../../store/actions.ts', () => ({
-  setFirstTimeFlowType: jest.fn().mockReturnValue(
-    jest.fn((type) => {
-      return type;
-    }),
-  ),
-  setTermsOfUseLastAgreed: jest.fn().mockReturnValue(
-    jest.fn((type) => {
-      return type;
-    }),
-  ),
-  setParticipateInMetaMetrics: jest.fn().mockReturnValue(
-    jest.fn((type) => {
-      return type;
-    }),
-  ),
-}));
 
 jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),
@@ -93,34 +70,6 @@ describe('Onboarding Welcome Component', () => {
       renderWithProvider(<OnboardingWelcome />, mockStore);
       const onboardingWelcome = screen.queryByTestId('onboarding-welcome');
       expect(onboardingWelcome).toBeInTheDocument();
-    });
-
-    it('should set first time flow to create and route to metametrics', () => {
-      renderWithProvider(<OnboardingWelcome />, mockStore);
-      const termsCheckbox = screen.getByTestId('onboarding-terms-checkbox');
-      fireEvent.click(termsCheckbox);
-      const createWallet = screen.getByTestId('onboarding-create-wallet');
-      fireEvent.click(createWallet);
-
-      expect(setTermsOfUseLastAgreed).toHaveBeenCalled();
-      expect(setFirstTimeFlowType).toHaveBeenCalledWith(
-        FirstTimeFlowType.create,
-      );
-    });
-
-    it('should set first time flow to import and route to metametrics', async () => {
-      renderWithProvider(<OnboardingWelcome />, mockStore);
-      const termsCheckbox = screen.getByTestId('onboarding-terms-checkbox');
-      fireEvent.click(termsCheckbox);
-
-      const createWallet = screen.getByTestId('onboarding-import-wallet');
-      fireEvent.click(createWallet);
-
-      await waitFor(() => {
-        expect(setTermsOfUseLastAgreed).toHaveBeenCalled();
-        expect(setFirstTimeFlowType).toHaveBeenCalledWith('import');
-        expect(mockHistoryPush).toHaveBeenCalledWith(ONBOARDING_METAMETRICS);
-      });
     });
   });
 });

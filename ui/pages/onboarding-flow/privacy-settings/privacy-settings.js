@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import classnames from 'classnames';
@@ -7,10 +7,6 @@ import { ButtonVariant } from '@metamask/snaps-sdk';
 // eslint-disable-next-line import/no-restricted-paths
 import { addUrlProtocolPrefix } from '../../../../app/scripts/lib/util';
 
-import {
-  MetaMetricsEventCategory,
-  MetaMetricsEventName,
-} from '../../../../shared/constants/metametrics';
 import {
   COINGECKO_LINK,
   CRYPTOCOMPARE_LINK,
@@ -30,7 +26,6 @@ import {
   IconSize,
   Icon,
 } from '../../../components/component-library';
-import { MetaMetricsContext } from '../../../contexts/metametrics';
 import {
   Display,
   TextAlign,
@@ -117,7 +112,6 @@ export default function PrivacySettings() {
   );
   const [turnOnPetnames, setTurnOnPetnames] = useState(petnamesEnabled);
 
-  const trackEvent = useContext(MetaMetricsContext);
   const networkConfigurations = useSelector(getNetworkConfigurationsByChainId);
 
   const externalServicesOnboardingToggleState = useSelector(
@@ -338,17 +332,6 @@ export default function PrivacySettings() {
                     setValue={(toggledValue) => {
                       if (toggledValue) {
                         dispatch(onboardingToggleBasicFunctionalityOn());
-                        trackEvent({
-                          category: MetaMetricsEventCategory.Onboarding,
-                          event: MetaMetricsEventName.SettingsUpdated,
-                          properties: {
-                            settings_group: 'onboarding_advanced_configuration',
-                            settings_type: 'basic_functionality',
-                            old_value: false,
-                            new_value: true,
-                            was_profile_syncing_on: false,
-                          },
-                        });
                       } else {
                         dispatch(openBasicFunctionalityModal());
                       }
