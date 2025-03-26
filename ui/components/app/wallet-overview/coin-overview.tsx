@@ -317,7 +317,10 @@ export const CoinOverview = ({
           title={t('balanceOutdated')}
           disabled={!balanceIsCached}
         >
-          <div className={`${classPrefix}-overview__balance`}>
+          <div
+            className={`${classPrefix}-overview__balance`}
+            style={{ alignItems: 'center' }}
+          >
             <div
               className={`${classPrefix}-overview__primary-container`}
               onMouseEnter={handleMouseEnter}
