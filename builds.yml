@@ -283,8 +283,8 @@ env:
   # API key to authenticate Etherscan requests to avoid rate limiting
   - ETHERSCAN_API_KEY: ''
 
-  # Enables the notifications feature within the build:
-  - NOTIFICATIONS: ''
+  # Disables the notifications feature within the build:
+  - NOTIFICATIONS: false
 
   # This will be defined if running a unit test
   - JEST_WORKER_ID: undefined
