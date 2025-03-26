@@ -1,6 +1,7 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import PrivacySettings from '../privacy-settings/privacy-settings';
 import {
   Button,
   ButtonSize,
@@ -16,16 +17,11 @@ import {
 import {
   Box,
   Text,
-  IconName,
   ButtonLink,
   ButtonLinkSize,
-  IconSize,
 } from '../../../components/component-library';
 import { useI18nContext } from '../../../hooks/useI18nContext';
-import {
-  ONBOARDING_PIN_EXTENSION_ROUTE,
-  ONBOARDING_PRIVACY_SETTINGS_ROUTE,
-} from '../../../helpers/constants/routes';
+import { ONBOARDING_PIN_EXTENSION_ROUTE } from '../../../helpers/constants/routes';
 import { FirstTimeFlowType } from '../../../../shared/constants/onboarding';
 import { getFirstTimeFlowType } from '../../../selectors';
 import { getSeedPhraseBackedUp } from '../../../ducks/metamask/metamask';
@@ -144,31 +140,6 @@ export default function CreationSuccessful() {
       )}
 
       <Box
-        display={Display.Flex}
-        flexDirection={FlexDirection.Column}
-        alignItems={AlignItems.flexStart}
-      >
-        <Button
-          variant={ButtonVariant.Link}
-          startIconName={IconName.Setting}
-          startIconProps={{
-            size: IconSize.Md,
-          }}
-          style={{
-            fontSize: 'var(--font-size-5)',
-          }}
-          onClick={() => history.push(ONBOARDING_PRIVACY_SETTINGS_ROUTE)}
-          marginTop={4}
-          marginBottom={4}
-        >
-          {t('manageDefaultSettings')}
-        </Button>
-        <Text variant={TextVariant.bodySm}>
-          {t('settingsOptimisedForEaseOfUseAndSecurity')}
-        </Text>
-      </Box>
-
-      <Box
         marginTop={6}
         className="creation-successful__actions"
         display={Display.Flex}
@@ -176,6 +147,16 @@ export default function CreationSuccessful() {
         justifyContent={JustifyContent.center}
         alignItems={AlignItems.center}
       >
+        <Box
+          display={Display.Flex}
+          flexDirection={FlexDirection.Column}
+          alignItems={AlignItems.flexStart}
+        >
+          <PrivacySettings />
+          <Text variant={TextVariant.bodySm}>
+            {t('settingsOptimisedForEaseOfUseAndSecurity')}
+          </Text>
+        </Box>
         <Button
           data-testid="onboarding-complete-done"
           variant={ButtonVariant.Primary}
