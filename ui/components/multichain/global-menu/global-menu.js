@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
@@ -9,9 +10,7 @@ import {
   SNAPS_ROUTE,
   PERMISSIONS,
 } from '../../../helpers/constants/routes';
-import {
-  lockMetamask,
-} from '../../../store/actions';
+import { lockMetamask } from '../../../store/actions';
 import { useI18nContext } from '../../../hooks/useI18nContext';
 import {
   Box,
@@ -57,7 +56,6 @@ export const GlobalMenu = ({ closeMenu, anchorElement, isOpen }) => {
 
   const hasUnapprovedTransactions =
     Object.keys(unapprovedTransactions).length > 0;
-
 
   // Accessibility improvement for popover
   const lastItemRef = React.useRef(null);

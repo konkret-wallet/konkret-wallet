@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { startCase } from 'lodash';
 import PropTypes from 'prop-types';
 import React, { PureComponent } from 'react';
@@ -941,10 +942,6 @@ export default class SecurityTab extends PureComponent {
 
     return (
       <div className="settings-page__body">
-        {this.renderUseExternalServices()}
-        {showDataCollectionDisclaimer
-          ? this.renderDataCollectionWarning()
-          : null}
         <span className="settings-page__security-tab-sub-header__bold">
           {this.context.t('security')}
         </span>
@@ -952,7 +949,6 @@ export default class SecurityTab extends PureComponent {
         <span className="settings-page__security-tab-sub-header__bold">
           {this.context.t('privacy')}
         </span>
-
         <div>
           <span className="settings-page__security-tab-sub-header">
             {this.context.t('alerts')}
@@ -961,7 +957,6 @@ export default class SecurityTab extends PureComponent {
         <div className="settings-page__content-padded">
           {this.renderPhishingDetectionToggle()}
         </div>
-
         <div>
           <span className="settings-page__security-tab-sub-header">
             {this.context.t('smartContracts')}
@@ -970,16 +965,13 @@ export default class SecurityTab extends PureComponent {
         <div className="settings-page__content-padded">
           {this.renderUse4ByteResolutionToggle()}
         </div>
-
         <span className="settings-page__security-tab-sub-header">
           {this.context.t('transactions')}
         </span>
         <div className="settings-page__content-padded">
           {this.renderCurrencyRateCheckToggle()}
           {this.renderIncomingTransactionsOptIn()}
-          {this.renderSimulationsToggle()}
         </div>
-
         <span
           className="settings-page__security-tab-sub-header"
           ref={this.settingsRefs[6]}
@@ -991,17 +983,9 @@ export default class SecurityTab extends PureComponent {
           {this.renderSafeChainsListValidationToggle()}
           {this.renderIpfsGatewayControl()}
         </div>
-
-        <span className="settings-page__security-tab-sub-header">
-          {this.context.t('tokenAutoDetection')}
-        </span>
         <div className="settings-page__content-padded">
-          {this.renderAutoDetectTokensToggle()}
-          {this.renderBatchAccountBalanceRequestsToggle()}
           {this.renderDisplayNftMediaToggle()}
-          {this.renderNftDetectionToggle()}
         </div>
-
         {petnamesEnabled && (
           <>
             <span className="settings-page__security-tab-sub-header">
