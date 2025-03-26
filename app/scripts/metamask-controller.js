@@ -2842,24 +2842,10 @@ export default class MetamaskController extends EventEmitter {
         ),
       setTermsOfUseLastAgreed:
         appStateController.setTermsOfUseLastAgreed.bind(appStateController),
-      setSurveyLinkLastClickedOrClosed:
-        appStateController.setSurveyLinkLastClickedOrClosed.bind(
-          appStateController,
-        ),
       setOnboardingDate:
         appStateController.setOnboardingDate.bind(appStateController),
-      setLastViewedUserSurvey:
-        appStateController.setLastViewedUserSurvey.bind(appStateController),
       setRampCardClosed:
         appStateController.setRampCardClosed.bind(appStateController),
-      setNewPrivacyPolicyToastClickedOrClosed:
-        appStateController.setNewPrivacyPolicyToastClickedOrClosed.bind(
-          appStateController,
-        ),
-      setNewPrivacyPolicyToastShownDate:
-        appStateController.setNewPrivacyPolicyToastShownDate.bind(
-          appStateController,
-        ),
       setSnapsInstallPrivacyWarningShownStatus:
         appStateController.setSnapsInstallPrivacyWarningShownStatus.bind(
           appStateController,
