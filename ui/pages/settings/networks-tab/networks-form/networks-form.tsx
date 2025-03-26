@@ -604,11 +604,7 @@ export const NetworksForm = ({
       >
         <ButtonPrimary
           disabled={
-            !name ||
-            !chainId ||
-            !ticker ||
-            !rpcUrls?.rpcEndpoints?.length ||
-            Object.values(errors).some((e) => e)
+            !name || !chainId || !ticker || !rpcUrls?.rpcEndpoints?.length
           }
           onClick={onSubmit}
           size={ButtonPrimarySize.Lg}
