@@ -226,7 +226,8 @@
     "@ethersproject/signing-key/elliptic": "^6.6.1",
     "gridplus-sdk/elliptic": "^6.6.1",
     "@metamask/eth-block-tracker@npm:^11.0.3": "patch:@metamask/eth-block-tracker@npm%3A11.0.4#~/.yarn/patches/@metamask-eth-block-tracker-npm-11.0.4-8b73708e0d.patch",
-    "@metamask/eth-block-tracker@npm:^11.0.4": "patch:@metamask/eth-block-tracker@npm%3A11.0.4#~/.yarn/patches/@metamask-eth-block-tracker-npm-11.0.4-8b73708e0d.patch"
+    "@metamask/eth-block-tracker@npm:^11.0.4": "patch:@metamask/eth-block-tracker@npm%3A11.0.4#~/.yarn/patches/@metamask-eth-block-tracker-npm-11.0.4-8b73708e0d.patch",
+    "@metamask/design-tokens@npm:^4.0.0": "patch:@metamask/design-tokens@npm%3A5.0.0#~/.yarn/patches/@metamask-design-tokens-npm-5.0.0-6db176660d.patch"
   },
   "dependencies": {
     "@babel/runtime": "patch:@babel/runtime@npm%3A7.25.9#~/.yarn/patches/@babel-runtime-npm-7.25.9-fe8c62510a.patch",
@@ -259,7 +260,7 @@
     "@metamask/browser-passworder": "^4.3.0",
     "@metamask/contract-metadata": "^2.5.0",
     "@metamask/controller-utils": "^11.4.0",
-    "@metamask/design-tokens": "^5.0.0",
+    "@metamask/design-tokens": "patch:@metamask/design-tokens@npm%3A5.0.0#~/.yarn/patches/@metamask-design-tokens-npm-5.0.0-6db176660d.patch",
     "@metamask/ens-controller": "^15.0.2",
     "@metamask/ens-resolver-snap": "^0.1.2",
     "@metamask/eth-json-rpc-filters": "^9.0.0",
