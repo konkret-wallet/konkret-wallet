@@ -58,7 +58,7 @@
     "message": "Greifen Sie mit Ihrer geheimen Wiederherstellungsphrase auf Ihre Wallet zu."
   },
   "accessYourWalletWithSRPDescription": {
-    "message": "MetaMask kann Ihr Passwort nicht wiederherstellen. Wir verwenden Ihre geheime Wiederherstellungsphrase, um Ihr Eigentum zu bestätigen, Ihre Wallet wiederherzustellen und ein neues Passwort festzulegen. Geben Sie zunächst die geheime Wiederherstellungsphrase ein, die Sie erhalten haben, als Sie Ihre Wallet erstellt haben. $1",
+    "message": "Konkret Wallet kann Ihr Passwort nicht wiederherstellen. Wir verwenden Ihre geheime Wiederherstellungsphrase, um Ihr Eigentum zu bestätigen, Ihre Wallet wiederherzustellen und ein neues Passwort festzulegen. Geben Sie zunächst die geheime Wiederherstellungsphrase ein, die Sie erhalten haben, als Sie Ihre Wallet erstellt haben. $1",
     "description": "$1 is the words 'Learn More' from key 'learnMore', separated here so that it can be added as a link"
   },
   "accessingYourCamera": {
@@ -148,10 +148,10 @@
     "message": "Konto hinzufügen"
   },
   "addAccountToMetaMask": {
-    "message": "Konto zu MetaMask hinzufügen"
+    "message": "Konto zu Konkret Wallet hinzufügen"
   },
   "addAcquiredTokens": {
-    "message": "Fügen Sie die Tokens hinzu, die Sie mittels MetaMask erlangt haben."
+    "message": "Fügen Sie die Tokens hinzu, die Sie mittels Konkret Wallet erlangt haben."
   },
   "addAlias": {
     "message": "Alias hinzufügen"
@@ -308,7 +308,7 @@
     "description": "$1 represents the settings page"
   },
   "agreeTermsOfUse": {
-    "message": "Ich stimme MetaMasks $1 zu",
+    "message": "Ich stimme Konkret Wallets $1 zu",
     "description": "$1 is the `terms` link"
   },
   "airgapVault": {
@@ -439,15 +439,15 @@
     "description": "The description of the application"
   },
   "appName": {
-    "message": "MetaMask",
+    "message": "Konkret Wallet",
     "description": "The name of the application"
   },
   "appNameBeta": {
-    "message": "MetaMask Beta",
+    "message": "Konkret Wallet Beta",
     "description": "The name of the application (Beta)"
   },
   "appNameFlask": {
-    "message": "MetaMask Flask",
+    "message": "Konkret Wallet Flask",
     "description": "The name of the application (Flask)"
   },
   "appNameMmi": {
@@ -520,7 +520,7 @@
     "message": "Auto-Lock-Timer (Minuten)"
   },
   "autoLockTimeLimitDescription": {
-    "message": "Legen Sie die Leerlaufzeit in Minuten fest, nach der MetaMask gesperrt werden soll."
+    "message": "Legen Sie die Leerlaufzeit in Minuten fest, nach der Konkret Wallet gesperrt werden soll."
   },
   "average": {
     "message": "Durchschnitt"
@@ -529,7 +529,7 @@
     "message": "Zurück"
   },
   "backupApprovalInfo": {
-    "message": "Dieser geheime Code ist zum Wiedererlangen Ihrer Wallet erforderlich, falls Sie Ihr Gerät verlieren, Ihr Passwort vergessen, MetaMask neu installieren müssen oder auf einem anderen Gerät auf Ihre Wallet zugreifen möchten."
+    "message": "Dieser geheime Code ist zum Wiedererlangen Ihrer Wallet erforderlich, falls Sie Ihr Gerät verlieren, Ihr Passwort vergessen, Konkret Wallet neu installieren müssen oder auf einem anderen Gerät auf Ihre Wallet zugreifen möchten."
   },
   "backupApprovalNotice": {
     "message": "Sichern Sie Ihre geheime Wiederherstellungsphrase, um Ihre Wallet und Ihr Geld geschützt zu halten."
@@ -559,7 +559,7 @@
     "message": "Grundfunktionalität ist ausgeschaltet"
   },
   "basicConfigurationDescription": {
-    "message": "MetaMask bietet grundlegende Funktionen wie Token-Details und Gas-Einstellungen über Internetdienste. Wenn Sie Internetdienste nutzen, wird Ihre IP-Adresse weitergegeben, in diesem Fall an MetaMask. Das ist genau so, wie wenn Sie eine beliebige Website besuchen. MetaMask verwendet diese Daten vorübergehend und verkauft Ihre Daten niemals. Sie können ein VPN verwenden oder diese Dienste abschalten, aber das kann Ihr MetaMask-Erlebnis beeinträchtigen. Um mehr zu erfahren, lesen Sie unsere $1.",
+    "message": "Konkret Wallet bietet grundlegende Funktionen wie Token-Details und Gas-Einstellungen über Internetdienste. Wenn Sie Internetdienste nutzen, wird Ihre IP-Adresse weitergegeben, in diesem Fall an MetaMask. Das ist genau so, wie wenn Sie eine beliebige Website besuchen. Konkret Wallet verwendet diese Daten vorübergehend und verkauft Ihre Daten niemals. Sie können ein VPN verwenden oder diese Dienste abschalten, aber das kann Ihr MetaMask-Erlebnis beeinträchtigen. Um mehr zu erfahren, lesen Sie unsere $1.",
     "description": "$1 is to be replaced by the message for privacyMsg, and will link to https://consensys.io/privacy-policy"
   },
   "basicConfigurationLabel": {
@@ -569,10 +569,10 @@
     "message": "Ich verstehe und möchte fortfahren"
   },
   "basicConfigurationModalDisclaimerOff": {
-    "message": "Das bedeutet, dass Sie Ihre Zeit auf MetaMask nicht vollständig optimieren können. Grundlegende Funktionen (wie Token-Details, optimale Gas-Einstellungen und andere) stehen Ihnen nicht zur Verfügung."
+    "message": "Das bedeutet, dass Sie Ihre Zeit auf Konkret Wallet nicht vollständig optimieren können. Grundlegende Funktionen (wie Token-Details, optimale Gas-Einstellungen und andere) stehen Ihnen nicht zur Verfügung."
   },
   "basicConfigurationModalDisclaimerOn": {
-    "message": "Um Ihre Zeit auf MetaMask zu optimieren, müssen Sie diese Funktion einschalten. Grundlegende Funktionen (wie Token-Details, optimale Gas-Einstellungen und andere) sind für das Web3-Erlebnis wichtig."
+    "message": "Um Ihre Zeit auf Konkret Wallet zu optimieren, müssen Sie diese Funktion einschalten. Grundlegende Funktionen (wie Token-Details, optimale Gas-Einstellungen und andere) sind für das Web3-Erlebnis wichtig."
   },
   "basicConfigurationModalHeadingOff": {
     "message": "Grundfunktionalität ausschalten"
@@ -588,7 +588,7 @@
     "description": "$1 represents the word 'here' in a hyperlink"
   },
   "betaMetamaskVersion": {
-    "message": "MetaMask-Version"
+    "message": "Konkret Wallet-Version"
   },
   "betaTerms": {
     "message": "Beta-Nutzungsbedingungen"
@@ -601,7 +601,7 @@
     "message": "Bitcoin"
   },
   "bitcoinSupportToggleDescription": {
-    "message": "Bei Aktivierung dieser Funktion haben Sie die Möglichkeit, ein Bitcoin-Konto zu Ihrer MetaMask-Erweiterung hinzuzufügen, das von Ihrer bestehenden geheimen Wiederherstellungsphrase abgeleitet ist. Hierbei handelt es sich um eine experimentelle Beta-Funktion, deren Nutzung also auf eigene Gefahr erfolgt. Falls Sie uns Feedback zu dieser neuen Bitcoin-Funktion geben möchten, füllen Sie bitte dieses $1 aus.",
+    "message": "Bei Aktivierung dieser Funktion haben Sie die Möglichkeit, ein Bitcoin-Konto zu Ihrer Konkret Wallet-Erweiterung hinzuzufügen, das von Ihrer bestehenden geheimen Wiederherstellungsphrase abgeleitet ist. Hierbei handelt es sich um eine experimentelle Beta-Funktion, deren Nutzung also auf eigene Gefahr erfolgt. Falls Sie uns Feedback zu dieser neuen Bitcoin-Funktion geben möchten, füllen Sie bitte dieses $1 aus.",
     "description": "$1 is the link to a product feedback form"
   },
   "bitcoinSupportToggleTitle": {
@@ -708,7 +708,7 @@
     "message": "Erstellen Sie Ihre Kontaktliste."
   },
   "builtAroundTheWorld": {
-    "message": "MetaMask ist weltweit konzipiert und aufgebaut."
+    "message": "Konkret Wallet ist weltweit konzipiert und aufgebaut."
   },
   "busy": {
     "message": "Ausgelastet"
@@ -766,7 +766,7 @@
     "description": "$1 is a link to the privacy policy"
   },
   "chromeRequiredForHardwareWallets": {
-    "message": "Sie müssen MetaMask unter Google Chrome nutzen, um sich mit Ihrer Hardware-Wallet zu verbinden."
+    "message": "Sie müssen Konkret Wallet unter Google Chrome nutzen, um sich mit Ihrer Hardware-Wallet zu verbinden."
   },
   "circulatingSupply": {
     "message": "Zirkulierende Versorgung"
@@ -810,10 +810,10 @@
     "description": "Default text shown in the combo field dropdown if no options."
   },
   "configureSnapPopupDescription": {
-    "message": "Sie verlassen jetzt MetaMask, um diesen Snap zu konfigurieren."
+    "message": "Sie verlassen jetzt Konkret Wallet, um diesen Snap zu konfigurieren."
   },
   "configureSnapPopupInstallDescription": {
-    "message": "Sie verlassen jetzt MetaMask, um diesen Snap zu installieren."
+    "message": "Sie verlassen jetzt Konkret Wallet, um diesen Snap zu installieren."
   },
   "configureSnapPopupInstallTitle": {
     "message": "Snap installieren"
@@ -925,7 +925,7 @@
     "description": "$1 is the snap for which a connection is being requested."
   },
   "connectWithMetaMask": {
-    "message": "Mit MetaMask verbinden"
+    "message": "Mit Konkret Wallet verbinden"
   },
   "connectedAccounts": {
     "message": "Verbundene Konten"
@@ -938,7 +938,7 @@
     "message": "Sie haben $1 Konten mit dieser Seite verbunden."
   },
   "connectedAccountsEmptyDescription": {
-    "message": "MetaMask ist nicht mit dieser Seite verbunden. Um sich mit einer Web3-Seite zu verbinden, finden und klicken Sie auf die Schaltfläche „Verbinden“."
+    "message": "Konkret Wallet ist nicht mit dieser Seite verbunden. Um sich mit einer Web3-Seite zu verbinden, finden und klicken Sie auf die Schaltfläche „Verbinden“."
   },
   "connectedAccountsListTooltip": {
     "message": "$1 kann den Kontostand, die Adresse und die Aktivitäten einsehen und Transaktionen vorschlagen, um für verbundene Konten zu genehmigen.",
@@ -962,7 +962,7 @@
     "description": "$1 is the account name"
   },
   "connectedSnapAndNoAccountDescription": {
-    "message": "MetaMask ist mit dieser Seite verbunden, aber es sind noch keine Konten verbunden"
+    "message": "Konkret Wallet ist mit dieser Seite verbunden, aber es sind noch keine Konten verbunden"
   },
   "connectedSnaps": {
     "message": "Verbundene Snaps"
@@ -1052,7 +1052,7 @@
     "message": "Contract-Interaktion"
   },
   "convertTokenToNFTDescription": {
-    "message": "Wir haben festgestellt, dass dieses Asset eine NFT ist. MetaMask hat jetzt volle native Unterstützung für NFTs. Möchten Sie es aus Ihrer Tokenliste entfernen und als NFT hinzufügen?"
+    "message": "Wir haben festgestellt, dass dieses Asset eine NFT ist. Konkret Wallet hat jetzt volle native Unterstützung für NFTs. Möchten Sie es aus Ihrer Tokenliste entfernen und als NFT hinzufügen?"
   },
   "convertTokenToNFTExistDescription": {
     "message": "Wir haben festgestellt, dass dieses Asset als NFT hinzugefügt wurde. Möchten Sie es aus Ihrer Token-Liste entfernen?"
@@ -1088,7 +1088,7 @@
     "message": "Passwort erstellen"
   },
   "createSnapAccountDescription": {
-    "message": "$1 möchte ein neues Konto zu MetaMask hinzufügen."
+    "message": "$1 möchte ein neues Konto zu Konkret Wallet hinzufügen."
   },
   "createSnapAccountTitle": {
     "message": "Konto erstellen"
@@ -1097,7 +1097,7 @@
     "message": "Adresse des Erstellers"
   },
   "crossChainSwapsLink": {
-    "message": "Netzwerkübergreifender Austausch mit MetaMask Portfolio"
+    "message": "Netzwerkübergreifender Austausch mit Konkret Wallet Portfolio"
   },
   "cryptoCompare": {
     "message": "CryptoCompare"
@@ -1212,7 +1212,7 @@
     "message": "Okay"
   },
   "dataCollectionWarningPopoverDescription": {
-    "message": "Sie haben die Datenerhebung für unsere Marketingzwecke deaktiviert. Dies gilt nur für dieses Gerät. Wenn Sie MetaMask auf anderen Geräten verwenden, stellen Sie sicher, dass Sie sich auch dort abmelden."
+    "message": "Sie haben die Datenerhebung für unsere Marketingzwecke deaktiviert. Dies gilt nur für dieses Gerät. Wenn Sie Konkret Wallet auf anderen Geräten verwenden, stellen Sie sicher, dass Sie sich auch dort abmelden."
   },
   "dataUnavailable": {
     "message": "Daten nicht verfügbar"
@@ -1256,7 +1256,7 @@
     "message": "Standard-RPC-URL"
   },
   "defaultSettingsSubTitle": {
-    "message": "MetaMask verwendet Standardeinstellungen, um ein optimales Gleichgewicht zwischen Sicherheit und Benutzerfreundlichkeit herzustellen. Ändern Sie diese Einstellungen, um Ihre Privatsphäre weiter zu verbessern."
+    "message": "Konkret Wallet verwendet Standardeinstellungen, um ein optimales Gleichgewicht zwischen Sicherheit und Benutzerfreundlichkeit herzustellen. Ändern Sie diese Einstellungen, um Ihre Privatsphäre weiter zu verbessern."
   },
   "defaultSettingsTitle": {
     "message": "Standard-Datenschutzeinstellungen"
@@ -1565,13 +1565,13 @@
     "message": "Erweiterte Token-Erkennung ist derzeit über $1 verfügbar. $2"
   },
   "ensDomainsSettingDescriptionIntroduction": {
-    "message": "MetaMask zeigt Ihnen ENS-Domains direkt in der Adressleiste Ihres Browsers an. So funktioniert es:"
+    "message": "Konkret Wallet zeigt Ihnen ENS-Domains direkt in der Adressleiste Ihres Browsers an. So funktioniert es:"
   },
   "ensDomainsSettingDescriptionOutroduction": {
     "message": "Beachten Sie bitte, dass durch die Nutzung dieser Funktion Ihre IP-Adresse für IPFS-Dienste anbietende Dritte sichtbar wird."
   },
   "ensDomainsSettingDescriptionPart1": {
-    "message": "MetaMask findet mithilfe von Ethereums ENS-Contract den mit dem ENS-Namen verbundenen Code."
+    "message": "Konkret Wallet findet mithilfe von Ethereums ENS-Contract den mit dem ENS-Namen verbundenen Code."
   },
   "ensDomainsSettingDescriptionPart2": {
     "message": "Wenn der Code mit IPFS verknüpft ist, wird der dazugehörige Content (in der Regel eine Website) wiedergegeben."
@@ -1656,7 +1656,7 @@
     "description": "In sentry feedback form, The message displayed after a successful feedback submission."
   },
   "errorPageTitle": {
-    "message": "MetaMask hat einen Fehler festgestellt.",
+    "message": "Konkret Wallet hat einen Fehler festgestellt.",
     "description": "Title of generic error page"
   },
   "errorPageTryAgain": {
@@ -1762,15 +1762,15 @@
   },
   "flaskWelcomeWarning2": {
     "message": "Wir übernehmen keine Garantie für die Sicherheit oder Stabilität dieser Erweiterung. Die neuen von Flask angebotenen APIs sind nicht gegen Phishing-Angriffe gehärtet. Das bedeutet, dass jede Webseite oder jeder Snap, der Flask benötigt, ein böswilliger Versuch sein könnte, Ihre Assets zu stehlen.",
-    "description": "This explains the risks of using MetaMask Flask"
+    "description": "This explains the risks of using Konkret Wallet Flask"
   },
   "flaskWelcomeWarning3": {
-    "message": "Alle Flask-APIs sind experimentell. Sie können ohne Vorankündigung geändert oder entfernt werden oder sie können auf unbestimmte Zeit in Flask bleiben, ohne jemals in die stabile MetaMask migriert zu werden. Die Verwendung erfolgt auf eigene Gefahr.",
+    "message": "Alle Flask-APIs sind experimentell. Sie können ohne Vorankündigung geändert oder entfernt werden oder sie können auf unbestimmte Zeit in Flask bleiben, ohne jemals in die stabile Konkret Wallet migriert zu werden. Die Verwendung erfolgt auf eigene Gefahr.",
     "description": "This message warns developers about unstable Flask APIs"
   },
   "flaskWelcomeWarning4": {
-    "message": "Stellen Sie sicher, dass Sie Ihre normale MetaMask-Erweiterung deaktivieren, wenn Sie Flask verwenden.",
-    "description": "This message calls to pay attention about multiple versions of MetaMask running on the same site (Flask + Prod)"
+    "message": "Stellen Sie sicher, dass Sie Ihre normale Konkret Wallet-Erweiterung deaktivieren, wenn Sie Flask verwenden.",
+    "description": "This message calls to pay attention about multiple versions of Konkret Wallet running on the same site (Flask + Prod)"
   },
   "flaskWelcomeWarningAcceptButton": {
     "message": "Ich akzeptiere die Risiken",
@@ -1931,7 +1931,7 @@
     "message": "Hardware-Wallet-Integrationen nutzen API-Aufrufe zur Kommunikation mit externen Servern, die Ihre IP-Adresse und die Adressen der Smart Contracts, mit denen Sie interagieren, sehen können."
   },
   "hardwareWalletsMsg": {
-    "message": "Wählen Sie eine Hardware-Wallet aus, die Sie mit MetaMask verwenden möchten."
+    "message": "Wählen Sie eine Hardware-Wallet aus, die Sie mit Konkret Wallet verwenden möchten."
   },
   "here": {
     "message": "hier",
@@ -1997,7 +1997,7 @@
     "description": "$1 is a message from 'holdToRevealContent4' and $2 is a text link with the message from 'holdToRevealContent5'"
   },
   "holdToRevealContent4": {
-    "message": "Der MetaMask-Support wird Sie nicht danach fragen,",
+    "message": "Der Konkret Wallet-Support wird Sie nicht danach fragen,",
     "description": "Part of 'holdToRevealContent3'"
   },
   "holdToRevealContent5": {
@@ -2063,13 +2063,13 @@
     "message": "Dies ist ein ungültiger privater Schlüsseln. Sie müssen eine hexadezimale Zeichenfolge mit 64 Zeichen eingeben."
   },
   "importAccountJsonLoading1": {
-    "message": "Rechnen Sie damit, dass dieser JSON-Import ein paar Minuten dauert und MetaMask nicht reagiert."
+    "message": "Rechnen Sie damit, dass dieser JSON-Import ein paar Minuten dauert und Konkret Wallet nicht reagiert."
   },
   "importAccountJsonLoading2": {
     "message": "Wir entschuldigen uns hierfür und werden dies in Zukunft beschleunigen."
   },
   "importAccountMsg": {
-    "message": "Importierte Konten werden nicht mit der geheimen Wiederherstellungsphrase von MetaMask verknüpft. Erfahren Sie mehr über importierte Konten."
+    "message": "Importierte Konten werden nicht mit der geheimen Wiederherstellungsphrase von Konkret Wallet verknüpft. Erfahren Sie mehr über importierte Konten."
   },
   "importMyWallet": {
     "message": "Meine Wallet importieren"
@@ -2119,7 +2119,7 @@
     "message": "einschließlich"
   },
   "infuraBlockedNotification": {
-    "message": "MetaMask kann sich nicht mit dem Blockchain Host verbinden. Überprüfen Sie mögliche Gründe $1.",
+    "message": "Konkret Wallet kann sich nicht mit dem Blockchain Host verbinden. Überprüfen Sie mögliche Gründe $1.",
     "description": "$1 is a clickable link with with text defined by the 'here' key"
   },
   "initialTransactionConfirmed": {
@@ -2136,7 +2136,7 @@
     "message": "Origin installieren"
   },
   "installRequest": {
-    "message": "Zu MetaMask hinzufügen"
+    "message": "Zu Konkret Wallet hinzufügen"
   },
   "installedOn": {
     "message": "Installiert auf $1",
@@ -2214,7 +2214,7 @@
     "message": "IPFS-Gateway"
   },
   "ipfsGatewayDescription": {
-    "message": "MetaMask verwendet Dienste von Drittanbietern, um Bilder Ihrer auf IPFS gespeicherten NFTs wiederzugeben, Informationen zu ENS-Adressen anzuzeigen, die Sie in die Adressleiste Ihres Browsers eingegeben haben, und Symbole für verschiedene Tokens abzurufen. Ihre IP-Adresse kann diesen Diensten offengelegt werden, wenn Sie diese nutzen."
+    "message": "Konkret Wallet verwendet Dienste von Drittanbietern, um Bilder Ihrer auf IPFS gespeicherten NFTs wiederzugeben, Informationen zu ENS-Adressen anzuzeigen, die Sie in die Adressleiste Ihres Browsers eingegeben haben, und Symbole für verschiedene Tokens abzurufen. Ihre IP-Adresse kann diesen Diensten offengelegt werden, wenn Sie diese nutzen."
   },
   "ipfsToggleModalDescriptionOne": {
     "message": "Wir verwenden Dienste von Drittanbietern, um Bilder Ihrer auf IPFS gespeicherten NFTs wiederzugeben, Informationen zu ENS-Adressen anzuzeigen, die Sie in die Adressleiste Ihres Browsers eingeben, und Symbole für verschiedene Tokens abzurufen. Ihre IP-Adresse kann diesen Diensten offengelegt werden, wenn Sie diese nutzen."
@@ -2323,10 +2323,10 @@
     "message": "Betrügereien und Sicherheitsrisiken."
   },
   "leaveMetaMask": {
-    "message": "MetaMask verlassen?"
+    "message": "Konkret Wallet verlassen?"
   },
   "leaveMetaMaskDesc": {
-    "message": "Sie sind im Begriff, eine Seite außerhalb von MetaMask zu besuchen. Überprüfen Sie die URL, bevor Sie fortfahren."
+    "message": "Sie sind im Begriff, eine Seite außerhalb von Konkret Wallet zu besuchen. Überprüfen Sie die URL, bevor Sie fortfahren."
   },
   "ledgerAccountRestriction": {
     "message": "Sie müssen Ihr letztes Konto verwenden, ehe Sie ein neues hinzufügen können."
@@ -2396,7 +2396,7 @@
     "message": "Link"
   },
   "linkCentralizedExchanges": {
-    "message": "Verlinken Sie Ihre Coinbase- oder Binance-Konten, um Kryptos kostenfrei an MetaMask zu übweisen."
+    "message": "Verlinken Sie Ihre Coinbase- oder Binance-Konten, um Kryptos kostenfrei an Konkret Wallet zu übweisen."
   },
   "links": {
     "message": "Links"
@@ -2417,7 +2417,7 @@
     "message": "Sperren"
   },
   "lockMetaMask": {
-    "message": "MetaMask sperren"
+    "message": "Konkret Wallet sperren"
   },
   "lockTimeInvalid": {
     "message": "Sperrzeit muss eine Zahl zwischen 0 und 10080 sein"
@@ -2487,7 +2487,7 @@
     "message": "Nachricht"
   },
   "metaMaskConnectStatusParagraphOne": {
-    "message": "Sie haben nun mehr Kontrolle über Ihre Kontoverbindungen in MetaMask."
+    "message": "Sie haben nun mehr Kontrolle über Ihre Kontoverbindungen in Konkret Wallet."
   },
   "metaMaskConnectStatusParagraphThree": {
     "message": "Klicken Sie hier, um Ihre verbundenen Konten zu verwalten."
@@ -2506,10 +2506,10 @@
     "message": "Wallet-Benachrichtigungen sind momentan nicht aktiv."
   },
   "metamaskSwapsOfflineDescription": {
-    "message": "MetaMask Swaps wird gewartet. Bitte versuchen Sie es später erneut."
+    "message": "Konkret Wallet Swaps wird gewartet. Bitte versuchen Sie es später erneut."
   },
   "metamaskVersion": {
-    "message": "MetaMask-Version"
+    "message": "Konkret Wallet-Version"
   },
   "methodData": {
     "message": "Methode"
@@ -2565,7 +2565,7 @@
     "description": "$1 is the number of networks"
   },
   "multichainAddEthereumChainConfirmationDescription": {
-    "message": "Sie fügen dieses Netzwerk zu MetaMask hinzu und geben dieser Website die Genehmigung, es zu nutzen."
+    "message": "Sie fügen dieses Netzwerk zu Konkret Wallet hinzu und geben dieser Website die Genehmigung, es zu nutzen."
   },
   "multipleSnapConnectionWarning": {
     "message": "$1 möchte $2 Snaps verwenden",
@@ -2627,7 +2627,7 @@
     "message": "Lens Protocol"
   },
   "nameProvider_token": {
-    "message": "MetaMask"
+    "message": "Konkret Wallet"
   },
   "nameSetPlaceholder": {
     "message": "Wählen Sie einen Spitznamen ...",
@@ -2660,7 +2660,7 @@
     "message": "Teilen Sie Ihr Feedback"
   },
   "needHelpLinkText": {
-    "message": "MetaMask-Support"
+    "message": "Konkret Wallet-Support"
   },
   "needHelpSubmitTicket": {
     "message": "Ticket absenden"
@@ -2809,7 +2809,7 @@
     "description": "$1 is used for newNFTDetectedInImportNFTsMessageStrongText"
   },
   "newNFTDetectedInNFTsTabMessage": {
-    "message": "Lassen Sie zu, dass MetaMask NFTs automatisch erkennt und anzeigt."
+    "message": "Lassen Sie zu, dass Konkret Wallet NFTs automatisch erkennt und anzeigt."
   },
   "newNFTsAutodetected": {
     "message": "Automatische NFT-Erkennung"
@@ -2859,7 +2859,7 @@
     "message": "Automatische NFT-Erkennung aktiviert"
   },
   "nftDisclaimer": {
-    "message": "Haftungsausschluss: MetaMask bezieht die Mediendatei aus der Quellen-URL. Diese URL wird manchmal vom Markt, auf dem das NFT erstellt wurde, geändert."
+    "message": "Haftungsausschluss: Konkret Wallet bezieht die Mediendatei aus der Quellen-URL. Diese URL wird manchmal vom Markt, auf dem das NFT erstellt wurde, geändert."
   },
   "nftOptions": {
     "message": "NFT-Optionen"
@@ -2891,10 +2891,10 @@
     "message": "Keine Konten für die angegebene Suchanfrage gefunden"
   },
   "noConnectedAccountTitle": {
-    "message": "MetaMask ist nicht mit dieser Website verbunden"
+    "message": "Konkret Wallet ist nicht mit dieser Website verbunden"
   },
   "noConnectionDescription": {
-    "message": "Um eine Verbindung zu einer Website herzustellen, suchen und wählen Sie die Schaltfläche „Verbinden“. Beachten Sie, dass MetaMask nur Verbindungen zu Websites auf Web3 herstellen kann"
+    "message": "Um eine Verbindung zu einer Website herzustellen, suchen und wählen Sie die Schaltfläche „Verbinden“. Beachten Sie, dass Konkret Wallet nur Verbindungen zu Websites auf Web3 herstellen kann"
   },
   "noConversionRateAvailable": {
     "message": "Kein Umrechnungskurs verfügbar"
@@ -3074,8 +3074,8 @@
     "message": "Benachrichtigungen"
   },
   "notificationsDropLedgerFirefoxDescription": {
-    "message": "Firefox unterstützt U2F nicht mehr, daher wird Ledger nicht mit MetaMask auf Firefox funktionieren. Probieren Sie stattdessen MetaMask auf Google Chrome aus.",
-    "description": "Description of a notification in the 'See What's New' popup. Describes that ledger will not longer be supported for firefox users and they should use MetaMask on chrome for ledger support instead."
+    "message": "Firefox unterstützt U2F nicht mehr, daher wird Ledger nicht mit Konkret Wallet auf Firefox funktionieren. Probieren Sie stattdessen Konkret Wallet auf Google Chrome aus.",
+    "description": "Description of a notification in the 'See What's New' popup. Describes that ledger will not longer be supported for firefox users and they should use Konkret Wallet on chrome for ledger support instead."
   },
   "notificationsDropLedgerFirefoxTitle": {
     "message": "Einstellung der Ledger-Unterstützung für Firefox",
@@ -3197,7 +3197,7 @@
     "message": "Ich stimme zu"
   },
   "onboardingMetametricsDescription": {
-    "message": "Wir würden gerne grundlegende Nutzungs- und Diagnosedaten sammeln, um MetaMask zu verbessern. Sie sollten wissen, dass wir die Daten, die Sie uns hier zur Verfügung stellen, niemals verkaufen."
+    "message": "Wir würden gerne grundlegende Nutzungs- und Diagnosedaten sammeln, um Konkret Wallet zu verbessern. Sie sollten wissen, dass wir die Daten, die Sie uns hier zur Verfügung stellen, niemals verkaufen."
   },
   "onboardingMetametricsDescription2": {
     "message": "Wenn wir Metriken sammeln, wird es immer wie folgt sein ..."
@@ -3234,7 +3234,7 @@
     "message": "Erfahren Sie, wie wir Ihre Privatsphäre schützen, während wir Nutzungsdaten für Ihr Profil sammeln."
   },
   "onboardingMetametricsTitle": {
-    "message": "Helfen Sie uns, MetaMask zu verbessern."
+    "message": "Helfen Sie uns, Konkret Wallet zu verbessern."
   },
   "onboardingMetametricsUseDataCheckbox": {
     "message": "Wir verwenden diese Daten, um zu erfahren, wie Sie mit unserer Marketingkommunikation umgehen. Wir können relevante Neuigkeiten (wie Produktmerkmale) teilen."
@@ -3255,16 +3255,16 @@
     "message": "Klicken Sie auf das Symbol der Browser-Erweiterung."
   },
   "onboardingPinExtensionDescription": {
-    "message": "Heften Sie MetaMask in Ihrem Browser ab, damit Sie auf die Transaktionsbestätigungen zugreifen und sie leicht einsehen können."
+    "message": "Heften Sie Konkret Wallet in Ihrem Browser ab, damit Sie auf die Transaktionsbestätigungen zugreifen und sie leicht einsehen können."
   },
   "onboardingPinExtensionDescription2": {
-    "message": "Sie können MetaMask öffnen, indem Sie auf die Erweiterung klicken, und mit nur einem Klick auf Ihre Wallet zugreifen."
+    "message": "Sie können Konkret Wallet öffnen, indem Sie auf die Erweiterung klicken, und mit nur einem Klick auf Ihre Wallet zugreifen."
   },
   "onboardingPinExtensionDescription3": {
     "message": "Klicken Sie auf das Symbol der Browser-Erweiterung, um sofort darauf zuzugreifen."
   },
   "onboardingPinExtensionLabel": {
-    "message": "MetaMask anheften"
+    "message": "Konkret Wallet anheften"
   },
   "onboardingPinExtensionStep1": {
     "message": "1"
@@ -3273,7 +3273,7 @@
     "message": "2"
   },
   "onboardingPinExtensionTitle": {
-    "message": "Ihre MetaMask Installation ist abgeschlossen!"
+    "message": "Ihre Konkret Wallet Installation ist abgeschlossen!"
   },
   "oneDayAbbreviation": {
     "message": "1 T",
@@ -3299,8 +3299,8 @@
     "description": "Text displayed above the buttons for connection confirmation. $1 is the link to the learn more web page."
   },
   "openFullScreenForLedgerWebHid": {
-    "message": "Öffnen Sie MetaMask im Vollbildmodus, um Ihren Ledger über WebHID zu verbinden.",
-    "description": "Shown to the user on the confirm screen when they are viewing MetaMask in a popup window but need to connect their ledger via webhid."
+    "message": "Öffnen Sie Konkret Wallet im Vollbildmodus, um Ihren Ledger über WebHID zu verbinden.",
+    "description": "Shown to the user on the confirm screen when they are viewing Konkret Wallet in a popup window but need to connect their ledger via webhid."
   },
   "openInBlockExplorer": {
     "message": "Im Block-Explorer öffnen"
@@ -3322,7 +3322,7 @@
     "description": "Used in the 'permission_rpc' message."
   },
   "outdatedBrowserNotification": {
-    "message": "Ihr Browser ist veraltet. Wenn Sie Ihren Browser nicht aktualisieren, können Sie keine Sicherheits-Patches und neue Funktionen von MetaMask erhalten."
+    "message": "Ihr Browser ist veraltet. Wenn Sie Ihren Browser nicht aktualisieren, können Sie keine Sicherheits-Patches und neue Funktionen von Konkret Wallet erhalten."
   },
   "overrideContentSecurityPolicyHeader": {
     "message": "Content-Security-Policy-Header aufheben"
@@ -3337,7 +3337,7 @@
     "message": "Bei MetaMetrics teilnehmen"
   },
   "participateInMetaMetricsDescription": {
-    "message": "Nehmen Sie an MetaMetrics teil, um uns bei der Verbesserung von MetaMask zu helfen."
+    "message": "Nehmen Sie an MetaMetrics teil, um uns bei der Verbesserung von Konkret Wallet zu helfen."
   },
   "password": {
     "message": "Passwort"
@@ -3346,7 +3346,7 @@
     "message": "Passwort nicht lang genug"
   },
   "passwordSetupDetails": {
-    "message": "Dieses Passwort wird Ihre MetaMask-Wallet nur auf diesem Gerät entsperren. MetaMask kann dieses Passwort nicht wiederherstellen."
+    "message": "Dieses Passwort wird Ihre Konkret Wallet-Wallet nur auf diesem Gerät entsperren. Konkret Wallet kann dieses Passwort nicht wiederherstellen."
   },
   "passwordStrength": {
     "message": "Passwortstärke: $1",
@@ -3356,7 +3356,7 @@
     "message": "Ein starkes Passwort kann die Sicherheit Ihrer Wallet erhöhen, falls Ihr Gerät gestohlen oder kompromittiert wird."
   },
   "passwordTermsWarning": {
-    "message": "Ich verstehe, dass MetaMask dieses Passwort für mich nicht wiederherstellen kann. $1"
+    "message": "Ich verstehe, dass Konkret Wallet dieses Passwort für mich nicht wiederherstellen kann. $1"
   },
   "passwordsDontMatch": {
     "message": "Passwörter stimmen nicht überein."
@@ -3420,11 +3420,11 @@
     "description": "An extended description for the `snap_cronjob` permission. $1 is the snap name."
   },
   "permission_dialog": {
-    "message": "Dialogfenster in MetaMask anzeigen.",
+    "message": "Dialogfenster in Konkret Wallet anzeigen.",
     "description": "The description for the `snap_dialog` permission"
   },
   "permission_dialogDescription": {
-    "message": "Erlauben Sie $1, MetaMask-Popups mit benutzerdefiniertem Text, Eingabefeld und Schaltflächen zur Genehmigung oder Ablehnung einer Aktion anzugeigen. Kann verwendet werden, um z. B. Warnungen, Bestätigungen und Opt-in-Flows für einen Snap zu erstellen.",
+    "message": "Erlauben Sie $1, Konkret Wallet-Popups mit benutzerdefiniertem Text, Eingabefeld und Schaltflächen zur Genehmigung oder Ablehnung einer Aktion anzugeigen. Kann verwendet werden, um z. B. Warnungen, Bestätigungen und Opt-in-Flows für einen Snap zu erstellen.",
     "description": "An extended description for the `snap_dialog` permission. $1 is the snap name."
   },
   "permission_ethereumAccounts": {
@@ -3436,7 +3436,7 @@
     "description": "The description for the `endowment:ethereum-provider` permission"
   },
   "permission_ethereumProviderDescription": {
-    "message": "Erlauben Sie $1, direkt mit MetaMask zu kommunizieren, damit es Daten aus der Blockchain lesen und Nachrichten und Transaktionen vorschlagen kann.",
+    "message": "Erlauben Sie $1, direkt mit Konkret Wallet zu kommunizieren, damit es Daten aus der Blockchain lesen und Nachrichten und Transaktionen vorschlagen kann.",
     "description": "An extended description for the `endowment:ethereum-provider` permission. $1 is the snap name."
   },
   "permission_getEntropy": {
@@ -3444,7 +3444,7 @@
     "description": "The description for the `snap_getEntropy` permission. $1 is the snap name."
   },
   "permission_getEntropyDescription": {
-    "message": "Erlauben Sie $1, beliebige Schlüssel abzuleiten, die nur für $1 gelten, ohne sie offenzulegen. Diese Schlüssel sind von Ihrem MetaMask-Konto bzw. Ihren MetaMask-Konten getrennt und haben nichts mit Ihren privaten Schlüsseln oder Ihrer geheimen Wiederherstellungsphrase zu tun. Andere Snaps können nicht auf diese Informationen zugreifen.",
+    "message": "Erlauben Sie $1, beliebige Schlüssel abzuleiten, die nur für $1 gelten, ohne sie offenzulegen. Diese Schlüssel sind von Ihrem MetaMask-Konto bzw. Ihren Konkret Wallet-Konten getrennt und haben nichts mit Ihren privaten Schlüsseln oder Ihrer geheimen Wiederherstellungsphrase zu tun. Andere Snaps können nicht auf diese Informationen zugreifen.",
     "description": "An extended description for the `snap_getEntropy` permission. $1 is the snap name."
   },
   "permission_getLocale": {
@@ -3452,7 +3452,7 @@
     "description": "The description for the `snap_getLocale` permission"
   },
   "permission_getLocaleDescription": {
-    "message": "Lassen Sie $1 über Ihre MetaMask-Einstellungen auf Ihre bevorzugte Sprache zugreifen. Dies kann verwendet werden, um den Inhalt von $1 in Ihrer Sprache zu lokalisieren und anzuzeigen.",
+    "message": "Lassen Sie $1 über Ihre Konkret Wallet-Einstellungen auf Ihre bevorzugte Sprache zugreifen. Dies kann verwendet werden, um den Inhalt von $1 in Ihrer Sprache zu lokalisieren und anzuzeigen.",
     "description": "An extended description for the `snap_getLocale` permission. $1 is the snap name."
   },
   "permission_getPreferences": {
@@ -3460,7 +3460,7 @@
     "description": "The description for the `snap_getPreferences` permission"
   },
   "permission_getPreferencesDescription": {
-    "message": "Geben Sie $1 in Ihren MetaMask-Einstellungen Zugriff auf Informationen wie die von Ihnen bevorzugte Sprache und Fiat-Währung. Auf diese Weise kann $1 die auf Ihre Präferenzen zugeschnittenen Inhalte anzeigen. ",
+    "message": "Geben Sie $1 in Ihren Konkret Wallet-Einstellungen Zugriff auf Informationen wie die von Ihnen bevorzugte Sprache und Fiat-Währung. Auf diese Weise kann $1 die auf Ihre Präferenzen zugeschnittenen Inhalte anzeigen. ",
     "description": "An extended description for the `snap_getPreferences` permission. $1 is the snap name."
   },
   "permission_homePage": {
@@ -3468,7 +3468,7 @@
     "description": "The description for the `endowment:page-home` permission"
   },
   "permission_homePageDescription": {
-    "message": "Lassen Sie $1 einen benutzerdefinierten Startbildschirm in MetaMask anzeigen. Dieser kann für Benutzeroberflächen, Konfiguration und Dashboards verwendet werden.",
+    "message": "Lassen Sie $1 einen benutzerdefinierten Startbildschirm in Konkret Wallet anzeigen. Dieser kann für Benutzeroberflächen, Konfiguration und Dashboards verwendet werden.",
     "description": "An extended description for the `endowment:page-home` permission. $1 is the snap name."
   },
   "permission_keyring": {
@@ -3520,7 +3520,7 @@
     "description": "The description for the `endowment:name-lookup` permission."
   },
   "permission_nameLookupDescription": {
-    "message": "Erlauben Sie dem Snap, Adress- und Domain-Lookups in verschiedenen Teilen der MetaMask-Benutzeroberfläche abzurufen und anzuzeigen.",
+    "message": "Erlauben Sie dem Snap, Adress- und Domain-Lookups in verschiedenen Teilen der Konkret Wallet-Benutzeroberfläche abzurufen und anzuzeigen.",
     "description": "An extended description for the `endowment:name-lookup` permission."
   },
   "permission_notifications": {
@@ -3528,7 +3528,7 @@
     "description": "The description for the `snap_notify` permission"
   },
   "permission_notificationsDescription": {
-    "message": "Erlauben Sie $1, Benachrichtigungen in MetaMask anzuzeigen. Ein kurzer Benachrichtigungstext kann durch einen Snap für handlungsrelevante oder zeitkritische Informationen ausgelöst werden.",
+    "message": "Erlauben Sie $1, Benachrichtigungen in Konkret Wallet anzuzeigen. Ein kurzer Benachrichtigungstext kann durch einen Snap für handlungsrelevante oder zeitkritische Informationen ausgelöst werden.",
     "description": "An extended description for the `snap_notify` permission. $1 is the snap name."
   },
   "permission_rpc": {
@@ -3564,7 +3564,7 @@
     "description": "The description for the `endowment:transaction-insight` permission"
   },
   "permission_transactionInsightDescription": {
-    "message": "Erlauben Sie $1, Transaktionen zu dekodieren und Einblicke innerhalb der MetaMask UI zu zeigen. Dies kann für Anti-Phishing- und Sicherheitslösungen verwendet werden.",
+    "message": "Erlauben Sie $1, Transaktionen zu dekodieren und Einblicke innerhalb der Konkret Wallet UI zu zeigen. Dies kann für Anti-Phishing- und Sicherheitslösungen verwendet werden.",
     "description": "An extended description for the `endowment:transaction-insight` permission. $1 is the snap name."
   },
   "permission_transactionInsightOrigin": {
@@ -3714,7 +3714,7 @@
     "message": "Wenn Sie die Profilsynchronisierung deaktivieren, können Sie keine Benachrichtigungen empfangen."
   },
   "profileSyncDescription": {
-    "message": "Erstellt ein Profil, über das MetaMask bestimmte Einstellungen zwischen Ihren Geräten synchronisiert. Dies ist für den Erhalt von Benachrichtigungen erforderlich. $1."
+    "message": "Erstellt ein Profil, über das Konkret Wallet bestimmte Einstellungen zwischen Ihren Geräten synchronisiert. Dies ist für den Erhalt von Benachrichtigungen erforderlich. $1."
   },
   "profileSyncPrivacyLink": {
     "message": "Erfahren Sie, wie wir Ihre Privatsphäre schützen"
@@ -3795,7 +3795,7 @@
     "message": "Unstake abgeschlossen"
   },
   "pushPlatformNotificationsSwapCompletedDescription": {
-    "message": "Ihr MetaMask-Swap war erfolgreich"
+    "message": "Ihr Konkret Wallet-Swap war erfolgreich"
   },
   "pushPlatformNotificationsSwapCompletedTitle": {
     "message": "Swap abgeschlossen"
@@ -3846,7 +3846,7 @@
     "message": "Teilen Sie niemals Ihre geheime Wiederherstellungsphrase mit jemandem."
   },
   "recoveryPhraseReminderItemTwo": {
-    "message": "Das MetaMask-Team wird Sie niemals nach Ihrer geheimen Wiederherstellungsphrase fragen."
+    "message": "Das Konkret Wallet-Team wird Sie niemals nach Ihrer geheimen Wiederherstellungsphrase fragen."
   },
   "recoveryPhraseReminderSubText": {
     "message": "Ihre geheime Wiederherstellungsphrase kontrolliert alle Ihre Konten."
@@ -3894,10 +3894,10 @@
     "message": "Dieses Konto wird aus Ihrer Wallet entfernt. Bitte stellen Sie sicher, dass Sie die ursprüngliche geheime Wiederherstellungsphrase oder den privaten Schlüssel für dieses importierte Konto haben, bevor Sie fortfahren. Sie können Konten über das Dropdown-Menü „Konto“ erneut importieren oder erstellen."
   },
   "removeKeyringSnap": {
-    "message": "Das Entfernen dieses Snaps entfernt folgende Konten aus MetaMask:"
+    "message": "Das Entfernen dieses Snaps entfernt folgende Konten aus Konkret Wallet:"
   },
   "removeKeyringSnapToolTip": {
-    "message": "Der Snap kontrolliert die Konten und durch seine Entfernung werden diese Konten ebenfalls aus MetaMask entfernt, verbleiben jedoch in der Blockchain."
+    "message": "Der Snap kontrolliert die Konten und durch seine Entfernung werden diese Konten ebenfalls aus Konkret Wallet entfernt, verbleiben jedoch in der Blockchain."
   },
   "removeNFT": {
     "message": "NFT entfernen"
@@ -3912,7 +3912,7 @@
     "message": "Snap entfernen"
   },
   "removeSnapAccountDescription": {
-    "message": "Wenn Sie fortfahren, wird dieses Konto nicht mehr in MetaMask verfügbar sein."
+    "message": "Wenn Sie fortfahren, wird dieses Konto nicht mehr in Konkret Wallet verfügbar sein."
   },
   "removeSnapAccountTitle": {
     "message": "Konto entfernen"
@@ -3963,7 +3963,7 @@
     "message": "Wallet zurücksetzen"
   },
   "resetWalletSubHeader": {
-    "message": "MetaMask speichert keine Kopie Ihres Passworts. Wenn Sie Probleme haben, Ihr Konto zu entsperren, müssen Sie Ihre Wallet zurücksetzen. Sie können dies tun, indem Sie die geheime Wiederherstellungsphrase angeben, die Sie bei der Einrichtung Ihrer Wallet verwendet haben."
+    "message": "Konkret Wallet speichert keine Kopie Ihres Passworts. Wenn Sie Probleme haben, Ihr Konto zu entsperren, müssen Sie Ihre Wallet zurücksetzen. Sie können dies tun, indem Sie die geheime Wiederherstellungsphrase angeben, die Sie bei der Einrichtung Ihrer Wallet verwendet haben."
   },
   "resetWalletUsingSRP": {
     "message": "Diese Aktion löscht Ihre aktuelle Wallet und die geheime Wiederherstellungsphrase von diesem Gerät zusammen mit der Liste der Konten, die Sie erstellt haben. Nach dem Zurücksetzen mit einer geheimen Wiederherstellungsphrase sehen Sie eine Liste von Konten, die auf der geheimen Wiederherstellungsphrase basiert, die Sie zum Zurücksetzen verwenden. Diese neue Liste enthält automatisch Konten, die ein Guthaben aufweisen. Sie können auch $1, die zuvor erstellt wurden. Benutzerdefinierte Konten, die Sie importiert haben, müssen $2 sein und alle benutzerdefinierten Tokens, die Sie einem Konto hinzugefügt haben, müssen ebenfalls $3 sein."
@@ -3972,7 +3972,7 @@
     "message": "Vergewissern Sie sich, dass Sie die richtige geheime Wiederherstellungsphrase verwenden, bevor Sie fortfahren. Sie können dies nicht mehr rückgängig machen."
   },
   "restartMetamask": {
-    "message": "MetaMask neu starten"
+    "message": "Konkret Wallet neu starten"
   },
   "restore": {
     "message": "Wiederherstellen"
@@ -4006,7 +4006,7 @@
     "description": "This is a sentence consisting of link using 'revealSeedWordsSRPName' as $1 and bolded text using 'revealSeedWordsDescription3' as $2."
   },
   "revealSeedWordsDescription2": {
-    "message": "MetaMask ist ein $1. Das bedeutet, dass Sie der Besitzer Ihrer GWP sind.",
+    "message": "Konkret Wallet ist ein $1. Das bedeutet, dass Sie der Besitzer Ihrer GWP sind.",
     "description": "$1 is text link with the message from 'revealSeedWordsNonCustodialWallet'"
   },
   "revealSeedWordsDescription3": {
@@ -4029,7 +4029,7 @@
     "description": "$1 is bolded text using the message from 'revealSeedWordsWarning2'"
   },
   "revealSeedWordsWarning2": {
-    "message": "Der MetaMask Support wird Sie nie danach fragen.",
+    "message": "Der Konkret Wallet Support wird Sie nie danach fragen.",
     "description": "The bolded texted in the second part of 'revealSeedWordsWarning'"
   },
   "revealSensitiveContent": {
@@ -4156,7 +4156,7 @@
     "message": "Wenn jemand nach Ihrer Wiederherstellungsphrase fragt, versucht er wahrscheinlich, Sie zu betrügen und Ihr Wallet-Geld zu stehlen."
   },
   "seedPhraseIntroSidebarCopyTwo": {
-    "message": "Geben Sie niemals Ihre geheime Wiederherstellungsphrase weiter, nicht einmal an MetaMask!"
+    "message": "Geben Sie niemals Ihre geheime Wiederherstellungsphrase weiter, nicht einmal an Konkret Wallet!"
   },
   "seedPhraseIntroSidebarTitleOne": {
     "message": "Was ist eine geheime Wiederherstellungsphrase?"
@@ -4195,7 +4195,7 @@
     "message": "Ein Konto auswählen"
   },
   "selectAnAccountAlreadyConnected": {
-    "message": "Dieses Konto wurde bereits mit MetaMask verbunden."
+    "message": "Dieses Konto wurde bereits mit Konkret Wallet verbunden."
   },
   "selectEnableDisplayMediaPrivacyPreference": {
     "message": "NFT-Medien anzeigen einschalten"
@@ -4458,7 +4458,7 @@
     "message": "Ihre Transaktion schlug fehl"
   },
   "smartTransactionErrorDescription": {
-    "message": "Plötzliche Marktveränderungen können zu Ausfällen führen. Wenn das Problem weiterhin besteht, wenden Sie sich an den MetaMask-Kundensupport."
+    "message": "Plötzliche Marktveränderungen können zu Ausfällen führen. Wenn das Problem weiterhin besteht, wenden Sie sich an den Konkret Wallet-Kundensupport."
   },
   "smartTransactionPending": {
     "message": "Übermittlung Ihrer Transaktion"
@@ -4499,7 +4499,7 @@
     "message": "Konto wurde entfernt"
   },
   "snapAccountRemovedDescription": {
-    "message": "Dieses Konto wird in MetaMask nicht mehr zur Nutzung zur Verfügung stehen."
+    "message": "Dieses Konto wird in Konkret Wallet nicht mehr zur Nutzung zur Verfügung stehen."
   },
   "snapAccounts": {
     "message": "Konto-Snaps"
@@ -4732,7 +4732,7 @@
     "message": "Zur Enthüllung Ihrer geheimen Wiederherstellungsphrase, müssen Sie zwei Fragen richtig beantworten."
   },
   "srpSecurityQuizQuestionOneQuestion": {
-    "message": "Wenn Sie Ihre geheime Wiederherstellungsphrase verlieren, kann MetaMask ..."
+    "message": "Wenn Sie Ihre geheime Wiederherstellungsphrase verlieren, kann Konkret Wallet ..."
   },
   "srpSecurityQuizQuestionOneRightAnswer": {
     "message": "Ihnen nicht helfen."
@@ -4801,7 +4801,7 @@
     "message": "Fehler beim Abfragen der Statusprotokolle."
   },
   "stateLogFileName": {
-    "message": "MetaMask-Statusprotokolle"
+    "message": "Konkret Wallet-Statusprotokolle"
   },
   "stateLogs": {
     "message": "Statusprotokolle"
@@ -4822,7 +4822,7 @@
     "message": "Verbinden Sie Ihr Lattice1"
   },
   "step1LatticeWalletMsg": {
-    "message": "Sie können MetaMask mit Ihrem Lattice1-Gerät verbinden, sobald dieses eingerichtet und online ist. Entsperren Sie Ihr Gerät und halten Sie Ihre Geräte-ID bereit.",
+    "message": "Sie können Konkret Wallet mit Ihrem Lattice1-Gerät verbinden, sobald dieses eingerichtet und online ist. Entsperren Sie Ihr Gerät und halten Sie Ihre Geräte-ID bereit.",
     "description": "$1 represents the `hardwareWalletSupportLinkConversion` localization key"
   },
   "step1LedgerWallet": {
@@ -4929,7 +4929,7 @@
     "message": "Nehmen Sie an unserer Umfrage teil"
   },
   "surveyTitle": {
-    "message": "Gestalten Sie die Zukunft von MetaMask"
+    "message": "Gestalten Sie die Zukunft von Konkret Wallet"
   },
   "swap": {
     "message": "Swap"
@@ -4995,7 +4995,7 @@
     "message": "Limit bearbeiten"
   },
   "swapEnableDescription": {
-    "message": "Dies ist erforderlich und gibt MetaMask die Genehmigung, Ihren $1 zu swappen.",
+    "message": "Dies ist erforderlich und gibt Konkret Wallet die Genehmigung, Ihren $1 zu swappen.",
     "description": "Gives the user info about the required approval transaction for swaps. $1 will be the symbol of a token being approved for swaps."
   },
   "swapEnableTokenForSwapping": {
@@ -5042,7 +5042,7 @@
     "message": "Die Gas-Gebühren werden geschätzt und werden aufgrund der Komplexität des Netzwerk-Traffics und der Transaktionskomplexität schwanken."
   },
   "swapGasFeesExplanation": {
-    "message": "MetaMask verdient kein Geld mit Gas-Gebühren. Bei diesen Gebühren handelt es sich um Schätzwerte, die sich je nach Auslastung des Netzwerks und der Komplexität einer Transaktion ändern können. Erfahren Sie mehr über $1.",
+    "message": "Konkret Wallet verdient kein Geld mit Gas-Gebühren. Bei diesen Gebühren handelt es sich um Schätzwerte, die sich je nach Auslastung des Netzwerks und der Komplexität einer Transaktion ändern können. Erfahren Sie mehr über $1.",
     "description": "$1 is a link (text in link can be found at 'swapGasFeesSummaryLinkText')"
   },
   "swapGasFeesExplanationLinkText": {
@@ -5056,7 +5056,7 @@
     "message": "Die Gas-Gebühren auf dem vorherigen Bildschirm werden auf diese beiden Transaktionen aufgeteilt."
   },
   "swapGasFeesSummary": {
-    "message": "Gasgebühren werden an Krypto-Miner gezahlt, die Transaktionen im $1-Netzwerk verarbeiten. MetaMask profitiert nicht von den Gasgebühren.",
+    "message": "Gasgebühren werden an Krypto-Miner gezahlt, die Transaktionen im $1-Netzwerk verarbeiten. Konkret Wallet profitiert nicht von den Gasgebühren.",
     "description": "$1 is the selected network, e.g. Ethereum or BSC"
   },
   "swapGasIncludedTooltipExplanation": {
@@ -5069,19 +5069,19 @@
     "message": "Hohe Slippage"
   },
   "swapIncludesGasAndMetaMaskFee": {
-    "message": "Enthält Gas und eine MetaMask-Gebühr von $1%",
+    "message": "Enthält Gas und eine Konkret Wallet-Gebühr von $1%",
     "description": "Provides information about the fee that metamask takes for swaps. $1 is a decimal number."
   },
   "swapIncludesMMFee": {
-    "message": "Enthält eine MetaMask-Gebühr von $1%.",
+    "message": "Enthält eine Konkret Wallet-Gebühr von $1%.",
     "description": "Provides information about the fee that metamask takes for swaps. $1 is a decimal number."
   },
   "swapIncludesMMFeeAlt": {
-    "message": "Angebot umfasst $1% MetaMask-Gebühr",
+    "message": "Angebot umfasst $1% Konkret Wallet-Gebühr",
     "description": "Provides information about the fee that metamask takes for swaps using the latest copy. $1 is a decimal number."
   },
   "swapIncludesMetaMaskFeeViewAllQuotes": {
-    "message": "Enthält eine MetaMask-Gebühr von $1% bis $2.",
+    "message": "Enthält eine Konkret Wallet-Gebühr von $1% bis $2.",
     "description": "Provides information about the fee that metamask takes for swaps. $1 is a decimal number and $2 is a link to view all quotes."
   },
   "swapLearnMore": {
@@ -5097,10 +5097,10 @@
     "message": "Max. Slippage"
   },
   "swapMetaMaskFee": {
-    "message": "MetaMask-Gebühr"
+    "message": "Konkret Wallet-Gebühr"
   },
   "swapMetaMaskFeeDescription": {
-    "message": "Die Gebühr von $1% ist automatisch in diesem Angebot enthalten. Sie zahlen sie als Gegenleistung für eine Lizenz zur Nutzung der Software von MetaMask zur Aggregation von Liquiditätsanbieterinformationen.",
+    "message": "Die Gebühr von $1% ist automatisch in diesem Angebot enthalten. Sie zahlen sie als Gegenleistung für eine Lizenz zur Nutzung der Software von Konkret Wallet zur Aggregation von Liquiditätsanbieterinformationen.",
     "description": "Provides information about the fee that metamask takes for swaps. $1 is a decimal number."
   },
   "swapNQuotesWithDot": {
@@ -5314,7 +5314,7 @@
     "message": "Wechseln"
   },
   "switchEthereumChainConfirmationDescription": {
-    "message": "Dadurch wird das ausgewählte Netzwerk innerhalb von MetaMask auf ein zuvor hinzugefügtes Netzwerk umgeschaltet:"
+    "message": "Dadurch wird das ausgewählte Netzwerk innerhalb von Konkret Wallet auf ein zuvor hinzugefügtes Netzwerk umgeschaltet:"
   },
   "switchEthereumChainConfirmationTitle": {
     "message": "Dieser Seite das Wechseln eines Netzwerks erlauben?"
@@ -5361,7 +5361,7 @@
     "message": "Nutzungsbedingungen"
   },
   "termsOfUseAgreeText": {
-    "message": " Ich akzeptiere die Nutzungsbedingungen, die meine Verwendung von MetaMask, einschließlich aller seiner Funktionen, betreffen"
+    "message": " Ich akzeptiere die Nutzungsbedingungen, die meine Verwendung von Konkret Wallet, einschließlich aller seiner Funktionen, betreffen"
   },
   "termsOfUseFooterText": {
     "message": "Bitte scrollen, um alle Sektionen zu lesen."
@@ -5376,7 +5376,7 @@
     "message": "Motiv"
   },
   "themeDescription": {
-    "message": "Wählen Sie Ihr bevorzugtes MetaMask-Motiv aus."
+    "message": "Wählen Sie Ihr bevorzugtes Konkret Wallet-Motiv aus."
   },
   "thirdPartySoftware": {
     "message": "Mitteilung bzgl. Drittanbieter-Software",
@@ -5590,7 +5590,7 @@
     "description": "$1 is the wallet device name; $2 is a link to wallet connection guide"
   },
   "troubleStarting": {
-    "message": "Beim Starten von MetaMask ist ein Problem aufgetreten. Dies könnte ein vorübergehendes Problem sein. Versuchen Sie daher, die Erweiterung neu zu starten."
+    "message": "Beim Starten von Konkret Wallet ist ein Problem aufgetreten. Dies könnte ein vorübergehendes Problem sein. Versuchen Sie daher, die Erweiterung neu zu starten."
   },
   "tryAgain": {
     "message": "Erneut versuchen"
@@ -5642,7 +5642,7 @@
   },
   "u2f": {
     "message": "U2F",
-    "description": "A name on an API for the browser to interact with devices that support the U2F protocol. On some browsers we use it to connect MetaMask to Ledger devices."
+    "description": "A name on an API for the browser to interact with devices that support the U2F protocol. On some browsers we use it to connect Konkret Wallet to Ledger devices."
   },
   "unapproved": {
     "message": "Nicht genehmigt"
@@ -5727,7 +5727,7 @@
     "message": "NFTs automatisch erkennen"
   },
   "useNftDetectionDescriptionText": {
-    "message": "Lassen Sie MetaMask NFTs, die Sie besitzen, anhand von Drittanbieterdiensten hinzufügen. Durch die automatische Erkennung von NFTs werden Ihre IP- und Kontoadresse für diese Dienste offengelegt. Durch die Aktivierung dieser Funktion können eventuell Ihre IP- und Ethereum-Adresse miteinander in Verbindung gebracht und gefälschte, von Betrügern per Airdropping abgesetzte NFTs anzeigt werden. Es ist möglich, Tokens manuell hinzufügen, um dieses Risiko zu vermeiden."
+    "message": "Lassen Sie Konkret Wallet NFTs, die Sie besitzen, anhand von Drittanbieterdiensten hinzufügen. Durch die automatische Erkennung von NFTs werden Ihre IP- und Kontoadresse für diese Dienste offengelegt. Durch die Aktivierung dieser Funktion können eventuell Ihre IP- und Ethereum-Adresse miteinander in Verbindung gebracht und gefälschte, von Betrügern per Airdropping abgesetzte NFTs anzeigt werden. Es ist möglich, Tokens manuell hinzufügen, um dieses Risiko zu vermeiden."
   },
   "usePhishingDetection": {
     "message": "Phishing-Erkennung verwenden"
@@ -5739,7 +5739,7 @@
     "message": "Überprüfung der Netzwerkangaben"
   },
   "useSafeChainsListValidationDescription": {
-    "message": "MetaMask verwendet einen Drittanbieter-Service namens $1, um genaue und standardisierte Netzwerkangaben anzuzeigen. Dies verringert die Wahrscheinlichkeit, dass Sie mit einem bösartigen oder falschen Netzwerk in Verbindungen treten. Wenn Sie diese Funktion benutzen, wird Ihre IP-Adresse chainid.network gegenüber offengelegt."
+    "message": "Konkret Wallet verwendet einen Drittanbieter-Service namens $1, um genaue und standardisierte Netzwerkangaben anzuzeigen. Dies verringert die Wahrscheinlichkeit, dass Sie mit einem bösartigen oder falschen Netzwerk in Verbindungen treten. Wenn Sie diese Funktion benutzen, wird Ihre IP-Adresse chainid.network gegenüber offengelegt."
   },
   "useSafeChainsListValidationWebsite": {
     "message": "chainid.network",
@@ -5867,7 +5867,7 @@
     "message": "Erkunden dezentraler Apps"
   },
   "welcomeLoginDescription": {
-    "message": "Verwenden Sie MetaMask, um sich bei dezentralen Apps anzumelden – keine Anmeldung erforderlich."
+    "message": "Verwenden Sie Konkret Wallet, um sich bei dezentralen Apps anzumelden – keine Anmeldung erforderlich."
   },
   "welcomeLoginTitle": {
     "message": "Sagen Sie Hallo zu Ihrer Wallet"
@@ -5876,7 +5876,7 @@
     "message": "Los geht's"
   },
   "welcomeToMetaMaskIntro": {
-    "message": "MetaMask ist eine sichere Wallet, welche die Welt von web3 für alle zugänglich macht und die das Vertrauen von Millionen genießt."
+    "message": "Konkret Wallet ist eine sichere Wallet, welche die Welt von web3 für alle zugänglich macht und die das Vertrauen von Millionen genießt."
   },
   "whatsNew": {
     "message": "Was neu ist",

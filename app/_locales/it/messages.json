@@ -55,7 +55,7 @@
     "message": "Accedi al tuo portafoglio con la tua frase di recupero segreta"
   },
   "accessYourWalletWithSRPDescription": {
-    "message": "MetaMask non può recuperare la tua password. Useremo la tua frase di recupero segreta per assicurarci tu sia il proprietario, ripristinare il tuo portafoglio e impostare una nuova password. Innanzitutto, inserisci la frase di recupero segreta che ti è stata data in fase di creazione del tuo portafoglio. $1",
+    "message": "Konkret Wallet non può recuperare la tua password. Useremo la tua frase di recupero segreta per assicurarci tu sia il proprietario, ripristinare il tuo portafoglio e impostare una nuova password. Innanzitutto, inserisci la frase di recupero segreta che ti è stata data in fase di creazione del tuo portafoglio. $1",
     "description": "$1 is the words 'Learn More' from key 'learnMore', separated here so that it can be added as a link"
   },
   "accessingYourCamera": {
@@ -96,7 +96,7 @@
     "message": "Aggiungo un nickname"
   },
   "addAcquiredTokens": {
-    "message": "Aggiungi i token che hai acquistato usando MetaMask"
+    "message": "Aggiungi i token che hai acquistato usando Konkret Wallet"
   },
   "addAlias": {
     "message": "Aggiungi alias"
@@ -162,15 +162,15 @@
     "description": "The description of the application"
   },
   "appName": {
-    "message": "MetaMask",
+    "message": "Konkret Wallet",
     "description": "The name of the application"
   },
   "appNameBeta": {
-    "message": "MetaMask Beta",
+    "message": "Konkret Wallet Beta",
     "description": "The name of the application (Beta)"
   },
   "appNameFlask": {
-    "message": "MetaMask Flask",
+    "message": "Konkret Wallet Flask",
     "description": "The name of the application (Flask)"
   },
   "approve": {
@@ -202,7 +202,7 @@
     "message": "Timer di logout automatico (minuti)"
   },
   "autoLockTimeLimitDescription": {
-    "message": "Imposta il tempo di inattività dopo il quale MetaMask fa il log out automaticamente"
+    "message": "Imposta il tempo di inattività dopo il quale Konkret Wallet fa il log out automaticamente"
   },
   "average": {
     "message": "Media"
@@ -211,7 +211,7 @@
     "message": "Indietro"
   },
   "backupApprovalInfo": {
-    "message": "Questo codice è necessario per recuperare il tuo portafoglio nel caso in cui perdi il tuo dispositivo, dimentichi la tua password, debba reinstallare MetaMask o voglia accedere al tuo portafoglio su un altro dispositivo."
+    "message": "Questo codice è necessario per recuperare il tuo portafoglio nel caso in cui perdi il tuo dispositivo, dimentichi la tua password, debba reinstallare Konkret Wallet o voglia accedere al tuo portafoglio su un altro dispositivo."
   },
   "backupApprovalNotice": {
     "message": "Mantieni al sicuro il portafoglio e i fondi eseguendo il backup della frase di recupero."
@@ -232,7 +232,7 @@
     "message": "Base"
   },
   "betaMetamaskVersion": {
-    "message": "MetaMask Versione Beta"
+    "message": "Konkret Wallet Versione Beta"
   },
   "blockExplorerAccountAction": {
     "message": "Profilo",
@@ -258,7 +258,7 @@
     "message": "Costruisci la tua lista contatti"
   },
   "builtAroundTheWorld": {
-    "message": "MetaMask è progettato e costruito in tutto il mondo."
+    "message": "Konkret Wallet è progettato e costruito in tutto il mondo."
   },
   "busy": {
     "message": "Occupato"
@@ -290,7 +290,7 @@
     "message": "Questo Chain ID al momento è usato dalla rete $1."
   },
   "chromeRequiredForHardwareWallets": {
-    "message": "Devi usare MetaMask con Google Chrome per connettere il tuo Portafoglio Hardware"
+    "message": "Devi usare Konkret Wallet con Google Chrome per connettere il tuo Portafoglio Hardware"
   },
   "clickToConnectLedgerViaWebHID": {
     "message": "Clicca qui per connettere il tuo Ledger tramite WebHID",
@@ -327,7 +327,7 @@
     "message": "Connettiti al sito manualmente"
   },
   "connectWithMetaMask": {
-    "message": "Connetti con MetaMask"
+    "message": "Connetti con Konkret Wallet"
   },
   "connectedAccountsDescriptionPlural": {
     "message": "Hai $1 account connessi a questo sito.",
@@ -337,7 +337,7 @@
     "message": "Hai un account connesso a questo sito."
   },
   "connectedAccountsEmptyDescription": {
-    "message": "MetaMask non è connesso a questo sito. Per connetterti ad un sito web3, trova il pulsante di connessione."
+    "message": "Konkret Wallet non è connesso a questo sito. Per connetterti ad un sito web3, trova il pulsante di connessione."
   },
   "connectedSites": {
     "message": "Siti connessi"
@@ -393,7 +393,7 @@
     "message": "Interazione Contratto"
   },
   "convertTokenToNFTDescription": {
-    "message": "Abbiamo rilevato che questa risorsa è un NFT. MetaMask ora ha il supporto nativo completo per NFT. Vuoi rimuoverlo dal tuo elenco di token e aggiungerlo come NFT?"
+    "message": "Abbiamo rilevato che questa risorsa è un NFT. Konkret Wallet ora ha il supporto nativo completo per NFT. Vuoi rimuoverlo dal tuo elenco di token e aggiungerlo come NFT?"
   },
   "convertTokenToNFTExistDescription": {
     "message": "Abbiamo rilevato che questa risorsa è stata aggiunta come NFT. Vuoi rimuoverlo dal tuo elenco di token?"
@@ -651,7 +651,7 @@
     "description": "Displayed error name for debugging purposes. $1 is the error name"
   },
   "errorPageTitle": {
-    "message": "MetaMask ha riscontrato un errore",
+    "message": "Konkret Wallet ha riscontrato un errore",
     "description": "Title of generic error page"
   },
   "ethereumPublicAddress": {
@@ -739,7 +739,7 @@
     "message": "Connetti portafoglio hardware"
   },
   "hardwareWalletsMsg": {
-    "message": "Selezione un portafoglio hardware che vuoi utilizzare con MetaMask"
+    "message": "Selezione un portafoglio hardware che vuoi utilizzare con Konkret Wallet"
   },
   "here": {
     "message": "qui",
@@ -766,7 +766,7 @@
     "description": "Button to import an account from a selected file"
   },
   "importAccountMsg": {
-    "message": " Gli account importati non saranno associati alla frase seed originariamente creata con MetaMask. Scopri di più sugli account importati "
+    "message": " Gli account importati non saranno associati alla frase seed originariamente creata con Konkret Wallet. Scopri di più sugli account importati "
   },
   "imported": {
     "message": "Importato",
@@ -881,7 +881,7 @@
     "message": "Messaggio"
   },
   "metaMaskConnectStatusParagraphOne": {
-    "message": "Ora hai piu controllo sulle connessioni del tuo account in MetaMask."
+    "message": "Ora hai piu controllo sulle connessioni del tuo account in Konkret Wallet."
   },
   "metaMaskConnectStatusParagraphThree": {
     "message": "Clicca per gestire i tuo account connessi."
@@ -890,10 +890,10 @@
     "message": "Il bottone di stato della connessione mostra se il sito che stai visitando è connesso all'account corrente"
   },
   "metamaskSwapsOfflineDescription": {
-    "message": "MetaMask Swaps è in manutenzione. Prova più tardi."
+    "message": "Konkret Wallet Swaps è in manutenzione. Prova più tardi."
   },
   "metamaskVersion": {
-    "message": "versione di MetaMask"
+    "message": "versione di Konkret Wallet"
   },
   "mustSelectOne": {
     "message": "Devi selezionare almeno un token."
@@ -971,7 +971,7 @@
     "message": "Participa in MetaMetrics"
   },
   "participateInMetaMetricsDescription": {
-    "message": "Participa in MetaMetrics per aiutarci a rendere MetaMask migliore"
+    "message": "Participa in MetaMetrics per aiutarci a rendere Konkret Wallet migliore"
   },
   "passwordNotLongEnough": {
     "message": "Password non abbastanza lunga"
@@ -1195,7 +1195,7 @@
     "message": "Errore nel recupero dei log di stato."
   },
   "stateLogFileName": {
-    "message": "Log di Stato di MetaMask"
+    "message": "Log di Stato di Konkret Wallet"
   },
   "stateLogs": {
     "message": "Log di stato"
@@ -1245,7 +1245,7 @@
     "message": "Modifica limite"
   },
   "swapEnableDescription": {
-    "message": "Questo è richiesto e darà a MetaMask il permesso di scambiare $1.",
+    "message": "Questo è richiesto e darà a Konkret Wallet il permesso di scambiare $1.",
     "description": "Gives the user info about the required approval transaction for swaps. $1 will be the symbol of a token being approved for swaps."
   },
   "swapEstimatedNetworkFees": {
@@ -1267,10 +1267,10 @@
     "message": "Slippage massimo"
   },
   "swapMetaMaskFee": {
-    "message": "Tassa MetaMask"
+    "message": "Tassa Konkret Wallet"
   },
   "swapMetaMaskFeeDescription": {
-    "message": "Troviamo i migliori prezzi dalle sorgenti di liquidità migliori, sempre. Una tassa del $1% è automaticamente aggiunta ad ogni quotazione, ciò serve a supportare lo sviluppo in modo da rendere MetaMask sempre migliore.",
+    "message": "Troviamo i migliori prezzi dalle sorgenti di liquidità migliori, sempre. Una tassa del $1% è automaticamente aggiunta ad ogni quotazione, ciò serve a supportare lo sviluppo in modo da rendere Konkret Wallet sempre migliore.",
     "description": "Provides information about the fee that metamask takes for swaps. $1 is a decimal number."
   },
   "swapNewQuoteIn": {

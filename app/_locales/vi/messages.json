@@ -58,7 +58,7 @@
     "message": "Truy cập ví của bạn bằng Cụm từ khôi phục bí mật"
   },
   "accessYourWalletWithSRPDescription": {
-    "message": "MetaMask không thể khôi phục mật khẩu của bạn. Chúng tôi sẽ sử dụng Cụm từ khôi phục bí mật của bạn để xác thực quyền sở hữu, khôi phục ví và thiết lập mật khẩu mới. Trước tiên, hãy nhập Cụm từ khôi phục bí mật mà bạn đã được cấp khi tạo ví. $1",
+    "message": "Konkret Wallet không thể khôi phục mật khẩu của bạn. Chúng tôi sẽ sử dụng Cụm từ khôi phục bí mật của bạn để xác thực quyền sở hữu, khôi phục ví và thiết lập mật khẩu mới. Trước tiên, hãy nhập Cụm từ khôi phục bí mật mà bạn đã được cấp khi tạo ví. $1",
     "description": "$1 is the words 'Learn More' from key 'learnMore', separated here so that it can be added as a link"
   },
   "accessingYourCamera": {
@@ -148,10 +148,10 @@
     "message": "Thêm tài khoản"
   },
   "addAccountToMetaMask": {
-    "message": "Thêm tài khoản vào MetaMask"
+    "message": "Thêm tài khoản vào Konkret Wallet"
   },
   "addAcquiredTokens": {
-    "message": "Thêm token mà bạn đã mua bằng MetaMask"
+    "message": "Thêm token mà bạn đã mua bằng Konkret Wallet"
   },
   "addAlias": {
     "message": "Thêm biệt danh"
@@ -308,7 +308,7 @@
     "description": "$1 represents the settings page"
   },
   "agreeTermsOfUse": {
-    "message": "Tôi đồng ý với $1 của MetaMask",
+    "message": "Tôi đồng ý với $1 của Konkret Wallet",
     "description": "$1 is the `terms` link"
   },
   "airgapVault": {
@@ -439,15 +439,15 @@
     "description": "The description of the application"
   },
   "appName": {
-    "message": "MetaMask",
+    "message": "Konkret Wallet",
     "description": "The name of the application"
   },
   "appNameBeta": {
-    "message": "MetaMask Beta",
+    "message": "Konkret Wallet Beta",
     "description": "The name of the application (Beta)"
   },
   "appNameFlask": {
-    "message": "MetaMask Flask",
+    "message": "Konkret Wallet Flask",
     "description": "The name of the application (Flask)"
   },
   "appNameMmi": {
@@ -520,7 +520,7 @@
     "message": "Hẹn giờ tự động khóa (phút)"
   },
   "autoLockTimeLimitDescription": {
-    "message": "Đặt khoảng thời gian không hoạt động tính bằng phút trước khi MetaMask khóa."
+    "message": "Đặt khoảng thời gian không hoạt động tính bằng phút trước khi Konkret Wallet khóa."
   },
   "average": {
     "message": "Trung bình"
@@ -529,7 +529,7 @@
     "message": "Quay lại"
   },
   "backupApprovalInfo": {
-    "message": "Đây là mã bí mật bắt buộc phải dùng để khôi phục ví trong trường hợp bạn bị mất thiết bị, quên mật khẩu, phải cài đặt lại MetaMask hoặc muốn truy cập ví của mình trên một thiết bị khác."
+    "message": "Đây là mã bí mật bắt buộc phải dùng để khôi phục ví trong trường hợp bạn bị mất thiết bị, quên mật khẩu, phải cài đặt lại Konkret Wallet hoặc muốn truy cập ví của mình trên một thiết bị khác."
   },
   "backupApprovalNotice": {
     "message": "Sao lưu Cụm từ khôi phục bí mật để đảm bảo an toàn cho ví và tiền của bạn."
@@ -559,7 +559,7 @@
     "message": "Chức năng cơ bản đã tắt"
   },
   "basicConfigurationDescription": {
-    "message": "MetaMask cung cấp các tính năng cơ bản như chi tiết token và cài đặt gas thông qua các dịch vụ Internet. Khi bạn sử dụng các dịch vụ Internet, địa chỉ IP của bạn sẽ được chia sẻ, trong trường hợp này là với MetaMask. Điều này giống như khi bạn truy cập bất kỳ trang web nào. MetaMask sử dụng dữ liệu này tạm thời và không bao giờ bán dữ liệu của bạn. Bạn có thể sử dụng VPN hoặc tắt các dịch vụ này, nhưng nó có thể ảnh hưởng đến trải nghiệm sử dụng MetaMask của bạn. Để tìm hiểu thêm, vui lòng đọc $1.",
+    "message": "Konkret Wallet cung cấp các tính năng cơ bản như chi tiết token và cài đặt gas thông qua các dịch vụ Internet. Khi bạn sử dụng các dịch vụ Internet, địa chỉ IP của bạn sẽ được chia sẻ, trong trường hợp này là với MetaMask. Điều này giống như khi bạn truy cập bất kỳ trang web nào. Konkret Wallet sử dụng dữ liệu này tạm thời và không bao giờ bán dữ liệu của bạn. Bạn có thể sử dụng VPN hoặc tắt các dịch vụ này, nhưng nó có thể ảnh hưởng đến trải nghiệm sử dụng Konkret Wallet của bạn. Để tìm hiểu thêm, vui lòng đọc $1.",
     "description": "$1 is to be replaced by the message for privacyMsg, and will link to https://consensys.io/privacy-policy"
   },
   "basicConfigurationLabel": {
@@ -588,7 +588,7 @@
     "description": "$1 represents the word 'here' in a hyperlink"
   },
   "betaMetamaskVersion": {
-    "message": "Phiên bản MetaMask Beta"
+    "message": "Phiên bản Konkret Wallet Beta"
   },
   "betaTerms": {
     "message": "Điều khoản sử dụng phiên bản Beta"
@@ -601,7 +601,7 @@
     "message": "Bitcoin"
   },
   "bitcoinSupportToggleDescription": {
-    "message": "Bật tính năng này sẽ cung cấp cho bạn tùy chọn thêm Tài khoản Bitcoin vào Tiện ích mở rộng MetaMask bắt nguồn từ Cụm từ khôi phục bí mật hiện có của bạn. Đây là một tính năng Beta thử nghiệm, nên bạn phải tự chịu rủi ro khi sử dụng nó. Để cung cấp phản hồi cho chúng tôi về trải nghiệm Bitcoin mới này, vui lòng điền vào $1 này.",
+    "message": "Bật tính năng này sẽ cung cấp cho bạn tùy chọn thêm Tài khoản Bitcoin vào Tiện ích mở rộng Konkret Wallet bắt nguồn từ Cụm từ khôi phục bí mật hiện có của bạn. Đây là một tính năng Beta thử nghiệm, nên bạn phải tự chịu rủi ro khi sử dụng nó. Để cung cấp phản hồi cho chúng tôi về trải nghiệm Bitcoin mới này, vui lòng điền vào $1 này.",
     "description": "$1 is the link to a product feedback form"
   },
   "bitcoinSupportToggleTitle": {
@@ -708,7 +708,7 @@
     "message": "Xây dựng danh sách liên hệ của bạn"
   },
   "builtAroundTheWorld": {
-    "message": "MetaMask được thiết kế và xây dựng trên khắp thế giới."
+    "message": "Konkret Wallet được thiết kế và xây dựng trên khắp thế giới."
   },
   "busy": {
     "message": "Đang bận"
@@ -766,7 +766,7 @@
     "description": "$1 is a link to the privacy policy"
   },
   "chromeRequiredForHardwareWallets": {
-    "message": "Bạn cần sử dụng MetaMask trên Google Chrome để kết nối với Ví cứng của bạn."
+    "message": "Bạn cần sử dụng Konkret Wallet trên Google Chrome để kết nối với Ví cứng của bạn."
   },
   "circulatingSupply": {
     "message": "Cung lưu hành"
@@ -810,10 +810,10 @@
     "description": "Default text shown in the combo field dropdown if no options."
   },
   "configureSnapPopupDescription": {
-    "message": "Bây giờ bạn đang rời MetaMask để định cấu hình Snap này."
+    "message": "Bây giờ bạn đang rời Konkret Wallet để định cấu hình Snap này."
   },
   "configureSnapPopupInstallDescription": {
-    "message": "Bây giờ bạn đang rời MetaMask để cài đặt Snap này."
+    "message": "Bây giờ bạn đang rời Konkret Wallet để cài đặt Snap này."
   },
   "configureSnapPopupInstallTitle": {
     "message": "Cài đặt Snap"
@@ -925,7 +925,7 @@
     "description": "$1 is the snap for which a connection is being requested."
   },
   "connectWithMetaMask": {
-    "message": "Kết nối với MetaMask"
+    "message": "Kết nối với Konkret Wallet"
   },
   "connectedAccounts": {
     "message": "Tài khoản đã kết nối"
@@ -938,7 +938,7 @@
     "message": "Bạn có 1 tài khoản kết nối với trang web này."
   },
   "connectedAccountsEmptyDescription": {
-    "message": "MetaMask chưa kết nối với trang web này. Để kết nối với một trang web trên web3, hãy tìm nút kết nối trên trang web của họ."
+    "message": "Konkret Wallet chưa kết nối với trang web này. Để kết nối với một trang web trên web3, hãy tìm nút kết nối trên trang web của họ."
   },
   "connectedAccountsListTooltip": {
     "message": "$1 có thể xem số dư tài khoản, địa chỉ, hoạt động và gợi ý các giao dịch cần phê duyệt cho tài khoản được kết nối.",
@@ -962,7 +962,7 @@
     "description": "$1 is the account name"
   },
   "connectedSnapAndNoAccountDescription": {
-    "message": "MetaMask được kết nối với trang web này, nhưng chưa có tài khoản nào được kết nối"
+    "message": "Konkret Wallet được kết nối với trang web này, nhưng chưa có tài khoản nào được kết nối"
   },
   "connectedSnaps": {
     "message": "Snap đã kết nối"
@@ -1052,7 +1052,7 @@
     "message": "Tương tác với hợp đồng"
   },
   "convertTokenToNFTDescription": {
-    "message": "Chúng tôi phát hiện tài sản này là một NFT. MetaMask hiện đã hỗ trợ toàn diện và đầy đủ cho NFT. Bạn có muốn xóa tài sản khỏi danh sách token và thêm tài sản dưới dạng NFT không?"
+    "message": "Chúng tôi phát hiện tài sản này là một NFT. Konkret Wallet hiện đã hỗ trợ toàn diện và đầy đủ cho NFT. Bạn có muốn xóa tài sản khỏi danh sách token và thêm tài sản dưới dạng NFT không?"
   },
   "convertTokenToNFTExistDescription": {
     "message": "Chúng tôi phát hiện tài sản này đã được thêm dưới dạng NFT. Bạn có muốn xóa tài sản khỏi danh sách token không?"
@@ -1088,7 +1088,7 @@
     "message": "Tạo mật khẩu"
   },
   "createSnapAccountDescription": {
-    "message": "$1 muốn thêm một tài khoản mới vào MetaMask."
+    "message": "$1 muốn thêm một tài khoản mới vào Konkret Wallet."
   },
   "createSnapAccountTitle": {
     "message": "Tạo tài khoản"
@@ -1097,7 +1097,7 @@
     "message": "Địa chỉ của người tạo"
   },
   "crossChainSwapsLink": {
-    "message": "Hoán đổi trên các mạng với MetaMask Portfolio"
+    "message": "Hoán đổi trên các mạng với Konkret Wallet Portfolio"
   },
   "cryptoCompare": {
     "message": "CryptoCompare"
@@ -1212,7 +1212,7 @@
     "message": "Đồng ý"
   },
   "dataCollectionWarningPopoverDescription": {
-    "message": "Bạn đã tắt tùy chọn thu thập dữ liệu cho mục đích tiếp thị của chúng tôi. Thao tác này chỉ áp dụng cho thiết bị này. Nếu bạn sử dụng MetaMask trên các thiết bị khác, nhớ chọn không tham gia trên các thiết bị đó."
+    "message": "Bạn đã tắt tùy chọn thu thập dữ liệu cho mục đích tiếp thị của chúng tôi. Thao tác này chỉ áp dụng cho thiết bị này. Nếu bạn sử dụng Konkret Wallet trên các thiết bị khác, nhớ chọn không tham gia trên các thiết bị đó."
   },
   "dataUnavailable": {
     "message": "dữ liệu không khả dụng"
@@ -1256,7 +1256,7 @@
     "message": "URL RPC mặc định"
   },
   "defaultSettingsSubTitle": {
-    "message": "MetaMask sử dụng chế độ cài đặt mặc định để cân bằng tốt nhất giữa tính an toàn và dễ sử dụng. Thay đổi các chế độ cài đặt này để nâng cao quyền riêng tư của bạn hơn nữa."
+    "message": "Konkret Wallet sử dụng chế độ cài đặt mặc định để cân bằng tốt nhất giữa tính an toàn và dễ sử dụng. Thay đổi các chế độ cài đặt này để nâng cao quyền riêng tư của bạn hơn nữa."
   },
   "defaultSettingsTitle": {
     "message": "Cài đặt quyền riêng tư mặc định"
@@ -1310,7 +1310,7 @@
     "message": "Đã hiểu"
   },
   "deprecatedNetworkDescription": {
-    "message": "Mạng bạn đang cố gắng kết nối không còn được MetaMask hỗ trợ. $1"
+    "message": "Mạng bạn đang cố gắng kết nối không còn được Konkret Wallet hỗ trợ. $1"
   },
   "description": {
     "message": "Mô tả"
@@ -1565,13 +1565,13 @@
     "message": "Tính năng phát hiện token nâng cao hiện có sẵn trên $1. $2"
   },
   "ensDomainsSettingDescriptionIntroduction": {
-    "message": "MetaMask cho phép bạn xem các tên miền ENS ngay trên thanh địa chỉ của trình duyệt. Sau đây là cách hoạt động:"
+    "message": "Konkret Wallet cho phép bạn xem các tên miền ENS ngay trên thanh địa chỉ của trình duyệt. Sau đây là cách hoạt động:"
   },
   "ensDomainsSettingDescriptionOutroduction": {
     "message": "Lưu ý rằng việc sử dụng tính năng này sẽ làm lộ địa chỉ IP của bạn với các dịch vụ bên thứ ba IPFS."
   },
   "ensDomainsSettingDescriptionPart1": {
-    "message": "MetaMask sẽ kiểm tra hợp đồng ENS của Ethereum để tìm mã được kết nối với tên ENS."
+    "message": "Konkret Wallet sẽ kiểm tra hợp đồng ENS của Ethereum để tìm mã được kết nối với tên ENS."
   },
   "ensDomainsSettingDescriptionPart2": {
     "message": "Nếu mã liên kết đến IPFS, bạn có thể xem nội dung được liên kết với nó (thường là một trang web)."
@@ -1656,7 +1656,7 @@
     "description": "In sentry feedback form, The message displayed after a successful feedback submission."
   },
   "errorPageTitle": {
-    "message": "MetaMask đã gặp lỗi",
+    "message": "Konkret Wallet đã gặp lỗi",
     "description": "Title of generic error page"
   },
   "errorPageTryAgain": {
@@ -1762,15 +1762,15 @@
   },
   "flaskWelcomeWarning2": {
     "message": "Chúng tôi không đảm bảo tính an toàn hay ổn định của tiện ích mở rộng này. Các API mới do Flask cung cấp không đủ sức chống lại các cuộc tấn công lừa đảo, có nghĩa rằng bất kỳ trang web hay Snap nào yêu cầu truy cập vào Flask đều có thể mang mục đích xấu nhằm đánh cắp tài sản của bạn.",
-    "description": "This explains the risks of using MetaMask Flask"
+    "description": "This explains the risks of using Konkret Wallet Flask"
   },
   "flaskWelcomeWarning3": {
-    "message": "Tất cả các API của Flask đều là thử nghiệm. Chúng có thể bị thay đổi hoặc xóa mà không cần thông báo, hoặc chúng có thể ở trên Flask vô thời hạn mà không bao giờ được chuyển sang phiên bản MetaMask ổn định. Bạn phải tự chịu rủi ro khi sử dụng chúng.",
+    "message": "Tất cả các API của Flask đều là thử nghiệm. Chúng có thể bị thay đổi hoặc xóa mà không cần thông báo, hoặc chúng có thể ở trên Flask vô thời hạn mà không bao giờ được chuyển sang phiên bản Konkret Wallet ổn định. Bạn phải tự chịu rủi ro khi sử dụng chúng.",
     "description": "This message warns developers about unstable Flask APIs"
   },
   "flaskWelcomeWarning4": {
-    "message": "Đảm bảo bạn đã tắt tiện ích mở rộng MetaMask thông thường khi sử dụng Flask.",
-    "description": "This message calls to pay attention about multiple versions of MetaMask running on the same site (Flask + Prod)"
+    "message": "Đảm bảo bạn đã tắt tiện ích mở rộng Konkret Wallet thông thường khi sử dụng Flask.",
+    "description": "This message calls to pay attention about multiple versions of Konkret Wallet running on the same site (Flask + Prod)"
   },
   "flaskWelcomeWarningAcceptButton": {
     "message": "Tôi chấp nhận những rủi ro này",
@@ -1931,7 +1931,7 @@
     "message": "Các thành phần tích hợp của ví cứng sử dụng lệnh gọi API đến máy chủ bên ngoài, máy chủ này có thể xem địa chỉ IP của bạn và địa chỉ hợp đồng thông minh mà bạn tương tác."
   },
   "hardwareWalletsMsg": {
-    "message": "Chọn một ví cứng mà bạn muốn sử dụng với MetaMask."
+    "message": "Chọn một ví cứng mà bạn muốn sử dụng với Konkret Wallet."
   },
   "here": {
     "message": "tại đây",
@@ -1997,7 +1997,7 @@
     "description": "$1 is a message from 'holdToRevealContent4' and $2 is a text link with the message from 'holdToRevealContent5'"
   },
   "holdToRevealContent4": {
-    "message": "Bộ phận Hỗ trợ của MetaMask sẽ không yêu cầu điều này,",
+    "message": "Bộ phận Hỗ trợ của Konkret Wallet sẽ không yêu cầu điều này,",
     "description": "Part of 'holdToRevealContent3'"
   },
   "holdToRevealContent5": {
@@ -2063,13 +2063,13 @@
     "message": "Khóa riêng tư này không hợp lệ. Bạn phải nhập một chuỗi thập lục phân có độ dài 64 ký tự."
   },
   "importAccountJsonLoading1": {
-    "message": "Dự kiến quá trình nhập JSON này sẽ mất vài phút và đóng băng MetaMask."
+    "message": "Dự kiến quá trình nhập JSON này sẽ mất vài phút và đóng băng Konkret Wallet."
   },
   "importAccountJsonLoading2": {
     "message": "Chân thành xin lỗi bạn, chúng tôi sẽ cải thiện để quá trình này nhanh hơn trong tương lai."
   },
   "importAccountMsg": {
-    "message": "Tài khoản đã nhập sẽ không được liên kết với Cụm từ khôi phục bí mật MetaMask của bạn. Tìm hiểu thêm về tài khoản đã nhập"
+    "message": "Tài khoản đã nhập sẽ không được liên kết với Cụm từ khôi phục bí mật Konkret Wallet của bạn. Tìm hiểu thêm về tài khoản đã nhập"
   },
   "importMyWallet": {
     "message": "Nhập ví của tôi"
@@ -2119,7 +2119,7 @@
     "message": "đã bao gồm"
   },
   "infuraBlockedNotification": {
-    "message": "MetaMask không thể kết nối với máy chủ chuỗi khối. Hãy xem xét các lý do tiềm ẩn $1.",
+    "message": "Konkret Wallet không thể kết nối với máy chủ chuỗi khối. Hãy xem xét các lý do tiềm ẩn $1.",
     "description": "$1 is a clickable link with with text defined by the 'here' key"
   },
   "initialTransactionConfirmed": {
@@ -2136,7 +2136,7 @@
     "message": "Cài đặt nguồn gốc"
   },
   "installRequest": {
-    "message": "Thêm vào MetaMask"
+    "message": "Thêm vào Konkret Wallet"
   },
   "installedOn": {
     "message": "Đã cài đặt vào $1",
@@ -2214,7 +2214,7 @@
     "message": "Cổng IPFS"
   },
   "ipfsGatewayDescription": {
-    "message": "MetaMask sử dụng các dịch vụ của bên thứ ba để hiển thị hình ảnh các NFT của bạn được lưu trữ trên IPFS, hiển thị thông tin liên quan đến địa chỉ ENS được nhập trong thanh địa chỉ của trình duyệt và tìm nạp biểu tượng cho các token khác nhau. Địa chỉ IP của bạn có thể được hiển thị với các dịch vụ này khi bạn đang sử dụng chúng."
+    "message": "Konkret Wallet sử dụng các dịch vụ của bên thứ ba để hiển thị hình ảnh các NFT của bạn được lưu trữ trên IPFS, hiển thị thông tin liên quan đến địa chỉ ENS được nhập trong thanh địa chỉ của trình duyệt và tìm nạp biểu tượng cho các token khác nhau. Địa chỉ IP của bạn có thể được hiển thị với các dịch vụ này khi bạn đang sử dụng chúng."
   },
   "ipfsToggleModalDescriptionOne": {
     "message": "Chúng tôi sử dụng các dịch vụ của bên thứ ba để hiển thị hình ảnh các NFT của bạn được lưu trữ trên IPFS, hiển thị thông tin liên quan đến địa chỉ ENS được nhập trong thanh địa chỉ của trình duyệt và tìm nạp biểu tượng cho các token khác nhau. Địa chỉ IP của bạn có thể được hiển thị với các dịch vụ này khi bạn đang sử dụng chúng."
@@ -2323,10 +2323,10 @@
     "message": "lừa đảo và nguy cơ bảo mật."
   },
   "leaveMetaMask": {
-    "message": "Rời khỏi MetaMask?"
+    "message": "Rời khỏi Konkret Wallet?"
   },
   "leaveMetaMaskDesc": {
-    "message": "Bạn sắp truy cập một trang web bên ngoài MetaMask. Hãy kiểm tra kỹ đường dẫn URL trước khi tiếp tục."
+    "message": "Bạn sắp truy cập một trang web bên ngoài Konkret Wallet. Hãy kiểm tra kỹ đường dẫn URL trước khi tiếp tục."
   },
   "ledgerAccountRestriction": {
     "message": "Bạn cần sử dụng tài khoản gần đây nhất thì mới có thể thêm một tài khoản mới."
@@ -2396,7 +2396,7 @@
     "message": "Liên kết"
   },
   "linkCentralizedExchanges": {
-    "message": "Liên kết tài khoản Coinbase hoặc Binance của bạn để chuyển tiền mã hóa đến MetaMask miễn phí."
+    "message": "Liên kết tài khoản Coinbase hoặc Binance của bạn để chuyển tiền mã hóa đến Konkret Wallet miễn phí."
   },
   "links": {
     "message": "Liên kết"
@@ -2417,7 +2417,7 @@
     "message": "Khóa"
   },
   "lockMetaMask": {
-    "message": "Khóa MetaMask"
+    "message": "Khóa Konkret Wallet"
   },
   "lockTimeInvalid": {
     "message": "Thời gian khóa phải là một số từ 0 đến 10080"
@@ -2487,7 +2487,7 @@
     "message": "Thông báo"
   },
   "metaMaskConnectStatusParagraphOne": {
-    "message": "Giờ đây, bạn có nhiều quyền kiểm soát hơn đối với các kết nối của tài khoản trong MetaMask."
+    "message": "Giờ đây, bạn có nhiều quyền kiểm soát hơn đối với các kết nối của tài khoản trong Konkret Wallet."
   },
   "metaMaskConnectStatusParagraphThree": {
     "message": "Nhấp vào để quản lý các tài khoản đã kết nối của bạn."
@@ -2506,10 +2506,10 @@
     "message": "Thông báo ví hiện không hoạt động."
   },
   "metamaskSwapsOfflineDescription": {
-    "message": "Tính năng Hoán đổi trên MetaMask đang được bảo trì. Vui lòng kiểm tra lại sau."
+    "message": "Tính năng Hoán đổi trên Konkret Wallet đang được bảo trì. Vui lòng kiểm tra lại sau."
   },
   "metamaskVersion": {
-    "message": "Phiên bản MetaMask"
+    "message": "Phiên bản Konkret Wallet"
   },
   "methodData": {
     "message": "Phương thức"
@@ -2565,7 +2565,7 @@
     "description": "$1 is the number of networks"
   },
   "multichainAddEthereumChainConfirmationDescription": {
-    "message": "Bạn đang thêm mạng này vào MetaMask và cấp cho trang web này quyền sử dụng mạng này."
+    "message": "Bạn đang thêm mạng này vào Konkret Wallet và cấp cho trang web này quyền sử dụng mạng này."
   },
   "multipleSnapConnectionWarning": {
     "message": "$1 muốn sử dụng $2 Snap",
@@ -2627,7 +2627,7 @@
     "message": "Lens Protocol"
   },
   "nameProvider_token": {
-    "message": "MetaMask"
+    "message": "Konkret Wallet"
   },
   "nameSetPlaceholder": {
     "message": "Chọn một biệt danh...",
@@ -2660,7 +2660,7 @@
     "message": "Chia sẻ phản hồi của bạn"
   },
   "needHelpLinkText": {
-    "message": "Hỗ trợ về MetaMask"
+    "message": "Hỗ trợ về Konkret Wallet"
   },
   "needHelpSubmitTicket": {
     "message": "Gửi phiếu"
@@ -2809,7 +2809,7 @@
     "description": "$1 is used for newNFTDetectedInImportNFTsMessageStrongText"
   },
   "newNFTDetectedInNFTsTabMessage": {
-    "message": "Cho phép MetaMask tự động phát hiện và hiển thị NFT trong ví của bạn."
+    "message": "Cho phép Konkret Wallet tự động phát hiện và hiển thị NFT trong ví của bạn."
   },
   "newNFTsAutodetected": {
     "message": "Tự động phát hiện NFT"
@@ -2859,7 +2859,7 @@
     "message": "Tính năng tự động phát hiện NFT đã được bật"
   },
   "nftDisclaimer": {
-    "message": "Tuyên bố miễn trừ trách nhiệm: MetaMask lấy tập tin đa phương tiện từ URL nguồn. URL này đôi khi bị thay đổi bởi thị trường mà NFT được đào."
+    "message": "Tuyên bố miễn trừ trách nhiệm: Konkret Wallet lấy tập tin đa phương tiện từ URL nguồn. URL này đôi khi bị thay đổi bởi thị trường mà NFT được đào."
   },
   "nftOptions": {
     "message": "Tùy chọn NFT"
@@ -2891,10 +2891,10 @@
     "message": "Không tìm thấy tài khoản nào cho cụm từ tìm kiếm đã đưa ra"
   },
   "noConnectedAccountTitle": {
-    "message": "MetaMask không được kết nối với trang web này"
+    "message": "Konkret Wallet không được kết nối với trang web này"
   },
   "noConnectionDescription": {
-    "message": "Để kết nối với trang web, hãy tìm và chọn nút \"kết nối\". Hãy nhớ rằng, MetaMask chỉ có thể kết nối với các trang web trên web3"
+    "message": "Để kết nối với trang web, hãy tìm và chọn nút \"kết nối\". Hãy nhớ rằng, Konkret Wallet chỉ có thể kết nối với các trang web trên web3"
   },
   "noConversionRateAvailable": {
     "message": "Không có sẵn tỷ lệ quy đổi nào"
@@ -3074,8 +3074,8 @@
     "message": "Thông báo"
   },
   "notificationsDropLedgerFirefoxDescription": {
-    "message": "Firefox không còn hỗ trợ U2F nên Ledger sẽ không hoạt động với MetaMask trên Firefox. Thay vào đó hãy dùng thử MetaMask trên Google Chrome.",
-    "description": "Description of a notification in the 'See What's New' popup. Describes that ledger will not longer be supported for firefox users and they should use MetaMask on chrome for ledger support instead."
+    "message": "Firefox không còn hỗ trợ U2F nên Ledger sẽ không hoạt động với Konkret Wallet trên Firefox. Thay vào đó hãy dùng thử Konkret Wallet trên Google Chrome.",
+    "description": "Description of a notification in the 'See What's New' popup. Describes that ledger will not longer be supported for firefox users and they should use Konkret Wallet on chrome for ledger support instead."
   },
   "notificationsDropLedgerFirefoxTitle": {
     "message": "Bỏ Hỗ trợ Ledger cho Firefox",
@@ -3197,7 +3197,7 @@
     "message": "Tôi đồng ý"
   },
   "onboardingMetametricsDescription": {
-    "message": "Chúng tôi muốn thu thập dữ liệu sử dụng và chẩn đoán cơ bản để cải tiến MetaMask. Xin lưu ý, chúng tôi không bao giờ bán dữ liệu mà bạn cung cấp ở đây."
+    "message": "Chúng tôi muốn thu thập dữ liệu sử dụng và chẩn đoán cơ bản để cải tiến Konkret Wallet. Xin lưu ý, chúng tôi không bao giờ bán dữ liệu mà bạn cung cấp ở đây."
   },
   "onboardingMetametricsDescription2": {
     "message": "Khi thu thập số liệu, chúng tôi sẽ luôn cam kết điều này..."
@@ -3234,7 +3234,7 @@
     "message": "Tìm hiểu cách chúng tôi bảo vệ quyền riêng tư của bạn khi thu thập dữ liệu sử dụng cho hồ sơ của bạn."
   },
   "onboardingMetametricsTitle": {
-    "message": "Giúp chúng tôi cải thiện MetaMask"
+    "message": "Giúp chúng tôi cải thiện Konkret Wallet"
   },
   "onboardingMetametricsUseDataCheckbox": {
     "message": "Chúng tôi sẽ sử dụng dữ liệu này để tìm hiểu cách bạn tương tác với các thông tin tiếp thị. Chúng tôi có thể chia sẻ tin tức liên quan (chẳng hạn như tính năng sản phẩm)."
@@ -3255,16 +3255,16 @@
     "message": "Nhấp vào biểu tượng tiện ích trên trình duyệt"
   },
   "onboardingPinExtensionDescription": {
-    "message": "Ghim MetaMask trên trình duyệt để bạn có thể truy cập và dễ dàng xem các xác nhận giao dịch."
+    "message": "Ghim Konkret Wallet trên trình duyệt để bạn có thể truy cập và dễ dàng xem các xác nhận giao dịch."
   },
   "onboardingPinExtensionDescription2": {
-    "message": "Bạn có thể mở MetaMask bằng cách nhấp vào tiện ích và truy cập ví của mình chỉ với 1 cú nhấp chuột."
+    "message": "Bạn có thể mở Konkret Wallet bằng cách nhấp vào tiện ích và truy cập ví của mình chỉ với 1 cú nhấp chuột."
   },
   "onboardingPinExtensionDescription3": {
     "message": "Nhấp vào biểu tượng tiện ích trên trình duyệt để truy cập tức thì"
   },
   "onboardingPinExtensionLabel": {
-    "message": "Ghim MetaMask"
+    "message": "Ghim Konkret Wallet"
   },
   "onboardingPinExtensionStep1": {
     "message": "1"
@@ -3273,7 +3273,7 @@
     "message": "2"
   },
   "onboardingPinExtensionTitle": {
-    "message": "Quá trình cài đặt MetaMask đã hoàn tất!"
+    "message": "Quá trình cài đặt Konkret Wallet đã hoàn tất!"
   },
   "oneDayAbbreviation": {
     "message": "1 Ngày",
@@ -3300,7 +3300,7 @@
   },
   "openFullScreenForLedgerWebHid": {
     "message": "Bật toàn màn hình để kết nối với thiết bị Ledger của bạn.",
-    "description": "Shown to the user on the confirm screen when they are viewing MetaMask in a popup window but need to connect their ledger via webhid."
+    "description": "Shown to the user on the confirm screen when they are viewing Konkret Wallet in a popup window but need to connect their ledger via webhid."
   },
   "openInBlockExplorer": {
     "message": "Mở trên trình khám phá khối"
@@ -3322,7 +3322,7 @@
     "description": "Used in the 'permission_rpc' message."
   },
   "outdatedBrowserNotification": {
-    "message": "Trình duyệt của bạn đã cũ. Nếu không cập nhật trình duyệt, bạn sẽ không thể nhận các bản vá bảo mật và tính năng mới từ MetaMask."
+    "message": "Trình duyệt của bạn đã cũ. Nếu không cập nhật trình duyệt, bạn sẽ không thể nhận các bản vá bảo mật và tính năng mới từ Konkret Wallet."
   },
   "overrideContentSecurityPolicyHeader": {
     "message": "Ghi đè tiêu đề Nội dung-Bảo mật-Riêng tư"
@@ -3337,7 +3337,7 @@
     "message": "Tham gia MetaMetrics"
   },
   "participateInMetaMetricsDescription": {
-    "message": "Tham gia MetaMetrics để giúp chúng tôi cải thiện MetaMask"
+    "message": "Tham gia MetaMetrics để giúp chúng tôi cải thiện Konkret Wallet"
   },
   "password": {
     "message": "Mật khẩu"
@@ -3346,7 +3346,7 @@
     "message": "Mật khẩu không đủ dài"
   },
   "passwordSetupDetails": {
-    "message": "Mật khẩu này sẽ chỉ mở khóa ví MetaMask của bạn trên thiết bị này. MetaMask không thể khôi phục mật khẩu này."
+    "message": "Mật khẩu này sẽ chỉ mở khóa ví Konkret Wallet của bạn trên thiết bị này. Konkret Wallet không thể khôi phục mật khẩu này."
   },
   "passwordStrength": {
     "message": "Độ mạnh của mật khẩu: $1",
@@ -3356,7 +3356,7 @@
     "message": "Một mật khẩu mạnh có thể giúp tăng cường bảo mật cho ví nếu thiết bị của bạn bị đánh cắp hoặc xâm phạm."
   },
   "passwordTermsWarning": {
-    "message": "Tôi hiểu rằng MetaMask không thể khôi phục mật khẩu này cho tôi. $1"
+    "message": "Tôi hiểu rằng Konkret Wallet không thể khôi phục mật khẩu này cho tôi. $1"
   },
   "passwordsDontMatch": {
     "message": "Mật khẩu không khớp"
@@ -3420,11 +3420,11 @@
     "description": "An extended description for the `snap_cronjob` permission. $1 is the snap name."
   },
   "permission_dialog": {
-    "message": "Hiển thị cửa sổ hộp thoại trong MetaMask.",
+    "message": "Hiển thị cửa sổ hộp thoại trong Konkret Wallet.",
     "description": "The description for the `snap_dialog` permission"
   },
   "permission_dialogDescription": {
-    "message": "Cho phép $1 hiển thị cửa sổ bật lên MetaMask cùng với văn bản tùy chỉnh, trường nhập thông tin và nút để chấp nhận hoặc từ chối một hành động.\nCó thể được sử dụng để tạo cảnh báo, xác nhận và quy trình đồng ý tham gia cho một Snap.",
+    "message": "Cho phép $1 hiển thị cửa sổ bật lên Konkret Wallet cùng với văn bản tùy chỉnh, trường nhập thông tin và nút để chấp nhận hoặc từ chối một hành động.\nCó thể được sử dụng để tạo cảnh báo, xác nhận và quy trình đồng ý tham gia cho một Snap.",
     "description": "An extended description for the `snap_dialog` permission. $1 is the snap name."
   },
   "permission_ethereumAccounts": {
@@ -3436,7 +3436,7 @@
     "description": "The description for the `endowment:ethereum-provider` permission"
   },
   "permission_ethereumProviderDescription": {
-    "message": "Cho phép $1 giao tiếp trực tiếp với MetaMask để đọc dữ liệu từ chuỗi khối và đề xuất các tin nhắn và giao dịch.",
+    "message": "Cho phép $1 giao tiếp trực tiếp với Konkret Wallet để đọc dữ liệu từ chuỗi khối và đề xuất các tin nhắn và giao dịch.",
     "description": "An extended description for the `endowment:ethereum-provider` permission. $1 is the snap name."
   },
   "permission_getEntropy": {
@@ -3444,7 +3444,7 @@
     "description": "The description for the `snap_getEntropy` permission. $1 is the snap name."
   },
   "permission_getEntropyDescription": {
-    "message": "Cho phép $1 lấy các khóa tùy ý duy nhất cho $1 mà không để lộ. Các khóa này tách biệt với tài khoản MetaMask của bạn và không liên quan đến khóa riêng tư hoặc Cụm từ khôi phục bí mật của bạn. Các Snap khác không thể truy cập thông tin này.",
+    "message": "Cho phép $1 lấy các khóa tùy ý duy nhất cho $1 mà không để lộ. Các khóa này tách biệt với tài khoản Konkret Wallet của bạn và không liên quan đến khóa riêng tư hoặc Cụm từ khôi phục bí mật của bạn. Các Snap khác không thể truy cập thông tin này.",
     "description": "An extended description for the `snap_getEntropy` permission. $1 is the snap name."
   },
   "permission_getLocale": {
@@ -3452,7 +3452,7 @@
     "description": "The description for the `snap_getLocale` permission"
   },
   "permission_getLocaleDescription": {
-    "message": "Cho phép $1 truy cập ngôn ngữ ưa thích của bạn từ cài đặt MetaMask. Điều này có thể được sử dụng để dịch và hiển thị nội dung của $1 theo ngôn ngữ của bạn.",
+    "message": "Cho phép $1 truy cập ngôn ngữ ưa thích của bạn từ cài đặt Konkret Wallet. Điều này có thể được sử dụng để dịch và hiển thị nội dung của $1 theo ngôn ngữ của bạn.",
     "description": "An extended description for the `snap_getLocale` permission. $1 is the snap name."
   },
   "permission_getPreferences": {
@@ -3460,7 +3460,7 @@
     "description": "The description for the `snap_getPreferences` permission"
   },
   "permission_getPreferencesDescription": {
-    "message": "Cho phép $1 truy cập các thông tin như ngôn ngữ ưu tiên và loại tiền pháp định trong cài đặt MetaMask của bạn. Điều này giúp $1 hiển thị nội dung phù hợp với sở thích của bạn. ",
+    "message": "Cho phép $1 truy cập các thông tin như ngôn ngữ ưu tiên và loại tiền pháp định trong cài đặt Konkret Wallet của bạn. Điều này giúp $1 hiển thị nội dung phù hợp với sở thích của bạn. ",
     "description": "An extended description for the `snap_getPreferences` permission. $1 is the snap name."
   },
   "permission_homePage": {
@@ -3468,7 +3468,7 @@
     "description": "The description for the `endowment:page-home` permission"
   },
   "permission_homePageDescription": {
-    "message": "Cho phép $1 hiển thị màn hình chính tùy chỉnh trong MetaMask. Có thể được sử dụng cho giao diện người dùng, cấu hình và trang tổng quan.",
+    "message": "Cho phép $1 hiển thị màn hình chính tùy chỉnh trong Konkret Wallet. Có thể được sử dụng cho giao diện người dùng, cấu hình và trang tổng quan.",
     "description": "An extended description for the `endowment:page-home` permission. $1 is the snap name."
   },
   "permission_keyring": {
@@ -3520,7 +3520,7 @@
     "description": "The description for the `endowment:name-lookup` permission."
   },
   "permission_nameLookupDescription": {
-    "message": "Cho phép Snap tìm nạp, hiển thị địa chỉ và tra cứu tên miền trong các phần khác nhau của Giao diện người dùng MetaMask.",
+    "message": "Cho phép Snap tìm nạp, hiển thị địa chỉ và tra cứu tên miền trong các phần khác nhau của Giao diện người dùng Konkret Wallet.",
     "description": "An extended description for the `endowment:name-lookup` permission."
   },
   "permission_notifications": {
@@ -3528,7 +3528,7 @@
     "description": "The description for the `snap_notify` permission"
   },
   "permission_notificationsDescription": {
-    "message": "Cho phép $1 hiển thị thông báo trong MetaMask. Một văn bản thông báo ngắn có thể được kích hoạt bằng Snap đối với thông tin có thể thao tác hoặc nhạy cảm với thời gian.",
+    "message": "Cho phép $1 hiển thị thông báo trong Konkret Wallet. Một văn bản thông báo ngắn có thể được kích hoạt bằng Snap đối với thông tin có thể thao tác hoặc nhạy cảm với thời gian.",
     "description": "An extended description for the `snap_notify` permission. $1 is the snap name."
   },
   "permission_rpc": {
@@ -3564,7 +3564,7 @@
     "description": "The description for the `endowment:transaction-insight` permission"
   },
   "permission_transactionInsightDescription": {
-    "message": "Cho phép $1 giải mã các giao dịch và hiển thị thông tin chi tiết trong giao diện người dùng MetaMask. Điều này có thể được sử dụng cho các giải pháp bảo mật và chống lừa đảo.",
+    "message": "Cho phép $1 giải mã các giao dịch và hiển thị thông tin chi tiết trong giao diện người dùng Konkret Wallet. Điều này có thể được sử dụng cho các giải pháp bảo mật và chống lừa đảo.",
     "description": "An extended description for the `endowment:transaction-insight` permission. $1 is the snap name."
   },
   "permission_transactionInsightOrigin": {
@@ -3714,7 +3714,7 @@
     "message": "Nếu tắt đồng bộ hồ sơ, bạn sẽ không nhận được thông báo."
   },
   "profileSyncDescription": {
-    "message": "Tạo một hồ sơ mà MetaMask sử dụng để đồng bộ một số chế độ cài đặt giữa các thiết bị của bạn. Đây là thao tác cần thiết để nhận được thông báo. $1."
+    "message": "Tạo một hồ sơ mà Konkret Wallet sử dụng để đồng bộ một số chế độ cài đặt giữa các thiết bị của bạn. Đây là thao tác cần thiết để nhận được thông báo. $1."
   },
   "profileSyncPrivacyLink": {
     "message": "Tìm hiểu cách chúng tôi bảo vệ quyền riêng tư của bạn"
@@ -3795,7 +3795,7 @@
     "message": "Hủy ký gửi hoàn tất"
   },
   "pushPlatformNotificationsSwapCompletedDescription": {
-    "message": "Hoán đổi MetaMask của bạn đã thành công"
+    "message": "Hoán đổi Konkret Wallet của bạn đã thành công"
   },
   "pushPlatformNotificationsSwapCompletedTitle": {
     "message": "Hoán đổi xong"
@@ -3846,7 +3846,7 @@
     "message": "Tuyệt đối không cho ai biết Cụm từ khôi phục bí mật"
   },
   "recoveryPhraseReminderItemTwo": {
-    "message": "Nhóm MetaMask sẽ không bao giờ hỏi Cụm từ khôi phục bí mật của bạn"
+    "message": "Nhóm Konkret Wallet sẽ không bao giờ hỏi Cụm từ khôi phục bí mật của bạn"
   },
   "recoveryPhraseReminderSubText": {
     "message": "Cụm từ khôi phục bí mật sẽ kiểm soát mọi thứ trong tài khoản của bạn."
@@ -3894,10 +3894,10 @@
     "message": "Tài khoản này sẽ được xóa khỏi ví của bạn. Hãy đảm bảo rằng bạn có Cụm từ khôi phục bí mật ban đầu hoặc khóa riêng tư cho tài khoản được nhập trước khi tiếp tục. Bạn có thể nhập hoặc tạo lại tài khoản từ trình đơn tài khoản thả xuống. "
   },
   "removeKeyringSnap": {
-    "message": "Xóa Snap này sẽ xóa các tài khoản này khỏi MetaMask:"
+    "message": "Xóa Snap này sẽ xóa các tài khoản này khỏi Konkret Wallet:"
   },
   "removeKeyringSnapToolTip": {
-    "message": "Snap giúp kiểm soát các tài khoản và khi xóa Snap, các tài khoản cũng sẽ bị xóa khỏi MetaMask, nhưng chúng sẽ vẫn tồn tại trên chuỗi khối."
+    "message": "Snap giúp kiểm soát các tài khoản và khi xóa Snap, các tài khoản cũng sẽ bị xóa khỏi Konkret Wallet, nhưng chúng sẽ vẫn tồn tại trên chuỗi khối."
   },
   "removeNFT": {
     "message": "Xóa NFT"
@@ -3912,7 +3912,7 @@
     "message": "Xóa Snap"
   },
   "removeSnapAccountDescription": {
-    "message": "Nếu bạn tiếp tục, tài khoản này sẽ không còn khả dụng trong MetaMask nữa."
+    "message": "Nếu bạn tiếp tục, tài khoản này sẽ không còn khả dụng trong Konkret Wallet nữa."
   },
   "removeSnapAccountTitle": {
     "message": "Xóa tài khoản"
@@ -3963,7 +3963,7 @@
     "message": "Đặt lại ví"
   },
   "resetWalletSubHeader": {
-    "message": "MetaMask không lưu giữ bản sao mật khẩu của bạn. Nếu bạn đang gặp sự cố khi mở khóa tài khoản, bạn sẽ cần đặt lại ví của mình. Bạn có thể thực hiện bằng cách cung cấp Cụm từ khôi phục bí mật mà bạn đã sử dụng khi thiết lập ví."
+    "message": "Konkret Wallet không lưu giữ bản sao mật khẩu của bạn. Nếu bạn đang gặp sự cố khi mở khóa tài khoản, bạn sẽ cần đặt lại ví của mình. Bạn có thể thực hiện bằng cách cung cấp Cụm từ khôi phục bí mật mà bạn đã sử dụng khi thiết lập ví."
   },
   "resetWalletUsingSRP": {
     "message": "Hành động này sẽ xóa ví hiện tại và Cụm từ khôi phục bí mật khỏi thiết bị này, cùng với danh sách các tài khoản mà bạn quản lý. Sau khi đặt lại bằng Cụm từ khôi phục bí mật, bạn sẽ thấy danh sách các tài khoản dựa trên Cụm từ khôi phục bí mật mà bạn sử dụng để đặt lại. Danh sách mới này sẽ tự động bổ sung các tài khoản có số dư. Bạn cũng sẽ có thể $1 đã tạo trước đó. Các tài khoản tùy chỉnh mà bạn đã nhập sẽ cần $2, và mọi token tùy chỉnh mà bạn thêm vào tài khoản cũng sẽ cần $3."
@@ -3972,7 +3972,7 @@
     "message": "Đảm bảo bạn đang sử dụng đúng Cụm từ khôi phục bí mật trước khi tiếp tục vì bạn sẽ không thể hoàn tác."
   },
   "restartMetamask": {
-    "message": "Khởi động lại MetaMask"
+    "message": "Khởi động lại Konkret Wallet"
   },
   "restore": {
     "message": "Khôi phục"
@@ -4006,7 +4006,7 @@
     "description": "This is a sentence consisting of link using 'revealSeedWordsSRPName' as $1 and bolded text using 'revealSeedWordsDescription3' as $2."
   },
   "revealSeedWordsDescription2": {
-    "message": "MetaMask là một $1. Có nghĩa bạn là người sở hữu Cụm từ khôi phục bí mật của bạn.",
+    "message": "Konkret Wallet là một $1. Có nghĩa bạn là người sở hữu Cụm từ khôi phục bí mật của bạn.",
     "description": "$1 is text link with the message from 'revealSeedWordsNonCustodialWallet'"
   },
   "revealSeedWordsDescription3": {
@@ -4029,7 +4029,7 @@
     "description": "$1 is bolded text using the message from 'revealSeedWordsWarning2'"
   },
   "revealSeedWordsWarning2": {
-    "message": "Bộ phận Hỗ trợ của MetaMask sẽ không bao giờ yêu cầu điều này.",
+    "message": "Bộ phận Hỗ trợ của Konkret Wallet sẽ không bao giờ yêu cầu điều này.",
     "description": "The bolded texted in the second part of 'revealSeedWordsWarning'"
   },
   "revealSensitiveContent": {
@@ -4156,7 +4156,7 @@
     "message": "Nếu ai đó hỏi bạn cụm từ khôi phục bí mật, thì họ đang cố gắng lừa đảo và đánh cắp tiền trong ví của bạn"
   },
   "seedPhraseIntroSidebarCopyTwo": {
-    "message": "Đừng bao giờ cho ai biết cụm từ khôi phục bí mật, kể cả MetaMask!"
+    "message": "Đừng bao giờ cho ai biết cụm từ khôi phục bí mật, kể cả Konkret Wallet!"
   },
   "seedPhraseIntroSidebarTitleOne": {
     "message": "Cụm từ khôi phục bí mật là gì?"
@@ -4195,7 +4195,7 @@
     "message": "Chọn một tài khoản"
   },
   "selectAnAccountAlreadyConnected": {
-    "message": "Tài khoản này đã được kết nối với MetaMask"
+    "message": "Tài khoản này đã được kết nối với Konkret Wallet"
   },
   "selectEnableDisplayMediaPrivacyPreference": {
     "message": "Bật Hiển thị Phương tiện NFT"
@@ -4458,7 +4458,7 @@
     "message": "Giao dịch của bạn đã thất bại"
   },
   "smartTransactionErrorDescription": {
-    "message": "Biến động đột ngột của thị trường có thể gây ra lỗi. Nếu sự cố tiếp diễn, hãy liên hệ với bộ phận hỗ trợ khách hàng của MetaMask."
+    "message": "Biến động đột ngột của thị trường có thể gây ra lỗi. Nếu sự cố tiếp diễn, hãy liên hệ với bộ phận hỗ trợ khách hàng của Konkret Wallet."
   },
   "smartTransactionPending": {
     "message": "Gửi giao dịch của bạn"
@@ -4499,7 +4499,7 @@
     "message": "Đã xóa tài khoản"
   },
   "snapAccountRemovedDescription": {
-    "message": "Tài khoản này sẽ không còn khả dụng để sử dụng trong MetaMask nữa."
+    "message": "Tài khoản này sẽ không còn khả dụng để sử dụng trong Konkret Wallet nữa."
   },
   "snapAccounts": {
     "message": "Tài khoản Snap"
@@ -4732,7 +4732,7 @@
     "message": "Để hiển thị Cụm từ khôi phục bí mật, bạn cần trả lời đúng hai câu hỏi"
   },
   "srpSecurityQuizQuestionOneQuestion": {
-    "message": "Nếu bạn làm mất Cụm từ khôi phục bí mật, MetaMask..."
+    "message": "Nếu bạn làm mất Cụm từ khôi phục bí mật, Konkret Wallet..."
   },
   "srpSecurityQuizQuestionOneRightAnswer": {
     "message": "Không thể giúp bạn"
@@ -4801,7 +4801,7 @@
     "message": "Lỗi khi truy xuất nhật ký trạng thái."
   },
   "stateLogFileName": {
-    "message": "Nhật ký trạng thái của MetaMask"
+    "message": "Nhật ký trạng thái của Konkret Wallet"
   },
   "stateLogs": {
     "message": "Nhật ký trạng thái"
@@ -4822,7 +4822,7 @@
     "message": "Kết nối với Lattice1"
   },
   "step1LatticeWalletMsg": {
-    "message": "Bạn có thể kết nối MetaMask với Lattice1 sau khi thiết bị đã được thiết lập và trực tuyến. Mở khóa thiết bị và chuẩn bị sẵn ID Thiết Bị.",
+    "message": "Bạn có thể kết nối Konkret Wallet với Lattice1 sau khi thiết bị đã được thiết lập và trực tuyến. Mở khóa thiết bị và chuẩn bị sẵn ID Thiết Bị.",
     "description": "$1 represents the `hardwareWalletSupportLinkConversion` localization key"
   },
   "step1LedgerWallet": {
@@ -4929,7 +4929,7 @@
     "message": "Tham gia khảo sát của chúng tôi"
   },
   "surveyTitle": {
-    "message": "Định hình tương lai của MetaMask"
+    "message": "Định hình tương lai của Konkret Wallet"
   },
   "swap": {
     "message": "Hoán đổi"
@@ -4995,7 +4995,7 @@
     "message": "Chỉnh sửa giới hạn"
   },
   "swapEnableDescription": {
-    "message": "Thao tác này là bắt buộc và cấp cho MetaMask quyền hoán đổi $1 của bạn.",
+    "message": "Thao tác này là bắt buộc và cấp cho Konkret Wallet quyền hoán đổi $1 của bạn.",
     "description": "Gives the user info about the required approval transaction for swaps. $1 will be the symbol of a token being approved for swaps."
   },
   "swapEnableTokenForSwapping": {
@@ -5042,7 +5042,7 @@
     "message": "Phí gas được ước tính và sẽ dao động dựa trên lưu lượng mạng và độ phức tạp của giao dịch."
   },
   "swapGasFeesExplanation": {
-    "message": "MetaMask không kiếm tiền từ phí gas. Các khoản phí này là ước tính và có thể thay đổi dựa trên lưu lượng của mạng và độ phức tạp của giao dịch. Tìm hiểu thêm $1.",
+    "message": "Konkret Wallet không kiếm tiền từ phí gas. Các khoản phí này là ước tính và có thể thay đổi dựa trên lưu lượng của mạng và độ phức tạp của giao dịch. Tìm hiểu thêm $1.",
     "description": "$1 is a link (text in link can be found at 'swapGasFeesSummaryLinkText')"
   },
   "swapGasFeesExplanationLinkText": {
@@ -5056,7 +5056,7 @@
     "message": "Phí gas trên màn hình trước được chia đôi giữa hai giao dịch này."
   },
   "swapGasFeesSummary": {
-    "message": "Phí gas được trả cho thợ đào tiền điện tử, họ là những người xử lý các giao dịch trên mạng $1. MetaMask không thu lợi nhuận từ phí gas.",
+    "message": "Phí gas được trả cho thợ đào tiền điện tử, họ là những người xử lý các giao dịch trên mạng $1. Konkret Wallet không thu lợi nhuận từ phí gas.",
     "description": "$1 is the selected network, e.g. Ethereum or BSC"
   },
   "swapGasIncludedTooltipExplanation": {
@@ -5069,19 +5069,19 @@
     "message": "Mức trượt giá cao"
   },
   "swapIncludesGasAndMetaMaskFee": {
-    "message": "Bao gồm phí gas và $1% phí của MetaMask",
+    "message": "Bao gồm phí gas và $1% phí của Konkret Wallet",
     "description": "Provides information about the fee that metamask takes for swaps. $1 is a decimal number."
   },
   "swapIncludesMMFee": {
-    "message": "Bao gồm $1% phí của MetaMask.",
+    "message": "Bao gồm $1% phí của Konkret Wallet.",
     "description": "Provides information about the fee that metamask takes for swaps. $1 is a decimal number."
   },
   "swapIncludesMMFeeAlt": {
-    "message": "Báo giá thể hiện khoản phí $1% của MetaMask",
+    "message": "Báo giá thể hiện khoản phí $1% của Konkret Wallet",
     "description": "Provides information about the fee that metamask takes for swaps using the latest copy. $1 is a decimal number."
   },
   "swapIncludesMetaMaskFeeViewAllQuotes": {
-    "message": "Bao gồm $1% phí của MetaMask – $2",
+    "message": "Bao gồm $1% phí của Konkret Wallet – $2",
     "description": "Provides information about the fee that metamask takes for swaps. $1 is a decimal number and $2 is a link to view all quotes."
   },
   "swapLearnMore": {
@@ -5097,7 +5097,7 @@
     "message": "Mức trượt giá tối đa"
   },
   "swapMetaMaskFee": {
-    "message": "Phí của MetaMask"
+    "message": "Phí của Konkret Wallet"
   },
   "swapMetaMaskFeeDescription": {
     "message": "Khoản phí $1% sẽ tự động được tính vào báo giá này. Bạn trả tiền để đổi lấy giấy phép sử dụng phần mềm tổng hợp thông tin từ nhà cung cấp thanh khoản của MetaMask.",
@@ -5314,7 +5314,7 @@
     "message": "Chuyển"
   },
   "switchEthereumChainConfirmationDescription": {
-    "message": "Thao tác này sẽ chuyển mạng được chọn trong MetaMask sang một mạng đã thêm trước đó:"
+    "message": "Thao tác này sẽ chuyển mạng được chọn trong Konkret Wallet sang một mạng đã thêm trước đó:"
   },
   "switchEthereumChainConfirmationTitle": {
     "message": "Cho phép trang web này chuyển mạng?"
@@ -5361,7 +5361,7 @@
     "message": "Điều khoản dịch vụ"
   },
   "termsOfUseAgreeText": {
-    "message": " Tôi đồng ý với Điều khoản sử dụng được áp dụng cho việc tôi sử dụng MetaMask và tất cả các tính năng của MetaMask"
+    "message": " Tôi đồng ý với Điều khoản sử dụng được áp dụng cho việc tôi sử dụng Konkret Wallet và tất cả các tính năng của Konkret Wallet"
   },
   "termsOfUseFooterText": {
     "message": "Vui lòng cuộn để đọc tất cả các phần"
@@ -5376,7 +5376,7 @@
     "message": "Chủ đề"
   },
   "themeDescription": {
-    "message": "Chọn chủ đề MetaMask yêu thích của bạn."
+    "message": "Chọn chủ đề Konkret Wallet yêu thích của bạn."
   },
   "thirdPartySoftware": {
     "message": "Thông báo phần mềm của bên thứ ba",
@@ -5590,7 +5590,7 @@
     "description": "$1 is the wallet device name; $2 is a link to wallet connection guide"
   },
   "troubleStarting": {
-    "message": "MetaMask đã gặp sự cố khi khởi động. Lỗi này có thể xảy ra không liên tục, vì vậy hãy thử khởi động lại tiện ích."
+    "message": "Konkret Wallet đã gặp sự cố khi khởi động. Lỗi này có thể xảy ra không liên tục, vì vậy hãy thử khởi động lại tiện ích."
   },
   "tryAgain": {
     "message": "Thử lại"
@@ -5642,7 +5642,7 @@
   },
   "u2f": {
     "message": "U2F",
-    "description": "A name on an API for the browser to interact with devices that support the U2F protocol. On some browsers we use it to connect MetaMask to Ledger devices."
+    "description": "A name on an API for the browser to interact with devices that support the U2F protocol. On some browsers we use it to connect Konkret Wallet to Ledger devices."
   },
   "unapproved": {
     "message": "Chưa chấp thuận"
@@ -5727,7 +5727,7 @@
     "message": "Tự động phát hiện NFT"
   },
   "useNftDetectionDescriptionText": {
-    "message": "Cho phép MetaMask thêm các NFT mà bạn sở hữu bằng cách sử dụng dịch vụ của bên thứ ba. Tính năng Tự động phát hiện NFT sẽ làm lộ địa chỉ IP và tài khoản của bạn với các dịch vụ này. Việc bật tính năng này có thể liên kết địa chỉ IP của bạn với địa chỉ Ethereum của bạn và hiển thị các NFT giả do những kẻ lừa đảo phát tán. Bạn có thể thêm token theo cách thủ công để tránh rủi ro này."
+    "message": "Cho phép Konkret Wallet thêm các NFT mà bạn sở hữu bằng cách sử dụng dịch vụ của bên thứ ba. Tính năng Tự động phát hiện NFT sẽ làm lộ địa chỉ IP và tài khoản của bạn với các dịch vụ này. Việc bật tính năng này có thể liên kết địa chỉ IP của bạn với địa chỉ Ethereum của bạn và hiển thị các NFT giả do những kẻ lừa đảo phát tán. Bạn có thể thêm token theo cách thủ công để tránh rủi ro này."
   },
   "usePhishingDetection": {
     "message": "Sử dụng tính năng phát hiện lừa đảo"
@@ -5739,7 +5739,7 @@
     "message": "Kiểm tra thông tin mạng"
   },
   "useSafeChainsListValidationDescription": {
-    "message": "MetaMask sử dụng dịch vụ của bên thứ ba có tên $1 để hiển thị thông tin mạng chính xác và được tiêu chuẩn hóa. Điều này giúp hạn chế khả năng bạn kết nối với mạng độc hại hoặc mạng không chính xác. Khi sử dụng tính năng này, địa chỉ IP của bạn sẽ được hiển thị với chainid.network."
+    "message": "Konkret Wallet sử dụng dịch vụ của bên thứ ba có tên $1 để hiển thị thông tin mạng chính xác và được tiêu chuẩn hóa. Điều này giúp hạn chế khả năng bạn kết nối với mạng độc hại hoặc mạng không chính xác. Khi sử dụng tính năng này, địa chỉ IP của bạn sẽ được hiển thị với chainid.network."
   },
   "useSafeChainsListValidationWebsite": {
     "message": "chainid.network",
@@ -5867,7 +5867,7 @@
     "message": "Khám phá các ứng dụng phi tập trung"
   },
   "welcomeLoginDescription": {
-    "message": "Sử dụng MetaMask của bạn để đăng nhập vào các ứng dụng phi tập trung - không cần đăng ký."
+    "message": "Sử dụng Konkret Wallet của bạn để đăng nhập vào các ứng dụng phi tập trung - không cần đăng ký."
   },
   "welcomeLoginTitle": {
     "message": "Gửi lời chào đến ví của bạn"
@@ -5876,7 +5876,7 @@
     "message": "Bắt đầu nào"
   },
   "welcomeToMetaMaskIntro": {
-    "message": "Được hàng triệu người tin dùng, MetaMask là một ví an toàn cho phép mọi người có thể truy cập vào thế giới web3."
+    "message": "Được hàng triệu người tin dùng, Konkret Wallet là một ví an toàn cho phép mọi người có thể truy cập vào thế giới web3."
   },
   "whatsNew": {
     "message": "Xem tính năng mới",

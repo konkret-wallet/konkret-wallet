@@ -43,8 +43,8 @@ function createZipTask(platform, buildType, version) {
   return async () => {
     const path =
       buildType === loadBuildTypesConfig().default
-        ? `metamask-${platform}-${version}`
-        : `metamask-${buildType}-${platform}-${version}`;
+        ? `konkret-${platform}-${version}`
+        : `konkret-${buildType}-${platform}-${version}`;
     await pipeline(
       gulp.src(`dist/${platform}/**`),
       // sort files and set `mtime` to epoch to ensure zip build is deterministic

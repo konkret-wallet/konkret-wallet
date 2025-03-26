@@ -58,7 +58,7 @@
     "message": "I-access ang iyong wallet gamit ang iyong Lihim na Parirala sa Pagbawi"
   },
   "accessYourWalletWithSRPDescription": {
-    "message": "Hindi mababawi ng MetaMask ang iyong password. Gagamitin namin ang iyong Lihim na Parirala sa Pagbawi upang patunayan ang iyong pagmamay-ari, ibalik ang iyong wallet at mag-set up ng bagong password. Una, ilagay ang Lihim na Parirala sa Pagbawi na ibinigay sa iyo noong ginawa mo ang iyong wallet. $1",
+    "message": "Hindi mababawi ng Konkret Wallet ang iyong password. Gagamitin namin ang iyong Lihim na Parirala sa Pagbawi upang patunayan ang iyong pagmamay-ari, ibalik ang iyong wallet at mag-set up ng bagong password. Una, ilagay ang Lihim na Parirala sa Pagbawi na ibinigay sa iyo noong ginawa mo ang iyong wallet. $1",
     "description": "$1 is the words 'Learn More' from key 'learnMore', separated here so that it can be added as a link"
   },
   "accessingYourCamera": {
@@ -148,10 +148,10 @@
     "message": "Magdagdag ng account"
   },
   "addAccountToMetaMask": {
-    "message": "Idagdag ang account sa MetaMask"
+    "message": "Idagdag ang account sa Konkret Wallet"
   },
   "addAcquiredTokens": {
-    "message": "Idagdag ang mga token na nakuha mo gamit ang MetaMask"
+    "message": "Idagdag ang mga token na nakuha mo gamit ang Konkret Wallet"
   },
   "addAlias": {
     "message": "Magdagdag ng alias"
@@ -308,7 +308,7 @@
     "description": "$1 represents the settings page"
   },
   "agreeTermsOfUse": {
-    "message": "Sumasang-ayon ako sa $1 ng MetaMask",
+    "message": "Sumasang-ayon ako sa $1 ng Konkret Wallet",
     "description": "$1 is the `terms` link"
   },
   "airgapVault": {
@@ -439,15 +439,15 @@
     "description": "The description of the application"
   },
   "appName": {
-    "message": "MetaMask",
+    "message": "Konkret Wallet",
     "description": "The name of the application"
   },
   "appNameBeta": {
-    "message": "MetaMask Beta",
+    "message": "Konkret Wallet Beta",
     "description": "The name of the application (Beta)"
   },
   "appNameFlask": {
-    "message": "MetaMask Flask",
+    "message": "Konkret Wallet Flask",
     "description": "The name of the application (Flask)"
   },
   "appNameMmi": {
@@ -520,7 +520,7 @@
     "message": "Timer sa Awtomatikong Pag-lock (minuto)"
   },
   "autoLockTimeLimitDescription": {
-    "message": "Itakda ang oras ng pag-idle sa ilang minuto bago ma-lock ang MetaMask."
+    "message": "Itakda ang oras ng pag-idle sa ilang minuto bago ma-lock ang Konkret Wallet."
   },
   "average": {
     "message": "Average"
@@ -529,7 +529,7 @@
     "message": "Bumalik"
   },
   "backupApprovalInfo": {
-    "message": "Ang lihim na code na ito ay kinakailangan para ma-recover ang iyong wallet sakaling maiwala mo ang iyong device, makalimutan ang iyong password, kailanganin mong i-install ulit ang MetaMask, o gusto mong i-access ang iyong wallet sa ibang device."
+    "message": "Ang lihim na code na ito ay kinakailangan para ma-recover ang iyong wallet sakaling maiwala mo ang iyong device, makalimutan ang iyong password, kailanganin mong i-install ulit ang Konkret Wallet, o gusto mong i-access ang iyong wallet sa ibang device."
   },
   "backupApprovalNotice": {
     "message": "I-back up ang iyong Lihim na Parirala sa Pagbawi para mapanatiling secure ang iyong wallet at mga pondo."
@@ -559,7 +559,7 @@
     "message": "Naka-off ang batayang kapakinabangan"
   },
   "basicConfigurationDescription": {
-    "message": "Nag-aalok ang MetaMask ng mga batayang tampok tulad ng mga detalye ng token at mga setting ng gas sa pamamagitan ng serbisyo sa internet. Kapag gumamit ka ng serbisyo sa internet, ibabahagi ang iyong IP address, sa kasong ito sa MetaMask. Tulad ito ng pagbisita mo sa anumang website. Ang MetaMask ay pansamantalang ginagamit ang datos na ito at hindi ibebenta ang iyong datos. Maaari kang gumamit ng VPN o i-off ang mga serbisyon ito, ngunit maaari itong makaapekto sa iyong karanasan sa MetaMask. Upang matuto pa basahin ang aming $1.",
+    "message": "Nag-aalok ang Konkret Wallet ng mga batayang tampok tulad ng mga detalye ng token at mga setting ng gas sa pamamagitan ng serbisyo sa internet. Kapag gumamit ka ng serbisyo sa internet, ibabahagi ang iyong IP address, sa kasong ito sa MetaMask. Tulad ito ng pagbisita mo sa anumang website. Ang Konkret Wallet ay pansamantalang ginagamit ang datos na ito at hindi ibebenta ang iyong datos. Maaari kang gumamit ng VPN o i-off ang mga serbisyon ito, ngunit maaari itong makaapekto sa iyong karanasan sa MetaMask. Upang matuto pa basahin ang aming $1.",
     "description": "$1 is to be replaced by the message for privacyMsg, and will link to https://consensys.io/privacy-policy"
   },
   "basicConfigurationLabel": {
@@ -588,7 +588,7 @@
     "description": "$1 represents the word 'here' in a hyperlink"
   },
   "betaMetamaskVersion": {
-    "message": "Bersyon ng MetaMask Beta"
+    "message": "Bersyon ng Konkret Wallet Beta"
   },
   "betaTerms": {
     "message": "Mga tuntunin sa paggamit ng Beta"
@@ -601,7 +601,7 @@
     "message": "Bitcoin"
   },
   "bitcoinSupportToggleDescription": {
-    "message": "Ang pag-on sa tampok na ito ay nagbibigay sa iyo ng opsyon na magdagdag ng Account sa Bitcoin sa iyong MetaMask Extension na nagmula sa iyong umiiral na Lihim na Parirala sa Pagbawi. Ito ay isang eksperimental na tampok sa Beta, kaya gamitin ito nang may-pag-iingat. Upang bigyan kami ng feedback sa bagong karanasan na ito sa Bitcoin, mangyaring sagutan ito $1.",
+    "message": "Ang pag-on sa tampok na ito ay nagbibigay sa iyo ng opsyon na magdagdag ng Account sa Bitcoin sa iyong Konkret Wallet Extension na nagmula sa iyong umiiral na Lihim na Parirala sa Pagbawi. Ito ay isang eksperimental na tampok sa Beta, kaya gamitin ito nang may-pag-iingat. Upang bigyan kami ng feedback sa bagong karanasan na ito sa Bitcoin, mangyaring sagutan ito $1.",
     "description": "$1 is the link to a product feedback form"
   },
   "bitcoinSupportToggleTitle": {
@@ -708,7 +708,7 @@
     "message": "Buuin ang iyong listahan ng contact"
   },
   "builtAroundTheWorld": {
-    "message": "Ang MetaMask ay dinisenyo at itinatag sa buong mundo."
+    "message": "Ang Konkret Wallet ay dinisenyo at itinatag sa buong mundo."
   },
   "busy": {
     "message": "Busy"
@@ -766,7 +766,7 @@
     "description": "$1 is a link to the privacy policy"
   },
   "chromeRequiredForHardwareWallets": {
-    "message": "Kailangan mong gamitin ang MetaMask sa Google Chrome para maikonekta sa iyong Wallet na Hardware."
+    "message": "Kailangan mong gamitin ang Konkret Wallet sa Google Chrome para maikonekta sa iyong Wallet na Hardware."
   },
   "circulatingSupply": {
     "message": "Umiikot na supply"
@@ -810,10 +810,10 @@
     "description": "Default text shown in the combo field dropdown if no options."
   },
   "configureSnapPopupDescription": {
-    "message": "Papaalis ka na ngayon sa MetaMask para ma-configure ang snap na ito."
+    "message": "Papaalis ka na ngayon sa Konkret Wallet para ma-configure ang snap na ito."
   },
   "configureSnapPopupInstallDescription": {
-    "message": "Papaalis ka na ngayon sa MetaMask para ma-install ang snap na ito."
+    "message": "Papaalis ka na ngayon sa Konkret Wallet para ma-install ang snap na ito."
   },
   "configureSnapPopupInstallTitle": {
     "message": "I-install ang snap"
@@ -925,7 +925,7 @@
     "description": "$1 is the snap for which a connection is being requested."
   },
   "connectWithMetaMask": {
-    "message": "Kumonekta sa MetaMask"
+    "message": "Kumonekta sa Konkret Wallet"
   },
   "connectedAccounts": {
     "message": "Mga konektadong account"
@@ -938,7 +938,7 @@
     "message": "Mayroon kang 1 account na nakakonekta sa site na ito."
   },
   "connectedAccountsEmptyDescription": {
-    "message": "Ang MetaMask ay hindi konektado sa site na ito. Upang kumonekta sa isang web3 site, hanapin at i-click ang button na kumonekta."
+    "message": "Ang Konkret Wallet ay hindi konektado sa site na ito. Upang kumonekta sa isang web3 site, hanapin at i-click ang button na kumonekta."
   },
   "connectedAccountsListTooltip": {
     "message": "Maaaring makita ng $1 ang balanse ng account, address, aktibidad, at magmungkahi ng mga transaksyon na aprubahan para sa mga konektadong account.",
@@ -962,7 +962,7 @@
     "description": "$1 is the account name"
   },
   "connectedSnapAndNoAccountDescription": {
-    "message": "Konektado ang MetaMask sa site na ito, ngunit wala pang mga account ang konektado"
+    "message": "Konektado ang Konkret Wallet sa site na ito, ngunit wala pang mga account ang konektado"
   },
   "connectedSnaps": {
     "message": "Mga konektadong Snap"
@@ -1052,7 +1052,7 @@
     "message": "Interaksyon ng kontrata"
   },
   "convertTokenToNFTDescription": {
-    "message": "Natukoy namin na ang asset na ito ay isang NFT. Ang MetaMask ay mayroon na ngayong ganap na native support para sa mga NFT. Gusto mo bang alisin ito sa iyong listahan ng token at idagdag ito bilang isang NFT?"
+    "message": "Natukoy namin na ang asset na ito ay isang NFT. Ang Konkret Wallet ay mayroon na ngayong ganap na native support para sa mga NFT. Gusto mo bang alisin ito sa iyong listahan ng token at idagdag ito bilang isang NFT?"
   },
   "convertTokenToNFTExistDescription": {
     "message": "Napansin namin na naidagdag ang asset na ito bilang NFT. Gusto mo ba itong alisin mula sa listahan ng iyong token?"
@@ -1088,7 +1088,7 @@
     "message": "Gumawa ng password"
   },
   "createSnapAccountDescription": {
-    "message": "Ang $1 ay nais na magdagdag ng bagong account sa MetaMask."
+    "message": "Ang $1 ay nais na magdagdag ng bagong account sa Konkret Wallet."
   },
   "createSnapAccountTitle": {
     "message": "Gumawa ng account"
@@ -1097,7 +1097,7 @@
     "message": "Address ng creator"
   },
   "crossChainSwapsLink": {
-    "message": "Mag-swap sa mga network gamit ang MetaMask Portfolio"
+    "message": "Mag-swap sa mga network gamit ang Konkret Wallet Portfolio"
   },
   "cryptoCompare": {
     "message": "CryptoCompare"
@@ -1212,7 +1212,7 @@
     "message": "Okay"
   },
   "dataCollectionWarningPopoverDescription": {
-    "message": "In-off mo ang koleksyon ng data para sa layunin sa marketing. Ito ay inilalapat lamang sa device na ito. Kung gumagamit ka ng MetaMask sa ibang mga device, siguraduhing mag-opt out din doon."
+    "message": "In-off mo ang koleksyon ng data para sa layunin sa marketing. Ito ay inilalapat lamang sa device na ito. Kung gumagamit ka ng Konkret Wallet sa ibang mga device, siguraduhing mag-opt out din doon."
   },
   "dataUnavailable": {
     "message": "hindi available ang data"
@@ -1256,7 +1256,7 @@
     "message": "Default na RPC URL"
   },
   "defaultSettingsSubTitle": {
-    "message": "Ginagamit ng MetaMask ang mga default na setting upang pinakamahusay na mabalanse ang kaligtasan at dali ng paggamit. Baguhin ang mga setting na ito para maging mahigpit ang iyong pagkapribado."
+    "message": "Ginagamit ng Konkret Wallet ang mga default na setting upang pinakamahusay na mabalanse ang kaligtasan at dali ng paggamit. Baguhin ang mga setting na ito para maging mahigpit ang iyong pagkapribado."
   },
   "defaultSettingsTitle": {
     "message": "Mga default na setting sa pagkapribado"
@@ -1565,13 +1565,13 @@
     "message": "Ang pinahusay na pagtuklas ng token ay kasalukuyang magagamit sa $1. $2"
   },
   "ensDomainsSettingDescriptionIntroduction": {
-    "message": "Pinahihintulutan ng MetaMask na makita mo ang mga ENS mula mismo sa address bar ng iyong browser. Here's how it works:"
+    "message": "Pinahihintulutan ng Konkret Wallet na makita mo ang mga ENS mula mismo sa address bar ng iyong browser. Here's how it works:"
   },
   "ensDomainsSettingDescriptionOutroduction": {
     "message": "Mangyaring tandaan na ang paggamit ng tampok na ito ay naglalantad sa iyong IP address sa serbisyong third party."
   },
   "ensDomainsSettingDescriptionPart1": {
-    "message": "Sinusuri ng MetaMask ang kontrata ng ENS ng Ethereum para mahanap ang code na konektado sa pangalan ng ENS."
+    "message": "Sinusuri ng Konkret Wallet ang kontrata ng ENS ng Ethereum para mahanap ang code na konektado sa pangalan ng ENS."
   },
   "ensDomainsSettingDescriptionPart2": {
     "message": "Kung ang code ay naka-link sa IPFS, maaari mong makita ang content na kaugnay rito (kadalasan ay website)."
@@ -1656,7 +1656,7 @@
     "description": "In sentry feedback form, The message displayed after a successful feedback submission."
   },
   "errorPageTitle": {
-    "message": "Nagkaroon ng error sa MetaMask",
+    "message": "Nagkaroon ng error sa Konkret Wallet",
     "description": "Title of generic error page"
   },
   "errorPageTryAgain": {
@@ -1762,15 +1762,15 @@
   },
   "flaskWelcomeWarning2": {
     "message": "Hindi namin ginagarantiya ang kaligtasan o katatagan ng extension na ito. Ang mga bagong API na inaalok ng Flask ay hindi pinatigtibay laban sa mga pag-atake ng phishing, ibig sabihin, ang anumang site o snap na nangangailangan ng Flask ay maaaring isang masamang pagtatangka na nakawin ang iyong mga asset.",
-    "description": "This explains the risks of using MetaMask Flask"
+    "description": "This explains the risks of using Konkret Wallet Flask"
   },
   "flaskWelcomeWarning3": {
-    "message": "Ang lahat ng API ng Flask ay eksperimental. Maaaring baguhin o alisin ang mga ito nang walang abiso, o maaari silang manatili sa Flask nang walang katapusan nang hindi nalilipat sa matatag na MetaMask. Gamitin ang mga ito sa iyong sariling pananagutan.",
+    "message": "Ang lahat ng API ng Flask ay eksperimental. Maaaring baguhin o alisin ang mga ito nang walang abiso, o maaari silang manatili sa Flask nang walang katapusan nang hindi nalilipat sa matatag na Konkret Wallet. Gamitin ang mga ito sa iyong sariling pananagutan.",
     "description": "This message warns developers about unstable Flask APIs"
   },
   "flaskWelcomeWarning4": {
-    "message": "Siguraduhing hindi mo pagaganahin ang iyong regular na extension ng MetaMask kapag ginagamit ang Flask.",
-    "description": "This message calls to pay attention about multiple versions of MetaMask running on the same site (Flask + Prod)"
+    "message": "Siguraduhing hindi mo pagaganahin ang iyong regular na extension ng Konkret Wallet kapag ginagamit ang Flask.",
+    "description": "This message calls to pay attention about multiple versions of Konkret Wallet running on the same site (Flask + Prod)"
   },
   "flaskWelcomeWarningAcceptButton": {
     "message": "Tinatanggap ko ang mga panganib",
@@ -1931,7 +1931,7 @@
     "message": "Gumagamit ng mga API call ang mga integration ng wallet na hardware sa mga external server, na nakakakita sa IP address mo at sa mga address ng smart na kontrata kung saan ka nakikipag-ugnayan."
   },
   "hardwareWalletsMsg": {
-    "message": "Pumili ng wallet na hardware na gusto mong gamitin kasama ng MetaMask."
+    "message": "Pumili ng wallet na hardware na gusto mong gamitin kasama ng Konkret Wallet."
   },
   "here": {
     "message": "dito",
@@ -1997,7 +1997,7 @@
     "description": "$1 is a message from 'holdToRevealContent4' and $2 is a text link with the message from 'holdToRevealContent5'"
   },
   "holdToRevealContent4": {
-    "message": "Hindi ito hihilingin ng Suporta sa MetaMask,",
+    "message": "Hindi ito hihilingin ng Suporta sa Konkret Wallet,",
     "description": "Part of 'holdToRevealContent3'"
   },
   "holdToRevealContent5": {
@@ -2063,13 +2063,13 @@
     "message": "Ito ay hindi wastong pribadong key. Dapat kang maglagay ng hexadecimal string na 64 ang haba."
   },
   "importAccountJsonLoading1": {
-    "message": "Asahan ang pag-import ng JSON na ito ay tatagal ng ilang minuto at i-freeze ang MetaMask."
+    "message": "Asahan ang pag-import ng JSON na ito ay tatagal ng ilang minuto at i-freeze ang Konkret Wallet."
   },
   "importAccountJsonLoading2": {
     "message": "Humihingi kami ng paumanhin, at gagawin namin itong mas mabilis sa hinaharap."
   },
   "importAccountMsg": {
-    "message": "Ang mga na-import na account ay hindi mauugnay sa iyong Lihim na Parirala sa Pagbawi ng MetaMask. Matuto pa tungkol sa mga na-import na account"
+    "message": "Ang mga na-import na account ay hindi mauugnay sa iyong Lihim na Parirala sa Pagbawi ng Konkret Wallet. Matuto pa tungkol sa mga na-import na account"
   },
   "importMyWallet": {
     "message": "I-import ang Wallet Ko"
@@ -2119,7 +2119,7 @@
     "message": "kalakip"
   },
   "infuraBlockedNotification": {
-    "message": "Hindi makakonekta ang MetaMask sa blockchain host. I-review ang posibleng mga dahilan $1.",
+    "message": "Hindi makakonekta ang Konkret Wallet sa blockchain host. I-review ang posibleng mga dahilan $1.",
     "description": "$1 is a clickable link with with text defined by the 'here' key"
   },
   "initialTransactionConfirmed": {
@@ -2136,7 +2136,7 @@
     "message": "I-install ang pinagmulan"
   },
   "installRequest": {
-    "message": "Idagdag sa MetaMask"
+    "message": "Idagdag sa Konkret Wallet"
   },
   "installedOn": {
     "message": "Na-install sa $1",
@@ -2214,7 +2214,7 @@
     "message": "IPFS gateway"
   },
   "ipfsGatewayDescription": {
-    "message": "Ang MetaMask ay gumagamit ng mga serbisyo ng third-party para ipakita ang mga imahe ng iyong mga NFT na nakaimbak sa IPFS, nagpapakita ng impormasyong nauugnay sa mga ENS address na ipinakita sa address bar ng iyong browser, at kinukuha ang mga icon para sa iba't ibang token. Ang iyong IP address ay maaaring ipakita sa mga serbisyong ito kapag ginagamit mo ang mga iyon."
+    "message": "Ang Konkret Wallet ay gumagamit ng mga serbisyo ng third-party para ipakita ang mga imahe ng iyong mga NFT na nakaimbak sa IPFS, nagpapakita ng impormasyong nauugnay sa mga ENS address na ipinakita sa address bar ng iyong browser, at kinukuha ang mga icon para sa iba't ibang token. Ang iyong IP address ay maaaring ipakita sa mga serbisyong ito kapag ginagamit mo ang mga iyon."
   },
   "ipfsToggleModalDescriptionOne": {
     "message": "Gumagamit kami ng mga serbisyo ng third-party para ipakita ang imahe ng mga NFT na inimbak mo sa IPFS, nagpapakita ng impormasyong nauugnay sa mga ENS address na inilagay sa address bar ng browser mo, at kinukuha ang mga icon para sa iba't ibang token. Ang Iyong IP address ay maaaring makita ng iba sa mga serbisyong ito kapag ginagamit mo ang mga ito."
@@ -2323,10 +2323,10 @@
     "message": "mga panloloko at panganib sa seguridad."
   },
   "leaveMetaMask": {
-    "message": "Umalis sa MetaMask?"
+    "message": "Umalis sa Konkret Wallet?"
   },
   "leaveMetaMaskDesc": {
-    "message": "Bibisita ka sa isang site sa labas ng MetaMask. I-double-check ang URL bago magpatuloy."
+    "message": "Bibisita ka sa isang site sa labas ng Konkret Wallet. I-double-check ang URL bago magpatuloy."
   },
   "ledgerAccountRestriction": {
     "message": "Kailangan mong gamitin ang huli mong account bago ka magdagdag ng panibago."
@@ -2396,7 +2396,7 @@
     "message": "Link"
   },
   "linkCentralizedExchanges": {
-    "message": "I-link ang iyong Coinbase o mga account sa Binance para maglipat ng crypto sa MetaMask nang libre."
+    "message": "I-link ang iyong Coinbase o mga account sa Binance para maglipat ng crypto sa Konkret Wallet nang libre."
   },
   "links": {
     "message": "Mga Link"
@@ -2417,7 +2417,7 @@
     "message": "I-lock"
   },
   "lockMetaMask": {
-    "message": "I-lock ang MetaMask"
+    "message": "I-lock ang Konkret Wallet"
   },
   "lockTimeInvalid": {
     "message": "Ang lock time ay dapat na isang numero sa pagitan ng 0 at 10080"
@@ -2487,7 +2487,7 @@
     "message": "Mensahe"
   },
   "metaMaskConnectStatusParagraphOne": {
-    "message": "Mas may kontrol ka na ngayon sa mga koneksyon ng iyong account sa MetaMask."
+    "message": "Mas may kontrol ka na ngayon sa mga koneksyon ng iyong account sa Konkret Wallet."
   },
   "metaMaskConnectStatusParagraphThree": {
     "message": "I-click ito para pamahalaan ang mga nakakonekta mong account."
@@ -2506,10 +2506,10 @@
     "message": "Hindi active sa kasalukuyan ang mga notipikasyon sa wallet."
   },
   "metamaskSwapsOfflineDescription": {
-    "message": "Kasalukuyang minementina ang MetaMask Swaps. Bumalik sa ibang pagkakataon."
+    "message": "Kasalukuyang minementina ang Konkret Wallet Swaps. Bumalik sa ibang pagkakataon."
   },
   "metamaskVersion": {
-    "message": "Bersyon ng MetaMask"
+    "message": "Bersyon ng Konkret Wallet"
   },
   "methodData": {
     "message": "Pamamaraan"
@@ -2565,7 +2565,7 @@
     "description": "$1 is the number of networks"
   },
   "multichainAddEthereumChainConfirmationDescription": {
-    "message": "Idinadagdag mo ang network na ito sa MetaMask at binibigyan ng pahintulot ang site na ito na gamitin ito."
+    "message": "Idinadagdag mo ang network na ito sa Konkret Wallet at binibigyan ng pahintulot ang site na ito na gamitin ito."
   },
   "multipleSnapConnectionWarning": {
     "message": "Si $1 ay gustong gumamit ng $2 Snaps",
@@ -2627,7 +2627,7 @@
     "message": "Lens Protocol"
   },
   "nameProvider_token": {
-    "message": "MetaMask"
+    "message": "Konkret Wallet"
   },
   "nameSetPlaceholder": {
     "message": "Pumili ng palayaw...",
@@ -2660,7 +2660,7 @@
     "message": "Ibahagi ang iyong Feedback"
   },
   "needHelpLinkText": {
-    "message": "Suporta sa MetaMask"
+    "message": "Suporta sa Konkret Wallet"
   },
   "needHelpSubmitTicket": {
     "message": "Magsumite ng ticket"
@@ -2809,7 +2809,7 @@
     "description": "$1 is used for newNFTDetectedInImportNFTsMessageStrongText"
   },
   "newNFTDetectedInNFTsTabMessage": {
-    "message": "Hayaan ang MetaMask na awtomatikong i-detect at magpakita ng mga NFT sa iyong wallet."
+    "message": "Hayaan ang Konkret Wallet na awtomatikong i-detect at magpakita ng mga NFT sa iyong wallet."
   },
   "newNFTsAutodetected": {
     "message": "NFT autodetection"
@@ -2859,7 +2859,7 @@
     "message": "Pinagana ang autodetection ng NFT"
   },
   "nftDisclaimer": {
-    "message": "Disclaimer: Kinukuha ng MetaMask ang media file mula sa pinagmulang url. Ang url na ito kung minsan ay pinapalitan ng marketplace kung saan nalikha ang NFT."
+    "message": "Disclaimer: Kinukuha ng Konkret Wallet ang media file mula sa pinagmulang url. Ang url na ito kung minsan ay pinapalitan ng marketplace kung saan nalikha ang NFT."
   },
   "nftOptions": {
     "message": "Mga Pagpipilian sa NFT"
@@ -2891,10 +2891,10 @@
     "message": "Walang nakitang account para sa ibinigay na query sa paghahanap"
   },
   "noConnectedAccountTitle": {
-    "message": "Ang MetaMask ay hindi nakakonekta sa site na ito"
+    "message": "Ang Konkret Wallet ay hindi nakakonekta sa site na ito"
   },
   "noConnectionDescription": {
-    "message": "Para kumonekta sa site, hanapin at piliin ang \"connect\" button. Tandaan na ang MetaMask ay maaari lamang kumonekta sa mga site sa web3"
+    "message": "Para kumonekta sa site, hanapin at piliin ang \"connect\" button. Tandaan na ang Konkret Wallet ay maaari lamang kumonekta sa mga site sa web3"
   },
   "noConversionRateAvailable": {
     "message": "Hindi available ang rate ng palitan"
@@ -3074,8 +3074,8 @@
     "message": "Mga Abiso"
   },
   "notificationsDropLedgerFirefoxDescription": {
-    "message": "Hindi na sinusuportahan ng Firefox ang U2F, kaya ang Ledger ay hindi gagana sa MetaMask sa Firefox. Subukan ang MetaMask sa Google Chrome.",
-    "description": "Description of a notification in the 'See What's New' popup. Describes that ledger will not longer be supported for firefox users and they should use MetaMask on chrome for ledger support instead."
+    "message": "Hindi na sinusuportahan ng Firefox ang U2F, kaya ang Ledger ay hindi gagana sa Konkret Wallet sa Firefox. Subukan ang Konkret Wallet sa Google Chrome.",
+    "description": "Description of a notification in the 'See What's New' popup. Describes that ledger will not longer be supported for firefox users and they should use Konkret Wallet on chrome for ledger support instead."
   },
   "notificationsDropLedgerFirefoxTitle": {
     "message": "Hindi na ipagpapatuloy ang Ledger Support para s Firefox",
@@ -3197,7 +3197,7 @@
     "message": "Sumasang-ayon ako"
   },
   "onboardingMetametricsDescription": {
-    "message": "Nais naming mangalap ng data para sa batayang paggamit upang mapahusay ang MetaMask. Dapat mong malaman na hindi namin ibebenta ang data na iyong ibibigay rito."
+    "message": "Nais naming mangalap ng data para sa batayang paggamit upang mapahusay ang Konkret Wallet. Dapat mong malaman na hindi namin ibebenta ang data na iyong ibibigay rito."
   },
   "onboardingMetametricsDescription2": {
     "message": "Kapag kami ay nangangalap ng metrics, ito ay palaging..."
@@ -3234,7 +3234,7 @@
     "message": "Matuto kung paano namin pinoprotektahan ang iyong pagkapribado habang kinokolekta ang data sa paggamit para sa iyong profile."
   },
   "onboardingMetametricsTitle": {
-    "message": "Tulungan kaming mapahusay ang MetaMask"
+    "message": "Tulungan kaming mapahusay ang Konkret Wallet"
   },
   "onboardingMetametricsUseDataCheckbox": {
     "message": "Gagamitin namin ang data na ito upang matutunan kung paano ka nakikipag-ugnayan sa aming mga komunikasyon sa marketing. Maaari kaming magbahagi ng kaugnay na balita (tulad ng mga tampok ng produkto)."
@@ -3255,16 +3255,16 @@
     "message": "Mag-click sa con ng browser extension"
   },
   "onboardingPinExtensionDescription": {
-    "message": "I-pin ang MetaMask sa iyong browser para madali itong ma-access at madaling makita ang mga kumpirmasyon ng transaksyon."
+    "message": "I-pin ang Konkret Wallet sa iyong browser para madali itong ma-access at madaling makita ang mga kumpirmasyon ng transaksyon."
   },
   "onboardingPinExtensionDescription2": {
-    "message": "Maaari mong buksan ang MetaMask sa pamamagitan ng pag-click sa extension at pag-accesss sa wallet mo sa 1 click lang."
+    "message": "Maaari mong buksan ang Konkret Wallet sa pamamagitan ng pag-click sa extension at pag-accesss sa wallet mo sa 1 click lang."
   },
   "onboardingPinExtensionDescription3": {
     "message": "Mag-click sa icon ng browser extension para agad itong ma-access"
   },
   "onboardingPinExtensionLabel": {
-    "message": "I-pin ang MetaMask"
+    "message": "I-pin ang Konkret Wallet"
   },
   "onboardingPinExtensionStep1": {
     "message": "1"
@@ -3273,7 +3273,7 @@
     "message": "2"
   },
   "onboardingPinExtensionTitle": {
-    "message": "Ang pag-install ng iyong MetaMask ay kumpleto na!"
+    "message": "Ang pag-install ng iyong Konkret Wallet ay kumpleto na!"
   },
   "oneDayAbbreviation": {
     "message": "1D",
@@ -3300,7 +3300,7 @@
   },
   "openFullScreenForLedgerWebHid": {
     "message": "Pumunta sa full screen para ikonekta ang iyong Ledger.",
-    "description": "Shown to the user on the confirm screen when they are viewing MetaMask in a popup window but need to connect their ledger via webhid."
+    "description": "Shown to the user on the confirm screen when they are viewing Konkret Wallet in a popup window but need to connect their ledger via webhid."
   },
   "openInBlockExplorer": {
     "message": "Buksan sa block explorer"
@@ -3322,7 +3322,7 @@
     "description": "Used in the 'permission_rpc' message."
   },
   "outdatedBrowserNotification": {
-    "message": "Hindi na updated ang iyong browser. Kapag hindi mo inupdate ang iyong browser, hindi ka makakakuha ng mga security patch at bagong feature mula sa MetaMask."
+    "message": "Hindi na updated ang iyong browser. Kapag hindi mo inupdate ang iyong browser, hindi ka makakakuha ng mga security patch at bagong feature mula sa Konkret Wallet."
   },
   "overrideContentSecurityPolicyHeader": {
     "message": "Override Content-Security-Policy header"
@@ -3337,7 +3337,7 @@
     "message": "Sumali sa MetaMetrics"
   },
   "participateInMetaMetricsDescription": {
-    "message": "Sumali sa MetaMetrics para mas mapahusay namin ang MetaMask"
+    "message": "Sumali sa MetaMetrics para mas mapahusay namin ang Konkret Wallet"
   },
   "password": {
     "message": "Password"
@@ -3346,7 +3346,7 @@
     "message": "Hindi sapat ang haba ng password"
   },
   "passwordSetupDetails": {
-    "message": "Ang password na ito ay magbubukas lamang ng iyong MetaMask wallet sa device na ito. Hindi matatakpan ng MetaMask ang password na ito."
+    "message": "Ang password na ito ay magbubukas lamang ng iyong Konkret Wallet wallet sa device na ito. Hindi matatakpan ng Konkret Wallet ang password na ito."
   },
   "passwordStrength": {
     "message": "Tibay ng password: $1",
@@ -3356,7 +3356,7 @@
     "message": "Mapapabuti ng matibay na password ang seguridad ng iyong wallet kung sakaling manakaw o makompromiso ang iyong device."
   },
   "passwordTermsWarning": {
-    "message": "Nauunawaan ko na hindi matatakpan ng MetaMask ang password na ito para sa akin. $1"
+    "message": "Nauunawaan ko na hindi matatakpan ng Konkret Wallet ang password na ito para sa akin. $1"
   },
   "passwordsDontMatch": {
     "message": "Hindi Magkatugma ang Mga Password"
@@ -3420,11 +3420,11 @@
     "description": "An extended description for the `snap_cronjob` permission. $1 is the snap name."
   },
   "permission_dialog": {
-    "message": "Ipakita ang mga dialog window sa MetaMask.",
+    "message": "Ipakita ang mga dialog window sa Konkret Wallet.",
     "description": "The description for the `snap_dialog` permission"
   },
   "permission_dialogDescription": {
-    "message": "Payagan ang $1 na magpakita ng mga popup ng MetaMask na may custom na teksto, input field, at mga button para aprubahan o tanggihan ang isang aksyon. \nMaaaring gamitin para gumawa ng hal. mga alerto, kumpirmasyon, at opt-in flow para sa isang snap.",
+    "message": "Payagan ang $1 na magpakita ng mga popup ng Konkret Wallet na may custom na teksto, input field, at mga button para aprubahan o tanggihan ang isang aksyon. \nMaaaring gamitin para gumawa ng hal. mga alerto, kumpirmasyon, at opt-in flow para sa isang snap.",
     "description": "An extended description for the `snap_dialog` permission. $1 is the snap name."
   },
   "permission_ethereumAccounts": {
@@ -3436,7 +3436,7 @@
     "description": "The description for the `endowment:ethereum-provider` permission"
   },
   "permission_ethereumProviderDescription": {
-    "message": "Payagan ang $1 na makipag-ugnayan sa MetaMask nang direkta, para mabasa nito ang datos mula sa blockchain at makapagmungkahi ng mga mensahe at transaksyon.",
+    "message": "Payagan ang $1 na makipag-ugnayan sa Konkret Wallet nang direkta, para mabasa nito ang datos mula sa blockchain at makapagmungkahi ng mga mensahe at transaksyon.",
     "description": "An extended description for the `endowment:ethereum-provider` permission. $1 is the snap name."
   },
   "permission_getEntropy": {
@@ -3444,7 +3444,7 @@
     "description": "The description for the `snap_getEntropy` permission. $1 is the snap name."
   },
   "permission_getEntropyDescription": {
-    "message": "Payagan ang $1 na humango ng mga arbitrary key na natatangi sa $1, nang hindi inilalantad ang mga ito. Ang mga key na ito ay hiwalay sa iyong (mga) MetaMask account at hindi nauugnay sa iyong mga pribadong key o Lihim na Parirala sa Pagbawi. Hindi maa-access ng ibang mga snap ang impormasyong ito.",
+    "message": "Payagan ang $1 na humango ng mga arbitrary key na natatangi sa $1, nang hindi inilalantad ang mga ito. Ang mga key na ito ay hiwalay sa iyong (mga) Konkret Wallet account at hindi nauugnay sa iyong mga pribadong key o Lihim na Parirala sa Pagbawi. Hindi maa-access ng ibang mga snap ang impormasyong ito.",
     "description": "An extended description for the `snap_getEntropy` permission. $1 is the snap name."
   },
   "permission_getLocale": {
@@ -3452,7 +3452,7 @@
     "description": "The description for the `snap_getLocale` permission"
   },
   "permission_getLocaleDescription": {
-    "message": "Payagan ang $1 na i-access ang iyong mas gustong wika mula sa iyong mga setting sa MetaMask. Maaari itong gamitin para i-localize at ipakita ang content ng $1 gamit ang iyong wika.",
+    "message": "Payagan ang $1 na i-access ang iyong mas gustong wika mula sa iyong mga setting sa Konkret Wallet. Maaari itong gamitin para i-localize at ipakita ang content ng $1 gamit ang iyong wika.",
     "description": "An extended description for the `snap_getLocale` permission. $1 is the snap name."
   },
   "permission_getPreferences": {
@@ -3460,7 +3460,7 @@
     "description": "The description for the `snap_getPreferences` permission"
   },
   "permission_getPreferencesDescription": {
-    "message": "Pahintulutan ang $1 na ma-access ang impormasyon tulad ng gusto mong wika at fiat na salapi sa iyong mga setting ng MetaMask. Tumutulong ito sa $1 na magpakita ng content na nakaayon sa iyong mga kagustuhan. ",
+    "message": "Pahintulutan ang $1 na ma-access ang impormasyon tulad ng gusto mong wika at fiat na salapi sa iyong mga setting ng Konkret Wallet. Tumutulong ito sa $1 na magpakita ng content na nakaayon sa iyong mga kagustuhan. ",
     "description": "An extended description for the `snap_getPreferences` permission. $1 is the snap name."
   },
   "permission_homePage": {
@@ -3468,7 +3468,7 @@
     "description": "The description for the `endowment:page-home` permission"
   },
   "permission_homePageDescription": {
-    "message": "Hayaan ang $1 na magpakita ng custom na home screen sa MetaMask. Maaari itong gamitin para sa mga user interface, configuration, at mga dashboard.",
+    "message": "Hayaan ang $1 na magpakita ng custom na home screen sa Konkret Wallet. Maaari itong gamitin para sa mga user interface, configuration, at mga dashboard.",
     "description": "An extended description for the `endowment:page-home` permission. $1 is the snap name."
   },
   "permission_keyring": {
@@ -3520,7 +3520,7 @@
     "description": "The description for the `endowment:name-lookup` permission."
   },
   "permission_nameLookupDescription": {
-    "message": "Payagan ang snap na kumuha at magpakita ng mga address at domain lookup sa iba't ibang bahagi ng MetaMask UI.",
+    "message": "Payagan ang snap na kumuha at magpakita ng mga address at domain lookup sa iba't ibang bahagi ng Konkret Wallet UI.",
     "description": "An extended description for the `endowment:name-lookup` permission."
   },
   "permission_notifications": {
@@ -3528,7 +3528,7 @@
     "description": "The description for the `snap_notify` permission"
   },
   "permission_notificationsDescription": {
-    "message": "Payagan ang $1 na magpakita ng mga notipikasyon sa loob ng MetaMask. Isang maikling tekstong notipikasyon ang maaaring mapaumpisa ng isang snap para sa naaaksyunan o sensitibo sa oras na impormasyon.",
+    "message": "Payagan ang $1 na magpakita ng mga notipikasyon sa loob ng Konkret Wallet. Isang maikling tekstong notipikasyon ang maaaring mapaumpisa ng isang snap para sa naaaksyunan o sensitibo sa oras na impormasyon.",
     "description": "An extended description for the `snap_notify` permission. $1 is the snap name."
   },
   "permission_rpc": {
@@ -3564,7 +3564,7 @@
     "description": "The description for the `endowment:transaction-insight` permission"
   },
   "permission_transactionInsightDescription": {
-    "message": "Payagan ang $1 na mag-decode ng mga transaksyon at magpakita ng mga insight sa loob ng MetaMask UI. Maaari itong gamitin para sa anti-phishing at mga solusyon sa seguridad.",
+    "message": "Payagan ang $1 na mag-decode ng mga transaksyon at magpakita ng mga insight sa loob ng Konkret Wallet UI. Maaari itong gamitin para sa anti-phishing at mga solusyon sa seguridad.",
     "description": "An extended description for the `endowment:transaction-insight` permission. $1 is the snap name."
   },
   "permission_transactionInsightOrigin": {
@@ -3714,7 +3714,7 @@
     "message": "Kapag in-off mo ang pag-sync ng profile, hindi ka makakatanggap ng mga notipikasyon."
   },
   "profileSyncDescription": {
-    "message": "Lumikha ng profile na gagamitin ng MetaMask upang i-sync ang ilang mga setting sa iyong mga device. Kailangan ito para makakuha ng mga notipikasyon. $1."
+    "message": "Lumikha ng profile na gagamitin ng Konkret Wallet upang i-sync ang ilang mga setting sa iyong mga device. Kailangan ito para makakuha ng mga notipikasyon. $1."
   },
   "profileSyncPrivacyLink": {
     "message": "Matutunan kung paano namin protektahan ang iyong pagkapribado"
@@ -3795,7 +3795,7 @@
     "message": "Nakumpleto ang pag-unstake"
   },
   "pushPlatformNotificationsSwapCompletedDescription": {
-    "message": "Matagumpay ang iyong MetaMask Swap"
+    "message": "Matagumpay ang iyong Konkret Wallet Swap"
   },
   "pushPlatformNotificationsSwapCompletedTitle": {
     "message": "Nakumpleto ang pag-swap"
@@ -3846,7 +3846,7 @@
     "message": "Huwag kailanman ibahagi ang iyong Lihim na Parirala sa Pagbawi sa sinuman"
   },
   "recoveryPhraseReminderItemTwo": {
-    "message": "Hindi kailanman hihingin ng MetaMask team ang iyong Lihim na Parirala sa Pagbawi"
+    "message": "Hindi kailanman hihingin ng Konkret Wallet team ang iyong Lihim na Parirala sa Pagbawi"
   },
   "recoveryPhraseReminderSubText": {
     "message": "Kinokontrol ng iyong Lihim na Parirala sa Pagbawi ang lahat ng iyong account."
@@ -3894,10 +3894,10 @@
     "message": "Aalisin ang account na ito sa iyong wallet. Tiyaking nasa iyo ang orihinal na Lihim na Parirala sa Pagbawi o pribadong key para sa na-import na account na ito bago magpatuloy. Puwede kang mag-import o gumawa ulit ng mga account mula sa drop-down ng account. "
   },
   "removeKeyringSnap": {
-    "message": "Ang pag-alis ng Snap na ito ay nag-aalis sa mga account na ito sa MetaMask:"
+    "message": "Ang pag-alis ng Snap na ito ay nag-aalis sa mga account na ito sa Konkret Wallet:"
   },
   "removeKeyringSnapToolTip": {
-    "message": "Kinokontrol ng snap ang mga account, at sa pag-alis nito, ang mga account ay aalisin din sa MetaMask, ngunit mananatili ang mga ito sa blockchain."
+    "message": "Kinokontrol ng snap ang mga account, at sa pag-alis nito, ang mga account ay aalisin din sa Konkret Wallet, ngunit mananatili ang mga ito sa blockchain."
   },
   "removeNFT": {
     "message": "Alisin ang NFT"
@@ -3912,7 +3912,7 @@
     "message": "Alisin ang snap"
   },
   "removeSnapAccountDescription": {
-    "message": "Kung magpatuloy ka, ang account na ito ay hindi na available sa MetaMask."
+    "message": "Kung magpatuloy ka, ang account na ito ay hindi na available sa Konkret Wallet."
   },
   "removeSnapAccountTitle": {
     "message": "Alisin ang account"
@@ -3963,7 +3963,7 @@
     "message": "I-reset ang wallet"
   },
   "resetWalletSubHeader": {
-    "message": "Hindi nagpapanatili ang MetaMask ng kopya ng iyong password. Kung nagkakaproblema ka sa pag-unlock ng iyong account, kakailanganin mong i-reset ang iyong wallet. Magagawa mo ito sa pamamagitan ng pagbibigay ng Lihim na Parirala sa Pagbawi na ginamit mo noong mag-set up ka ng iyong wallet."
+    "message": "Hindi nagpapanatili ang Konkret Wallet ng kopya ng iyong password. Kung nagkakaproblema ka sa pag-unlock ng iyong account, kakailanganin mong i-reset ang iyong wallet. Magagawa mo ito sa pamamagitan ng pagbibigay ng Lihim na Parirala sa Pagbawi na ginamit mo noong mag-set up ka ng iyong wallet."
   },
   "resetWalletUsingSRP": {
     "message": "Tatanggalin ng aksyong ito mula sa iyong device ang iyong kasalukuyang wallet at Lihim na Parirala sa Pagbawi, kasama ang listahan ng mga account na isinaayos mo. Pagkatapos i-reset ang Lihim na Parirala sa Pagbawi, makikita mo ang listahan ng mga account batay sa Lihim na Parirala sa Pagbawi na ginamit mo para mag-reset. Awtomatikong kasama sa bagong listahan na ito ang mga account na may balanse. Magagawa mo ring $1 na ginawa dati. Ang mga custom account na iyong na-import ay kinakailangang $2, at ang alinmang mga custom token na idinagdag mo sa account ay kailangang $3 din."
@@ -3972,7 +3972,7 @@
     "message": "Tiyakin na ginagamit mo ang tamang Lihim na Parirala sa Pagbawi bago magpatuloy. Hindi mo na ito maaaring bawiin."
   },
   "restartMetamask": {
-    "message": "I-restart ang MetaMask"
+    "message": "I-restart ang Konkret Wallet"
   },
   "restore": {
     "message": "Ibalik"
@@ -4006,7 +4006,7 @@
     "description": "This is a sentence consisting of link using 'revealSeedWordsSRPName' as $1 and bolded text using 'revealSeedWordsDescription3' as $2."
   },
   "revealSeedWordsDescription2": {
-    "message": "Ang MetaMask ay isang $1. Nangangahulugan iyon na ikaw ang may-ari ng iyong SRP.",
+    "message": "Ang Konkret Wallet ay isang $1. Nangangahulugan iyon na ikaw ang may-ari ng iyong SRP.",
     "description": "$1 is text link with the message from 'revealSeedWordsNonCustodialWallet'"
   },
   "revealSeedWordsDescription3": {
@@ -4029,7 +4029,7 @@
     "description": "$1 is bolded text using the message from 'revealSeedWordsWarning2'"
   },
   "revealSeedWordsWarning2": {
-    "message": "Hindi ito kailanman hihilingin ng Suporta sa MetaMask.",
+    "message": "Hindi ito kailanman hihilingin ng Suporta sa Konkret Wallet.",
     "description": "The bolded texted in the second part of 'revealSeedWordsWarning'"
   },
   "revealSensitiveContent": {
@@ -4156,7 +4156,7 @@
     "message": "Kung may humingi ng iyong parirala sa pagbawi, malamang na sinusubukan ka nilang lokohin at nakawan ng mga pondo sa iyong wallet."
   },
   "seedPhraseIntroSidebarCopyTwo": {
-    "message": "Huwag kailanman ibahagi ang iyong Lihim na Parirala sa Pagbawi, kahit sa MetaMask!"
+    "message": "Huwag kailanman ibahagi ang iyong Lihim na Parirala sa Pagbawi, kahit sa Konkret Wallet!"
   },
   "seedPhraseIntroSidebarTitleOne": {
     "message": "Ano ang Lihim na Parirala sa Pagbawi?"
@@ -4195,7 +4195,7 @@
     "message": "Pumili ng Account"
   },
   "selectAnAccountAlreadyConnected": {
-    "message": "Ang acount na ito ay nakakonekta na sa MetaMask"
+    "message": "Ang acount na ito ay nakakonekta na sa Konkret Wallet"
   },
   "selectEnableDisplayMediaPrivacyPreference": {
     "message": "I-on ang Ipakita ang NFT media"
@@ -4458,7 +4458,7 @@
     "message": "Nabigo ang transaksyon mo"
   },
   "smartTransactionErrorDescription": {
-    "message": "Maaaring magdulot ng pagkabigo ang biglaang pagbabago sa merkado. Kung magpatuloy ang problema, makipag-ugnayan sa customer support ng MetaMask."
+    "message": "Maaaring magdulot ng pagkabigo ang biglaang pagbabago sa merkado. Kung magpatuloy ang problema, makipag-ugnayan sa customer support ng Konkret Wallet."
   },
   "smartTransactionPending": {
     "message": "Isinusumite ang iyong transaksyon"
@@ -4499,7 +4499,7 @@
     "message": "Naalis ang account"
   },
   "snapAccountRemovedDescription": {
-    "message": "Ang account na ito ay hindi na magiging available para gamitin sa MetaMask."
+    "message": "Ang account na ito ay hindi na magiging available para gamitin sa Konkret Wallet."
   },
   "snapAccounts": {
     "message": "Mga Account Snap"
@@ -4732,7 +4732,7 @@
     "message": "Upang ibunyag ang iyong Lihim na Parirala sa Pagbawi, kailangan mong sagutin nang tama ang dalawang tanong"
   },
   "srpSecurityQuizQuestionOneQuestion": {
-    "message": "Kung mawala mo ang iyong Lihim na Parirala sa Pagbawi, ang MetaMask ay..."
+    "message": "Kung mawala mo ang iyong Lihim na Parirala sa Pagbawi, ang Konkret Wallet ay..."
   },
   "srpSecurityQuizQuestionOneRightAnswer": {
     "message": "Hindi ka matutulungan"
@@ -4801,7 +4801,7 @@
     "message": "Error sa pagkuha ng mga log ng estado."
   },
   "stateLogFileName": {
-    "message": "Mga log ng estado ng MetaMask"
+    "message": "Mga log ng estado ng Konkret Wallet"
   },
   "stateLogs": {
     "message": "Mga log ng estado"
@@ -4822,7 +4822,7 @@
     "message": "Ikonekta ang iyong Lattice1"
   },
   "step1LatticeWalletMsg": {
-    "message": "Maaari mong ikonekta ang MetaMask sa iyong Lattice1 device kapag na-set up na ito at online. I-unlock ang iyong device at ihanda ang iyong Device ID.",
+    "message": "Maaari mong ikonekta ang Konkret Wallet sa iyong Lattice1 device kapag na-set up na ito at online. I-unlock ang iyong device at ihanda ang iyong Device ID.",
     "description": "$1 represents the `hardwareWalletSupportLinkConversion` localization key"
   },
   "step1LedgerWallet": {
@@ -4929,7 +4929,7 @@
     "message": "Sagutan ang aming survey"
   },
   "surveyTitle": {
-    "message": "Hubugin ang hinaharap ng MetaMask"
+    "message": "Hubugin ang hinaharap ng Konkret Wallet"
   },
   "swap": {
     "message": "I-swap"
@@ -4995,7 +4995,7 @@
     "message": "I-edit ang limitasyon"
   },
   "swapEnableDescription": {
-    "message": "Kinakailangan ito at nagbibigay ito ng pahintulot sa MetaMask na i-swap ang iyong $1.",
+    "message": "Kinakailangan ito at nagbibigay ito ng pahintulot sa Konkret Wallet na i-swap ang iyong $1.",
     "description": "Gives the user info about the required approval transaction for swaps. $1 will be the symbol of a token being approved for swaps."
   },
   "swapEnableTokenForSwapping": {
@@ -5042,7 +5042,7 @@
     "message": "Ang mga bayad sa gas ay tinatantya at magbabago batay sa trapiko sa network at pagiging kumplikado ng transaksyon."
   },
   "swapGasFeesExplanation": {
-    "message": "Hindi kumikita ang MetaMask mula sa mga bayad sa gas. Ang mga bayarin na ito ay pagtatantiya at maaaring mabago batay sa kung gaano kaabala ang network at kung gaano kakumplikado ang transaksyon. Alamin pa ang $1.",
+    "message": "Hindi kumikita ang Konkret Wallet mula sa mga bayad sa gas. Ang mga bayarin na ito ay pagtatantiya at maaaring mabago batay sa kung gaano kaabala ang network at kung gaano kakumplikado ang transaksyon. Alamin pa ang $1.",
     "description": "$1 is a link (text in link can be found at 'swapGasFeesSummaryLinkText')"
   },
   "swapGasFeesExplanationLinkText": {
@@ -5056,7 +5056,7 @@
     "message": "Ang mga bayad sa gas sa nakaraang screen ay hinati sa dalawang transaksyon."
   },
   "swapGasFeesSummary": {
-    "message": "Ang mga bayad sa gas ay binabayaran sa mga minero ng crypto na nagpoproseso ng mga transaksyon sa $1 na network. Ang MetaMask ay hindi kumikita mula sa mga bayad sa gas.",
+    "message": "Ang mga bayad sa gas ay binabayaran sa mga minero ng crypto na nagpoproseso ng mga transaksyon sa $1 na network. Ang Konkret Wallet ay hindi kumikita mula sa mga bayad sa gas.",
     "description": "$1 is the selected network, e.g. Ethereum or BSC"
   },
   "swapGasIncludedTooltipExplanation": {
@@ -5069,19 +5069,19 @@
     "message": "Mataas na slippage"
   },
   "swapIncludesGasAndMetaMaskFee": {
-    "message": "Kasama ang gas at $1% bayad sa MetaMask",
+    "message": "Kasama ang gas at $1% bayad sa Konkret Wallet",
     "description": "Provides information about the fee that metamask takes for swaps. $1 is a decimal number."
   },
   "swapIncludesMMFee": {
-    "message": "Kasama ang $1% MetaMask fee.",
+    "message": "Kasama ang $1% Konkret Wallet fee.",
     "description": "Provides information about the fee that metamask takes for swaps. $1 is a decimal number."
   },
   "swapIncludesMMFeeAlt": {
-    "message": "Kasama sa quote ang $1% bayad sa MetaMask",
+    "message": "Kasama sa quote ang $1% bayad sa Konkret Wallet",
     "description": "Provides information about the fee that metamask takes for swaps using the latest copy. $1 is a decimal number."
   },
   "swapIncludesMetaMaskFeeViewAllQuotes": {
-    "message": "Kabilang ang $1% na bayad sa MetaMask – $2",
+    "message": "Kabilang ang $1% na bayad sa Konkret Wallet – $2",
     "description": "Provides information about the fee that metamask takes for swaps. $1 is a decimal number and $2 is a link to view all quotes."
   },
   "swapLearnMore": {
@@ -5097,7 +5097,7 @@
     "message": "Max na slippage"
   },
   "swapMetaMaskFee": {
-    "message": "Bayarin sa MetaMask"
+    "message": "Bayarin sa Konkret Wallet"
   },
   "swapMetaMaskFeeDescription": {
     "message": "Ang bayad na $1% ay awtomatikong isinasali sa quote na ito. Babayaran mo ito bilang kapalit ng isang lisensya para gamitin ang software ng pagsasama-sama ng impormasyon ng tagapagbigay ng liquidity ng MetaMask.",
@@ -5314,7 +5314,7 @@
     "message": "Lumipat"
   },
   "switchEthereumChainConfirmationDescription": {
-    "message": "Dahil dito, lilipat sa dating idinagdag na network ang napiling network sa loob ng MetaMask:"
+    "message": "Dahil dito, lilipat sa dating idinagdag na network ang napiling network sa loob ng Konkret Wallet:"
   },
   "switchEthereumChainConfirmationTitle": {
     "message": "Payagan ang site na ito para lumipat ng network?"
@@ -5361,7 +5361,7 @@
     "message": "Mga Tuntunin ng Serbisyo"
   },
   "termsOfUseAgreeText": {
-    "message": " Sumasang-ayon ako sa Mga Tuntunin sa Paggamit, na nalalapat sa aking paggamit ng MetaMask at lahat ng feature nito"
+    "message": " Sumasang-ayon ako sa Mga Tuntunin sa Paggamit, na nalalapat sa aking paggamit ng Konkret Wallet at lahat ng feature nito"
   },
   "termsOfUseFooterText": {
     "message": "Mag-scroll upang basahin ang lahat ng seksyon"
@@ -5376,7 +5376,7 @@
     "message": "Tema"
   },
   "themeDescription": {
-    "message": "Piliin ang mas gusto mong tema ng MetaMask."
+    "message": "Piliin ang mas gusto mong tema ng Konkret Wallet."
   },
   "thirdPartySoftware": {
     "message": "Paunawa ng third-party na software",
@@ -5590,7 +5590,7 @@
     "description": "$1 is the wallet device name; $2 is a link to wallet connection guide"
   },
   "troubleStarting": {
-    "message": "Nagkaproblema ang MetaMask sa pagsisimula. Maaaring paulit-ulit ang error na ito, kaya subukang i-restart ang extension."
+    "message": "Nagkaproblema ang Konkret Wallet sa pagsisimula. Maaaring paulit-ulit ang error na ito, kaya subukang i-restart ang extension."
   },
   "tryAgain": {
     "message": "Subukan ulit"
@@ -5642,7 +5642,7 @@
   },
   "u2f": {
     "message": "U2F",
-    "description": "A name on an API for the browser to interact with devices that support the U2F protocol. On some browsers we use it to connect MetaMask to Ledger devices."
+    "description": "A name on an API for the browser to interact with devices that support the U2F protocol. On some browsers we use it to connect Konkret Wallet to Ledger devices."
   },
   "unapproved": {
     "message": "Hindi inaprubahan"
@@ -5727,7 +5727,7 @@
     "message": "Awtomatikong tuklasin ang mga NFT"
   },
   "useNftDetectionDescriptionText": {
-    "message": "Hayaan ang MetaMask na magdagdag ng mga NFT na iyong pag-aari gamit ang mga third-party na serbisyo. Ang awtomatikong pagtuklas ng mga NFT ay naglalantad sa iyong IP at address ng account sa mga serbisyong ito. Ang pag-enable sa tampok na ito ay maaaring mag-ugnay sa iyong IP sa iyong Ethereum address at magpakita ng pekeng NFT na in-airdrop ng mga scammer. Maaari kang magdagdag ng token sa manu-manong paraan para iwasan ang panganib na ito."
+    "message": "Hayaan ang Konkret Wallet na magdagdag ng mga NFT na iyong pag-aari gamit ang mga third-party na serbisyo. Ang awtomatikong pagtuklas ng mga NFT ay naglalantad sa iyong IP at address ng account sa mga serbisyong ito. Ang pag-enable sa tampok na ito ay maaaring mag-ugnay sa iyong IP sa iyong Ethereum address at magpakita ng pekeng NFT na in-airdrop ng mga scammer. Maaari kang magdagdag ng token sa manu-manong paraan para iwasan ang panganib na ito."
   },
   "usePhishingDetection": {
     "message": "Gumamit ng phishing detection"
@@ -5739,7 +5739,7 @@
     "message": "Suriin ang mga Detalye ng Network"
   },
   "useSafeChainsListValidationDescription": {
-    "message": "Ang MetaMask ay gumagamit ng serbisyong third-party na tinatawag na $1 para magpakita ng tumpak at naka-standardized na detalye ng network. Binabawasan nito ang iyong tiyansa sa pagkonekta sa malisiyoso o malitang network. Kapag ginagamit ang tampok na ito, ang iyong IP address ay nakalantad sa chainid.network."
+    "message": "Ang Konkret Wallet ay gumagamit ng serbisyong third-party na tinatawag na $1 para magpakita ng tumpak at naka-standardized na detalye ng network. Binabawasan nito ang iyong tiyansa sa pagkonekta sa malisiyoso o malitang network. Kapag ginagamit ang tampok na ito, ang iyong IP address ay nakalantad sa chainid.network."
   },
   "useSafeChainsListValidationWebsite": {
     "message": "chainid.network",
@@ -5867,7 +5867,7 @@
     "message": "Magsaliksik sa mga decentralized app"
   },
   "welcomeLoginDescription": {
-    "message": "Gamitin ang iyong MetaMask para mag-log in sa mga decentralized app, hindi na kailangang mag-sign up."
+    "message": "Gamitin ang iyong Konkret Wallet para mag-log in sa mga decentralized app, hindi na kailangang mag-sign up."
   },
   "welcomeLoginTitle": {
     "message": "Mag-hello sa iyong wallet"
@@ -5876,7 +5876,7 @@
     "message": "Magsimula na tayo"
   },
   "welcomeToMetaMaskIntro": {
-    "message": "Ang MetaMask na pinagkakatiwalaan ng milyun-milyon ay isang ligtas na wallet na ginagawang accessible ang mundo ng web3 para sa lahat."
+    "message": "Ang Konkret Wallet na pinagkakatiwalaan ng milyun-milyon ay isang ligtas na wallet na ginagawang accessible ang mundo ng web3 para sa lahat."
   },
   "whatsNew": {
     "message": "Ano'ng bago",

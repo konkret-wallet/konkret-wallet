@@ -39,10 +39,10 @@ buildTypes:
       # TODO: bundle/mirror
       - ACCOUNT_SNAPS_DIRECTORY_URL: 'http://localhost:1238/snaps.metamask.io/account-management'
     # Main build uses the default browser manifest
-    manifestOverrides: false
+    manifestOverrides: ./app/build-types/main/manifest/
     # Build name used in multiple user-readable places
     # eg. eip6963
-    buildNameOverride: MetaMask
+    buildNameOverride: Konkret Wallet
 
   beta:
     id: 11

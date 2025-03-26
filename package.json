@@ -1,10 +1,10 @@
 {
-  "name": "metamask-crx",
-  "version": "12.14.1",
+  "name": "konkret-crx",
+  "version": "12.14.100",
   "private": true,
   "repository": {
     "type": "git",
-    "url": "https://github.com/MetaMask/metamask-extension.git"
+    "url": "https://codeberg.org/konkret/konkret-wallet"
   },
   "scripts": {
     "webpack": "tsx ./development/webpack/launch.ts",

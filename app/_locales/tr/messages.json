@@ -58,7 +58,7 @@
     "message": "Gizli Kurtarma İfadenizle cüzdanınıza erişin"
   },
   "accessYourWalletWithSRPDescription": {
-    "message": "MetaMask şifrenizi kurtaramaz. Sahipliğinizi doğrulamak, cüzdanınızı yenilemek ve yeni bir şifre belirlemek için Gizli Kurtarma İfadenizi kullanırız. İlk olarak, cüzdanınızı oluştururken size verilmiş olan Gizli Kurtarma İfadenizi girin. $1",
+    "message": "Konkret Wallet şifrenizi kurtaramaz. Sahipliğinizi doğrulamak, cüzdanınızı yenilemek ve yeni bir şifre belirlemek için Gizli Kurtarma İfadenizi kullanırız. İlk olarak, cüzdanınızı oluştururken size verilmiş olan Gizli Kurtarma İfadenizi girin. $1",
     "description": "$1 is the words 'Learn More' from key 'learnMore', separated here so that it can be added as a link"
   },
   "accessingYourCamera": {
@@ -148,10 +148,10 @@
     "message": "Hesap ekleyin"
   },
   "addAccountToMetaMask": {
-    "message": "MetaMask'e hesap ekle"
+    "message": "Konkret Wallet'e hesap ekle"
   },
   "addAcquiredTokens": {
-    "message": "MetaMask kullanarak elde ettiğiniz tokenleri ekleyin"
+    "message": "Konkret Wallet kullanarak elde ettiğiniz tokenleri ekleyin"
   },
   "addAlias": {
     "message": "Diğer adı ekle"
@@ -308,7 +308,7 @@
     "description": "$1 represents the settings page"
   },
   "agreeTermsOfUse": {
-    "message": "MetaMask'in $1 bölümünü kabul ediyorum",
+    "message": "Konkret Wallet'in $1 bölümünü kabul ediyorum",
     "description": "$1 is the `terms` link"
   },
   "airgapVault": {
@@ -439,15 +439,15 @@
     "description": "The description of the application"
   },
   "appName": {
-    "message": "MetaMask",
+    "message": "Konkret Wallet",
     "description": "The name of the application"
   },
   "appNameBeta": {
-    "message": "MetaMask Beta",
+    "message": "Konkret Wallet Beta",
     "description": "The name of the application (Beta)"
   },
   "appNameFlask": {
-    "message": "MetaMask Flask",
+    "message": "Konkret Wallet Flask",
     "description": "The name of the application (Flask)"
   },
   "appNameMmi": {
@@ -520,7 +520,7 @@
     "message": "Otomatik Kilitleme Sayacı (dakika)"
   },
   "autoLockTimeLimitDescription": {
-    "message": "MetaMask kilitlenmeden önce dakika olarak boşta kalma süresini belirleyin."
+    "message": "Konkret Wallet kilitlenmeden önce dakika olarak boşta kalma süresini belirleyin."
   },
   "average": {
     "message": "Ortalama"
@@ -529,7 +529,7 @@
     "message": "Geri"
   },
   "backupApprovalInfo": {
-    "message": "Bu gizli kod, cihazınızı kaybetmeniz, şifrenizi unutmanız, MetaMask'ı yeniden kurmanızın gerektiği ya da cüzdanınıza başka bir cihazdan oturum açmak istemeniz durumunda cüzdanınıza erişim sağlamak için gereklidir."
+    "message": "Bu gizli kod, cihazınızı kaybetmeniz, şifrenizi unutmanız, Konkret Wallet'ı yeniden kurmanızın gerektiği ya da cüzdanınıza başka bir cihazdan oturum açmak istemeniz durumunda cüzdanınıza erişim sağlamak için gereklidir."
   },
   "backupApprovalNotice": {
     "message": "Cüzdanınızı ve paranızı güvende tutmak için Gizli Kurtarma İfadenizi yedekleyin."
@@ -559,7 +559,7 @@
     "message": "Temel işlevsellik kapalı"
   },
   "basicConfigurationDescription": {
-    "message": "MetaMask, internet hizmetleri üzerinden token bilgileri ve gaz ayarları gibi temel özellikler sunar. İnternet hizmetlerini kullandığınızda IP adresiniz, bu durumda MetaMask ile, paylaşılır. Bu tıpkı herhangi bir web sitesini ziyaret ettiğinizde olduğu gibidir. MetaMask bu verileri geçici olarak kullanır ve verilerinizi hiçbir zaman satmaz. Bir VPN kullanabilir veya bu hizmetleri kapatabilirsiniz ancak bu durum MetaMask deneyiminizi etkileyebilir. Daha fazla bilgi için $1 bölümümüzü okuyun.",
+    "message": "MetaMask, internet hizmetleri üzerinden token bilgileri ve gaz ayarları gibi temel özellikler sunar. İnternet hizmetlerini kullandığınızda IP adresiniz, bu durumda Konkret Wallet ile, paylaşılır. Bu tıpkı herhangi bir web sitesini ziyaret ettiğinizde olduğu gibidir. Konkret Wallet bu verileri geçici olarak kullanır ve verilerinizi hiçbir zaman satmaz. Bir VPN kullanabilir veya bu hizmetleri kapatabilirsiniz ancak bu durum Konkret Wallet deneyiminizi etkileyebilir. Daha fazla bilgi için $1 bölümümüzü okuyun.",
     "description": "$1 is to be replaced by the message for privacyMsg, and will link to https://consensys.io/privacy-policy"
   },
   "basicConfigurationLabel": {
@@ -588,7 +588,7 @@
     "description": "$1 represents the word 'here' in a hyperlink"
   },
   "betaMetamaskVersion": {
-    "message": "MetaMask Beta Sürümü"
+    "message": "Konkret Wallet Beta Sürümü"
   },
   "betaTerms": {
     "message": "Beta Kullanım koşulları"
@@ -601,7 +601,7 @@
     "message": "Bitcoin"
   },
   "bitcoinSupportToggleDescription": {
-    "message": "Bu özelliği açtığınızda mevcut Gizli Kurtarma İfadenizden türetilen MetaMask Uzantınıza bir Bitcoin Hesabı ekleme seçeneğiniz olacaktır. Bu, deneysel bir Beta özelliğidir, bu yüzden riski kendinize ait olarak kullanmalısınız. Bu yeni Bitcoin deneyimi hakkında bize geri bildirim göndermek için lütfen bu $1 bölümünü doldurun.",
+    "message": "Bu özelliği açtığınızda mevcut Gizli Kurtarma İfadenizden türetilen Konkret Wallet Uzantınıza bir Bitcoin Hesabı ekleme seçeneğiniz olacaktır. Bu, deneysel bir Beta özelliğidir, bu yüzden riski kendinize ait olarak kullanmalısınız. Bu yeni Bitcoin deneyimi hakkında bize geri bildirim göndermek için lütfen bu $1 bölümünü doldurun.",
     "description": "$1 is the link to a product feedback form"
   },
   "bitcoinSupportToggleTitle": {
@@ -708,7 +708,7 @@
     "message": "Kişi listenizi oluşturun"
   },
   "builtAroundTheWorld": {
-    "message": "MetaMask dünya çapında geliştirilmiş ve yapılmıştır."
+    "message": "Konkret Wallet dünya çapında geliştirilmiş ve yapılmıştır."
   },
   "busy": {
     "message": "Meşgul"
@@ -766,7 +766,7 @@
     "description": "$1 is a link to the privacy policy"
   },
   "chromeRequiredForHardwareWallets": {
-    "message": "Donanım Cüzdanınıza bağlamak için MetaMask'ı Google Chrome'da kullanmanız gerekir."
+    "message": "Donanım Cüzdanınıza bağlamak için Konkret Wallet'ı Google Chrome'da kullanmanız gerekir."
   },
   "circulatingSupply": {
     "message": "Dolaşımdaki arz"
@@ -810,10 +810,10 @@
     "description": "Default text shown in the combo field dropdown if no options."
   },
   "configureSnapPopupDescription": {
-    "message": "Şu anda bu snapi yapılandırmak için MetaMask'ten ayrılıyorsunuz."
+    "message": "Şu anda bu snapi yapılandırmak için Konkret Wallet'ten ayrılıyorsunuz."
   },
   "configureSnapPopupInstallDescription": {
-    "message": "Şu anda bu snapi yüklemek için MetaMask'ten ayrılıyorsunuz."
+    "message": "Şu anda bu snapi yüklemek için Konkret Wallet'ten ayrılıyorsunuz."
   },
   "configureSnapPopupInstallTitle": {
     "message": "Snapi yükle"
@@ -925,7 +925,7 @@
     "description": "$1 is the snap for which a connection is being requested."
   },
   "connectWithMetaMask": {
-    "message": "MetaMask ile Bağlan"
+    "message": "Konkret Wallet ile Bağlan"
   },
   "connectedAccounts": {
     "message": "Bağlı hesaplar"
@@ -938,7 +938,7 @@
     "message": "Bu siteye bağlı 1 hesabınız var."
   },
   "connectedAccountsEmptyDescription": {
-    "message": "MetaMask bu siteye bağlı değil. Bir web3 sitesine bağlanmak için siteyi bulun ve bağlan düğmesine tıklayın."
+    "message": "Konkret Wallet bu siteye bağlı değil. Bir web3 sitesine bağlanmak için siteyi bulun ve bağlan düğmesine tıklayın."
   },
   "connectedAccountsListTooltip": {
     "message": "$1 hesap bakiyenizi, adresinizi, aktivitenizi görebilir ve bağlı hesapları onaylamak için işlem önerebilir.",
@@ -962,7 +962,7 @@
     "description": "$1 is the account name"
   },
   "connectedSnapAndNoAccountDescription": {
-    "message": "MetaMask bu siteye bağlı ancak henüz bağlı hesap yok"
+    "message": "Konkret Wallet bu siteye bağlı ancak henüz bağlı hesap yok"
   },
   "connectedSnaps": {
     "message": "Bağlı Snap'ler"
@@ -1052,7 +1052,7 @@
     "message": "Sözleşme Etkileşimi"
   },
   "convertTokenToNFTDescription": {
-    "message": "Bu varlığın bir NFT olduğunu tespit ettik. MetaMask artık NFT'ler için tam yerel desteğe sahiptir. Bunu token listenizden çıkarmak ve NFT olarak eklemek ister misiniz?"
+    "message": "Bu varlığın bir NFT olduğunu tespit ettik. Konkret Wallet artık NFT'ler için tam yerel desteğe sahiptir. Bunu token listenizden çıkarmak ve NFT olarak eklemek ister misiniz?"
   },
   "convertTokenToNFTExistDescription": {
     "message": "Bu varlığın bir NFT olarak eklendiğini tespit ettik. Token listenizden çıkarmak ister misiniz?"
@@ -1088,7 +1088,7 @@
     "message": "Şifre Oluştur"
   },
   "createSnapAccountDescription": {
-    "message": "$1 MetaMask'e yeni bir hesap eklemek istiyor."
+    "message": "$1 Konkret Wallet'e yeni bir hesap eklemek istiyor."
   },
   "createSnapAccountTitle": {
     "message": "Hesap oluştur"
@@ -1097,7 +1097,7 @@
     "message": "Oluşturucu adresi"
   },
   "crossChainSwapsLink": {
-    "message": "MetaMask Portfolio ile ağlar arasında swap gerçekleştirin"
+    "message": "Konkret Wallet Portfolio ile ağlar arasında swap gerçekleştirin"
   },
   "cryptoCompare": {
     "message": "CryptoCompare"
@@ -1212,7 +1212,7 @@
     "message": "Tamam"
   },
   "dataCollectionWarningPopoverDescription": {
-    "message": "Pazarlama amacıyla veri toplama seçeneğini kapattınız. Bu, sadece bu cihaz için geçerlidir. MetaMask'i başka cihazlarda kullanırsanız bu cihazlarda da vazgeçtiğinizden emin olun."
+    "message": "Pazarlama amacıyla veri toplama seçeneğini kapattınız. Bu, sadece bu cihaz için geçerlidir. Konkret Wallet'i başka cihazlarda kullanırsanız bu cihazlarda da vazgeçtiğinizden emin olun."
   },
   "dataUnavailable": {
     "message": "veri mevcut değil"
@@ -1256,7 +1256,7 @@
     "message": "Varsayılan RPC URL adresi"
   },
   "defaultSettingsSubTitle": {
-    "message": "MetaMask, güvenlik ve kullanım kolaylığını en iyi şekilde dengelemek için varsayılan ayarları kullanır. Gizliliğinizi daha fazla artırmak için bu ayarları değiştirin."
+    "message": "Konkret Wallet, güvenlik ve kullanım kolaylığını en iyi şekilde dengelemek için varsayılan ayarları kullanır. Gizliliğinizi daha fazla artırmak için bu ayarları değiştirin."
   },
   "defaultSettingsTitle": {
     "message": "Varsayılan gizlilik ayarları"
@@ -1565,13 +1565,13 @@
     "message": "Gelişmiş token algılama şu anda $1 üzerinden kullanılabilir. $2"
   },
   "ensDomainsSettingDescriptionIntroduction": {
-    "message": "MetaMask, ENS alanlarını doğrudan tarayıcınızın adres çubuğunda görmenizi sağlar. Şöyle çalışır:"
+    "message": "Konkret Wallet, ENS alanlarını doğrudan tarayıcınızın adres çubuğunda görmenizi sağlar. Şöyle çalışır:"
   },
   "ensDomainsSettingDescriptionOutroduction": {
     "message": "Bu özelliğin kullanılmasının IP adresinizi IPFS üçüncü taraf hizmetleriyle paylaştığını unutmayın."
   },
   "ensDomainsSettingDescriptionPart1": {
-    "message": "MetaMask, ENS adına bağlı kodu bulmak için Ethereum'un ENS sözleşmesi ile kontrol gerçekleştirir."
+    "message": "Konkret Wallet, ENS adına bağlı kodu bulmak için Ethereum'un ENS sözleşmesi ile kontrol gerçekleştirir."
   },
   "ensDomainsSettingDescriptionPart2": {
     "message": "Kod IPFS'ye bağlanıyorsa onunla ilişkili içeriği (genellikle bir web sitesi) görebilirsiniz."
@@ -1656,7 +1656,7 @@
     "description": "In sentry feedback form, The message displayed after a successful feedback submission."
   },
   "errorPageTitle": {
-    "message": "MetaMask bir hata ile karşılaştı",
+    "message": "Konkret Wallet bir hata ile karşılaştı",
     "description": "Title of generic error page"
   },
   "errorPageTryAgain": {
@@ -1762,15 +1762,15 @@
   },
   "flaskWelcomeWarning2": {
     "message": "Bu uzantının güvenliğini veya istikrarını garanti etmiyoruz. Flask tarafından sunulan yeni API'ler kimlik avı saldırılarına karşı güçlendirilmemiştir, yani Flask gerektiren herhangi bir site veya snap, varlıklarını çalmaya yönelik kötü niyetli bir girişim olabilir.",
-    "description": "This explains the risks of using MetaMask Flask"
+    "description": "This explains the risks of using Konkret Wallet Flask"
   },
   "flaskWelcomeWarning3": {
-    "message": "Tüm Flask API'leri deneyseldir. Önceden haber verilmeksizin değiştirilebilir veya kaldırılabilirler ya da kararlı MetaMask'e taşınmadan süresiz olarak Flask'ta kalabilirler. Bunları kendi sorumluluğunda kullan.",
+    "message": "Tüm Flask API'leri deneyseldir. Önceden haber verilmeksizin değiştirilebilir veya kaldırılabilirler ya da kararlı Konkret Wallet'e taşınmadan süresiz olarak Flask'ta kalabilirler. Bunları kendi sorumluluğunda kullan.",
     "description": "This message warns developers about unstable Flask APIs"
   },
   "flaskWelcomeWarning4": {
-    "message": "Flask kullanırken normal MetaMask uzantınızı devre dışı bıraktığınızdan emin olun.",
-    "description": "This message calls to pay attention about multiple versions of MetaMask running on the same site (Flask + Prod)"
+    "message": "Flask kullanırken normal Konkret Wallet uzantınızı devre dışı bıraktığınızdan emin olun.",
+    "description": "This message calls to pay attention about multiple versions of Konkret Wallet running on the same site (Flask + Prod)"
   },
   "flaskWelcomeWarningAcceptButton": {
     "message": "Riskleri kabul ediyorum",
@@ -1931,7 +1931,7 @@
     "message": "Donanım cüzdanı entegrasyonları, IP adresinizi ve etkileşimde bulunduğunuz akıllı sözleşme adreslerini görebilen harici sunucular için API aramalarını kullanır."
   },
   "hardwareWalletsMsg": {
-    "message": "MetaMask ile kullanmak istediğiniz donanım cüzdanını seçin."
+    "message": "Konkret Wallet ile kullanmak istediğiniz donanım cüzdanını seçin."
   },
   "here": {
     "message": "burada",
@@ -1997,7 +1997,7 @@
     "description": "$1 is a message from 'holdToRevealContent4' and $2 is a text link with the message from 'holdToRevealContent5'"
   },
   "holdToRevealContent4": {
-    "message": "MetaMask Destek bölümü bunu talep etmez",
+    "message": "Konkret Wallet Destek bölümü bunu talep etmez",
     "description": "Part of 'holdToRevealContent3'"
   },
   "holdToRevealContent5": {
@@ -2063,13 +2063,13 @@
     "message": "Bu geçerli bir özel anahtar değil. 64 karakter uzunluğunda on altılık bir dizi girmelisiniz."
   },
   "importAccountJsonLoading1": {
-    "message": "Bu JSON dosyasının birkaç dakika içinde içe aktarılmasını bekleyin ve MetaMask'i dondurun."
+    "message": "Bu JSON dosyasının birkaç dakika içinde içe aktarılmasını bekleyin ve Konkret Wallet'i dondurun."
   },
   "importAccountJsonLoading2": {
     "message": "Özür dileriz, bunu gelecekte daha hızlı hale getireceğiz."
   },
   "importAccountMsg": {
-    "message": "İçe aktarılan hesaplar ilk olarak oluşturduğunuz MetaMask hesabı Gizli Kurtarma ifadenizle ilişkilendirilmez. İçe aktarılan hesaplar hakkında daha fazla bilgi edinin"
+    "message": "İçe aktarılan hesaplar ilk olarak oluşturduğunuz Konkret Wallet hesabı Gizli Kurtarma ifadenizle ilişkilendirilmez. İçe aktarılan hesaplar hakkında daha fazla bilgi edinin"
   },
   "importMyWallet": {
     "message": "Cüzdanımı içe aktar"
@@ -2119,7 +2119,7 @@
     "message": "dahil"
   },
   "infuraBlockedNotification": {
-    "message": "MetaMask blokzinciri ana bilgisayarına bağlanamıyor. $1 olası nedenleri inceleyin.",
+    "message": "Konkret Wallet blokzinciri ana bilgisayarına bağlanamıyor. $1 olası nedenleri inceleyin.",
     "description": "$1 is a clickable link with with text defined by the 'here' key"
   },
   "initialTransactionConfirmed": {
@@ -2136,7 +2136,7 @@
     "message": "Kökeni yükle"
   },
   "installRequest": {
-    "message": "MetaMask'e ekle"
+    "message": "Konkret Wallet'e ekle"
   },
   "installedOn": {
     "message": "$1 üzerinde yüklendi",
@@ -2214,7 +2214,7 @@
     "message": "IPFS ağ geçidi"
   },
   "ipfsGatewayDescription": {
-    "message": "MetaMask, IPFS'de depolanan NFT'lerinizin görüntülerini göstermek, tarayıcınızın adres çubuğuna girilen ENS adresleri ile ilgili bilgileri göstermek ve farklı tokenlerin simgelerini almak için üçüncü taraf hizmetleri kullanır. Siz bunları kullanırken IP adresiniz bu hizmetlerle paylaşılabilir."
+    "message": "Konkret Wallet, IPFS'de depolanan NFT'lerinizin görüntülerini göstermek, tarayıcınızın adres çubuğuna girilen ENS adresleri ile ilgili bilgileri göstermek ve farklı tokenlerin simgelerini almak için üçüncü taraf hizmetleri kullanır. Siz bunları kullanırken IP adresiniz bu hizmetlerle paylaşılabilir."
   },
   "ipfsToggleModalDescriptionOne": {
     "message": "IPFS'de depolanan NFT'lerinizin görüntülerini göstermek, tarayıcınızın adres çubuğuna girilen ENS adresleri ile ilgili bilgileri göstermek ve farklı tokenlerin simgelerini almak için üçüncü taraf hizmetleri kullanırız. Siz bunları kullanırken IP adresiniz bu hizmetlerle paylaşılabilir."
@@ -2323,10 +2323,10 @@
     "message": "dolandırıcılıklar ve güvenlik riskleri."
   },
   "leaveMetaMask": {
-    "message": "MetaMask'ten ayrıl?"
+    "message": "Konkret Wallet'ten ayrıl?"
   },
   "leaveMetaMaskDesc": {
-    "message": "MetaMask'in dışında bir siteyi ziyaret etmek üzeresiniz. Devam etmeden önce URL adresini dikkatli bir şekilde kontrol edin."
+    "message": "Konkret Wallet'in dışında bir siteyi ziyaret etmek üzeresiniz. Devam etmeden önce URL adresini dikkatli bir şekilde kontrol edin."
   },
   "ledgerAccountRestriction": {
     "message": "Yeni bir hesap ekleyebilmeniz için önce son hesabınızı kullanmanız gerekir."
@@ -2396,7 +2396,7 @@
     "message": "Bağlantı"
   },
   "linkCentralizedExchanges": {
-    "message": "MetaMask'e ücretsiz kripto transferi yapmak için Coinbase veya Binance hesaplarınızı bağlayın."
+    "message": "Konkret Wallet'e ücretsiz kripto transferi yapmak için Coinbase veya Binance hesaplarınızı bağlayın."
   },
   "links": {
     "message": "Bağlantılar"
@@ -2417,7 +2417,7 @@
     "message": "Kilitle"
   },
   "lockMetaMask": {
-    "message": "MetaMask'i kilitle"
+    "message": "Konkret Wallet'i kilitle"
   },
   "lockTimeInvalid": {
     "message": "Kilit süresi 0 ile 10080 arasında olmalıdır"
@@ -2487,7 +2487,7 @@
     "message": "Mesaj"
   },
   "metaMaskConnectStatusParagraphOne": {
-    "message": "Artık MetaMask'te hesap bağlantılarınızın üzerinde daha fazla kontrole sahipsiniz."
+    "message": "Artık Konkret Wallet'te hesap bağlantılarınızın üzerinde daha fazla kontrole sahipsiniz."
   },
   "metaMaskConnectStatusParagraphThree": {
     "message": "Bağlı hesaplarınızı yönetmek için tıklayın."
@@ -2506,10 +2506,10 @@
     "message": "Cüzdan bildirimleri şu anda aktif değil."
   },
   "metamaskSwapsOfflineDescription": {
-    "message": "MetaMask Swap İşlemleri bakımda. Lütfen daha sonra tekrar kontrol edin."
+    "message": "Konkret Wallet Swap İşlemleri bakımda. Lütfen daha sonra tekrar kontrol edin."
   },
   "metamaskVersion": {
-    "message": "MetaMask Sürümü"
+    "message": "Konkret Wallet Sürümü"
   },
   "methodData": {
     "message": "Yöntem"
@@ -2565,7 +2565,7 @@
     "description": "$1 is the number of networks"
   },
   "multichainAddEthereumChainConfirmationDescription": {
-    "message": "Bu ağı MetaMask'e ekliyor ve bu siteye ağı kullanma izni veriyorsunuz."
+    "message": "Bu ağı Konkret Wallet'e ekliyor ve bu siteye ağı kullanma izni veriyorsunuz."
   },
   "multipleSnapConnectionWarning": {
     "message": "$1 $2 Snap kullanmak istiyor",
@@ -2627,7 +2627,7 @@
     "message": "Lens Protocol"
   },
   "nameProvider_token": {
-    "message": "MetaMask"
+    "message": "Konkret Wallet"
   },
   "nameSetPlaceholder": {
     "message": "Bir takma ad seçin...",
@@ -2660,7 +2660,7 @@
     "message": "Geri bildirimini paylaş"
   },
   "needHelpLinkText": {
-    "message": "MetaMask destek"
+    "message": "Konkret Wallet destek"
   },
   "needHelpSubmitTicket": {
     "message": "Sorgu gönder"
@@ -2809,7 +2809,7 @@
     "description": "$1 is used for newNFTDetectedInImportNFTsMessageStrongText"
   },
   "newNFTDetectedInNFTsTabMessage": {
-    "message": "MetaMask'ın otomatik olarak cüzdanınızdaki NFT'leri algılayıp göstermesine izin verin."
+    "message": "Konkret Wallet'ın otomatik olarak cüzdanınızdaki NFT'leri algılayıp göstermesine izin verin."
   },
   "newNFTsAutodetected": {
     "message": "NFT otomatik algılama"
@@ -2859,7 +2859,7 @@
     "message": "NFT otomatik algılama etkinleştirildi"
   },
   "nftDisclaimer": {
-    "message": "Sorumluluğun Reddi: MetaMask medya dosyasını kaynak url adresinden çeker. Bu url adresi bazen NFT'nin mint edildiği pazar yeri tarafından değiştirilir."
+    "message": "Sorumluluğun Reddi: Konkret Wallet medya dosyasını kaynak url adresinden çeker. Bu url adresi bazen NFT'nin mint edildiği pazar yeri tarafından değiştirilir."
   },
   "nftOptions": {
     "message": "NFT Seçenekleri"
@@ -2891,10 +2891,10 @@
     "message": "Belirtilen arama sorgusu için hesap bulunamadı"
   },
   "noConnectedAccountTitle": {
-    "message": "MetaMask bu siteye bağlı değil"
+    "message": "Konkret Wallet bu siteye bağlı değil"
   },
   "noConnectionDescription": {
-    "message": "Bir siteye bağlanmak için \"bağlan\" düğmesini bularak seçin. MetaMask'in sadece web3 üzerindeki sitelere bağlanabildiğini unutmayın"
+    "message": "Bir siteye bağlanmak için \"bağlan\" düğmesini bularak seçin. Konkret Wallet'in sadece web3 üzerindeki sitelere bağlanabildiğini unutmayın"
   },
   "noConversionRateAvailable": {
     "message": "Dönüşüm oranı mevcut değil"
@@ -3074,8 +3074,8 @@
     "message": "Bildirimler"
   },
   "notificationsDropLedgerFirefoxDescription": {
-    "message": "Firefox artık U2F'yi desteklemiyor, bu yüzden Ledger Firefox'ta Metamask ile çalışmayacaktır. Onun yerine MetaMask'i Google Chrome'da deneyin.",
-    "description": "Description of a notification in the 'See What's New' popup. Describes that ledger will not longer be supported for firefox users and they should use MetaMask on chrome for ledger support instead."
+    "message": "Firefox artık U2F'yi desteklemiyor, bu yüzden Ledger Firefox'ta Metamask ile çalışmayacaktır. Onun yerine Konkret Wallet'i Google Chrome'da deneyin.",
+    "description": "Description of a notification in the 'See What's New' popup. Describes that ledger will not longer be supported for firefox users and they should use Konkret Wallet on chrome for ledger support instead."
   },
   "notificationsDropLedgerFirefoxTitle": {
     "message": "Firefox için Ledger Desteğinin Bitmesi",
@@ -3197,7 +3197,7 @@
     "message": "Kabul ediyorum"
   },
   "onboardingMetametricsDescription": {
-    "message": "MetaMask'i iyileştirmek için temel kullanım ve tanılama verilerini toplamak istiyoruz. Burada sunduğunuz verileri asla satmadığımızı bilmenizi isteriz."
+    "message": "Konkret Wallet'i iyileştirmek için temel kullanım ve tanılama verilerini toplamak istiyoruz. Burada sunduğunuz verileri asla satmadığımızı bilmenizi isteriz."
   },
   "onboardingMetametricsDescription2": {
     "message": "Ölçümleri toplarken bu her zaman aşağıdaki gibi olacaktır..."
@@ -3234,7 +3234,7 @@
     "message": "Profiliniz için kullanım verilerini toplarken gizliliğinizi nasıl koruduğumuzu öğrenin."
   },
   "onboardingMetametricsTitle": {
-    "message": "MetaMask'i iyileştirmemize yardımcı olun"
+    "message": "Konkret Wallet'i iyileştirmemize yardımcı olun"
   },
   "onboardingMetametricsUseDataCheckbox": {
     "message": "Bu verileri, pazarlama iletişimlerimizle nasıl etkileşimde bulunduğunuzu öğrenmek için kullanacağız. İlgili haberleri (ürün özellikleri gibi) paylaşabiliriz."
@@ -3255,16 +3255,16 @@
     "message": "Tarayıcı uzantısı simgesine tıklayın"
   },
   "onboardingPinExtensionDescription": {
-    "message": "İşlem onaylarını erişilebilir ve kolay görüntülenebilir hale getirmek için MetaMask'i tarayıcınıza sabitleyin."
+    "message": "İşlem onaylarını erişilebilir ve kolay görüntülenebilir hale getirmek için Konkret Wallet'i tarayıcınıza sabitleyin."
   },
   "onboardingPinExtensionDescription2": {
-    "message": "Uzantıya tıklayarak MetaMask'i açabilir ve 1 tık ile cüzdanınıza erişim sağlayabilirsiniz."
+    "message": "Uzantıya tıklayarak Konkret Wallet'i açabilir ve 1 tık ile cüzdanınıza erişim sağlayabilirsiniz."
   },
   "onboardingPinExtensionDescription3": {
     "message": "Hemen erişim sağlamak için tarayıcı uzantısı simgesine tıklayın"
   },
   "onboardingPinExtensionLabel": {
-    "message": "MetaMask'i sabitle"
+    "message": "Konkret Wallet'i sabitle"
   },
   "onboardingPinExtensionStep1": {
     "message": "1"
@@ -3273,7 +3273,7 @@
     "message": "2"
   },
   "onboardingPinExtensionTitle": {
-    "message": "MetaMask kurulumunuz tamamlandı!"
+    "message": "Konkret Wallet kurulumunuz tamamlandı!"
   },
   "oneDayAbbreviation": {
     "message": "1G",
@@ -3300,7 +3300,7 @@
   },
   "openFullScreenForLedgerWebHid": {
     "message": "Ledger'ınızı bağlamak için tam ekrana gidin.",
-    "description": "Shown to the user on the confirm screen when they are viewing MetaMask in a popup window but need to connect their ledger via webhid."
+    "description": "Shown to the user on the confirm screen when they are viewing Konkret Wallet in a popup window but need to connect their ledger via webhid."
   },
   "openInBlockExplorer": {
     "message": "Blok gezgininde aç"
@@ -3322,7 +3322,7 @@
     "description": "Used in the 'permission_rpc' message."
   },
   "outdatedBrowserNotification": {
-    "message": "Tarayıcınız güncel değil. Tarayıcınızı güncellemezseniz MetaMask'ten güvenlik yamalarını ve yeni özellikleri alamayacaksınız."
+    "message": "Tarayıcınız güncel değil. Tarayıcınızı güncellemezseniz Konkret Wallet'ten güvenlik yamalarını ve yeni özellikleri alamayacaksınız."
   },
   "overrideContentSecurityPolicyHeader": {
     "message": "İçerik-Güvenlik-Politika başlığını geçersiz kıl"
@@ -3337,7 +3337,7 @@
     "message": "MetaMetrics'e Katıl"
   },
   "participateInMetaMetricsDescription": {
-    "message": "MetaMask'i daha iyi hale getirmemize yardımcı olmak için MetaMetrics'e katılın"
+    "message": "Konkret Wallet'i daha iyi hale getirmemize yardımcı olmak için MetaMetrics'e katılın"
   },
   "password": {
     "message": "Şifre"
@@ -3346,7 +3346,7 @@
     "message": "Şifre yeterince uzun değil"
   },
   "passwordSetupDetails": {
-    "message": "Bu şifre MetaMask cüzdanınızın kilidini sadece bu cihazda açacaktır. MetaMask bu şifreyi kurtaramaz."
+    "message": "Bu şifre Konkret Wallet cüzdanınızın kilidini sadece bu cihazda açacaktır. Konkret Wallet bu şifreyi kurtaramaz."
   },
   "passwordStrength": {
     "message": "Şifre güvenlik düzeyi: $1",
@@ -3356,7 +3356,7 @@
     "message": "Güçlü bir şifre, cihazının çalınması veya güvenliğinin ihlal edilmesi durumunda cüzdanının güvenliğini artırabilir."
   },
   "passwordTermsWarning": {
-    "message": "MetaMask'in benim için bu şifreyi kurtaramayacağını anlıyorum. $1"
+    "message": "Konkret Wallet'in benim için bu şifreyi kurtaramayacağını anlıyorum. $1"
   },
   "passwordsDontMatch": {
     "message": "Şifreler uyumlu değil"
@@ -3420,11 +3420,11 @@
     "description": "An extended description for the `snap_cronjob` permission. $1 is the snap name."
   },
   "permission_dialog": {
-    "message": "MetaMask'te iletişim kutusu pencerelerini göster.",
+    "message": "Konkret Wallet'te iletişim kutusu pencerelerini göster.",
     "description": "The description for the `snap_dialog` permission"
   },
   "permission_dialogDescription": {
-    "message": "$1 adlı snap'in bir eylemi onaylamak ya da reddetmek için özel metin, giriş alanı ve düğmelerle MetaMask açılır pencerelerini göstermesine izin verin.\nBir snap için ör. uyarı, onay ve talep edilen akış oluşturmak için kullanılabilir.",
+    "message": "$1 adlı snap'in bir eylemi onaylamak ya da reddetmek için özel metin, giriş alanı ve düğmelerle Konkret Wallet açılır pencerelerini göstermesine izin verin.\nBir snap için ör. uyarı, onay ve talep edilen akış oluşturmak için kullanılabilir.",
     "description": "An extended description for the `snap_dialog` permission. $1 is the snap name."
   },
   "permission_ethereumAccounts": {
@@ -3436,7 +3436,7 @@
     "description": "The description for the `endowment:ethereum-provider` permission"
   },
   "permission_ethereumProviderDescription": {
-    "message": "Blok zincirinden veri okuyabilmesi ve mesaj ile işlemleri önerebilmesi için $1 adlı snap'in doğrudan MetaMask ile iletişim kurmasına izin verin.",
+    "message": "Blok zincirinden veri okuyabilmesi ve mesaj ile işlemleri önerebilmesi için $1 adlı snap'in doğrudan Konkret Wallet ile iletişim kurmasına izin verin.",
     "description": "An extended description for the `endowment:ethereum-provider` permission. $1 is the snap name."
   },
   "permission_getEntropy": {
@@ -3444,7 +3444,7 @@
     "description": "The description for the `snap_getEntropy` permission. $1 is the snap name."
   },
   "permission_getEntropyDescription": {
-    "message": "$1 adlı snap'in, paylaşmadan, $1 adlı snap'e özel rastgele anahtarlar türetmesine izin verin. Bu anahtarlar MetaMask hesap veya hesaplarınızdan ayrıdır ve özel anahtarlarınızla ya da Gizli Kurtarma İfadenizle bağlantılı değildir. Diğer snap'ler bu bilgilere erişemez.",
+    "message": "$1 adlı snap'in, paylaşmadan, $1 adlı snap'e özel rastgele anahtarlar türetmesine izin verin. Bu anahtarlar Konkret Wallet hesap veya hesaplarınızdan ayrıdır ve özel anahtarlarınızla ya da Gizli Kurtarma İfadenizle bağlantılı değildir. Diğer snap'ler bu bilgilere erişemez.",
     "description": "An extended description for the `snap_getEntropy` permission. $1 is the snap name."
   },
   "permission_getLocale": {
@@ -3452,7 +3452,7 @@
     "description": "The description for the `snap_getLocale` permission"
   },
   "permission_getLocaleDescription": {
-    "message": "$1 adlı bu snap'in MetaMask ayarlarınızdan tercih ettiğiniz dile erişim sağlamasına izin verin. $1 içeriğini dilinizi kullanarak yerelleştirmek ve görüntülemek için bu özellik kullanılabilir.",
+    "message": "$1 adlı bu snap'in Konkret Wallet ayarlarınızdan tercih ettiğiniz dile erişim sağlamasına izin verin. $1 içeriğini dilinizi kullanarak yerelleştirmek ve görüntülemek için bu özellik kullanılabilir.",
     "description": "An extended description for the `snap_getLocale` permission. $1 is the snap name."
   },
   "permission_getPreferences": {
@@ -3460,7 +3460,7 @@
     "description": "The description for the `snap_getPreferences` permission"
   },
   "permission_getPreferencesDescription": {
-    "message": "$1 adlı snap'in MetaMask ayarlarınızda tercih ettiğiniz dil ve fiat para gibi bilgilere erişim sağlamasına izin verin. Bu durum $1 adlı snap'in sizin tercihlerinize uygun içerikler göstermesine yardımcı olur. ",
+    "message": "$1 adlı snap'in Konkret Wallet ayarlarınızda tercih ettiğiniz dil ve fiat para gibi bilgilere erişim sağlamasına izin verin. Bu durum $1 adlı snap'in sizin tercihlerinize uygun içerikler göstermesine yardımcı olur. ",
     "description": "An extended description for the `snap_getPreferences` permission. $1 is the snap name."
   },
   "permission_homePage": {
@@ -3468,7 +3468,7 @@
     "description": "The description for the `endowment:page-home` permission"
   },
   "permission_homePageDescription": {
-    "message": "$1 snap'inin MetaMask'te özel bir ana sayfa ekranı göstermesine izin verin. Bu, kullanıcı arayüzleri, yapılandırma ve kontrol panelleri için kullanılabilir.",
+    "message": "$1 snap'inin Konkret Wallet'te özel bir ana sayfa ekranı göstermesine izin verin. Bu, kullanıcı arayüzleri, yapılandırma ve kontrol panelleri için kullanılabilir.",
     "description": "An extended description for the `endowment:page-home` permission. $1 is the snap name."
   },
   "permission_keyring": {
@@ -3520,7 +3520,7 @@
     "description": "The description for the `endowment:name-lookup` permission."
   },
   "permission_nameLookupDescription": {
-    "message": "Snap'in MetaMask Arayüzünün farklı kısımlarında adres ve alan aramalarını almasına ve göstermesine izin verin.",
+    "message": "Snap'in Konkret Wallet Arayüzünün farklı kısımlarında adres ve alan aramalarını almasına ve göstermesine izin verin.",
     "description": "An extended description for the `endowment:name-lookup` permission."
   },
   "permission_notifications": {
@@ -3528,7 +3528,7 @@
     "description": "The description for the `snap_notify` permission"
   },
   "permission_notificationsDescription": {
-    "message": "$1 adlı snap'in MetaMask dahilinde bildirim göstermesine izin verin. Eyleme geçirilebilir ya da zamana duyarlı bilgiler için bir snap tarafından kısa bir bildirim metni tetiklenebilir.",
+    "message": "$1 adlı snap'in Konkret Wallet dahilinde bildirim göstermesine izin verin. Eyleme geçirilebilir ya da zamana duyarlı bilgiler için bir snap tarafından kısa bir bildirim metni tetiklenebilir.",
     "description": "An extended description for the `snap_notify` permission. $1 is the snap name."
   },
   "permission_rpc": {
@@ -3564,7 +3564,7 @@
     "description": "The description for the `endowment:transaction-insight` permission"
   },
   "permission_transactionInsightDescription": {
-    "message": "$1 adlı snap'in işlemlerin şifresini çözmesine ve MetaMask Kullanıcı Arayüzü dahilinde içgörüleri göstermesine izin verin. Kimlik avından korunma ve güvenlik çözümleri için kullanılabilir.",
+    "message": "$1 adlı snap'in işlemlerin şifresini çözmesine ve Konkret Wallet Kullanıcı Arayüzü dahilinde içgörüleri göstermesine izin verin. Kimlik avından korunma ve güvenlik çözümleri için kullanılabilir.",
     "description": "An extended description for the `endowment:transaction-insight` permission. $1 is the snap name."
   },
   "permission_transactionInsightOrigin": {
@@ -3714,7 +3714,7 @@
     "message": "Profil senkronizasyonunu açarsanız bildirimleri alamayacaksınız."
   },
   "profileSyncDescription": {
-    "message": "MetaMask'in cihazlarınız arasıonda bazı ayarları senkronize etmek için kullandığı bir profil oluşturur. Bildirim almak için bu gereklidir. $1."
+    "message": "Konkret Wallet'in cihazlarınız arasıonda bazı ayarları senkronize etmek için kullandığı bir profil oluşturur. Bildirim almak için bu gereklidir. $1."
   },
   "profileSyncPrivacyLink": {
     "message": "Gizliliğinizi nasıl koruduğumuzu öğrenin"
@@ -3795,7 +3795,7 @@
     "message": "Unstake tamamlandı"
   },
   "pushPlatformNotificationsSwapCompletedDescription": {
-    "message": "MetaMask Swap işleminiz başarılı oldu"
+    "message": "Konkret Wallet Swap işleminiz başarılı oldu"
   },
   "pushPlatformNotificationsSwapCompletedTitle": {
     "message": "Swap işlemi tamamlandı"
@@ -3846,7 +3846,7 @@
     "message": "Gizli Kurtarma İfadenizi asla başkasıyla paylaşmayın"
   },
   "recoveryPhraseReminderItemTwo": {
-    "message": "MetaMask ekibi sizden asla Gizli Kurtarma İfadenizi istemeyecektir"
+    "message": "Konkret Wallet ekibi sizden asla Gizli Kurtarma İfadenizi istemeyecektir"
   },
   "recoveryPhraseReminderSubText": {
     "message": "Gizli Kurtarma İfadeniz tüm hesaplarınızı kontrol eder."
@@ -3894,10 +3894,10 @@
     "message": "Bu hesap cüzdanınızdan kaldırılacaktır. Devam etmeden önce içe aktarılmış olan bu hesap için ilk olarak oluşturulan Gizli Kurtarma İfadesine ya da özel anahtara sahip olduğunuzdan lütfen emin olun. Hesap açılır menüsünden hesapları yeniden içe aktarabilir ya da hesap oluşturabilirsiniz. "
   },
   "removeKeyringSnap": {
-    "message": "Bu Snap kaldırıldığında bu hesaplar MetaMask'ten kaldırılır:"
+    "message": "Bu Snap kaldırıldığında bu hesaplar Konkret Wallet'ten kaldırılır:"
   },
   "removeKeyringSnapToolTip": {
-    "message": "Hesapları snap kontrol eder ve snap kaldırıldığında hesaplar MetaMask'ten de kaldılır, ancak blokzincirinde kalır."
+    "message": "Hesapları snap kontrol eder ve snap kaldırıldığında hesaplar Konkret Wallet'ten de kaldılır, ancak blokzincirinde kalır."
   },
   "removeNFT": {
     "message": "NFT'yi kaldır"
@@ -3912,7 +3912,7 @@
     "message": "Snapi kaldır"
   },
   "removeSnapAccountDescription": {
-    "message": "İlerlerseniz bu hesap artık MetaMask'te kullanılamayacak."
+    "message": "İlerlerseniz bu hesap artık Konkret Wallet'te kullanılamayacak."
   },
   "removeSnapAccountTitle": {
     "message": "Hesabı kaldırın"
@@ -3963,7 +3963,7 @@
     "message": "Cüzdanı sıfırla"
   },
   "resetWalletSubHeader": {
-    "message": "MetaMask, şifrenizin bir kopyasını tutmaz. Hesabınızın kilidini açarken sorun yaşıyorsanız cüzdanınızı sıfırlamanız gerekir. Bunu, cüzdanınızı kurarken kullandığınız Gizli Kurtarma İfadesini sunarak yapabilirsin."
+    "message": "Konkret Wallet, şifrenizin bir kopyasını tutmaz. Hesabınızın kilidini açarken sorun yaşıyorsanız cüzdanınızı sıfırlamanız gerekir. Bunu, cüzdanınızı kurarken kullandığınız Gizli Kurtarma İfadesini sunarak yapabilirsin."
   },
   "resetWalletUsingSRP": {
     "message": "Bu eylem, düzenlediğiniz hesapların listesiyle birlikte mevcut cüzdanınızı ve Gizli Kurtarma İfadenizi bu cihazdan siler. Bir Gizli Kurtarma İfadesi ile sıfırlama yaptıktan sonra sıfırlamak için kullandığınız Gizli Kurtarma İfadesine dayalı bir hesap listesi göreceksiniz. Bu yeni liste otomatik olarak bakiyesi olan hesapları içerecektir. Ayrıca daha önce oluşturulmuş $1 hesabınızı oluşturabileceksiniz. İçe aktardığınız özel hesapların $2 olması ve bir hesaba eklediğiniz özel tokenlerin de $3 olması gerekir."
@@ -3972,7 +3972,7 @@
     "message": "Devam etmeden önce doğru Gizli Kurtarma İfadesini kullandığından emin ol. Bunu geri alamazsın."
   },
   "restartMetamask": {
-    "message": "MetaMask'i yeniden başlat"
+    "message": "Konkret Wallet'i yeniden başlat"
   },
   "restore": {
     "message": "Geri Yükle"
@@ -4006,7 +4006,7 @@
     "description": "This is a sentence consisting of link using 'revealSeedWordsSRPName' as $1 and bolded text using 'revealSeedWordsDescription3' as $2."
   },
   "revealSeedWordsDescription2": {
-    "message": "MetaMask $1. Yani GKİ'niz size aittir.",
+    "message": "Konkret Wallet $1. Yani GKİ'niz size aittir.",
     "description": "$1 is text link with the message from 'revealSeedWordsNonCustodialWallet'"
   },
   "revealSeedWordsDescription3": {
@@ -4029,7 +4029,7 @@
     "description": "$1 is bolded text using the message from 'revealSeedWordsWarning2'"
   },
   "revealSeedWordsWarning2": {
-    "message": "MetaMask Destek bölümü bunu asla talep etmez.",
+    "message": "Konkret Wallet Destek bölümü bunu asla talep etmez.",
     "description": "The bolded texted in the second part of 'revealSeedWordsWarning'"
   },
   "revealSensitiveContent": {
@@ -4156,7 +4156,7 @@
     "message": "Birileri sizden kurtarma ifadenizi istiyorsa büyük olasılıkla sizi dolandırmaya ve cüzdanınızdaki paraları çalmaya çalışıyordur"
   },
   "seedPhraseIntroSidebarCopyTwo": {
-    "message": "Gizli Kurtarma İfadenizi MetaMask de dahil olmak üzere asla paylaşmayın!"
+    "message": "Gizli Kurtarma İfadenizi Konkret Wallet de dahil olmak üzere asla paylaşmayın!"
   },
   "seedPhraseIntroSidebarTitleOne": {
     "message": "Gizli Kurtarma İfadesi nedir?"
@@ -4195,7 +4195,7 @@
     "message": "Hesap seç"
   },
   "selectAnAccountAlreadyConnected": {
-    "message": "Bu hesap zaten MetaMask'e bağlanmış"
+    "message": "Bu hesap zaten Konkret Wallet'e bağlanmış"
   },
   "selectEnableDisplayMediaPrivacyPreference": {
     "message": "NFT medyasını göster seçeneğini açın"
@@ -4458,7 +4458,7 @@
     "message": "İşleminiz başarısız oldu"
   },
   "smartTransactionErrorDescription": {
-    "message": "Ani piyasa değişimleri başarısızlıklara sebep olabilir. Sorun devam ederse MetaMask müşteri destek bölümüne ulaşın."
+    "message": "Ani piyasa değişimleri başarısızlıklara sebep olabilir. Sorun devam ederse Konkret Wallet müşteri destek bölümüne ulaşın."
   },
   "smartTransactionPending": {
     "message": "İşleminiz gönderiliyor"
@@ -4499,7 +4499,7 @@
     "message": "Hesap kaldırıldı"
   },
   "snapAccountRemovedDescription": {
-    "message": "Bu hesap artık MetaMask'te kullanılamayacak."
+    "message": "Bu hesap artık Konkret Wallet'te kullanılamayacak."
   },
   "snapAccounts": {
     "message": "Snap Hesapları"
@@ -4732,7 +4732,7 @@
     "message": "Gizli Kurtarma İfadenizi görmek için iki soruyu doğru cevaplamanız gerekmektedir"
   },
   "srpSecurityQuizQuestionOneQuestion": {
-    "message": "Gizli Kurtarma İfadenizi kaybederseniz MetaMask..."
+    "message": "Gizli Kurtarma İfadenizi kaybederseniz Konkret Wallet..."
   },
   "srpSecurityQuizQuestionOneRightAnswer": {
     "message": "Size yardımcı olamaz"
@@ -4801,7 +4801,7 @@
     "message": "Durum günlükleri alınırken hata."
   },
   "stateLogFileName": {
-    "message": "MetaMask durum günlükleri"
+    "message": "Konkret Wallet durum günlükleri"
   },
   "stateLogs": {
     "message": "Durum günlükleri"
@@ -4822,7 +4822,7 @@
     "message": "Lattice1'inizi bağlayın"
   },
   "step1LatticeWalletMsg": {
-    "message": "Kurulduktan ve çevrimiçi olduktan sonra MetaMask'i Lattice1 cihazınıza bağlayabilirsiniz. Cihazınızın kilidini açın ve Cihaz Kimlliğinizi hazırlayın.",
+    "message": "Kurulduktan ve çevrimiçi olduktan sonra Konkret Wallet'i Lattice1 cihazınıza bağlayabilirsiniz. Cihazınızın kilidini açın ve Cihaz Kimlliğinizi hazırlayın.",
     "description": "$1 represents the `hardwareWalletSupportLinkConversion` localization key"
   },
   "step1LedgerWallet": {
@@ -4929,7 +4929,7 @@
     "message": "Anketimize katılın"
   },
   "surveyTitle": {
-    "message": "MetaMask'in geleceğini şekillendirin"
+    "message": "Konkret Wallet'in geleceğini şekillendirin"
   },
   "swap": {
     "message": "Swap"
@@ -4995,7 +4995,7 @@
     "message": "Limiti düzenle"
   },
   "swapEnableDescription": {
-    "message": "Bu gereklidir ve MetaMask'e $1 için swap işlemi yapma izni verir.",
+    "message": "Bu gereklidir ve Konkret Wallet'e $1 için swap işlemi yapma izni verir.",
     "description": "Gives the user info about the required approval transaction for swaps. $1 will be the symbol of a token being approved for swaps."
   },
   "swapEnableTokenForSwapping": {
@@ -5042,7 +5042,7 @@
     "message": "Gaz ücretleri tahmini olup ağ trafiği ve işlem karmaşıklığına göre dalgalanır."
   },
   "swapGasFeesExplanation": {
-    "message": "MetaMask, gaz ücretlerinden para kazanmaz. Bu ücretler tahminlerdir ve ağın yoğunluğuna ve işlemin karmaşıklığına göre değişebilir. $1 daha fazla bilgi edinin.",
+    "message": "Konkret Wallet, gaz ücretlerinden para kazanmaz. Bu ücretler tahminlerdir ve ağın yoğunluğuna ve işlemin karmaşıklığına göre değişebilir. $1 daha fazla bilgi edinin.",
     "description": "$1 is a link (text in link can be found at 'swapGasFeesSummaryLinkText')"
   },
   "swapGasFeesExplanationLinkText": {
@@ -5056,7 +5056,7 @@
     "message": "Önceki ekrandaki gaz ücretleri bu iki işlem arasında bölünmüştür."
   },
   "swapGasFeesSummary": {
-    "message": "Gaz ücretleri, $1 ağında işlemleri gerçekleştiren kripto madencilerine ödenir. MetaMask gaz ücretlerinden herhangi bir kazanç elde etmemektedir.",
+    "message": "Gaz ücretleri, $1 ağında işlemleri gerçekleştiren kripto madencilerine ödenir. Konkret Wallet gaz ücretlerinden herhangi bir kazanç elde etmemektedir.",
     "description": "$1 is the selected network, e.g. Ethereum or BSC"
   },
   "swapGasIncludedTooltipExplanation": {
@@ -5069,19 +5069,19 @@
     "message": "Yüksek kayma"
   },
   "swapIncludesGasAndMetaMaskFee": {
-    "message": "Gaz ve %$1 MetaMask ücreti dahildir",
+    "message": "Gaz ve %$1 Konkret Wallet ücreti dahildir",
     "description": "Provides information about the fee that metamask takes for swaps. $1 is a decimal number."
   },
   "swapIncludesMMFee": {
-    "message": "%$1 MetaMask ücreti dahildir.",
+    "message": "%$1 Konkret Wallet ücreti dahildir.",
     "description": "Provides information about the fee that metamask takes for swaps. $1 is a decimal number."
   },
   "swapIncludesMMFeeAlt": {
-    "message": "Teklif $1% MetaMask ücretini yansıtır",
+    "message": "Teklif $1% Konkret Wallet ücretini yansıtır",
     "description": "Provides information about the fee that metamask takes for swaps using the latest copy. $1 is a decimal number."
   },
   "swapIncludesMetaMaskFeeViewAllQuotes": {
-    "message": "%$1 MetaMask ücreti - $2 dahildir",
+    "message": "%$1 Konkret Wallet ücreti - $2 dahildir",
     "description": "Provides information about the fee that metamask takes for swaps. $1 is a decimal number and $2 is a link to view all quotes."
   },
   "swapLearnMore": {
@@ -5097,7 +5097,7 @@
     "message": "Maks. kayma"
   },
   "swapMetaMaskFee": {
-    "message": "MetaMask ücreti"
+    "message": "Konkret Wallet ücreti"
   },
   "swapMetaMaskFeeDescription": {
     "message": "%$1 oranında bir ücret otomatik olarak bu teklife dahil edilmiştir. MetaMask'in likidite sağlayıcı bilgilerinin toplandığı yazılımı kullanma lisansı karşılığında ödersiniz.",
@@ -5314,7 +5314,7 @@
     "message": "Değiştir"
   },
   "switchEthereumChainConfirmationDescription": {
-    "message": "Bu işlem, MetaMask'te seçili bir ağı önceden eklenmiş bir ağ ile değiştirecek:"
+    "message": "Bu işlem, Konkret Wallet'te seçili bir ağı önceden eklenmiş bir ağ ile değiştirecek:"
   },
   "switchEthereumChainConfirmationTitle": {
     "message": "Bu sitenin ağı değiştirmesine izin ver?"
@@ -5361,7 +5361,7 @@
     "message": "Hizmet şartları"
   },
   "termsOfUseAgreeText": {
-    "message": " MetaMask ve tüm özelliklerini kullanımım için geçerli olan Kullanım Şartları bölümünü kabul ediyorum"
+    "message": " Konkret Wallet ve tüm özelliklerini kullanımım için geçerli olan Kullanım Şartları bölümünü kabul ediyorum"
   },
   "termsOfUseFooterText": {
     "message": "Tüm bölümleri okumak için lütfen kaydırın"
@@ -5376,7 +5376,7 @@
     "message": "Tema"
   },
   "themeDescription": {
-    "message": "Tercih ettiğin MetaMask temasını seç."
+    "message": "Tercih ettiğin Konkret Wallet temasını seç."
   },
   "thirdPartySoftware": {
     "message": "Üçüncü taraf yazılım uyarısı",
@@ -5590,7 +5590,7 @@
     "description": "$1 is the wallet device name; $2 is a link to wallet connection guide"
   },
   "troubleStarting": {
-    "message": "MetaMask başlatılırken bir sorun oldu. Bu hata sürekli bir hata olmayabilir; bu yüzden uzantıyı yeniden başlatmayı dene."
+    "message": "Konkret Wallet başlatılırken bir sorun oldu. Bu hata sürekli bir hata olmayabilir; bu yüzden uzantıyı yeniden başlatmayı dene."
   },
   "tryAgain": {
     "message": "Tekrar dene"
@@ -5642,7 +5642,7 @@
   },
   "u2f": {
     "message": "U2F",
-    "description": "A name on an API for the browser to interact with devices that support the U2F protocol. On some browsers we use it to connect MetaMask to Ledger devices."
+    "description": "A name on an API for the browser to interact with devices that support the U2F protocol. On some browsers we use it to connect Konkret Wallet to Ledger devices."
   },
   "unapproved": {
     "message": "Onaylanmadı"
@@ -5727,7 +5727,7 @@
     "message": "NFT'leri otomatik algıla"
   },
   "useNftDetectionDescriptionText": {
-    "message": "MetaMask'in üçüncü taraf hizmetleri kullanarak size ait olan NFT'leri eklemesine izin verin. NFT'leri otomatik algılama, IP adresinizi ve hesap adresinizi bu hizmetlerle paylaşır. Bu özelliğin etkinleştirilmesi IP adresinizi Ethereum adresinizle ilişkilendirebilir ve dolandırıcılar tarafından airdrop'u gerçekleştirilen sahte NFT'leri gösterebilir. Bu riski önlemek için tokenleri elle ekleyebilirsiniz."
+    "message": "Konkret Wallet'in üçüncü taraf hizmetleri kullanarak size ait olan NFT'leri eklemesine izin verin. NFT'leri otomatik algılama, IP adresinizi ve hesap adresinizi bu hizmetlerle paylaşır. Bu özelliğin etkinleştirilmesi IP adresinizi Ethereum adresinizle ilişkilendirebilir ve dolandırıcılar tarafından airdrop'u gerçekleştirilen sahte NFT'leri gösterebilir. Bu riski önlemek için tokenleri elle ekleyebilirsiniz."
   },
   "usePhishingDetection": {
     "message": "Kimlik avı algılama kullan"
@@ -5739,7 +5739,7 @@
     "message": "Ağ bilgileri kontrolü"
   },
   "useSafeChainsListValidationDescription": {
-    "message": "MetaMask, doğru ve standartlaştırılmış ağ bilgilerini göstermek için $1 adlı üçüncü taraf bir hizmet kullanır. Bu, kötü amaçlı veya yanlış ağa bağlanma şansınızı düşürür. Bu özelliği kullanırken IP adresiniz chainid.network ile paylaşılır."
+    "message": "Konkret Wallet, doğru ve standartlaştırılmış ağ bilgilerini göstermek için $1 adlı üçüncü taraf bir hizmet kullanır. Bu, kötü amaçlı veya yanlış ağa bağlanma şansınızı düşürür. Bu özelliği kullanırken IP adresiniz chainid.network ile paylaşılır."
   },
   "useSafeChainsListValidationWebsite": {
     "message": "chainid.network",
@@ -5867,7 +5867,7 @@
     "message": "Merkezsiz uygulamaları keşfedin"
   },
   "welcomeLoginDescription": {
-    "message": "Merkezsiz uygulamalarda oturum açmak için MetaMask'inizi kullanın - kaydolmak gerekmez."
+    "message": "Merkezsiz uygulamalarda oturum açmak için Konkret Wallet'inizi kullanın - kaydolmak gerekmez."
   },
   "welcomeLoginTitle": {
     "message": "Cüzdanınıza merhaba deyin"

@@ -73,7 +73,7 @@ const webAccessibleResources =
 const cache = args.cache
   ? ({
       type: 'filesystem',
-      name: `MetaMask—${args.env}`,
+      name: `Konkret—${args.env}`,
       version: cacheKey,
       idleTimeout: 0,
       idleTimeoutForInitialStore: 0,
@@ -89,6 +89,7 @@ const cache = args.cache
         // `buildDependencies`
         config: [
           __filename,
+          join(context, '../.konkretrc'),
           join(context, '../.metamaskrc'),
           join(context, '../builds.yml'),
           browsersListPath,
@@ -140,7 +141,7 @@ const plugins: WebpackPluginInstance[] = [
     ...(args.zip
       ? {
           zipOptions: {
-            outFilePath: `../../builds/metamask-[browser]-${version.versionName}.zip`, // relative to output.path
+            outFilePath: `../../builds/konkret-[browser]-${version.versionName}.zip`, // relative to output.path
             mtime: getLatestCommit().timestamp(),
             excludeExtensions: ['.map'],
             // `level: 9` is the highest; it may increase build time by ~5% over level 1
@@ -196,7 +197,7 @@ const config = {
   context,
   mode: args.env,
   stats: args.stats ? 'normal' : 'none',
-  name: `MetaMask – ${args.env}`,
+  name: `Konkret – ${args.env}`,
   // use the `.browserlistrc` file directly to avoid browserslist searching
   target: `browserslist:${browsersListPath}:defaults`,
   // TODO: look into using SourceMapDevToolPlugin and its exclude option to speed up the build

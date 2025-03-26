@@ -30,7 +30,7 @@
     "message": "protokol aktivity"
   },
   "addAcquiredTokens": {
-    "message": "Pridajte tokeny, ktoré ste získali pomocou MetaMask"
+    "message": "Pridajte tokeny, ktoré ste získali pomocou Konkret Wallet"
   },
   "addAlias": {
     "message": "Pridať alias"
@@ -55,15 +55,15 @@
     "description": "The description of the application"
   },
   "appName": {
-    "message": "MetaMask",
+    "message": "Konkret Wallet",
     "description": "The name of the application"
   },
   "appNameBeta": {
-    "message": "MetaMask Beta",
+    "message": "Konkret Wallet Beta",
     "description": "The name of the application (Beta)"
   },
   "appNameFlask": {
-    "message": "MetaMask Flask",
+    "message": "Konkret Wallet Flask",
     "description": "The name of the application (Flask)"
   },
   "approve": {
@@ -79,7 +79,7 @@
     "message": "Časovač automatického odhlásenia (minúty)"
   },
   "autoLockTimeLimitDescription": {
-    "message": "Nastavte čas nečinnosti v minútach skôr, než sa MetaMask automaticky odhlási"
+    "message": "Nastavte čas nečinnosti v minútach skôr, než sa Konkret Wallet automaticky odhlási"
   },
   "average": {
     "message": "Priemerný"
@@ -88,7 +88,7 @@
     "message": "Zpět"
   },
   "backupApprovalInfo": {
-    "message": "Tento tajný kód je potrebný na obnovenie peňaženky v prípade straty zariadenia, zabudnutia hesla, preinštalovania MetaMask alebo prístupu k peňaženke na inom zariadení."
+    "message": "Tento tajný kód je potrebný na obnovenie peňaženky v prípade straty zariadenia, zabudnutia hesla, preinštalovania Konkret Wallet alebo prístupu k peňaženke na inom zariadení."
   },
   "backupApprovalNotice": {
     "message": "Zálohujte si svoj tajný kód na obnovenie, aby bola vaša peňaženka a prostriedky bezpečné."
@@ -125,7 +125,7 @@
     "message": "ID reťazca"
   },
   "chromeRequiredForHardwareWallets": {
-    "message": "Ak sa chcete pripojiť k svojej hardvérovej peňaženke, musíte v Google Chrome použiť MetaMask."
+    "message": "Ak sa chcete pripojiť k svojej hardvérovej peňaženke, musíte v Google Chrome použiť Konkret Wallet."
   },
   "close": {
     "message": "Zavrieť"
@@ -285,7 +285,7 @@
     "message": "Pripojiť hardvérovú peňaženku"
   },
   "hardwareWalletsMsg": {
-    "message": "Vyberte hardvérovú peňaženku, ktorú chcete používať s MetaMask"
+    "message": "Vyberte hardvérovú peňaženku, ktorú chcete používať s Konkret Wallet"
   },
   "here": {
     "message": "zde",
@@ -301,7 +301,7 @@
     "message": "História"
   },
   "importAccountMsg": {
-    "message": "Importované účty nebudou spojeny s vaší původní MetaMaskovou klíčovou frází. Zjistěte více o importovaných účtech "
+    "message": "Importované účty nebudou spojeny s vaší původní Konkret Walletovou klíčovou frází. Zjistěte více o importovaných účtech "
   },
   "imported": {
     "message": "Importováno",
@@ -369,7 +369,7 @@
     "message": "Zpráva"
   },
   "metamaskVersion": {
-    "message": "Verzia MetaMask"
+    "message": "Verzia Konkret Wallet"
   },
   "mustSelectOne": {
     "message": "Musíte zvolit aspoň 1 token."
@@ -437,7 +437,7 @@
     "message": "Zúčastnite sa na MetaMetrics"
   },
   "participateInMetaMetricsDescription": {
-    "message": "Zúčastnite sa na MetaMetrics a pomôžte nám vylepšiť MetaMask"
+    "message": "Zúčastnite sa na MetaMetrics a pomôžte nám vylepšiť Konkret Wallet"
   },
   "password": {
     "message": "Heslo"
