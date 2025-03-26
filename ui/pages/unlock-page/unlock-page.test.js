@@ -13,16 +13,6 @@ jest.mock('../../store/actions.ts', () => ({
 
 const mockElement = document.createElement('svg');
 
-jest.mock('@metamask/logo', () => () => {
-  return {
-    container: mockElement,
-    setFollowMouse: jest.fn(),
-    stopAnimation: jest.fn(),
-    lookAt: jest.fn(),
-    lookAtAndRender: jest.fn(),
-  };
-});
-
 describe('Unlock Page', () => {
   process.env.METAMASK_BUILD_TYPE = 'main';
 

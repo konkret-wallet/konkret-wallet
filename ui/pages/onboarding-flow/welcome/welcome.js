@@ -1,4 +1,3 @@
-import EventEmitter from 'events';
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
@@ -34,7 +33,6 @@ export default function OnboardingWelcome() {
   const t = useI18nContext();
   const dispatch = useDispatch();
   const history = useHistory();
-  const [eventEmitter] = useState(new EventEmitter());
   const currentKeyring = useSelector(getCurrentKeyring);
   const firstTimeFlowType = useSelector(getFirstTimeFlowType);
   const [termsChecked, setTermsChecked] = useState(false);

@@ -86,9 +86,6 @@ function QrCodeView({
             __html: qrImage.createTableTag(5, 16),
           }}
         />
-        <Box className="qr-code__logo">
-          <img src="images/logo/metamask-fox.svg" alt="Logo" />
-        </Box>
       </Box>
       {accountName ? (
         <Text

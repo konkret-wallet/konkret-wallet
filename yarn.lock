@@ -4966,16 +4966,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@metamask/logo@npm:^4.0.0":
-  version: 4.0.0
-  resolution: "@metamask/logo@npm:4.0.0"
-  dependencies:
-    gl-mat4: "npm:1.1.4"
-    gl-vec3: "npm:1.0.3"
-  checksum: 10/c06020954f3ddd068e945783392f823f049265e0d3658cc23577200cdd4eaf7ee6fa033a32d07000bf3d2edf430c71f4e2264b1260dc3a414814c97162f8a522
-  languageName: node
-  linkType: hard
-
 "@metamask/message-manager@npm:^12.0.1":
   version: 12.0.1
   resolution: "@metamask/message-manager@npm:12.0.1"
@@ -20046,20 +20036,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"gl-mat4@npm:1.1.4":
-  version: 1.1.4
-  resolution: "gl-mat4@npm:1.1.4"
-  checksum: 10/d4e736c2abce416eb51b46c748410d6113b779f847cfeeba1b6fe86c0b58cfae0c4826f421bd4a97e525a1120cf0af86cce3698c19e23fa3d44b07bb5712a8e4
-  languageName: node
-  linkType: hard
-
-"gl-vec3@npm:1.0.3":
-  version: 1.0.3
-  resolution: "gl-vec3@npm:1.0.3"
-  checksum: 10/c064ead2186e8ad0998b55ac7d65b0870f43a3d0da46c10aa08f44a6514922be82cbfee7e87a335db11fb2e982769bf42801b88cb1a11bfea0aa1168b0b7c13b
-  languageName: node
-  linkType: hard
-
 "glob-base@npm:^0.3.0":
   version: 0.3.0
   resolution: "glob-base@npm:0.3.0"
@@ -24306,7 +24282,6 @@ __metadata:
     "@metamask/keyring-internal-api": "npm:^6.0.0"
     "@metamask/keyring-snap-client": "npm:^4.0.1"
     "@metamask/logging-controller": "npm:^6.0.4"
-    "@metamask/logo": "npm:^4.0.0"
     "@metamask/message-manager": "npm:^12.0.1"
     "@metamask/message-signing-snap": "npm:^0.6.0"
     "@metamask/metamask-eth-abis": "npm:^3.1.1"

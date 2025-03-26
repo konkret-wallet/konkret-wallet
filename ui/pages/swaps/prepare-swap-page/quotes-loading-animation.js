@@ -12,7 +12,6 @@ import {
   TextVariant,
 } from '../../../helpers/constants/design-system';
 import { Text } from '../../../components/component-library';
-import MascotBackgroundAnimation from '../mascot-background-animation/mascot-background-animation';
 
 export default function QuotesLoadingAnimation(props) {
   const { quoteCount, numberOfAggregators } = props;
@@ -52,7 +51,6 @@ export default function QuotesLoadingAnimation(props) {
           ])}
         </Text>
       </Box>
-      <MascotBackgroundAnimation />
     </Box>
   );
 }

@@ -5,10 +5,8 @@ import { Text } from '../../components/component-library';
 import { TextVariant, TextColor } from '../../helpers/constants/design-system';
 import Button from '../../components/ui/button';
 import TextField from '../../components/ui/text-field';
-import Mascot from '../../components/ui/mascot';
 import { DEFAULT_ROUTE } from '../../helpers/constants/routes';
 import { isFlask, isBeta } from '../../helpers/utils/build-types';
-import { getCaretCoordinates } from './unlock-page.util';
 
 export default class UnlockPage extends Component {
   static contextTypes = {
@@ -87,16 +85,6 @@ export default class UnlockPage extends Component {
 
   handleInputChange({ target }) {
     this.setState({ password: target.value, error: null });
-    // tell mascot to look at page action
-    if (target.getBoundingClientRect) {
-      const element = target;
-      const boundingRect = element.getBoundingClientRect();
-      const coordinates = getCaretCoordinates(element, element.selectionEnd);
-      this.animationEventEmitter.emit('point', {
-        x: boundingRect.left + coordinates.left - element.scrollLeft,
-        y: boundingRect.top + coordinates.top - element.scrollTop,
-      });
-    }
   }
 
   renderSubmitButton() {
@@ -137,11 +125,7 @@ export default class UnlockPage extends Component {
       );
     }
     return (
-      <Mascot
-        animationEventEmitter={this.animationEventEmitter}
-        width="120"
-        height="120"
-      />
+      <img src="./images/logo/metamask-fox.svg" width="120" height="120" />
     );
   };
 

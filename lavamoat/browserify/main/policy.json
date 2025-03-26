@@ -1580,20 +1580,6 @@
         "uuid": true
       }
     },
-    "@metamask/logo": {
-      "globals": {
-        "addEventListener": true,
-        "document.body.appendChild": true,
-        "document.createElementNS": true,
-        "innerHeight": true,
-        "innerWidth": true,
-        "requestAnimationFrame": true
-      },
-      "packages": {
-        "@metamask/logo>gl-mat4": true,
-        "@metamask/logo>gl-vec3": true
-      }
-    },
     "@metamask/message-manager": {
       "packages": {
         "@metamask/base-controller": true,

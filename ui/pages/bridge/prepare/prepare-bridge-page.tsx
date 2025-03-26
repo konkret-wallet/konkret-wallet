@@ -78,7 +78,6 @@ import { isValidQuoteRequest } from '../../../../shared/modules/bridge-utils/quo
 import { getProviderConfig } from '../../../../shared/modules/selectors/networks';
 import { isNetworkAdded } from '../../../ducks/bridge/utils';
 import { Footer } from '../../../components/multichain/pages/page';
-import MascotBackgroundAnimation from '../../swaps/mascot-background-animation/mascot-background-animation';
 import { Column, Row, Tooltip } from '../layout';
 import useRamps from '../../../hooks/ramps/useRamps/useRamps';
 import { getNativeCurrency } from '../../../ducks/metamask/metamask';
@@ -611,7 +610,6 @@ const PrepareBridgePage = () => {
               >
                 {t('swapFetchingQuotes')}
               </Text>
-              <MascotBackgroundAnimation height="64" width="64" />
             </>
           ) : null}
         </Column>
