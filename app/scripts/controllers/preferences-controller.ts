@@ -212,7 +212,7 @@ export const getDefaultPreferencesControllerState =
       showTestNetworks: true,
       smartTransactionsOptInStatus: false,
       smartTransactionsMigrationApplied: false,
-      showNativeTokenAsMainBalance: false,
+      showNativeTokenAsMainBalance: true,
       useNativeCurrencyAsPrimaryCurrency: true,
       hideZeroBalanceTokens: false,
       petnamesEnabled: true,
