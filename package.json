@@ -224,7 +224,9 @@
     "tslib@npm:^2.6.2": "~2.6.0",
     "undici@npm:5.28.4": "5.28.5",
     "@ethersproject/signing-key/elliptic": "^6.6.1",
-    "gridplus-sdk/elliptic": "^6.6.1"
+    "gridplus-sdk/elliptic": "^6.6.1",
+    "@metamask/eth-block-tracker@npm:^11.0.3": "patch:@metamask/eth-block-tracker@npm%3A11.0.4#~/.yarn/patches/@metamask-eth-block-tracker-npm-11.0.4-8b73708e0d.patch",
+    "@metamask/eth-block-tracker@npm:^11.0.4": "patch:@metamask/eth-block-tracker@npm%3A11.0.4#~/.yarn/patches/@metamask-eth-block-tracker-npm-11.0.4-8b73708e0d.patch"
   },
   "dependencies": {
     "@babel/runtime": "patch:@babel/runtime@npm%3A7.25.9#~/.yarn/patches/@babel-runtime-npm-7.25.9-fe8c62510a.patch",
