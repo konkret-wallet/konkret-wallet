@@ -26,8 +26,12 @@ import {
   createNewVaultAndGetSeedPhrase,
   unlockAndGetSeedPhrase,
   createNewVaultAndRestore,
+  toggleNetworkMenu,
 } from '../../store/actions';
-import { getFirstTimeFlowTypeRouteAfterUnlock } from '../../selectors';
+import {
+  getFirstTimeFlowTypeRouteAfterUnlock,
+  getEditedNetwork,
+} from '../../selectors';
 import RevealSRPModal from '../../components/app/reveal-SRP-modal';
 ///: BEGIN:ONLY_INCLUDE_IF(build-flask)
 import ExperimentalArea from '../../components/app/flask/experimental-area';
@@ -51,6 +55,7 @@ export default function OnboardingFlow() {
   const history = useHistory();
   const completedOnboarding = useSelector(getCompletedOnboarding);
   const nextRoute = useSelector(getFirstTimeFlowTypeRouteAfterUnlock);
+  const editedNetwork = useSelector(getEditedNetwork);
   const isFromReminder = new URLSearchParams(search).get('isFromReminder');
   const isUnlocked = useSelector(getIsUnlocked);
 
@@ -63,6 +68,29 @@ export default function OnboardingFlow() {
       history.push(DEFAULT_ROUTE);
     }
   }, [history, completedOnboarding, isFromReminder]);
+
+  useEffect(() => {
+    if (
+      isUnlocked &&
+      !completedOnboarding &&
+      !editedNetwork &&
+      pathname.startsWith(ONBOARDING_SECURE_YOUR_WALLET_ROUTE)
+    ) {
+      dispatch(
+        toggleNetworkMenu({
+          isAddingNewNetwork: false,
+          isMultiRpcOnboarding: true,
+        }),
+      );
+    }
+  }, [
+    isUnlocked,
+    completedOnboarding,
+    editedNetwork,
+    pathname,
+    toggleNetworkMenu,
+    dispatch,
+  ]);
 
   useEffect(() => {
     if (isUnlocked && !completedOnboarding && !secretRecoveryPhrase) {

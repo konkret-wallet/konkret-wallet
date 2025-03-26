@@ -692,7 +692,8 @@ export default function reduceApp(
         ...appState,
         isAddingNewNetwork: Boolean(action.payload?.isAddingNewNetwork),
         isMultiRpcOnboarding: Boolean(action.payload?.isMultiRpcOnboarding),
-        isNetworkMenuOpen: !appState.isNetworkMenuOpen,
+        isNetworkMenuOpen:
+          !appState.isNetworkMenuOpen || Boolean(action.payload?.forceOpen),
       };
     case actionConstants.DELETE_METAMETRICS_DATA_MODAL_OPEN:
       return {

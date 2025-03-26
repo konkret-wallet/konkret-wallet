@@ -1209,7 +1209,7 @@ export const DEFAULT_CUSTOM_TESTNET_MAP: Record<Hex, NetworkConfiguration> = {
     defaultBlockExplorerUrlIndex: 0,
     rpcEndpoints: [
       {
-        networkClientId: 'networkConfigurationId',
+        networkClientId: 'localhost-8545-http-0',
         url: 'http://localhost:8545',
         type: RpcEndpointType.Custom,
       },

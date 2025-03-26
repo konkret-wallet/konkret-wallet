@@ -62,10 +62,7 @@ import {
   openBasicFunctionalityModal,
 } from '../../../ducks/app/app';
 import IncomingTransactionToggle from '../../../components/app/incoming-trasaction-toggle/incoming-transaction-toggle';
-import {
-  CHAIN_ID_TO_NETWORK_IMAGE_URL_MAP,
-  TEST_CHAINS,
-} from '../../../../shared/constants/network';
+import { CHAIN_ID_TO_NETWORK_IMAGE_URL_MAP } from '../../../../shared/constants/network';
 import { Setting } from './setting';
 
 const ANIMATION_TIME = 500;
@@ -372,9 +369,11 @@ export default function PrivacySettings() {
                             gap={5}
                           >
                             {Object.values(networkConfigurations)
+                              /*
                               .filter(
                                 ({ chainId }) => !TEST_CHAINS.includes(chainId),
                               )
+                              */
                               .map((network) => (
                                 <Box
                                   key={network.chainId}

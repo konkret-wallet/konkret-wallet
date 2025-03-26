@@ -55,7 +55,7 @@ import { PhishingController } from '@metamask/phishing-controller';
 import { AnnouncementController } from '@metamask/announcement-controller';
 import {
   NetworkController,
-  getDefaultNetworkControllerState,
+  // getDefaultNetworkControllerState,
 } from '@metamask/network-controller';
 import { GasFeeController } from '@metamask/gas-fee-controller';
 import {
@@ -159,7 +159,7 @@ import {
   CHAIN_SPEC_URL,
   NETWORK_TYPES,
   NetworkStatus,
-  MAINNET_DISPLAY_NAME,
+  // MAINNET_DISPLAY_NAME,
   // DEFAULT_CUSTOM_TESTNET_MAP,
 } from '../../shared/constants/network';
 import { getAllowedSmartTransactionsChainIds } from '../../shared/constants/smartTransactions';
@@ -217,6 +217,7 @@ import {
   BridgeBackgroundAction,
 } from '../../shared/types/bridge';
 import { isProduction } from '../../shared/modules/environment';
+import { getDefaultNetworkControllerState } from './custom/initStates';
 ///: BEGIN:ONLY_INCLUDE_IF(keyring-snaps)
 import { keyringSnapPermissionsBuilder } from './lib/snap-keyring/keyring-snaps-permissions';
 ///: END:ONLY_INCLUDE_IF
@@ -506,12 +507,6 @@ export default class MetamaskController extends EventEmitter {
       const networks =
         initialNetworkControllerState.networkConfigurationsByChainId;
 
-      // Note: Consider changing `getDefaultNetworkControllerState`
-      // on the controller side to include some of these tweaks.
-      networks[CHAIN_IDS.MAINNET].name = MAINNET_DISPLAY_NAME;
-      delete networks[CHAIN_IDS.GOERLI];
-      delete networks[CHAIN_IDS.LINEA_GOERLI];
-
       // Due to the MegaETH Testnet not being included in getDefaultNetworkControllerState().
       // and it is not using Infura as a provider, we need to add it manually.
       // networks[CHAIN_IDS.MEGAETH_TESTNET] = cloneDeep(
@@ -528,17 +523,7 @@ export default class MetamaskController extends EventEmitter {
         network.defaultBlockExplorerUrlIndex = 0;
       });
 
-      let network;
-      if (process.env.IN_TEST) {
-        network = networks[CHAIN_IDS.LOCALHOST];
-      } else if (
-        process.env.METAMASK_DEBUG ||
-        process.env.METAMASK_ENVIRONMENT === 'test'
-      ) {
-        network = networks[CHAIN_IDS.SEPOLIA];
-      } else {
-        network = networks[CHAIN_IDS.MAINNET];
-      }
+      const network = networks[CHAIN_IDS.LOCALHOST];
 
       initialNetworkControllerState.selectedNetworkClientId =
         network.rpcEndpoints[network.defaultRpcEndpointIndex].networkClientId;
