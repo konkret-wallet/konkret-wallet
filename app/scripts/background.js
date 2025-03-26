@@ -458,7 +458,7 @@ async function initialize() {
     // `setupController` sets up the `controller` object, so we can use it now:
     maybeDetectPhishing(controller);
 
-    if (!isManifestV3) {
+    if (!isManifestV3 && initState.PreferencesController?.usePhishDetect) {
       await loadPhishingWarningPage();
     }
     await sendReadyMessageToTabs();
