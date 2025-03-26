@@ -3,18 +3,16 @@ import PropTypes from 'prop-types';
 
 import Button from '../../../components/ui/button';
 
-import { SUPPORT_REQUEST_LINK } from '../../../helpers/constants/common';
+// import { SUPPORT_REQUEST_LINK } from '../../../helpers/constants/common';
 import { isBeta } from '../../../helpers/utils/build-types';
 import {
   getNumberOfSettingRoutesInTab,
   handleSettingsRefs,
 } from '../../../helpers/utils/settings-search';
-import VisitSupportDataConsentModal from '../../../components/app/modals/visit-support-data-consent-modal';
 
 export default class InfoTab extends PureComponent {
   state = {
     version: process.env.METAMASK_VERSION,
-    isVisitSupportDataConsentModalOpen: false,
   };
 
   static contextTypes = {
@@ -39,33 +37,12 @@ export default class InfoTab extends PureComponent {
     handleSettingsRefs(t, t('about'), this.settingsRefs);
   }
 
-  toggleVisitSupportDataConsentModal = () => {
-    this.setState((prevState) => ({
-      isVisitSupportDataConsentModalOpen:
-        !prevState.isVisitSupportDataConsentModalOpen,
-    }));
-  };
-
   renderInfoLinks() {
     const { t } = this.context;
-    const privacyUrl = 'https://metamask.io/privacy.html';
-    const siteUrl = 'https://metamask.io/';
-
     return (
       <div className="settings-page__content-item settings-page__content-item--without-height">
         <div ref={this.settingsRefs[1]} className="info-tab__link-header">
           {t('links')}
-        </div>
-        <div ref={this.settingsRefs[2]} className="info-tab__link-item">
-          <Button
-            type="link"
-            href={privacyUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="info-tab__link-text"
-          >
-            {t('privacyMsg')}
-          </Button>
         </div>
         <div ref={this.settingsRefs[3]} className="info-tab__link-item">
           <Button
@@ -90,39 +67,6 @@ export default class InfoTab extends PureComponent {
           </Button>
         </div>
         <hr className="info-tab__separator" />
-        <div ref={this.settingsRefs[5]} className="info-tab__link-item">
-          <Button
-            type="link"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="info-tab__link-text"
-            onClick={this.toggleVisitSupportDataConsentModal}
-          >
-            {t('supportCenter')}
-          </Button>
-        </div>
-        <div ref={this.settingsRefs[6]} className="info-tab__link-item">
-          <Button
-            type="link"
-            href={siteUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="info-tab__link-text"
-          >
-            {t('visitWebSite')}
-          </Button>
-        </div>
-        <div ref={this.settingsRefs[7]} className="info-tab__link-item">
-          <Button
-            type="link"
-            href={SUPPORT_REQUEST_LINK}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="info-tab__link-text"
-          >
-            {t('contactUs')}
-          </Button>
-        </div>
       </div>
     );
   }
@@ -158,12 +102,6 @@ export default class InfoTab extends PureComponent {
             alt="MetaMask Logo"
           />
         </div>
-        {this.state.isVisitSupportDataConsentModalOpen && (
-          <VisitSupportDataConsentModal
-            isOpen={this.state.isVisitSupportDataConsentModalOpen}
-            onClose={this.toggleVisitSupportDataConsentModal}
-          />
-        )}
       </div>
     );
   }

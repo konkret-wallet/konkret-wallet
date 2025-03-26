@@ -152,15 +152,6 @@ const ErrorPage: React.FC<ErrorPageProps> = ({ error }) => {
           marginTop={4}
         >
           <Button
-            marginBottom={2}
-            variant={ButtonVariant.Secondary}
-            block
-            data-testid="error-page-contact-support-button"
-            onClick={() => setIsSupportDataConsentModalOpen(true)}
-          >
-            {t('errorPageContactSupport')}
-          </Button>
-          <Button
             variant={ButtonVariant.Secondary}
             block
             data-testid="error-page-try-again-button"

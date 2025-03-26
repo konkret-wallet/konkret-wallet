@@ -36,7 +36,6 @@ import RevealSRPModal from '../../components/app/reveal-SRP-modal';
 ///: BEGIN:ONLY_INCLUDE_IF(build-flask)
 import ExperimentalArea from '../../components/app/flask/experimental-area';
 ///: END:ONLY_INCLUDE_IF
-import { submitRequestToBackgroundAndCatch } from '../../components/app/toast-master/utils';
 import OnboardingFlowSwitch from './onboarding-flow-switch/onboarding-flow-switch';
 import CreatePassword from './create-password/create-password';
 import ReviewRecoveryPhrase from './recovery-phrase/review-recovery-phrase';
@@ -58,10 +57,6 @@ export default function OnboardingFlow() {
   const editedNetwork = useSelector(getEditedNetwork);
   const isFromReminder = new URLSearchParams(search).get('isFromReminder');
   const isUnlocked = useSelector(getIsUnlocked);
-
-  useEffect(() => {
-    setOnboardingDate();
-  }, []);
 
   useEffect(() => {
     if (completedOnboarding && !isFromReminder) {
@@ -227,8 +222,4 @@ export default function OnboardingFlow() {
       </div>
     </div>
   );
-}
-
-function setOnboardingDate() {
-  submitRequestToBackgroundAndCatch('setOnboardingDate');
 }

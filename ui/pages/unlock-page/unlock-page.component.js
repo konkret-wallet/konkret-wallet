@@ -7,7 +7,6 @@ import Button from '../../components/ui/button';
 import TextField from '../../components/ui/text-field';
 import Mascot from '../../components/ui/mascot';
 import { DEFAULT_ROUTE } from '../../helpers/constants/routes';
-import { SUPPORT_LINK } from '../../../shared/lib/ui-utils';
 import { isFlask, isBeta } from '../../helpers/utils/build-types';
 import { getCaretCoordinates } from './unlock-page.util';
 
@@ -151,8 +150,6 @@ export default class UnlockPage extends Component {
     const { t } = this.context;
     const { onRestore } = this.props;
 
-    const needHelpText = t('needHelpLinkText');
-
     return (
       <div className="unlock-page__container">
         <div className="unlock-page" data-testid="unlock-page">
@@ -199,18 +196,6 @@ export default class UnlockPage extends Component {
             >
               {t('forgotPassword')}
             </Button>
-          </div>
-          <div className="unlock-page__support">
-            {t('needHelp', [
-              <a
-                href={SUPPORT_LINK}
-                target="_blank"
-                rel="noopener noreferrer"
-                key="need-help-link"
-              >
-                {needHelpText}
-              </a>,
-            ])}
           </div>
         </div>
       </div>
