@@ -27,7 +27,6 @@ import {
   IconName,
   Text,
 } from '../../../../component-library';
-import NFTsDetectionNoticeNFTsTab from '../nfts-detection-notice-nfts-tab/nfts-detection-notice-nfts-tab';
 import Spinner from '../../../../ui/spinner';
 import { endTrace, TraceName } from '../../../../../../shared/lib/trace';
 import { useNfts } from '../../../../../hooks/useNfts';
@@ -118,11 +117,6 @@ export default function NftsTab() {
   return (
     <>
       <Box className="nfts-tab">
-        {isMainnet && !useNftDetection ? (
-          <Box paddingTop={4} paddingInlineStart={4} paddingInlineEnd={4}>
-            <NFTsDetectionNoticeNFTsTab />
-          </Box>
-        ) : null}
         {hasAnyNfts || previouslyOwnedNfts.length > 0 ? (
           <Box>
             <NftGrid

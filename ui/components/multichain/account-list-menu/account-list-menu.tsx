@@ -96,7 +96,7 @@ import {
 } from '../../../selectors/accounts';
 ///: END:ONLY_INCLUDE_IF
 
-///: BEGIN:ONLY_INCLUDE_IF(multichain)
+///: BEGIN:ONLY_INCLUDE_IF(build-flask,solana)
 import { MultichainNetworks } from '../../../../shared/constants/multichain/networks';
 import {
   WalletClientType,

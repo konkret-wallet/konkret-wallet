@@ -9,15 +9,15 @@ import React, {
 import { useDispatch, useSelector } from 'react-redux';
 import {
   useHistory,
-  ///: BEGIN:ONLY_INCLUDE_IF(build-main,build-beta,build-flask)
+  ///: BEGIN:ONLY_INCLUDE_IF(build-beta)
   useLocation,
   ///: END:ONLY_INCLUDE_IF
 } from 'react-router-dom';
-///: BEGIN:ONLY_INCLUDE_IF(build-main,build-beta,build-flask)
+///: BEGIN:ONLY_INCLUDE_IF(build-beta)
 import { toHex } from '@metamask/controller-utils';
 ///: END:ONLY_INCLUDE_IF
 import {
-  ///: BEGIN:ONLY_INCLUDE_IF(build-main,build-beta,build-flask)
+  ///: BEGIN:ONLY_INCLUDE_IF(build-beta)
   isCaipChainId,
   ///: END:ONLY_INCLUDE_IF
   CaipChainId,
@@ -28,7 +28,7 @@ import { isEvmAccountType } from '@metamask/keyring-api';
 import { InternalAccount } from '@metamask/keyring-internal-api';
 import { SnapId } from '@metamask/snaps-sdk';
 ///: END:ONLY_INCLUDE_IF
-///: BEGIN:ONLY_INCLUDE_IF(build-main,build-beta,build-flask)
+///: BEGIN:ONLY_INCLUDE_IF(build-beta)
 import { ChainId } from '../../../../shared/constants/network';
 ///: END:ONLY_INCLUDE_IF
 
@@ -37,13 +37,13 @@ import {
   ///: BEGIN:ONLY_INCLUDE_IF(multichain)
   CONFIRMATION_V_NEXT_ROUTE,
   ///: END:ONLY_INCLUDE_IF
-  ///: BEGIN:ONLY_INCLUDE_IF(build-main,build-beta,build-flask)
+  ///: BEGIN:ONLY_INCLUDE_IF(build-beta)
   PREPARE_SWAP_ROUTE,
   ///: END:ONLY_INCLUDE_IF
   SEND_ROUTE,
 } from '../../../helpers/constants/routes';
 import {
-  ///: BEGIN:ONLY_INCLUDE_IF(build-main,build-beta,build-flask)
+  ///: BEGIN:ONLY_INCLUDE_IF(build-beta)
   SwapsEthToken,
   getCurrentKeyring,
   ///: END:ONLY_INCLUDE_IF
@@ -54,7 +54,7 @@ import {
   getNetworkConfigurationIdByChainId,
 } from '../../../selectors';
 import Tooltip from '../../ui/tooltip';
-///: BEGIN:ONLY_INCLUDE_IF(build-main,build-beta,build-flask)
+///: BEGIN:ONLY_INCLUDE_IF(build-beta)
 import { setSwapsFromToken } from '../../../ducks/swaps/swaps';
 import { isHardwareKeyring } from '../../../helpers/utils/hardware';
 ///: END:ONLY_INCLUDE_IF
@@ -67,8 +67,10 @@ import {
 } from '../../../helpers/constants/design-system';
 import { Box, Icon, IconName, IconSize } from '../../component-library';
 import IconButton from '../../ui/icon-button';
-///: BEGIN:ONLY_INCLUDE_IF(build-main,build-beta,build-flask)
+///: BEGIN:ONLY_INCLUDE_IF(build-beta)
 import useRamps from '../../../hooks/ramps/useRamps/useRamps';
+///: END:ONLY_INCLUDE_IF
+///: BEGIN:ONLY_INCLUDE_IF(build-beta)
 import useBridging from '../../../hooks/bridge/useBridging';
 ///: END:ONLY_INCLUDE_IF
 import { ReceiveModal } from '../../multichain/receive-modal';
@@ -93,8 +95,10 @@ type CoinButtonsProps = {
   chainId: `0x${string}` | CaipChainId | number;
   isSwapsChain: boolean;
   isSigningEnabled: boolean;
-  ///: BEGIN:ONLY_INCLUDE_IF(build-main,build-beta,build-flask)
+  ///: BEGIN:ONLY_INCLUDE_IF(build-beta)
   isBridgeChain: boolean;
+  ///: END:ONLY_INCLUDE_IF
+  ///: BEGIN:ONLY_INCLUDE_IF(build-beta)
   isBuyableChain: boolean;
   defaultSwapsToken?: SwapsEthToken;
   ///: END:ONLY_INCLUDE_IF
@@ -107,8 +111,10 @@ const CoinButtons = ({
   chainId,
   isSwapsChain,
   isSigningEnabled,
-  ///: BEGIN:ONLY_INCLUDE_IF(build-main,build-beta,build-flask)
+  ///: BEGIN:ONLY_INCLUDE_IF(build-beta)
   isBridgeChain,
+  ///: END:ONLY_INCLUDE_IF
+  ///: BEGIN:ONLY_INCLUDE_IF(build-beta)
   isBuyableChain,
   defaultSwapsToken,
   ///: END:ONLY_INCLUDE_IF
@@ -133,8 +139,10 @@ const CoinButtons = ({
     (state) => state.metamask.defaultHomeActiveTabName,
   );
   ///: END:ONLY_INCLUDE_IF
-  ///: BEGIN:ONLY_INCLUDE_IF(build-main,build-beta,build-flask)
+  ///: BEGIN:ONLY_INCLUDE_IF(build-beta)
   const location = useLocation();
+  ///: END:ONLY_INCLUDE_IF
+  ///: BEGIN:ONLY_INCLUDE_IF(build-beta)
   const keyring = useSelector(getCurrentKeyring);
   const usingHardwareWallet = isHardwareKeyring(keyring?.type);
   ///: END:ONLY_INCLUDE_IF
@@ -143,7 +151,7 @@ const CoinButtons = ({
 
   const buttonTooltips = {
     buyButton: [
-      ///: BEGIN:ONLY_INCLUDE_IF(build-main,build-beta,build-flask)
+      ///: BEGIN:ONLY_INCLUDE_IF(build-beta)
       { condition: !isBuyableChain, message: '' },
       ///: END:ONLY_INCLUDE_IF
     ],
@@ -155,7 +163,7 @@ const CoinButtons = ({
       { condition: !isSigningEnabled, message: 'methodNotSupported' },
     ],
     bridgeButton: [
-      ///: BEGIN:ONLY_INCLUDE_IF(build-main,build-beta,build-flask)
+      ///: BEGIN:ONLY_INCLUDE_IF(build-beta)
       { condition: !isBridgeChain, message: 'currentlyUnavailable' },
       ///: END:ONLY_INCLUDE_IF
       { condition: !isSigningEnabled, message: 'methodNotSupported' },
@@ -178,7 +186,7 @@ const CoinButtons = ({
     return contents;
   };
 
-  ///: BEGIN:ONLY_INCLUDE_IF(build-main,build-beta,build-flask)
+  ///: BEGIN:ONLY_INCLUDE_IF(build-beta)
   const getChainId = (): CaipChainId | ChainId => {
     if (isCaipChainId(chainId)) {
       return chainId as CaipChainId;
@@ -188,9 +196,11 @@ const CoinButtons = ({
   };
   ///: END:ONLY_INCLUDE_IF
 
-  ///: BEGIN:ONLY_INCLUDE_IF(build-main,build-beta,build-flask)
+  ///: BEGIN:ONLY_INCLUDE_IF(build-beta)
   const { openBuyCryptoInPdapp } = useRamps();
+  ///: END:ONLY_INCLUDE_IF
 
+  ///: BEGIN:ONLY_INCLUDE_IF(build-beta)
   const { openBridgeExperience } = useBridging();
   ///: END:ONLY_INCLUDE_IF
 
@@ -275,14 +285,16 @@ const CoinButtons = ({
     history.push(SEND_ROUTE);
   }, [chainId, account, setCorrectChain]);
 
-  ///: BEGIN:ONLY_INCLUDE_IF(build-main,build-beta,build-flask)
+  ///: BEGIN:ONLY_INCLUDE_IF(build-beta)
   const handleBuyAndSellOnClick = useCallback(() => {
     openBuyCryptoInPdapp(getChainId());
     // TODO: memozie chainId?
     // openBuyCryptoInPdapp(chainId);
     // }, [chainId]);
   }, []);
+  ///: END:ONLY_INCLUDE_IF
 
+  ///: BEGIN:ONLY_INCLUDE_IF(build-beta)
   const handleBridgeOnClick = useCallback(
     async (isSwap: boolean) => {
       if (!defaultSwapsToken) {
@@ -310,7 +322,7 @@ const CoinButtons = ({
 
     await setCorrectChain();
 
-    ///: BEGIN:ONLY_INCLUDE_IF(build-main,build-beta,build-flask)
+    ///: BEGIN:ONLY_INCLUDE_IF(build-beta)
     if (isSwapsChain) {
       dispatch(setSwapsFromToken(defaultSwapsToken));
       if (usingHardwareWallet) {
@@ -326,7 +338,7 @@ const CoinButtons = ({
     setCorrectChain,
     isSwapsChain,
     chainId,
-    ///: BEGIN:ONLY_INCLUDE_IF(build-main,build-beta,build-flask)
+    ///: BEGIN:ONLY_INCLUDE_IF(build-beta)
     usingHardwareWallet,
     defaultSwapsToken,
     ///: END:ONLY_INCLUDE_IF
@@ -335,7 +347,7 @@ const CoinButtons = ({
   return (
     <Box display={Display.Flex} justifyContent={JustifyContent.spaceEvenly}>
       {
-        ///: BEGIN:ONLY_INCLUDE_IF(build-main,build-beta,build-flask)
+        ///: BEGIN:ONLY_INCLUDE_IF(build-beta)
         <IconButton
           className={`${classPrefix}-overview__button`}
           iconButtonClassName={iconButtonClassName}
@@ -378,7 +390,7 @@ const CoinButtons = ({
         }
       />
       {
-        ///: BEGIN:ONLY_INCLUDE_IF(build-main,build-beta,build-flask)
+        ///: BEGIN:ONLY_INCLUDE_IF(build-beta)
         <IconButton
           className={`${classPrefix}-overview__button`}
           iconButtonClassName={iconButtonClassName}
