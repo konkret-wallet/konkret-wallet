@@ -41,7 +41,7 @@ const initialState = {
     autoLockTimeLimit: DEFAULT_AUTO_LOCK_TIME_LIMIT,
     showExtensionInFullSizeView: false,
     showFiatInTestnets: false,
-    showTestNetworks: false,
+    showTestNetworks: true,
     smartTransactionsOptInStatus: false,
     petnamesEnabled: true,
     featureNotificationsEnabled: false,
