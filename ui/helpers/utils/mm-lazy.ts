@@ -1,41 +1,20 @@
 import React from 'react';
-import { getManifestFlags } from '../../../shared/lib/manifestFlags';
-import { endTrace, trace, TraceName } from '../../../shared/lib/trace';
 
 type DynamicImportType = () => Promise<{ default: React.ComponentType }>;
 type ModuleWithDefaultType = {
   default: React.ComponentType;
 };
 
-// This only has to happen once per app load, so do it outside a function
-const lazyLoadSubSampleRate = getManifestFlags().sentry?.lazyLoadSubSampleRate;
-
 /**
- * A wrapper around React.lazy that adds two things:
- * 1. Sentry tracing for how long it takes to load the component (not render, just load)
- * 2. React.lazy can only deal with default exports, but the wrapper can handle named exports too
+ * A wrapper around React.lazy that adds one thing:
+ * 1. React.lazy can only deal with default exports, but the wrapper can handle named exports too
  *
  * @param fn - an import of the form `() => import('AAA')`
  */
 export function mmLazy(fn: DynamicImportType) {
   return React.lazy(async () => {
-    // We can't start the trace here because we don't have the componentName yet, so we just hold the startTime
-    const startTime = Date.now();
-
     const importedModule = await fn();
-    const { componentName, component } = parseImportedComponent(importedModule);
-
-    // Only trace load time of lazy-loaded components if the manifestFlag is set, and then do it by Math.random probability
-    if (lazyLoadSubSampleRate && Math.random() < lazyLoadSubSampleRate) {
-      trace({
-        name: TraceName.LazyLoadComponent,
-        data: { componentName },
-        startTime,
-      });
-
-      endTrace({ name: TraceName.LazyLoadComponent });
-    }
-
+    const { component } = parseImportedComponent(importedModule);
     return component;
   });
 }

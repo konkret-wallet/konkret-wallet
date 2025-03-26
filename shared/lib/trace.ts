@@ -34,7 +34,6 @@ export enum TraceName {
 const log = createModuleLogger(parentLogger, 'trace');
 
 const ID_DEFAULT = 'default';
-const OP_DEFAULT = 'custom';
 
 const tracesByKey: Map<string, PendingTrace> = new Map();
 const durationsByName: { [name: string]: number } = {};
@@ -172,14 +171,14 @@ export function endTrace(request: EndTraceRequest) {
 function traceCallback<T>(request: TraceRequest, fn: TraceCallback<T>): T {
   const { name } = request;
 
-  const callback = (span: any | null) => {
+  const callback = () => {
     log('Starting trace', name, request);
 
     const start = Date.now();
     let error: unknown;
 
     return tryCatchMaybePromise<T>(
-      () => fn(span),
+      () => fn(null),
       (currentError) => {
         error = currentError;
         throw currentError;
@@ -191,9 +190,7 @@ function traceCallback<T>(request: TraceRequest, fn: TraceCallback<T>): T {
     ) as T;
   };
 
-  return startSpan(request, (spanOptions) =>
-    sentryStartSpan(spanOptions, callback),
-  );
+  return callback();
 }
 
 function startTrace(request: TraceRequest): TraceContext {
@@ -201,10 +198,8 @@ function startTrace(request: TraceRequest): TraceContext {
   const startTime = requestStartTime ?? getPerformanceTimestamp();
   const id = getTraceId(request);
 
-  const callback = (span: any | null) => {
-    const end = (timestamp?: number) => {
-      span?.end(timestamp);
-    };
+  const callback = () => {
+    const end = () => {};
 
     const pendingTrace = { end, request, startTime };
     const key = getTraceKey(request);
@@ -212,33 +207,10 @@ function startTrace(request: TraceRequest): TraceContext {
 
     log('Started trace', name, id, request);
 
-    return span;
+    return null;
   };
 
-  return startSpan(request, (spanOptions) =>
-    sentryStartSpanManual(spanOptions, callback),
-  );
-}
-
-function startSpan<T>(
-  request: TraceRequest,
-  callback: (spanOptions: any) => T,
-) {
-  const { data: attributes, name, parentContext, startTime } = request;
-  const parentSpan = (parentContext ?? null) as any | null;
-
-  const spanOptions: any = {
-    attributes,
-    name,
-    op: OP_DEFAULT,
-    parentSpan,
-    startTime,
-  };
-
-  return sentryWithIsolationScope((scope: any) => {
-    initScope(scope, request);
-    return callback(spanOptions);
-  });
+  return callback(null);
 }
 
 function logTrace(
@@ -272,15 +244,6 @@ function getPerformanceTimestamp(): number {
   return performance.timeOrigin + performance.now();
 }
 
-/**
- * Initialise the isolated Sentry scope created for each trace.
- * Includes setting all non-numeric tags.
- *
- * @param _scope - The Sentry scope to initialise.
- * @param _request - The trace request.
- */
-function initScope(_scope: any, _request: TraceRequest) {}
-
 function tryCatchMaybePromise<T>(
   tryFn: () => T,
   catchFn: (error: unknown) => void,
@@ -308,27 +271,4 @@ function tryCatchMaybePromise<T>(
   }
 
   return undefined;
-}
-
-function sentryStartSpan<T>(
-  _spanOptions: any,
-  callback: (span: any | null) => T,
-): T {
-  return callback(null);
-}
-
-function sentryStartSpanManual<T>(
-  _spanOptions: any,
-  callback: (span: any | null) => T,
-): T {
-  return callback(null);
-}
-
-function sentryWithIsolationScope<T>(callback: (scope: any) => T): T {
-  const scope = {
-    // eslint-disable-next-line no-empty-function
-    setTag: () => {},
-  } as unknown as any;
-
-  return callback(scope);
 }
