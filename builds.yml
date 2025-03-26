@@ -154,6 +154,7 @@ env:
   - REMOVE_GNS: ''
 
   - ENABLE_MV3: true
+  - MM_BUILD_MINIFY: '0'
   # These are exclusively used for MV3
   - USE_SNOW
   - APPLY_LAVAMOAT

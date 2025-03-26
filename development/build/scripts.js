@@ -459,7 +459,6 @@ function createFactoredBuild({
 
     // devMode options
     const reloadOnChange = isDevBuild(buildTarget);
-    const minify = !isDevBuild(buildTarget);
 
     const environment = getEnvironment({ buildTarget });
     const config = await getConfig(buildType, environment);
@@ -480,10 +479,12 @@ function createFactoredBuild({
       active: new Set(activeBuild.features ?? []),
       all: new Set(Object.keys(config.buildsYml.features)),
     };
+    const envVars = buildSafeVariableObject(variables);
+    const minify = envVars.MM_BUILD_MINIFY !== '0' && !isDevBuild(buildTarget);
     setupBundlerDefaults(buildConfiguration, {
       buildTarget,
       variables,
-      envVars: buildSafeVariableObject(variables),
+      envVars,
       ignoredFiles,
       policyOnly,
       minify,
@@ -753,7 +754,6 @@ function createNormalBundle({
     // devMode options
     const devMode = isDevBuild(buildTarget);
     const reloadOnChange = Boolean(devMode);
-    const minify = Boolean(devMode) === false;
 
     const environment = getEnvironment({ buildTarget });
     const config = await getConfig(buildType, environment);
@@ -778,8 +778,11 @@ function createNormalBundle({
       active: new Set(activeBuild.features ?? []),
       all: new Set(Object.keys(config.buildsYml.features)),
     };
+    const envVars = buildSafeVariableObject(variables);
+    const minify =
+      envVars.MM_BUILD_MINIFY !== '0' && Boolean(devMode) === false;
     setupBundlerDefaults(buildConfiguration, {
-      envVars: buildSafeVariableObject(variables),
+      envVars,
       ignoredFiles,
       policyOnly,
       minify,
