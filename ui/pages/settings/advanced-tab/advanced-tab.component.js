@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types';
 import React, { PureComponent } from 'react';
 import { DEFAULT_AUTO_LOCK_TIME_LIMIT } from '../../../../shared/constants/preferences';
-import { SMART_TRANSACTIONS_LEARN_MORE_URL } from '../../../../shared/constants/smartTransactions';
+// import { SMART_TRANSACTIONS_LEARN_MORE_URL } from '../../../../shared/constants/smartTransactions';
 import {
   Box,
-  ButtonLink,
-  ButtonLinkSize,
+  // ButtonLink,
+  // ButtonLinkSize,
 } from '../../../components/component-library';
 import Button from '../../../components/ui/button';
 import TextField from '../../../components/ui/text-field';
@@ -14,8 +14,8 @@ import {
   Display,
   FlexDirection,
   JustifyContent,
-  TextVariant,
-  AlignItems,
+  // TextVariant,
+  // AlignItems,
 } from '../../../helpers/constants/design-system';
 import {
   ExportableContentType,
@@ -40,12 +40,12 @@ export default class AdvancedTab extends PureComponent {
     sendHexData: PropTypes.bool,
     showFiatInTestnets: PropTypes.bool,
     showTestNetworks: PropTypes.bool,
-    smartTransactionsEnabled: PropTypes.bool,
+    // smartTransactionsEnabled: PropTypes.bool,
     autoLockTimeLimit: PropTypes.number,
     setAutoLockTimeLimit: PropTypes.func.isRequired,
     setShowFiatConversionOnTestnetsPreference: PropTypes.func.isRequired,
     setShowTestNetworks: PropTypes.func.isRequired,
-    setSmartTransactionsEnabled: PropTypes.func.isRequired,
+    // setSmartTransactionsEnabled: PropTypes.func.isRequired,
     setDismissSeedBackUpReminder: PropTypes.func.isRequired,
     dismissSeedBackUpReminder: PropTypes.bool.isRequired,
     backupUserData: PropTypes.func.isRequired,
@@ -187,6 +187,7 @@ export default class AdvancedTab extends PureComponent {
     );
   }
 
+  /*
   renderToggleStxOptIn() {
     const { t } = this.context;
     const { smartTransactionsEnabled, setSmartTransactionsEnabled } =
@@ -240,6 +241,7 @@ export default class AdvancedTab extends PureComponent {
       </Box>
     );
   }
+  */
 
   renderHexDataOptIn() {
     const { t } = this.context;
@@ -541,7 +543,6 @@ export default class AdvancedTab extends PureComponent {
         ) : null}
         {this.renderStateLogs()}
         {this.renderResetAccount()}
-        {this.renderToggleStxOptIn()}
         {this.renderHexDataOptIn()}
         {this.renderShowConversionInTestnets()}
         {this.renderToggleTestNetworks()}
@@ -551,5 +552,6 @@ export default class AdvancedTab extends PureComponent {
         {this.renderDismissSeedBackupReminderControl()}
       </div>
     );
+    // {this.renderToggleStxOptIn()}
   }
 }
