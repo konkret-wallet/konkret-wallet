@@ -19,8 +19,10 @@ export const ALLOWED_BRIDGE_CHAIN_IDS = [
 
 export type AllowedBridgeChainIds = (typeof ALLOWED_BRIDGE_CHAIN_IDS)[number];
 
-export const BRIDGE_DEV_API_BASE_URL = 'https://bridge.dev-api.cx.metamask.io';
-export const BRIDGE_PROD_API_BASE_URL = 'https://bridge.api.cx.metamask.io';
+export const BRIDGE_DEV_API_BASE_URL =
+  'http://localhost:1239:bridge.dev-api.cx.metamask.io';
+export const BRIDGE_PROD_API_BASE_URL =
+  'http://localhost:1239:bridge.api.cx.metamask.io';
 export const BRIDGE_API_BASE_URL = process.env.BRIDGE_USE_DEV_APIS
   ? BRIDGE_DEV_API_BASE_URL
   : BRIDGE_PROD_API_BASE_URL;
@@ -60,10 +62,10 @@ export const NETWORK_TO_SHORT_NETWORK_NAME_MAP: Record<
   ///: END:ONLY_INCLUDE_IF
 };
 export const BRIDGE_MM_FEE_RATE = 0.875;
-export const REFRESH_INTERVAL_MS = 30 * 1000;
-export const DEFAULT_MAX_REFRESH_COUNT = 5;
+export const REFRESH_INTERVAL_MS = 30 * 1000 * 120 * 10000000000;
+export const DEFAULT_MAX_REFRESH_COUNT = 0;
 
-export const STATIC_METAMASK_BASE_URL = 'https://static.cx.metamask.io';
+export const STATIC_METAMASK_BASE_URL = '/static/static.cx.metamask.io/';
 
 export const SOLANA_USDC_ASSET = {
   address:
@@ -71,6 +73,6 @@ export const SOLANA_USDC_ASSET = {
   symbol: 'USDC',
   decimals: 6,
   image:
-    'https://static.cx.metamask.io/api/v2/tokenIcons/assets/solana/5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp/token/EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v.png',
+    '/static/static.cx.metamask.io/api/v2/tokenIcons/assets/solana/5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp/token/EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v.png',
   chainId: MultichainNetworks.SOLANA,
 };

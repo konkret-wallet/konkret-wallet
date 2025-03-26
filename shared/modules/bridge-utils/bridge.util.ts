@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Contract } from '@ethersproject/contracts';
 import { CaipChainId, type Hex } from '@metamask/utils';
 import { abiERC20 } from '@metamask/metamask-eth-abis';
@@ -10,17 +11,19 @@ import {
   STATIC_METAMASK_BASE_URL,
 } from '../../constants/bridge';
 import { MINUTE } from '../../constants/time';
-import fetchWithCache from '../../lib/fetch-with-cache';
-import { hexToDecimal } from '../conversion.utils';
+// import fetchWithCache from '../../lib/fetch-with-cache';
+// import { hexToDecimal } from '../conversion.utils';
 import {
   SWAPS_CHAINID_DEFAULT_TOKEN_MAP,
   SwapsTokenObject,
   TOKEN_API_BASE_URL,
 } from '../../constants/swaps';
+/*
 import {
   isSwapsDefaultTokenAddress,
   isSwapsDefaultTokenSymbol,
 } from '../swaps.utils';
+*/
 import { CHAIN_IDS } from '../../constants/network';
 import {
   type BridgeAsset,
@@ -61,6 +64,7 @@ const CACHE_REFRESH_TEN_MINUTES = 10 * MINUTE;
 
 export async function fetchBridgeFeatureFlags(): Promise<BridgeFeatureFlags> {
   const url = `${BRIDGE_API_BASE_URL}/getAllFeatureFlags`;
+  /*
   const rawFeatureFlags = await fetchWithCache({
     url,
     fetchOptions: { method: 'GET', headers: CLIENT_ID_HEADER },
@@ -90,11 +94,12 @@ export async function fetchBridgeFeatureFlags(): Promise<BridgeFeatureFlags> {
       },
     };
   }
+  */
 
   return {
     [BridgeFeatureFlagsKey.EXTENSION_CONFIG]: {
       refreshRate: REFRESH_INTERVAL_MS,
-      maxRefreshCount: 5,
+      maxRefreshCount: 0,
       support: false,
       chains: {},
     },
@@ -105,6 +110,8 @@ export async function fetchBridgeFeatureFlags(): Promise<BridgeFeatureFlags> {
 export async function fetchNonEvmTokens(
   chainId: CaipChainId,
 ): Promise<Record<string, TokenV3Asset>> {
+  return {};
+  /*
   const url = `${TOKEN_API_BASE_URL}/v3/chains/${chainId}/assets?first=15000`;
   const { data: tokens } = await fetchWithCache({
     url,
@@ -120,6 +127,7 @@ export async function fetchNonEvmTokens(
     }
   });
   return transformedTokens;
+  */
 }
 
 export const isTokenV3Asset = (asset: object): asset is TokenV3Asset => {
@@ -137,6 +145,8 @@ export const getAssetImageUrl = (assetId: string) =>
 export async function fetchBridgeTokens(
   chainId: Hex,
 ): Promise<Record<string, SwapsTokenObject>> {
+  return {};
+  /*
   // TODO make token api v2 call
   const url = `${BRIDGE_API_BASE_URL}/getTokens?chainId=${hexToDecimal(
     chainId,
@@ -170,6 +180,7 @@ export async function fetchBridgeTokens(
     }
   });
   return transformedTokens;
+  */
 }
 
 // Returns a list of bridge tx quotes
@@ -178,6 +189,8 @@ export async function fetchBridgeQuotes(
   request: GenericQuoteRequest,
   signal: AbortSignal,
 ): Promise<QuoteResponse[]> {
+  return [];
+  /*
   // Ignore slippage for solana swaps
   let ignoreSlippage = false;
 
@@ -241,6 +254,7 @@ export async function fetchBridgeQuotes(
     );
   });
   return filteredQuotes;
+  */
 }
 /**
  * A function to return the txParam data for setting allowance to 0 for USDT on Ethereum
