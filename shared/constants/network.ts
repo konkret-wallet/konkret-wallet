@@ -1073,6 +1073,7 @@ export const UNSUPPORTED_RPC_METHODS = new Set([
 export const IPFS_DEFAULT_GATEWAY_URL = 'dweb.link';
 
 export const FEATURED_RPCS: AddNetworkFields[] = [
+/*
   {
     chainId: CHAIN_IDS.LINEA_MAINNET,
     name: LINEA_MAINNET_DISPLAY_NAME,
@@ -1185,6 +1186,7 @@ export const FEATURED_RPCS: AddNetworkFields[] = [
     blockExplorerUrls: ['https://basescan.org'],
     defaultBlockExplorerUrlIndex: 0,
   },
+*/
 ];
 
 export const FEATURED_NETWORK_CHAIN_IDS = [
