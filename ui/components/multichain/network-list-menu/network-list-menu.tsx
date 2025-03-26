@@ -98,7 +98,6 @@ import {
 } from '../../../ducks/metamask/metamask';
 import NetworksForm from '../../../pages/settings/networks-tab/networks-form';
 import { useNetworkFormState } from '../../../pages/settings/networks-tab/networks-form/networks-form-state';
-import PopularNetworkList from './popular-network-list/popular-network-list';
 import NetworkListSearch from './network-list-search/network-list-search';
 import AddRpcUrlModal from './add-rpc-url-modal/add-rpc-url-modal';
 import { SelectRpcUrlModal } from './select-rpc-url-modal/select-rpc-url-modal';
@@ -549,10 +548,31 @@ export const NetworkListMenu = ({ onClose }: { onClose: () => void }) => {
                 </DragDropContext>
               )}
 
-              <PopularNetworkList
-                searchAddNetworkResults={searchedFeaturedNetworks}
-                data-testid="add-popular-network-view"
-              />
+              {searchedFeaturedNetworks.length > 0 ? (
+                <Box
+                  className="new-network-list__networks-container"
+                  data-testid="add-popular-network-view"
+                >
+                  <Box
+                    marginTop={4}
+                    marginBottom={1}
+                    paddingLeft={4}
+                    paddingRight={4}
+                  >
+                    <Box marginTop={4} marginBottom={1} display={Display.Flex}>
+                      <Text
+                        color={TextColor.textAlternative}
+                        variant={TextVariant.bodyMd}
+                      >
+                        {t('additionalNetworks')}
+                      </Text>
+                    </Box>
+                    {searchedFeaturedNetworks.map((network) =>
+                      generateMultichainNetworkListItem(network),
+                    )}
+                  </Box>
+                </Box>
+              ) : null}
               {searchedTestNetworks.length > 0 ? (
                 <Box
                   paddingBottom={4}
