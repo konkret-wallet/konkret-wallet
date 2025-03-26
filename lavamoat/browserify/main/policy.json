@@ -1207,6 +1207,7 @@
       "globals": {
         "clearTimeout": true,
         "console.error": true,
+        "console.warn": true,
         "setTimeout": true
       },
       "packages": {

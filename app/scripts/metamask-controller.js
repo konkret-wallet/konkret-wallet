@@ -2563,7 +2563,14 @@ export default class MetamaskController extends EventEmitter {
         });
         networkVersion = convertNetworkId(result);
       } catch (error) {
-        console.error(error);
+        if (
+          error.code === -32603 &&
+          error.cause?.message?.startsWith('NetworkError')
+        ) {
+          console.warn(error.message ?? error.cause?.message);
+        } else {
+          console.error(error);
+        }
         networkVersion = null;
       }
 
