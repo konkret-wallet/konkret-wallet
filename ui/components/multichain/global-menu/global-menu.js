@@ -2,9 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { useUnreadNotificationsCounter } from '../../../hooks/metamask-notifications/useCounter';
-import { NotificationsTagCounter } from '../notifications-tag-counter';
-import { NewFeatureTag } from '../../../pages/notifications/NewFeatureTag';
 import {
   SETTINGS_ROUTE,
   DEFAULT_ROUTE,
@@ -14,13 +11,8 @@ import {
 } from '../../../helpers/constants/routes';
 import {
   lockMetamask,
-  showConfirmTurnOnMetamaskNotifications,
 } from '../../../store/actions';
 import { useI18nContext } from '../../../hooks/useI18nContext';
-import {
-  selectIsMetamaskNotificationsEnabled,
-  selectIsMetamaskNotificationsFeatureSeen,
-} from '../../../selectors/metamask-notifications/metamask-notifications';
 import {
   Box,
   IconName,
@@ -37,8 +29,6 @@ import { ENVIRONMENT_TYPE_FULLSCREEN } from '../../../../shared/constants/app';
 import {
   getSelectedInternalAccount,
   getUnapprovedTransactions,
-  getAnySnapUpdateAvailable,
-  getNotifySnaps,
   getUseExternalServices,
 } from '../../../selectors';
 import {
@@ -61,26 +51,13 @@ export const GlobalMenu = ({ closeMenu, anchorElement, isOpen }) => {
 
   const history = useHistory();
 
-  const { notificationsUnreadCount } = useUnreadNotificationsCounter();
-
   const account = useSelector(getSelectedInternalAccount);
 
   const unapprovedTransactions = useSelector(getUnapprovedTransactions);
 
-  const isMetamaskNotificationFeatureSeen = useSelector(
-    selectIsMetamaskNotificationsFeatureSeen,
-  );
-
-  const isMetamaskNotificationsEnabled = useSelector(
-    selectIsMetamaskNotificationsEnabled,
-  );
-
   const hasUnapprovedTransactions =
     Object.keys(unapprovedTransactions).length > 0;
 
-  let hasNotifySnaps = false;
-  const snapsUpdatesAvailable = useSelector(getAnySnapUpdateAvailable);
-  hasNotifySnaps = useSelector(getNotifySnaps).length > 0;
 
   // Accessibility improvement for popover
   const lastItemRef = React.useRef(null);
@@ -105,22 +82,6 @@ export const GlobalMenu = ({ closeMenu, anchorElement, isOpen }) => {
     };
   }, [closeMenu]);
 
-  const handleNotificationsClick = () => {
-    const shouldShowEnableModal =
-      !hasNotifySnaps && !isMetamaskNotificationsEnabled;
-
-    if (shouldShowEnableModal) {
-      dispatch(showConfirmTurnOnMetamaskNotifications());
-
-      closeMenu();
-      return;
-    }
-
-    // Otherwise we can navigate to the notifications page
-    history.push(NOTIFICATIONS_ROUTE);
-    closeMenu();
-  };
-
   return (
     <Popover
       data-testid="global-menu"
@@ -136,32 +97,6 @@ export const GlobalMenu = ({ closeMenu, anchorElement, isOpen }) => {
       borderStyle={BorderStyle.none}
       position={PopoverPosition.BottomEnd}
     >
-      {basicFunctionality && (
-        <>
-          <MenuItem
-            iconName={IconName.Notification}
-            onClick={() => handleNotificationsClick()}
-            data-testid="notifications-menu-item"
-          >
-            <Box
-              display={Display.Flex}
-              flexDirection={FlexDirection.Row}
-              alignItems={AlignItems.center}
-              justifyContent={JustifyContent.spaceBetween}
-            >
-              {t('notifications')}
-              {notificationsUnreadCount === 0 &&
-                !isMetamaskNotificationFeatureSeen && <NewFeatureTag />}
-              <NotificationsTagCounter />
-            </Box>
-          </MenuItem>
-          <Box
-            borderColor={BorderColor.borderMuted}
-            width={BlockSize.Full}
-            style={{ height: '1px', borderBottomWidth: 0 }}
-          ></Box>
-        </>
-      )}
       {account && (
         <>
           <AccountDetailsMenuItem
@@ -205,16 +140,6 @@ export const GlobalMenu = ({ closeMenu, anchorElement, isOpen }) => {
           {t('expandView')}
         </MenuItem>
       )}
-      <MenuItem
-        iconName={IconName.Snaps}
-        onClick={() => {
-          history.push(SNAPS_ROUTE);
-          closeMenu();
-        }}
-        showInfoDot={snapsUpdatesAvailable}
-      >
-        {t('snaps')}
-      </MenuItem>
       <MenuItem
         iconName={IconName.Setting}
         disabled={hasUnapprovedTransactions}
