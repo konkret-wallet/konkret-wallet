@@ -533,8 +533,7 @@ export const MEGAETH_TESTNET_IMAGE_URL = './images/MegaETH-logo-testnet.png';
 export const INFURA_PROVIDER_TYPES = [
   NETWORK_TYPES.MAINNET,
   NETWORK_TYPES.SEPOLIA,
-  NETWORK_TYPES.LINEA_SEPOLIA,
-  NETWORK_TYPES.LINEA_MAINNET,
+  NETWORK_TYPES.LOCALHOST,
 ] as const;
 
 export const TEST_CHAINS: Hex[] = [
@@ -567,6 +566,7 @@ export const TEST_NETWORK_TICKER_MAP: {
   [NETWORK_TYPES.LINEA_GOERLI]: `Linea${CURRENCY_SYMBOLS.ETH}`,
   [NETWORK_TYPES.LINEA_SEPOLIA]: `Linea${CURRENCY_SYMBOLS.ETH}`,
   [NETWORK_TYPES.MEGAETH_TESTNET]: 'MegaETH',
+  [NETWORK_TYPES.LOCALHOST]: 'ETH',
 };
 
 /**
@@ -595,6 +595,8 @@ export const BUILT_IN_NETWORKS = {
   },
   [NETWORK_TYPES.LOCALHOST]: {
     chainId: CHAIN_IDS.LOCALHOST,
+    ticker: CURRENCY_SYMBOLS.ETH,
+    blockExplorerUrl: 'http://localhost:8283',
   },
   [NETWORK_TYPES.MEGAETH_TESTNET]: {
     chainId: CHAIN_IDS.MEGAETH_TESTNET,
@@ -1073,7 +1075,7 @@ export const UNSUPPORTED_RPC_METHODS = new Set([
 export const IPFS_DEFAULT_GATEWAY_URL = 'dweb.link';
 
 export const FEATURED_RPCS: AddNetworkFields[] = [
-/*
+  /*
   {
     chainId: CHAIN_IDS.LINEA_MAINNET,
     name: LINEA_MAINNET_DISPLAY_NAME,
@@ -1198,17 +1200,17 @@ export const FEATURED_NETWORK_CHAIN_IDS = [
  * A mapping for the default custom testnets.
  */
 export const DEFAULT_CUSTOM_TESTNET_MAP: Record<Hex, NetworkConfiguration> = {
-  [CHAIN_IDS.MEGAETH_TESTNET]: {
-    chainId: CHAIN_IDS.MEGAETH_TESTNET,
-    name: MEGAETH_TESTNET_DISPLAY_NAME,
-    nativeCurrency: TEST_NETWORK_TICKER_MAP[NETWORK_TYPES.MEGAETH_TESTNET],
-    blockExplorerUrls: ['https://megaexplorer.xyz'],
+  [CHAIN_IDS.LOCALHOST]: {
+    chainId: CHAIN_IDS.LOCALHOST,
+    name: LOCALHOST_DISPLAY_NAME,
+    nativeCurrency: CURRENCY_SYMBOLS.ETH,
+    blockExplorerUrls: ['http://127.0.0.1:8283'],
     defaultRpcEndpointIndex: 0,
     defaultBlockExplorerUrlIndex: 0,
     rpcEndpoints: [
       {
-        networkClientId: 'megaeth-testnet',
-        url: 'https://carrot.megaeth.com/rpc',
+        networkClientId: 'networkConfigurationId',
+        url: 'http://localhost:8545',
         type: RpcEndpointType.Custom,
       },
     ],
@@ -1299,6 +1301,7 @@ export const TEST_NETWORKS = [
   SEPOLIA_DISPLAY_NAME,
   LINEA_GOERLI_DISPLAY_NAME,
   LINEA_SEPOLIA_DISPLAY_NAME,
+  LOCALHOST_DISPLAY_NAME,
   MEGAETH_TESTNET_DISPLAY_NAME,
 ];
 
@@ -1308,5 +1311,6 @@ export const TEST_NETWORK_IDS = [
   CHAIN_IDS.LINEA_GOERLI,
   CHAIN_IDS.LINEA_SEPOLIA,
   CHAIN_IDS.ARBITRUM_SEPOLIA,
+  CHAIN_IDS.LOCALHOST,
   CHAIN_IDS.MEGAETH_TESTNET,
 ];

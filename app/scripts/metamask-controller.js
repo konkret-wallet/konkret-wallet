@@ -20,7 +20,7 @@ import { createEngineStream } from '@metamask/json-rpc-middleware-stream';
 import { ObservableStore } from '@metamask/obs-store';
 import { storeAsStream } from '@metamask/obs-store/dist/asStream';
 import { providerAsMiddleware } from '@metamask/eth-json-rpc-middleware';
-import { debounce, memoize, wrap, pick, cloneDeep } from 'lodash';
+import { debounce, memoize, wrap, pick } from 'lodash';
 import {
   KeyringController,
   KeyringTypes,
@@ -160,7 +160,7 @@ import {
   NETWORK_TYPES,
   NetworkStatus,
   MAINNET_DISPLAY_NAME,
-  DEFAULT_CUSTOM_TESTNET_MAP,
+  // DEFAULT_CUSTOM_TESTNET_MAP,
 } from '../../shared/constants/network';
 import { getAllowedSmartTransactionsChainIds } from '../../shared/constants/smartTransactions';
 
@@ -514,9 +514,9 @@ export default class MetamaskController extends EventEmitter {
 
       // Due to the MegaETH Testnet not being included in getDefaultNetworkControllerState().
       // and it is not using Infura as a provider, we need to add it manually.
-      networks[CHAIN_IDS.MEGAETH_TESTNET] = cloneDeep(
-        DEFAULT_CUSTOM_TESTNET_MAP[CHAIN_IDS.MEGAETH_TESTNET],
-      );
+      // networks[CHAIN_IDS.MEGAETH_TESTNET] = cloneDeep(
+      //   DEFAULT_CUSTOM_TESTNET_MAP[CHAIN_IDS.MEGAETH_TESTNET],
+      // );
 
       Object.values(networks).forEach((network) => {
         const id = network.rpcEndpoints[0].networkClientId;
@@ -530,21 +530,7 @@ export default class MetamaskController extends EventEmitter {
 
       let network;
       if (process.env.IN_TEST) {
-        network = {
-          chainId: CHAIN_IDS.LOCALHOST,
-          name: 'Localhost 8545',
-          nativeCurrency: 'ETH',
-          blockExplorerUrls: [],
-          defaultRpcEndpointIndex: 0,
-          rpcEndpoints: [
-            {
-              networkClientId: 'networkConfigurationId',
-              url: 'http://localhost:8545',
-              type: 'custom',
-            },
-          ],
-        };
-        networks[CHAIN_IDS.LOCALHOST] = network;
+        network = networks[CHAIN_IDS.LOCALHOST];
       } else if (
         process.env.METAMASK_DEBUG ||
         process.env.METAMASK_ENVIRONMENT === 'test'
