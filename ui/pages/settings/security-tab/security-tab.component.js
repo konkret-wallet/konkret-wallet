@@ -74,8 +74,8 @@ export default class SecurityTab extends PureComponent {
     ipfsGateway: PropTypes.string.isRequired,
     useMultiAccountBalanceChecker: PropTypes.bool.isRequired,
     setUseMultiAccountBalanceChecker: PropTypes.func.isRequired,
-    useSafeChainsListValidation: PropTypes.bool.isRequired,
-    setUseSafeChainsListValidation: PropTypes.func.isRequired,
+    // useSafeChainsListValidation: PropTypes.bool.isRequired,
+    // setUseSafeChainsListValidation: PropTypes.func.isRequired,
     useCurrencyRateCheck: PropTypes.bool.isRequired,
     setUseCurrencyRateCheck: PropTypes.func.isRequired,
     useAddressBarEnsResolution: PropTypes.bool.isRequired,
@@ -284,6 +284,7 @@ export default class SecurityTab extends PureComponent {
     );
   }
 
+  /*
   renderSafeChainsListValidationToggle() {
     const { t } = this.context;
     const { useSafeChainsListValidation, setUseSafeChainsListValidation } =
@@ -335,6 +336,7 @@ export default class SecurityTab extends PureComponent {
       </Box>
     );
   }
+  */
 
   renderIpfsGatewayControl() {
     const { t } = this.context;
@@ -966,7 +968,7 @@ export default class SecurityTab extends PureComponent {
         </span>
         <div className="settings-page__content-padded">
           {this.renderChooseYourNetworkButton()}
-          {this.renderSafeChainsListValidationToggle()}
+          {/* this.renderSafeChainsListValidationToggle() */}
           {this.renderIpfsGatewayControl()}
         </div>
         <div className="settings-page__content-padded">
