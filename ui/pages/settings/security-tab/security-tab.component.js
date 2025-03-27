@@ -935,16 +935,16 @@ export default class SecurityTab extends PureComponent {
         </span>
         {this.renderSeedWords()}
         <span className="settings-page__security-tab-sub-header__bold">
+          {this.context.t('networkOptions')}
+        </span>
+        <div className="settings-page__content-padded">
+          {this.renderChooseYourNetworkButton()}
+          {/* this.renderSafeChainsListValidationToggle() */}
+          {this.renderIpfsGatewayControl()}
+        </div>
+        <span className="settings-page__security-tab-sub-header__bold">
           {this.context.t('privacy')}
         </span>
-        <div>
-          <span className="settings-page__security-tab-sub-header">
-            {this.context.t('alerts')}
-          </span>
-        </div>
-        <div className="settings-page__content-padded">
-          {this.renderPhishingDetectionToggle()}
-        </div>
         <div>
           <span className="settings-page__security-tab-sub-header">
             {this.context.t('smartContracts')}
@@ -957,22 +957,19 @@ export default class SecurityTab extends PureComponent {
           {this.context.t('transactions')}
         </span>
         <div className="settings-page__content-padded">
-          {this.renderCurrencyRateCheckToggle()}
           {this.renderIncomingTransactionsOptIn()}
-        </div>
-        <span
-          className="settings-page__security-tab-sub-header"
-          ref={this.settingsRefs[6]}
-        >
-          {this.context.t('networkProvider')}
-        </span>
-        <div className="settings-page__content-padded">
-          {this.renderChooseYourNetworkButton()}
-          {/* this.renderSafeChainsListValidationToggle() */}
-          {this.renderIpfsGatewayControl()}
+          {this.renderCurrencyRateCheckToggle()}
         </div>
         <div className="settings-page__content-padded">
           {this.renderDisplayNftMediaToggle()}
+        </div>
+        <div>
+          <span className="settings-page__security-tab-sub-header">
+            {this.context.t('alerts')}
+          </span>
+        </div>
+        <div className="settings-page__content-padded">
+          {this.renderPhishingDetectionToggle()}
         </div>
         {petnamesEnabled && (
           <>
