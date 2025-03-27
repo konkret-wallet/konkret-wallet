@@ -13,7 +13,6 @@ import { IPFS_DEFAULT_GATEWAY_URL } from '../../../../shared/constants/network';
 import {
   AUTO_DETECT_TOKEN_LEARN_MORE_LINK,
   COINGECKO_LINK,
-  CONSENSYS_PRIVACY_LINK,
   CRYPTOCOMPARE_LINK,
   PRIVACY_POLICY_LINK,
   TRANSACTION_SIMULATIONS_LEARN_MORE_LINK,
@@ -265,19 +264,6 @@ export default class SecurityTab extends PureComponent {
       >
         <div className="settings-page__content-item">
           <span>{t('chooseYourNetwork')}</span>
-          <div className="settings-page__content-description">
-            {t('chooseYourNetworkDescription', [
-              // TODO: Update to use real link
-              <a
-                href={CONSENSYS_PRIVACY_LINK}
-                target="_blank"
-                rel="noopener noreferrer"
-                key="cyn-consensys-privacy-link"
-              >
-                {t('privacyMsg')}
-              </a>,
-            ])}
-          </div>
         </div>
         <div className="settings-page__content-item-col">
           <Button

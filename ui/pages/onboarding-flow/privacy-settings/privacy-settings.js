@@ -351,17 +351,6 @@ export default function PrivacySettings() {
                     showToggle={false}
                     description={
                       <>
-                        {t('onboardingAdvancedPrivacyNetworkDescription', [
-                          <a
-                            href="https://consensys.io/privacy-policy/"
-                            key="link"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                          >
-                            {t('privacyMsg')}
-                          </a>,
-                        ])}
-
                         <Box paddingTop={4}>
                           <Box
                             display={Display.Flex}

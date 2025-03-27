@@ -220,8 +220,7 @@ const SETTINGS_CONSTANTS = [
   {
     tabMessage: (t) => t('securityAndPrivacy'),
     sectionMessage: (t) => t('networkProvider'),
-    descriptionMessage: (t) =>
-      `${t('chooseYourNetwork')} ${t('chooseYourNetworkDescription')}`,
+    descriptionMessage: (t) => `${t('chooseYourNetwork')}`,
     route: `${SECURITY_ROUTE}#network-provider`,
     icon: 'fa fa-lock',
   },
