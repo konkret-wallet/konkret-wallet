@@ -39,10 +39,7 @@ import {
 } from '../../../helpers/constants/design-system';
 import { ONBOARDING_COMPLETION_ROUTE } from '../../../helpers/constants/routes';
 import { useI18nContext } from '../../../hooks/useI18nContext';
-import {
-  getPetnamesEnabled,
-  getExternalServicesOnboardingToggleState,
-} from '../../../selectors';
+import { getPetnamesEnabled } from '../../../selectors';
 import { getNetworkConfigurationsByChainId } from '../../../../shared/modules/selectors/networks';
 import {
   setIpfsGateway,
@@ -57,10 +54,6 @@ import {
   setPetnamesEnabled,
   setEditedNetwork,
 } from '../../../store/actions';
-import {
-  onboardingToggleBasicFunctionalityOn,
-  openBasicFunctionalityModal,
-} from '../../../ducks/app/app';
 import IncomingTransactionToggle from '../../../components/app/incoming-trasaction-toggle/incoming-transaction-toggle';
 import { CHAIN_ID_TO_NETWORK_IMAGE_URL_MAP } from '../../../../shared/constants/network';
 import { Setting } from './setting';
@@ -110,10 +103,6 @@ export default function PrivacySettings() {
   const [turnOnPetnames, setTurnOnPetnames] = useState(petnamesEnabled);
 
   const networkConfigurations = useSelector(getNetworkConfigurationsByChainId);
-
-  const externalServicesOnboardingToggleState = useSelector(
-    getExternalServicesOnboardingToggleState,
-  );
 
   const handleSubmit = () => {
     dispatch(setUse4ByteResolution(turnOn4ByteResolution));
@@ -323,29 +312,6 @@ export default function PrivacySettings() {
             >
               {selectedItem?.id === 1 ? (
                 <>
-                  <Setting
-                    dataTestId="basic-functionality-toggle"
-                    value={externalServicesOnboardingToggleState}
-                    setValue={(toggledValue) => {
-                      if (toggledValue) {
-                        dispatch(onboardingToggleBasicFunctionalityOn());
-                      } else {
-                        dispatch(openBasicFunctionalityModal());
-                      }
-                    }}
-                    title={t('basicConfigurationLabel')}
-                    description={t('basicConfigurationDescription', [
-                      <a
-                        href="https://consensys.io/privacy-policy"
-                        key="link"
-                        target="_blank"
-                        rel="noreferrer noopener"
-                      >
-                        {t('privacyMsg')}
-                      </a>,
-                    ])}
-                  />
-
                   <Setting
                     title={t('onboardingAdvancedPrivacyNetworkTitle')}
                     showToggle={false}
