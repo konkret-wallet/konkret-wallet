@@ -5875,9 +5875,6 @@
   "welcomeToMetaMask": {
     "message": "让我们开始吧"
   },
-  "welcomeToMetaMaskIntro": {
-    "message": "Konkret Wallet 深受数百万人信任，是一款可以让所有人进入 web3 世界的安全钱包。"
-  },
   "whatsNew": {
     "message": "最新动态",
     "description": "This is the title of a popup that gives users notifications about new features and updates to MetaMask."

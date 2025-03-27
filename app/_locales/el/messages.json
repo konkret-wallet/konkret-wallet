@@ -5875,9 +5875,6 @@
   "welcomeToMetaMask": {
     "message": "Ας ξεκινήσουμε"
   },
-  "welcomeToMetaMaskIntro": {
-    "message": "Το MetaMask, το οποίο εμπιστεύονται εκατομμύρια χρήστες, είναι ένα ασφαλές πορτοφόλι που κάνει τον κόσμο του web3 προσβάσιμο σε όλους."
-  },
   "whatsNew": {
     "message": "Τι νέο υπάρχει",
     "description": "This is the title of a popup that gives users notifications about new features and updates to MetaMask."

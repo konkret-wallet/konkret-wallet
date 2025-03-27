@@ -5875,9 +5875,6 @@
   "welcomeToMetaMask": {
     "message": "Başlayalım"
   },
-  "welcomeToMetaMaskIntro": {
-    "message": "Milyonların güvendiği MetaMask, web3 dünyasını herkes için erişilebilir kılan güvenli bir cüzdandır."
-  },
   "whatsNew": {
     "message": "Yenilikler",
     "description": "This is the title of a popup that gives users notifications about new features and updates to MetaMask."

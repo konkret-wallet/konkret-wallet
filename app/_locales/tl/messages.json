@@ -5875,9 +5875,6 @@
   "welcomeToMetaMask": {
     "message": "Magsimula na tayo"
   },
-  "welcomeToMetaMaskIntro": {
-    "message": "Ang Konkret Wallet na pinagkakatiwalaan ng milyun-milyon ay isang ligtas na wallet na ginagawang accessible ang mundo ng web3 para sa lahat."
-  },
   "whatsNew": {
     "message": "Ano'ng bago",
     "description": "This is the title of a popup that gives users notifications about new features and updates to MetaMask."
