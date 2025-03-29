@@ -4363,8 +4363,8 @@ __metadata:
 
 "@metamask/design-tokens@patch:@metamask/design-tokens@npm%3A5.0.0#~/.yarn/patches/@metamask-design-tokens-npm-5.0.0-6db176660d.patch":
   version: 5.0.0
-  resolution: "@metamask/design-tokens@patch:@metamask/design-tokens@npm%3A5.0.0#~/.yarn/patches/@metamask-design-tokens-npm-5.0.0-6db176660d.patch::version=5.0.0&hash=e8d61b"
-  checksum: 10/aa6bc89c6a8cd520732b6d2594e38941234ce9050ee24de7387b104bb4228d03bdbdbaadc0ee00dda289bcde2ff3a73326ce221ab42a6fd189188da2dac925a4
+  resolution: "@metamask/design-tokens@patch:@metamask/design-tokens@npm%3A5.0.0#~/.yarn/patches/@metamask-design-tokens-npm-5.0.0-6db176660d.patch::version=5.0.0&hash=dcc2c3"
+  checksum: 10/c8e554af6d8063a745340ea0ec43112b32eec8e877cce186996b75937edad8b8f94c5b5e92641d2ba68c1db64c6ad72d06734a0bcf9ad0d37b3f9e29f2cff42e
   languageName: node
   linkType: hard
 
