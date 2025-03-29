@@ -91,12 +91,6 @@ export const NotificationsListTurnOnNotifications = () => {
       <Text variant={TextVariant.headingSm}>
         {t('metamaskNotificationsAreOff')}
       </Text>
-      <Box
-        as="img"
-        src="./images/turn-on-metamask-notifications.png"
-        width={BlockSize.Full}
-        borderRadius={BorderRadius.MD}
-      />
 
       <Text as="p">
         {t('turnOnMetamaskNotificationsMessageSecond', [privacyLink])}

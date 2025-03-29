@@ -23,8 +23,6 @@ import {
 } from '../../../component-library';
 import {
   AlignItems,
-  BlockSize,
-  BorderRadius,
   FlexDirection,
   FontWeight,
   TextColor,
@@ -96,13 +94,6 @@ export default function TurnOnMetamaskNotifications() {
           {t('turnOnMetamaskNotifications')}
         </ModalHeader>
         <ModalBody>
-          <Box
-            as="img"
-            src="./images/turn-on-metamask-notifications.png"
-            width={BlockSize.Full}
-            borderRadius={BorderRadius.MD}
-            marginBottom={4}
-          />
           <Text as="p">{t('turnOnMetamaskNotificationsMessageFirst')}</Text>
           <Text as="p" paddingTop={4}>
             {
