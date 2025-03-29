@@ -16,7 +16,6 @@ import {
   ONBOARDING_PRIVACY_SETTINGS_ROUTE,
   ONBOARDING_COMPLETION_ROUTE,
   ONBOARDING_IMPORT_WITH_SRP_ROUTE,
-  ONBOARDING_PIN_EXTENSION_ROUTE,
 } from '../../helpers/constants/routes';
 import { CHAIN_IDS } from '../../../shared/constants/network';
 import {
@@ -226,17 +225,6 @@ describe('Onboarding Flow', () => {
 
     const onboardingWelcome = queryByTestId('onboarding-welcome');
     expect(onboardingWelcome).toBeInTheDocument();
-  });
-
-  it('should render onboarding pin extension screen', () => {
-    const { queryByTestId } = renderWithProvider(
-      <OnboardingFlow />,
-      store,
-      ONBOARDING_PIN_EXTENSION_ROUTE,
-    );
-
-    const pinExtension = queryByTestId('onboarding-pin-extension');
-    expect(pinExtension).toBeInTheDocument();
   });
 
   it('should render onboarding experimental screen', () => {

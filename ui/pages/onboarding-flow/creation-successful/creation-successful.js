@@ -1,6 +1,6 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import PrivacySettings from '../privacy-settings/privacy-settings';
 import {
   Button,
@@ -21,12 +21,14 @@ import {
   ButtonLinkSize,
 } from '../../../components/component-library';
 import { useI18nContext } from '../../../hooks/useI18nContext';
-import { ONBOARDING_PIN_EXTENSION_ROUTE } from '../../../helpers/constants/routes';
+import { DEFAULT_ROUTE } from '../../../helpers/constants/routes';
 import { FirstTimeFlowType } from '../../../../shared/constants/onboarding';
 import { getFirstTimeFlowType } from '../../../selectors';
 import { getSeedPhraseBackedUp } from '../../../ducks/metamask/metamask';
+import { setCompletedOnboarding } from '../../../store/actions';
 
 export default function CreationSuccessful() {
+  const dispatch = useDispatch();
   const history = useHistory();
   const t = useI18nContext();
   const firstTimeFlowType = useSelector(getFirstTimeFlowType);
@@ -35,6 +37,10 @@ export default function CreationSuccessful() {
     'https://support.metamask.io/hc/en-us/articles/360015489591-Basic-Safety-and-Security-Tips-for-MetaMask';
   const learnHowToKeepWordsSafe =
     'https://community.metamask.io/t/what-is-a-secret-recovery-phrase-and-how-to-keep-your-crypto-wallet-secure/3440';
+  const handleDone = async () => {
+    dispatch(setCompletedOnboarding());
+    history.push(DEFAULT_ROUTE);
+  };
 
   return (
     <Box
@@ -165,9 +171,7 @@ export default function CreationSuccessful() {
             width: '184px',
           }}
           marginTop={6}
-          onClick={() => {
-            history.push(ONBOARDING_PIN_EXTENSION_ROUTE);
-          }}
+          onClick={handleDone}
         >
           {t('done')}
         </Button>

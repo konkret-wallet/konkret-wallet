@@ -21,17 +21,6 @@ class OnboardingCompletePage {
   private readonly onboardingCompleteDoneButton =
     '[data-testid="onboarding-complete-done"]';
 
-  private readonly pinExtensionDoneButton =
-    '[data-testid="pin-extension-done"]';
-
-  private readonly pinExtensionMessage = {
-    text: 'Click browser extension icon to access it instantly',
-    tag: 'p',
-  };
-
-  private readonly pinExtensionNextButton =
-    '[data-testid="pin-extension-next"]';
-
   private readonly walletReadyMessage = {
     text: 'Your wallet is ready',
     tag: 'h2',
@@ -67,14 +56,11 @@ class OnboardingCompletePage {
     console.log('Complete onboarding');
     await this.clickCreateWalletDoneButton();
     await this.driver.waitForSelector(this.installCompleteMessage);
-    await this.driver.clickElement(this.pinExtensionNextButton);
 
     // Wait until the onboarding carousel has stopped moving otherwise the click has no effect.
-    await this.driver.waitForSelector(this.pinExtensionMessage);
-    await this.driver.waitForElementToStopMoving(this.pinExtensionDoneButton);
-    await this.driver.clickElementAndWaitToDisappear(
-      this.pinExtensionDoneButton,
-    );
+    // await this.driver.clickElementAndWaitToDisappear(
+    //  this.pinExtensionDoneButton,
+    // );
   }
 
   async navigateToDefaultPrivacySettings(): Promise<void> {

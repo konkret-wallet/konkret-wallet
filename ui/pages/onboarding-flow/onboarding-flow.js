@@ -16,7 +16,6 @@ import {
   ONBOARDING_PRIVACY_SETTINGS_ROUTE,
   ONBOARDING_COMPLETION_ROUTE,
   ONBOARDING_IMPORT_WITH_SRP_ROUTE,
-  ONBOARDING_PIN_EXTENSION_ROUTE,
 } from '../../helpers/constants/routes';
 import {
   getCompletedOnboarding,
@@ -45,7 +44,6 @@ import PrivacySettings from './privacy-settings/privacy-settings';
 import CreationSuccessful from './creation-successful/creation-successful';
 import OnboardingWelcome from './welcome/welcome';
 import ImportSRP from './import-srp/import-srp';
-import OnboardingPinExtension from './pin-extension/pin-extension';
 
 export default function OnboardingFlow() {
   const [secretRecoveryPhrase, setSecretRecoveryPhrase] = useState('');
@@ -197,10 +195,6 @@ export default function OnboardingFlow() {
           <Route
             path={ONBOARDING_WELCOME_ROUTE}
             component={OnboardingWelcome}
-          />
-          <Route
-            path={ONBOARDING_PIN_EXTENSION_ROUTE}
-            component={OnboardingPinExtension}
           />
           {
             ///: BEGIN:ONLY_INCLUDE_IF(build-flask)

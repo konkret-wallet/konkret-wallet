@@ -22,7 +22,6 @@ import {
   AlignItems,
   TextColor,
   TextVariant,
-  BorderRadius,
 } from '../../helpers/constants/design-system';
 
 export const NotificationsListTurnOnNotifications = () => {

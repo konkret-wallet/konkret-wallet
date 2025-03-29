@@ -59,10 +59,6 @@ describe('Incremental Security', function () {
         // complete
         await driver.clickElement('[data-testid="onboarding-complete-done"]');
 
-        // pin extension
-        await driver.clickElement('[data-testid="pin-extension-next"]');
-        await driver.clickElement('[data-testid="pin-extension-done"]');
-
         // open account menu
         await driver.clickElement('[data-testid="account-menu-icon"]');
         await driver.clickElement(
