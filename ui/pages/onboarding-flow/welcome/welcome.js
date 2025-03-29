@@ -5,7 +5,6 @@ import { useHistory } from 'react-router-dom';
 ///: BEGIN:ONLY_INCLUDE_IF(build-main,build-beta,build-flask)
 import { Carousel } from 'react-responsive-carousel';
 ///: END:ONLY_INCLUDE_IF
-import Mascot from '../../../components/ui/mascot';
 import Button from '../../../components/ui/button';
 import { Text } from '../../../components/component-library';
 import CheckBox from '../../../components/ui/check-box';
@@ -101,7 +100,7 @@ export default function OnboardingWelcome() {
       );
     }
     return (
-      <Mascot animationEventEmitter={eventEmitter} width="250" height="300" />
+      <img src="./images/logo/metamask-fox.svg" width="240" height="240" />
     );
   };
 
@@ -136,17 +135,6 @@ export default function OnboardingWelcome() {
             <Text textAlign={TextAlign.Center}>
               {t('welcomeExploreDescription')}
             </Text>
-            <div className="onboarding-welcome__image">
-              <img
-                src="/images/onboarding-welcome-say-hello.png"
-                width="200"
-                height="275"
-                style={{
-                  objectFit: 'contain',
-                }}
-                alt="onboarding-welcome-say-hello"
-              />
-            </div>
           </div>
           <div>
             <Text
@@ -160,17 +148,6 @@ export default function OnboardingWelcome() {
             <Text textAlign={TextAlign.Center}>
               {t('welcomeLoginDescription')}
             </Text>
-            <div className="onboarding-welcome__image">
-              <img
-                src="/images/onboarding-welcome-decentralised-apps.png"
-                width="200"
-                height="275"
-                alt="onboarding-welcome-decentralised-apps"
-                style={{
-                  objectFit: 'contain',
-                }}
-              />
-            </div>
           </div>
         </Carousel>
         ///: END:ONLY_INCLUDE_IF
