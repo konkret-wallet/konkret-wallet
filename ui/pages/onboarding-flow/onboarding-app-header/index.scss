@@ -22,17 +22,24 @@
 
   &__metafox-logo {
     &--icon {
-      height: 32px;
+      height: 42px;
 
+      /* TODO: Re-enable horizontal logo
       @include design-system.screen-sm-min {
         display: none;
       }
+      */
     }
 
     &--horizontal {
+      /* TODO: Re-enable horizontal logo
       @include design-system.screen-sm-max {
-        display: none;
+      */
+      display: none;
+
+      /*
       }
+      */
     }
   }
 

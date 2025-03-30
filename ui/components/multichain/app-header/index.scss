@@ -84,17 +84,11 @@
 
 .app-header__metafox-logo {
   &--icon {
-    height: 32px;
-
-    @include design-system.screen-sm-min {
-      display: none;
-    }
+    height: 42px;
   }
 
   &--horizontal {
-    @include design-system.screen-sm-max {
-      display: none;
-    }
+    display: none;
   }
 }
 
