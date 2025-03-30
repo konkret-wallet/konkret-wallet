@@ -4,10 +4,6 @@ import { Provider } from 'react-redux';
 import { HashRouter } from 'react-router-dom';
 import { CompatRouter } from 'react-router-dom-v5-compat';
 import { I18nProvider, LegacyI18nProvider } from '../contexts/i18n';
-import {
-  MetaMetricsProvider,
-  LegacyMetaMetricsProvider,
-} from '../contexts/metametrics';
 import { MetamaskNotificationsProvider } from '../contexts/metamask-notifications';
 import { AssetPollingProvider } from '../contexts/assetPolling';
 import ErrorPage from './error-page/error-page.component';
@@ -45,19 +41,15 @@ class Index extends PureComponent {
       <Provider store={store}>
         <HashRouter hashType="noslash">
           <CompatRouter>
-            <MetaMetricsProvider>
-              <LegacyMetaMetricsProvider>
-                <I18nProvider>
-                  <LegacyI18nProvider>
-                    <AssetPollingProvider>
-                      <MetamaskNotificationsProvider>
-                        <Routes />
-                      </MetamaskNotificationsProvider>
-                    </AssetPollingProvider>
-                  </LegacyI18nProvider>
-                </I18nProvider>
-              </LegacyMetaMetricsProvider>
-            </MetaMetricsProvider>
+            <I18nProvider>
+              <LegacyI18nProvider>
+                <AssetPollingProvider>
+                  <MetamaskNotificationsProvider>
+                    <Routes />
+                  </MetamaskNotificationsProvider>
+                </AssetPollingProvider>
+              </LegacyI18nProvider>
+            </I18nProvider>
           </CompatRouter>
         </HashRouter>
       </Provider>
