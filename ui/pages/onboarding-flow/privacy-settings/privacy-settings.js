@@ -153,9 +153,9 @@ export default function PrivacySettings() {
   };
 
   const items = [
-    { id: 1, title: t('general'), subtitle: t('generalDescription') },
-    { id: 2, title: t('options'), subtitle: t('assetsDescription') },
-    { id: 3, title: t('security'), subtitle: t('securityDescription') },
+    { id: 1, title: t('networkProvider'), subtitle: '' },
+    { id: 2, title: t('options'), subtitle: '' },
+    { id: 3, title: t('security'), subtitle: '' },
   ];
 
   return (
