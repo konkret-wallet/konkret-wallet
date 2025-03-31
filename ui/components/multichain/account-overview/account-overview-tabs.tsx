@@ -111,7 +111,7 @@ export const AccountOverviewTabs = ({
   );
 
   return (
-    <Box style={{ flexGrow: '1' }}>
+    <Box style={{ flexGrow: '1', width: '100%' }}>
       <Tabs
         defaultActiveTabKey={defaultHomeActiveTabName}
         onTabClick={handleTabClick}
