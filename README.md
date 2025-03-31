@@ -1,73 +1,131 @@
-# MetaMask Browser Extension
+# Konkret Wallet Browser Extension
 
-You can find the latest version of MetaMask on [our official website](https://metamask.io/). For help using MetaMask, visit our [User Support Site](https://support.metamask.io/).
+<a href="https://codeberg.org/konkret-wallet/konkret-wallet">
+  <img alt="https://codeberg.org/konkret-wallet/konkret-wallet" src="./app/images/logo/metamask-fox.svg" width="256px" />
+</a>
 
-For [general questions](https://community.metamask.io/c/learn/26), [feature requests](https://community.metamask.io/c/feature-requests-ideas/13), or [developer questions](https://community.metamask.io/c/developer-questions/11), visit our [Community Forum](https://community.metamask.io/).
+Privacy-preserving digital assets wallet and key manager browser extension.
 
-MetaMask supports Firefox, Google Chrome, and Chromium-based browsers. We recommend using the latest available browser version.
+The project started as a community fork of [MetaMask Extension](https://github.com/MetaMask/metamask-extension.git) and Konkret Wallet would not be what it is today without having had MetaMask Extesion as a base to build on.
 
-For up to the minute news, follow us on [X](https://x.com/MetaMask).
+Konkret Wallet is developed by volunteers for free and is intended for non-commercial individual and educational use.
 
-To learn how to develop MetaMask-compatible applications, visit our [Developer Docs](https://docs.metamask.io/).
+## Differences to upstream
 
-To learn how to contribute to the MetaMask codebase, visit our [Contributor Docs](https://github.com/MetaMask/contributor-docs).
+Konkret Wallet takes a different tradeoff in terms of privacy and data-sharing.
 
-To learn how to contribute to the MetaMask Extension project itself, visit our [Extension Docs](https://github.com/MetaMask/metamask-extension/tree/main/docs).
+### Philosophy
 
-## GitHub Codespaces quickstart
+Similar in spirit to projects like [Konform Browser](https://codeberg.org/konform-browser) (Firefox fork), [ungoogled-chromium](https://github.com/ungoogled-software/ungoogled-chromium) (Chromium fork), it aims to provided a free, open, yet private vanilla experience without proprietary vendor integrations.
 
-As an alternative to building on your local machine, there is a new option to get a development environment up and running in less than 5 minutes by using GitHub Codespaces. Please note that there is a [Limited Free Monthly Quota](https://docs.github.com/en/billing/managing-billing-for-github-codespaces/about-billing-for-github-codespaces), and after that GitHub will start charging you.
+Konkret Wallet is developed with the following goals:
 
-_Note: You are billed for both time spent running, and for storage used_
+- Local-first: Works in airgapped and offline environments
+- APIs in new functionality should be based on open protocols, ideally standardized
+- When integrating with standardized APIs, do so in a standard-compliant manner
+- Avoid proprietary vendor-specific APIs and API extensions
+- Do not track or gather non-essential user data
+- Do not expose user metadata to remote parties without explicit informed user consent (aka opt-in)
+- Allow users granular control of wallet service integrations
+- Graceful degradation and progressive enhancement
+- Explorative and minimal UX: Remove promotional components from UI
+- Environmentally friendly and efficient: Disable, reduce and remove code-paths and network calls not directly serving the user
+  - aka "debloat"
+- Inclusive and accessible: Full functionality regardless of who or where you are
+- Robust and future-proof: Should work the same in 10+ years from now as today provided a compatible network provider
 
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/MetaMask/metamask-extension?quickstart=1)
+### Distribution
 
-1. Start by clicking the button above
-2. A new browser tab will open with a remote version of Visual Studio Code (this will take a few minutes to load)
-3. A "Simple Browser" will open inside the browser with noVNC -- click Connect
-   - Optional steps:
-     - Click the button at the upper-right of the Simple Browser tab to open the noVNC window in its own tab
-     - Open the noVNC sidebar on the left, click the gear icon, change the Scaling Mode to Remote Resizing
-4. Wait about 20 extra seconds on the first launch, for the scripts to finish
-5. Right-click on the noVNC desktop to launch Chrome or Firefox with MetaMask pre-installed
-6. Change some code, then run `yarn start` to build in dev mode
-7. After a minute or two, it will finish building, and you can see your changes in the noVNC desktop
+Konkret Wallet is officially only provided as source and unminified packaged dist builds. See [`LICENSE.txt`](./LICENSE.txt) for redistribution terms.
 
-### Tips to keep your Codespaces usage lower
+### Support
 
-- You are billed for both time spent running, and for storage used
-- Codespaces pause after 30 minutes of inactivity, and auto-delete after 30 days of inactivity
-- You can manage your Codespaces here: https://github.com/codespaces
-  - You may want to manually pause them before the 30 minute timeout
-  - If you have several idle Codespaces hanging around for several days, you can quickly run out of storage quota. You should delete the ones you do not plan to use anymore, and probably keep only 1 or 2 in the long-term. It's also possible to re-use old Codespaces and switch the branch, instead of creating new ones and deleting the old ones.
+This software is provided as-is, with no guarantees, used on your own risk and under your own responsibility. Do your own research and inform yourself of applicable rules, regulations, and risks.
 
-### Codespaces on a fork
+While MetaMask provides support service for users of MetaMask Extension, no such support is available for Konkret Wallet.
 
-If you are not a MetaMask Internal Developer, or are otherwise developing on a fork, the default Infura key will be on the Free Plan and have very limited requests per second. If you want to use your own Infura key, follow the `.metamaskrc` and `INFURA_PROJECT_ID` instructions in the section [Building on your local machine](#building-on-your-local-machine).
+Konkret Wallet is not supported by or affiliated with MetaMask or ConsenSys in any way.
+
+### Bring-Your-Own-Provider
+
+The most obvious functional difference with upstream is the lack of preconfigured network providers.
+
+While the MetaMask Extension comes with pre-enabled network providers (aka RPC providers) on the Infura platform, Konkret Wallet expects you to configure your own provider(s). The only preconfigured provider is `http://localhost:8545` and the user is prompted for custom node endpoint configuration during onboarding.
+
+For an example of how to serve RPC providers on you local machine, see [this blogpost](https://chasewright.com/load-balancing-freemium-ethereum-endpoints/) by [MysticalRyuujin]() on how to set up [dshackle](https://github.com/emeraldpay/dhsackle) with [various providers](https://github.com/MysticRyuujin/dshackle-configs).
+
+### Removed functionality
+
+As a result of the points laid out above, the following functionality and integrations are removed:
+
+- MetaMetrics analytics
+- Behavioral measurement and tracking
+  - Integration with analytics providers like Segment and Sentry
+- Blockaid/PPOM Security Provider
+  - Trusted obfuscated binary
+- Remote Feature Flags
+- Surveys
+- Feauture announcements
+- Internal advertising in UI
+- MetaMask OnRamp
+- MetaMask Portfolio
+
+The following functionality is removed due to reliance on closed, proprietary and centralized services in upstream. Contributions implementing them in a compatible manner are welcome:
+
+- Notifications
+  - Upstream implementation requires Google Firebase integration
+- Account Sync
+  - Upstream implementation requires Google Firebase integration
+
+### Disabled functionality
+
+The following functionality is disabled due to reliance on remote endpoints and/or exposure of user metadata in upstream implementation. Contributions implementing them in a compatible manner are welcome:
+
+- [ ] Hardware Wallets
+  - [ ] Ledger: Loads execution iframe remotely
+  - [ ] Trezor: Loads execution iframe remotely
+  - [ ] Lattice: Loads execution iframe remotely
+- Phishing detection
+- Live reloading of chain metadata
+- Notifications
+  - Upstream implementation requires Google Firebase integration
+- Account Sync
+  - Upstream implementation requires Google Firebase integration
+- Snaps
+  - Loads execution iframe remotely
+- Assets exchange rates
+- Contract metadata
+- Swaps
+- Bridge
+
+If you miss any of these features, please indicate interest in the [issue tracker](https://codeberg.org/konkret/konkret-wallet/issues).
+
+### Added functionality
+
+### TODO:
+
+- [ ] Branded Connect option
+  - In order to reduce fingerprinting vectors and preserve compatibility with legacy dapps, Konkret Wallet presents itself as upstream in Connect interactions with dapps. This feature may cause issues if MetaMask Extension is simultaneously enabled in the same browser profile.
+- [ ] Accessible in-wallet signing
+
+---
+
+To report problems or requests, peruse the [issue tracker](https://codeberg.org/konkret/konkret-wallet/issues).
+
+To learn how to develop compatible applications, visit [MetaMask Developer Docs](https://docs.metamask.io/).
+
+To learn how to contribute to the upstream codebase, visit [MetaMask Contributor Docs](https://github.com/MetaMask/contributor-docs).
+
+To learn how to contribute to the project itself, visit [Extension Docs](./docs).
 
 ## Building on your local machine
 
 - Install [Node.js](https://nodejs.org) version 20
   - If you are using [nvm](https://github.com/nvm-sh/nvm#installing-and-updating) (recommended) running `nvm use` will automatically choose the right node version for you.
-- Enable Corepack by executing the command `corepack enable` within the metamask-extension project. Corepack is a utility included with Node.js by default. It manages Yarn on a per-project basis, using the version specified by the `packageManager` property in the project's package.json file. Please note that modern releases of [Yarn](https://yarnpkg.com/getting-started/install) are not intended to be installed globally or via npm.
+- Enable Corepack by executing the command `corepack enable` within the project. Corepack is a utility included with Node.js by default. It manages Yarn on a per-project basis, using the version specified by the `packageManager` property in the project's package.json file. Please note that modern releases of [Yarn](https://yarnpkg.com/getting-started/install) are not intended to be installed globally or via npm.
 - Duplicate `.metamaskrc.dist` within the root and rename it to `.metamaskrc` by running `cp .metamaskrc{.dist,}`.
 
-  - Replace the `INFURA_PROJECT_ID` value with your own personal [Infura API Key](https://docs.infura.io/networks/ethereum/how-to/secure-a-project/project-id).
-    - If you don't have an Infura account, you can create one for free on the [Infura website](https://app.infura.io/register).
-  - If debugging MetaMetrics, you'll need to add a value for `SEGMENT_WRITE_KEY` [Segment write key](https://segment.com/docs/connections/find-writekey/), see [Developing on MetaMask - Segment](./development/README.md#segment).
-  - If debugging unhandled exceptions, you'll need to add a value for `SENTRY_DSN` [Sentry Dsn](https://docs.sentry.io/product/sentry-basics/dsn-explainer/), see [Developing on MetaMask - Sentry](./development/README.md#sentry).
   - Optionally, replace the `PASSWORD` value with your development wallet password to avoid entering it each time you open the app.
-  - If developing with remote feature flags, and you want to override the flags in the build process, you can add a `.manifest-overrides.json` file to the root of the project and set `MANIFEST_OVERRIDES=.manifest-overrides.json` in `.metamaskrc` to the path of the file.
-    This file is used to add flags to `manifest.json` build files for the extension. You can also modify the `_flags.remoteFeatureFlags` in the built version of `manifest.json` in the `dist/browser` folder to tweak the flags after the build process (these changes will get overwritten when you build again).
-    An example of this remote feature flag overwrite could be:
-
-  ```json
-  {
-    "_flags": {
-      "remoteFeatureFlags": { "testBooleanFlag": false }
-    }
-  }
-  ```
 
 - Run `yarn install` to install the dependencies.
 - Build the project to the `./dist/` folder with `yarn dist` (for Chromium-based browsers) or `yarn dist:mv2` (for Firefox)
@@ -118,7 +176,7 @@ To start the [Redux DevTools Extension](https://github.com/reduxjs/redux-devtool
 - Install the Redux Devtools extension.
 - Open the Redux DevTools extension and check the "Use custom (local) server" checkbox in the Remote DevTools Settings, using the default server configuration (host `localhost`, port `8000`, secure connection checkbox unchecked).
 
-Then run the command `yarn devtools:redux` with a development build installed in a browser. This will enable you to use the Redux DevTools extension to inspect MetaMask.
+Then run the command `yarn devtools:redux` with a development build installed in a browser. This will enable you to use the Redux DevTools extension to inspect.
 
 To create a development build and run both of these tools simultaneously, run `yarn start:dev`.
 
@@ -145,13 +203,8 @@ Before running e2e tests, ensure you've run `yarn install` to download dependenc
 1. Use `yarn download-builds:test` to quickly download and unzip test builds for Chrome and Firefox into the `./dist/` folder. This method is fast and convenient for standard testing.
 2. Create a custom test build: for testing against different build types, use `yarn build:test`. This command allows you to generate test builds for various types, including:
    - `yarn build:test` for main build
-   - `yarn build:test:flask` for flask build
-   - `yarn build:test:mv2` for mv2 build
-   - `yarn build:test:mmi` for mmi build
 3. Start a test build with live changes: `yarn start:test` is particularly useful for development. It starts a test build that automatically recompiles application code upon changes. This option is ideal for iterative testing and development. This command also allows you to generate test builds for various types, including:
    - `yarn start:test` for main build
-   - `yarn start:test:flask` for flask build
-   - `yarn start:test:mv2` for mv2 build
 
 Note: The `yarn start:test` command (which initiates the testDev build type) has LavaMoat disabled for both the build system and the application, offering a streamlined testing experience during development. On the other hand, `yarn build:test` enables LavaMoat for enhanced security in both the build system and application, mirroring production environments more closely.
 
@@ -220,8 +273,6 @@ Whenever you change dependencies (adding, removing, or updating, either in `pack
   - Run `yarn allow-scripts auto` to update the `allow-scripts` configuration automatically. This config determines whether the package's install/postinstall scripts are allowed to run. Review each new package to determine whether the install script needs to run or not, testing if necessary.
   - Unfortunately, `yarn allow-scripts auto` will behave inconsistently on different platforms. macOS and Windows users may see extraneous changes relating to optional dependencies.
 - The LavaMoat policy files
-  - If you are a MetaMask team member and your PR is on a repository branch, you can use the bot command `@metamaskbot update-policies` to ask the MetaMask bot to automatically update the policies for you.
-  - If your PR is from a fork, you can ask a MetaMask team member to help with updating the policy files.
   - Manual update instructions: The _tl;dr_ is to run `yarn lavamoat:auto` to update these files, but there can be devils in the details:
     - There are two sets of LavaMoat policy files:
       - The production LavaMoat policy files (`lavamoat/browserify/*/policy.json`), which are re-generated using `yarn lavamoat:webapp:auto`. Add `--help` for usage.
@@ -236,7 +287,6 @@ Whenever you change dependencies (adding, removing, or updating, either in `pack
     - Keep in mind that any kind of dynamic import or dynamic use of globals may elude LavaMoat's static analysis.
       Refer to the LavaMoat documentation or ask for help if you run into any issues.
 - The Attributions file
-  - If you are a MetaMask team member and your PR is on a repository branch, you can use the bot command `@metamaskbot update-attributions` to ask the MetaMask bot to automatically update the attributions file for you.
   - Manual update: run `yarn attributions:generate`.
 
 ## Architecture
@@ -248,18 +298,12 @@ Whenever you change dependencies (adding, removing, or updating, either in `pack
 
 ## Other Docs
 
-- [How to add a new translation to MetaMask](./docs/translating-guide.md)
+- [How to add a new translation](./docs/translating-guide.md)
 - [Publishing Guide](./docs/publishing.md)
 - [How to use the TREZOR emulator](./docs/trezor-emulator.md)
-- [Developing on MetaMask](./development/README.md)
+- [Developer notes](./development/README.md)
 - [How to generate a visualization of this repository's development](./development/gource-viz.sh)
 - [How to add new confirmations](./docs/confirmations.md)
 - [Browser support guidelines](./docs/browser-support.md)
-
-## Dapp Developer Resources
-
-- [Extend MetaMask's features w/ MetaMask Snaps.](https://docs.metamask.io/snaps/)
-- [Prompt your users to add and switch to a new network.](https://docs.metamask.io/wallet/how-to/add-network/)
-- [Change the logo that appears when your dapp connects to MetaMask.](https://docs.metamask.io/wallet/how-to/display/icon/)
 
 [1]: http://www.nomnoml.com/#view/%5B%3Cactor%3Euser%5D%0A%0A%5Bmetamask-ui%7C%0A%20%20%20%5Btools%7C%0A%20%20%20%20%20react%0A%20%20%20%20%20redux%0A%20%20%20%20%20thunk%0A%20%20%20%20%20ethUtils%0A%20%20%20%20%20jazzicon%0A%20%20%20%5D%0A%20%20%20%5Bcomponents%7C%0A%20%20%20%20%20app%0A%20%20%20%20%20account-detail%0A%20%20%20%20%20accounts%0A%20%20%20%20%20locked-screen%0A%20%20%20%20%20restore-vault%0A%20%20%20%20%20identicon%0A%20%20%20%20%20config%0A%20%20%20%20%20info%0A%20%20%20%5D%0A%20%20%20%5Breducers%7C%0A%20%20%20%20%20app%0A%20%20%20%20%20metamask%0A%20%20%20%20%20identities%0A%20%20%20%5D%0A%20%20%20%5Bactions%7C%0A%20%20%20%20%20%5BbackgroundConnection%5D%0A%20%20%20%5D%0A%20%20%20%5Bcomponents%5D%3A-%3E%5Bactions%5D%0A%20%20%20%5Bactions%5D%3A-%3E%5Breducers%5D%0A%20%20%20%5Breducers%5D%3A-%3E%5Bcomponents%5D%0A%5D%0A%0A%5Bweb%20dapp%7C%0A%20%20%5Bui%20code%5D%0A%20%20%5Bweb3%5D%0A%20%20%5Bmetamask-inpage%5D%0A%20%20%0A%20%20%5B%3Cactor%3Eui%20developer%5D%0A%20%20%5Bui%20developer%5D-%3E%5Bui%20code%5D%0A%20%20%5Bui%20code%5D%3C-%3E%5Bweb3%5D%0A%20%20%5Bweb3%5D%3C-%3E%5Bmetamask-inpage%5D%0A%5D%0A%0A%5Bmetamask-background%7C%0A%20%20%5Bprovider-engine%5D%0A%20%20%5Bhooked%20wallet%20subprovider%5D%0A%20%20%5Bid%20store%5D%0A%20%20%0A%20%20%5Bprovider-engine%5D%3C-%3E%5Bhooked%20wallet%20subprovider%5D%0A%20%20%5Bhooked%20wallet%20subprovider%5D%3C-%3E%5Bid%20store%5D%0A%20%20%5Bconfig%20manager%7C%0A%20%20%20%20%5Brpc%20configuration%5D%0A%20%20%20%20%5Bencrypted%20keys%5D%0A%20%20%20%20%5Bwallet%20nicknames%5D%0A%20%20%5D%0A%20%20%0A%20%20%5Bprovider-engine%5D%3C-%5Bconfig%20manager%5D%0A%20%20%5Bid%20store%5D%3C-%3E%5Bconfig%20manager%5D%0A%5D%0A%0A%5Buser%5D%3C-%3E%5Bmetamask-ui%5D%0A%0A%5Buser%5D%3C%3A--%3A%3E%5Bweb%20dapp%5D%0A%0A%5Bmetamask-contentscript%7C%0A%20%20%5Bplugin%20restart%20detector%5D%0A%20%20%5Brpc%20passthrough%5D%0A%5D%0A%0A%5Brpc%20%7C%0A%20%20%5Bethereum%20blockchain%20%7C%0A%20%20%20%20%5Bcontracts%5D%0A%20%20%20%20%5Baccounts%5D%0A%20%20%5D%0A%5D%0A%0A%5Bweb%20dapp%5D%3C%3A--%3A%3E%5Bmetamask-contentscript%5D%0A%5Bmetamask-contentscript%5D%3C-%3E%5Bmetamask-background%5D%0A%5Bmetamask-background%5D%3C-%3E%5Bmetamask-ui%5D%0A%5Bmetamask-background%5D%3C-%3E%5Brpc%5D%0A
