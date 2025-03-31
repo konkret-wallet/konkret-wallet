@@ -52,11 +52,13 @@ module.exports.setEnvironmentVariables = function setEnvironmentVariables({
       variables,
       testing: isTestBuild,
     }),
+    /*
     SEGMENT_WRITE_KEY: getSegmentWriteKey({
       buildType,
       variables,
       environment,
     }),
+    */
     TEST_GAS_FEE_FLOWS:
       isDevBuild && variables.getMaybe('TEST_GAS_FEE_FLOWS') === true,
   });
@@ -136,6 +138,8 @@ function getInfuraProjectId({ buildType, variables, environment, testing }) {
   return infuraProjectId;
 }
 
+/* eslint-disable jsdoc/require-asterisk-prefix */
+/* eslint-disable jsdoc/check-alignment */
 /**
  * Get the appropriate Segment write key.
  *
@@ -144,26 +148,26 @@ function getInfuraProjectId({ buildType, variables, environment, testing }) {
  * @param {keyof ENVIRONMENT} options.environment - The current build environment.
  * @param {import('../lib/variables').Variables} options.variables - Object containing all variables that modify the build pipeline
  * @returns {string} The Segment write key.
- */
-function getSegmentWriteKey({ buildType, variables, environment }) {
-  if (environment !== ENVIRONMENT.PRODUCTION) {
-    // Skip validation because this is unset on PRs from forks, and isn't necessary for development builds.
-    return variables.get('SEGMENT_WRITE_KEY');
-  }
-
-  const segmentKeyReference = variables.get('SEGMENT_WRITE_KEY_REF');
-  assert(
-    typeof segmentKeyReference === 'string' && segmentKeyReference.length > 0,
-    `Build type "${buildType}" has improperly set SEGMENT_WRITE_KEY_REF in builds.yml. Current value: "${segmentKeyReference}"`,
-  );
-
-  const segmentWriteKey = variables.get(segmentKeyReference);
-  assert(
-    typeof segmentWriteKey === 'string' && segmentWriteKey.length > 0,
-    `Segment Write Key environmental variable "${segmentKeyReference}" is set improperly.`,
+ * function getSegmentWriteKey({ buildType, variables, environment }) {
+ * if (environment !== ENVIRONMENT.PRODUCTION) {
+ * // Skip validation because this is unset on PRs from forks, and isn't necessary for development builds.
+ * return variables.get('SEGMENT_WRITE_KEY');
+ * }
+ *
+ * const segmentKeyReference = variables.get('SEGMENT_WRITE_KEY_REF');
+ * assert(
+ * typeof segmentKeyReference === 'string' && segmentKeyReference.length > 0,
+ * `Build type "${buildType}" has improperly set SEGMENT_WRITE_KEY_REF in builds.yml. Current value: "${segmentKeyReference}"`,
+ * );
+ *
+ * const segmentWriteKey = variables.get(segmentKeyReference);
+ * assert(
+ * typeof segmentWriteKey === 'string' && segmentWriteKey.length > 0,
+    * `Segment Write Key environmental variable "${segmentKeyReference}" is set improperly.`,
   );
   return segmentWriteKey;
 }
+ */
 
 /**
  * Get the URL for the phishing warning page, if it has been set.

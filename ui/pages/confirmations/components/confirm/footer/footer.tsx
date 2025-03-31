@@ -2,7 +2,6 @@ import { providerErrors, serializeError } from '@metamask/rpc-errors';
 import { TransactionMeta } from '@metamask/transaction-controller';
 import React, { useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { MetaMetricsEventLocation } from '../../../../../../shared/constants/metametrics';
 import { isCorrectDeveloperTransactionType } from '../../../../../../shared/lib/confirmation.utils';
 import { ConfirmAlertModal } from '../../../../../components/app/alert-system/confirm-alert-modal';
 import {
@@ -36,11 +35,7 @@ import { isSignatureTransactionType } from '../../../utils';
 import { getConfirmationSender } from '../utils';
 import OriginThrottleModal from './origin-throttle-modal';
 
-export type OnCancelHandler = ({
-  location,
-}: {
-  location: MetaMetricsEventLocation;
-}) => void;
+export type OnCancelHandler = () => void;
 
 function reviewAlertButtonText(
   unconfirmedDangerAlerts: Alert[],
@@ -184,22 +179,18 @@ const Footer = () => {
     dispatch(clearConfirmTransaction());
   };
 
-  const onCancel = useCallback(
-    ({ location }: { location?: MetaMetricsEventLocation }) => {
-      if (!currentConfirmation) {
-        return;
-      }
+  const onCancel = useCallback(() => {
+    if (!currentConfirmation) {
+      return;
+    }
 
-      const error = providerErrors.userRejectedRequest();
-      error.data = { location };
+    const error = providerErrors.userRejectedRequest();
 
-      dispatch(
-        rejectPendingApproval(currentConfirmation.id, serializeError(error)),
-      );
-      resetTransactionState();
-    },
-    [currentConfirmation],
-  );
+    dispatch(
+      rejectPendingApproval(currentConfirmation.id, serializeError(error)),
+    );
+    resetTransactionState();
+  }, [currentConfirmation]);
 
   const onSubmit = useCallback(() => {
     if (!currentConfirmation) {
@@ -236,7 +227,7 @@ const Footer = () => {
       setShowOriginThrottleModal(true);
       return;
     }
-    onCancel({ location: MetaMetricsEventLocation.Confirmation });
+    onCancel();
   }, [currentConfirmation, onCancel]);
 
   return (

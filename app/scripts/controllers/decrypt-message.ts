@@ -24,7 +24,6 @@ import { ApprovalType, ORIGIN_METAMASK } from '@metamask/controller-utils';
 import { Patch } from 'immer';
 import type { KeyringControllerDecryptMessageAction } from '@metamask/keyring-controller';
 import { Eip1024EncryptedData, hasProperty, isObject } from '@metamask/utils';
-import { MetaMetricsEventCategory } from '../../../shared/constants/metametrics';
 import { stripHexPrefix } from '../../../shared/modules/hexstring-utils';
 
 const controllerName = 'DecryptMessageController';
@@ -132,9 +131,6 @@ export type DecryptMessageControllerOptions = {
   getState: () => any;
   managerMessenger: DecryptMessageManagerMessenger;
   messenger: DecryptMessageControllerMessenger;
-  // TODO: Replace `any` with type
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  metricsEvent: (payload: any, options?: any) => void;
 };
 
 /**
@@ -149,10 +145,6 @@ export default class DecryptMessageController extends BaseController<
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   private _getState: () => any;
 
-  // TODO: Replace `any` with type
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  private _metricsEvent: (payload: any, options?: any) => void;
-
   private _decryptMessageManager: DecryptMessageManager;
 
   /**
@@ -161,12 +153,10 @@ export default class DecryptMessageController extends BaseController<
    * @param options - The controller options.
    * @param options.getState - Callback to retrieve all user state.
    * @param options.messenger - A reference to the messaging system.
-   * @param options.metricsEvent - A function for emitting a metric event.
    * @param options.managerMessenger - A reference to the messenger need by the message manager.
    */
   constructor({
     getState,
-    metricsEvent,
     messenger,
     managerMessenger,
   }: DecryptMessageControllerOptions) {
@@ -177,7 +167,6 @@ export default class DecryptMessageController extends BaseController<
       state: getDefaultState(),
     });
     this._getState = getState;
-    this._metricsEvent = metricsEvent;
 
     this._decryptMessageManager = new DecryptMessageManager({
       additionalFinishStatuses: ['decrypted'],
@@ -336,13 +325,7 @@ export default class DecryptMessageController extends BaseController<
     reason?: string,
   ) {
     if (reason) {
-      this._metricsEvent({
-        event: reason,
-        category: MetaMetricsEventCategory.Messages,
-        properties: {
-          action: 'Decrypt Message Request',
-        },
-      });
+      console.info(`Decryption cancelled: ${JSON.stringify(reason)}`);
     }
 
     messageManager.rejectMessage(messageId);

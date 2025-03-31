@@ -6,11 +6,8 @@ import { isEqual } from 'lodash';
 import { getNativeTokenAddress } from '@metamask/assets-controllers';
 import { Hex } from '@metamask/utils';
 import {
-  getDataCollectionForMarketing,
   getIsBridgeChain,
   getIsSwapsChain,
-  getMetaMetricsId,
-  getParticipateInMetaMetrics,
   getSelectedInternalAccount,
   getSwapsDefaultToken,
   getMarketData,
@@ -152,10 +149,6 @@ const AssetPage = ({
   const selectedAccountTokenBalancesAcrossChains =
     tokenBalances[selectedAccount.address];
 
-  const isMetaMetricsEnabled = useSelector(getParticipateInMetaMetrics);
-  const isMarketingEnabled = useSelector(getDataCollectionForMarketing);
-  const metaMetricsId = useSelector(getMetaMetricsId);
-
   const address =
     type === AssetType.token
       ? toChecksumHexAddress(asset.address)
@@ -270,7 +263,6 @@ const AssetPage = ({
           <CoinButtons
             {...{
               account,
-              trackingLocation: 'asset-page',
               isBuyableChain,
               isSigningEnabled,
               isSwapsChain,

@@ -1,10 +1,5 @@
 import { rpcErrors } from '@metamask/rpc-errors';
 import { MESSAGE_TYPE } from '../../../../../shared/constants/app';
-import {
-  MetaMetricsEventName,
-  MetaMetricsEventCategory,
-} from '../../../../../shared/constants/metametrics';
-import { shouldEmitDappViewedEvent } from '../../util';
 
 const requestEthereumAccounts = {
   methodNames: [MESSAGE_TYPE.ETH_REQUEST_ACCOUNTS],
@@ -12,7 +7,6 @@ const requestEthereumAccounts = {
   hookNames: {
     getAccounts: true,
     getUnlockPromise: true,
-    sendMetrics: true,
     metamaskState: true,
     requestCaip25ApprovalForOrigin: true,
     grantPermissionsForOrigin: true,
@@ -37,7 +31,6 @@ const locks = new Set();
  * @param options - Method hooks passed to the method implementation
  * @param options.getAccounts - A hook that returns the permitted eth accounts for the origin sorted by lastSelected.
  * @param options.getUnlockPromise - A hook that resolves when the wallet is unlocked.
- * @param options.sendMetrics - A hook that helps track metric events.
  * @param options.metamaskState - The MetaMask app state.
  * @param options.requestCaip25ApprovalForOrigin - A hook that requests approval for the CAIP-25 permission for the origin.
  * @param options.grantPermissionsForOrigin - A hook that grants permission for the approved permissions for the origin.
@@ -51,7 +44,7 @@ async function requestEthereumAccountsHandler(
   {
     getAccounts,
     getUnlockPromise,
-    sendMetrics,
+    // eslint-disable-next-line no-unused-vars
     metamaskState,
     requestCaip25ApprovalForOrigin,
     grantPermissionsForOrigin,
@@ -93,27 +86,6 @@ async function requestEthereumAccountsHandler(
   // We cannot derive ethAccounts directly from the CAIP-25 permission
   // because the accounts will not be in order of lastSelected
   ethAccounts = getAccounts({ ignoreLock: true });
-
-  // first time connection to dapp will lead to no log in the permissionHistory
-  // and if user has connected to dapp before, the dapp origin will be included in the permissionHistory state
-  // we will leverage that to identify `is_first_visit` for metrics
-  if (shouldEmitDappViewedEvent(metamaskState.metaMetricsId)) {
-    const isFirstVisit = !Object.keys(metamaskState.permissionHistory).includes(
-      origin,
-    );
-    sendMetrics({
-      event: MetaMetricsEventName.DappViewed,
-      category: MetaMetricsEventCategory.InpageProvider,
-      referrer: {
-        url: origin,
-      },
-      properties: {
-        is_first_visit: isFirstVisit,
-        number_of_accounts: Object.keys(metamaskState.accounts).length,
-        number_of_accounts_connected: ethAccounts.length,
-      },
-    });
-  }
 
   res.result = ethAccounts;
   return end();

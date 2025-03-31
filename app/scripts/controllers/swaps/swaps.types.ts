@@ -11,10 +11,6 @@ import {
   NetworkControllerGetStateAction,
 } from '@metamask/network-controller';
 import { TransactionParams } from '@metamask/transaction-controller';
-import type {
-  MetaMetricsEventCategory,
-  MetaMetricsEventName,
-} from '../../../../shared/constants/metametrics';
 import { fetchTradesInfo as defaultFetchTradesInfo } from '../../../../shared/lib/swaps-utils';
 import { controllerName } from './swaps.constants';
 import SwapsController from '.';
@@ -353,11 +349,6 @@ export type SwapsControllerOptions = {
     networkClientId: NetworkClientId;
   }) => Promise<string>;
   getEIP1559GasFeeEstimates: () => Promise<GasFeeState>;
-  trackMetaMetricsEvent: (event: {
-    event: MetaMetricsEventName;
-    category: MetaMetricsEventCategory;
-    properties: Record<string, string | boolean | number | null>;
-  }) => void;
   messenger: SwapsControllerMessenger;
 };
 

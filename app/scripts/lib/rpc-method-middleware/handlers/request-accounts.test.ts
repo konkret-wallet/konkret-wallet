@@ -29,16 +29,6 @@ const createMockedHandler = () => {
   const end = jest.fn();
   const getAccounts = jest.fn().mockReturnValue([]);
   const getUnlockPromise = jest.fn();
-  const sendMetrics = jest.fn();
-  const metamaskState = {
-    permissionHistory: {},
-    metaMetricsId: 'metaMetricsId',
-    accounts: {
-      '0x1': {},
-      '0x2': {},
-      '0x3': {},
-    },
-  };
   const requestCaip25ApprovalForOrigin = jest.fn().mockResolvedValue({});
   const grantPermissionsForOrigin = jest.fn().mockReturnValue({});
   const response: PendingJsonRpcResponse<string[]> = {
@@ -52,8 +42,6 @@ const createMockedHandler = () => {
     requestEthereumAccounts.implementation(request, response, next, end, {
       getAccounts,
       getUnlockPromise,
-      sendMetrics,
-      metamaskState,
       requestCaip25ApprovalForOrigin,
       grantPermissionsForOrigin,
     });
@@ -64,8 +52,6 @@ const createMockedHandler = () => {
     end,
     getAccounts,
     getUnlockPromise,
-    sendMetrics,
-    metamaskState,
     requestCaip25ApprovalForOrigin,
     grantPermissionsForOrigin,
     handler,
@@ -170,39 +156,6 @@ describe('requestEthereumAccountsHandler', () => {
       await handler(baseRequest);
       expect(response.result).toStrictEqual(['0xdead', '0xbeef']);
       expect(getAccounts).toHaveBeenCalledTimes(2);
-    });
-
-    it('emits the dapp viewed metrics event when shouldEmitDappViewedEvent returns true', async () => {
-      const { handler, getAccounts, sendMetrics } = createMockedHandler();
-      getAccounts
-        .mockReturnValueOnce([])
-        .mockReturnValueOnce(['0xdead', '0xbeef']);
-      MockUtil.shouldEmitDappViewedEvent.mockReturnValue(true);
-
-      await handler(baseRequest);
-      expect(sendMetrics).toHaveBeenCalledWith({
-        category: 'inpage_provider',
-        event: 'Dapp Viewed',
-        properties: {
-          is_first_visit: true,
-          number_of_accounts: 3,
-          number_of_accounts_connected: 2,
-        },
-        referrer: {
-          url: 'http://test.com',
-        },
-      });
-    });
-
-    it('does not emit the dapp viewed metrics event when shouldEmitDappViewedEvent returns false', async () => {
-      const { handler, getAccounts, sendMetrics } = createMockedHandler();
-      getAccounts
-        .mockReturnValueOnce([])
-        .mockReturnValueOnce(['0xdead', '0xbeef']);
-      MockUtil.shouldEmitDappViewedEvent.mockReturnValue(false);
-
-      await handler(baseRequest);
-      expect(sendMetrics).not.toHaveBeenCalled();
     });
   });
 });

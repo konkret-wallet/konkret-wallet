@@ -20,10 +20,6 @@ import {
   PLATFORM_FIREFOX,
   MESSAGE_TYPE,
 } from '../../shared/constants/app';
-import {
-  REJECT_NOTIFICATION_CLOSE,
-  REJECT_NOTIFICATION_CLOSE_SIG,
-} from '../../shared/constants/metametrics';
 import { checkForLastErrorAndLog } from '../../shared/modules/browser-runtime.utils';
 import { isManifestV3 } from '../../shared/modules/mv3.utils';
 import { FIXTURE_STATE_METADATA_VERSION } from '../../test/e2e/default-fixture';
@@ -1046,15 +1042,9 @@ export function setupController(
   );
 
   function rejectUnapprovedNotifications() {
-    controller.signatureController.rejectUnapproved(
-      REJECT_NOTIFICATION_CLOSE_SIG,
-    );
-    controller.decryptMessageController.rejectUnapproved(
-      REJECT_NOTIFICATION_CLOSE,
-    );
-    controller.encryptionPublicKeyController.rejectUnapproved(
-      REJECT_NOTIFICATION_CLOSE,
-    );
+    controller.signatureController.rejectUnapproved();
+    controller.decryptMessageController.rejectUnapproved();
+    controller.encryptionPublicKeyController.rejectUnapproved();
 
     controller.rejectAllPendingApprovals();
   }

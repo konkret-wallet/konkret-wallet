@@ -7328,16 +7328,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@segment/loosely-validate-event@npm:^2.0.0":
-  version: 2.0.0
-  resolution: "@segment/loosely-validate-event@npm:2.0.0"
-  dependencies:
-    component-type: "npm:^1.2.1"
-    join-component: "npm:^1.1.0"
-  checksum: 10/4e0b097de2c564673acceb5a0688bb8cf045bab4a1ffed1be19293a6bd2859af723e0d012349ff1d51433a6aad19f729383a302c3c0a9fc831e251cd16ade5ad
-  languageName: node
-  linkType: hard
-
 "@sideway/address@npm:^4.1.3":
   version: 4.1.4
   resolution: "@sideway/address@npm:4.1.4"
@@ -15217,13 +15207,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"component-type@npm:^1.2.1":
-  version: 1.2.1
-  resolution: "component-type@npm:1.2.1"
-  checksum: 10/48e36d09852d8196a72a1353d4407bc35484ff052fc043ecf2e27786d4e8d5b93021c408cfe63237b585fd66bb0d1dbeabed96051356416a3b2a521aabf16d12
-  languageName: node
-  linkType: hard
-
 "compose-function@npm:3.0.3":
   version: 3.0.3
   resolution: "compose-function@npm:3.0.3"
@@ -22591,13 +22574,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"is-retry-allowed@npm:^2.2.0":
-  version: 2.2.0
-  resolution: "is-retry-allowed@npm:2.2.0"
-  checksum: 10/6d8685530871f0b040346cc72322d90122473e921149affa16de363d6c2a6e46bc76abdfaac3259b93994ec8e7f70fbe67bbb080190e440533ff728e6a64494d
-  languageName: node
-  linkType: hard
-
 "is-set@npm:^2.0.1, is-set@npm:^2.0.2":
   version: 2.0.2
   resolution: "is-set@npm:2.0.2"
@@ -23655,13 +23631,6 @@ __metadata:
     "@sideway/formula": "npm:^3.0.0"
     "@sideway/pinpoint": "npm:^2.0.0"
   checksum: 10/7359eef0b2d180eff10f542085aa24ab7760273a48c8535c0e311f274a63f13d70d1abaed1912b42fbe6b50235acb827082817ac8f896ee74dae0d998b1fc2c1
-  languageName: node
-  linkType: hard
-
-"join-component@npm:^1.1.0":
-  version: 1.1.0
-  resolution: "join-component@npm:1.1.0"
-  checksum: 10/b904c2f98549e4195022caca3a7dc837f9706c670ff333f3d617f2aed23bce2841322a999734683b6ab8e202568ad810c11ff79b58a64df66888153f04750239
   languageName: node
   linkType: hard
 
@@ -25895,7 +25864,6 @@ __metadata:
     "@pmmmwh/react-refresh-webpack-plugin": "npm:^0.5.11"
     "@popperjs/core": "npm:^2.4.0"
     "@reduxjs/toolkit": "patch:@reduxjs/toolkit@npm%3A1.9.7#~/.yarn/patches/@reduxjs-toolkit-npm-1.9.7-b14925495c.patch"
-    "@segment/loosely-validate-event": "npm:^2.0.0"
     "@solana/addresses": "npm:2.0.0-rc.4"
     "@storybook/addon-a11y": "npm:^7.6.20"
     "@storybook/addon-actions": "npm:^7.6.20"
@@ -25985,7 +25953,6 @@ __metadata:
     chart.js: "npm:^4.4.1"
     chokidar: "npm:^3.6.0"
     classnames: "npm:^2.2.6"
-    cockatiel: "npm:^3.1.2"
     concurrently: "npm:^8.2.2"
     copy-to-clipboard: "npm:^3.3.3"
     copy-webpack-plugin: "npm:^12.0.2"
@@ -26050,7 +26017,6 @@ __metadata:
     husky: "npm:^8.0.3"
     immer: "npm:^9.0.6"
     ini: "npm:^3.0.0"
-    is-retry-allowed: "npm:^2.2.0"
     jest: "npm:^29.7.0"
     jest-canvas-mock: "npm:^2.3.1"
     jest-environment-jsdom: "patch:jest-environment-jsdom@npm%3A29.7.0#~/.yarn/patches/jest-environment-jsdom-npm-29.7.0-0b72dd0e0b.patch"
@@ -26122,7 +26088,6 @@ __metadata:
     redux: "npm:^4.0.5"
     redux-mock-store: "npm:^1.5.4"
     redux-thunk: "npm:^2.3.0"
-    remove-trailing-slash: "npm:^0.1.1"
     reselect: "npm:^5.1.1"
     resolve-url-loader: "npm:^3.1.5"
     sass-embedded: "npm:^1.71.0"
@@ -31147,13 +31112,6 @@ __metadata:
   version: 1.1.0
   resolution: "remove-trailing-separator@npm:1.1.0"
   checksum: 10/d3c20b5a2d987db13e1cca9385d56ecfa1641bae143b620835ac02a6b70ab88f68f117a0021838db826c57b31373d609d52e4f31aca75fc490c862732d595419
-  languageName: node
-  linkType: hard
-
-"remove-trailing-slash@npm:^0.1.1":
-  version: 0.1.1
-  resolution: "remove-trailing-slash@npm:0.1.1"
-  checksum: 10/dd200c6b7d6f2b49d12b3eff3abc7089917e8a268cefcd5bf67ff23f8c2ad9f866fbe2f3566e1a8dbdc4f4b1171e2941f7dd00852f8de549bb73c3df53b09d96
   languageName: node
   linkType: hard
 

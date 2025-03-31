@@ -10,11 +10,6 @@ import { NetworkClient, NetworkClientId } from '@metamask/network-controller';
 import { Hex } from '@metamask/utils';
 import { EtherDenomination } from '../../../../shared/constants/common';
 import { GasEstimateTypes } from '../../../../shared/constants/gas';
-import {
-  MetaMetricsEventCategory,
-  MetaMetricsEventErrorType,
-  MetaMetricsEventName,
-} from '../../../../shared/constants/metametrics';
 import { CHAIN_IDS } from '../../../../shared/constants/network';
 import {
   FALLBACK_SMART_TRANSACTIONS_MAX_FEE_MULTIPLIER,
@@ -99,12 +94,6 @@ export default class SwapsController extends BaseController<
   ) => Promise<{ gasLimit: string; simulationFails: boolean }>;
 
   public resetState: () => void;
-
-  public trackMetaMetricsEvent: (event: {
-    event: MetaMetricsEventName;
-    category: MetaMetricsEventCategory;
-    properties: Record<string, string | boolean | number | null>;
-  }) => void;
 
   #indexOfNewestCallInFlight: number;
 
@@ -255,7 +244,6 @@ export default class SwapsController extends BaseController<
     );
 
     this.getBufferedGasLimit = opts.getBufferedGasLimit;
-    this.trackMetaMetricsEvent = opts.trackMetaMetricsEvent;
 
     // The resetState function is used to reset the state to the initial state, but keep the swapsFeatureFlags
     this.resetState = () => {
@@ -1091,21 +1079,12 @@ export default class SwapsController extends BaseController<
 
   private _timedoutGasReturn(
     tradeTxParams: Trade,
-    aggregator = '',
   ): Promise<{ gasLimit: string | null; simulationFails: boolean }> {
     return new Promise((resolve) => {
       let gasTimedOut = false;
 
       const gasTimeout = setTimeout(() => {
         gasTimedOut = true;
-        this.trackMetaMetricsEvent({
-          event: MetaMetricsEventName.QuoteError,
-          category: MetaMetricsEventCategory.Swaps,
-          properties: {
-            error_type: MetaMetricsEventErrorType.GasTimeout,
-            aggregator,
-          },
-        });
         resolve({
           gasLimit: null,
           simulationFails: true,

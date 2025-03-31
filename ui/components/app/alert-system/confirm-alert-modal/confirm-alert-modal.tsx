@@ -23,7 +23,6 @@ import useAlerts from '../../../../hooks/useAlerts';
 import { AlertModal } from '../alert-modal';
 import { AcknowledgeCheckboxBase } from '../alert-modal/alert-modal';
 import { MultipleAlertModal } from '../multiple-alert-modal';
-import { MetaMetricsEventLocation } from '../../../../../shared/constants/metametrics';
 import type { OnCancelHandler } from '../../../../pages/confirmations/components/confirm/footer/footer';
 
 export type ConfirmAlertModalProps = {
@@ -48,7 +47,7 @@ function ConfirmButtons({
 }) {
   const t = useI18nContext();
   const onAlertCancel = useCallback(() => {
-    onCancel({ location: MetaMetricsEventLocation.AlertFrictionModal });
+    onCancel();
   }, [onCancel]);
 
   return (

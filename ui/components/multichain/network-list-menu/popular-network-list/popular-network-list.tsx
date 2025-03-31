@@ -18,7 +18,6 @@ import {
   Popover,
   PopoverPosition,
 } from '../../../component-library';
-import { MetaMetricsNetworkEventSource } from '../../../../../shared/constants/metametrics';
 import {
   ENVIRONMENT_TYPE_POPUP,
   ORIGIN_METAMASK,
@@ -205,7 +204,6 @@ const PopularNetworkList = ({
                           ],
                         chainName: network.name,
                         referrer: ORIGIN_METAMASK,
-                        source: MetaMetricsNetworkEventSource.NewAddNetworkFlow,
                       },
                     }),
                   );

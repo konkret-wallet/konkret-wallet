@@ -20,7 +20,6 @@ import {
   AddApprovalRequest,
   RejectRequest,
 } from '@metamask/approval-controller';
-import { MetaMetricsEventCategory } from '../../../shared/constants/metametrics';
 import { KeyringType } from '../../../shared/constants/keyring';
 import { ORIGIN_METAMASK } from '../../../shared/constants/app';
 
@@ -100,7 +99,6 @@ export type EncryptionPublicKeyControllerOptions = {
   getState: () => any;
   // TODO: Replace `any` with type
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  metricsEvent: (payload: any, options?: any) => void;
   managerMessenger: EncryptionPublicKeyManagerMessenger;
 };
 
@@ -122,10 +120,6 @@ export default class EncryptionPublicKeyController extends BaseController<
 
   private _encryptionPublicKeyManager: EncryptionPublicKeyManager;
 
-  // TODO: Replace `any` with type
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  private _metricsEvent: (payload: any, options?: any) => void;
-
   /**
    * Construct a EncryptionPublicKey controller.
    *
@@ -134,7 +128,6 @@ export default class EncryptionPublicKeyController extends BaseController<
    * @param options.getEncryptionPublicKey - Callback to get the keyring encryption public key.
    * @param options.getAccountKeyringType - Callback to get the keyring type.
    * @param options.getState - Callback to retrieve all user state.
-   * @param options.metricsEvent - A function for emitting a metric event.
    * @param options.managerMessenger
    */
   constructor({
@@ -143,7 +136,6 @@ export default class EncryptionPublicKeyController extends BaseController<
     getEncryptionPublicKey,
     getAccountKeyringType,
     getState,
-    metricsEvent,
   }: EncryptionPublicKeyControllerOptions) {
     super({
       name: controllerName,
@@ -155,7 +147,6 @@ export default class EncryptionPublicKeyController extends BaseController<
     this._getEncryptionPublicKey = getEncryptionPublicKey;
     this._getAccountKeyringType = getAccountKeyringType;
     this._getState = getState;
-    this._metricsEvent = metricsEvent;
     this._encryptionPublicKeyManager = new EncryptionPublicKeyManager({
       additionalFinishStatuses: ['received'],
       messenger: managerMessenger,
@@ -323,13 +314,7 @@ export default class EncryptionPublicKeyController extends BaseController<
     reason?: string,
   ) {
     if (reason) {
-      this._metricsEvent({
-        event: reason,
-        category: MetaMetricsEventCategory.Messages,
-        properties: {
-          action: 'Encryption public key Request',
-        },
-      });
+      console.info(`Encryption cancelled: ${JSON.stringify(reason)}`);
     }
 
     messageManager.rejectMessage(messageId);
