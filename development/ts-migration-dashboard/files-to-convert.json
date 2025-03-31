@@ -982,7 +982,6 @@
   "ui/components/ui/url-icon/url-icon.stories.js",
   "ui/contexts/gasFee.js",
   "ui/contexts/i18n.js",
-  "ui/contexts/metametrics.js",
   "ui/contexts/transaction-modal.js",
   "ui/ducks/alerts/enums.js",
   "ui/ducks/alerts/index.js",
