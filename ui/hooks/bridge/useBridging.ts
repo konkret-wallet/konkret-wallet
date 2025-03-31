@@ -65,7 +65,7 @@ const useBridging = () => {
         }
         history.push(url);
       } else {
-        const portfolioUrl = getPortfolioUrl('bridge', 'ext_bridge_button');
+        const portfolioUrl = getPortfolioUrl('bridge');
         global.platform.openTab({
           url: `${portfolioUrl}${
             portfolioUrlSuffix ?? `&token=${token.address}`

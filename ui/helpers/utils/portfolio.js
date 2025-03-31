@@ -1,12 +1,4 @@
-export function getPortfolioUrl(
-  endpoint = '',
-  _metamaskEntry = '',
-  _metaMetricsId = '',
-  _metricsEnabled = false,
-  _marketingEnabled = false,
-  accountAddress,
-  tab,
-) {
+export function getPortfolioUrl(endpoint = '', accountAddress, tab) {
   const baseUrl = process.env.PORTFOLIO_URL || '';
   const url = new URL(endpoint, baseUrl);
 

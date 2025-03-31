@@ -40,15 +40,7 @@ export const FundingMethodModal: React.FC<FundingMethodModalProps> = ({
   const { chainId } = useSelector(getMultichainCurrentNetwork);
 
   const handleTransferCryptoClick = useCallback(() => {
-    const url = getPortfolioUrl(
-      'transfer',
-      'ext_funding_method_modal',
-      'metaMetricsId',
-      false,
-      false,
-      accountAddress,
-      'transfer',
-    );
+    const url = getPortfolioUrl('transfer', accountAddress, 'transfer');
     global.platform.openTab({ url });
   }, [accountAddress]);
 

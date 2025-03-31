@@ -201,17 +201,8 @@ const AssetPage = ({
     fiat: String(tokenFiatAmount),
   };
   const portfolioSpendingCapsUrl = useMemo(
-    () =>
-      getPortfolioUrl(
-        '',
-        'asset_page',
-        metaMetricsId,
-        isMetaMetricsEnabled,
-        isMarketingEnabled,
-        account.address,
-        'spending-caps',
-      ),
-    [account.address, isMarketingEnabled, isMetaMetricsEnabled, metaMetricsId],
+    () => getPortfolioUrl('', account.address),
+    [account.address],
   );
 
   const networkConfigurationsByChainId = useSelector(

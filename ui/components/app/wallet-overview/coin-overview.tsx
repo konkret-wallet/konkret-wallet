@@ -247,7 +247,7 @@ export const CoinOverview = ({
 
   ///: BEGIN:ONLY_INCLUDE_IF(build-beta)
   const handlePortfolioOnClick = useCallback(() => {
-    const url = getPortfolioUrl('', 'ext_portfolio_button');
+    const url = getPortfolioUrl('');
     global.platform.openTab({ url });
   }, []);
   ///: END:ONLY_INCLUDE_IF

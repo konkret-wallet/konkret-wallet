@@ -29,7 +29,7 @@ export const StakeableLink = ({ chainId }: StakeableLinkProps) => {
       onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         e.preventDefault();
         e.stopPropagation();
-        const url = getPortfolioUrl('stake', 'ext_stake_button');
+        const url = getPortfolioUrl('stake');
         global.platform.openTab({ url });
       }}
     >
