@@ -1,0 +1,19 @@
+## Source code
+- Changes until 02d318d493888e7dab5438832411de351c37f251
+  - See LICENSES/mit.LICENSE
+- Changes from e4d4c9c45a134eace71d020ac0316deddc52213d until a3713ad7f27d43e6a68bcacd71812babefa6c2fc
+  - See LICENSES/metamask.LICENSE
+- Changes by authors from @consensys.net, @consensys.io
+  - See LICENSES/metamask.LICENSE
+- Changes by Konkret contributors
+  - See LICENSES/mit.LICENSE
+
+### Others
+- See attributions.txt
+
+## Assets
+- See individual notices applicable in each file/directory
+- MetaMask, the MetaMask fox and logotypes and associated trade marks and intellectual property are property of ConsenSys Software Inc.
+  - See LICENSES/metamask.LICENSE
+- The Konkret Wallet logotypes and artwork are made available under Creative Commons CC BY-NC-ND license
+  - See LICENSES/cc-by-nc-nd-4.LICENSE
