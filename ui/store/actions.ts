@@ -4336,12 +4336,6 @@ export function setTermsOfUseLastAgreed(lastAgreed: number) {
   };
 }
 
-export function setLastViewedUserSurvey(id: number) {
-  return async () => {
-    await submitRequestToBackground('setLastViewedUserSurvey', [id]);
-  };
-}
-
 export function setOutdatedBrowserWarningLastShown(lastShown: number) {
   return async () => {
     await submitRequestToBackground('setOutdatedBrowserWarningLastShown', [

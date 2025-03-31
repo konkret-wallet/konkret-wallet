@@ -1,15 +1,8 @@
 import { isEvmAccountType } from '@metamask/keyring-api';
 import { InternalAccount } from '@metamask/keyring-internal-api';
 import { getAlertEnabledness } from '../../../ducks/metamask/metamask';
-import { PRIVACY_POLICY_DATE } from '../../../helpers/constants/privacy-policy';
-import {
-  SURVEY_DATE,
-  SURVEY_END_TIME,
-  SURVEY_START_TIME,
-} from '../../../helpers/constants/survey';
 import { getPermittedAccountsForCurrentTab } from '../../../selectors';
 import { MetaMaskReduxState } from '../../../store/store';
-import { getIsPrivacyToastRecent } from './utils';
 
 // TODO: get this into one of the larger definitions of state type
 type State = Omit<MetaMaskReduxState, 'appState'> & {
@@ -24,29 +17,11 @@ type State = Omit<MetaMaskReduxState, 'appState'> & {
     newPrivacyPolicyToastShownDate?: number;
     onboardingDate?: number;
     showNftDetectionEnablementToast?: boolean;
-    surveyLinkLastClickedOrClosed?: number;
     switchedNetworkNeverShowMessage?: boolean;
   };
 };
 
-/**
- * Determines if the survey toast should be shown based on the current time, survey start and end times, and whether the survey link was last clicked or closed.
- *
- * @param state - The application state containing the necessary survey data.
- * @returns True if the current time is between the survey start and end times and the survey link was not last clicked or closed. False otherwise.
- */
-export function selectShowSurveyToast(state: State): boolean {
-  if (state.metamask?.surveyLinkLastClickedOrClosed) {
-    return false;
-  }
-
-  const startTime = new Date(`${SURVEY_DATE} ${SURVEY_START_TIME}`).getTime();
-  const endTime = new Date(`${SURVEY_DATE} ${SURVEY_END_TIME}`).getTime();
-  const now = Date.now();
-
-  return now > startTime && now < endTime;
-}
-
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /**
  * Determines if the privacy policy toast should be shown based on the current date and whether the new privacy policy toast was clicked or closed.
  *
@@ -57,6 +32,8 @@ export function selectShowPrivacyPolicyToast(state: State): {
   showPrivacyPolicyToast: boolean;
   newPrivacyPolicyToastShownDate?: number;
 } {
+  return { showPrivacyPolicyToast: false };
+  /*
   const {
     newPrivacyPolicyToastClickedOrClosed,
     newPrivacyPolicyToastShownDate,
@@ -75,6 +52,7 @@ export function selectShowPrivacyPolicyToast(state: State): {
     (!onboardingDate || onboardingDate < newPrivacyPolicyDate.valueOf());
 
   return { showPrivacyPolicyToast, newPrivacyPolicyToastShownDate };
+  */
 }
 
 export function selectNftDetectionEnablementToast(state: State): boolean {

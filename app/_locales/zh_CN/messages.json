@@ -601,8 +601,7 @@
     "message": "比特币"
   },
   "bitcoinSupportToggleDescription": {
-    "message": "启用此功能后，您可以选择将比特币账户添加到衍生自现有私钥助记词的 Konkret Wallet Extension 中。这是一个实验性的测试版功能，因此您应自行承担使用风险。为了向我们提供有关此新比特币体验的反馈，请填写此 $1。",
-    "description": "$1 is the link to a product feedback form"
+    "message": "启用此功能后，您可以选择将比特币账户添加到衍生自现有私钥助记词的 Konkret Wallet 中。这是一个实验性的测试版功能，因此您应自行承担使用风险。"
   },
   "bitcoinSupportToggleTitle": {
     "message": "启用“添加新的比特币账户（测试版）”"

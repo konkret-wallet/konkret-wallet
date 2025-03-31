@@ -9,10 +9,7 @@ import React, {
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
 import { MILLISECOND, SECOND } from '../../../../shared/constants/time';
-import {
-  PRIVACY_POLICY_LINK,
-  SURVEY_LINK,
-} from '../../../../shared/lib/ui-utils';
+import { PRIVACY_POLICY_LINK } from '../../../../shared/lib/ui-utils';
 import {
   BorderColor,
   BorderRadius,
@@ -49,12 +46,10 @@ import {
   IconName,
 } from '../../component-library';
 import { Toast, ToastContainer } from '../../multichain';
-import { SurveyToast } from '../../ui/survey-toast';
 import {
   selectNftDetectionEnablementToast,
   selectShowConnectAccountToast,
   selectShowPrivacyPolicyToast,
-  selectShowSurveyToast,
   selectSwitchedNetworkNeverShowMessage,
   ///: BEGIN:ONLY_INCLUDE_IF(multi-srp)
   selectNewSrpAdded,
@@ -64,7 +59,6 @@ import {
   setNewPrivacyPolicyToastClickedOrClosed,
   setNewPrivacyPolicyToastShownDate,
   setShowNftDetectionEnablementToast,
-  setSurveyLinkLastClickedOrClosed,
   setSwitchedNetworkNeverShowMessage,
   ///: BEGIN:ONLY_INCLUDE_IF(multi-srp)
   setShowNewSrpAddedToast,
@@ -83,9 +77,7 @@ export function ToastMaster() {
   if (onHomeScreen) {
     return (
       <ToastContainer>
-        <SurveyToast />
         <ConnectAccountToast />
-        <SurveyToastMayDelete />
         <PrivacyPolicyToast />
         <SwitchedNetworkToast />
         <NftEnablementToast />
@@ -162,34 +154,6 @@ function ConnectAccountToast() {
           }, 250 * MILLISECOND);
         }}
         onClose={() => setHideConnectAccountToast(true)}
-      />
-    )
-  );
-}
-
-function SurveyToastMayDelete() {
-  const t = useI18nContext();
-
-  const showSurveyToast = useSelector(selectShowSurveyToast);
-
-  return (
-    showSurveyToast && (
-      <Toast
-        key="survey-toast"
-        startAdornment={
-          <Icon name={IconName.Heart} color={IconColor.errorDefault} />
-        }
-        text={t('surveyTitle')}
-        actionText={t('surveyConversion')}
-        onActionClick={() => {
-          global.platform.openTab({
-            url: SURVEY_LINK,
-          });
-          setSurveyLinkLastClickedOrClosed(Date.now());
-        }}
-        onClose={() => {
-          setSurveyLinkLastClickedOrClosed(Date.now());
-        }}
       />
     )
   );

@@ -601,8 +601,7 @@
     "message": "비트코인"
   },
   "bitcoinSupportToggleDescription": {
-    "message": "이 기능을 켜면 기존 비밀복구구문에서 파생된 Konkret Wallet 확장에 비트코인 계정을 추가할 수 있는 옵션을 이용할 수 있습니다. 이 기능은 실험적 베타 기능이므로 사용자의 책임하에 사용해야 합니다. 이 새로운 비트코인 경험에 대한 피드백을 보내려면 이 $1을(를) 작성해 주세요.",
-    "description": "$1 is the link to a product feedback form"
+    "message": "이 기능을 켜면 기존 비밀복구구문에서 파생된 Konkret Wallet 확장에 비트코인 계정을 추가할 수 있는 옵션을 이용할 수 있습니다. 이 기능은 실험적 베타 기능이므로 사용자의 책임하에 사용해야 합니다."
   },
   "bitcoinSupportToggleTitle": {
     "message": "'새 비트코인 계정 추가(베타)' 활성화"

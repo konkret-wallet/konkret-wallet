@@ -62,7 +62,6 @@ export type AppStateControllerState = {
   trezorModel: string | null;
   currentPopupId?: number;
   onboardingDate: number | null;
-  lastViewedUserSurvey: number | null;
   isRampCardClosed: boolean;
   newPrivacyPolicyToastClickedOrClosed: boolean | null;
   newPrivacyPolicyToastShownDate: number | null;
@@ -72,7 +71,6 @@ export type AppStateControllerState = {
   hadAdvancedGasFeesSetPriorToMigration92_3: boolean;
   qrHardware: Json;
   nftsDropdownState: Json;
-  surveyLinkLastClickedOrClosed: number | null;
   // States used for displaying the changed network toast
   switchedNetworkDetails: Record<string, string> | null;
   switchedNetworkNeverShowMessage: boolean;
@@ -188,12 +186,10 @@ const getDefaultAppStateControllerState = (): AppStateControllerState => ({
   showAccountBanner: true,
   trezorModel: null,
   onboardingDate: null,
-  lastViewedUserSurvey: null,
   isRampCardClosed: false,
   newPrivacyPolicyToastClickedOrClosed: null,
   newPrivacyPolicyToastShownDate: null,
   hadAdvancedGasFeesSetPriorToMigration92_3: false,
-  surveyLinkLastClickedOrClosed: null,
   switchedNetworkNeverShowMessage: false,
   slides: [],
   throttledOrigins: {},
@@ -286,10 +282,6 @@ const controllerMetadata = {
     persist: true,
     anonymous: true,
   },
-  lastViewedUserSurvey: {
-    persist: true,
-    anonymous: true,
-  },
   isRampCardClosed: {
     persist: true,
     anonymous: true,
@@ -312,10 +304,6 @@ const controllerMetadata = {
   },
   nftsDropdownState: {
     persist: false,
-    anonymous: true,
-  },
-  surveyLinkLastClickedOrClosed: {
-    persist: true,
     anonymous: true,
   },
   switchedNetworkDetails: {
@@ -519,21 +507,9 @@ export class AppStateController extends BaseController<
     });
   }
 
-  setSurveyLinkLastClickedOrClosed(time: number): void {
-    this.update((state) => {
-      state.surveyLinkLastClickedOrClosed = time;
-    });
-  }
-
   setOnboardingDate(): void {
     this.update((state) => {
       state.onboardingDate = Date.now();
-    });
-  }
-
-  setLastViewedUserSurvey(id: number) {
-    this.update((state) => {
-      state.lastViewedUserSurvey = id;
     });
   }
 
