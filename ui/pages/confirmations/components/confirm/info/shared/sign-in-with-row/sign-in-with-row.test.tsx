@@ -6,15 +6,6 @@ import { renderWithConfirmContextProvider } from '../../../../../../../../test/l
 import * as utils from '../../../../../utils';
 import { SigningInWithRow } from './sign-in-with-row';
 
-jest.mock(
-  '../../../../../../../components/app/alert-system/contexts/alertMetricsContext',
-  () => ({
-    useAlertMetrics: jest.fn(() => ({
-      trackAlertMetrics: jest.fn(),
-    })),
-  }),
-);
-
 jest.mock('../../../../../utils', () => {
   const originalUtils = jest.requireActual('../../../../../utils');
   return {

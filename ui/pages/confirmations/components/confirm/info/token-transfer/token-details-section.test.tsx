@@ -4,15 +4,6 @@ import { getMockTokenTransferConfirmState } from '../../../../../../../test/data
 import { renderWithConfirmContextProvider } from '../../../../../../../test/lib/confirmations/render-helpers';
 import { TokenDetailsSection } from './token-details-section';
 
-jest.mock(
-  '../../../../../../components/app/alert-system/contexts/alertMetricsContext',
-  () => ({
-    useAlertMetrics: jest.fn(() => ({
-      trackAlertMetrics: jest.fn(),
-    })),
-  }),
-);
-
 describe('TokenDetailsSection', () => {
   it('renders correctly', () => {
     const state = getMockTokenTransferConfirmState({});

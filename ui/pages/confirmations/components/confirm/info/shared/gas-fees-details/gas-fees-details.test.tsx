@@ -13,15 +13,6 @@ jest.mock('../../../../../../../store/actions', () => ({
   getGasFeeTimeEstimate: jest.fn(),
 }));
 
-jest.mock(
-  '../../../../../../../components/app/alert-system/contexts/alertMetricsContext',
-  () => ({
-    useAlertMetrics: jest.fn(() => ({
-      trackAlertMetrics: jest.fn(),
-    })),
-  }),
-);
-
 describe('<GasFeesDetails />', () => {
   const middleware = [thunk];
 

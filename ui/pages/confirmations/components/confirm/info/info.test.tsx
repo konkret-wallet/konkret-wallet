@@ -12,15 +12,6 @@ import { renderWithConfirmContextProvider } from '../../../../../../test/lib/con
 import { useAssetDetails } from '../../../hooks/useAssetDetails';
 import Info from './info';
 
-jest.mock(
-  '../../../../../components/app/alert-system/contexts/alertMetricsContext',
-  () => ({
-    useAlertMetrics: jest.fn(() => ({
-      trackAlertMetrics: jest.fn(),
-    })),
-  }),
-);
-
 jest.mock('../../../../../store/actions', () => ({
   ...jest.requireActual('../../../../../store/actions'),
   getGasFeeTimeEstimate: jest.fn().mockResolvedValue({

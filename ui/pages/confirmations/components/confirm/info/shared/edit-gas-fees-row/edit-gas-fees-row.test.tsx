@@ -6,15 +6,6 @@ import { getMockContractInteractionConfirmState } from '../../../../../../../../
 import { renderWithConfirmContextProvider } from '../../../../../../../../test/lib/confirmations/render-helpers';
 import { EditGasFeesRow } from './edit-gas-fees-row';
 
-jest.mock(
-  '../../../../../../../components/app/alert-system/contexts/alertMetricsContext',
-  () => ({
-    useAlertMetrics: jest.fn(() => ({
-      trackAlertMetrics: jest.fn(),
-    })),
-  }),
-);
-
 describe('<EditGasFeesRow />', () => {
   const middleware = [thunk];
 

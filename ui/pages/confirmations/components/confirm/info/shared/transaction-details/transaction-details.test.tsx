@@ -13,15 +13,6 @@ import { CHAIN_IDS } from '../../../../../../../../shared/constants/network';
 import { genUnapprovedContractInteractionConfirmation } from '../../../../../../../../test/data/confirmations/contract-interaction';
 import { TransactionDetails } from './transaction-details';
 
-jest.mock(
-  '../../../../../../../components/app/alert-system/contexts/alertMetricsContext',
-  () => ({
-    useAlertMetrics: jest.fn(() => ({
-      trackAlertMetrics: jest.fn(),
-    })),
-  }),
-);
-
 describe('<TransactionDetails />', () => {
   const middleware = [thunk];
 

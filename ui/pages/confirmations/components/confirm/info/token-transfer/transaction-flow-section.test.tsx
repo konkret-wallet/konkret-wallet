@@ -9,17 +9,6 @@ import { TransactionFlowSection } from './transaction-flow-section';
 
 jest.mock('../hooks/useTokenTransactionData');
 
-jest.mock(
-  '../../../../../../components/app/alert-system/contexts/alertMetricsContext.tsx',
-  () => ({
-    useAlertMetrics: () => ({
-      trackInlineAlertClicked: jest.fn(),
-      trackAlertRender: jest.fn(),
-      trackAlertActionClicked: jest.fn(),
-    }),
-  }),
-);
-
 describe('<TransactionFlowSection />', () => {
   const useTokenTransactionDataMock = jest.mocked(useTokenTransactionData);
 

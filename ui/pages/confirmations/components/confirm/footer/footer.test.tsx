@@ -34,17 +34,6 @@ jest.mock('react-redux', () => ({
   useDispatch: () => jest.fn(),
 }));
 
-jest.mock(
-  '../../../../../components/app/alert-system/contexts/alertMetricsContext',
-  () => ({
-    useAlertMetrics: jest.fn(() => ({
-      trackInlineAlertClicked: jest.fn(),
-      trackAlertRender: jest.fn(),
-      trackAlertActionClicked: jest.fn(),
-    })),
-  }),
-);
-
 jest.mock('../../../hooks/useOriginThrottling');
 
 const render = (args?: Record<string, unknown>) => {

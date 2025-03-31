@@ -18,13 +18,6 @@ jest.mock('../../../../alert-system/contexts/alertActionHandler', () => ({
 }));
 
 const mockTrackInlineAlertClicked = jest.fn();
-jest.mock('../../../../alert-system/contexts/alertMetricsContext', () => ({
-  useAlertMetrics: jest.fn(() => ({
-    trackInlineAlertClicked: mockTrackInlineAlertClicked,
-    trackAlertRender: jest.fn(),
-    trackAlertActionClicked: jest.fn(),
-  })),
-}));
 
 describe('AlertRow', () => {
   const OWNER_ID_MOCK = '123';
@@ -137,19 +130,6 @@ describe('AlertRow', () => {
         fireEvent.click(getByTestId('inline-alert'));
         fireEvent.click(getByTestId('alert-modal-button'));
         expect(queryByTestId('alert-modal-button')).toBeNull();
-      });
-    });
-
-    describe('Track alert metrics', () => {
-      it('calls trackInlineAlertClicked when inline alert is clicked', () => {
-        const { getByTestId } = renderAlertRow({
-          alertKey: KEY_ALERT_KEY_MOCK,
-          ownerId: OWNER_ID_MOCK,
-        });
-        fireEvent.click(getByTestId('inline-alert'));
-        expect(mockTrackInlineAlertClicked).toHaveBeenCalledWith(
-          KEY_ALERT_KEY_MOCK,
-        );
       });
     });
 

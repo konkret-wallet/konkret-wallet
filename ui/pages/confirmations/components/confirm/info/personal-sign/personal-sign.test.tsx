@@ -18,15 +18,6 @@ import { SignatureRequestType } from '../../../../types/confirm';
 import * as utils from '../../../../utils';
 import PersonalSignInfo from './personal-sign';
 
-jest.mock(
-  '../../../../../../components/app/alert-system/contexts/alertMetricsContext',
-  () => ({
-    useAlertMetrics: jest.fn(() => ({
-      trackAlertMetrics: jest.fn(),
-    })),
-  }),
-);
-
 jest.mock('../../../../utils', () => {
   const originalUtils = jest.requireActual('../../../../utils');
   return {

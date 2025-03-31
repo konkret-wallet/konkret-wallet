@@ -8,15 +8,6 @@ import { getMockTypedSignConfirmStateForRequest } from '../../../../../../../tes
 import { unapprovedTypedSignMsgV1 } from '../../../../../../../test/data/confirmations/typed_sign';
 import TypedSignInfoV1 from './typed-sign-v1';
 
-jest.mock(
-  '../../../../../../components/app/alert-system/contexts/alertMetricsContext',
-  () => ({
-    useAlertMetrics: jest.fn(() => ({
-      trackAlertMetrics: jest.fn(),
-    })),
-  }),
-);
-
 jest.mock('../../../../../../../node_modules/@metamask/snaps-utils', () => {
   const originalUtils = jest.requireActual(
     '../../../../../../../node_modules/@metamask/snaps-utils',

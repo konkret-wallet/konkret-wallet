@@ -6,17 +6,6 @@ import { genUnapprovedApproveConfirmation } from '../../../../../../../../test/d
 import { getMockConfirmStateForTransaction } from '../../../../../../../../test/data/confirmations/helper';
 import { ApproveDetails } from './approve-details';
 
-jest.mock(
-  '../../../../../../../components/app/alert-system/contexts/alertMetricsContext.tsx',
-  () => ({
-    useAlertMetrics: () => ({
-      trackInlineAlertClicked: jest.fn(),
-      trackAlertRender: jest.fn(),
-      trackAlertActionClicked: jest.fn(),
-    }),
-  }),
-);
-
 describe('<ApproveDetails />', () => {
   const middleware = [thunk];
 

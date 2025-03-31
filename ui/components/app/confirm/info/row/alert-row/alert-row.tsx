@@ -12,7 +12,6 @@ import {
 } from '../row';
 import { Box } from '../../../../../component-library';
 import { MultipleAlertModal } from '../../../../alert-system/multiple-alert-modal';
-import { useAlertMetrics } from '../../../../alert-system/contexts/alertMetricsContext';
 
 export type ConfirmInfoAlertRowProps = ConfirmInfoRowProps & {
   alertKey: string;
@@ -46,7 +45,6 @@ export const ConfirmInfoAlertRow = ({
   isShownWithAlertsOnly = false,
   ...rowProperties
 }: ConfirmInfoAlertRowProps) => {
-  const { trackInlineAlertClicked } = useAlertMetrics();
   const { getFieldAlerts } = useAlerts(ownerId);
   const fieldAlerts = getFieldAlerts(alertKey);
   const hasFieldAlert = fieldAlerts.length > 0;
@@ -61,7 +59,6 @@ export const ConfirmInfoAlertRow = ({
 
   const handleInlineAlertClick = () => {
     setAlertModalVisible(true);
-    trackInlineAlertClicked(selectedAlertKey);
   };
 
   const confirmInfoRowProps = {

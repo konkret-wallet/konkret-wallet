@@ -16,15 +16,6 @@ jest.mock('../../../../../../store/actions', () => ({
   }),
 }));
 
-jest.mock(
-  '../../../../../../components/app/alert-system/contexts/alertMetricsContext',
-  () => ({
-    useAlertMetrics: jest.fn(() => ({
-      trackAlertMetrics: jest.fn(),
-    })),
-  }),
-);
-
 jest.mock('./hooks/use-approve-token-simulation', () => ({
   useApproveTokenSimulation: jest.fn(() => ({
     spendingCap: '1000',
