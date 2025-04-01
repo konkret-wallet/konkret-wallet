@@ -297,7 +297,6 @@
     "@metamask/polling-controller": "^12.0.3",
     "@metamask/post-message-stream": "^9.0.0",
     "@metamask/preinstalled-example-snap": "^0.3.0",
-    "@metamask/profile-sync-controller": "^2.0.0",
     "@metamask/providers": "^20.0.0",
     "@metamask/queued-request-controller": "^7.0.1",
     "@metamask/rate-limit-controller": "^6.0.3",

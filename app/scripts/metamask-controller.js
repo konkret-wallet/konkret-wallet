@@ -128,10 +128,6 @@ import { abiERC1155, abiERC721 } from '@metamask/metamask-eth-abis';
 import { isEvmAccountType } from '@metamask/keyring-api';
 import { hasProperty, hexToBigInt, toCaipChainId } from '@metamask/utils';
 import { normalize } from '@metamask/eth-sig-util';
-import {
-  AuthenticationController,
-  UserStorageController,
-} from '@metamask/profile-sync-controller';
 import { NotificationServicesController } from '@metamask/notification-services-controller';
 import {
   Caip25CaveatMutators,
@@ -216,7 +212,6 @@ import {
   BridgeUserAction,
   BridgeBackgroundAction,
 } from '../../shared/types/bridge';
-import { isProduction } from '../../shared/modules/environment';
 import { getDefaultNetworkControllerState } from './custom/initStates';
 ///: BEGIN:ONLY_INCLUDE_IF(keyring-snaps)
 import { keyringSnapPermissionsBuilder } from './lib/snap-keyring/keyring-snaps-permissions';
@@ -1107,62 +1102,6 @@ export default class MetamaskController extends EventEmitter {
     });
 
     // Notification Controllers
-    this.authenticationController = new AuthenticationController.Controller({
-      state: initState.AuthenticationController,
-      messenger: this.controllerMessenger.getRestricted({
-        name: 'AuthenticationController',
-        allowedActions: [
-          'KeyringController:getState',
-          'SnapController:handleRequest',
-        ],
-        allowedEvents: ['KeyringController:lock', 'KeyringController:unlock'],
-      }),
-      metametrics: {
-        getMetaMetricsId: () => null,
-        agent: 'extension',
-      },
-    });
-
-    this.userStorageController = new UserStorageController.Controller({
-      state: initState.UserStorageController,
-      config: {
-        accountSyncing: {
-          maxNumberOfAccountsToAdd: isProduction() ? undefined : 100,
-          onAccountAdded: (_profileId) => {},
-          onAccountNameUpdated: (_profileId) => {},
-          onAccountSyncErroneousSituation: (_profileId, situationMessage) => {
-            console.error(new Error(`Account sync - ${situationMessage}`));
-          },
-        },
-      },
-      env: {
-        isAccountSyncingEnabled: !isProduction() && isManifestV3,
-      },
-      messenger: this.controllerMessenger.getRestricted({
-        name: 'UserStorageController',
-        allowedActions: [
-          'KeyringController:getState',
-          'KeyringController:addNewAccount',
-          'SnapController:handleRequest',
-          'AuthenticationController:getBearerToken',
-          'AuthenticationController:getSessionProfile',
-          'AuthenticationController:isSignedIn',
-          'AuthenticationController:performSignOut',
-          'AuthenticationController:performSignIn',
-          'NotificationServicesController:disableNotificationServices',
-          'NotificationServicesController:selectIsNotificationServicesEnabled',
-          'AccountsController:listAccounts',
-          'AccountsController:updateAccountMetadata',
-        ],
-        allowedEvents: [
-          'KeyringController:lock',
-          'KeyringController:unlock',
-          'AccountsController:accountAdded',
-          'AccountsController:accountRenamed',
-        ],
-      }),
-    });
-
     this.notificationServicesController =
       new NotificationServicesController.Controller({
         messenger: this.controllerMessenger.getRestricted({
@@ -1170,12 +1109,12 @@ export default class MetamaskController extends EventEmitter {
           allowedActions: [
             'KeyringController:getAccounts',
             'KeyringController:getState',
-            'AuthenticationController:getBearerToken',
-            'AuthenticationController:isSignedIn',
-            'UserStorageController:enableProfileSyncing',
-            'UserStorageController:getStorageKey',
-            'UserStorageController:performGetStorage',
-            'UserStorageController:performSetStorage',
+            // 'AuthenticationController:getBearerToken',
+            // 'AuthenticationController:isSignedIn',
+            // 'UserStorageController:enableProfileSyncing',
+            // 'UserStorageController:getStorageKey',
+            // 'UserStorageController:performGetStorage',
+            // 'UserStorageController:performSetStorage',
           ],
           allowedEvents: [
             'KeyringController:stateChange',
@@ -1844,10 +1783,10 @@ export default class MetamaskController extends EventEmitter {
       NameController: this.nameController,
       UserOperationController: this.userOperationController,
       // Notification Controllers
-      AuthenticationController: this.authenticationController,
-      UserStorageController: this.userStorageController,
+      // AuthenticationController: this.authenticationController,
+      // UserStorageController: this.userStorageController,
       NotificationServicesController: this.notificationServicesController,
-      RemoteFeatureFlagController: this.remoteFeatureFlagController,
+      // RemoteFeatureFlagController: this.remoteFeatureFlagController,
       ...resetOnRestartStore,
       ...controllerPersistedState,
     });
@@ -1894,11 +1833,11 @@ export default class MetamaskController extends EventEmitter {
         NameController: this.nameController,
         UserOperationController: this.userOperationController,
         // Notification Controllers
-        AuthenticationController: this.authenticationController,
-        UserStorageController: this.userStorageController,
+        // AuthenticationController: this.authenticationController,
+        // UserStorageController: this.userStorageController,
         NotificationServicesController: this.notificationServicesController,
         QueuedRequestController: this.queuedRequestController,
-        RemoteFeatureFlagController: this.remoteFeatureFlagController,
+        // RemoteFeatureFlagController: this.remoteFeatureFlagController,
         ...resetOnRestartStore,
         ...controllerMemState,
       },
@@ -2644,8 +2583,8 @@ export default class MetamaskController extends EventEmitter {
       tokenRatesController,
       accountTrackerController,
       // Notification Controllers
-      authenticationController,
-      userStorageController,
+      // authenticationController,
+      // userStorageController,
       notificationServicesController,
     } = this;
 
@@ -3402,14 +3341,17 @@ export default class MetamaskController extends EventEmitter {
         ),
 
       // Authentication Controller
+      /*
       performSignIn: authenticationController.performSignIn.bind(
         authenticationController,
       ),
       performSignOut: authenticationController.performSignOut.bind(
         authenticationController,
       ),
+      */
 
       // UserStorageController
+      /*
       enableProfileSyncing: userStorageController.enableProfileSyncing.bind(
         userStorageController,
       ),
@@ -3428,6 +3370,7 @@ export default class MetamaskController extends EventEmitter {
         userStorageController.performDeleteStorageAllFeatureEntries.bind(
           userStorageController,
         ),
+        */
 
       // NotificationServicesController
       checkAccountsPresence:
@@ -3446,6 +3389,7 @@ export default class MetamaskController extends EventEmitter {
         notificationServicesController.updateOnChainTriggersByAccount.bind(
           notificationServicesController,
         ),
+      /*
       fetchAndUpdateMetamaskNotifications:
         notificationServicesController.fetchAndUpdateMetamaskNotifications.bind(
           notificationServicesController,
@@ -3474,6 +3418,7 @@ export default class MetamaskController extends EventEmitter {
         notificationServicesController.disableNotificationServices.bind(
           notificationServicesController,
         ),
+      */
 
       // E2E testing
       throwTestError: this.throwTestError.bind(this),

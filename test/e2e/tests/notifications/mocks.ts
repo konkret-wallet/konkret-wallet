@@ -1,11 +1,6 @@
 import { Mockttp, RequestRuleBuilder } from 'mockttp';
-import { AuthenticationController } from '@metamask/profile-sync-controller';
 import { NotificationServicesController } from '@metamask/notification-services-controller';
-import { USER_STORAGE_FEATURE_NAMES } from '@metamask/profile-sync-controller/sdk';
-import { UserStorageMockttpController } from '../../helpers/user-storage/userStorageMockttpController';
-import { accountsSyncMockResponse } from './account-syncing/mockData';
 
-const AuthMocks = AuthenticationController.Mocks;
 const NotificationMocks = NotificationServicesController.Mocks;
 
 type MockResponse = {
@@ -18,49 +13,8 @@ type MockResponse = {
  * E2E mock setup for notification APIs (Auth, UserStorage, Notifications, Profile syncing)
  *
  * @param server - server obj used to mock our endpoints
- * @param userStorageMockttpControllerInstance - optional instance of UserStorageMockttpController, useful if you need persisted user storage between tests
  */
-export async function mockNotificationServices(
-  server: Mockttp,
-  userStorageMockttpControllerInstance: UserStorageMockttpController = new UserStorageMockttpController(),
-) {
-  // Auth
-  mockAPICall(server, AuthMocks.getMockAuthNonceResponse());
-  mockAPICall(server, AuthMocks.getMockAuthLoginResponse());
-  mockAPICall(server, AuthMocks.getMockAuthAccessTokenResponse());
-
-  // Storage
-  if (
-    !userStorageMockttpControllerInstance?.paths.get(
-      USER_STORAGE_FEATURE_NAMES.accounts,
-    )
-  ) {
-    userStorageMockttpControllerInstance.setupPath(
-      USER_STORAGE_FEATURE_NAMES.accounts,
-      server,
-    );
-  }
-  if (
-    !userStorageMockttpControllerInstance?.paths.get(
-      USER_STORAGE_FEATURE_NAMES.networks,
-    )
-  ) {
-    userStorageMockttpControllerInstance.setupPath(
-      USER_STORAGE_FEATURE_NAMES.networks,
-      server,
-    );
-  }
-  if (
-    !userStorageMockttpControllerInstance?.paths.get(
-      USER_STORAGE_FEATURE_NAMES.notifications,
-    )
-  ) {
-    userStorageMockttpControllerInstance.setupPath(
-      USER_STORAGE_FEATURE_NAMES.notifications,
-      server,
-    );
-  }
-
+export async function mockNotificationServices(server: Mockttp) {
   // Notifications
   mockAPICall(server, NotificationMocks.getMockFeatureAnnouncementResponse());
   mockAPICall(server, NotificationMocks.getMockBatchCreateTriggersResponse());
@@ -99,7 +53,6 @@ function mockAPICall(server: Mockttp, response: MockResponse) {
 
 type MockInfuraAndAccountSyncOptions = {
   accountsToMock?: string[];
-  accountsSyncResponse?: typeof accountsSyncMockResponse;
 };
 
 const MOCK_ETH_BALANCE = '0xde0b6b3a7640000';
@@ -110,29 +63,13 @@ const INFURA_URL =
  * Sets up mock responses for Infura balance checks and account syncing
  *
  * @param mockServer - The Mockttp server instance
- * @param userStorageMockttpController - Controller for user storage mocks
  * @param options - Configuration options for mocking
  */
 export async function mockInfuraAndAccountSync(
   mockServer: Mockttp,
-  userStorageMockttpController: UserStorageMockttpController,
   options: MockInfuraAndAccountSyncOptions = {},
 ): Promise<void> {
   const accounts = options.accountsToMock ?? [];
-
-  // Set up User Storage / Account Sync mock
-  userStorageMockttpController.setupPath(
-    USER_STORAGE_FEATURE_NAMES.accounts,
-    mockServer,
-  );
-
-  userStorageMockttpController.setupPath(
-    USER_STORAGE_FEATURE_NAMES.accounts,
-    mockServer,
-    {
-      getResponse: options.accountsSyncResponse ?? undefined,
-    },
-  );
 
   // Account Balances
   if (accounts.length > 0) {
@@ -154,5 +91,5 @@ export async function mockInfuraAndAccountSync(
     });
   }
 
-  mockNotificationServices(mockServer, userStorageMockttpController);
+  mockNotificationServices(mockServer);
 }

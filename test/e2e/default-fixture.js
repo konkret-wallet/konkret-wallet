@@ -17,12 +17,6 @@ const E2E_SRP =
 function defaultFixture(inputChainId = CHAIN_IDS.LOCALHOST) {
   return {
     data: {
-      AuthenticationController: {
-        isSignedIn: true,
-      },
-      UserStorageController: {
-        isProfileSyncingEnabled: false,
-      },
       NotificationServicesController: {
         subscriptionAccountsSeen: [],
         isFeatureAnnouncementsEnabled: false,
