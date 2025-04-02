@@ -54,7 +54,6 @@ import {
 import { NETWORK_TO_SHORT_NETWORK_NAME_MAP } from '../../../../shared/constants/bridge';
 import { getNetworkConfigurationsByChainId } from '../../../../shared/modules/selectors/networks';
 import { PercentageChange } from './price/percentage-change/percentage-change';
-import { StakeableLink } from './stakeable-link';
 
 type TokenListItemProps = {
   className?: string;
@@ -66,7 +65,6 @@ type TokenListItemProps = {
   title: string;
   tooltipText?: string;
   isNativeCurrency?: boolean;
-  isStakeable?: boolean;
   isTitleNetworkName?: boolean;
   isTitleHidden?: boolean;
   tokenChainImage?: string;
@@ -90,7 +88,6 @@ export const TokenListItemComponent = ({
   chainId,
   isPrimaryTokenSymbolHidden = false,
   isNativeCurrency = false,
-  isStakeable = false,
   isTitleNetworkName = false,
   isTitleHidden = false,
   address = null,
@@ -241,9 +238,6 @@ export const TokenListItemComponent = ({
                   ellipsis
                 >
                   {tokenMainTitleToDisplay}
-                  {isStakeable && (
-                    <StakeableLink chainId={chainId} symbol={tokenSymbol} />
-                  )}
                 </Text>
               </Tooltip>
             ) : (
@@ -253,9 +247,6 @@ export const TokenListItemComponent = ({
                 ellipsis
               >
                 {tokenMainTitleToDisplay}
-                {isStakeable && (
-                  <StakeableLink chainId={chainId} symbol={tokenSymbol} />
-                )}
               </Text>
             )}
 
@@ -281,7 +272,6 @@ export const TokenListItemComponent = ({
                 variant={TextVariant.bodyMd}
                 textAlign={TextAlign.End}
                 data-testid="multichain-token-list-item-secondary-value"
-                ellipsis={isStakeable}
                 isHidden={privacyMode}
                 length={SensitiveTextLength.Medium}
               >

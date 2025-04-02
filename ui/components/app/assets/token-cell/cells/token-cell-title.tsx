@@ -6,7 +6,6 @@ import {
 } from '../../../../../helpers/constants/design-system';
 import { Text } from '../../../../component-library';
 import { TokenFiatDisplayInfo } from '../../types';
-import { StakeableLink } from '../../../../multichain/token-list-item/stakeable-link';
 import {
   TranslateFunction,
   networkTitleOverrides,
@@ -37,9 +36,6 @@ export const TokenCellTitle = React.memo(
             ellipsis
           >
             {networkTitleOverrides(t as TranslateFunction, token)}
-            {token.isStakeable && (
-              <StakeableLink chainId={token.chainId} symbol={token.symbol} />
-            )}
           </Text>
         </Tooltip>
       );
@@ -53,9 +49,6 @@ export const TokenCellTitle = React.memo(
         ellipsis
       >
         {networkTitleOverrides(t as TranslateFunction, token)}
-        {token.isStakeable && (
-          <StakeableLink chainId={token.chainId} symbol={token.symbol} />
-        )}
       </Text>
     );
   },
