@@ -1799,6 +1799,7 @@ describe('#getConnectedSitesList', () => {
       },
     });
   });
+  /*
   describe('#getShowDeleteMetaMetricsDataModal', () => {
     it('returns state of showDeleteMetaMetricsDataModal', () => {
       expect(
@@ -1860,6 +1861,7 @@ describe('#getConnectedSitesList', () => {
       ).toStrictEqual('INITIALIZED');
     });
   });
+  */
 
   describe('getEvmInternalAccounts', () => {
     const account1 = createMockInternalAccount({

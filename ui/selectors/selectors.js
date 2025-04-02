@@ -231,14 +231,6 @@ export function getExternalServicesOnboardingToggleState(state) {
   return state.appState.externalServicesOnboardingToggleState;
 }
 
-export function getShowDeleteMetaMetricsDataModal(state) {
-  return state.appState.showDeleteMetaMetricsDataModal;
-}
-
-export function getShowDataDeletionErrorModal(state) {
-  return state.appState.showDataDeletionErrorModal;
-}
-
 ///: BEGIN:ONLY_INCLUDE_IF(keyring-snaps)
 export function getKeyringSnapRemovalResult(state) {
   return state.appState.keyringRemovalSnapModal;
@@ -253,11 +245,6 @@ export function getNetworkIdentifier(state) {
   const { type, nickname, rpcUrl } = getProviderConfig(state);
 
   return nickname || rpcUrl || type;
-}
-
-export function getMetaMetricsId(state) {
-  const { metaMetricsId } = state.metamask;
-  return metaMetricsId;
 }
 
 export function isCurrentProviderCustom(state) {
@@ -2838,7 +2825,7 @@ export function getIsBitcoinTestnetSupportEnabled(state) {
 /**
  * Get the state of the `solanaSupportEnabled` remote feature flag.
  *
- * @param {*} state
+ * @param {*} _state
  * @returns The state of the `solanaSupportEnabled` remote feature flag.
  */
 export function getIsSolanaSupportEnabled(_state) {
@@ -3029,18 +3016,6 @@ export function getEthereumAddressNames(state) {
 
 export function getNameSources(state) {
   return state.metamask.nameSources || {};
-}
-
-export function getMetaMetricsDataDeletionId(state) {
-  return state.metamask.metaMetricsDataDeletionId;
-}
-
-export function getMetaMetricsDataDeletionTimestamp(state) {
-  return state.metamask.metaMetricsDataDeletionTimestamp;
-}
-
-export function getMetaMetricsDataDeletionStatus(state) {
-  return state.metamask.metaMetricsDataDeletionStatus;
 }
 
 /**

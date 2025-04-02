@@ -5,8 +5,6 @@ import {
   setIncomingTransactionsPreferences,
   setIpfsGateway,
   setIsIpfsGatewayEnabled,
-  setParticipateInMetaMetrics,
-  setDataCollectionForMarketing,
   setUseCurrencyRateCheck,
   setUseMultiAccountBalanceChecker,
   setUsePhishDetect,
@@ -24,7 +22,6 @@ import {
 } from '../../../store/actions';
 import {
   getIsSecurityAlertsEnabled,
-  getMetaMetricsDataDeletionId,
   getPetnamesEnabled,
 } from '../../../selectors/selectors';
 import { getNetworkConfigurationsByChainId } from '../../../../shared/modules/selectors/networks';
@@ -38,8 +35,6 @@ const mapStateToProps = (state) => {
 
   const {
     incomingTransactionsPreferences,
-    participateInMetaMetrics,
-    dataCollectionForMarketing,
     usePhishDetect,
     useTokenDetection,
     ipfsGateway,
@@ -59,8 +54,6 @@ const mapStateToProps = (state) => {
   return {
     incomingTransactionsPreferences,
     networkConfigurations,
-    participateInMetaMetrics,
-    dataCollectionForMarketing,
     usePhishDetect,
     useTokenDetection,
     ipfsGateway,
@@ -76,7 +69,6 @@ const mapStateToProps = (state) => {
     petnamesEnabled,
     securityAlertsEnabled: getIsSecurityAlertsEnabled(state),
     useTransactionSimulations: metamask.useTransactionSimulations,
-    metaMetricsDataDeletionId: getMetaMetricsDataDeletionId(state),
   };
 };
 
@@ -84,10 +76,6 @@ const mapDispatchToProps = (dispatch) => {
   return {
     setIncomingTransactionsPreferences: (chainId, value) =>
       dispatch(setIncomingTransactionsPreferences(chainId, value)),
-    setParticipateInMetaMetrics: (val) =>
-      dispatch(setParticipateInMetaMetrics(val)),
-    setDataCollectionForMarketing: (val) =>
-      dispatch(setDataCollectionForMarketing(val)),
     setUsePhishDetect: (val) => dispatch(setUsePhishDetect(val)),
     setUseCurrencyRateCheck: (val) => dispatch(setUseCurrencyRateCheck(val)),
     setUseTokenDetection: (val) => dispatch(setUseTokenDetection(val)),
