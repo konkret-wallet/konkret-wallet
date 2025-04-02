@@ -14,7 +14,6 @@ import {
   AUTO_DETECT_TOKEN_LEARN_MORE_LINK,
   COINGECKO_LINK,
   CRYPTOCOMPARE_LINK,
-  PRIVACY_POLICY_LINK,
   TRANSACTION_SIMULATIONS_LEARN_MORE_LINK,
 } from '../../../../shared/lib/ui-utils';
 import SRPQuiz from '../../../components/app/srp-quiz-modal/SRPQuiz';
@@ -626,14 +625,6 @@ export default class SecurityTab extends PureComponent {
                 target="_blank"
               >
                 {t('cryptoCompare')}
-              </a>,
-              <a
-                key="privacy_policy_link"
-                href={PRIVACY_POLICY_LINK}
-                rel="noreferrer"
-                target="_blank"
-              >
-                {t('privacyMsg')}
               </a>,
             ])}
           </div>
