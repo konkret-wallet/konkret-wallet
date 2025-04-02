@@ -1,9 +1,4 @@
-import { strict as assert } from 'assert';
 import { Driver } from '../../webdriver/driver';
-import {
-  MOCK_REMOTE_FEATURE_FLAGS_RESPONSE,
-  MOCK_CUSTOMIZED_REMOTE_FEATURE_FLAGS,
-} from '../../constants';
 
 class DevelopOptions {
   private readonly driver: Driver;
@@ -16,9 +11,6 @@ class DevelopOptions {
     text: 'Developer Options',
     css: 'h4',
   };
-
-  private readonly developerOptionsRemoteFeatureFlagsState: string =
-    '[data-testid="developer-options-remote-feature-flags"]';
 
   constructor(driver: Driver) {
     this.driver = driver;
@@ -40,21 +32,6 @@ class DevelopOptions {
   async clickGenerateCrashButton(): Promise<void> {
     console.log('Generate a page crash in Developer option page');
     await this.driver.clickElement(this.generatePageCrashButton);
-  }
-
-  async validateRemoteFeatureFlagState(): Promise<void> {
-    console.log('Validate remote feature flags state in Developer option page');
-    const element = await this.driver.findElement(
-      this.developerOptionsRemoteFeatureFlagsState,
-    );
-    const remoteFeatureFlagsState = await element.getText();
-    assert.equal(
-      remoteFeatureFlagsState,
-      JSON.stringify({
-        ...MOCK_REMOTE_FEATURE_FLAGS_RESPONSE,
-        ...MOCK_CUSTOMIZED_REMOTE_FEATURE_FLAGS,
-      }),
-    );
   }
 }
 

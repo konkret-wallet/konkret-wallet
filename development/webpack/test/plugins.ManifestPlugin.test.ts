@@ -285,9 +285,9 @@ describe('ManifestPlugin', () => {
   describe('manifest flags in development mode', () => {
     const emptyTestManifest = {} as chrome.runtime.Manifest;
     const notEmptyTestManifest = {
-      _flags: { remoteFeatureFlags: { testFlag: false, testFlag2: 'value1' } },
+      _flags: {},
     } as unknown as chrome.runtime.Manifest;
-    const mockFlags = { _flags: { remoteFeatureFlags: { testFlag: true } } };
+    const mockFlags = { _flags: {} };
     const manifestOverridesPath = 'testManifestOverridesPath.json';
     const fs = require('node:fs');
     const { mock } = require('node:test');
@@ -336,12 +336,7 @@ describe('ManifestPlugin', () => {
       assert.deepStrictEqual(
         transformed,
         {
-          _flags: {
-            remoteFeatureFlags: {
-              testFlag2: 'value1',
-              testFlag: true,
-            },
-          },
+          _flags: {},
         },
         'manifest should merge original properties with overrides, with overrides taking precedence',
       );

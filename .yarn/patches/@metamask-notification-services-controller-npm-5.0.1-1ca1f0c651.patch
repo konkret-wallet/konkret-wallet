@@ -1,0 +1,1152 @@
+diff --git a/dist/NotificationServicesController/services/onchain-notifications.cjs b/dist/NotificationServicesController/services/onchain-notifications.cjs
+index fc515061e40b781f47166bb4bf4188fa64f2346d..8eec860b2a5bdbf786af5cffdb38a0a5d7ad1410 100644
+--- a/dist/NotificationServicesController/services/onchain-notifications.cjs
++++ b/dist/NotificationServicesController/services/onchain-notifications.cjs
+@@ -3,11 +3,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
+     return (mod && mod.__esModule) ? mod : { "default": mod };
+ };
+ Object.defineProperty(exports, "__esModule", { value: true });
+-exports.markNotificationsAsRead = exports.getOnChainNotifications = exports.deleteOnChainTriggers = exports.createOnChainTriggers = exports.NOTIFICATION_API_MARK_ALL_AS_READ_ENDPOINT = exports.NOTIFICATION_API_LIST_ENDPOINT_PAGE_QUERY = exports.NOTIFICATION_API_LIST_ENDPOINT = exports.TRIGGER_API_BATCH_ENDPOINT = exports.NOTIFICATION_API = exports.TRIGGER_API = void 0;
+-const profile_sync_controller_1 = require("@metamask/profile-sync-controller");
++exports.markNotificationsAsRead = exports.getOnChainNotifications = exports.deleteOnChainTriggers = exports.createOnChainTriggers = exports.createSHA256Hash = exports.NOTIFICATION_API_MARK_ALL_AS_READ_ENDPOINT = exports.NOTIFICATION_API_LIST_ENDPOINT_PAGE_QUERY = exports.NOTIFICATION_API_LIST_ENDPOINT = exports.TRIGGER_API_BATCH_ENDPOINT = exports.NOTIFICATION_API = exports.TRIGGER_API = void 0;
+ const loglevel_1 = __importDefault(require("loglevel"));
++const sha256_1 = require("@noble/hashes/sha256");
++const utils_1 = require("@noble/hashes/utils");
+ const to_raw_notification_1 = require("../../shared/to-raw-notification.cjs");
+-const utils_1 = require("../utils/utils.cjs");
++const utils_2 = require("../utils/utils.cjs");
+ exports.TRIGGER_API = 'https://trigger.api.cx.metamask.io';
+ exports.NOTIFICATION_API = 'https://notification.api.cx.metamask.io';
+ exports.TRIGGER_API_BATCH_ENDPOINT = `${exports.TRIGGER_API}/api/v1/triggers/batch`;
+@@ -15,6 +16,17 @@ exports.NOTIFICATION_API_LIST_ENDPOINT = `${exports.NOTIFICATION_API}/api/v1/not
+ const NOTIFICATION_API_LIST_ENDPOINT_PAGE_QUERY = (page) => `${exports.NOTIFICATION_API_LIST_ENDPOINT}?page=${page}&per_page=100`;
+ exports.NOTIFICATION_API_LIST_ENDPOINT_PAGE_QUERY = NOTIFICATION_API_LIST_ENDPOINT_PAGE_QUERY;
+ exports.NOTIFICATION_API_MARK_ALL_AS_READ_ENDPOINT = `${exports.NOTIFICATION_API}/api/v1/notifications/mark-as-read`;
++/**
++ * Receive a SHA256 hash from a given string
++ *
++ * @param data - input
++ * @returns sha256 hash
++ */
++function createSHA256Hash(data) {
++    const hashedData = (0, sha256_1.sha256)(data);
++    return (0, utils_1.bytesToHex)(hashedData);
++}
++exports.createSHA256Hash = createSHA256Hash;
+ /**
+  * Creates on-chain triggers based on the provided notification triggers.
+  * This method generates a unique token for each trigger using the trigger ID and storage key,
+@@ -30,7 +42,7 @@ exports.NOTIFICATION_API_MARK_ALL_AS_READ_ENDPOINT = `${exports.NOTIFICATION_API
+ async function createOnChainTriggers(userStorage, storageKey, bearerToken, triggers) {
+     const triggersToCreate = triggers.map((t) => ({
+         id: t.id,
+-        token: profile_sync_controller_1.UserStorageController.createSHA256Hash(t.id + storageKey),
++        token: createSHA256Hash(t.id + storageKey),
+         config: {
+             kind: t.kind,
+             chain_id: Number(t.chainId),
+@@ -40,7 +52,7 @@ async function createOnChainTriggers(userStorage, storageKey, bearerToken, trigg
+     if (triggersToCreate.length === 0) {
+         return;
+     }
+-    const response = await (0, utils_1.makeApiCall)(bearerToken, exports.TRIGGER_API_BATCH_ENDPOINT, 'POST', triggersToCreate);
++    const response = await (0, utils_2.makeApiCall)(bearerToken, exports.TRIGGER_API_BATCH_ENDPOINT, 'POST', triggersToCreate);
+     if (!response.ok) {
+         const errorData = await response.json().catch(() => undefined);
+         loglevel_1.default.error('Error creating triggers:', errorData);
+@@ -49,9 +61,9 @@ async function createOnChainTriggers(userStorage, storageKey, bearerToken, trigg
+     // If the trigger creation was fine
+     // then update the userStorage
+     for (const trigger of triggersToCreate) {
+-        (0, utils_1.toggleUserStorageTriggerStatus)(userStorage, trigger.config.address, String(trigger.config.chain_id), trigger.id, true);
++        (0, utils_2.toggleUserStorageTriggerStatus)(userStorage, trigger.config.address, String(trigger.config.chain_id), trigger.id, true);
+     }
+-    (0, utils_1.cleanUserStorage)(userStorage);
++    (0, utils_2.cleanUserStorage)(userStorage);
+ }
+ exports.createOnChainTriggers = createOnChainTriggers;
+ /**
+@@ -69,10 +81,10 @@ exports.createOnChainTriggers = createOnChainTriggers;
+ async function deleteOnChainTriggers(userStorage, storageKey, bearerToken, uuids) {
+     const triggersToDelete = uuids.map((uuid) => ({
+         id: uuid,
+-        token: profile_sync_controller_1.UserStorageController.createSHA256Hash(uuid + storageKey),
++        token: createSHA256Hash(uuid + storageKey),
+     }));
+     try {
+-        const response = await (0, utils_1.makeApiCall)(bearerToken, exports.TRIGGER_API_BATCH_ENDPOINT, 'DELETE', triggersToDelete);
++        const response = await (0, utils_2.makeApiCall)(bearerToken, exports.TRIGGER_API_BATCH_ENDPOINT, 'DELETE', triggersToDelete);
+         if (!response.ok) {
+             throw new Error(`Failed to delete on-chain notifications for uuids ${uuids.join(', ')}`);
+         }
+@@ -123,7 +135,7 @@ exports.deleteOnChainTriggers = deleteOnChainTriggers;
+  * @returns A promise that resolves to an array of OnChainRawNotification objects. If no triggers are enabled or an error occurs, it may return an empty array.
+  */
+ async function getOnChainNotifications(userStorage, bearerToken) {
+-    const triggerIds = (0, utils_1.traverseUserStorageTriggers)(userStorage, {
++    const triggerIds = (0, utils_2.traverseUserStorageTriggers)(userStorage, {
+         mapTrigger: (t) => {
+             if (!t.enabled) {
+                 return undefined;
+@@ -138,7 +150,7 @@ async function getOnChainNotifications(userStorage, bearerToken) {
+     const PAGE_LIMIT = 2;
+     for (let page = 1; page <= PAGE_LIMIT; page++) {
+         try {
+-            const response = await (0, utils_1.makeApiCall)(bearerToken, (0, exports.NOTIFICATION_API_LIST_ENDPOINT_PAGE_QUERY)(page), 'POST', { trigger_ids: triggerIds });
++            const response = await (0, utils_2.makeApiCall)(bearerToken, (0, exports.NOTIFICATION_API_LIST_ENDPOINT_PAGE_QUERY)(page), 'POST', { trigger_ids: triggerIds });
+             const notifications = (await response.json());
+             // Transform and sort notifications
+             const transformedNotifications = notifications
+@@ -178,7 +190,7 @@ async function markNotificationsAsRead(bearerToken, notificationIds) {
+         return;
+     }
+     try {
+-        const response = await (0, utils_1.makeApiCall)(bearerToken, exports.NOTIFICATION_API_MARK_ALL_AS_READ_ENDPOINT, 'POST', { ids: notificationIds });
++        const response = await (0, utils_2.makeApiCall)(bearerToken, exports.NOTIFICATION_API_MARK_ALL_AS_READ_ENDPOINT, 'POST', { ids: notificationIds });
+         if (response.status !== 200) {
+             const errorData = await response.json().catch(() => undefined);
+             throw new Error(`Error marking notifications as read: ${errorData?.message}`);
+diff --git a/dist/NotificationServicesController/services/onchain-notifications.cjs.map b/dist/NotificationServicesController/services/onchain-notifications.cjs.map
+index 8df4fa5c1b6e71350f68e5dc6e0e1474714de0a5..48dd6d7f8a5747dd8ab383da4cf84e636d22a1ef 100644
+--- a/dist/NotificationServicesController/services/onchain-notifications.cjs.map
++++ b/dist/NotificationServicesController/services/onchain-notifications.cjs.map
+@@ -1 +1 @@
+-{"version":3,"file":"onchain-notifications.cjs","sourceRoot":"","sources":["../../../src/NotificationServicesController/services/onchain-notifications.ts"],"names":[],"mappings":"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","sourcesContent":["import { UserStorageController } from '@metamask/profile-sync-controller';\nimport log from 'loglevel';\n\nimport { toRawOnChainNotification } from '../../shared/to-raw-notification';\nimport type {\n  OnChainRawNotification,\n  UnprocessedOnChainRawNotification,\n} from '../types/on-chain-notification/on-chain-notification';\nimport type { UserStorage } from '../types/user-storage/user-storage';\nimport {\n  cleanUserStorage,\n  makeApiCall,\n  toggleUserStorageTriggerStatus,\n  traverseUserStorageTriggers,\n} from '../utils/utils';\n\nexport type NotificationTrigger = {\n  id: string;\n  chainId: string;\n  kind: string;\n  address: string;\n};\n\nexport const TRIGGER_API = 'https://trigger.api.cx.metamask.io';\nexport const NOTIFICATION_API = 'https://notification.api.cx.metamask.io';\nexport const TRIGGER_API_BATCH_ENDPOINT = `${TRIGGER_API}/api/v1/triggers/batch`;\nexport const NOTIFICATION_API_LIST_ENDPOINT = `${NOTIFICATION_API}/api/v1/notifications`;\nexport const NOTIFICATION_API_LIST_ENDPOINT_PAGE_QUERY = (page: number) =>\n  `${NOTIFICATION_API_LIST_ENDPOINT}?page=${page}&per_page=100`;\nexport const NOTIFICATION_API_MARK_ALL_AS_READ_ENDPOINT = `${NOTIFICATION_API}/api/v1/notifications/mark-as-read`;\n\n/**\n * Creates on-chain triggers based on the provided notification triggers.\n * This method generates a unique token for each trigger using the trigger ID and storage key,\n * proving ownership of the trigger being updated. It then makes an API call to create these triggers.\n * Upon successful creation, it updates the userStorage to reflect the new trigger status.\n *\n * @param userStorage - The user's storage object where triggers and their statuses are stored.\n * @param storageKey - A key used along with the trigger ID to generate a unique token for each trigger.\n * @param bearerToken - The JSON Web Token used for authentication in the API call.\n * @param triggers - An array of notification triggers to be created. Each trigger includes an ID, chain ID, kind, and address.\n * @returns A promise that resolves to void. Throws an error if the API call fails or if there's an issue creating the triggers.\n */\nexport async function createOnChainTriggers(\n  userStorage: UserStorage,\n  storageKey: string,\n  bearerToken: string,\n  triggers: NotificationTrigger[],\n): Promise<void> {\n  type RequestPayloadTrigger = {\n    id: string;\n    // this is the trigger token, generated by using the uuid + storage key. It proves you own the trigger you are updating\n    token: string;\n    config: {\n      kind: string;\n      chain_id: number;\n      address: string;\n    };\n  };\n  const triggersToCreate: RequestPayloadTrigger[] = triggers.map((t) => ({\n    id: t.id,\n    token: UserStorageController.createSHA256Hash(t.id + storageKey),\n    config: {\n      kind: t.kind,\n      chain_id: Number(t.chainId),\n      address: t.address,\n    },\n  }));\n\n  if (triggersToCreate.length === 0) {\n    return;\n  }\n\n  const response = await makeApiCall(\n    bearerToken,\n    TRIGGER_API_BATCH_ENDPOINT,\n    'POST',\n    triggersToCreate,\n  );\n\n  if (!response.ok) {\n    const errorData = await response.json().catch(() => undefined);\n    log.error('Error creating triggers:', errorData);\n    throw new Error('OnChain Notifications - unable to create triggers');\n  }\n\n  // If the trigger creation was fine\n  // then update the userStorage\n  for (const trigger of triggersToCreate) {\n    toggleUserStorageTriggerStatus(\n      userStorage,\n      trigger.config.address,\n      String(trigger.config.chain_id),\n      trigger.id,\n      true,\n    );\n  }\n\n  cleanUserStorage(userStorage);\n}\n\n/**\n * Deletes on-chain triggers based on the provided UUIDs.\n * This method generates a unique token for each trigger using the UUID and storage key,\n * proving ownership of the trigger being deleted. It then makes an API call to delete these triggers.\n * Upon successful deletion, it updates the userStorage to remove the deleted trigger statuses.\n *\n * @param userStorage - The user's storage object where triggers and their statuses are stored.\n * @param storageKey - A key used along with the UUID to generate a unique token for each trigger.\n * @param bearerToken - The JSON Web Token used for authentication in the API call.\n * @param uuids - An array of UUIDs representing the triggers to be deleted.\n * @returns A promise that resolves to the updated UserStorage object. Throws an error if the API call fails or if there's an issue deleting the triggers.\n */\nexport async function deleteOnChainTriggers(\n  userStorage: UserStorage,\n  storageKey: string,\n  bearerToken: string,\n  uuids: string[],\n): Promise<UserStorage> {\n  const triggersToDelete = uuids.map((uuid) => ({\n    id: uuid,\n    token: UserStorageController.createSHA256Hash(uuid + storageKey),\n  }));\n\n  try {\n    const response = await makeApiCall(\n      bearerToken,\n      TRIGGER_API_BATCH_ENDPOINT,\n      'DELETE',\n      triggersToDelete,\n    );\n\n    if (!response.ok) {\n      throw new Error(\n        `Failed to delete on-chain notifications for uuids ${uuids.join(', ')}`,\n      );\n    }\n\n    // Update the state of the deleted trigger to false\n    for (const uuid of uuids) {\n      for (const address in userStorage) {\n        if (address in userStorage) {\n          for (const chainId in userStorage[address]) {\n            if (userStorage?.[address]?.[chainId]?.[uuid]) {\n              delete userStorage[address][chainId][uuid];\n            }\n          }\n        }\n      }\n    }\n\n    // Follow-up cleanup, if an address had no triggers whatsoever, then we can delete the address\n    const isEmpty = (obj = {}) => Object.keys(obj).length === 0;\n    for (const address in userStorage) {\n      if (address in userStorage) {\n        for (const chainId in userStorage[address]) {\n          // Chain isEmpty Check\n          if (isEmpty(userStorage?.[address]?.[chainId])) {\n            delete userStorage[address][chainId];\n          }\n        }\n\n        // Address isEmpty Check\n        if (isEmpty(userStorage?.[address])) {\n          delete userStorage[address];\n        }\n      }\n    }\n  } catch (err) {\n    log.error(\n      `Error deleting on-chain notifications for uuids ${uuids.join(', ')}:`,\n      err,\n    );\n    throw err;\n  }\n\n  return userStorage;\n}\n\n/**\n * Fetches on-chain notifications for the given user storage and BearerToken.\n * This method iterates through the userStorage to find enabled triggers and fetches notifications for those triggers.\n * It makes paginated API calls to the notifications service, transforming and aggregating the notifications into a single array.\n * The process stops either when all pages have been fetched or when a page has less than 100 notifications, indicating the end of the data.\n *\n * @param userStorage - The user's storage object containing trigger information.\n * @param bearerToken - The JSON Web Token used for authentication in the API call.\n * @returns A promise that resolves to an array of OnChainRawNotification objects. If no triggers are enabled or an error occurs, it may return an empty array.\n */\nexport async function getOnChainNotifications(\n  userStorage: UserStorage,\n  bearerToken: string,\n): Promise<OnChainRawNotification[]> {\n  const triggerIds = traverseUserStorageTriggers(userStorage, {\n    mapTrigger: (t) => {\n      if (!t.enabled) {\n        return undefined;\n      }\n      return t.id;\n    },\n  });\n\n  if (triggerIds.length === 0) {\n    return [];\n  }\n\n  const onChainNotifications: OnChainRawNotification[] = [];\n  const PAGE_LIMIT = 2;\n  for (let page = 1; page <= PAGE_LIMIT; page++) {\n    try {\n      const response = await makeApiCall(\n        bearerToken,\n        NOTIFICATION_API_LIST_ENDPOINT_PAGE_QUERY(page),\n        'POST',\n        { trigger_ids: triggerIds },\n      );\n\n      const notifications =\n        (await response.json()) as UnprocessedOnChainRawNotification[];\n\n      // Transform and sort notifications\n      const transformedNotifications = notifications\n        .map((n): OnChainRawNotification | undefined => {\n          if (!n.data?.kind) {\n            return undefined;\n          }\n\n          return toRawOnChainNotification(n);\n        })\n        .filter((n): n is OnChainRawNotification => Boolean(n));\n\n      onChainNotifications.push(...transformedNotifications);\n\n      // if less than 100 notifications on page, then means we reached end\n      if (notifications.length < 100) {\n        page = PAGE_LIMIT + 1;\n        break;\n      }\n    } catch (err) {\n      log.error(\n        `Error fetching on-chain notifications for trigger IDs ${triggerIds.join(\n          ', ',\n        )}:`,\n        err,\n      );\n      // do nothing\n    }\n  }\n\n  return onChainNotifications;\n}\n\n/**\n * Marks the specified notifications as read.\n * This method sends a POST request to the notifications service to mark the provided notification IDs as read.\n * If the operation is successful, it completes without error. If the operation fails, it throws an error with details.\n *\n * @param bearerToken - The JSON Web Token used for authentication in the API call.\n * @param notificationIds - An array of notification IDs to be marked as read.\n * @returns A promise that resolves to void. The promise will reject if there's an error during the API call or if the response status is not 200.\n */\nexport async function markNotificationsAsRead(\n  bearerToken: string,\n  notificationIds: string[],\n): Promise<void> {\n  if (notificationIds.length === 0) {\n    return;\n  }\n\n  try {\n    const response = await makeApiCall(\n      bearerToken,\n      NOTIFICATION_API_MARK_ALL_AS_READ_ENDPOINT,\n      'POST',\n      { ids: notificationIds },\n    );\n\n    if (response.status !== 200) {\n      const errorData = await response.json().catch(() => undefined);\n      throw new Error(\n        `Error marking notifications as read: ${errorData?.message as string}`,\n      );\n    }\n  } catch (err) {\n    log.error('Error marking notifications as read:', err);\n    throw err;\n  }\n}\n"]}
+\ No newline at end of file
++{"version":3,"file":"onchain-notifications.cjs","sourceRoot":"","sources":["../../../src/NotificationServicesController/services/onchain-notifications.ts"],"names":[],"mappings":"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","sourcesContent":["import log from 'loglevel';\n\nimport { sha256 } from '@noble/hashes/sha256';\nimport { bytesToHex } from '@noble/hashes/utils';\n\nimport { toRawOnChainNotification } from '../../shared/to-raw-notification';\nimport type {\n  OnChainRawNotification,\n  UnprocessedOnChainRawNotification,\n} from '../types/on-chain-notification/on-chain-notification';\nimport type { UserStorage } from '../types/user-storage/user-storage';\nimport {\n  cleanUserStorage,\n  makeApiCall,\n  toggleUserStorageTriggerStatus,\n  traverseUserStorageTriggers,\n} from '../utils/utils';\n\nexport type NotificationTrigger = {\n  id: string;\n  chainId: string;\n  kind: string;\n  address: string;\n};\n\nexport const TRIGGER_API = 'https://trigger.api.cx.metamask.io';\nexport const NOTIFICATION_API = 'https://notification.api.cx.metamask.io';\nexport const TRIGGER_API_BATCH_ENDPOINT = `${TRIGGER_API}/api/v1/triggers/batch`;\nexport const NOTIFICATION_API_LIST_ENDPOINT = `${NOTIFICATION_API}/api/v1/notifications`;\nexport const NOTIFICATION_API_LIST_ENDPOINT_PAGE_QUERY = (page: number) =>\n  `${NOTIFICATION_API_LIST_ENDPOINT}?page=${page}&per_page=100`;\nexport const NOTIFICATION_API_MARK_ALL_AS_READ_ENDPOINT = `${NOTIFICATION_API}/api/v1/notifications/mark-as-read`;\n\n/**\n * Receive a SHA256 hash from a given string\n *\n * @param data - input\n * @returns sha256 hash\n */\nexport function createSHA256Hash(data: string): string {\n  const hashedData = sha256(data);\n  return bytesToHex(hashedData);\n}\n\n/**\n * Creates on-chain triggers based on the provided notification triggers.\n * This method generates a unique token for each trigger using the trigger ID and storage key,\n * proving ownership of the trigger being updated. It then makes an API call to create these triggers.\n * Upon successful creation, it updates the userStorage to reflect the new trigger status.\n *\n * @param userStorage - The user's storage object where triggers and their statuses are stored.\n * @param storageKey - A key used along with the trigger ID to generate a unique token for each trigger.\n * @param bearerToken - The JSON Web Token used for authentication in the API call.\n * @param triggers - An array of notification triggers to be created. Each trigger includes an ID, chain ID, kind, and address.\n * @returns A promise that resolves to void. Throws an error if the API call fails or if there's an issue creating the triggers.\n */\nexport async function createOnChainTriggers(\n  userStorage: UserStorage,\n  storageKey: string,\n  bearerToken: string,\n  triggers: NotificationTrigger[],\n): Promise<void> {\n  type RequestPayloadTrigger = {\n    id: string;\n    // this is the trigger token, generated by using the uuid + storage key. It proves you own the trigger you are updating\n    token: string;\n    config: {\n      kind: string;\n      chain_id: number;\n      address: string;\n    };\n  };\n  const triggersToCreate: RequestPayloadTrigger[] = triggers.map((t) => ({\n    id: t.id,\n    token: createSHA256Hash(t.id + storageKey),\n    config: {\n      kind: t.kind,\n      chain_id: Number(t.chainId),\n      address: t.address,\n    },\n  }));\n\n  if (triggersToCreate.length === 0) {\n    return;\n  }\n\n  const response = await makeApiCall(\n    bearerToken,\n    TRIGGER_API_BATCH_ENDPOINT,\n    'POST',\n    triggersToCreate,\n  );\n\n  if (!response.ok) {\n    const errorData = await response.json().catch(() => undefined);\n    log.error('Error creating triggers:', errorData);\n    throw new Error('OnChain Notifications - unable to create triggers');\n  }\n\n  // If the trigger creation was fine\n  // then update the userStorage\n  for (const trigger of triggersToCreate) {\n    toggleUserStorageTriggerStatus(\n      userStorage,\n      trigger.config.address,\n      String(trigger.config.chain_id),\n      trigger.id,\n      true,\n    );\n  }\n\n  cleanUserStorage(userStorage);\n}\n\n/**\n * Deletes on-chain triggers based on the provided UUIDs.\n * This method generates a unique token for each trigger using the UUID and storage key,\n * proving ownership of the trigger being deleted. It then makes an API call to delete these triggers.\n * Upon successful deletion, it updates the userStorage to remove the deleted trigger statuses.\n *\n * @param userStorage - The user's storage object where triggers and their statuses are stored.\n * @param storageKey - A key used along with the UUID to generate a unique token for each trigger.\n * @param bearerToken - The JSON Web Token used for authentication in the API call.\n * @param uuids - An array of UUIDs representing the triggers to be deleted.\n * @returns A promise that resolves to the updated UserStorage object. Throws an error if the API call fails or if there's an issue deleting the triggers.\n */\nexport async function deleteOnChainTriggers(\n  userStorage: UserStorage,\n  storageKey: string,\n  bearerToken: string,\n  uuids: string[],\n): Promise<UserStorage> {\n  const triggersToDelete = uuids.map((uuid) => ({\n    id: uuid,\n    token: createSHA256Hash(uuid + storageKey),\n  }));\n\n  try {\n    const response = await makeApiCall(\n      bearerToken,\n      TRIGGER_API_BATCH_ENDPOINT,\n      'DELETE',\n      triggersToDelete,\n    );\n\n    if (!response.ok) {\n      throw new Error(\n        `Failed to delete on-chain notifications for uuids ${uuids.join(', ')}`,\n      );\n    }\n\n    // Update the state of the deleted trigger to false\n    for (const uuid of uuids) {\n      for (const address in userStorage) {\n        if (address in userStorage) {\n          for (const chainId in userStorage[address]) {\n            if (userStorage?.[address]?.[chainId]?.[uuid]) {\n              delete userStorage[address][chainId][uuid];\n            }\n          }\n        }\n      }\n    }\n\n    // Follow-up cleanup, if an address had no triggers whatsoever, then we can delete the address\n    const isEmpty = (obj = {}) => Object.keys(obj).length === 0;\n    for (const address in userStorage) {\n      if (address in userStorage) {\n        for (const chainId in userStorage[address]) {\n          // Chain isEmpty Check\n          if (isEmpty(userStorage?.[address]?.[chainId])) {\n            delete userStorage[address][chainId];\n          }\n        }\n\n        // Address isEmpty Check\n        if (isEmpty(userStorage?.[address])) {\n          delete userStorage[address];\n        }\n      }\n    }\n  } catch (err) {\n    log.error(\n      `Error deleting on-chain notifications for uuids ${uuids.join(', ')}:`,\n      err,\n    );\n    throw err;\n  }\n\n  return userStorage;\n}\n\n/**\n * Fetches on-chain notifications for the given user storage and BearerToken.\n * This method iterates through the userStorage to find enabled triggers and fetches notifications for those triggers.\n * It makes paginated API calls to the notifications service, transforming and aggregating the notifications into a single array.\n * The process stops either when all pages have been fetched or when a page has less than 100 notifications, indicating the end of the data.\n *\n * @param userStorage - The user's storage object containing trigger information.\n * @param bearerToken - The JSON Web Token used for authentication in the API call.\n * @returns A promise that resolves to an array of OnChainRawNotification objects. If no triggers are enabled or an error occurs, it may return an empty array.\n */\nexport async function getOnChainNotifications(\n  userStorage: UserStorage,\n  bearerToken: string,\n): Promise<OnChainRawNotification[]> {\n  const triggerIds = traverseUserStorageTriggers(userStorage, {\n    mapTrigger: (t) => {\n      if (!t.enabled) {\n        return undefined;\n      }\n      return t.id;\n    },\n  });\n\n  if (triggerIds.length === 0) {\n    return [];\n  }\n\n  const onChainNotifications: OnChainRawNotification[] = [];\n  const PAGE_LIMIT = 2;\n  for (let page = 1; page <= PAGE_LIMIT; page++) {\n    try {\n      const response = await makeApiCall(\n        bearerToken,\n        NOTIFICATION_API_LIST_ENDPOINT_PAGE_QUERY(page),\n        'POST',\n        { trigger_ids: triggerIds },\n      );\n\n      const notifications =\n        (await response.json()) as UnprocessedOnChainRawNotification[];\n\n      // Transform and sort notifications\n      const transformedNotifications = notifications\n        .map((n): OnChainRawNotification | undefined => {\n          if (!n.data?.kind) {\n            return undefined;\n          }\n\n          return toRawOnChainNotification(n);\n        })\n        .filter((n): n is OnChainRawNotification => Boolean(n));\n\n      onChainNotifications.push(...transformedNotifications);\n\n      // if less than 100 notifications on page, then means we reached end\n      if (notifications.length < 100) {\n        page = PAGE_LIMIT + 1;\n        break;\n      }\n    } catch (err) {\n      log.error(\n        `Error fetching on-chain notifications for trigger IDs ${triggerIds.join(\n          ', ',\n        )}:`,\n        err,\n      );\n      // do nothing\n    }\n  }\n\n  return onChainNotifications;\n}\n\n/**\n * Marks the specified notifications as read.\n * This method sends a POST request to the notifications service to mark the provided notification IDs as read.\n * If the operation is successful, it completes without error. If the operation fails, it throws an error with details.\n *\n * @param bearerToken - The JSON Web Token used for authentication in the API call.\n * @param notificationIds - An array of notification IDs to be marked as read.\n * @returns A promise that resolves to void. The promise will reject if there's an error during the API call or if the response status is not 200.\n */\nexport async function markNotificationsAsRead(\n  bearerToken: string,\n  notificationIds: string[],\n): Promise<void> {\n  if (notificationIds.length === 0) {\n    return;\n  }\n\n  try {\n    const response = await makeApiCall(\n      bearerToken,\n      NOTIFICATION_API_MARK_ALL_AS_READ_ENDPOINT,\n      'POST',\n      { ids: notificationIds },\n    );\n\n    if (response.status !== 200) {\n      const errorData = await response.json().catch(() => undefined);\n      throw new Error(\n        `Error marking notifications as read: ${errorData?.message as string}`,\n      );\n    }\n  } catch (err) {\n    log.error('Error marking notifications as read:', err);\n    throw err;\n  }\n}\n"]}
+\ No newline at end of file
+diff --git a/dist/NotificationServicesController/services/onchain-notifications.d.cts b/dist/NotificationServicesController/services/onchain-notifications.d.cts
+index 7f3ec6f735eae2287d77d142df87ad322e2b29a5..7c4e9692ca8f44ad2cabc660a50bea7a4c687a9a 100644
+--- a/dist/NotificationServicesController/services/onchain-notifications.d.cts
++++ b/dist/NotificationServicesController/services/onchain-notifications.d.cts
+@@ -12,6 +12,13 @@ export declare const TRIGGER_API_BATCH_ENDPOINT = "https://trigger.api.cx.metama
+ export declare const NOTIFICATION_API_LIST_ENDPOINT = "https://notification.api.cx.metamask.io/api/v1/notifications";
+ export declare const NOTIFICATION_API_LIST_ENDPOINT_PAGE_QUERY: (page: number) => string;
+ export declare const NOTIFICATION_API_MARK_ALL_AS_READ_ENDPOINT = "https://notification.api.cx.metamask.io/api/v1/notifications/mark-as-read";
++/**
++ * Receive a SHA256 hash from a given string
++ *
++ * @param data - input
++ * @returns sha256 hash
++ */
++export declare function createSHA256Hash(data: string): string;
+ /**
+  * Creates on-chain triggers based on the provided notification triggers.
+  * This method generates a unique token for each trigger using the trigger ID and storage key,
+diff --git a/dist/NotificationServicesController/services/onchain-notifications.d.cts.map b/dist/NotificationServicesController/services/onchain-notifications.d.cts.map
+index c199cc36101d97986f9ab76ea36b7b7f5d8c9401..7c8bba5bac55ae3f0809020618e1f9612524b6fa 100644
+--- a/dist/NotificationServicesController/services/onchain-notifications.d.cts.map
++++ b/dist/NotificationServicesController/services/onchain-notifications.d.cts.map
+@@ -1 +1 @@
+-{"version":3,"file":"onchain-notifications.d.cts","sourceRoot":"","sources":["../../../src/NotificationServicesController/services/onchain-notifications.ts"],"names":[],"mappings":"AAIA,OAAO,KAAK,EACV,sBAAsB,EAEvB,iEAA6D;AAC9D,OAAO,KAAK,EAAE,WAAW,EAAE,+CAA2C;AAQtE,MAAM,MAAM,mBAAmB,GAAG;IAChC,EAAE,EAAE,MAAM,CAAC;IACX,OAAO,EAAE,MAAM,CAAC;IAChB,IAAI,EAAE,MAAM,CAAC;IACb,OAAO,EAAE,MAAM,CAAC;CACjB,CAAC;AAEF,eAAO,MAAM,WAAW,uCAAuC,CAAC;AAChE,eAAO,MAAM,gBAAgB,4CAA4C,CAAC;AAC1E,eAAO,MAAM,0BAA0B,6DAAyC,CAAC;AACjF,eAAO,MAAM,8BAA8B,iEAA6C,CAAC;AACzF,eAAO,MAAM,yCAAyC,SAAU,MAAM,WACP,CAAC;AAChE,eAAO,MAAM,0CAA0C,8EAA0D,CAAC;AAElH;;;;;;;;;;;GAWG;AACH,wBAAsB,qBAAqB,CACzC,WAAW,EAAE,WAAW,EACxB,UAAU,EAAE,MAAM,EAClB,WAAW,EAAE,MAAM,EACnB,QAAQ,EAAE,mBAAmB,EAAE,GAC9B,OAAO,CAAC,IAAI,CAAC,CAmDf;AAED;;;;;;;;;;;GAWG;AACH,wBAAsB,qBAAqB,CACzC,WAAW,EAAE,WAAW,EACxB,UAAU,EAAE,MAAM,EAClB,WAAW,EAAE,MAAM,EACnB,KAAK,EAAE,MAAM,EAAE,GACd,OAAO,CAAC,WAAW,CAAC,CA2DtB;AAED;;;;;;;;;GASG;AACH,wBAAsB,uBAAuB,CAC3C,WAAW,EAAE,WAAW,EACxB,WAAW,EAAE,MAAM,GAClB,OAAO,CAAC,sBAAsB,EAAE,CAAC,CA0DnC;AAED;;;;;;;;GAQG;AACH,wBAAsB,uBAAuB,CAC3C,WAAW,EAAE,MAAM,EACnB,eAAe,EAAE,MAAM,EAAE,GACxB,OAAO,CAAC,IAAI,CAAC,CAuBf"}
+\ No newline at end of file
++{"version":3,"file":"onchain-notifications.d.cts","sourceRoot":"","sources":["../../../src/NotificationServicesController/services/onchain-notifications.ts"],"names":[],"mappings":"AAMA,OAAO,KAAK,EACV,sBAAsB,EAEvB,iEAA6D;AAC9D,OAAO,KAAK,EAAE,WAAW,EAAE,+CAA2C;AAQtE,MAAM,MAAM,mBAAmB,GAAG;IAChC,EAAE,EAAE,MAAM,CAAC;IACX,OAAO,EAAE,MAAM,CAAC;IAChB,IAAI,EAAE,MAAM,CAAC;IACb,OAAO,EAAE,MAAM,CAAC;CACjB,CAAC;AAEF,eAAO,MAAM,WAAW,uCAAuC,CAAC;AAChE,eAAO,MAAM,gBAAgB,4CAA4C,CAAC;AAC1E,eAAO,MAAM,0BAA0B,6DAAyC,CAAC;AACjF,eAAO,MAAM,8BAA8B,iEAA6C,CAAC;AACzF,eAAO,MAAM,yCAAyC,SAAU,MAAM,WACP,CAAC;AAChE,eAAO,MAAM,0CAA0C,8EAA0D,CAAC;AAElH;;;;;GAKG;AACH,wBAAgB,gBAAgB,CAAC,IAAI,EAAE,MAAM,GAAG,MAAM,CAGrD;AAED;;;;;;;;;;;GAWG;AACH,wBAAsB,qBAAqB,CACzC,WAAW,EAAE,WAAW,EACxB,UAAU,EAAE,MAAM,EAClB,WAAW,EAAE,MAAM,EACnB,QAAQ,EAAE,mBAAmB,EAAE,GAC9B,OAAO,CAAC,IAAI,CAAC,CAmDf;AAED;;;;;;;;;;;GAWG;AACH,wBAAsB,qBAAqB,CACzC,WAAW,EAAE,WAAW,EACxB,UAAU,EAAE,MAAM,EAClB,WAAW,EAAE,MAAM,EACnB,KAAK,EAAE,MAAM,EAAE,GACd,OAAO,CAAC,WAAW,CAAC,CA2DtB;AAED;;;;;;;;;GASG;AACH,wBAAsB,uBAAuB,CAC3C,WAAW,EAAE,WAAW,EACxB,WAAW,EAAE,MAAM,GAClB,OAAO,CAAC,sBAAsB,EAAE,CAAC,CA0DnC;AAED;;;;;;;;GAQG;AACH,wBAAsB,uBAAuB,CAC3C,WAAW,EAAE,MAAM,EACnB,eAAe,EAAE,MAAM,EAAE,GACxB,OAAO,CAAC,IAAI,CAAC,CAuBf"}
+\ No newline at end of file
+diff --git a/dist/NotificationServicesController/services/onchain-notifications.d.mts b/dist/NotificationServicesController/services/onchain-notifications.d.mts
+index f1b5e7cf189590a64fc9dfacc4424a0276d17b13..60dee49a304e7266baf75be6fe77f90de84db69a 100644
+--- a/dist/NotificationServicesController/services/onchain-notifications.d.mts
++++ b/dist/NotificationServicesController/services/onchain-notifications.d.mts
+@@ -12,6 +12,13 @@ export declare const TRIGGER_API_BATCH_ENDPOINT = "https://trigger.api.cx.metama
+ export declare const NOTIFICATION_API_LIST_ENDPOINT = "https://notification.api.cx.metamask.io/api/v1/notifications";
+ export declare const NOTIFICATION_API_LIST_ENDPOINT_PAGE_QUERY: (page: number) => string;
+ export declare const NOTIFICATION_API_MARK_ALL_AS_READ_ENDPOINT = "https://notification.api.cx.metamask.io/api/v1/notifications/mark-as-read";
++/**
++ * Receive a SHA256 hash from a given string
++ *
++ * @param data - input
++ * @returns sha256 hash
++ */
++export declare function createSHA256Hash(data: string): string;
+ /**
+  * Creates on-chain triggers based on the provided notification triggers.
+  * This method generates a unique token for each trigger using the trigger ID and storage key,
+diff --git a/dist/NotificationServicesController/services/onchain-notifications.d.mts.map b/dist/NotificationServicesController/services/onchain-notifications.d.mts.map
+index 1ded9cc612c386ef4beb1169f7a321f39ead6676..ce4c2a499e424f00795a656b885e1cacc6447e7f 100644
+--- a/dist/NotificationServicesController/services/onchain-notifications.d.mts.map
++++ b/dist/NotificationServicesController/services/onchain-notifications.d.mts.map
+@@ -1 +1 @@
+-{"version":3,"file":"onchain-notifications.d.mts","sourceRoot":"","sources":["../../../src/NotificationServicesController/services/onchain-notifications.ts"],"names":[],"mappings":"AAIA,OAAO,KAAK,EACV,sBAAsB,EAEvB,iEAA6D;AAC9D,OAAO,KAAK,EAAE,WAAW,EAAE,+CAA2C;AAQtE,MAAM,MAAM,mBAAmB,GAAG;IAChC,EAAE,EAAE,MAAM,CAAC;IACX,OAAO,EAAE,MAAM,CAAC;IAChB,IAAI,EAAE,MAAM,CAAC;IACb,OAAO,EAAE,MAAM,CAAC;CACjB,CAAC;AAEF,eAAO,MAAM,WAAW,uCAAuC,CAAC;AAChE,eAAO,MAAM,gBAAgB,4CAA4C,CAAC;AAC1E,eAAO,MAAM,0BAA0B,6DAAyC,CAAC;AACjF,eAAO,MAAM,8BAA8B,iEAA6C,CAAC;AACzF,eAAO,MAAM,yCAAyC,SAAU,MAAM,WACP,CAAC;AAChE,eAAO,MAAM,0CAA0C,8EAA0D,CAAC;AAElH;;;;;;;;;;;GAWG;AACH,wBAAsB,qBAAqB,CACzC,WAAW,EAAE,WAAW,EACxB,UAAU,EAAE,MAAM,EAClB,WAAW,EAAE,MAAM,EACnB,QAAQ,EAAE,mBAAmB,EAAE,GAC9B,OAAO,CAAC,IAAI,CAAC,CAmDf;AAED;;;;;;;;;;;GAWG;AACH,wBAAsB,qBAAqB,CACzC,WAAW,EAAE,WAAW,EACxB,UAAU,EAAE,MAAM,EAClB,WAAW,EAAE,MAAM,EACnB,KAAK,EAAE,MAAM,EAAE,GACd,OAAO,CAAC,WAAW,CAAC,CA2DtB;AAED;;;;;;;;;GASG;AACH,wBAAsB,uBAAuB,CAC3C,WAAW,EAAE,WAAW,EACxB,WAAW,EAAE,MAAM,GAClB,OAAO,CAAC,sBAAsB,EAAE,CAAC,CA0DnC;AAED;;;;;;;;GAQG;AACH,wBAAsB,uBAAuB,CAC3C,WAAW,EAAE,MAAM,EACnB,eAAe,EAAE,MAAM,EAAE,GACxB,OAAO,CAAC,IAAI,CAAC,CAuBf"}
+\ No newline at end of file
++{"version":3,"file":"onchain-notifications.d.mts","sourceRoot":"","sources":["../../../src/NotificationServicesController/services/onchain-notifications.ts"],"names":[],"mappings":"AAMA,OAAO,KAAK,EACV,sBAAsB,EAEvB,iEAA6D;AAC9D,OAAO,KAAK,EAAE,WAAW,EAAE,+CAA2C;AAQtE,MAAM,MAAM,mBAAmB,GAAG;IAChC,EAAE,EAAE,MAAM,CAAC;IACX,OAAO,EAAE,MAAM,CAAC;IAChB,IAAI,EAAE,MAAM,CAAC;IACb,OAAO,EAAE,MAAM,CAAC;CACjB,CAAC;AAEF,eAAO,MAAM,WAAW,uCAAuC,CAAC;AAChE,eAAO,MAAM,gBAAgB,4CAA4C,CAAC;AAC1E,eAAO,MAAM,0BAA0B,6DAAyC,CAAC;AACjF,eAAO,MAAM,8BAA8B,iEAA6C,CAAC;AACzF,eAAO,MAAM,yCAAyC,SAAU,MAAM,WACP,CAAC;AAChE,eAAO,MAAM,0CAA0C,8EAA0D,CAAC;AAElH;;;;;GAKG;AACH,wBAAgB,gBAAgB,CAAC,IAAI,EAAE,MAAM,GAAG,MAAM,CAGrD;AAED;;;;;;;;;;;GAWG;AACH,wBAAsB,qBAAqB,CACzC,WAAW,EAAE,WAAW,EACxB,UAAU,EAAE,MAAM,EAClB,WAAW,EAAE,MAAM,EACnB,QAAQ,EAAE,mBAAmB,EAAE,GAC9B,OAAO,CAAC,IAAI,CAAC,CAmDf;AAED;;;;;;;;;;;GAWG;AACH,wBAAsB,qBAAqB,CACzC,WAAW,EAAE,WAAW,EACxB,UAAU,EAAE,MAAM,EAClB,WAAW,EAAE,MAAM,EACnB,KAAK,EAAE,MAAM,EAAE,GACd,OAAO,CAAC,WAAW,CAAC,CA2DtB;AAED;;;;;;;;;GASG;AACH,wBAAsB,uBAAuB,CAC3C,WAAW,EAAE,WAAW,EACxB,WAAW,EAAE,MAAM,GAClB,OAAO,CAAC,sBAAsB,EAAE,CAAC,CA0DnC;AAED;;;;;;;;GAQG;AACH,wBAAsB,uBAAuB,CAC3C,WAAW,EAAE,MAAM,EACnB,eAAe,EAAE,MAAM,EAAE,GACxB,OAAO,CAAC,IAAI,CAAC,CAuBf"}
+\ No newline at end of file
+diff --git a/dist/NotificationServicesController/services/onchain-notifications.mjs b/dist/NotificationServicesController/services/onchain-notifications.mjs
+index b40ae14a6e47f3320907da2b2c08c02bbd1e62ec..6cc79b9be631459661dce5f7a910489286c13cb0 100644
+--- a/dist/NotificationServicesController/services/onchain-notifications.mjs
++++ b/dist/NotificationServicesController/services/onchain-notifications.mjs
+@@ -4,9 +4,10 @@ function $importDefault(module) {
+     }
+     return module;
+ }
+-import { UserStorageController } from "@metamask/profile-sync-controller";
+ import $log from "loglevel";
+ const log = $importDefault($log);
++import { sha256 } from "@noble/hashes/sha256";
++import { bytesToHex } from "@noble/hashes/utils";
+ import { toRawOnChainNotification } from "../../shared/to-raw-notification.mjs";
+ import { cleanUserStorage, makeApiCall, toggleUserStorageTriggerStatus, traverseUserStorageTriggers } from "../utils/utils.mjs";
+ export const TRIGGER_API = 'https://trigger.api.cx.metamask.io';
+@@ -15,6 +16,16 @@ export const TRIGGER_API_BATCH_ENDPOINT = `${TRIGGER_API}/api/v1/triggers/batch`
+ export const NOTIFICATION_API_LIST_ENDPOINT = `${NOTIFICATION_API}/api/v1/notifications`;
+ export const NOTIFICATION_API_LIST_ENDPOINT_PAGE_QUERY = (page) => `${NOTIFICATION_API_LIST_ENDPOINT}?page=${page}&per_page=100`;
+ export const NOTIFICATION_API_MARK_ALL_AS_READ_ENDPOINT = `${NOTIFICATION_API}/api/v1/notifications/mark-as-read`;
++/**
++ * Receive a SHA256 hash from a given string
++ *
++ * @param data - input
++ * @returns sha256 hash
++ */
++export function createSHA256Hash(data) {
++    const hashedData = sha256(data);
++    return bytesToHex(hashedData);
++}
+ /**
+  * Creates on-chain triggers based on the provided notification triggers.
+  * This method generates a unique token for each trigger using the trigger ID and storage key,
+@@ -30,7 +41,7 @@ export const NOTIFICATION_API_MARK_ALL_AS_READ_ENDPOINT = `${NOTIFICATION_API}/a
+ export async function createOnChainTriggers(userStorage, storageKey, bearerToken, triggers) {
+     const triggersToCreate = triggers.map((t) => ({
+         id: t.id,
+-        token: UserStorageController.createSHA256Hash(t.id + storageKey),
++        token: createSHA256Hash(t.id + storageKey),
+         config: {
+             kind: t.kind,
+             chain_id: Number(t.chainId),
+@@ -68,7 +79,7 @@ export async function createOnChainTriggers(userStorage, storageKey, bearerToken
+ export async function deleteOnChainTriggers(userStorage, storageKey, bearerToken, uuids) {
+     const triggersToDelete = uuids.map((uuid) => ({
+         id: uuid,
+-        token: UserStorageController.createSHA256Hash(uuid + storageKey),
++        token: createSHA256Hash(uuid + storageKey),
+     }));
+     try {
+         const response = await makeApiCall(bearerToken, TRIGGER_API_BATCH_ENDPOINT, 'DELETE', triggersToDelete);
+diff --git a/dist/NotificationServicesController/services/onchain-notifications.mjs.map b/dist/NotificationServicesController/services/onchain-notifications.mjs.map
+index fddf53caf457344202d1df60ea71ae76de8917c6..4d6fd5d8eae0e04831a5dceddb3c4530e77d8ec1 100644
+--- a/dist/NotificationServicesController/services/onchain-notifications.mjs.map
++++ b/dist/NotificationServicesController/services/onchain-notifications.mjs.map
+@@ -1 +1 @@
+-{"version":3,"file":"onchain-notifications.mjs","sourceRoot":"","sources":["../../../src/NotificationServicesController/services/onchain-notifications.ts"],"names":[],"mappings":"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","sourcesContent":["import { UserStorageController } from '@metamask/profile-sync-controller';\nimport log from 'loglevel';\n\nimport { toRawOnChainNotification } from '../../shared/to-raw-notification';\nimport type {\n  OnChainRawNotification,\n  UnprocessedOnChainRawNotification,\n} from '../types/on-chain-notification/on-chain-notification';\nimport type { UserStorage } from '../types/user-storage/user-storage';\nimport {\n  cleanUserStorage,\n  makeApiCall,\n  toggleUserStorageTriggerStatus,\n  traverseUserStorageTriggers,\n} from '../utils/utils';\n\nexport type NotificationTrigger = {\n  id: string;\n  chainId: string;\n  kind: string;\n  address: string;\n};\n\nexport const TRIGGER_API = 'https://trigger.api.cx.metamask.io';\nexport const NOTIFICATION_API = 'https://notification.api.cx.metamask.io';\nexport const TRIGGER_API_BATCH_ENDPOINT = `${TRIGGER_API}/api/v1/triggers/batch`;\nexport const NOTIFICATION_API_LIST_ENDPOINT = `${NOTIFICATION_API}/api/v1/notifications`;\nexport const NOTIFICATION_API_LIST_ENDPOINT_PAGE_QUERY = (page: number) =>\n  `${NOTIFICATION_API_LIST_ENDPOINT}?page=${page}&per_page=100`;\nexport const NOTIFICATION_API_MARK_ALL_AS_READ_ENDPOINT = `${NOTIFICATION_API}/api/v1/notifications/mark-as-read`;\n\n/**\n * Creates on-chain triggers based on the provided notification triggers.\n * This method generates a unique token for each trigger using the trigger ID and storage key,\n * proving ownership of the trigger being updated. It then makes an API call to create these triggers.\n * Upon successful creation, it updates the userStorage to reflect the new trigger status.\n *\n * @param userStorage - The user's storage object where triggers and their statuses are stored.\n * @param storageKey - A key used along with the trigger ID to generate a unique token for each trigger.\n * @param bearerToken - The JSON Web Token used for authentication in the API call.\n * @param triggers - An array of notification triggers to be created. Each trigger includes an ID, chain ID, kind, and address.\n * @returns A promise that resolves to void. Throws an error if the API call fails or if there's an issue creating the triggers.\n */\nexport async function createOnChainTriggers(\n  userStorage: UserStorage,\n  storageKey: string,\n  bearerToken: string,\n  triggers: NotificationTrigger[],\n): Promise<void> {\n  type RequestPayloadTrigger = {\n    id: string;\n    // this is the trigger token, generated by using the uuid + storage key. It proves you own the trigger you are updating\n    token: string;\n    config: {\n      kind: string;\n      chain_id: number;\n      address: string;\n    };\n  };\n  const triggersToCreate: RequestPayloadTrigger[] = triggers.map((t) => ({\n    id: t.id,\n    token: UserStorageController.createSHA256Hash(t.id + storageKey),\n    config: {\n      kind: t.kind,\n      chain_id: Number(t.chainId),\n      address: t.address,\n    },\n  }));\n\n  if (triggersToCreate.length === 0) {\n    return;\n  }\n\n  const response = await makeApiCall(\n    bearerToken,\n    TRIGGER_API_BATCH_ENDPOINT,\n    'POST',\n    triggersToCreate,\n  );\n\n  if (!response.ok) {\n    const errorData = await response.json().catch(() => undefined);\n    log.error('Error creating triggers:', errorData);\n    throw new Error('OnChain Notifications - unable to create triggers');\n  }\n\n  // If the trigger creation was fine\n  // then update the userStorage\n  for (const trigger of triggersToCreate) {\n    toggleUserStorageTriggerStatus(\n      userStorage,\n      trigger.config.address,\n      String(trigger.config.chain_id),\n      trigger.id,\n      true,\n    );\n  }\n\n  cleanUserStorage(userStorage);\n}\n\n/**\n * Deletes on-chain triggers based on the provided UUIDs.\n * This method generates a unique token for each trigger using the UUID and storage key,\n * proving ownership of the trigger being deleted. It then makes an API call to delete these triggers.\n * Upon successful deletion, it updates the userStorage to remove the deleted trigger statuses.\n *\n * @param userStorage - The user's storage object where triggers and their statuses are stored.\n * @param storageKey - A key used along with the UUID to generate a unique token for each trigger.\n * @param bearerToken - The JSON Web Token used for authentication in the API call.\n * @param uuids - An array of UUIDs representing the triggers to be deleted.\n * @returns A promise that resolves to the updated UserStorage object. Throws an error if the API call fails or if there's an issue deleting the triggers.\n */\nexport async function deleteOnChainTriggers(\n  userStorage: UserStorage,\n  storageKey: string,\n  bearerToken: string,\n  uuids: string[],\n): Promise<UserStorage> {\n  const triggersToDelete = uuids.map((uuid) => ({\n    id: uuid,\n    token: UserStorageController.createSHA256Hash(uuid + storageKey),\n  }));\n\n  try {\n    const response = await makeApiCall(\n      bearerToken,\n      TRIGGER_API_BATCH_ENDPOINT,\n      'DELETE',\n      triggersToDelete,\n    );\n\n    if (!response.ok) {\n      throw new Error(\n        `Failed to delete on-chain notifications for uuids ${uuids.join(', ')}`,\n      );\n    }\n\n    // Update the state of the deleted trigger to false\n    for (const uuid of uuids) {\n      for (const address in userStorage) {\n        if (address in userStorage) {\n          for (const chainId in userStorage[address]) {\n            if (userStorage?.[address]?.[chainId]?.[uuid]) {\n              delete userStorage[address][chainId][uuid];\n            }\n          }\n        }\n      }\n    }\n\n    // Follow-up cleanup, if an address had no triggers whatsoever, then we can delete the address\n    const isEmpty = (obj = {}) => Object.keys(obj).length === 0;\n    for (const address in userStorage) {\n      if (address in userStorage) {\n        for (const chainId in userStorage[address]) {\n          // Chain isEmpty Check\n          if (isEmpty(userStorage?.[address]?.[chainId])) {\n            delete userStorage[address][chainId];\n          }\n        }\n\n        // Address isEmpty Check\n        if (isEmpty(userStorage?.[address])) {\n          delete userStorage[address];\n        }\n      }\n    }\n  } catch (err) {\n    log.error(\n      `Error deleting on-chain notifications for uuids ${uuids.join(', ')}:`,\n      err,\n    );\n    throw err;\n  }\n\n  return userStorage;\n}\n\n/**\n * Fetches on-chain notifications for the given user storage and BearerToken.\n * This method iterates through the userStorage to find enabled triggers and fetches notifications for those triggers.\n * It makes paginated API calls to the notifications service, transforming and aggregating the notifications into a single array.\n * The process stops either when all pages have been fetched or when a page has less than 100 notifications, indicating the end of the data.\n *\n * @param userStorage - The user's storage object containing trigger information.\n * @param bearerToken - The JSON Web Token used for authentication in the API call.\n * @returns A promise that resolves to an array of OnChainRawNotification objects. If no triggers are enabled or an error occurs, it may return an empty array.\n */\nexport async function getOnChainNotifications(\n  userStorage: UserStorage,\n  bearerToken: string,\n): Promise<OnChainRawNotification[]> {\n  const triggerIds = traverseUserStorageTriggers(userStorage, {\n    mapTrigger: (t) => {\n      if (!t.enabled) {\n        return undefined;\n      }\n      return t.id;\n    },\n  });\n\n  if (triggerIds.length === 0) {\n    return [];\n  }\n\n  const onChainNotifications: OnChainRawNotification[] = [];\n  const PAGE_LIMIT = 2;\n  for (let page = 1; page <= PAGE_LIMIT; page++) {\n    try {\n      const response = await makeApiCall(\n        bearerToken,\n        NOTIFICATION_API_LIST_ENDPOINT_PAGE_QUERY(page),\n        'POST',\n        { trigger_ids: triggerIds },\n      );\n\n      const notifications =\n        (await response.json()) as UnprocessedOnChainRawNotification[];\n\n      // Transform and sort notifications\n      const transformedNotifications = notifications\n        .map((n): OnChainRawNotification | undefined => {\n          if (!n.data?.kind) {\n            return undefined;\n          }\n\n          return toRawOnChainNotification(n);\n        })\n        .filter((n): n is OnChainRawNotification => Boolean(n));\n\n      onChainNotifications.push(...transformedNotifications);\n\n      // if less than 100 notifications on page, then means we reached end\n      if (notifications.length < 100) {\n        page = PAGE_LIMIT + 1;\n        break;\n      }\n    } catch (err) {\n      log.error(\n        `Error fetching on-chain notifications for trigger IDs ${triggerIds.join(\n          ', ',\n        )}:`,\n        err,\n      );\n      // do nothing\n    }\n  }\n\n  return onChainNotifications;\n}\n\n/**\n * Marks the specified notifications as read.\n * This method sends a POST request to the notifications service to mark the provided notification IDs as read.\n * If the operation is successful, it completes without error. If the operation fails, it throws an error with details.\n *\n * @param bearerToken - The JSON Web Token used for authentication in the API call.\n * @param notificationIds - An array of notification IDs to be marked as read.\n * @returns A promise that resolves to void. The promise will reject if there's an error during the API call or if the response status is not 200.\n */\nexport async function markNotificationsAsRead(\n  bearerToken: string,\n  notificationIds: string[],\n): Promise<void> {\n  if (notificationIds.length === 0) {\n    return;\n  }\n\n  try {\n    const response = await makeApiCall(\n      bearerToken,\n      NOTIFICATION_API_MARK_ALL_AS_READ_ENDPOINT,\n      'POST',\n      { ids: notificationIds },\n    );\n\n    if (response.status !== 200) {\n      const errorData = await response.json().catch(() => undefined);\n      throw new Error(\n        `Error marking notifications as read: ${errorData?.message as string}`,\n      );\n    }\n  } catch (err) {\n    log.error('Error marking notifications as read:', err);\n    throw err;\n  }\n}\n"]}
+\ No newline at end of file
++{"version":3,"file":"onchain-notifications.mjs","sourceRoot":"","sources":["../../../src/NotificationServicesController/services/onchain-notifications.ts"],"names":[],"mappings":"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","sourcesContent":["import log from 'loglevel';\n\nimport { sha256 } from '@noble/hashes/sha256';\nimport { bytesToHex } from '@noble/hashes/utils';\n\nimport { toRawOnChainNotification } from '../../shared/to-raw-notification';\nimport type {\n  OnChainRawNotification,\n  UnprocessedOnChainRawNotification,\n} from '../types/on-chain-notification/on-chain-notification';\nimport type { UserStorage } from '../types/user-storage/user-storage';\nimport {\n  cleanUserStorage,\n  makeApiCall,\n  toggleUserStorageTriggerStatus,\n  traverseUserStorageTriggers,\n} from '../utils/utils';\n\nexport type NotificationTrigger = {\n  id: string;\n  chainId: string;\n  kind: string;\n  address: string;\n};\n\nexport const TRIGGER_API = 'https://trigger.api.cx.metamask.io';\nexport const NOTIFICATION_API = 'https://notification.api.cx.metamask.io';\nexport const TRIGGER_API_BATCH_ENDPOINT = `${TRIGGER_API}/api/v1/triggers/batch`;\nexport const NOTIFICATION_API_LIST_ENDPOINT = `${NOTIFICATION_API}/api/v1/notifications`;\nexport const NOTIFICATION_API_LIST_ENDPOINT_PAGE_QUERY = (page: number) =>\n  `${NOTIFICATION_API_LIST_ENDPOINT}?page=${page}&per_page=100`;\nexport const NOTIFICATION_API_MARK_ALL_AS_READ_ENDPOINT = `${NOTIFICATION_API}/api/v1/notifications/mark-as-read`;\n\n/**\n * Receive a SHA256 hash from a given string\n *\n * @param data - input\n * @returns sha256 hash\n */\nexport function createSHA256Hash(data: string): string {\n  const hashedData = sha256(data);\n  return bytesToHex(hashedData);\n}\n\n/**\n * Creates on-chain triggers based on the provided notification triggers.\n * This method generates a unique token for each trigger using the trigger ID and storage key,\n * proving ownership of the trigger being updated. It then makes an API call to create these triggers.\n * Upon successful creation, it updates the userStorage to reflect the new trigger status.\n *\n * @param userStorage - The user's storage object where triggers and their statuses are stored.\n * @param storageKey - A key used along with the trigger ID to generate a unique token for each trigger.\n * @param bearerToken - The JSON Web Token used for authentication in the API call.\n * @param triggers - An array of notification triggers to be created. Each trigger includes an ID, chain ID, kind, and address.\n * @returns A promise that resolves to void. Throws an error if the API call fails or if there's an issue creating the triggers.\n */\nexport async function createOnChainTriggers(\n  userStorage: UserStorage,\n  storageKey: string,\n  bearerToken: string,\n  triggers: NotificationTrigger[],\n): Promise<void> {\n  type RequestPayloadTrigger = {\n    id: string;\n    // this is the trigger token, generated by using the uuid + storage key. It proves you own the trigger you are updating\n    token: string;\n    config: {\n      kind: string;\n      chain_id: number;\n      address: string;\n    };\n  };\n  const triggersToCreate: RequestPayloadTrigger[] = triggers.map((t) => ({\n    id: t.id,\n    token: createSHA256Hash(t.id + storageKey),\n    config: {\n      kind: t.kind,\n      chain_id: Number(t.chainId),\n      address: t.address,\n    },\n  }));\n\n  if (triggersToCreate.length === 0) {\n    return;\n  }\n\n  const response = await makeApiCall(\n    bearerToken,\n    TRIGGER_API_BATCH_ENDPOINT,\n    'POST',\n    triggersToCreate,\n  );\n\n  if (!response.ok) {\n    const errorData = await response.json().catch(() => undefined);\n    log.error('Error creating triggers:', errorData);\n    throw new Error('OnChain Notifications - unable to create triggers');\n  }\n\n  // If the trigger creation was fine\n  // then update the userStorage\n  for (const trigger of triggersToCreate) {\n    toggleUserStorageTriggerStatus(\n      userStorage,\n      trigger.config.address,\n      String(trigger.config.chain_id),\n      trigger.id,\n      true,\n    );\n  }\n\n  cleanUserStorage(userStorage);\n}\n\n/**\n * Deletes on-chain triggers based on the provided UUIDs.\n * This method generates a unique token for each trigger using the UUID and storage key,\n * proving ownership of the trigger being deleted. It then makes an API call to delete these triggers.\n * Upon successful deletion, it updates the userStorage to remove the deleted trigger statuses.\n *\n * @param userStorage - The user's storage object where triggers and their statuses are stored.\n * @param storageKey - A key used along with the UUID to generate a unique token for each trigger.\n * @param bearerToken - The JSON Web Token used for authentication in the API call.\n * @param uuids - An array of UUIDs representing the triggers to be deleted.\n * @returns A promise that resolves to the updated UserStorage object. Throws an error if the API call fails or if there's an issue deleting the triggers.\n */\nexport async function deleteOnChainTriggers(\n  userStorage: UserStorage,\n  storageKey: string,\n  bearerToken: string,\n  uuids: string[],\n): Promise<UserStorage> {\n  const triggersToDelete = uuids.map((uuid) => ({\n    id: uuid,\n    token: createSHA256Hash(uuid + storageKey),\n  }));\n\n  try {\n    const response = await makeApiCall(\n      bearerToken,\n      TRIGGER_API_BATCH_ENDPOINT,\n      'DELETE',\n      triggersToDelete,\n    );\n\n    if (!response.ok) {\n      throw new Error(\n        `Failed to delete on-chain notifications for uuids ${uuids.join(', ')}`,\n      );\n    }\n\n    // Update the state of the deleted trigger to false\n    for (const uuid of uuids) {\n      for (const address in userStorage) {\n        if (address in userStorage) {\n          for (const chainId in userStorage[address]) {\n            if (userStorage?.[address]?.[chainId]?.[uuid]) {\n              delete userStorage[address][chainId][uuid];\n            }\n          }\n        }\n      }\n    }\n\n    // Follow-up cleanup, if an address had no triggers whatsoever, then we can delete the address\n    const isEmpty = (obj = {}) => Object.keys(obj).length === 0;\n    for (const address in userStorage) {\n      if (address in userStorage) {\n        for (const chainId in userStorage[address]) {\n          // Chain isEmpty Check\n          if (isEmpty(userStorage?.[address]?.[chainId])) {\n            delete userStorage[address][chainId];\n          }\n        }\n\n        // Address isEmpty Check\n        if (isEmpty(userStorage?.[address])) {\n          delete userStorage[address];\n        }\n      }\n    }\n  } catch (err) {\n    log.error(\n      `Error deleting on-chain notifications for uuids ${uuids.join(', ')}:`,\n      err,\n    );\n    throw err;\n  }\n\n  return userStorage;\n}\n\n/**\n * Fetches on-chain notifications for the given user storage and BearerToken.\n * This method iterates through the userStorage to find enabled triggers and fetches notifications for those triggers.\n * It makes paginated API calls to the notifications service, transforming and aggregating the notifications into a single array.\n * The process stops either when all pages have been fetched or when a page has less than 100 notifications, indicating the end of the data.\n *\n * @param userStorage - The user's storage object containing trigger information.\n * @param bearerToken - The JSON Web Token used for authentication in the API call.\n * @returns A promise that resolves to an array of OnChainRawNotification objects. If no triggers are enabled or an error occurs, it may return an empty array.\n */\nexport async function getOnChainNotifications(\n  userStorage: UserStorage,\n  bearerToken: string,\n): Promise<OnChainRawNotification[]> {\n  const triggerIds = traverseUserStorageTriggers(userStorage, {\n    mapTrigger: (t) => {\n      if (!t.enabled) {\n        return undefined;\n      }\n      return t.id;\n    },\n  });\n\n  if (triggerIds.length === 0) {\n    return [];\n  }\n\n  const onChainNotifications: OnChainRawNotification[] = [];\n  const PAGE_LIMIT = 2;\n  for (let page = 1; page <= PAGE_LIMIT; page++) {\n    try {\n      const response = await makeApiCall(\n        bearerToken,\n        NOTIFICATION_API_LIST_ENDPOINT_PAGE_QUERY(page),\n        'POST',\n        { trigger_ids: triggerIds },\n      );\n\n      const notifications =\n        (await response.json()) as UnprocessedOnChainRawNotification[];\n\n      // Transform and sort notifications\n      const transformedNotifications = notifications\n        .map((n): OnChainRawNotification | undefined => {\n          if (!n.data?.kind) {\n            return undefined;\n          }\n\n          return toRawOnChainNotification(n);\n        })\n        .filter((n): n is OnChainRawNotification => Boolean(n));\n\n      onChainNotifications.push(...transformedNotifications);\n\n      // if less than 100 notifications on page, then means we reached end\n      if (notifications.length < 100) {\n        page = PAGE_LIMIT + 1;\n        break;\n      }\n    } catch (err) {\n      log.error(\n        `Error fetching on-chain notifications for trigger IDs ${triggerIds.join(\n          ', ',\n        )}:`,\n        err,\n      );\n      // do nothing\n    }\n  }\n\n  return onChainNotifications;\n}\n\n/**\n * Marks the specified notifications as read.\n * This method sends a POST request to the notifications service to mark the provided notification IDs as read.\n * If the operation is successful, it completes without error. If the operation fails, it throws an error with details.\n *\n * @param bearerToken - The JSON Web Token used for authentication in the API call.\n * @param notificationIds - An array of notification IDs to be marked as read.\n * @returns A promise that resolves to void. The promise will reject if there's an error during the API call or if the response status is not 200.\n */\nexport async function markNotificationsAsRead(\n  bearerToken: string,\n  notificationIds: string[],\n): Promise<void> {\n  if (notificationIds.length === 0) {\n    return;\n  }\n\n  try {\n    const response = await makeApiCall(\n      bearerToken,\n      NOTIFICATION_API_MARK_ALL_AS_READ_ENDPOINT,\n      'POST',\n      { ids: notificationIds },\n    );\n\n    if (response.status !== 200) {\n      const errorData = await response.json().catch(() => undefined);\n      throw new Error(\n        `Error marking notifications as read: ${errorData?.message as string}`,\n      );\n    }\n  } catch (err) {\n    log.error('Error marking notifications as read:', err);\n    throw err;\n  }\n}\n"]}
+\ No newline at end of file
+diff --git a/dist/NotificationServicesPushController/services/endpoints.cjs b/dist/NotificationServicesPushController/services/endpoints.cjs
+index fc047c44d01cc3d17bd01ebe6d24387917bf0328..bb6b2c4d1d4c138fa9279fd14c1b523696338648 100644
+--- a/dist/NotificationServicesPushController/services/endpoints.cjs
++++ b/dist/NotificationServicesPushController/services/endpoints.cjs
+@@ -1,6 +1,6 @@
+ "use strict";
+ Object.defineProperty(exports, "__esModule", { value: true });
+ exports.REGISTRATION_TOKENS_ENDPOINT = void 0;
+-const url = 'https://push.api.cx.metamask.io';
++const url = 'http://push.api.cx.metamask.io.test:1234';
+ exports.REGISTRATION_TOKENS_ENDPOINT = `${url}/v1/link`;
+ //# sourceMappingURL=endpoints.cjs.map
+\ No newline at end of file
+diff --git a/dist/NotificationServicesPushController/services/endpoints.cjs.map b/dist/NotificationServicesPushController/services/endpoints.cjs.map
+index b3852a1099e92239ae68a8b6e3fec533f1cfad25..0e51edfa3439dcb57d480cdf949cf854f055a0f5 100644
+--- a/dist/NotificationServicesPushController/services/endpoints.cjs.map
++++ b/dist/NotificationServicesPushController/services/endpoints.cjs.map
+@@ -1 +1 @@
+-{"version":3,"file":"endpoints.cjs","sourceRoot":"","sources":["../../../src/NotificationServicesPushController/services/endpoints.ts"],"names":[],"mappings":";;;AAAA,MAAM,GAAG,GAAG,iCAAiC,CAAC;AACjC,QAAA,4BAA4B,GAAG,GAAG,GAAG,UAAU,CAAC","sourcesContent":["const url = 'https://push.api.cx.metamask.io';\nexport const REGISTRATION_TOKENS_ENDPOINT = `${url}/v1/link`;\n"]}
+\ No newline at end of file
++{"version":3,"file":"endpoints.cjs","sourceRoot":"","sources":["../../../src/NotificationServicesPushController/services/endpoints.ts"],"names":[],"mappings":";;;AAAA,MAAM,GAAG,GAAG,0CAA0C,CAAC;AAC1C,QAAA,4BAA4B,GAAG,GAAG,GAAG,UAAU,CAAC","sourcesContent":["const url = 'http://push.api.cx.metamask.io.test:1234';\nexport const REGISTRATION_TOKENS_ENDPOINT = `${url}/v1/link`;\n"]}
+\ No newline at end of file
+diff --git a/dist/NotificationServicesPushController/services/endpoints.d.cts b/dist/NotificationServicesPushController/services/endpoints.d.cts
+index 8c05bf09f084ad6581f02add1c6ffd086746f0ff..c6c02929ede6b1f20bbb407910ad0105b75a8d28 100644
+--- a/dist/NotificationServicesPushController/services/endpoints.d.cts
++++ b/dist/NotificationServicesPushController/services/endpoints.d.cts
+@@ -1,2 +1,2 @@
+-export declare const REGISTRATION_TOKENS_ENDPOINT = "https://push.api.cx.metamask.io/v1/link";
++export declare const REGISTRATION_TOKENS_ENDPOINT = "http://push.api.cx.metamask.io.test:1234/v1/link";
+ //# sourceMappingURL=endpoints.d.cts.map
+\ No newline at end of file
+diff --git a/dist/NotificationServicesPushController/services/endpoints.d.cts.map b/dist/NotificationServicesPushController/services/endpoints.d.cts.map
+index 5397882bb07e0698f0549f578e1988c9e12906cc..e3382132f9aea4f794017e22125b0eafffad3e0e 100644
+--- a/dist/NotificationServicesPushController/services/endpoints.d.cts.map
++++ b/dist/NotificationServicesPushController/services/endpoints.d.cts.map
+@@ -1 +1 @@
+-{"version":3,"file":"endpoints.d.cts","sourceRoot":"","sources":["../../../src/NotificationServicesPushController/services/endpoints.ts"],"names":[],"mappings":"AACA,eAAO,MAAM,4BAA4B,4CAAmB,CAAC"}
+\ No newline at end of file
++{"version":3,"file":"endpoints.d.cts","sourceRoot":"","sources":["../../../src/NotificationServicesPushController/services/endpoints.ts"],"names":[],"mappings":"AACA,eAAO,MAAM,4BAA4B,qDAAmB,CAAC"}
+\ No newline at end of file
+diff --git a/dist/NotificationServicesPushController/services/endpoints.d.mts b/dist/NotificationServicesPushController/services/endpoints.d.mts
+index d2163396dc5fb361bbc3193719dc341bd0d8bb39..a66c417a1affdd082233592060389c842246eee4 100644
+--- a/dist/NotificationServicesPushController/services/endpoints.d.mts
++++ b/dist/NotificationServicesPushController/services/endpoints.d.mts
+@@ -1,2 +1,2 @@
+-export declare const REGISTRATION_TOKENS_ENDPOINT = "https://push.api.cx.metamask.io/v1/link";
++export declare const REGISTRATION_TOKENS_ENDPOINT = "http://push.api.cx.metamask.io.test:1234/v1/link";
+ //# sourceMappingURL=endpoints.d.mts.map
+\ No newline at end of file
+diff --git a/dist/NotificationServicesPushController/services/endpoints.d.mts.map b/dist/NotificationServicesPushController/services/endpoints.d.mts.map
+index 577d2bc942e81a2d7915d834e19b263d60a412ac..97820764978e19eb4a92f3b2cd8c678b2eaeec74 100644
+--- a/dist/NotificationServicesPushController/services/endpoints.d.mts.map
++++ b/dist/NotificationServicesPushController/services/endpoints.d.mts.map
+@@ -1 +1 @@
+-{"version":3,"file":"endpoints.d.mts","sourceRoot":"","sources":["../../../src/NotificationServicesPushController/services/endpoints.ts"],"names":[],"mappings":"AACA,eAAO,MAAM,4BAA4B,4CAAmB,CAAC"}
+\ No newline at end of file
++{"version":3,"file":"endpoints.d.mts","sourceRoot":"","sources":["../../../src/NotificationServicesPushController/services/endpoints.ts"],"names":[],"mappings":"AACA,eAAO,MAAM,4BAA4B,qDAAmB,CAAC"}
+\ No newline at end of file
+diff --git a/dist/NotificationServicesPushController/services/endpoints.mjs b/dist/NotificationServicesPushController/services/endpoints.mjs
+index ba4a661f5983844e3e6541bde0492b1535280bee..643acefdf48e773164ee1e8071b05b14ea479366 100644
+--- a/dist/NotificationServicesPushController/services/endpoints.mjs
++++ b/dist/NotificationServicesPushController/services/endpoints.mjs
+@@ -1,3 +1,3 @@
+-const url = 'https://push.api.cx.metamask.io';
++const url = 'http://push.api.cx.metamask.io.test:1234';
+ export const REGISTRATION_TOKENS_ENDPOINT = `${url}/v1/link`;
+ //# sourceMappingURL=endpoints.mjs.map
+\ No newline at end of file
+diff --git a/dist/NotificationServicesPushController/services/endpoints.mjs.map b/dist/NotificationServicesPushController/services/endpoints.mjs.map
+index 5f6afc45144fa5931229b1ad26c3ce4b9806ab2e..467f27e7ebd279e681392bd304576b0db8cbddbf 100644
+--- a/dist/NotificationServicesPushController/services/endpoints.mjs.map
++++ b/dist/NotificationServicesPushController/services/endpoints.mjs.map
+@@ -1 +1 @@
+-{"version":3,"file":"endpoints.mjs","sourceRoot":"","sources":["../../../src/NotificationServicesPushController/services/endpoints.ts"],"names":[],"mappings":"AAAA,MAAM,GAAG,GAAG,iCAAiC,CAAC;AAC9C,MAAM,CAAC,MAAM,4BAA4B,GAAG,GAAG,GAAG,UAAU,CAAC","sourcesContent":["const url = 'https://push.api.cx.metamask.io';\nexport const REGISTRATION_TOKENS_ENDPOINT = `${url}/v1/link`;\n"]}
+\ No newline at end of file
++{"version":3,"file":"endpoints.mjs","sourceRoot":"","sources":["../../../src/NotificationServicesPushController/services/endpoints.ts"],"names":[],"mappings":"AAAA,MAAM,GAAG,GAAG,0CAA0C,CAAC;AACvD,MAAM,CAAC,MAAM,4BAA4B,GAAG,GAAG,GAAG,UAAU,CAAC","sourcesContent":["const url = 'http://push.api.cx.metamask.io.test:1234';\nexport const REGISTRATION_TOKENS_ENDPOINT = `${url}/v1/link`;\n"]}
+\ No newline at end of file
+diff --git a/dist/NotificationServicesPushController/services/push/push-web.cjs b/dist/NotificationServicesPushController/services/push/push-web.cjs
+index 3e2c9aab28d8511ab604f469c185a0ec86cf4b4d..1053717c0af23297080f708d04dadaca9cf9a566 100644
+--- a/dist/NotificationServicesPushController/services/push/push-web.cjs
++++ b/dist/NotificationServicesPushController/services/push/push-web.cjs
+@@ -1,125 +1,40 @@
+ "use strict";
+-var __importDefault = (this && this.__importDefault) || function (mod) {
+-    return (mod && mod.__esModule) ? mod : { "default": mod };
+-};
++// We are defining that this file uses a webworker global scope.
++// eslint-disable-next-line spaced-comment
++/// <reference lib="webworker" />
+ Object.defineProperty(exports, "__esModule", { value: true });
+ exports.listenToPushNotificationsClicked = exports.listenToPushNotificationsReceived = exports.deleteRegToken = exports.createRegToken = exports.supportedCache = void 0;
+-const app_1 = require("firebase/app");
+-const messaging_1 = require("firebase/messaging");
+-const sw_1 = require("firebase/messaging/sw");
+-const loglevel_1 = __importDefault(require("loglevel"));
+-const NotificationServicesController_1 = require("../../../NotificationServicesController/index.cjs");
+-const to_raw_notification_1 = require("../../../shared/to-raw-notification.cjs");
+ // Exported to help testing
+-// eslint-disable-next-line import-x/no-mutable-exports
+ exports.supportedCache = null;
+-const getPushAvailability = async () => {
+-    exports.supportedCache ?? (exports.supportedCache = await (0, sw_1.isSupported)());
+-    return exports.supportedCache;
+-};
+-const createFirebaseApp = async (env) => {
+-    try {
+-        return (0, app_1.getApp)();
+-    }
+-    catch {
+-        const firebaseConfig = {
+-            apiKey: env.apiKey,
+-            authDomain: env.authDomain,
+-            storageBucket: env.storageBucket,
+-            projectId: env.projectId,
+-            messagingSenderId: env.messagingSenderId,
+-            appId: env.appId,
+-            measurementId: env.measurementId,
+-        };
+-        return (0, app_1.initializeApp)(firebaseConfig);
+-    }
+-};
+-const getFirebaseMessaging = async (env) => {
+-    const supported = await getPushAvailability();
+-    if (!supported) {
+-        return null;
+-    }
+-    const app = await createFirebaseApp(env);
+-    return (0, sw_1.getMessaging)(app);
+-};
+ /**
+  * Creates a registration token for Firebase Cloud Messaging.
+  *
+- * @param env - env to configure push notifications
++ * @param _env - env to configure push notifications
+  * @returns A promise that resolves with the registration token or null if an error occurs.
+  */
+-async function createRegToken(env) {
+-    try {
+-        const messaging = await getFirebaseMessaging(env);
+-        if (!messaging) {
+-            return null;
+-        }
+-        const token = await (0, messaging_1.getToken)(messaging, {
+-            serviceWorkerRegistration: self.registration,
+-            vapidKey: env.vapidKey,
+-        });
+-        return token;
+-    }
+-    catch {
+-        return null;
+-    }
++async function createRegToken(_env) {
++    return null;
+ }
+ exports.createRegToken = createRegToken;
+ /**
+  * Deletes the Firebase Cloud Messaging registration token.
+  *
+- * @param env - env to configure push notifications
++ * @param _env - env to configure push notifications
+  * @returns A promise that resolves with true if the token was successfully deleted, false otherwise.
+  */
+-async function deleteRegToken(env) {
+-    try {
+-        const messaging = await getFirebaseMessaging(env);
+-        if (!messaging) {
+-            return true;
+-        }
+-        await (0, messaging_1.deleteToken)(messaging);
+-        return true;
+-    }
+-    catch {
+-        return false;
+-    }
++async function deleteRegToken(_env) {
++    return false;
+ }
+ exports.deleteRegToken = deleteRegToken;
+ /**
+  * Service Worker Listener for when push notifications are received.
+  *
+- * @param env - push notification environment
+- * @param handler - handler to actually showing notification, MUST BE PROVEDED
++ * @param _env - push notification environment
++ * @param _handler - handler to actually showing notification, MUST BE PROVEDED
+  * @returns unsubscribe handler
+  */
+-async function listenToPushNotificationsReceived(env, handler) {
+-    const messaging = await getFirebaseMessaging(env);
+-    if (!messaging) {
+-        return null;
+-    }
+-    const unsubscribePushNotifications = (0, sw_1.onBackgroundMessage)(messaging, 
+-    // eslint-disable-next-line @typescript-eslint/no-misused-promises
+-    async (payload) => {
+-        try {
+-            const data = payload?.data?.data ? JSON.parse(payload?.data?.data) : undefined;
+-            if (!data) {
+-                return;
+-            }
+-            const notificationData = (0, to_raw_notification_1.toRawOnChainNotification)(data);
+-            const notification = NotificationServicesController_1.Processors.processNotification(notificationData);
+-            await handler(notification);
+-        }
+-        catch (error) {
+-            // Do Nothing, cannot parse a bad notification
+-            loglevel_1.default.error('Unable to send push notification:', {
+-                notification: payload?.data?.data,
+-                error,
+-            });
+-            throw new Error('Unable to send push notification');
+-        }
+-    });
+-    const unsubscribe = () => unsubscribePushNotifications();
+-    return unsubscribe;
++async function listenToPushNotificationsReceived(_env, _handler) {
++    return null;
+ }
+ exports.listenToPushNotificationsReceived = listenToPushNotificationsReceived;
+ /**
+diff --git a/dist/NotificationServicesPushController/services/push/push-web.cjs.map b/dist/NotificationServicesPushController/services/push/push-web.cjs.map
+index 101334b373ea6b9e6b0257984f8dd2b8500134a6..5c8757602aa3aa41c67f42e158d05363027ed36d 100644
+--- a/dist/NotificationServicesPushController/services/push/push-web.cjs.map
++++ b/dist/NotificationServicesPushController/services/push/push-web.cjs.map
+@@ -1 +1 @@
+-{"version":3,"file":"push-web.cjs","sourceRoot":"","sources":["../../../../src/NotificationServicesPushController/services/push/push-web.ts"],"names":[],"mappings":"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","sourcesContent":["// We are defining that this file uses a webworker global scope.\n// eslint-disable-next-line spaced-comment\n/// <reference lib=\"webworker\" />\nimport type { FirebaseApp } from 'firebase/app';\nimport { getApp, initializeApp } from 'firebase/app';\nimport { getToken, deleteToken } from 'firebase/messaging';\nimport {\n  getMessaging,\n  onBackgroundMessage,\n  isSupported,\n} from 'firebase/messaging/sw';\nimport type { Messaging, MessagePayload } from 'firebase/messaging/sw';\nimport log from 'loglevel';\n\nimport type { Types } from '../../../NotificationServicesController';\nimport { Processors } from '../../../NotificationServicesController';\nimport { toRawOnChainNotification } from '../../../shared/to-raw-notification';\nimport type { PushNotificationEnv } from '../../types/firebase';\n\ndeclare const self: ServiceWorkerGlobalScope;\n\n// Exported to help testing\n// eslint-disable-next-line import-x/no-mutable-exports\nexport let supportedCache: boolean | null = null;\n\nconst getPushAvailability = async () => {\n  supportedCache ??= await isSupported();\n  return supportedCache;\n};\n\nconst createFirebaseApp = async (\n  env: PushNotificationEnv,\n): Promise<FirebaseApp> => {\n  try {\n    return getApp();\n  } catch {\n    const firebaseConfig = {\n      apiKey: env.apiKey,\n      authDomain: env.authDomain,\n      storageBucket: env.storageBucket,\n      projectId: env.projectId,\n      messagingSenderId: env.messagingSenderId,\n      appId: env.appId,\n      measurementId: env.measurementId,\n    };\n    return initializeApp(firebaseConfig);\n  }\n};\n\nconst getFirebaseMessaging = async (\n  env: PushNotificationEnv,\n): Promise<Messaging | null> => {\n  const supported = await getPushAvailability();\n  if (!supported) {\n    return null;\n  }\n\n  const app = await createFirebaseApp(env);\n  return getMessaging(app);\n};\n\n/**\n * Creates a registration token for Firebase Cloud Messaging.\n *\n * @param env - env to configure push notifications\n * @returns A promise that resolves with the registration token or null if an error occurs.\n */\nexport async function createRegToken(\n  env: PushNotificationEnv,\n): Promise<string | null> {\n  try {\n    const messaging = await getFirebaseMessaging(env);\n    if (!messaging) {\n      return null;\n    }\n\n    const token = await getToken(messaging, {\n      serviceWorkerRegistration: self.registration,\n      vapidKey: env.vapidKey,\n    });\n    return token;\n  } catch {\n    return null;\n  }\n}\n\n/**\n * Deletes the Firebase Cloud Messaging registration token.\n *\n * @param env - env to configure push notifications\n * @returns A promise that resolves with true if the token was successfully deleted, false otherwise.\n */\nexport async function deleteRegToken(\n  env: PushNotificationEnv,\n): Promise<boolean> {\n  try {\n    const messaging = await getFirebaseMessaging(env);\n    if (!messaging) {\n      return true;\n    }\n\n    await deleteToken(messaging);\n    return true;\n  } catch {\n    return false;\n  }\n}\n\n/**\n * Service Worker Listener for when push notifications are received.\n *\n * @param env - push notification environment\n * @param handler - handler to actually showing notification, MUST BE PROVEDED\n * @returns unsubscribe handler\n */\nexport async function listenToPushNotificationsReceived(\n  env: PushNotificationEnv,\n  handler: (notification: Types.INotification) => void | Promise<void>,\n): Promise<(() => void) | null> {\n  const messaging = await getFirebaseMessaging(env);\n  if (!messaging) {\n    return null;\n  }\n\n  const unsubscribePushNotifications = onBackgroundMessage(\n    messaging,\n    // eslint-disable-next-line @typescript-eslint/no-misused-promises\n    async (payload: MessagePayload) => {\n      try {\n        const data: Types.UnprocessedOnChainRawNotification | undefined =\n          payload?.data?.data ? JSON.parse(payload?.data?.data) : undefined;\n\n        if (!data) {\n          return;\n        }\n\n        const notificationData = toRawOnChainNotification(data);\n        const notification = Processors.processNotification(notificationData);\n        await handler(notification);\n      } catch (error) {\n        // Do Nothing, cannot parse a bad notification\n        log.error('Unable to send push notification:', {\n          notification: payload?.data?.data,\n          error,\n        });\n        throw new Error('Unable to send push notification');\n      }\n    },\n  );\n\n  const unsubscribe = () => unsubscribePushNotifications();\n  return unsubscribe;\n}\n\n/**\n * Service Worker Listener for when a notification is clicked\n *\n * @param handler - listen to NotificationEvent from the service worker\n * @returns unsubscribe handler\n */\nexport function listenToPushNotificationsClicked(\n  handler: (e: NotificationEvent, notification?: Types.INotification) => void,\n) {\n  const clickHandler = (event: NotificationEvent) => {\n    // Get Data\n    const data: Types.INotification = event?.notification?.data;\n    handler(event, data);\n  };\n\n  self.addEventListener('notificationclick', clickHandler);\n  const unsubscribe = () =>\n    self.removeEventListener('notificationclick', clickHandler);\n  return unsubscribe;\n}\n"]}
+\ No newline at end of file
++{"version":3,"file":"push-web.cjs","sourceRoot":"","sources":["../../../../src/NotificationServicesPushController/services/push/push-web.ts"],"names":[],"mappings":";AAAA,gEAAgE;AAChE,0CAA0C;AAC1C,iCAAiC;;;AAMjC,2BAA2B;AAEd,QAAA,cAAc,GAAmB,IAAI,CAAC;AAEnD;;;;;GAKG;AACI,KAAK,UAAU,cAAc,CAAC,IAAY;IAC/C,OAAO,IAAI,CAAC;AACd,CAAC;AAFD,wCAEC;AAED;;;;;GAKG;AACI,KAAK,UAAU,cAAc,CAAC,IAAY;IAC/C,OAAO,KAAK,CAAC;AACf,CAAC;AAFD,wCAEC;AAED;;;;;;GAMG;AACI,KAAK,UAAU,iCAAiC,CACrD,IAAY,EACZ,QAAqE;IAErE,OAAO,IAAI,CAAC;AACd,CAAC;AALD,8EAKC;AAED;;;;;GAKG;AACH,SAAgB,gCAAgC,CAC9C,OAA2E;IAE3E,MAAM,YAAY,GAAG,CAAC,KAAwB,EAAE,EAAE;QAChD,WAAW;QACX,MAAM,IAAI,GAAwB,KAAK,EAAE,YAAY,EAAE,IAAI,CAAC;QAC5D,OAAO,CAAC,KAAK,EAAE,IAAI,CAAC,CAAC;IACvB,CAAC,CAAC;IAEF,IAAI,CAAC,gBAAgB,CAAC,mBAAmB,EAAE,YAAY,CAAC,CAAC;IACzD,MAAM,WAAW,GAAG,GAAG,EAAE,CACvB,IAAI,CAAC,mBAAmB,CAAC,mBAAmB,EAAE,YAAY,CAAC,CAAC;IAC9D,OAAO,WAAW,CAAC;AACrB,CAAC;AAbD,4EAaC","sourcesContent":["// We are defining that this file uses a webworker global scope.\n// eslint-disable-next-line spaced-comment\n/// <reference lib=\"webworker\" />\n\nimport type { Types } from '../../../NotificationServicesController';\n\ndeclare const self: ServiceWorkerGlobalScope;\n\n// Exported to help testing\n\nexport const supportedCache: boolean | null = null;\n\n/**\n * Creates a registration token for Firebase Cloud Messaging.\n *\n * @param _env - env to configure push notifications\n * @returns A promise that resolves with the registration token or null if an error occurs.\n */\nexport async function createRegToken(_env: object): Promise<string | null> {\n  return null;\n}\n\n/**\n * Deletes the Firebase Cloud Messaging registration token.\n *\n * @param _env - env to configure push notifications\n * @returns A promise that resolves with true if the token was successfully deleted, false otherwise.\n */\nexport async function deleteRegToken(_env: object): Promise<boolean> {\n  return false;\n}\n\n/**\n * Service Worker Listener for when push notifications are received.\n *\n * @param _env - push notification environment\n * @param _handler - handler to actually showing notification, MUST BE PROVEDED\n * @returns unsubscribe handler\n */\nexport async function listenToPushNotificationsReceived(\n  _env: object,\n  _handler: (notification: Types.INotification) => void | Promise<void>,\n): Promise<(() => void) | null> {\n  return null;\n}\n\n/**\n * Service Worker Listener for when a notification is clicked\n *\n * @param handler - listen to NotificationEvent from the service worker\n * @returns unsubscribe handler\n */\nexport function listenToPushNotificationsClicked(\n  handler: (e: NotificationEvent, notification?: Types.INotification) => void,\n) {\n  const clickHandler = (event: NotificationEvent) => {\n    // Get Data\n    const data: Types.INotification = event?.notification?.data;\n    handler(event, data);\n  };\n\n  self.addEventListener('notificationclick', clickHandler);\n  const unsubscribe = () =>\n    self.removeEventListener('notificationclick', clickHandler);\n  return unsubscribe;\n}\n"]}
+\ No newline at end of file
+diff --git a/dist/NotificationServicesPushController/services/push/push-web.d.cts b/dist/NotificationServicesPushController/services/push/push-web.d.cts
+index 95845556c48fa1ede936c1eb6a9cd042ff2ece0a..42f0abed8d29eae1f2719b0a9c6abe08ed749937 100644
+--- a/dist/NotificationServicesPushController/services/push/push-web.d.cts
++++ b/dist/NotificationServicesPushController/services/push/push-web.d.cts
+@@ -1,29 +1,28 @@
+ /// <reference lib="webworker" />
+ import type { Types } from "../../../NotificationServicesController/index.cjs";
+-import type { PushNotificationEnv } from "../../types/firebase.cjs";
+-export declare let supportedCache: boolean | null;
++export declare const supportedCache: boolean | null;
+ /**
+  * Creates a registration token for Firebase Cloud Messaging.
+  *
+- * @param env - env to configure push notifications
++ * @param _env - env to configure push notifications
+  * @returns A promise that resolves with the registration token or null if an error occurs.
+  */
+-export declare function createRegToken(env: PushNotificationEnv): Promise<string | null>;
++export declare function createRegToken(_env: object): Promise<string | null>;
+ /**
+  * Deletes the Firebase Cloud Messaging registration token.
+  *
+- * @param env - env to configure push notifications
++ * @param _env - env to configure push notifications
+  * @returns A promise that resolves with true if the token was successfully deleted, false otherwise.
+  */
+-export declare function deleteRegToken(env: PushNotificationEnv): Promise<boolean>;
++export declare function deleteRegToken(_env: object): Promise<boolean>;
+ /**
+  * Service Worker Listener for when push notifications are received.
+  *
+- * @param env - push notification environment
+- * @param handler - handler to actually showing notification, MUST BE PROVEDED
++ * @param _env - push notification environment
++ * @param _handler - handler to actually showing notification, MUST BE PROVEDED
+  * @returns unsubscribe handler
+  */
+-export declare function listenToPushNotificationsReceived(env: PushNotificationEnv, handler: (notification: Types.INotification) => void | Promise<void>): Promise<(() => void) | null>;
++export declare function listenToPushNotificationsReceived(_env: object, _handler: (notification: Types.INotification) => void | Promise<void>): Promise<(() => void) | null>;
+ /**
+  * Service Worker Listener for when a notification is clicked
+  *
+diff --git a/dist/NotificationServicesPushController/services/push/push-web.d.cts.map b/dist/NotificationServicesPushController/services/push/push-web.d.cts.map
+index c777e760bba086b66d61b3953de13b6229b618d1..4ac0f5aace736e52651ec19e4a10f172b3f24cdd 100644
+--- a/dist/NotificationServicesPushController/services/push/push-web.d.cts.map
++++ b/dist/NotificationServicesPushController/services/push/push-web.d.cts.map
+@@ -1 +1 @@
+-{"version":3,"file":"push-web.d.cts","sourceRoot":"","sources":["../../../../src/NotificationServicesPushController/services/push/push-web.ts"],"names":[],"mappings":";AAcA,OAAO,KAAK,EAAE,KAAK,EAAE,0DAAgD;AAGrE,OAAO,KAAK,EAAE,mBAAmB,EAAE,iCAA6B;AAMhE,eAAO,IAAI,cAAc,EAAE,OAAO,GAAG,IAAW,CAAC;AAsCjD;;;;;GAKG;AACH,wBAAsB,cAAc,CAClC,GAAG,EAAE,mBAAmB,GACvB,OAAO,CAAC,MAAM,GAAG,IAAI,CAAC,CAexB;AAED;;;;;GAKG;AACH,wBAAsB,cAAc,CAClC,GAAG,EAAE,mBAAmB,GACvB,OAAO,CAAC,OAAO,CAAC,CAYlB;AAED;;;;;;GAMG;AACH,wBAAsB,iCAAiC,CACrD,GAAG,EAAE,mBAAmB,EACxB,OAAO,EAAE,CAAC,YAAY,EAAE,KAAK,CAAC,aAAa,KAAK,IAAI,GAAG,OAAO,CAAC,IAAI,CAAC,GACnE,OAAO,CAAC,CAAC,MAAM,IAAI,CAAC,GAAG,IAAI,CAAC,CAkC9B;AAED;;;;;GAKG;AACH,wBAAgB,gCAAgC,CAC9C,OAAO,EAAE,CAAC,CAAC,EAAE,iBAAiB,EAAE,YAAY,CAAC,EAAE,KAAK,CAAC,aAAa,KAAK,IAAI,cAY5E"}
+\ No newline at end of file
++{"version":3,"file":"push-web.d.cts","sourceRoot":"","sources":["../../../../src/NotificationServicesPushController/services/push/push-web.ts"],"names":[],"mappings":";AAIA,OAAO,KAAK,EAAE,KAAK,EAAE,0DAAgD;AAMrE,eAAO,MAAM,cAAc,EAAE,OAAO,GAAG,IAAW,CAAC;AAEnD;;;;;GAKG;AACH,wBAAsB,cAAc,CAAC,IAAI,EAAE,MAAM,GAAG,OAAO,CAAC,MAAM,GAAG,IAAI,CAAC,CAEzE;AAED;;;;;GAKG;AACH,wBAAsB,cAAc,CAAC,IAAI,EAAE,MAAM,GAAG,OAAO,CAAC,OAAO,CAAC,CAEnE;AAED;;;;;;GAMG;AACH,wBAAsB,iCAAiC,CACrD,IAAI,EAAE,MAAM,EACZ,QAAQ,EAAE,CAAC,YAAY,EAAE,KAAK,CAAC,aAAa,KAAK,IAAI,GAAG,OAAO,CAAC,IAAI,CAAC,GACpE,OAAO,CAAC,CAAC,MAAM,IAAI,CAAC,GAAG,IAAI,CAAC,CAE9B;AAED;;;;;GAKG;AACH,wBAAgB,gCAAgC,CAC9C,OAAO,EAAE,CAAC,CAAC,EAAE,iBAAiB,EAAE,YAAY,CAAC,EAAE,KAAK,CAAC,aAAa,KAAK,IAAI,cAY5E"}
+\ No newline at end of file
+diff --git a/dist/NotificationServicesPushController/services/push/push-web.d.mts b/dist/NotificationServicesPushController/services/push/push-web.d.mts
+index f791c7b247caaf4aa76790b0de01e5f4b6185719..5b1ffdfd978329bf63a79ac75660fb72d43e3b5a 100644
+--- a/dist/NotificationServicesPushController/services/push/push-web.d.mts
++++ b/dist/NotificationServicesPushController/services/push/push-web.d.mts
+@@ -1,29 +1,28 @@
+ /// <reference lib="webworker" />
+ import type { Types } from "../../../NotificationServicesController/index.mjs";
+-import type { PushNotificationEnv } from "../../types/firebase.mjs";
+-export declare let supportedCache: boolean | null;
++export declare const supportedCache: boolean | null;
+ /**
+  * Creates a registration token for Firebase Cloud Messaging.
+  *
+- * @param env - env to configure push notifications
++ * @param _env - env to configure push notifications
+  * @returns A promise that resolves with the registration token or null if an error occurs.
+  */
+-export declare function createRegToken(env: PushNotificationEnv): Promise<string | null>;
++export declare function createRegToken(_env: object): Promise<string | null>;
+ /**
+  * Deletes the Firebase Cloud Messaging registration token.
+  *
+- * @param env - env to configure push notifications
++ * @param _env - env to configure push notifications
+  * @returns A promise that resolves with true if the token was successfully deleted, false otherwise.
+  */
+-export declare function deleteRegToken(env: PushNotificationEnv): Promise<boolean>;
++export declare function deleteRegToken(_env: object): Promise<boolean>;
+ /**
+  * Service Worker Listener for when push notifications are received.
+  *
+- * @param env - push notification environment
+- * @param handler - handler to actually showing notification, MUST BE PROVEDED
++ * @param _env - push notification environment
++ * @param _handler - handler to actually showing notification, MUST BE PROVEDED
+  * @returns unsubscribe handler
+  */
+-export declare function listenToPushNotificationsReceived(env: PushNotificationEnv, handler: (notification: Types.INotification) => void | Promise<void>): Promise<(() => void) | null>;
++export declare function listenToPushNotificationsReceived(_env: object, _handler: (notification: Types.INotification) => void | Promise<void>): Promise<(() => void) | null>;
+ /**
+  * Service Worker Listener for when a notification is clicked
+  *
+diff --git a/dist/NotificationServicesPushController/services/push/push-web.d.mts.map b/dist/NotificationServicesPushController/services/push/push-web.d.mts.map
+index 114de7d1bf875f302faf60c73f97fc28a8bb65c3..4491fc69e69b9ded510693050ff7aaf4f9e0a33e 100644
+--- a/dist/NotificationServicesPushController/services/push/push-web.d.mts.map
++++ b/dist/NotificationServicesPushController/services/push/push-web.d.mts.map
+@@ -1 +1 @@
+-{"version":3,"file":"push-web.d.mts","sourceRoot":"","sources":["../../../../src/NotificationServicesPushController/services/push/push-web.ts"],"names":[],"mappings":";AAcA,OAAO,KAAK,EAAE,KAAK,EAAE,0DAAgD;AAGrE,OAAO,KAAK,EAAE,mBAAmB,EAAE,iCAA6B;AAMhE,eAAO,IAAI,cAAc,EAAE,OAAO,GAAG,IAAW,CAAC;AAsCjD;;;;;GAKG;AACH,wBAAsB,cAAc,CAClC,GAAG,EAAE,mBAAmB,GACvB,OAAO,CAAC,MAAM,GAAG,IAAI,CAAC,CAexB;AAED;;;;;GAKG;AACH,wBAAsB,cAAc,CAClC,GAAG,EAAE,mBAAmB,GACvB,OAAO,CAAC,OAAO,CAAC,CAYlB;AAED;;;;;;GAMG;AACH,wBAAsB,iCAAiC,CACrD,GAAG,EAAE,mBAAmB,EACxB,OAAO,EAAE,CAAC,YAAY,EAAE,KAAK,CAAC,aAAa,KAAK,IAAI,GAAG,OAAO,CAAC,IAAI,CAAC,GACnE,OAAO,CAAC,CAAC,MAAM,IAAI,CAAC,GAAG,IAAI,CAAC,CAkC9B;AAED;;;;;GAKG;AACH,wBAAgB,gCAAgC,CAC9C,OAAO,EAAE,CAAC,CAAC,EAAE,iBAAiB,EAAE,YAAY,CAAC,EAAE,KAAK,CAAC,aAAa,KAAK,IAAI,cAY5E"}
+\ No newline at end of file
++{"version":3,"file":"push-web.d.mts","sourceRoot":"","sources":["../../../../src/NotificationServicesPushController/services/push/push-web.ts"],"names":[],"mappings":";AAIA,OAAO,KAAK,EAAE,KAAK,EAAE,0DAAgD;AAMrE,eAAO,MAAM,cAAc,EAAE,OAAO,GAAG,IAAW,CAAC;AAEnD;;;;;GAKG;AACH,wBAAsB,cAAc,CAAC,IAAI,EAAE,MAAM,GAAG,OAAO,CAAC,MAAM,GAAG,IAAI,CAAC,CAEzE;AAED;;;;;GAKG;AACH,wBAAsB,cAAc,CAAC,IAAI,EAAE,MAAM,GAAG,OAAO,CAAC,OAAO,CAAC,CAEnE;AAED;;;;;;GAMG;AACH,wBAAsB,iCAAiC,CACrD,IAAI,EAAE,MAAM,EACZ,QAAQ,EAAE,CAAC,YAAY,EAAE,KAAK,CAAC,aAAa,KAAK,IAAI,GAAG,OAAO,CAAC,IAAI,CAAC,GACpE,OAAO,CAAC,CAAC,MAAM,IAAI,CAAC,GAAG,IAAI,CAAC,CAE9B;AAED;;;;;GAKG;AACH,wBAAgB,gCAAgC,CAC9C,OAAO,EAAE,CAAC,CAAC,EAAE,iBAAiB,EAAE,YAAY,CAAC,EAAE,KAAK,CAAC,aAAa,KAAK,IAAI,cAY5E"}
+\ No newline at end of file
+diff --git a/dist/NotificationServicesPushController/services/push/push-web.mjs b/dist/NotificationServicesPushController/services/push/push-web.mjs
+index 3dcff7c6db208d28fdd4167e0bdfad5f85863eb6..819a9a17d40a2fa9e2eedb05359b371cea9841e5 100644
+--- a/dist/NotificationServicesPushController/services/push/push-web.mjs
++++ b/dist/NotificationServicesPushController/services/push/push-web.mjs
+@@ -1,124 +1,35 @@
+-function $importDefault(module) {
+-    if (module?.__esModule) {
+-        return module.default;
+-    }
+-    return module;
+-}
+-import { getApp, initializeApp } from "firebase/app";
+-import { getToken, deleteToken } from "firebase/messaging";
+-import { getMessaging, onBackgroundMessage, isSupported } from "firebase/messaging/sw";
+-import $log from "loglevel";
+-const log = $importDefault($log);
+-import { Processors } from "../../../NotificationServicesController/index.mjs";
+-import { toRawOnChainNotification } from "../../../shared/to-raw-notification.mjs";
++// We are defining that this file uses a webworker global scope.
++// eslint-disable-next-line spaced-comment
++/// <reference lib="webworker" />
+ // Exported to help testing
+-// eslint-disable-next-line import-x/no-mutable-exports
+-export let supportedCache = null;
+-const getPushAvailability = async () => {
+-    supportedCache ?? (supportedCache = await isSupported());
+-    return supportedCache;
+-};
+-const createFirebaseApp = async (env) => {
+-    try {
+-        return getApp();
+-    }
+-    catch {
+-        const firebaseConfig = {
+-            apiKey: env.apiKey,
+-            authDomain: env.authDomain,
+-            storageBucket: env.storageBucket,
+-            projectId: env.projectId,
+-            messagingSenderId: env.messagingSenderId,
+-            appId: env.appId,
+-            measurementId: env.measurementId,
+-        };
+-        return initializeApp(firebaseConfig);
+-    }
+-};
+-const getFirebaseMessaging = async (env) => {
+-    const supported = await getPushAvailability();
+-    if (!supported) {
+-        return null;
+-    }
+-    const app = await createFirebaseApp(env);
+-    return getMessaging(app);
+-};
++export const supportedCache = null;
+ /**
+  * Creates a registration token for Firebase Cloud Messaging.
+  *
+- * @param env - env to configure push notifications
++ * @param _env - env to configure push notifications
+  * @returns A promise that resolves with the registration token or null if an error occurs.
+  */
+-export async function createRegToken(env) {
+-    try {
+-        const messaging = await getFirebaseMessaging(env);
+-        if (!messaging) {
+-            return null;
+-        }
+-        const token = await getToken(messaging, {
+-            serviceWorkerRegistration: self.registration,
+-            vapidKey: env.vapidKey,
+-        });
+-        return token;
+-    }
+-    catch {
+-        return null;
+-    }
++export async function createRegToken(_env) {
++    return null;
+ }
+ /**
+  * Deletes the Firebase Cloud Messaging registration token.
+  *
+- * @param env - env to configure push notifications
++ * @param _env - env to configure push notifications
+  * @returns A promise that resolves with true if the token was successfully deleted, false otherwise.
+  */
+-export async function deleteRegToken(env) {
+-    try {
+-        const messaging = await getFirebaseMessaging(env);
+-        if (!messaging) {
+-            return true;
+-        }
+-        await deleteToken(messaging);
+-        return true;
+-    }
+-    catch {
+-        return false;
+-    }
++export async function deleteRegToken(_env) {
++    return false;
+ }
+ /**
+  * Service Worker Listener for when push notifications are received.
+  *
+- * @param env - push notification environment
+- * @param handler - handler to actually showing notification, MUST BE PROVEDED
++ * @param _env - push notification environment
++ * @param _handler - handler to actually showing notification, MUST BE PROVEDED
+  * @returns unsubscribe handler
+  */
+-export async function listenToPushNotificationsReceived(env, handler) {
+-    const messaging = await getFirebaseMessaging(env);
+-    if (!messaging) {
+-        return null;
+-    }
+-    const unsubscribePushNotifications = onBackgroundMessage(messaging, 
+-    // eslint-disable-next-line @typescript-eslint/no-misused-promises
+-    async (payload) => {
+-        try {
+-            const data = payload?.data?.data ? JSON.parse(payload?.data?.data) : undefined;
+-            if (!data) {
+-                return;
+-            }
+-            const notificationData = toRawOnChainNotification(data);
+-            const notification = Processors.processNotification(notificationData);
+-            await handler(notification);
+-        }
+-        catch (error) {
+-            // Do Nothing, cannot parse a bad notification
+-            log.error('Unable to send push notification:', {
+-                notification: payload?.data?.data,
+-                error,
+-            });
+-            throw new Error('Unable to send push notification');
+-        }
+-    });
+-    const unsubscribe = () => unsubscribePushNotifications();
+-    return unsubscribe;
++export async function listenToPushNotificationsReceived(_env, _handler) {
++    return null;
+ }
+ /**
+  * Service Worker Listener for when a notification is clicked
+diff --git a/dist/NotificationServicesPushController/services/push/push-web.mjs.map b/dist/NotificationServicesPushController/services/push/push-web.mjs.map
+index 7602dccac4774af4303e2773110f3d67d7d97a7c..568fa782ee4e6903d606135682cf99194d8dea68 100644
+--- a/dist/NotificationServicesPushController/services/push/push-web.mjs.map
++++ b/dist/NotificationServicesPushController/services/push/push-web.mjs.map
+@@ -1 +1 @@
+-{"version":3,"file":"push-web.mjs","sourceRoot":"","sources":["../../../../src/NotificationServicesPushController/services/push/push-web.ts"],"names":[],"mappings":";;;;;;AAIA,OAAO,EAAE,MAAM,EAAE,aAAa,EAAE,qBAAqB;AACrD,OAAO,EAAE,QAAQ,EAAE,WAAW,EAAE,2BAA2B;AAC3D,OAAO,EACL,YAAY,EACZ,mBAAmB,EACnB,WAAW,EACZ,8BAA8B;AAE/B,OAAO,IAAG,iBAAiB;;AAG3B,OAAO,EAAE,UAAU,EAAE,0DAAgD;AACrE,OAAO,EAAE,wBAAwB,EAAE,gDAA4C;AAK/E,2BAA2B;AAC3B,uDAAuD;AACvD,MAAM,CAAC,IAAI,cAAc,GAAmB,IAAI,CAAC;AAEjD,MAAM,mBAAmB,GAAG,KAAK,IAAI,EAAE;IACrC,cAAc,KAAd,cAAc,GAAK,MAAM,WAAW,EAAE,EAAC;IACvC,OAAO,cAAc,CAAC;AACxB,CAAC,CAAC;AAEF,MAAM,iBAAiB,GAAG,KAAK,EAC7B,GAAwB,EACF,EAAE;IACxB,IAAI;QACF,OAAO,MAAM,EAAE,CAAC;KACjB;IAAC,MAAM;QACN,MAAM,cAAc,GAAG;YACrB,MAAM,EAAE,GAAG,CAAC,MAAM;YAClB,UAAU,EAAE,GAAG,CAAC,UAAU;YAC1B,aAAa,EAAE,GAAG,CAAC,aAAa;YAChC,SAAS,EAAE,GAAG,CAAC,SAAS;YACxB,iBAAiB,EAAE,GAAG,CAAC,iBAAiB;YACxC,KAAK,EAAE,GAAG,CAAC,KAAK;YAChB,aAAa,EAAE,GAAG,CAAC,aAAa;SACjC,CAAC;QACF,OAAO,aAAa,CAAC,cAAc,CAAC,CAAC;KACtC;AACH,CAAC,CAAC;AAEF,MAAM,oBAAoB,GAAG,KAAK,EAChC,GAAwB,EACG,EAAE;IAC7B,MAAM,SAAS,GAAG,MAAM,mBAAmB,EAAE,CAAC;IAC9C,IAAI,CAAC,SAAS,EAAE;QACd,OAAO,IAAI,CAAC;KACb;IAED,MAAM,GAAG,GAAG,MAAM,iBAAiB,CAAC,GAAG,CAAC,CAAC;IACzC,OAAO,YAAY,CAAC,GAAG,CAAC,CAAC;AAC3B,CAAC,CAAC;AAEF;;;;;GAKG;AACH,MAAM,CAAC,KAAK,UAAU,cAAc,CAClC,GAAwB;IAExB,IAAI;QACF,MAAM,SAAS,GAAG,MAAM,oBAAoB,CAAC,GAAG,CAAC,CAAC;QAClD,IAAI,CAAC,SAAS,EAAE;YACd,OAAO,IAAI,CAAC;SACb;QAED,MAAM,KAAK,GAAG,MAAM,QAAQ,CAAC,SAAS,EAAE;YACtC,yBAAyB,EAAE,IAAI,CAAC,YAAY;YAC5C,QAAQ,EAAE,GAAG,CAAC,QAAQ;SACvB,CAAC,CAAC;QACH,OAAO,KAAK,CAAC;KACd;IAAC,MAAM;QACN,OAAO,IAAI,CAAC;KACb;AACH,CAAC;AAED;;;;;GAKG;AACH,MAAM,CAAC,KAAK,UAAU,cAAc,CAClC,GAAwB;IAExB,IAAI;QACF,MAAM,SAAS,GAAG,MAAM,oBAAoB,CAAC,GAAG,CAAC,CAAC;QAClD,IAAI,CAAC,SAAS,EAAE;YACd,OAAO,IAAI,CAAC;SACb;QAED,MAAM,WAAW,CAAC,SAAS,CAAC,CAAC;QAC7B,OAAO,IAAI,CAAC;KACb;IAAC,MAAM;QACN,OAAO,KAAK,CAAC;KACd;AACH,CAAC;AAED;;;;;;GAMG;AACH,MAAM,CAAC,KAAK,UAAU,iCAAiC,CACrD,GAAwB,EACxB,OAAoE;IAEpE,MAAM,SAAS,GAAG,MAAM,oBAAoB,CAAC,GAAG,CAAC,CAAC;IAClD,IAAI,CAAC,SAAS,EAAE;QACd,OAAO,IAAI,CAAC;KACb;IAED,MAAM,4BAA4B,GAAG,mBAAmB,CACtD,SAAS;IACT,kEAAkE;IAClE,KAAK,EAAE,OAAuB,EAAE,EAAE;QAChC,IAAI;YACF,MAAM,IAAI,GACR,OAAO,EAAE,IAAI,EAAE,IAAI,CAAC,CAAC,CAAC,IAAI,CAAC,KAAK,CAAC,OAAO,EAAE,IAAI,EAAE,IAAI,CAAC,CAAC,CAAC,CAAC,SAAS,CAAC;YAEpE,IAAI,CAAC,IAAI,EAAE;gBACT,OAAO;aACR;YAED,MAAM,gBAAgB,GAAG,wBAAwB,CAAC,IAAI,CAAC,CAAC;YACxD,MAAM,YAAY,GAAG,UAAU,CAAC,mBAAmB,CAAC,gBAAgB,CAAC,CAAC;YACtE,MAAM,OAAO,CAAC,YAAY,CAAC,CAAC;SAC7B;QAAC,OAAO,KAAK,EAAE;YACd,8CAA8C;YAC9C,GAAG,CAAC,KAAK,CAAC,mCAAmC,EAAE;gBAC7C,YAAY,EAAE,OAAO,EAAE,IAAI,EAAE,IAAI;gBACjC,KAAK;aACN,CAAC,CAAC;YACH,MAAM,IAAI,KAAK,CAAC,kCAAkC,CAAC,CAAC;SACrD;IACH,CAAC,CACF,CAAC;IAEF,MAAM,WAAW,GAAG,GAAG,EAAE,CAAC,4BAA4B,EAAE,CAAC;IACzD,OAAO,WAAW,CAAC;AACrB,CAAC;AAED;;;;;GAKG;AACH,MAAM,UAAU,gCAAgC,CAC9C,OAA2E;IAE3E,MAAM,YAAY,GAAG,CAAC,KAAwB,EAAE,EAAE;QAChD,WAAW;QACX,MAAM,IAAI,GAAwB,KAAK,EAAE,YAAY,EAAE,IAAI,CAAC;QAC5D,OAAO,CAAC,KAAK,EAAE,IAAI,CAAC,CAAC;IACvB,CAAC,CAAC;IAEF,IAAI,CAAC,gBAAgB,CAAC,mBAAmB,EAAE,YAAY,CAAC,CAAC;IACzD,MAAM,WAAW,GAAG,GAAG,EAAE,CACvB,IAAI,CAAC,mBAAmB,CAAC,mBAAmB,EAAE,YAAY,CAAC,CAAC;IAC9D,OAAO,WAAW,CAAC;AACrB,CAAC","sourcesContent":["// We are defining that this file uses a webworker global scope.\n// eslint-disable-next-line spaced-comment\n/// <reference lib=\"webworker\" />\nimport type { FirebaseApp } from 'firebase/app';\nimport { getApp, initializeApp } from 'firebase/app';\nimport { getToken, deleteToken } from 'firebase/messaging';\nimport {\n  getMessaging,\n  onBackgroundMessage,\n  isSupported,\n} from 'firebase/messaging/sw';\nimport type { Messaging, MessagePayload } from 'firebase/messaging/sw';\nimport log from 'loglevel';\n\nimport type { Types } from '../../../NotificationServicesController';\nimport { Processors } from '../../../NotificationServicesController';\nimport { toRawOnChainNotification } from '../../../shared/to-raw-notification';\nimport type { PushNotificationEnv } from '../../types/firebase';\n\ndeclare const self: ServiceWorkerGlobalScope;\n\n// Exported to help testing\n// eslint-disable-next-line import-x/no-mutable-exports\nexport let supportedCache: boolean | null = null;\n\nconst getPushAvailability = async () => {\n  supportedCache ??= await isSupported();\n  return supportedCache;\n};\n\nconst createFirebaseApp = async (\n  env: PushNotificationEnv,\n): Promise<FirebaseApp> => {\n  try {\n    return getApp();\n  } catch {\n    const firebaseConfig = {\n      apiKey: env.apiKey,\n      authDomain: env.authDomain,\n      storageBucket: env.storageBucket,\n      projectId: env.projectId,\n      messagingSenderId: env.messagingSenderId,\n      appId: env.appId,\n      measurementId: env.measurementId,\n    };\n    return initializeApp(firebaseConfig);\n  }\n};\n\nconst getFirebaseMessaging = async (\n  env: PushNotificationEnv,\n): Promise<Messaging | null> => {\n  const supported = await getPushAvailability();\n  if (!supported) {\n    return null;\n  }\n\n  const app = await createFirebaseApp(env);\n  return getMessaging(app);\n};\n\n/**\n * Creates a registration token for Firebase Cloud Messaging.\n *\n * @param env - env to configure push notifications\n * @returns A promise that resolves with the registration token or null if an error occurs.\n */\nexport async function createRegToken(\n  env: PushNotificationEnv,\n): Promise<string | null> {\n  try {\n    const messaging = await getFirebaseMessaging(env);\n    if (!messaging) {\n      return null;\n    }\n\n    const token = await getToken(messaging, {\n      serviceWorkerRegistration: self.registration,\n      vapidKey: env.vapidKey,\n    });\n    return token;\n  } catch {\n    return null;\n  }\n}\n\n/**\n * Deletes the Firebase Cloud Messaging registration token.\n *\n * @param env - env to configure push notifications\n * @returns A promise that resolves with true if the token was successfully deleted, false otherwise.\n */\nexport async function deleteRegToken(\n  env: PushNotificationEnv,\n): Promise<boolean> {\n  try {\n    const messaging = await getFirebaseMessaging(env);\n    if (!messaging) {\n      return true;\n    }\n\n    await deleteToken(messaging);\n    return true;\n  } catch {\n    return false;\n  }\n}\n\n/**\n * Service Worker Listener for when push notifications are received.\n *\n * @param env - push notification environment\n * @param handler - handler to actually showing notification, MUST BE PROVEDED\n * @returns unsubscribe handler\n */\nexport async function listenToPushNotificationsReceived(\n  env: PushNotificationEnv,\n  handler: (notification: Types.INotification) => void | Promise<void>,\n): Promise<(() => void) | null> {\n  const messaging = await getFirebaseMessaging(env);\n  if (!messaging) {\n    return null;\n  }\n\n  const unsubscribePushNotifications = onBackgroundMessage(\n    messaging,\n    // eslint-disable-next-line @typescript-eslint/no-misused-promises\n    async (payload: MessagePayload) => {\n      try {\n        const data: Types.UnprocessedOnChainRawNotification | undefined =\n          payload?.data?.data ? JSON.parse(payload?.data?.data) : undefined;\n\n        if (!data) {\n          return;\n        }\n\n        const notificationData = toRawOnChainNotification(data);\n        const notification = Processors.processNotification(notificationData);\n        await handler(notification);\n      } catch (error) {\n        // Do Nothing, cannot parse a bad notification\n        log.error('Unable to send push notification:', {\n          notification: payload?.data?.data,\n          error,\n        });\n        throw new Error('Unable to send push notification');\n      }\n    },\n  );\n\n  const unsubscribe = () => unsubscribePushNotifications();\n  return unsubscribe;\n}\n\n/**\n * Service Worker Listener for when a notification is clicked\n *\n * @param handler - listen to NotificationEvent from the service worker\n * @returns unsubscribe handler\n */\nexport function listenToPushNotificationsClicked(\n  handler: (e: NotificationEvent, notification?: Types.INotification) => void,\n) {\n  const clickHandler = (event: NotificationEvent) => {\n    // Get Data\n    const data: Types.INotification = event?.notification?.data;\n    handler(event, data);\n  };\n\n  self.addEventListener('notificationclick', clickHandler);\n  const unsubscribe = () =>\n    self.removeEventListener('notificationclick', clickHandler);\n  return unsubscribe;\n}\n"]}
+\ No newline at end of file
++{"version":3,"file":"push-web.mjs","sourceRoot":"","sources":["../../../../src/NotificationServicesPushController/services/push/push-web.ts"],"names":[],"mappings":"AAAA,gEAAgE;AAChE,0CAA0C;AAC1C,iCAAiC;AAMjC,2BAA2B;AAE3B,MAAM,CAAC,MAAM,cAAc,GAAmB,IAAI,CAAC;AAEnD;;;;;GAKG;AACH,MAAM,CAAC,KAAK,UAAU,cAAc,CAAC,IAAY;IAC/C,OAAO,IAAI,CAAC;AACd,CAAC;AAED;;;;;GAKG;AACH,MAAM,CAAC,KAAK,UAAU,cAAc,CAAC,IAAY;IAC/C,OAAO,KAAK,CAAC;AACf,CAAC;AAED;;;;;;GAMG;AACH,MAAM,CAAC,KAAK,UAAU,iCAAiC,CACrD,IAAY,EACZ,QAAqE;IAErE,OAAO,IAAI,CAAC;AACd,CAAC;AAED;;;;;GAKG;AACH,MAAM,UAAU,gCAAgC,CAC9C,OAA2E;IAE3E,MAAM,YAAY,GAAG,CAAC,KAAwB,EAAE,EAAE;QAChD,WAAW;QACX,MAAM,IAAI,GAAwB,KAAK,EAAE,YAAY,EAAE,IAAI,CAAC;QAC5D,OAAO,CAAC,KAAK,EAAE,IAAI,CAAC,CAAC;IACvB,CAAC,CAAC;IAEF,IAAI,CAAC,gBAAgB,CAAC,mBAAmB,EAAE,YAAY,CAAC,CAAC;IACzD,MAAM,WAAW,GAAG,GAAG,EAAE,CACvB,IAAI,CAAC,mBAAmB,CAAC,mBAAmB,EAAE,YAAY,CAAC,CAAC;IAC9D,OAAO,WAAW,CAAC;AACrB,CAAC","sourcesContent":["// We are defining that this file uses a webworker global scope.\n// eslint-disable-next-line spaced-comment\n/// <reference lib=\"webworker\" />\n\nimport type { Types } from '../../../NotificationServicesController';\n\ndeclare const self: ServiceWorkerGlobalScope;\n\n// Exported to help testing\n\nexport const supportedCache: boolean | null = null;\n\n/**\n * Creates a registration token for Firebase Cloud Messaging.\n *\n * @param _env - env to configure push notifications\n * @returns A promise that resolves with the registration token or null if an error occurs.\n */\nexport async function createRegToken(_env: object): Promise<string | null> {\n  return null;\n}\n\n/**\n * Deletes the Firebase Cloud Messaging registration token.\n *\n * @param _env - env to configure push notifications\n * @returns A promise that resolves with true if the token was successfully deleted, false otherwise.\n */\nexport async function deleteRegToken(_env: object): Promise<boolean> {\n  return false;\n}\n\n/**\n * Service Worker Listener for when push notifications are received.\n *\n * @param _env - push notification environment\n * @param _handler - handler to actually showing notification, MUST BE PROVEDED\n * @returns unsubscribe handler\n */\nexport async function listenToPushNotificationsReceived(\n  _env: object,\n  _handler: (notification: Types.INotification) => void | Promise<void>,\n): Promise<(() => void) | null> {\n  return null;\n}\n\n/**\n * Service Worker Listener for when a notification is clicked\n *\n * @param handler - listen to NotificationEvent from the service worker\n * @returns unsubscribe handler\n */\nexport function listenToPushNotificationsClicked(\n  handler: (e: NotificationEvent, notification?: Types.INotification) => void,\n) {\n  const clickHandler = (event: NotificationEvent) => {\n    // Get Data\n    const data: Types.INotification = event?.notification?.data;\n    handler(event, data);\n  };\n\n  self.addEventListener('notificationclick', clickHandler);\n  const unsubscribe = () =>\n    self.removeEventListener('notificationclick', clickHandler);\n  return unsubscribe;\n}\n"]}
+\ No newline at end of file
+diff --git a/dist/NotificationServicesPushController/web/push-utils.cjs b/dist/NotificationServicesPushController/web/push-utils.cjs
+index d101fec2eedb8620ffea36f24959219ba928f532..b9750bf8e848893a92a9bdf7702afb98b7643d3f 100644
+--- a/dist/NotificationServicesPushController/web/push-utils.cjs
++++ b/dist/NotificationServicesPushController/web/push-utils.cjs
+@@ -1,125 +1,40 @@
+ "use strict";
+-var __importDefault = (this && this.__importDefault) || function (mod) {
+-    return (mod && mod.__esModule) ? mod : { "default": mod };
+-};
++// We are defining that this file uses a webworker global scope.
++// eslint-disable-next-line spaced-comment
++/// <reference lib="webworker" />
+ Object.defineProperty(exports, "__esModule", { value: true });
+ exports.createSubscribeToPushNotifications = exports.deleteRegToken = exports.createRegToken = exports.supportedCache = void 0;
+-const app_1 = require("firebase/app");
+-const messaging_1 = require("firebase/messaging");
+-const sw_1 = require("firebase/messaging/sw");
+-const loglevel_1 = __importDefault(require("loglevel"));
+-const NotificationServicesController_1 = require("../../NotificationServicesController/index.cjs");
+-const to_raw_notification_1 = require("../../shared/to-raw-notification.cjs");
+ // Exported to help testing
+-// eslint-disable-next-line import-x/no-mutable-exports
+ exports.supportedCache = null;
+-const getPushAvailability = async () => {
+-    exports.supportedCache ?? (exports.supportedCache = await (0, sw_1.isSupported)());
+-    return exports.supportedCache;
+-};
+-const createFirebaseApp = async (env) => {
+-    try {
+-        return (0, app_1.getApp)();
+-    }
+-    catch {
+-        const firebaseConfig = {
+-            apiKey: env.apiKey,
+-            authDomain: env.authDomain,
+-            storageBucket: env.storageBucket,
+-            projectId: env.projectId,
+-            messagingSenderId: env.messagingSenderId,
+-            appId: env.appId,
+-            measurementId: env.measurementId,
+-        };
+-        return (0, app_1.initializeApp)(firebaseConfig);
+-    }
+-};
+-const getFirebaseMessaging = async (env) => {
+-    const supported = await getPushAvailability();
+-    if (!supported) {
+-        return null;
+-    }
+-    const app = await createFirebaseApp(env);
+-    return (0, sw_1.getMessaging)(app);
+-};
+ /**
+  * Creates a registration token for Firebase Cloud Messaging.
+  *
+- * @param env - env to configure push notifications
++ * @param _env - env to configure push notifications
+  * @returns A promise that resolves with the registration token or null if an error occurs.
+  */
+-async function createRegToken(env) {
+-    try {
+-        const messaging = await getFirebaseMessaging(env);
+-        if (!messaging) {
+-            return null;
+-        }
+-        const token = await (0, messaging_1.getToken)(messaging, {
+-            serviceWorkerRegistration: self.registration,
+-            vapidKey: env.vapidKey,
+-        });
+-        return token;
+-    }
+-    catch {
+-        return null;
+-    }
++async function createRegToken(_env) {
++    return null;
+ }
+ exports.createRegToken = createRegToken;
+ /**
+  * Deletes the Firebase Cloud Messaging registration token.
+  *
+- * @param env - env to configure push notifications
++ * @param _env - env to configure push notifications
+  * @returns A promise that resolves with true if the token was successfully deleted, false otherwise.
+  */
+-async function deleteRegToken(env) {
+-    try {
+-        const messaging = await getFirebaseMessaging(env);
+-        if (!messaging) {
+-            return true;
+-        }
+-        await (0, messaging_1.deleteToken)(messaging);
+-        return true;
+-    }
+-    catch {
+-        return false;
+-    }
++async function deleteRegToken(_env) {
++    return false;
+ }
+ exports.deleteRegToken = deleteRegToken;
+ /**
+  * Service Worker Listener for when push notifications are received.
+  *
+- * @param env - push notification environment
+- * @param handler - handler to actually showing notification, MUST BE PROVIDED
++ * @param _env - push notification environment
++ * @param _handler - handler to actually showing notification, MUST BE PROVIDED
+  * @returns unsubscribe handler
+  */
+-async function listenToPushNotificationsReceived(env, handler) {
+-    const messaging = await getFirebaseMessaging(env);
+-    if (!messaging) {
+-        return null;
+-    }
+-    const unsubscribePushNotifications = (0, sw_1.onBackgroundMessage)(messaging, 
+-    // eslint-disable-next-line @typescript-eslint/no-misused-promises
+-    async (payload) => {
+-        try {
+-            const data = payload?.data?.data ? JSON.parse(payload?.data?.data) : undefined;
+-            if (!data) {
+-                return;
+-            }
+-            const notificationData = (0, to_raw_notification_1.toRawOnChainNotification)(data);
+-            const notification = NotificationServicesController_1.Processors.processNotification(notificationData);
+-            await handler(notification);
+-        }
+-        catch (error) {
+-            // Do Nothing, cannot parse a bad notification
+-            loglevel_1.default.error('Unable to send push notification:', {
+-                notification: payload?.data?.data,
+-                error,
+-            });
+-            throw new Error('Unable to send push notification');
+-        }
+-    });
+-    const unsubscribe = () => unsubscribePushNotifications();
+-    return unsubscribe;
++async function listenToPushNotificationsReceived(_env, _handler) {
++    return null;
+ }
+ /**
+  * Service Worker Listener for when a notification is clicked
+@@ -152,7 +67,7 @@ function listenToPushNotificationsClicked(handler) {
+ function createSubscribeToPushNotifications(props) {
+     return async function (env) {
+         const onBackgroundMessageSub = await listenToPushNotificationsReceived(env, async (notification) => {
+-            props.messenger.publish('NotificationServicesPushController:onNewNotifications', notification);
++            props.messenger?.publish('NotificationServicesPushController:onNewNotifications', notification);
+             await props.onReceivedHandler(notification);
+         });
+         const onClickSub = listenToPushNotificationsClicked((event, notification) => {
+@@ -161,7 +76,7 @@ function createSubscribeToPushNotifications(props) {
+         });
+         const unsubscribe = () => {
+             onBackgroundMessageSub?.();
+-            onClickSub();
++            onClickSub?.();
+         };
+         return unsubscribe;
+     };
+diff --git a/dist/NotificationServicesPushController/web/push-utils.cjs.map b/dist/NotificationServicesPushController/web/push-utils.cjs.map
+index e0cbc73d1f3e9bea261a6826bbe2c7423e493771..e9cb0186a5b2240d3f13a41ac96d742a3ad164a7 100644
+--- a/dist/NotificationServicesPushController/web/push-utils.cjs.map
++++ b/dist/NotificationServicesPushController/web/push-utils.cjs.map
+@@ -1 +1 @@
+-{"version":3,"file":"push-utils.cjs","sourceRoot":"","sources":["../../../src/NotificationServicesPushController/web/push-utils.ts"],"names":[],"mappings":"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","sourcesContent":["// We are defining that this file uses a webworker global scope.\n// eslint-disable-next-line spaced-comment\n/// <reference lib=\"webworker\" />\nimport type { FirebaseApp } from 'firebase/app';\nimport { getApp, initializeApp } from 'firebase/app';\nimport { getToken, deleteToken } from 'firebase/messaging';\nimport {\n  getMessaging,\n  onBackgroundMessage,\n  isSupported,\n} from 'firebase/messaging/sw';\nimport type { Messaging, MessagePayload } from 'firebase/messaging/sw';\nimport log from 'loglevel';\n\nimport type { Types } from '../../NotificationServicesController';\nimport { Processors } from '../../NotificationServicesController';\nimport { toRawOnChainNotification } from '../../shared/to-raw-notification';\nimport type { NotificationServicesPushControllerMessenger } from '../NotificationServicesPushController';\nimport type { PushNotificationEnv } from '../types/firebase';\n\ndeclare const self: ServiceWorkerGlobalScope;\n\n// Exported to help testing\n// eslint-disable-next-line import-x/no-mutable-exports\nexport let supportedCache: boolean | null = null;\n\nconst getPushAvailability = async () => {\n  supportedCache ??= await isSupported();\n  return supportedCache;\n};\n\nconst createFirebaseApp = async (\n  env: PushNotificationEnv,\n): Promise<FirebaseApp> => {\n  try {\n    return getApp();\n  } catch {\n    const firebaseConfig = {\n      apiKey: env.apiKey,\n      authDomain: env.authDomain,\n      storageBucket: env.storageBucket,\n      projectId: env.projectId,\n      messagingSenderId: env.messagingSenderId,\n      appId: env.appId,\n      measurementId: env.measurementId,\n    };\n    return initializeApp(firebaseConfig);\n  }\n};\n\nconst getFirebaseMessaging = async (\n  env: PushNotificationEnv,\n): Promise<Messaging | null> => {\n  const supported = await getPushAvailability();\n  if (!supported) {\n    return null;\n  }\n\n  const app = await createFirebaseApp(env);\n  return getMessaging(app);\n};\n\n/**\n * Creates a registration token for Firebase Cloud Messaging.\n *\n * @param env - env to configure push notifications\n * @returns A promise that resolves with the registration token or null if an error occurs.\n */\nexport async function createRegToken(\n  env: PushNotificationEnv,\n): Promise<string | null> {\n  try {\n    const messaging = await getFirebaseMessaging(env);\n    if (!messaging) {\n      return null;\n    }\n\n    const token = await getToken(messaging, {\n      serviceWorkerRegistration: self.registration,\n      vapidKey: env.vapidKey,\n    });\n    return token;\n  } catch {\n    return null;\n  }\n}\n\n/**\n * Deletes the Firebase Cloud Messaging registration token.\n *\n * @param env - env to configure push notifications\n * @returns A promise that resolves with true if the token was successfully deleted, false otherwise.\n */\nexport async function deleteRegToken(\n  env: PushNotificationEnv,\n): Promise<boolean> {\n  try {\n    const messaging = await getFirebaseMessaging(env);\n    if (!messaging) {\n      return true;\n    }\n\n    await deleteToken(messaging);\n    return true;\n  } catch {\n    return false;\n  }\n}\n\n/**\n * Service Worker Listener for when push notifications are received.\n *\n * @param env - push notification environment\n * @param handler - handler to actually showing notification, MUST BE PROVIDED\n * @returns unsubscribe handler\n */\nasync function listenToPushNotificationsReceived(\n  env: PushNotificationEnv,\n  handler: (notification: Types.INotification) => void | Promise<void>,\n): Promise<(() => void) | null> {\n  const messaging = await getFirebaseMessaging(env);\n  if (!messaging) {\n    return null;\n  }\n\n  const unsubscribePushNotifications = onBackgroundMessage(\n    messaging,\n    // eslint-disable-next-line @typescript-eslint/no-misused-promises\n    async (payload: MessagePayload) => {\n      try {\n        const data: Types.UnprocessedOnChainRawNotification | undefined =\n          payload?.data?.data ? JSON.parse(payload?.data?.data) : undefined;\n\n        if (!data) {\n          return;\n        }\n\n        const notificationData = toRawOnChainNotification(data);\n        const notification = Processors.processNotification(notificationData);\n        await handler(notification);\n      } catch (error) {\n        // Do Nothing, cannot parse a bad notification\n        log.error('Unable to send push notification:', {\n          notification: payload?.data?.data,\n          error,\n        });\n        throw new Error('Unable to send push notification');\n      }\n    },\n  );\n\n  const unsubscribe = () => unsubscribePushNotifications();\n  return unsubscribe;\n}\n\n/**\n * Service Worker Listener for when a notification is clicked\n *\n * @param handler - listen to NotificationEvent from the service worker\n * @returns unsubscribe handler\n */\nfunction listenToPushNotificationsClicked(\n  handler: (e: NotificationEvent, notification: Types.INotification) => void,\n) {\n  const clickHandler = (event: NotificationEvent) => {\n    // Get Data\n    const data: Types.INotification = event?.notification?.data;\n    handler(event, data);\n  };\n\n  self.addEventListener('notificationclick', clickHandler);\n  const unsubscribe = () =>\n    self.removeEventListener('notificationclick', clickHandler);\n  return unsubscribe;\n}\n\n/**\n * A creator function that assists creating web-specific push notification subscription:\n * 1. Creates subscriptions for receiving and clicking notifications\n * 2. Creates click events when a notification is clicked\n * 3. Publishes controller messenger events\n *\n * @param props - props for this creator function.\n * @param props.onReceivedHandler - allows the developer to handle showing a notification\n * @param props.onClickHandler - allows the developer to handle clicking the notification\n * @param props.messenger - the controller messenger to publish the `onNewNotifications` and `pushNotificationsClicked` events\n * @returns a function that can be used by the controller\n */\nexport function createSubscribeToPushNotifications(props: {\n  onReceivedHandler: (\n    notification: Types.INotification,\n  ) => void | Promise<void>;\n  onClickHandler: (\n    e: NotificationEvent,\n    notification: Types.INotification,\n  ) => void;\n  messenger: NotificationServicesPushControllerMessenger;\n}) {\n  return async function (env: PushNotificationEnv) {\n    const onBackgroundMessageSub = await listenToPushNotificationsReceived(\n      env,\n      async (notification) => {\n        props.messenger.publish(\n          'NotificationServicesPushController:onNewNotifications',\n          notification,\n        );\n        await props.onReceivedHandler(notification);\n      },\n    );\n    const onClickSub = listenToPushNotificationsClicked(\n      (event, notification) => {\n        props.messenger.publish(\n          'NotificationServicesPushController:pushNotificationClicked',\n          notification,\n        );\n        props.onClickHandler(event, notification);\n      },\n    );\n\n    const unsubscribe = () => {\n      onBackgroundMessageSub?.();\n      onClickSub();\n    };\n\n    return unsubscribe;\n  };\n}\n"]}
+\ No newline at end of file
++{"version":3,"file":"push-utils.cjs","sourceRoot":"","sources":["../../../src/NotificationServicesPushController/web/push-utils.ts"],"names":[],"mappings":";AAAA,gEAAgE;AAChE,0CAA0C;AAC1C,iCAAiC;;;AAOjC,2BAA2B;AAEd,QAAA,cAAc,GAAmB,IAAI,CAAC;AAEnD;;;;;GAKG;AACI,KAAK,UAAU,cAAc,CAAC,IAAY;IAC/C,OAAO,IAAI,CAAC;AACd,CAAC;AAFD,wCAEC;AAED;;;;;GAKG;AACI,KAAK,UAAU,cAAc,CAAC,IAAY;IAC/C,OAAO,KAAK,CAAC;AACf,CAAC;AAFD,wCAEC;AAED;;;;;;GAMG;AACH,KAAK,UAAU,iCAAiC,CAC9C,IAAY,EACZ,QAAqE;IAErE,OAAO,IAAI,CAAC;AACd,CAAC;AAED;;;;;GAKG;AACH,SAAS,gCAAgC,CACvC,OAA0E;IAE1E,MAAM,YAAY,GAAG,CAAC,KAAwB,EAAE,EAAE;QAChD,WAAW;QACX,MAAM,IAAI,GAAwB,KAAK,EAAE,YAAY,EAAE,IAAI,CAAC;QAC5D,OAAO,CAAC,KAAK,EAAE,IAAI,CAAC,CAAC;IACvB,CAAC,CAAC;IAEF,IAAI,CAAC,gBAAgB,CAAC,mBAAmB,EAAE,YAAY,CAAC,CAAC;IACzD,MAAM,WAAW,GAAG,GAAG,EAAE,CACvB,IAAI,CAAC,mBAAmB,CAAC,mBAAmB,EAAE,YAAY,CAAC,CAAC;IAC9D,OAAO,WAAW,CAAC;AACrB,CAAC;AAED;;;;;;;;;;;GAWG;AACH,SAAgB,kCAAkC,CAAC,KASlD;IACC,OAAO,KAAK,WAAW,GAAW;QAChC,MAAM,sBAAsB,GAAG,MAAM,iCAAiC,CACpE,GAAG,EACH,KAAK,EAAE,YAAY,EAAE,EAAE;YACrB,KAAK,CAAC,SAAS,EAAE,OAAO,CACtB,uDAAuD,EACvD,YAAY,CACb,CAAC;YACF,MAAM,KAAK,CAAC,iBAAiB,CAAC,YAAY,CAAC,CAAC;QAC9C,CAAC,CACF,CAAC;QACF,MAAM,UAAU,GAAG,gCAAgC,CACjD,CAAC,KAAK,EAAE,YAAY,EAAE,EAAE;YACtB,KAAK,CAAC,SAAS,CAAC,OAAO,CACrB,4DAA4D,EAC5D,YAAY,CACb,CAAC;YACF,KAAK,CAAC,cAAc,CAAC,KAAK,EAAE,YAAY,CAAC,CAAC;QAC5C,CAAC,CACF,CAAC;QAEF,MAAM,WAAW,GAAG,GAAG,EAAE;YACvB,sBAAsB,EAAE,EAAE,CAAC;YAC3B,UAAU,EAAE,EAAE,CAAC;QACjB,CAAC,CAAC;QAEF,OAAO,WAAW,CAAC;IACrB,CAAC,CAAC;AACJ,CAAC;AAtCD,gFAsCC","sourcesContent":["// We are defining that this file uses a webworker global scope.\n// eslint-disable-next-line spaced-comment\n/// <reference lib=\"webworker\" />\n\nimport type { Types } from '../../NotificationServicesController';\nimport type { NotificationServicesPushControllerMessenger } from '../NotificationServicesPushController';\n\ndeclare const self: ServiceWorkerGlobalScope;\n\n// Exported to help testing\n\nexport const supportedCache: boolean | null = null;\n\n/**\n * Creates a registration token for Firebase Cloud Messaging.\n *\n * @param _env - env to configure push notifications\n * @returns A promise that resolves with the registration token or null if an error occurs.\n */\nexport async function createRegToken(_env: object): Promise<string | null> {\n  return null;\n}\n\n/**\n * Deletes the Firebase Cloud Messaging registration token.\n *\n * @param _env - env to configure push notifications\n * @returns A promise that resolves with true if the token was successfully deleted, false otherwise.\n */\nexport async function deleteRegToken(_env: object): Promise<boolean> {\n  return false;\n}\n\n/**\n * Service Worker Listener for when push notifications are received.\n *\n * @param _env - push notification environment\n * @param _handler - handler to actually showing notification, MUST BE PROVIDED\n * @returns unsubscribe handler\n */\nasync function listenToPushNotificationsReceived(\n  _env: object,\n  _handler: (notification: Types.INotification) => void | Promise<void>,\n): Promise<(() => void) | null> {\n  return null;\n}\n\n/**\n * Service Worker Listener for when a notification is clicked\n *\n * @param handler - listen to NotificationEvent from the service worker\n * @returns unsubscribe handler\n */\nfunction listenToPushNotificationsClicked(\n  handler: (e: NotificationEvent, notification: Types.INotification) => void,\n) {\n  const clickHandler = (event: NotificationEvent) => {\n    // Get Data\n    const data: Types.INotification = event?.notification?.data;\n    handler(event, data);\n  };\n\n  self.addEventListener('notificationclick', clickHandler);\n  const unsubscribe = () =>\n    self.removeEventListener('notificationclick', clickHandler);\n  return unsubscribe;\n}\n\n/**\n * A creator function that assists creating web-specific push notification subscription:\n * 1. Creates subscriptions for receiving and clicking notifications\n * 2. Creates click events when a notification is clicked\n * 3. Publishes controller messenger events\n *\n * @param props - props for this creator function.\n * @param props.onReceivedHandler - allows the developer to handle showing a notification\n * @param props.onClickHandler - allows the developer to handle clicking the notification\n * @param props.messenger - the controller messenger to publish the `onNewNotifications` and `pushNotificationsClicked` events\n * @returns a function that can be used by the controller\n */\nexport function createSubscribeToPushNotifications(props: {\n  onReceivedHandler: (\n    notification: Types.INotification,\n  ) => void | Promise<void>;\n  onClickHandler: (\n    e: NotificationEvent,\n    notification: Types.INotification,\n  ) => void;\n  messenger: NotificationServicesPushControllerMessenger;\n}) {\n  return async function (env: object) {\n    const onBackgroundMessageSub = await listenToPushNotificationsReceived(\n      env,\n      async (notification) => {\n        props.messenger?.publish(\n          'NotificationServicesPushController:onNewNotifications',\n          notification,\n        );\n        await props.onReceivedHandler(notification);\n      },\n    );\n    const onClickSub = listenToPushNotificationsClicked(\n      (event, notification) => {\n        props.messenger.publish(\n          'NotificationServicesPushController:pushNotificationClicked',\n          notification,\n        );\n        props.onClickHandler(event, notification);\n      },\n    );\n\n    const unsubscribe = () => {\n      onBackgroundMessageSub?.();\n      onClickSub?.();\n    };\n\n    return unsubscribe;\n  };\n}\n"]}
+\ No newline at end of file
+diff --git a/dist/NotificationServicesPushController/web/push-utils.d.cts b/dist/NotificationServicesPushController/web/push-utils.d.cts
+index 1c78d2beb2b1af5a678eb60f8eba374a66bd15c4..e5b7588a78e57534bb6f3528ebe8a683efdedee4 100644
+--- a/dist/NotificationServicesPushController/web/push-utils.d.cts
++++ b/dist/NotificationServicesPushController/web/push-utils.d.cts
+@@ -1,22 +1,21 @@
+ /// <reference lib="webworker" />
+ import type { Types } from "../../NotificationServicesController/index.cjs";
+ import type { NotificationServicesPushControllerMessenger } from "../NotificationServicesPushController.cjs";
+-import type { PushNotificationEnv } from "../types/firebase.cjs";
+-export declare let supportedCache: boolean | null;
++export declare const supportedCache: boolean | null;
+ /**
+  * Creates a registration token for Firebase Cloud Messaging.
+  *
+- * @param env - env to configure push notifications
++ * @param _env - env to configure push notifications
+  * @returns A promise that resolves with the registration token or null if an error occurs.
+  */
+-export declare function createRegToken(env: PushNotificationEnv): Promise<string | null>;
++export declare function createRegToken(_env: object): Promise<string | null>;
+ /**
+  * Deletes the Firebase Cloud Messaging registration token.
+  *
+- * @param env - env to configure push notifications
++ * @param _env - env to configure push notifications
+  * @returns A promise that resolves with true if the token was successfully deleted, false otherwise.
+  */
+-export declare function deleteRegToken(env: PushNotificationEnv): Promise<boolean>;
++export declare function deleteRegToken(_env: object): Promise<boolean>;
+ /**
+  * A creator function that assists creating web-specific push notification subscription:
+  * 1. Creates subscriptions for receiving and clicking notifications
+@@ -33,5 +32,5 @@ export declare function createSubscribeToPushNotifications(props: {
+     onReceivedHandler: (notification: Types.INotification) => void | Promise<void>;
+     onClickHandler: (e: NotificationEvent, notification: Types.INotification) => void;
+     messenger: NotificationServicesPushControllerMessenger;
+-}): (env: PushNotificationEnv) => Promise<() => void>;
++}): (env: object) => Promise<() => void>;
+ //# sourceMappingURL=push-utils.d.cts.map
+\ No newline at end of file
+diff --git a/dist/NotificationServicesPushController/web/push-utils.d.cts.map b/dist/NotificationServicesPushController/web/push-utils.d.cts.map
+index 21a204dd7ea36c787bb907c5983a4f63dae05c39..c3ed7744fb833d114ffb40a5872b2d7bc16f3fd1 100644
+--- a/dist/NotificationServicesPushController/web/push-utils.d.cts.map
++++ b/dist/NotificationServicesPushController/web/push-utils.d.cts.map
+@@ -1 +1 @@
+-{"version":3,"file":"push-utils.d.cts","sourceRoot":"","sources":["../../../src/NotificationServicesPushController/web/push-utils.ts"],"names":[],"mappings":";AAcA,OAAO,KAAK,EAAE,KAAK,EAAE,uDAA6C;AAGlE,OAAO,KAAK,EAAE,2CAA2C,EAAE,kDAA8C;AACzG,OAAO,KAAK,EAAE,mBAAmB,EAAE,8BAA0B;AAM7D,eAAO,IAAI,cAAc,EAAE,OAAO,GAAG,IAAW,CAAC;AAsCjD;;;;;GAKG;AACH,wBAAsB,cAAc,CAClC,GAAG,EAAE,mBAAmB,GACvB,OAAO,CAAC,MAAM,GAAG,IAAI,CAAC,CAexB;AAED;;;;;GAKG;AACH,wBAAsB,cAAc,CAClC,GAAG,EAAE,mBAAmB,GACvB,OAAO,CAAC,OAAO,CAAC,CAYlB;AAqED;;;;;;;;;;;GAWG;AACH,wBAAgB,kCAAkC,CAAC,KAAK,EAAE;IACxD,iBAAiB,EAAE,CACjB,YAAY,EAAE,KAAK,CAAC,aAAa,KAC9B,IAAI,GAAG,OAAO,CAAC,IAAI,CAAC,CAAC;IAC1B,cAAc,EAAE,CACd,CAAC,EAAE,iBAAiB,EACpB,YAAY,EAAE,KAAK,CAAC,aAAa,KAC9B,IAAI,CAAC;IACV,SAAS,EAAE,2CAA2C,CAAC;CACxD,SAC6B,mBAAmB,yBA4BhD"}
+\ No newline at end of file
++{"version":3,"file":"push-utils.d.cts","sourceRoot":"","sources":["../../../src/NotificationServicesPushController/web/push-utils.ts"],"names":[],"mappings":";AAIA,OAAO,KAAK,EAAE,KAAK,EAAE,uDAA6C;AAClE,OAAO,KAAK,EAAE,2CAA2C,EAAE,kDAA8C;AAMzG,eAAO,MAAM,cAAc,EAAE,OAAO,GAAG,IAAW,CAAC;AAEnD;;;;;GAKG;AACH,wBAAsB,cAAc,CAAC,IAAI,EAAE,MAAM,GAAG,OAAO,CAAC,MAAM,GAAG,IAAI,CAAC,CAEzE;AAED;;;;;GAKG;AACH,wBAAsB,cAAc,CAAC,IAAI,EAAE,MAAM,GAAG,OAAO,CAAC,OAAO,CAAC,CAEnE;AAqCD;;;;;;;;;;;GAWG;AACH,wBAAgB,kCAAkC,CAAC,KAAK,EAAE;IACxD,iBAAiB,EAAE,CACjB,YAAY,EAAE,KAAK,CAAC,aAAa,KAC9B,IAAI,GAAG,OAAO,CAAC,IAAI,CAAC,CAAC;IAC1B,cAAc,EAAE,CACd,CAAC,EAAE,iBAAiB,EACpB,YAAY,EAAE,KAAK,CAAC,aAAa,KAC9B,IAAI,CAAC;IACV,SAAS,EAAE,2CAA2C,CAAC;CACxD,SAC6B,MAAM,yBA4BnC"}
+\ No newline at end of file
+diff --git a/dist/NotificationServicesPushController/web/push-utils.d.mts b/dist/NotificationServicesPushController/web/push-utils.d.mts
+index 7e7a0a3949256ae2fabaa258238e6397e2c8c10b..be190394bb6330d60692b1a1719ecad31793fc6e 100644
+--- a/dist/NotificationServicesPushController/web/push-utils.d.mts
++++ b/dist/NotificationServicesPushController/web/push-utils.d.mts
+@@ -1,22 +1,21 @@
+ /// <reference lib="webworker" />
+ import type { Types } from "../../NotificationServicesController/index.mjs";
+ import type { NotificationServicesPushControllerMessenger } from "../NotificationServicesPushController.mjs";
+-import type { PushNotificationEnv } from "../types/firebase.mjs";
+-export declare let supportedCache: boolean | null;
++export declare const supportedCache: boolean | null;
+ /**
+  * Creates a registration token for Firebase Cloud Messaging.
+  *
+- * @param env - env to configure push notifications
++ * @param _env - env to configure push notifications
+  * @returns A promise that resolves with the registration token or null if an error occurs.
+  */
+-export declare function createRegToken(env: PushNotificationEnv): Promise<string | null>;
++export declare function createRegToken(_env: object): Promise<string | null>;
+ /**
+  * Deletes the Firebase Cloud Messaging registration token.
+  *
+- * @param env - env to configure push notifications
++ * @param _env - env to configure push notifications
+  * @returns A promise that resolves with true if the token was successfully deleted, false otherwise.
+  */
+-export declare function deleteRegToken(env: PushNotificationEnv): Promise<boolean>;
++export declare function deleteRegToken(_env: object): Promise<boolean>;
+ /**
+  * A creator function that assists creating web-specific push notification subscription:
+  * 1. Creates subscriptions for receiving and clicking notifications
+@@ -33,5 +32,5 @@ export declare function createSubscribeToPushNotifications(props: {
+     onReceivedHandler: (notification: Types.INotification) => void | Promise<void>;
+     onClickHandler: (e: NotificationEvent, notification: Types.INotification) => void;
+     messenger: NotificationServicesPushControllerMessenger;
+-}): (env: PushNotificationEnv) => Promise<() => void>;
++}): (env: object) => Promise<() => void>;
+ //# sourceMappingURL=push-utils.d.mts.map
+\ No newline at end of file
+diff --git a/dist/NotificationServicesPushController/web/push-utils.d.mts.map b/dist/NotificationServicesPushController/web/push-utils.d.mts.map
+index a9712e8cb4ccd4881f907a398c546cf1713c8680..cca2b6d63615fd473c4ebfe2174d94443f62430f 100644
+--- a/dist/NotificationServicesPushController/web/push-utils.d.mts.map
++++ b/dist/NotificationServicesPushController/web/push-utils.d.mts.map
+@@ -1 +1 @@
+-{"version":3,"file":"push-utils.d.mts","sourceRoot":"","sources":["../../../src/NotificationServicesPushController/web/push-utils.ts"],"names":[],"mappings":";AAcA,OAAO,KAAK,EAAE,KAAK,EAAE,uDAA6C;AAGlE,OAAO,KAAK,EAAE,2CAA2C,EAAE,kDAA8C;AACzG,OAAO,KAAK,EAAE,mBAAmB,EAAE,8BAA0B;AAM7D,eAAO,IAAI,cAAc,EAAE,OAAO,GAAG,IAAW,CAAC;AAsCjD;;;;;GAKG;AACH,wBAAsB,cAAc,CAClC,GAAG,EAAE,mBAAmB,GACvB,OAAO,CAAC,MAAM,GAAG,IAAI,CAAC,CAexB;AAED;;;;;GAKG;AACH,wBAAsB,cAAc,CAClC,GAAG,EAAE,mBAAmB,GACvB,OAAO,CAAC,OAAO,CAAC,CAYlB;AAqED;;;;;;;;;;;GAWG;AACH,wBAAgB,kCAAkC,CAAC,KAAK,EAAE;IACxD,iBAAiB,EAAE,CACjB,YAAY,EAAE,KAAK,CAAC,aAAa,KAC9B,IAAI,GAAG,OAAO,CAAC,IAAI,CAAC,CAAC;IAC1B,cAAc,EAAE,CACd,CAAC,EAAE,iBAAiB,EACpB,YAAY,EAAE,KAAK,CAAC,aAAa,KAC9B,IAAI,CAAC;IACV,SAAS,EAAE,2CAA2C,CAAC;CACxD,SAC6B,mBAAmB,yBA4BhD"}
+\ No newline at end of file
++{"version":3,"file":"push-utils.d.mts","sourceRoot":"","sources":["../../../src/NotificationServicesPushController/web/push-utils.ts"],"names":[],"mappings":";AAIA,OAAO,KAAK,EAAE,KAAK,EAAE,uDAA6C;AAClE,OAAO,KAAK,EAAE,2CAA2C,EAAE,kDAA8C;AAMzG,eAAO,MAAM,cAAc,EAAE,OAAO,GAAG,IAAW,CAAC;AAEnD;;;;;GAKG;AACH,wBAAsB,cAAc,CAAC,IAAI,EAAE,MAAM,GAAG,OAAO,CAAC,MAAM,GAAG,IAAI,CAAC,CAEzE;AAED;;;;;GAKG;AACH,wBAAsB,cAAc,CAAC,IAAI,EAAE,MAAM,GAAG,OAAO,CAAC,OAAO,CAAC,CAEnE;AAqCD;;;;;;;;;;;GAWG;AACH,wBAAgB,kCAAkC,CAAC,KAAK,EAAE;IACxD,iBAAiB,EAAE,CACjB,YAAY,EAAE,KAAK,CAAC,aAAa,KAC9B,IAAI,GAAG,OAAO,CAAC,IAAI,CAAC,CAAC;IAC1B,cAAc,EAAE,CACd,CAAC,EAAE,iBAAiB,EACpB,YAAY,EAAE,KAAK,CAAC,aAAa,KAC9B,IAAI,CAAC;IACV,SAAS,EAAE,2CAA2C,CAAC;CACxD,SAC6B,MAAM,yBA4BnC"}
+\ No newline at end of file
+diff --git a/dist/NotificationServicesPushController/web/push-utils.mjs b/dist/NotificationServicesPushController/web/push-utils.mjs
+index 1b6015b21fd67af6cf113691c8268399ce8c260e..471fb8b52b5ba69059d5a24bd24494a06ed67e1f 100644
+--- a/dist/NotificationServicesPushController/web/push-utils.mjs
++++ b/dist/NotificationServicesPushController/web/push-utils.mjs
+@@ -1,124 +1,35 @@
+-function $importDefault(module) {
+-    if (module?.__esModule) {
+-        return module.default;
+-    }
+-    return module;
+-}
+-import { getApp, initializeApp } from "firebase/app";
+-import { getToken, deleteToken } from "firebase/messaging";
+-import { getMessaging, onBackgroundMessage, isSupported } from "firebase/messaging/sw";
+-import $log from "loglevel";
+-const log = $importDefault($log);
+-import { Processors } from "../../NotificationServicesController/index.mjs";
+-import { toRawOnChainNotification } from "../../shared/to-raw-notification.mjs";
++// We are defining that this file uses a webworker global scope.
++// eslint-disable-next-line spaced-comment
++/// <reference lib="webworker" />
+ // Exported to help testing
+-// eslint-disable-next-line import-x/no-mutable-exports
+-export let supportedCache = null;
+-const getPushAvailability = async () => {
+-    supportedCache ?? (supportedCache = await isSupported());
+-    return supportedCache;
+-};
+-const createFirebaseApp = async (env) => {
+-    try {
+-        return getApp();
+-    }
+-    catch {
+-        const firebaseConfig = {
+-            apiKey: env.apiKey,
+-            authDomain: env.authDomain,
+-            storageBucket: env.storageBucket,
+-            projectId: env.projectId,
+-            messagingSenderId: env.messagingSenderId,
+-            appId: env.appId,
+-            measurementId: env.measurementId,
+-        };
+-        return initializeApp(firebaseConfig);
+-    }
+-};
+-const getFirebaseMessaging = async (env) => {
+-    const supported = await getPushAvailability();
+-    if (!supported) {
+-        return null;
+-    }
+-    const app = await createFirebaseApp(env);
+-    return getMessaging(app);
+-};
++export const supportedCache = null;
+ /**
+  * Creates a registration token for Firebase Cloud Messaging.
+  *
+- * @param env - env to configure push notifications
++ * @param _env - env to configure push notifications
+  * @returns A promise that resolves with the registration token or null if an error occurs.
+  */
+-export async function createRegToken(env) {
+-    try {
+-        const messaging = await getFirebaseMessaging(env);
+-        if (!messaging) {
+-            return null;
+-        }
+-        const token = await getToken(messaging, {
+-            serviceWorkerRegistration: self.registration,
+-            vapidKey: env.vapidKey,
+-        });
+-        return token;
+-    }
+-    catch {
+-        return null;
+-    }
++export async function createRegToken(_env) {
++    return null;
+ }
+ /**
+  * Deletes the Firebase Cloud Messaging registration token.
+  *
+- * @param env - env to configure push notifications
++ * @param _env - env to configure push notifications
+  * @returns A promise that resolves with true if the token was successfully deleted, false otherwise.
+  */
+-export async function deleteRegToken(env) {
+-    try {
+-        const messaging = await getFirebaseMessaging(env);
+-        if (!messaging) {
+-            return true;
+-        }
+-        await deleteToken(messaging);
+-        return true;
+-    }
+-    catch {
+-        return false;
+-    }
++export async function deleteRegToken(_env) {
++    return false;
+ }
+ /**
+  * Service Worker Listener for when push notifications are received.
+  *
+- * @param env - push notification environment
+- * @param handler - handler to actually showing notification, MUST BE PROVIDED
++ * @param _env - push notification environment
++ * @param _handler - handler to actually showing notification, MUST BE PROVIDED
+  * @returns unsubscribe handler
+  */
+-async function listenToPushNotificationsReceived(env, handler) {
+-    const messaging = await getFirebaseMessaging(env);
+-    if (!messaging) {
+-        return null;
+-    }
+-    const unsubscribePushNotifications = onBackgroundMessage(messaging, 
+-    // eslint-disable-next-line @typescript-eslint/no-misused-promises
+-    async (payload) => {
+-        try {
+-            const data = payload?.data?.data ? JSON.parse(payload?.data?.data) : undefined;
+-            if (!data) {
+-                return;
+-            }
+-            const notificationData = toRawOnChainNotification(data);
+-            const notification = Processors.processNotification(notificationData);
+-            await handler(notification);
+-        }
+-        catch (error) {
+-            // Do Nothing, cannot parse a bad notification
+-            log.error('Unable to send push notification:', {
+-                notification: payload?.data?.data,
+-                error,
+-            });
+-            throw new Error('Unable to send push notification');
+-        }
+-    });
+-    const unsubscribe = () => unsubscribePushNotifications();
+-    return unsubscribe;
++async function listenToPushNotificationsReceived(_env, _handler) {
++    return null;
+ }
+ /**
+  * Service Worker Listener for when a notification is clicked
+@@ -151,7 +62,7 @@ function listenToPushNotificationsClicked(handler) {
+ export function createSubscribeToPushNotifications(props) {
+     return async function (env) {
+         const onBackgroundMessageSub = await listenToPushNotificationsReceived(env, async (notification) => {
+-            props.messenger.publish('NotificationServicesPushController:onNewNotifications', notification);
++            props.messenger?.publish('NotificationServicesPushController:onNewNotifications', notification);
+             await props.onReceivedHandler(notification);
+         });
+         const onClickSub = listenToPushNotificationsClicked((event, notification) => {
+@@ -160,7 +71,7 @@ export function createSubscribeToPushNotifications(props) {
+         });
+         const unsubscribe = () => {
+             onBackgroundMessageSub?.();
+-            onClickSub();
++            onClickSub?.();
+         };
+         return unsubscribe;
+     };
+diff --git a/dist/NotificationServicesPushController/web/push-utils.mjs.map b/dist/NotificationServicesPushController/web/push-utils.mjs.map
+index 8803f6a456cf99fc7491af9faee5f30f1b418d13..9c04ec474d06569887e75014afac587ff27b5968 100644
+--- a/dist/NotificationServicesPushController/web/push-utils.mjs.map
++++ b/dist/NotificationServicesPushController/web/push-utils.mjs.map
+@@ -1 +1 @@
+-{"version":3,"file":"push-utils.mjs","sourceRoot":"","sources":["../../../src/NotificationServicesPushController/web/push-utils.ts"],"names":[],"mappings":";;;;;;AAIA,OAAO,EAAE,MAAM,EAAE,aAAa,EAAE,qBAAqB;AACrD,OAAO,EAAE,QAAQ,EAAE,WAAW,EAAE,2BAA2B;AAC3D,OAAO,EACL,YAAY,EACZ,mBAAmB,EACnB,WAAW,EACZ,8BAA8B;AAE/B,OAAO,IAAG,iBAAiB;;AAG3B,OAAO,EAAE,UAAU,EAAE,uDAA6C;AAClE,OAAO,EAAE,wBAAwB,EAAE,6CAAyC;AAM5E,2BAA2B;AAC3B,uDAAuD;AACvD,MAAM,CAAC,IAAI,cAAc,GAAmB,IAAI,CAAC;AAEjD,MAAM,mBAAmB,GAAG,KAAK,IAAI,EAAE;IACrC,cAAc,KAAd,cAAc,GAAK,MAAM,WAAW,EAAE,EAAC;IACvC,OAAO,cAAc,CAAC;AACxB,CAAC,CAAC;AAEF,MAAM,iBAAiB,GAAG,KAAK,EAC7B,GAAwB,EACF,EAAE;IACxB,IAAI;QACF,OAAO,MAAM,EAAE,CAAC;KACjB;IAAC,MAAM;QACN,MAAM,cAAc,GAAG;YACrB,MAAM,EAAE,GAAG,CAAC,MAAM;YAClB,UAAU,EAAE,GAAG,CAAC,UAAU;YAC1B,aAAa,EAAE,GAAG,CAAC,aAAa;YAChC,SAAS,EAAE,GAAG,CAAC,SAAS;YACxB,iBAAiB,EAAE,GAAG,CAAC,iBAAiB;YACxC,KAAK,EAAE,GAAG,CAAC,KAAK;YAChB,aAAa,EAAE,GAAG,CAAC,aAAa;SACjC,CAAC;QACF,OAAO,aAAa,CAAC,cAAc,CAAC,CAAC;KACtC;AACH,CAAC,CAAC;AAEF,MAAM,oBAAoB,GAAG,KAAK,EAChC,GAAwB,EACG,EAAE;IAC7B,MAAM,SAAS,GAAG,MAAM,mBAAmB,EAAE,CAAC;IAC9C,IAAI,CAAC,SAAS,EAAE;QACd,OAAO,IAAI,CAAC;KACb;IAED,MAAM,GAAG,GAAG,MAAM,iBAAiB,CAAC,GAAG,CAAC,CAAC;IACzC,OAAO,YAAY,CAAC,GAAG,CAAC,CAAC;AAC3B,CAAC,CAAC;AAEF;;;;;GAKG;AACH,MAAM,CAAC,KAAK,UAAU,cAAc,CAClC,GAAwB;IAExB,IAAI;QACF,MAAM,SAAS,GAAG,MAAM,oBAAoB,CAAC,GAAG,CAAC,CAAC;QAClD,IAAI,CAAC,SAAS,EAAE;YACd,OAAO,IAAI,CAAC;SACb;QAED,MAAM,KAAK,GAAG,MAAM,QAAQ,CAAC,SAAS,EAAE;YACtC,yBAAyB,EAAE,IAAI,CAAC,YAAY;YAC5C,QAAQ,EAAE,GAAG,CAAC,QAAQ;SACvB,CAAC,CAAC;QACH,OAAO,KAAK,CAAC;KACd;IAAC,MAAM;QACN,OAAO,IAAI,CAAC;KACb;AACH,CAAC;AAED;;;;;GAKG;AACH,MAAM,CAAC,KAAK,UAAU,cAAc,CAClC,GAAwB;IAExB,IAAI;QACF,MAAM,SAAS,GAAG,MAAM,oBAAoB,CAAC,GAAG,CAAC,CAAC;QAClD,IAAI,CAAC,SAAS,EAAE;YACd,OAAO,IAAI,CAAC;SACb;QAED,MAAM,WAAW,CAAC,SAAS,CAAC,CAAC;QAC7B,OAAO,IAAI,CAAC;KACb;IAAC,MAAM;QACN,OAAO,KAAK,CAAC;KACd;AACH,CAAC;AAED;;;;;;GAMG;AACH,KAAK,UAAU,iCAAiC,CAC9C,GAAwB,EACxB,OAAoE;IAEpE,MAAM,SAAS,GAAG,MAAM,oBAAoB,CAAC,GAAG,CAAC,CAAC;IAClD,IAAI,CAAC,SAAS,EAAE;QACd,OAAO,IAAI,CAAC;KACb;IAED,MAAM,4BAA4B,GAAG,mBAAmB,CACtD,SAAS;IACT,kEAAkE;IAClE,KAAK,EAAE,OAAuB,EAAE,EAAE;QAChC,IAAI;YACF,MAAM,IAAI,GACR,OAAO,EAAE,IAAI,EAAE,IAAI,CAAC,CAAC,CAAC,IAAI,CAAC,KAAK,CAAC,OAAO,EAAE,IAAI,EAAE,IAAI,CAAC,CAAC,CAAC,CAAC,SAAS,CAAC;YAEpE,IAAI,CAAC,IAAI,EAAE;gBACT,OAAO;aACR;YAED,MAAM,gBAAgB,GAAG,wBAAwB,CAAC,IAAI,CAAC,CAAC;YACxD,MAAM,YAAY,GAAG,UAAU,CAAC,mBAAmB,CAAC,gBAAgB,CAAC,CAAC;YACtE,MAAM,OAAO,CAAC,YAAY,CAAC,CAAC;SAC7B;QAAC,OAAO,KAAK,EAAE;YACd,8CAA8C;YAC9C,GAAG,CAAC,KAAK,CAAC,mCAAmC,EAAE;gBAC7C,YAAY,EAAE,OAAO,EAAE,IAAI,EAAE,IAAI;gBACjC,KAAK;aACN,CAAC,CAAC;YACH,MAAM,IAAI,KAAK,CAAC,kCAAkC,CAAC,CAAC;SACrD;IACH,CAAC,CACF,CAAC;IAEF,MAAM,WAAW,GAAG,GAAG,EAAE,CAAC,4BAA4B,EAAE,CAAC;IACzD,OAAO,WAAW,CAAC;AACrB,CAAC;AAED;;;;;GAKG;AACH,SAAS,gCAAgC,CACvC,OAA0E;IAE1E,MAAM,YAAY,GAAG,CAAC,KAAwB,EAAE,EAAE;QAChD,WAAW;QACX,MAAM,IAAI,GAAwB,KAAK,EAAE,YAAY,EAAE,IAAI,CAAC;QAC5D,OAAO,CAAC,KAAK,EAAE,IAAI,CAAC,CAAC;IACvB,CAAC,CAAC;IAEF,IAAI,CAAC,gBAAgB,CAAC,mBAAmB,EAAE,YAAY,CAAC,CAAC;IACzD,MAAM,WAAW,GAAG,GAAG,EAAE,CACvB,IAAI,CAAC,mBAAmB,CAAC,mBAAmB,EAAE,YAAY,CAAC,CAAC;IAC9D,OAAO,WAAW,CAAC;AACrB,CAAC;AAED;;;;;;;;;;;GAWG;AACH,MAAM,UAAU,kCAAkC,CAAC,KASlD;IACC,OAAO,KAAK,WAAW,GAAwB;QAC7C,MAAM,sBAAsB,GAAG,MAAM,iCAAiC,CACpE,GAAG,EACH,KAAK,EAAE,YAAY,EAAE,EAAE;YACrB,KAAK,CAAC,SAAS,CAAC,OAAO,CACrB,uDAAuD,EACvD,YAAY,CACb,CAAC;YACF,MAAM,KAAK,CAAC,iBAAiB,CAAC,YAAY,CAAC,CAAC;QAC9C,CAAC,CACF,CAAC;QACF,MAAM,UAAU,GAAG,gCAAgC,CACjD,CAAC,KAAK,EAAE,YAAY,EAAE,EAAE;YACtB,KAAK,CAAC,SAAS,CAAC,OAAO,CACrB,4DAA4D,EAC5D,YAAY,CACb,CAAC;YACF,KAAK,CAAC,cAAc,CAAC,KAAK,EAAE,YAAY,CAAC,CAAC;QAC5C,CAAC,CACF,CAAC;QAEF,MAAM,WAAW,GAAG,GAAG,EAAE;YACvB,sBAAsB,EAAE,EAAE,CAAC;YAC3B,UAAU,EAAE,CAAC;QACf,CAAC,CAAC;QAEF,OAAO,WAAW,CAAC;IACrB,CAAC,CAAC;AACJ,CAAC","sourcesContent":["// We are defining that this file uses a webworker global scope.\n// eslint-disable-next-line spaced-comment\n/// <reference lib=\"webworker\" />\nimport type { FirebaseApp } from 'firebase/app';\nimport { getApp, initializeApp } from 'firebase/app';\nimport { getToken, deleteToken } from 'firebase/messaging';\nimport {\n  getMessaging,\n  onBackgroundMessage,\n  isSupported,\n} from 'firebase/messaging/sw';\nimport type { Messaging, MessagePayload } from 'firebase/messaging/sw';\nimport log from 'loglevel';\n\nimport type { Types } from '../../NotificationServicesController';\nimport { Processors } from '../../NotificationServicesController';\nimport { toRawOnChainNotification } from '../../shared/to-raw-notification';\nimport type { NotificationServicesPushControllerMessenger } from '../NotificationServicesPushController';\nimport type { PushNotificationEnv } from '../types/firebase';\n\ndeclare const self: ServiceWorkerGlobalScope;\n\n// Exported to help testing\n// eslint-disable-next-line import-x/no-mutable-exports\nexport let supportedCache: boolean | null = null;\n\nconst getPushAvailability = async () => {\n  supportedCache ??= await isSupported();\n  return supportedCache;\n};\n\nconst createFirebaseApp = async (\n  env: PushNotificationEnv,\n): Promise<FirebaseApp> => {\n  try {\n    return getApp();\n  } catch {\n    const firebaseConfig = {\n      apiKey: env.apiKey,\n      authDomain: env.authDomain,\n      storageBucket: env.storageBucket,\n      projectId: env.projectId,\n      messagingSenderId: env.messagingSenderId,\n      appId: env.appId,\n      measurementId: env.measurementId,\n    };\n    return initializeApp(firebaseConfig);\n  }\n};\n\nconst getFirebaseMessaging = async (\n  env: PushNotificationEnv,\n): Promise<Messaging | null> => {\n  const supported = await getPushAvailability();\n  if (!supported) {\n    return null;\n  }\n\n  const app = await createFirebaseApp(env);\n  return getMessaging(app);\n};\n\n/**\n * Creates a registration token for Firebase Cloud Messaging.\n *\n * @param env - env to configure push notifications\n * @returns A promise that resolves with the registration token or null if an error occurs.\n */\nexport async function createRegToken(\n  env: PushNotificationEnv,\n): Promise<string | null> {\n  try {\n    const messaging = await getFirebaseMessaging(env);\n    if (!messaging) {\n      return null;\n    }\n\n    const token = await getToken(messaging, {\n      serviceWorkerRegistration: self.registration,\n      vapidKey: env.vapidKey,\n    });\n    return token;\n  } catch {\n    return null;\n  }\n}\n\n/**\n * Deletes the Firebase Cloud Messaging registration token.\n *\n * @param env - env to configure push notifications\n * @returns A promise that resolves with true if the token was successfully deleted, false otherwise.\n */\nexport async function deleteRegToken(\n  env: PushNotificationEnv,\n): Promise<boolean> {\n  try {\n    const messaging = await getFirebaseMessaging(env);\n    if (!messaging) {\n      return true;\n    }\n\n    await deleteToken(messaging);\n    return true;\n  } catch {\n    return false;\n  }\n}\n\n/**\n * Service Worker Listener for when push notifications are received.\n *\n * @param env - push notification environment\n * @param handler - handler to actually showing notification, MUST BE PROVIDED\n * @returns unsubscribe handler\n */\nasync function listenToPushNotificationsReceived(\n  env: PushNotificationEnv,\n  handler: (notification: Types.INotification) => void | Promise<void>,\n): Promise<(() => void) | null> {\n  const messaging = await getFirebaseMessaging(env);\n  if (!messaging) {\n    return null;\n  }\n\n  const unsubscribePushNotifications = onBackgroundMessage(\n    messaging,\n    // eslint-disable-next-line @typescript-eslint/no-misused-promises\n    async (payload: MessagePayload) => {\n      try {\n        const data: Types.UnprocessedOnChainRawNotification | undefined =\n          payload?.data?.data ? JSON.parse(payload?.data?.data) : undefined;\n\n        if (!data) {\n          return;\n        }\n\n        const notificationData = toRawOnChainNotification(data);\n        const notification = Processors.processNotification(notificationData);\n        await handler(notification);\n      } catch (error) {\n        // Do Nothing, cannot parse a bad notification\n        log.error('Unable to send push notification:', {\n          notification: payload?.data?.data,\n          error,\n        });\n        throw new Error('Unable to send push notification');\n      }\n    },\n  );\n\n  const unsubscribe = () => unsubscribePushNotifications();\n  return unsubscribe;\n}\n\n/**\n * Service Worker Listener for when a notification is clicked\n *\n * @param handler - listen to NotificationEvent from the service worker\n * @returns unsubscribe handler\n */\nfunction listenToPushNotificationsClicked(\n  handler: (e: NotificationEvent, notification: Types.INotification) => void,\n) {\n  const clickHandler = (event: NotificationEvent) => {\n    // Get Data\n    const data: Types.INotification = event?.notification?.data;\n    handler(event, data);\n  };\n\n  self.addEventListener('notificationclick', clickHandler);\n  const unsubscribe = () =>\n    self.removeEventListener('notificationclick', clickHandler);\n  return unsubscribe;\n}\n\n/**\n * A creator function that assists creating web-specific push notification subscription:\n * 1. Creates subscriptions for receiving and clicking notifications\n * 2. Creates click events when a notification is clicked\n * 3. Publishes controller messenger events\n *\n * @param props - props for this creator function.\n * @param props.onReceivedHandler - allows the developer to handle showing a notification\n * @param props.onClickHandler - allows the developer to handle clicking the notification\n * @param props.messenger - the controller messenger to publish the `onNewNotifications` and `pushNotificationsClicked` events\n * @returns a function that can be used by the controller\n */\nexport function createSubscribeToPushNotifications(props: {\n  onReceivedHandler: (\n    notification: Types.INotification,\n  ) => void | Promise<void>;\n  onClickHandler: (\n    e: NotificationEvent,\n    notification: Types.INotification,\n  ) => void;\n  messenger: NotificationServicesPushControllerMessenger;\n}) {\n  return async function (env: PushNotificationEnv) {\n    const onBackgroundMessageSub = await listenToPushNotificationsReceived(\n      env,\n      async (notification) => {\n        props.messenger.publish(\n          'NotificationServicesPushController:onNewNotifications',\n          notification,\n        );\n        await props.onReceivedHandler(notification);\n      },\n    );\n    const onClickSub = listenToPushNotificationsClicked(\n      (event, notification) => {\n        props.messenger.publish(\n          'NotificationServicesPushController:pushNotificationClicked',\n          notification,\n        );\n        props.onClickHandler(event, notification);\n      },\n    );\n\n    const unsubscribe = () => {\n      onBackgroundMessageSub?.();\n      onClickSub();\n    };\n\n    return unsubscribe;\n  };\n}\n"]}
+\ No newline at end of file
++{"version":3,"file":"push-utils.mjs","sourceRoot":"","sources":["../../../src/NotificationServicesPushController/web/push-utils.ts"],"names":[],"mappings":"AAAA,gEAAgE;AAChE,0CAA0C;AAC1C,iCAAiC;AAOjC,2BAA2B;AAE3B,MAAM,CAAC,MAAM,cAAc,GAAmB,IAAI,CAAC;AAEnD;;;;;GAKG;AACH,MAAM,CAAC,KAAK,UAAU,cAAc,CAAC,IAAY;IAC/C,OAAO,IAAI,CAAC;AACd,CAAC;AAED;;;;;GAKG;AACH,MAAM,CAAC,KAAK,UAAU,cAAc,CAAC,IAAY;IAC/C,OAAO,KAAK,CAAC;AACf,CAAC;AAED;;;;;;GAMG;AACH,KAAK,UAAU,iCAAiC,CAC9C,IAAY,EACZ,QAAqE;IAErE,OAAO,IAAI,CAAC;AACd,CAAC;AAED;;;;;GAKG;AACH,SAAS,gCAAgC,CACvC,OAA0E;IAE1E,MAAM,YAAY,GAAG,CAAC,KAAwB,EAAE,EAAE;QAChD,WAAW;QACX,MAAM,IAAI,GAAwB,KAAK,EAAE,YAAY,EAAE,IAAI,CAAC;QAC5D,OAAO,CAAC,KAAK,EAAE,IAAI,CAAC,CAAC;IACvB,CAAC,CAAC;IAEF,IAAI,CAAC,gBAAgB,CAAC,mBAAmB,EAAE,YAAY,CAAC,CAAC;IACzD,MAAM,WAAW,GAAG,GAAG,EAAE,CACvB,IAAI,CAAC,mBAAmB,CAAC,mBAAmB,EAAE,YAAY,CAAC,CAAC;IAC9D,OAAO,WAAW,CAAC;AACrB,CAAC;AAED;;;;;;;;;;;GAWG;AACH,MAAM,UAAU,kCAAkC,CAAC,KASlD;IACC,OAAO,KAAK,WAAW,GAAW;QAChC,MAAM,sBAAsB,GAAG,MAAM,iCAAiC,CACpE,GAAG,EACH,KAAK,EAAE,YAAY,EAAE,EAAE;YACrB,KAAK,CAAC,SAAS,EAAE,OAAO,CACtB,uDAAuD,EACvD,YAAY,CACb,CAAC;YACF,MAAM,KAAK,CAAC,iBAAiB,CAAC,YAAY,CAAC,CAAC;QAC9C,CAAC,CACF,CAAC;QACF,MAAM,UAAU,GAAG,gCAAgC,CACjD,CAAC,KAAK,EAAE,YAAY,EAAE,EAAE;YACtB,KAAK,CAAC,SAAS,CAAC,OAAO,CACrB,4DAA4D,EAC5D,YAAY,CACb,CAAC;YACF,KAAK,CAAC,cAAc,CAAC,KAAK,EAAE,YAAY,CAAC,CAAC;QAC5C,CAAC,CACF,CAAC;QAEF,MAAM,WAAW,GAAG,GAAG,EAAE;YACvB,sBAAsB,EAAE,EAAE,CAAC;YAC3B,UAAU,EAAE,EAAE,CAAC;QACjB,CAAC,CAAC;QAEF,OAAO,WAAW,CAAC;IACrB,CAAC,CAAC;AACJ,CAAC","sourcesContent":["// We are defining that this file uses a webworker global scope.\n// eslint-disable-next-line spaced-comment\n/// <reference lib=\"webworker\" />\n\nimport type { Types } from '../../NotificationServicesController';\nimport type { NotificationServicesPushControllerMessenger } from '../NotificationServicesPushController';\n\ndeclare const self: ServiceWorkerGlobalScope;\n\n// Exported to help testing\n\nexport const supportedCache: boolean | null = null;\n\n/**\n * Creates a registration token for Firebase Cloud Messaging.\n *\n * @param _env - env to configure push notifications\n * @returns A promise that resolves with the registration token or null if an error occurs.\n */\nexport async function createRegToken(_env: object): Promise<string | null> {\n  return null;\n}\n\n/**\n * Deletes the Firebase Cloud Messaging registration token.\n *\n * @param _env - env to configure push notifications\n * @returns A promise that resolves with true if the token was successfully deleted, false otherwise.\n */\nexport async function deleteRegToken(_env: object): Promise<boolean> {\n  return false;\n}\n\n/**\n * Service Worker Listener for when push notifications are received.\n *\n * @param _env - push notification environment\n * @param _handler - handler to actually showing notification, MUST BE PROVIDED\n * @returns unsubscribe handler\n */\nasync function listenToPushNotificationsReceived(\n  _env: object,\n  _handler: (notification: Types.INotification) => void | Promise<void>,\n): Promise<(() => void) | null> {\n  return null;\n}\n\n/**\n * Service Worker Listener for when a notification is clicked\n *\n * @param handler - listen to NotificationEvent from the service worker\n * @returns unsubscribe handler\n */\nfunction listenToPushNotificationsClicked(\n  handler: (e: NotificationEvent, notification: Types.INotification) => void,\n) {\n  const clickHandler = (event: NotificationEvent) => {\n    // Get Data\n    const data: Types.INotification = event?.notification?.data;\n    handler(event, data);\n  };\n\n  self.addEventListener('notificationclick', clickHandler);\n  const unsubscribe = () =>\n    self.removeEventListener('notificationclick', clickHandler);\n  return unsubscribe;\n}\n\n/**\n * A creator function that assists creating web-specific push notification subscription:\n * 1. Creates subscriptions for receiving and clicking notifications\n * 2. Creates click events when a notification is clicked\n * 3. Publishes controller messenger events\n *\n * @param props - props for this creator function.\n * @param props.onReceivedHandler - allows the developer to handle showing a notification\n * @param props.onClickHandler - allows the developer to handle clicking the notification\n * @param props.messenger - the controller messenger to publish the `onNewNotifications` and `pushNotificationsClicked` events\n * @returns a function that can be used by the controller\n */\nexport function createSubscribeToPushNotifications(props: {\n  onReceivedHandler: (\n    notification: Types.INotification,\n  ) => void | Promise<void>;\n  onClickHandler: (\n    e: NotificationEvent,\n    notification: Types.INotification,\n  ) => void;\n  messenger: NotificationServicesPushControllerMessenger;\n}) {\n  return async function (env: object) {\n    const onBackgroundMessageSub = await listenToPushNotificationsReceived(\n      env,\n      async (notification) => {\n        props.messenger?.publish(\n          'NotificationServicesPushController:onNewNotifications',\n          notification,\n        );\n        await props.onReceivedHandler(notification);\n      },\n    );\n    const onClickSub = listenToPushNotificationsClicked(\n      (event, notification) => {\n        props.messenger.publish(\n          'NotificationServicesPushController:pushNotificationClicked',\n          notification,\n        );\n        props.onClickHandler(event, notification);\n      },\n    );\n\n    const unsubscribe = () => {\n      onBackgroundMessageSub?.();\n      onClickSub?.();\n    };\n\n    return unsubscribe;\n  };\n}\n"]}
+\ No newline at end of file

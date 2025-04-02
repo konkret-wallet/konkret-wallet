@@ -10,10 +10,6 @@ const mockSetServiceWorkerKeepAlivePreference = jest.fn().mockReturnValue({
   type: 'SET_SERVICE_WORKER_KEEP_ALIVE',
   value: true,
 });
-const mockRemoteFeatureFlags = { feature1: 'value1' };
-// eslint-disable-next-line
-/* @ts-expect-error: Avoids error from window property not existing */
-window.metamaskFeatureFlags = {};
 
 jest.mock('../../../store/actions.ts', () => ({
   setServiceWorkerKeepAlivePreference: () =>
@@ -22,7 +18,6 @@ jest.mock('../../../store/actions.ts', () => ({
 
 jest.mock('../../../selectors', () => ({
   ...jest.requireActual('../../../selectors'),
-  getRemoteFeatureFlags: jest.fn(() => mockRemoteFeatureFlags),
 }));
 
 describe('Develop options tab', () => {
@@ -35,9 +30,6 @@ describe('Develop options tab', () => {
     );
 
     expect(container).toMatchSnapshot();
-    expect(
-      getByTestId('developer-options-remote-feature-flags').textContent,
-    ).toEqual(JSON.stringify(mockRemoteFeatureFlags));
   });
 
   it('should toggle Service Worker Keep Alive', async () => {

@@ -4280,7 +4280,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@metamask/base-controller@npm:^7.0.1, @metamask/base-controller@npm:^7.0.2, @metamask/base-controller@npm:^7.0.3, @metamask/base-controller@npm:^7.1.0, @metamask/base-controller@npm:^7.1.1":
+"@metamask/base-controller@npm:^7.0.1, @metamask/base-controller@npm:^7.0.2, @metamask/base-controller@npm:^7.0.3, @metamask/base-controller@npm:^7.1.1":
   version: 7.1.1
   resolution: "@metamask/base-controller@npm:7.1.1"
   dependencies:
@@ -4333,7 +4333,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@metamask/controller-utils@npm:^11.0.0, @metamask/controller-utils@npm:^11.4.0, @metamask/controller-utils@npm:^11.4.2, @metamask/controller-utils@npm:^11.4.3, @metamask/controller-utils@npm:^11.4.4, @metamask/controller-utils@npm:^11.4.5, @metamask/controller-utils@npm:^11.5.0, @metamask/controller-utils@npm:^11.6.0":
+"@metamask/controller-utils@npm:^11.0.0, @metamask/controller-utils@npm:^11.4.0, @metamask/controller-utils@npm:^11.4.2, @metamask/controller-utils@npm:^11.4.4, @metamask/controller-utils@npm:^11.4.5, @metamask/controller-utils@npm:^11.5.0, @metamask/controller-utils@npm:^11.6.0":
   version: 11.6.0
   resolution: "@metamask/controller-utils@npm:11.6.0"
   dependencies:
@@ -5165,41 +5165,41 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@metamask/notification-services-controller@npm:0.14.0":
-  version: 0.14.0
-  resolution: "@metamask/notification-services-controller@npm:0.14.0"
+"@metamask/notification-services-controller@npm:5.0.1":
+  version: 5.0.1
+  resolution: "@metamask/notification-services-controller@npm:5.0.1"
   dependencies:
     "@contentful/rich-text-html-renderer": "npm:^16.5.2"
-    "@metamask/base-controller": "npm:^7.0.2"
-    "@metamask/controller-utils": "npm:^11.4.3"
-    "@metamask/utils": "npm:^10.0.0"
+    "@metamask/base-controller": "npm:^8.0.0"
+    "@metamask/controller-utils": "npm:^11.6.0"
+    "@metamask/utils": "npm:^11.2.0"
     bignumber.js: "npm:^9.1.2"
-    firebase: "npm:^10.11.0"
+    firebase: "npm:^11.2.0"
     loglevel: "npm:^1.8.1"
     uuid: "npm:^8.3.2"
   peerDependencies:
-    "@metamask/keyring-controller": ^19.0.0
-    "@metamask/profile-sync-controller": ^2.0.0
-  checksum: 10/9cc467eb0d5f3ece77c77480d301fe7322545b4826b06c3a15345376ad77923f79155d3276febe044f46d3d91166ca67660f23dc486ce24fce6727e42f35b78a
+    "@metamask/keyring-controller": ^21.0.0
+    "@metamask/profile-sync-controller": ^11.0.0
+  checksum: 10/011b71450d25f9bd12cac2f9a8b09a0d64959291d68a691d80c05a467763b2907ef203e6e0e11c13df7f2ffdeba1cc116107152c37447c4060811501d9bfc0ca
   languageName: node
   linkType: hard
 
-"@metamask/notification-services-controller@patch:@metamask/notification-services-controller@npm%3A0.14.0#~/.yarn/patches/@metamask-notification-services-controller-npm-0.14.0-105b54c29b.patch":
-  version: 0.14.0
-  resolution: "@metamask/notification-services-controller@patch:@metamask/notification-services-controller@npm%3A0.14.0#~/.yarn/patches/@metamask-notification-services-controller-npm-0.14.0-105b54c29b.patch::version=0.14.0&hash=74327a"
+"@metamask/notification-services-controller@patch:@metamask/notification-services-controller@npm%3A5.0.1#~/.yarn/patches/@metamask-notification-services-controller-npm-5.0.1-1ca1f0c651.patch":
+  version: 5.0.1
+  resolution: "@metamask/notification-services-controller@patch:@metamask/notification-services-controller@npm%3A5.0.1#~/.yarn/patches/@metamask-notification-services-controller-npm-5.0.1-1ca1f0c651.patch::version=5.0.1&hash=f6af45"
   dependencies:
     "@contentful/rich-text-html-renderer": "npm:^16.5.2"
-    "@metamask/base-controller": "npm:^7.0.2"
-    "@metamask/controller-utils": "npm:^11.4.3"
-    "@metamask/utils": "npm:^10.0.0"
+    "@metamask/base-controller": "npm:^8.0.0"
+    "@metamask/controller-utils": "npm:^11.6.0"
+    "@metamask/utils": "npm:^11.2.0"
     bignumber.js: "npm:^9.1.2"
-    firebase: "npm:^10.11.0"
+    firebase: "npm:^11.2.0"
     loglevel: "npm:^1.8.1"
     uuid: "npm:^8.3.2"
   peerDependencies:
-    "@metamask/keyring-controller": ^19.0.0
-    "@metamask/profile-sync-controller": ^2.0.0
-  checksum: 10/08f664a31b7801b448e4500070254f97d82a91c0726aa8e03576ae41f68a65cd66a4f9624dc8691b3340d5aaaf6d0d20b55ff4044a2296bba693795205c602a7
+    "@metamask/keyring-controller": ^21.0.0
+    "@metamask/profile-sync-controller": ^11.0.0
+  checksum: 10/91bc2964cc1f59dffaca3ffc9324712f3c6b7692bc93f29b215a57941e943545baf57462aa4b34e59a55c3904e05cb3be35eab18ecc33d486b15394e392f59f6
   languageName: node
   linkType: hard
 
@@ -5396,18 +5396,6 @@ __metadata:
     "@metamask/rpc-errors": "npm:^7.0.2"
     "@metamask/utils": "npm:^11.1.0"
   checksum: 10/40f3e538b41b480a5a8c4b96702ddd8d0b2f20b44e30ebd1e3d2e676942d7d4f6b33fb5d16be1f2ccc90c7616ac59d0cc2e6c28384e935443f0511477e17c6b8
-  languageName: node
-  linkType: hard
-
-"@metamask/remote-feature-flag-controller@npm:^1.3.0":
-  version: 1.3.0
-  resolution: "@metamask/remote-feature-flag-controller@npm:1.3.0"
-  dependencies:
-    "@metamask/base-controller": "npm:^7.1.0"
-    "@metamask/utils": "npm:^11.0.1"
-    cockatiel: "npm:^3.1.2"
-    uuid: "npm:^8.3.2"
-  checksum: 10/929c055b499588d8969d86b9d399967dcbcbdc8362d534f8bef7a0a55c2f137e18773d0a4cdf719889934a8e0092850550c8b55abf90a82013bffd81b72488d2
   languageName: node
   linkType: hard
 
@@ -25666,7 +25654,7 @@ __metadata:
     "@metamask/multichain-transactions-controller": "npm:^0.7.1"
     "@metamask/name-controller": "npm:^8.0.3"
     "@metamask/network-controller": "patch:@metamask/network-controller@npm%3A22.1.1#~/.yarn/patches/@metamask-network-controller-npm-22.1.1-09b6510f1e.patch"
-    "@metamask/notification-services-controller": "patch:@metamask/notification-services-controller@npm%3A0.14.0#~/.yarn/patches/@metamask-notification-services-controller-npm-0.14.0-105b54c29b.patch"
+    "@metamask/notification-services-controller": "patch:@metamask/notification-services-controller@npm%3A5.0.1#~/.yarn/patches/@metamask-notification-services-controller-npm-5.0.1-1ca1f0c651.patch"
     "@metamask/object-multiplex": "npm:^2.0.0"
     "@metamask/obs-store": "npm:^9.0.0"
     "@metamask/permission-controller": "npm:^11.0.6"
@@ -25680,7 +25668,6 @@ __metadata:
     "@metamask/providers": "npm:^20.0.0"
     "@metamask/queued-request-controller": "npm:^7.0.1"
     "@metamask/rate-limit-controller": "npm:^6.0.3"
-    "@metamask/remote-feature-flag-controller": "npm:^1.3.0"
     "@metamask/rpc-errors": "npm:^7.0.0"
     "@metamask/safe-event-emitter": "npm:^3.1.1"
     "@metamask/scure-bip39": "npm:^2.0.3"

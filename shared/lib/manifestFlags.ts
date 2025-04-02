@@ -1,4 +1,3 @@
-import { Json } from '@metamask/utils';
 import browser from 'webextension-polyfill';
 
 /**
@@ -60,12 +59,6 @@ export type ManifestFlags = {
      * Force enable Sentry (this is typically set by individual E2E tests in spec files)
      */
     forceEnable?: boolean;
-  };
-  /**
-   * Feature flags to control business logic behavior
-   */
-  remoteFeatureFlags?: {
-    [key: string]: Json;
   };
 };
 

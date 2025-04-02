@@ -90,13 +90,6 @@ import {
 } from '@metamask/controller-utils';
 
 import { AccountsController } from '@metamask/accounts-controller';
-import {
-  RemoteFeatureFlagController,
-  ClientConfigApiService,
-  ClientType,
-  DistributionType,
-  EnvironmentType,
-} from '@metamask/remote-feature-flag-controller';
 
 import { SignatureController } from '@metamask/signature-controller';
 import { wordlist } from '@metamask/scure-bip39/dist/wordlists/english';
@@ -206,7 +199,6 @@ import {
 import { getProviderConfig } from '../../shared/modules/selectors/networks';
 import { endTrace, trace } from '../../shared/lib/trace';
 import { BridgeStatusAction } from '../../shared/types/bridge-status';
-import { ENVIRONMENT } from '../../development/build/constants';
 import {
   BridgeUserAction,
   BridgeBackgroundAction,
@@ -338,6 +330,8 @@ const PHISHING_SAFELIST = 'metamask-phishing-safelist';
 // OneKey devices can connect to Metamask using Trezor USB transport. They use a specific device minor version (99) to differentiate between genuine Trezor and OneKey devices.
 export const ONE_KEY_VIA_TREZOR_MINOR_VERSION = 99;
 
+/*
+
 const environmentMappingForRemoteFeatureFlag = {
   [ENVIRONMENT.DEVELOPMENT]: EnvironmentType.Development,
   [ENVIRONMENT.RELEASE_CANDIDATE]: EnvironmentType.ReleaseCandidate,
@@ -349,6 +343,7 @@ const buildTypeMappingForRemoteFeatureFlag = {
   main: DistributionType.Main,
   beta: 'beta',
 };
+*/
 
 export default class MetamaskController extends EventEmitter {
   /**
@@ -1561,6 +1556,7 @@ export default class MetamaskController extends EventEmitter {
     );
 
     // Initialize RemoteFeatureFlagController
+    /*
     this.remoteFeatureFlagController = new RemoteFeatureFlagController({
       messenger: this.controllerMessenger.getRestricted({
         name: 'RemoteFeatureFlagController',
@@ -1580,6 +1576,7 @@ export default class MetamaskController extends EventEmitter {
         },
       }),
     });
+    */
 
     const existingControllers = [
       this.networkController,
@@ -5389,7 +5386,7 @@ export default class MetamaskController extends EventEmitter {
           this.approvalController.addAndShowApprovalRequest.bind(
             this.approvalController,
           ),
-        sendMetrics: () => {},
+        // sendMetrics: () => {},
         // Permission-related
         getAccounts: this.getPermittedAccounts.bind(this, origin),
         requestCaip25ApprovalForOrigin: this.requestCaip25Approval.bind(
@@ -6584,6 +6581,7 @@ export default class MetamaskController extends EventEmitter {
     };
   }
 
+  /*
   _getConfigForRemoteFeatureFlagRequest() {
     const distribution =
       buildTypeMappingForRemoteFeatureFlag[process.env.METAMASK_BUILD_TYPE] ||
@@ -6594,6 +6592,7 @@ export default class MetamaskController extends EventEmitter {
       ] || EnvironmentType.Development;
     return { distribution, environment };
   }
+  */
 
   /**
    * Select a hardware wallet device and execute a

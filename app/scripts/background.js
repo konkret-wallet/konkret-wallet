@@ -756,8 +756,6 @@ export function setupController(
       controller.isClientOpen = true;
       controller.setupTrustedCommunication(portStream, remotePort.sender);
 
-      initializeRemoteFeatureFlags();
-
       if (processName === ENVIRONMENT_TYPE_POPUP) {
         openPopupCount += 1;
         finished(portStream, () => {
@@ -953,16 +951,15 @@ export function setupController(
    * This function is called when MM is during internal process.
    * If the request fails, the error will be logged but won't interrupt extension initialization.
    *
-   * @returns {Promise<void>} A promise that resolves when the remote feature flags have been updated.
+   * async function initializeRemoteFeatureFlags() {
+   * try {
+   * // initialize the request to fetch remote feature flags
+   * await controller.remoteFeatureFlagController.updateRemoteFeatureFlags();
+   * } catch (error) {
+   * log.error('Error initializing remote feature flags:', error);
+   * }
+   * }
    */
-  async function initializeRemoteFeatureFlags() {
-    try {
-      // initialize the request to fetch remote feature flags
-      await controller.remoteFeatureFlagController.updateRemoteFeatureFlags();
-    } catch (error) {
-      log.error('Error initializing remote feature flags:', error);
-    }
-  }
 
   function getPendingApprovalCount() {
     try {
