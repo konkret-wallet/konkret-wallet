@@ -183,7 +183,8 @@ export const getDefaultPreferencesControllerState =
     useTokenDetection: false,
     useNftDetection: false,
     use4ByteResolution: false,
-    useCurrencyRateCheck: true,
+    // TODO: re-enable when on-chain lookups supported
+    useCurrencyRateCheck: false,
     openSeaEnabled: false,
     securityAlertsEnabled: false,
     watchEthereumAccountEnabled: false,
