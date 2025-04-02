@@ -1,13 +1,6 @@
 import { useCallback } from 'react';
-import { useSelector } from 'react-redux';
 import { CaipChainId, Hex } from '@metamask/utils';
 import { ChainId } from '../../../../shared/constants/network';
-import { getCurrentChainId } from '../../../../shared/modules/selectors/networks';
-import {
-  getDataCollectionForMarketing,
-  getMetaMetricsId,
-  getParticipateInMetaMetrics,
-} from '../../../selectors';
 
 type IUseRamps = {
   openBuyCryptoInPdapp: (chainId?: ChainId | CaipChainId) => void;
@@ -25,44 +18,33 @@ export enum RampsMetaMaskEntry {
 const useRamps = (
   metamaskEntry: RampsMetaMaskEntry = RampsMetaMaskEntry.BuySellButton,
 ): IUseRamps => {
-  const chainId = useSelector(getCurrentChainId);
-  const metaMetricsId = useSelector(getMetaMetricsId);
-  const isMetaMetricsEnabled = useSelector(getParticipateInMetaMetrics);
-  const isMarketingEnabled = useSelector(getDataCollectionForMarketing);
-
-  const getBuyURI = useCallback(
-    (_chainId: Hex | CaipChainId) => {
-      try {
-        const params = new URLSearchParams();
-        params.set('metamaskEntry', metamaskEntry);
+  const getBuyURI = useCallback((_chainId?: Hex | CaipChainId) => {
+    try {
+      const params = new URLSearchParams();
+      params.set('metamaskEntry', metamaskEntry);
+      if (_chainId) {
         params.set('chainId', _chainId);
-        if (metaMetricsId) {
-          params.set('metametricsId', metaMetricsId);
-        }
-        params.set('metricsEnabled', String(isMetaMetricsEnabled));
-        if (isMarketingEnabled) {
-          params.set('marketingEnabled', String(isMarketingEnabled));
-        }
-
-        const url = new URL(process.env.PORTFOLIO_URL || '');
-        url.pathname = 'buy';
-        url.search = params.toString();
-        return url.toString();
-      } catch {
-        return 'https://portfolio.metamask.io/buy';
       }
-    },
-    [metaMetricsId],
-  );
+      params.set('metricsEnabled', String(false));
+      params.set('marketingEnabled', String(false));
+
+      const url = new URL(process.env.PORTFOLIO_URL || '');
+      url.pathname = 'buy';
+      url.search = params.toString();
+      return url.toString();
+    } catch {
+      return 'https://portfolio.metamask.io/buy';
+    }
+  }, []);
 
   const openBuyCryptoInPdapp = useCallback(
     (_chainId?: ChainId | CaipChainId) => {
-      const buyUrl = getBuyURI(_chainId || chainId);
+      const buyUrl = getBuyURI(_chainId);
       global.platform.openTab({
         url: buyUrl,
       });
     },
-    [chainId],
+    [],
   );
 
   return { openBuyCryptoInPdapp, getBuyURI };
