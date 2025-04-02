@@ -606,7 +606,7 @@ export const NetworkListMenu = ({ onClose }: { onClose: () => void }) => {
 
           <Box padding={4}>
             <ButtonSecondary
-              size={ButtonSecondarySize.Lg}
+              size={ButtonSecondarySize.S}
               startIconName={IconName.Add}
               startIconProps={{ marginRight: 2 }}
               block

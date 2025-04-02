@@ -95,7 +95,7 @@ export default class UnlockPage extends Component {
       height: '60px',
       fontWeight: '400',
       boxShadow: 'none',
-      borderRadius: '100px',
+      borderRadius: '10px',
     };
 
     return (
