@@ -5,10 +5,7 @@ import classnames from 'classnames';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
-import {
-  TransactionStatus,
-  TransactionType,
-} from '@metamask/transaction-controller';
+import { TransactionStatus } from '@metamask/transaction-controller';
 import { useTransactionDisplayData } from '../../../hooks/useTransactionDisplayData';
 import { useI18nContext } from '../../../hooks/useI18nContext';
 import CancelSpeedupPopover from '../cancel-speedup-popover';
@@ -58,12 +55,13 @@ import EditGasFeePopover from '../../../pages/confirmations/components/edit-gas-
 import EditGasPopover from '../../../pages/confirmations/components/edit-gas-popover';
 import { ActivityListItem } from '../../multichain';
 import { abortTransactionSigning } from '../../../store/actions';
-import { getIsSmartTransaction } from '../../../../shared/modules/selectors';
+/*
 import {
   useBridgeTxHistoryData,
   FINAL_NON_CONFIRMED_STATUSES,
 } from '../../../hooks/bridge/useBridgeTxHistoryData';
 import BridgeActivityItemTxSegments from '../../../pages/bridge/transaction-details/bridge-activity-item-tx-segments';
+*/
 
 function TransactionListItemInner({
   transactionGroup,
@@ -80,9 +78,9 @@ function TransactionListItemInner({
   const { supportsEIP1559 } = useGasFeeContext();
   const { openModal } = useTransactionModalContext();
   const testNetworkBackgroundColor = useSelector(getTestNetworkBackgroundColor);
-  const isSmartTransaction = useSelector(getIsSmartTransaction);
   const dispatch = useDispatch();
 
+  /*
   // Bridge transactions
   const isBridgeTx =
     transactionGroup.initialTransaction.type === TransactionType.bridge;
@@ -91,6 +89,7 @@ function TransactionListItemInner({
       transactionGroup,
       isEarliestNonce,
     });
+    */
 
   const {
     initialTransaction: { id },
@@ -148,10 +147,6 @@ function TransactionListItemInner({
   const isSignatureReq = category === TransactionGroupCategory.signatureRequest;
   const isApproval = category === TransactionGroupCategory.approval;
   const isUnapproved = status === TransactionStatus.unapproved;
-  const isSwap = [
-    TransactionGroupCategory.swap,
-    TransactionGroupCategory.swapAndSend,
-  ].includes(category);
   const isSigning = status === TransactionStatus.approved;
   const isSubmitting = status === TransactionStatus.signed;
 
@@ -209,16 +204,19 @@ function TransactionListItemInner({
   ]);
   const currentChain = useSelector(getCurrentNetwork);
   const showCancelButton =
-    !hasCancelled && isPending && !isUnapproved && !isSubmitting && !isBridgeTx;
+    !hasCancelled && isPending && !isUnapproved && !isSubmitting;
 
   return (
     <>
       <ActivityListItem
         data-testid="activity-list-item"
         onClick={
+          /*
           isBridgeTx && showBridgeTxDetails
             ? showBridgeTxDetails
             : toggleShowDetails
+            */
+          toggleShowDetails
         }
         className={className}
         title={title}
@@ -242,23 +240,14 @@ function TransactionListItemInner({
           </BadgeWrapper>
         }
         subtitle={
-          !FINAL_NON_CONFIRMED_STATUSES.includes(status) &&
-          isBridgeTx &&
-          !isBridgeComplete ? (
-            <BridgeActivityItemTxSegments
-              bridgeTxHistoryItem={bridgeTxHistoryItem}
-              transactionGroup={transactionGroup}
-            />
-          ) : (
-            <TransactionStatusLabel
-              statusOnly
-              isPending={isPending}
-              isEarliestNonce={isEarliestNonce}
-              error={error}
-              date={date}
-              status={displayedStatusKey}
-            />
-          )
+          <TransactionStatusLabel
+            statusOnly
+            isPending={isPending}
+            isEarliestNonce={isEarliestNonce}
+            error={error}
+            date={date}
+            status={displayedStatusKey}
+          />
         }
         rightContent={
           !isSignatureReq &&
@@ -313,15 +302,11 @@ function TransactionListItemInner({
           senderAddress={senderAddress}
           recipientAddress={recipientAddress}
           onRetry={retryTransaction}
-          showRetry={
-            status === TransactionStatus.failed &&
-            !isSwap &&
-            !isSmartTransaction
-          }
+          showRetry={status === TransactionStatus.failed}
           showSpeedUp={shouldShowSpeedUp}
           isEarliestNonce={isEarliestNonce}
           onCancel={cancelTransaction}
-          showCancel={isPending && !hasCancelled && !isBridgeTx}
+          showCancel={isPending && !hasCancelled /* && !isBridgeTx */}
           showErrorBanner={Boolean(error)}
           transactionStatus={() => (
             <TransactionStatusLabel

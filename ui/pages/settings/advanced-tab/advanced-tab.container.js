@@ -11,10 +11,8 @@ import {
   setShowExtensionInFullSizeView,
   setShowFiatConversionOnTestnetsPreference,
   setShowTestNetworks,
-  setSmartTransactionsPreferenceEnabled,
   showModal,
 } from '../../../store/actions';
-import { getSmartTransactionsPreferenceEnabled } from '../../../../shared/modules/selectors';
 import {
   displayErrorInSettings,
   hideErrorInSettings,
@@ -41,7 +39,6 @@ export const mapStateToProps = (state) => {
     showFiatInTestnets,
     showTestNetworks,
     showExtensionInFullSizeView,
-    smartTransactionsEnabled: getSmartTransactionsPreferenceEnabled(state),
     autoLockTimeLimit,
     dismissSeedBackUpReminder,
   };
@@ -65,9 +62,6 @@ export const mapDispatchToProps = (dispatch) => {
     },
     setShowExtensionInFullSizeView: (value) => {
       return dispatch(setShowExtensionInFullSizeView(value));
-    },
-    setSmartTransactionsEnabled: (value) => {
-      return dispatch(setSmartTransactionsPreferenceEnabled(value));
     },
     setAutoLockTimeLimit: (value) => {
       return dispatch(setAutoLockTimeLimit(value));

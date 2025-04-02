@@ -24,7 +24,6 @@ import {
   getNativeCurrency,
   getTokens,
 } from '../../../../ducks/metamask/metamask';
-import { getTopAssets } from '../../../../ducks/swaps/swaps';
 import { getRenderableTokenData } from '../../../../hooks/useTokensToSearch';
 import * as actions from '../../../../store/actions';
 import { getSwapsBlockedTokens } from '../../../../ducks/send';
@@ -148,9 +147,6 @@ describe('AssetPickerModal', () => {
         return 'ETH';
       }
       if (selector === getTokens) {
-        return [];
-      }
-      if (selector === getTopAssets) {
         return [];
       }
 

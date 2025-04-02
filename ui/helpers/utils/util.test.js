@@ -2,7 +2,6 @@ import Bowser from 'bowser';
 import BN from 'bn.js';
 import { toChecksumAddress } from '@ethereumjs/util';
 import { CHAIN_IDS } from '../../../shared/constants/network';
-import { addHexPrefixToObjectValues } from '../../../shared/lib/swaps-utils';
 import { toPrecisionWithoutTrailingZeros } from '../../../shared/lib/transactions-controller-utils';
 import { MinPermissionAbstractionDisplayCount } from '../../../shared/constants/permissions';
 import { createMockInternalAccount } from '../../../test/jest/mocks';
@@ -358,22 +357,6 @@ describe('util', () => {
     testData.forEach(({ args, result }) => {
       it(`should return ${result} when passed number ${args[0]} and precision ${args[1]}`, () => {
         expect(toPrecisionWithoutTrailingZeros(...args)).toStrictEqual(result);
-      });
-    });
-  });
-
-  describe('addHexPrefixToObjectValues()', () => {
-    it('should return a new object with the same properties with a 0x prefix', () => {
-      expect(
-        addHexPrefixToObjectValues({
-          prop1: '0x123',
-          prop2: '456',
-          prop3: 'x',
-        }),
-      ).toStrictEqual({
-        prop1: '0x123',
-        prop2: '0x456',
-        prop3: '0xx',
       });
     });
   });

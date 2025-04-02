@@ -6,7 +6,6 @@ import {
   getGasFeeEstimates,
   getCurrentCurrency,
 } from '../../../../../../../ducks/metamask/metamask';
-import { getUsedSwapsGasPrice } from '../../../../../../../ducks/swaps/swaps';
 import {
   checkNetworkAndAccountSupports1559,
   getIsSwapsChain,
@@ -34,7 +33,6 @@ describe('useEthFeeData', () => {
     } as Record<string, unknown>,
     getCurrentChainId: '1',
     getIsSwapsChain: true,
-    getUsedSwapsGasPrice: '50',
   };
 
   let mockState: Partial<typeof initialMockState> = { ...initialMockState };
@@ -58,8 +56,6 @@ describe('useEthFeeData', () => {
           return mockState.getCurrentChainId;
         case getIsSwapsChain:
           return mockState.getIsSwapsChain;
-        case getUsedSwapsGasPrice:
-          return mockState.getUsedSwapsGasPrice;
         default:
           return undefined;
       }

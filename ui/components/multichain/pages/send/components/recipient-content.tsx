@@ -1,34 +1,19 @@
-import React, {
-  useCallback,
-  ///: BEGIN:ONLY_INCLUDE_IF(build-main,build-beta,build-flask)
-  useMemo,
-  ///: END:ONLY_INCLUDE_IF
-  useRef,
-} from 'react';
+import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-///: BEGIN:ONLY_INCLUDE_IF(build-main,build-beta,build-flask)
 import { TokenListMap } from '@metamask/assets-controllers';
-///: END:ONLY_INCLUDE_IF
 import {
   BannerAlert,
   BannerAlertSeverity,
   Box,
 } from '../../../../component-library';
 import {
-  ///: BEGIN:ONLY_INCLUDE_IF(build-main,build-beta,build-flask)
   getNativeCurrency,
-  ///: END:ONLY_INCLUDE_IF
   getSendHexDataFeatureFlagState,
 } from '../../../../../ducks/metamask/metamask';
 import {
   Asset,
   acknowledgeRecipientWarning,
-  getBestQuote,
   getCurrentDraftTransaction,
-  ///: BEGIN:ONLY_INCLUDE_IF(build-main,build-beta,build-flask)
-  getIsSwapAndSendDisabledForNetwork,
-  getSwapsBlockedTokens,
-  ///: END:ONLY_INCLUDE_IF
   getSendAsset,
 } from '../../../../../ducks/send';
 import { AssetType } from '../../../../../../shared/constants/transaction';
@@ -36,24 +21,17 @@ import { CONTRACT_ADDRESS_LINK } from '../../../../../helpers/constants/common';
 import { Display } from '../../../../../helpers/constants/design-system';
 import { useI18nContext } from '../../../../../hooks/useI18nContext';
 import { AssetPickerAmount } from '../../..';
-import { decimalToHex } from '../../../../../../shared/modules/conversion.utils';
-///: BEGIN:ONLY_INCLUDE_IF(build-main,build-beta,build-flask)
 import {
   getIpfsGateway,
-  getIsSwapsChain,
   getNativeCurrencyImage,
   getTokenList,
-  getUseExternalServices,
 } from '../../../../../selectors';
 import useGetAssetImageUrl from '../../../../../hooks/useGetAssetImageUrl';
-///: END:ONLY_INCLUDE_IF
 
-import type { Quote } from '../../../../../ducks/send/swap-and-send-utils';
 import { isEqualCaseInsensitive } from '../../../../../../shared/modules/string-utils';
 import { AssetPicker } from '../../../asset-picker-amount/asset-picker';
 import { TabName } from '../../../asset-picker-amount/asset-picker-modal/asset-picker-modal-tabs';
 import { SendPageRow } from './send-page-row';
-import { QuoteCard } from './quote-card';
 import { SendHexData } from './hex';
 
 export const SendPageRecipientContent = ({
@@ -71,19 +49,7 @@ export const SendPageRecipientContent = ({
     receiveAsset,
     sendAsset,
     amount: sendAmount,
-    isSwapQuoteLoading,
   } = useSelector(getCurrentDraftTransaction);
-
-  ///: BEGIN:ONLY_INCLUDE_IF(build-main,build-beta,build-flask)
-  const isBasicFunctionality = useSelector(getUseExternalServices);
-  const isSwapsChain = useSelector(getIsSwapsChain);
-  const isSwapAndSendDisabledForNetwork = useSelector(
-    getIsSwapAndSendDisabledForNetwork,
-  );
-  const swapsBlockedTokens = useSelector(getSwapsBlockedTokens);
-  const memoizedSwapsBlockedTokens = useMemo(() => {
-    return new Set(swapsBlockedTokens);
-  }, [swapsBlockedTokens]);
 
   const nativeCurrencySymbol = useSelector(getNativeCurrency);
   const nativeCurrencyImageUrl = useSelector(getNativeCurrencyImage);
@@ -95,26 +61,16 @@ export const SendPageRecipientContent = ({
     ipfsGateway,
   );
 
-  const isSwapAllowed =
-    isSwapsChain &&
-    !isSwapAndSendDisabledForNetwork &&
-    [AssetType.token, AssetType.native].includes(sendAsset.type) &&
-    isBasicFunctionality &&
-    !memoizedSwapsBlockedTokens.has(sendAsset.details?.address?.toLowerCase());
-  ///: END:ONLY_INCLUDE_IF
-
-  const bestQuote: Quote = useSelector(getBestQuote);
-
-  const isLoadingInitialQuotes = !bestQuote && isSwapQuoteLoading;
-
   const isBasicSend = isEqualCaseInsensitive(
     receiveAsset.details?.address ?? '',
     sendAsset.details?.address ?? '',
   );
 
-  const amount = isBasicSend
-    ? sendAmount
-    : { value: decimalToHex(bestQuote?.destinationAmount || '0') };
+  if (!isBasicSend) {
+    throw new Error('Swaps not supported');
+  }
+
+  const amount = sendAmount;
 
   // Hex data
   const showHexDataFlag = useSelector(getSendHexDataFeatureFlagState);
@@ -125,8 +81,6 @@ export const SendPageRecipientContent = ({
     asset &&
     asset.type !== AssetType.token &&
     asset.type !== AssetType.NFT;
-
-  const scrollRef = useRef<HTMLDivElement>(null);
 
   // Gas data
   const dispatch = useDispatch();
@@ -162,9 +116,8 @@ export const SendPageRecipientContent = ({
         <AssetPickerAmount
           header={t('sendSelectReceiveAsset')}
           action="receive"
-          asset={isSwapAllowed ? receiveAsset : sendAsset}
+          asset={sendAsset}
           sendingAsset={
-            isSwapAllowed &&
             sendAsset && {
               image:
                 sendAsset.type === AssetType.native
@@ -172,26 +125,23 @@ export const SendPageRecipientContent = ({
                   : tokenList &&
                     sendAsset.details &&
                     (nftImageURL ||
-                      tokenList[sendAsset.details.address?.toLowerCase()]
+                      tokenList[sendAsset.details?.address?.toLowerCase()]
                         ?.iconUrl),
               symbol: sendAsset?.details?.symbol || nativeCurrencySymbol,
             }
           }
           onAssetChange={useCallback(
-            (newAsset) => onAssetChange(newAsset, isSwapAllowed),
-            [onAssetChange, isSwapAllowed],
+            (newAsset) => onAssetChange(newAsset, false),
+            [onAssetChange],
           )}
-          isAmountLoading={isLoadingInitialQuotes}
+          isAmountLoading={false}
           amount={amount}
-          isDisabled={!isSwapAllowed}
+          isDisabled={true}
           onClick={onClick}
           visibleTabs={[TabName.TOKENS]}
         />
       </SendPageRow>
-      <QuoteCard scrollRef={scrollRef} />
       {showHexData ? <SendHexData /> : null}
-      {/* SCROLL REF ANCHOR */}
-      <div ref={scrollRef} />
     </Box>
   );
 };

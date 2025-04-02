@@ -7,12 +7,7 @@ import React, {
   ///: END:ONLY_INCLUDE_IF
 } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  useHistory,
-  ///: BEGIN:ONLY_INCLUDE_IF(build-beta)
-  useLocation,
-  ///: END:ONLY_INCLUDE_IF
-} from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 ///: BEGIN:ONLY_INCLUDE_IF(build-beta)
 import { toHex } from '@metamask/controller-utils';
 ///: END:ONLY_INCLUDE_IF
@@ -37,27 +32,15 @@ import {
   ///: BEGIN:ONLY_INCLUDE_IF(multichain)
   CONFIRMATION_V_NEXT_ROUTE,
   ///: END:ONLY_INCLUDE_IF
-  ///: BEGIN:ONLY_INCLUDE_IF(build-beta)
-  PREPARE_SWAP_ROUTE,
-  ///: END:ONLY_INCLUDE_IF
   SEND_ROUTE,
 } from '../../../helpers/constants/routes';
 import {
-  ///: BEGIN:ONLY_INCLUDE_IF(build-beta)
-  SwapsEthToken,
-  getCurrentKeyring,
-  ///: END:ONLY_INCLUDE_IF
-  getUseExternalServices,
   ///: BEGIN:ONLY_INCLUDE_IF(multichain)
   getMemoizedUnapprovedTemplatedConfirmations,
   ///: END:ONLY_INCLUDE_IF
   getNetworkConfigurationIdByChainId,
 } from '../../../selectors';
 import Tooltip from '../../ui/tooltip';
-///: BEGIN:ONLY_INCLUDE_IF(build-beta)
-import { setSwapsFromToken } from '../../../ducks/swaps/swaps';
-import { isHardwareKeyring } from '../../../helpers/utils/hardware';
-///: END:ONLY_INCLUDE_IF
 import { AssetType } from '../../../../shared/constants/transaction';
 import { startNewDraftTransaction } from '../../../ducks/send';
 import {
@@ -69,9 +52,6 @@ import { Box, Icon, IconName, IconSize } from '../../component-library';
 import IconButton from '../../ui/icon-button';
 ///: BEGIN:ONLY_INCLUDE_IF(build-beta)
 import useRamps from '../../../hooks/ramps/useRamps/useRamps';
-///: END:ONLY_INCLUDE_IF
-///: BEGIN:ONLY_INCLUDE_IF(build-beta)
-import useBridging from '../../../hooks/bridge/useBridging';
 ///: END:ONLY_INCLUDE_IF
 import { ReceiveModal } from '../../multichain/receive-modal';
 import {
@@ -85,22 +65,19 @@ import {
 ///: BEGIN:ONLY_INCLUDE_IF(multichain)
 import { isMultichainWalletSnap } from '../../../../shared/lib/accounts/snaps';
 ///: END:ONLY_INCLUDE_IF
+import { getMultichainNetwork } from '../../../selectors/multichain';
+import { useMultichainSelector } from '../../../hooks/useMultichainSelector';
 import { getCurrentChainId } from '../../../../shared/modules/selectors/networks';
-///: BEGIN:ONLY_INCLUDE_IF(solana-swaps)
-import { MultichainNetworks } from '../../../../shared/constants/multichain/networks';
-///: END:ONLY_INCLUDE_IF
 
 type CoinButtonsProps = {
   account: InternalAccount;
   chainId: `0x${string}` | CaipChainId | number;
-  isSwapsChain: boolean;
   isSigningEnabled: boolean;
   ///: BEGIN:ONLY_INCLUDE_IF(build-beta)
   isBridgeChain: boolean;
   ///: END:ONLY_INCLUDE_IF
   ///: BEGIN:ONLY_INCLUDE_IF(build-beta)
   isBuyableChain: boolean;
-  defaultSwapsToken?: SwapsEthToken;
   ///: END:ONLY_INCLUDE_IF
   classPrefix?: string;
   iconButtonClassName?: string;
@@ -109,14 +86,12 @@ type CoinButtonsProps = {
 const CoinButtons = ({
   account,
   chainId,
-  isSwapsChain,
   isSigningEnabled,
   ///: BEGIN:ONLY_INCLUDE_IF(build-beta)
   isBridgeChain,
   ///: END:ONLY_INCLUDE_IF
   ///: BEGIN:ONLY_INCLUDE_IF(build-beta)
   isBuyableChain,
-  defaultSwapsToken,
   ///: END:ONLY_INCLUDE_IF
   classPrefix = 'coin',
   iconButtonClassName = '',
@@ -139,16 +114,11 @@ const CoinButtons = ({
     (state) => state.metamask.defaultHomeActiveTabName,
   );
   ///: END:ONLY_INCLUDE_IF
-  ///: BEGIN:ONLY_INCLUDE_IF(build-beta)
-  const location = useLocation();
-  ///: END:ONLY_INCLUDE_IF
-  ///: BEGIN:ONLY_INCLUDE_IF(build-beta)
-  const keyring = useSelector(getCurrentKeyring);
-  const usingHardwareWallet = isHardwareKeyring(keyring?.type);
-  ///: END:ONLY_INCLUDE_IF
 
-  const isExternalServicesEnabled = useSelector(getUseExternalServices);
-
+  const { chainId: multichainChainId } = useMultichainSelector(
+    getMultichainNetwork,
+    account,
+  );
   const buttonTooltips = {
     buyButton: [
       ///: BEGIN:ONLY_INCLUDE_IF(build-beta)
@@ -156,10 +126,6 @@ const CoinButtons = ({
       ///: END:ONLY_INCLUDE_IF
     ],
     sendButton: [
-      { condition: !isSigningEnabled, message: 'methodNotSupported' },
-    ],
-    swapButton: [
-      { condition: !isSwapsChain, message: 'currentlyUnavailable' },
       { condition: !isSigningEnabled, message: 'methodNotSupported' },
     ],
     bridgeButton: [
@@ -198,10 +164,6 @@ const CoinButtons = ({
 
   ///: BEGIN:ONLY_INCLUDE_IF(build-beta)
   const { openBuyCryptoInPdapp } = useRamps();
-  ///: END:ONLY_INCLUDE_IF
-
-  ///: BEGIN:ONLY_INCLUDE_IF(build-beta)
-  const { openBridgeExperience } = useBridging();
   ///: END:ONLY_INCLUDE_IF
 
   ///: BEGIN:ONLY_INCLUDE_IF(multichain)
@@ -294,56 +256,6 @@ const CoinButtons = ({
   }, []);
   ///: END:ONLY_INCLUDE_IF
 
-  ///: BEGIN:ONLY_INCLUDE_IF(build-beta)
-  const handleBridgeOnClick = useCallback(
-    async (isSwap: boolean) => {
-      if (!defaultSwapsToken) {
-        return;
-      }
-      await setCorrectChain();
-      openBridgeExperience(
-        'MetaMetricsSwapsEventSource.MainView',
-        defaultSwapsToken,
-        location.pathname.includes('asset') ? '&token=native' : '',
-        isSwap,
-      );
-    },
-    [defaultSwapsToken, location, openBridgeExperience],
-  );
-  ///: END:ONLY_INCLUDE_IF
-
-  const handleSwapOnClick = useCallback(async () => {
-    ///: BEGIN:ONLY_INCLUDE_IF(solana-swaps)
-    if (multichainChainId === MultichainNetworks.SOLANA) {
-      handleBridgeOnClick(true);
-      return;
-    }
-    ///: END:ONLY_INCLUDE_IF
-
-    await setCorrectChain();
-
-    ///: BEGIN:ONLY_INCLUDE_IF(build-beta)
-    if (isSwapsChain) {
-      dispatch(setSwapsFromToken(defaultSwapsToken));
-      if (usingHardwareWallet) {
-        if (global.platform.openExtensionInBrowser) {
-          global.platform.openExtensionInBrowser(PREPARE_SWAP_ROUTE);
-        }
-      } else {
-        history.push(PREPARE_SWAP_ROUTE);
-      }
-    }
-    ///: END:ONLY_INCLUDE_IF
-  }, [
-    setCorrectChain,
-    isSwapsChain,
-    chainId,
-    ///: BEGIN:ONLY_INCLUDE_IF(build-beta)
-    usingHardwareWallet,
-    defaultSwapsToken,
-    ///: END:ONLY_INCLUDE_IF
-  ]);
-
   return (
     <Box display={Display.Flex} justifyContent={JustifyContent.spaceEvenly}>
       {
@@ -364,49 +276,6 @@ const CoinButtons = ({
           onClick={handleBuyAndSellOnClick}
           tooltipRender={(contents: React.ReactElement) =>
             generateTooltip('buyButton', contents)
-          }
-        />
-        ///: END:ONLY_INCLUDE_IF
-      }
-
-      <IconButton
-        className={`${classPrefix}-overview__button`}
-        iconButtonClassName={iconButtonClassName}
-        disabled={
-          !isSwapsChain || !isSigningEnabled || !isExternalServicesEnabled
-        }
-        Icon={
-          <Icon
-            name={IconName.SwapHorizontal}
-            color={IconColor.primaryInverse}
-            size={IconSize.Sm}
-          />
-        }
-        onClick={handleSwapOnClick}
-        label={t('swap')}
-        data-testid="token-overview-button-swap"
-        tooltipRender={(contents: React.ReactElement) =>
-          generateTooltip('swapButton', contents)
-        }
-      />
-      {
-        ///: BEGIN:ONLY_INCLUDE_IF(build-beta)
-        <IconButton
-          className={`${classPrefix}-overview__button`}
-          iconButtonClassName={iconButtonClassName}
-          disabled={!isBridgeChain || !isSigningEnabled}
-          data-testid={`${classPrefix}-overview-bridge`}
-          Icon={
-            <Icon
-              name={IconName.Bridge}
-              color={IconColor.primaryInverse}
-              size={IconSize.Sm}
-            />
-          }
-          label={t('bridge')}
-          onClick={() => handleBridgeOnClick(false)}
-          tooltipRender={(contents: React.ReactElement) =>
-            generateTooltip('bridgeButton', contents)
           }
         />
         ///: END:ONLY_INCLUDE_IF

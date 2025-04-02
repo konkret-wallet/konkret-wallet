@@ -2,7 +2,6 @@ import { TransactionType } from '@metamask/transaction-controller';
 import React, { useMemo } from 'react';
 import { useConfirmContext } from '../../../context/confirm';
 import { SignatureRequestType } from '../../../types/confirm';
-import { useSmartTransactionFeatureFlags } from '../../../hooks/useSmartTransactionFeatureFlags';
 import ApproveInfo from './approve/approve';
 import BaseTransactionInfo from './base-transaction-info/base-transaction-info';
 import NativeTransferInfo from './native-transfer/native-transfer';
@@ -17,8 +16,6 @@ const Info = () => {
   const { currentConfirmation } = useConfirmContext();
 
   // TODO: Create TransactionInfo and SignatureInfo components.
-  useSmartTransactionFeatureFlags();
-
   const ConfirmationInfoComponentMap = useMemo(
     () => ({
       [TransactionType.contractInteraction]: () => BaseTransactionInfo,

@@ -11,9 +11,7 @@ import {
   ///: BEGIN:ONLY_INCLUDE_IF(keyring-snaps)
   SNAP_MANAGE_ACCOUNTS_CONFIRMATION_TYPES,
   ///: END:ONLY_INCLUDE_IF
-  SMART_TRANSACTION_CONFIRMATION_TYPES,
 } from '../../../../../shared/constants/app';
-import smartTransactionStatusPage from './smart-transaction-status-page';
 ///: BEGIN:ONLY_INCLUDE_IF(keyring-snaps)
 import createSnapAccount from './create-snap-account';
 import removeSnapAccount from './remove-snap-account';
@@ -35,8 +33,6 @@ const APPROVAL_TEMPLATES = {
   // Use ApprovalType from utils controller
   [ApprovalType.ResultSuccess]: success,
   [ApprovalType.ResultError]: error,
-  [SMART_TRANSACTION_CONFIRMATION_TYPES.showSmartTransactionStatusPage]:
-    smartTransactionStatusPage,
   [ApprovalType.SnapDialogAlert]: snapAlert,
   [ApprovalType.SnapDialogConfirmation]: snapConfirmation,
   [ApprovalType.SnapDialogPrompt]: snapPrompt,

@@ -1,23 +1,16 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable no-empty-function */
 import {
   CHAIN_IDS,
   TransactionController,
   TransactionControllerMessenger,
   TransactionMeta,
 } from '@metamask/transaction-controller';
-import SmartTransactionsController from '@metamask/smart-transactions-controller';
-import { SmartTransactionStatuses } from '@metamask/smart-transactions-controller/dist/types';
 import { Hex } from '@metamask/utils';
 import {
-  getCurrentChainSupportsSmartTransactions,
   getFeatureFlagsByChainId,
-  getIsSmartTransaction,
-  getSmartTransactionsPreferenceEnabled,
   isHardwareWallet,
 } from '../../../../shared/modules/selectors';
-import {
-  SmartTransactionHookMessenger,
-  submitSmartTransactionHook,
-} from '../../lib/transaction/smart-transactions';
 import { trace } from '../../../../shared/lib/trace';
 import {
   ControllerInitFunction,
@@ -47,7 +40,6 @@ export const TransactionControllerInit: ControllerInitFunction<
     networkController,
     onboardingController,
     preferencesController,
-    smartTransactionsController,
   } = getControllers(request);
 
   const controller: TransactionController = new TransactionController({
@@ -55,9 +47,7 @@ export const TransactionControllerInit: ControllerInitFunction<
       // @ts-expect-error Controller type does not support undefined return value
       initMessenger.call('NetworkController:getEIP1559Compatibility'),
     getCurrentAccountEIP1559Compatibility: async () => true,
-    // @ts-expect-error Mismatched types
-    getExternalPendingTransactions: (address) =>
-      getExternalPendingTransactions(smartTransactionsController(), address),
+    getExternalPendingTransactions: (address) => [],
     getGasFeeEstimates: (...args) =>
       gasFeeController().fetchGasFeeEstimates(...args),
     getNetworkClientRegistry: (...args) =>
@@ -92,29 +82,14 @@ export const TransactionControllerInit: ControllerInitFunction<
       preferencesController().state.useTransactionSimulations,
     messenger: controllerMessenger,
     pendingTransactions: {
-      isResubmitEnabled: () => {
-        const uiState = getUIState(getFlatState());
-        return !(
-          getSmartTransactionsPreferenceEnabled(uiState) &&
-          getCurrentChainSupportsSmartTransactions(uiState)
-        );
-      },
+      isResubmitEnabled: () => true,
     },
     testGasFeeFlows: Boolean(process.env.TEST_GAS_FEE_FLOWS === 'true'),
     // @ts-expect-error Controller uses string for names rather than enum
     trace,
     hooks: {
-      // @ts-expect-error Controller type does not support undefined return value
-      publish: (transactionMeta, rawTx: Hex) =>
-        publishSmartTransactionHook(
-          controller,
-          smartTransactionsController(),
-          // Init messenger cannot yet be further restricted so is a superset of what is needed
-          initMessenger as SmartTransactionHookMessenger,
-          getFlatState(),
-          transactionMeta,
-          rawTx,
-        ),
+      // @ts-expect-error used to be handled by smart-transactions-controller
+      publish: (transactionMeta, rawTx: Hex) => {},
     },
     // @ts-expect-error Keyring controller expects TxData returned but TransactionController expects TypedTransaction
     sign: (...args) => keyringController().signTransaction(...args),
@@ -163,42 +138,6 @@ function getControllers(
   };
 }
 
-function publishSmartTransactionHook(
-  transactionController: TransactionController,
-  smartTransactionsController: SmartTransactionsController,
-  hookControllerMessenger: SmartTransactionHookMessenger,
-  flatState: ControllerFlatState,
-  transactionMeta: TransactionMeta,
-  signedTransactionInHex: Hex,
-) {
-  // UI state is required to support shared selectors to avoid duplicate logic in frontend and backend.
-  // Ideally all backend logic would instead rely on messenger event / state subscriptions.
-  const uiState = getUIState(flatState);
-
-  // @ts-expect-error Smart transaction selector types does not match controller state
-  const isSmartTransaction = getIsSmartTransaction(uiState);
-
-  if (!isSmartTransaction) {
-    // Will cause TransactionController to publish to the RPC provider as normal.
-    return { transactionHash: undefined };
-  }
-
-  // @ts-expect-error Smart transaction selector types does not match controller state
-  const featureFlags = getFeatureFlagsByChainId(uiState);
-
-  return submitSmartTransactionHook({
-    transactionMeta,
-    signedTransactionInHex,
-    transactionController,
-    smartTransactionsController,
-    controllerMessenger: hookControllerMessenger,
-    isSmartTransaction,
-    isHardwareWallet: isHardwareWallet(uiState),
-    // @ts-expect-error Smart transaction selector return type does not match FeatureFlags type from hook
-    featureFlags,
-  });
-}
-
 function getExternalPendingTransactions(
   smartTransactionsController: SmartTransactionsController,
   address: string,
@@ -211,23 +150,7 @@ function getExternalPendingTransactions(
 
 function addTransactionControllerListeners(
   initMessenger: TransactionControllerInitMessenger,
-) {
-  initMessenger.subscribe(
-    'TransactionController:transactionNewSwap',
-    ({ transactionMeta }) =>
-      // TODO: This can be called internally by the TransactionController
-      // since Swaps Controller registers this action handler
-      initMessenger.call('SwapsController:setTradeTxId', transactionMeta.id),
-  );
-
-  initMessenger.subscribe(
-    'TransactionController:transactionNewSwapApproval',
-    ({ transactionMeta }) =>
-      // TODO: This can be called internally by the TransactionController
-      // since Swaps Controller registers this action handler
-      initMessenger.call('SwapsController:setApproveTxId', transactionMeta.id),
-  );
-}
+) {}
 
 function getUIState(flatState: ControllerFlatState) {
   return { metamask: flatState };

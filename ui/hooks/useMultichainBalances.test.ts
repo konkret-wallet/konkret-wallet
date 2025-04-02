@@ -1,17 +1,11 @@
-import { createBridgeMockStore } from '../../test/jest/mock-store';
 import { renderHookWithProvider } from '../../test/lib/render-helpers';
 import { useMultichainBalances } from './useMultichainBalances';
 
 describe('useMultichainBalances', () => {
   it('should return the native token of each imported network when no token balances are cached', () => {
-    const mockStore = createBridgeMockStore({
-      metamaskStateOverrides: {
-        allTokens: {},
-      },
-    });
     const { result } = renderHookWithProvider(
       () => useMultichainBalances(),
-      mockStore,
+      {},
     );
 
     expect(result.current.assetsWithBalance).toHaveLength(2);
@@ -54,10 +48,9 @@ describe('useMultichainBalances', () => {
   });
 
   it('should return a list of assets with balances', () => {
-    const mockStore = createBridgeMockStore();
     const { result } = renderHookWithProvider(
       () => useMultichainBalances(),
-      mockStore,
+      {},
     );
 
     expect(result.current.assetsWithBalance).toHaveLength(5);
@@ -137,10 +130,9 @@ describe('useMultichainBalances', () => {
   });
 
   it('should return a mapping of chainId to balance', () => {
-    const mockStore = createBridgeMockStore();
     const { result } = renderHookWithProvider(
       () => useMultichainBalances(),
-      mockStore,
+      {},
     );
 
     expect(result.current.balanceByChainId).toStrictEqual({

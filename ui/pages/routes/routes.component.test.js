@@ -62,10 +62,6 @@ jest.mock('react-redux', () => {
   };
 });
 
-jest.mock('../../ducks/bridge/actions', () => ({
-  setBridgeFeatureFlags: () => jest.fn(),
-}));
-
 jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),
   useHistory: () => ({
@@ -153,10 +149,6 @@ describe('Routes Component', () => {
         ...mockSendState,
         metamask: {
           ...mockSendState.metamask,
-          swapsState: {
-            ...mockSendState.metamask.swapsState,
-            swapsFeatureIsLive: true,
-          },
           accountsByChainId: {},
           pendingApprovals: {},
           approvalFlows: [],
@@ -228,8 +220,6 @@ describe('toast display', () => {
       tokenBalances: {
         '0x0dcd5d886577d5081b0c52e242ef29e70be3e7bc': '0x176270e2b862e4ed3',
       },
-      swapsState: { swapsFeatureIsLive: true },
-      newPrivacyPolicyToastShownDate: date,
     },
   });
 
@@ -242,7 +232,6 @@ describe('toast display', () => {
       completedOnboarding: true,
       pendingApprovals: {},
       pendingApprovalCount: 0,
-      swapsState: { swapsFeatureIsLive: true },
       newPrivacyPolicyToastShownDate: new Date(0),
       isRampCardClosed: false,
       newPrivacyPolicyToastClickedOrClosed: true,

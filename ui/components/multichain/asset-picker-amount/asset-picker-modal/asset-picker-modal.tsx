@@ -33,13 +33,12 @@ import {
   getSelectedEvmInternalAccount,
   getTokenExchangeRates,
   getTokenList,
-  getUseExternalServices,
+  // getUseExternalServices,
   ///: BEGIN:ONLY_INCLUDE_IF(solana-swaps)
   hasCreatedSolanaAccount,
   ///: END:ONLY_INCLUDE_IF
 } from '../../../../selectors';
 import { getRenderableTokenData } from '../../../../hooks/useTokensToSearch';
-import { getSwapsBlockedTokens } from '../../../../ducks/send';
 import { isEqualCaseInsensitive } from '../../../../../shared/modules/string-utils';
 import {
   CHAIN_ID_TOKEN_IMAGE_MAP,
@@ -48,8 +47,6 @@ import {
 import { useMultichainBalances } from '../../../../hooks/useMultichainBalances';
 import { AvatarType } from '../../avatar-group/avatar-group.types';
 import { NETWORK_TO_SHORT_NETWORK_NAME_MAP } from '../../../../../shared/constants/bridge';
-import { useAsyncResult } from '../../../../hooks/useAsyncResult';
-import { fetchTopAssetsList } from '../../../../pages/swaps/swaps.util';
 import { useMultichainSelector } from '../../../../hooks/useMultichainSelector';
 import {
   getMultichainConversionRate,
@@ -145,11 +142,6 @@ export function AssetPickerModal({
 
   const [searchQuery, setSearchQuery] = useState('');
 
-  const swapsBlockedTokens = useSelector(getSwapsBlockedTokens);
-  const memoizedSwapsBlockedTokens = useMemo(() => {
-    return new Set<string>(swapsBlockedTokens);
-  }, [swapsBlockedTokens]);
-
   const handleAssetChange = useCallback(onAssetChange, [onAssetChange]);
 
   const currentChainId = useSelector(getMultichainCurrentChainId);
@@ -204,6 +196,7 @@ export function AssetPickerModal({
   const evmTokenMetadataByAddress = useSelector(getTokenList) as TokenListMap;
   const nonEvmTokenMetadataByAddress = useSelector(getAssetsMetadata);
 
+  /*
   const allowExternalServices = useSelector(getUseExternalServices);
   // Swaps top tokens
   const { value: topTokens } = useAsyncResult<
@@ -214,23 +207,22 @@ export function AssetPickerModal({
     }
     return undefined;
   }, [selectedNetwork?.chainId, allowExternalServices]);
+  */
 
   const getIsDisabled = useCallback(
     ({
-      address,
       symbol,
     }:
       | TokenListToken
       | AssetWithDisplayData<ERC20Asset>
       | AssetWithDisplayData<NativeAsset>) => {
       const isDisabled = sendingAsset?.symbol
-        ? !isEqualCaseInsensitive(sendingAsset.symbol, symbol) &&
-          memoizedSwapsBlockedTokens.has(address || '')
+        ? !isEqualCaseInsensitive(sendingAsset.symbol, symbol)
         : false;
 
       return isDisabled;
     },
-    [sendingAsset?.symbol, memoizedSwapsBlockedTokens],
+    [sendingAsset?.symbol],
   );
 
   /**
@@ -260,8 +252,6 @@ export function AssetPickerModal({
           string?: string;
         })
     > {
-      const blockedTokens = [];
-
       // Yield multichain tokens with balances
       for (const token of multichainTokensWithBalance) {
         if (shouldAddToken(token.symbol, token.address, token.chainId)) {
@@ -332,6 +322,7 @@ export function AssetPickerModal({
         return;
       }
 
+      /*
       // For EVM tokens only
       // topTokens are sorted by popularity
       for (const topToken of topTokens ?? []) {
@@ -349,15 +340,12 @@ export function AssetPickerModal({
           }
         }
       }
+      */
 
       for (const token of Object.values(evmTokenMetadataByAddress)) {
         if (shouldAddToken(token.symbol, token.address, currentChainId)) {
           yield { ...token, chainId: currentChainId };
         }
-      }
-
-      for (const token of blockedTokens) {
-        yield { ...token, chainId: currentChainId };
       }
     },
     [
@@ -370,7 +358,7 @@ export function AssetPickerModal({
       multichainTokensWithBalance,
       allDetectedTokens,
       nonEvmTokenMetadataByAddress,
-      topTokens,
+      // topTokens,
       evmTokenMetadataByAddress,
       getIsDisabled,
     ],

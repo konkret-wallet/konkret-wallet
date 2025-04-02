@@ -1,8 +1,13 @@
+import { BigNumber } from 'bignumber.js';
 import { TransactionType } from '@metamask/transaction-controller';
-import { calcTokenValue } from '../../../../shared/lib/swaps-utils';
 import { parseStandardTokenTransactionData } from '../../../../shared/modules/transaction.utils';
 import { getTokenAddressParam } from '../../../helpers/utils/token-util';
 import { decimalToHex } from '../../../../shared/modules/conversion.utils';
+
+export function calcTokenValue(value, decimals) {
+  const multiplier = new BigNumber(10).pow(new BigNumber(decimals));
+  return new BigNumber(String(value)).times(multiplier);
+}
 
 export function getCustomTxParamsData(
   data,

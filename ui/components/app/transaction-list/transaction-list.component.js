@@ -18,12 +18,8 @@ import {
 } from '../../../selectors/transactions';
 import { getCurrentChainId } from '../../../../shared/modules/selectors/networks';
 import { getSelectedAccount } from '../../../selectors';
-///: BEGIN:ONLY_INCLUDE_IF(multichain)
-import useSolanaBridgeTransactionMapping from '../../../hooks/bridge/useSolanaBridgeTransactionMapping';
-///: END:ONLY_INCLUDE_IF
 import { useI18nContext } from '../../../hooks/useI18nContext';
 import TransactionListItem from '../transaction-list-item';
-import SmartTransactionListItem from '../transaction-list-item/smart-transaction-list-item.component';
 import { TOKEN_CATEGORY_HASH } from '../../../helpers/constants/transactions';
 import { SWAPS_CHAINID_CONTRACT_ADDRESS_MAP } from '../../../../shared/constants/swaps';
 import { isEqualCaseInsensitive } from '../../../../shared/modules/string-utils';
@@ -188,9 +184,8 @@ export default function TransactionList({
     getSelectedAccountMultichainTransactions,
   );
 
-  // Use our custom hook to map Solana bridge transactions with destination chain info
-  const modifiedNonEvmTransactions =
-    useSolanaBridgeTransactionMapping(nonEvmTransactions);
+  // TODO: Handle non-evm chains
+  const modifiedNonEvmTransactions = null;
   ///: END:ONLY_INCLUDE_IF
 
   const unfilteredPendingTransactions = useSelector(
@@ -387,6 +382,7 @@ export default function TransactionList({
               {pendingTransactions.map((dateGroup) => {
                 return dateGroup.transactionGroups.map(
                   (transactionGroup, index) => {
+                    /*
                     if (
                       transactionGroup.initialTransaction?.isSmartTransaction
                     ) {
@@ -403,6 +399,7 @@ export default function TransactionList({
                         </Fragment>
                       );
                     }
+                    */
                     return (
                       <Fragment key={`${transactionGroup.nonce}:${index}`}>
                         {renderDateStamp(index, dateGroup)}
@@ -436,7 +433,8 @@ export default function TransactionList({
                             }`}
                           >
                             {renderDateStamp(index, dateGroup)}
-                            {transactionGroup.initialTransaction
+                            {
+                              /* transactionGroup.initialTransaction
                               ?.isSmartTransaction ? (
                               <SmartTransactionListItem
                                 transactionGroup={transactionGroup}
@@ -444,11 +442,12 @@ export default function TransactionList({
                                   transactionGroup.initialTransaction
                                 }
                               />
-                            ) : (
+                            ) : (*/
                               <TransactionListItem
                                 transactionGroup={transactionGroup}
                               />
-                            )}
+                              /* )*/
+                            }
                           </Fragment>
                         );
                       },

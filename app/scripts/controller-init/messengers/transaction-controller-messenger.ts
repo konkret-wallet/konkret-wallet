@@ -20,20 +20,13 @@ import {
   TransactionControllerTransactionSubmittedEvent,
   TransactionControllerUnapprovedTransactionAddedEvent,
 } from '@metamask/transaction-controller';
-import { SmartTransactionsControllerSmartTransactionEvent } from '@metamask/smart-transactions-controller';
-import {
-  SwapsControllerSetApproveTxIdAction,
-  SwapsControllerSetTradeTxIdAction,
-} from '../../controllers/swaps/swaps.types';
 
 type MessengerActions =
   | ApprovalControllerActions
   | AccountsControllerGetSelectedAccountAction
   | NetworkControllerFindNetworkClientIdByChainIdAction
   | NetworkControllerGetEIP1559CompatibilityAction
-  | NetworkControllerGetNetworkClientByIdAction
-  | SwapsControllerSetApproveTxIdAction
-  | SwapsControllerSetTradeTxIdAction;
+  | NetworkControllerGetNetworkClientByIdAction;
 
 type MessengerEvents =
   | TransactionControllerTransactionApprovedEvent
@@ -46,8 +39,7 @@ type MessengerEvents =
   | TransactionControllerTransactionSubmittedEvent
   | TransactionControllerPostTransactionBalanceUpdatedEvent
   | TransactionControllerUnapprovedTransactionAddedEvent
-  | NetworkControllerStateChangeEvent
-  | SmartTransactionsControllerSmartTransactionEvent;
+  | NetworkControllerStateChangeEvent;
 
 export type TransactionControllerInitMessenger = ReturnType<
   typeof getTransactionControllerInitMessenger
@@ -84,7 +76,6 @@ export function getTransactionControllerInitMessenger(
       'TransactionController:transactionSubmitted',
       'TransactionController:postTransactionBalanceUpdated',
       'TransactionController:unapprovedTransactionAdded',
-      'SmartTransactionsController:smartTransaction',
     ],
     allowedActions: [
       'ApprovalController:addRequest',
@@ -92,8 +83,6 @@ export function getTransactionControllerInitMessenger(
       'ApprovalController:startFlow',
       'ApprovalController:updateRequestState',
       'NetworkController:getEIP1559Compatibility',
-      'SwapsController:setApproveTxId',
-      'SwapsController:setTradeTxId',
     ],
   });
 }

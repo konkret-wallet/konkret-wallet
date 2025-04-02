@@ -6,7 +6,6 @@ import {
   PermissionController,
   PermissionSpecificationConstraint,
 } from '@metamask/permission-controller';
-import SmartTransactionsController from '@metamask/smart-transactions-controller';
 import { TransactionController } from '@metamask/transaction-controller';
 import { AccountsController } from '@metamask/accounts-controller';
 import {
@@ -30,7 +29,6 @@ import {
 } from '@metamask/rate-limit-controller';
 import OnboardingController from '../controllers/onboarding';
 import { PreferencesController } from '../controllers/preferences-controller';
-import SwapsController from '../controllers/swaps';
 
 /**
  * Union of all controllers supporting or required by modular initialization.
@@ -54,7 +52,6 @@ export type Controller =
     >
   | PreferencesController
   | RateLimitController<RateLimitedApiMap>
-  | SmartTransactionsController
   | SnapController
   | SnapInterfaceController
   | SnapInsightsController
@@ -81,9 +78,7 @@ export type ControllerFlatState = AccountsController['state'] &
     CaveatSpecificationConstraint
   >['state'] &
   PreferencesController['state'] &
-  SmartTransactionsController['state'] &
   SnapController['state'] &
   SnapInsightsController['state'] &
   SnapInterfaceController['state'] &
-  TransactionController['state'] &
-  SwapsController['state'];
+  TransactionController['state'];

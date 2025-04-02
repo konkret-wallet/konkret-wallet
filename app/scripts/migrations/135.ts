@@ -1,7 +1,5 @@
 import { hasProperty, isObject } from '@metamask/utils';
 import { cloneDeep } from 'lodash';
-import type { SmartTransaction } from '@metamask/smart-transactions-controller/dist/types';
-import { CHAIN_IDS } from '@metamask/transaction-controller';
 
 export type VersionedData = {
   meta: {
@@ -15,9 +13,7 @@ export type VersionedData = {
       };
     };
     SmartTransactionsController?: {
-      smartTransactionsState: {
-        smartTransactions: Record<string, SmartTransaction[]>;
-      };
+      smartTransactionsState: object;
     };
   };
 };
@@ -37,39 +33,12 @@ function transformState(state: VersionedData['data']) {
     return state;
   }
 
-  const { PreferencesController } = state;
-  const currentOptInStatus =
-    PreferencesController.preferences?.smartTransactionsOptInStatus;
-
-  if (
-    currentOptInStatus === undefined ||
-    (currentOptInStatus === false && !hasExistingSmartTransactions(state))
-  ) {
-    state.PreferencesController.preferences = {
-      ...state.PreferencesController.preferences,
-      smartTransactionsOptInStatus: true,
-      smartTransactionsMigrationApplied: true,
-    };
-  } else {
-    state.PreferencesController.preferences = {
-      ...state.PreferencesController.preferences,
-      smartTransactionsMigrationApplied: false, // Always set it, but false for existing users
-    };
-  }
+  state.PreferencesController.preferences = {
+    ...state.PreferencesController.preferences,
+    smartTransactionsMigrationApplied: false, // Always set it, but false for existing users
+  };
 
   return state;
-}
-
-function hasExistingSmartTransactions(state: VersionedData['data']): boolean {
-  const smartTransactions =
-    state?.SmartTransactionsController?.smartTransactionsState
-      ?.smartTransactions;
-
-  if (!isObject(smartTransactions)) {
-    return false;
-  }
-
-  return (smartTransactions[CHAIN_IDS.MAINNET] || []).length > 0;
 }
 
 export async function migrate(

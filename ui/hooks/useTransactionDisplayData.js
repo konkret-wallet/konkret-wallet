@@ -4,7 +4,6 @@ import {
   TransactionStatus,
   TransactionType,
 } from '@metamask/transaction-controller';
-import BigNumber from 'bignumber.js';
 import {
   getDetectedTokensInCurrentNetwork,
   getKnownMethodData,
@@ -36,20 +35,12 @@ import { TransactionGroupCategory } from '../../shared/constants/transaction';
 import { captureSingleException } from '../store/actions';
 import { isEqualCaseInsensitive } from '../../shared/modules/string-utils';
 import { getTokenValueParam } from '../../shared/lib/metamask-controller-utils';
-import { selectBridgeHistoryForAccount } from '../ducks/bridge-status/selectors';
-import { useBridgeTokenDisplayData } from '../pages/bridge/hooks/useBridgeTokenDisplayData';
-import { formatAmount } from '../pages/confirmations/components/simulation-details/formatAmount';
-import { getIntlLocale } from '../ducks/locale/locale';
-import { NETWORK_TO_SHORT_NETWORK_NAME_MAP } from '../../shared/constants/bridge';
 import { useI18nContext } from './useI18nContext';
 import { useTokenFiatAmount } from './useTokenFiatAmount';
 import { useUserPreferencedCurrency } from './useUserPreferencedCurrency';
 import { useCurrencyDisplay } from './useCurrencyDisplay';
 import { useTokenDisplayValue } from './useTokenDisplayValue';
 import { useTokenData } from './useTokenData';
-import { useSwappedTokenValue } from './useSwappedTokenValue';
-import { useCurrentAsset } from './useCurrentAsset';
-import useBridgeChainInfo from './bridge/useBridgeChainInfo';
 
 /**
  *  There are seven types of transaction entries that are currently differentiated in the design:
@@ -107,14 +98,13 @@ export function useTransactionDisplayData(transactionGroup) {
   // To determine which primary currency to display for swaps transactions we need to be aware
   // of which asset, if any, we are viewing at present
   const dispatch = useDispatch();
-  const locale = useSelector(getIntlLocale);
-  const currentAsset = useCurrentAsset();
   const knownTokens = useSelector(getTokens);
   const knownNfts = useSelector(getNfts);
   const detectedTokens = useSelector(getDetectedTokensInCurrentNetwork) || [];
   const tokenList = useSelector(getTokenList);
   const t = useI18nContext();
 
+  /*
   // Bridge data
   const bridgeHistory = useSelector(selectBridgeHistoryForAccount);
   const srcTxMetaId = transactionGroup.initialTransaction.id;
@@ -124,6 +114,7 @@ export function useTransactionDisplayData(transactionGroup) {
     srcTxMeta: transactionGroup.initialTransaction,
   });
   const destChainName = NETWORK_TO_SHORT_NETWORK_NAME_MAP[destNetwork?.chainId];
+  */
 
   const { initialTransaction, primaryTransaction } = transactionGroup;
   // initialTransaction contains the data we need to derive the primary purpose of this transaction group
@@ -245,31 +236,23 @@ export function useTransactionDisplayData(transactionGroup) {
 
   // used to append to the primary display value. initialized to either token.symbol or undefined
   // but can later be modified if dealing with a swap
-  let primarySuffix = isTokenCategory ? token?.symbol : undefined;
+  const primarySuffix = isTokenCategory ? token?.symbol : undefined;
   // used to display the primary value of tx. initialized to either tokenDisplayValue or undefined
   // but can later be modified if dealing with a swap
-  let primaryDisplayValue = isTokenCategory ? tokenDisplayValue : undefined;
+  const primaryDisplayValue = isTokenCategory ? tokenDisplayValue : undefined;
   // used to display fiat amount of tx. initialized to either tokenFiatAmount or undefined
   // but can later be modified if dealing with a swap
-  let secondaryDisplayValue = isTokenCategory ? tokenFiatAmount : undefined;
+  const secondaryDisplayValue = isTokenCategory ? tokenFiatAmount : undefined;
 
   let category;
   let title;
-
-  const {
-    swapTokenValue,
-    isNegative,
-    swapTokenFiatAmount,
-    isViewingReceivedTokenFromSwap,
-  } = useSwappedTokenValue(transactionGroup, currentAsset);
-
-  const bridgeTokenDisplayData = useBridgeTokenDisplayData(transactionGroup);
 
   if (signatureTypes.includes(type)) {
     category = TransactionGroupCategory.signatureRequest;
     title = t('signatureRequest');
     subtitle = origin;
     subtitleContainsOrigin = true;
+    /*
   } else if (type === TransactionType.swap) {
     category = TransactionGroupCategory.swap;
     title = t('swapTokenToToken', [
@@ -323,6 +306,7 @@ export function useTransactionDisplayData(transactionGroup) {
     subtitle = origin;
     subtitleContainsOrigin = true;
     primarySuffix = primaryTransaction.sourceTokenSymbol;
+  */
   } else if (type === TransactionType.tokenMethodApprove) {
     category = TransactionGroupCategory.approval;
     prefix = '';
@@ -381,6 +365,7 @@ export function useTransactionDisplayData(transactionGroup) {
     category = TransactionGroupCategory.send;
     title = t('send');
     subtitle = t('toAddress', [shortenAddress(recipientAddress)]);
+    /*
   } else if (type === TransactionType.bridgeApproval) {
     title = t('bridgeApproval');
     category = TransactionGroupCategory.approval;
@@ -397,6 +382,7 @@ export function useTransactionDisplayData(transactionGroup) {
       new BigNumber(bridgeTokenDisplayData.sourceTokenAmountSent ?? 0),
     );
     secondaryDisplayValue = bridgeTokenDisplayData.displayCurrencyAmount;
+  */
   } else {
     dispatch(
       captureSingleException(
@@ -418,7 +404,7 @@ export function useTransactionDisplayData(transactionGroup) {
   const [secondaryCurrency] = useCurrencyDisplay(primaryValue, {
     prefix,
     displayValue: secondaryDisplayValue,
-    hideLabel: isTokenCategory || Boolean(swapTokenValue),
+    hideLabel: isTokenCategory, // || Boolean(swapTokenValue),
     ...secondaryCurrencyPreferences,
   });
 
@@ -433,9 +419,9 @@ export function useTransactionDisplayData(transactionGroup) {
     senderAddress,
     recipientAddress,
     secondaryCurrency:
-      (isTokenCategory && !tokenFiatAmount) ||
+      isTokenCategory && !tokenFiatAmount /* ||
       ([TransactionType.swap, TransactionType.swapAndSend].includes(type) &&
-        !swapTokenFiatAmount)
+        !swapTokenFiatAmount) */
         ? undefined
         : secondaryCurrency,
     displayedStatusKey,

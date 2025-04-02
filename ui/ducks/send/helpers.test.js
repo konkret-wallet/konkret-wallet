@@ -19,7 +19,6 @@ import {
   getTokenExchangeRates,
 } from '../../selectors';
 import { getGasFeeEstimates, getNativeCurrency } from '../metamask/metamask';
-import { getUsedSwapsGasPrice } from '../swaps/swaps';
 import { fetchTokenExchangeRates } from '../../helpers/utils/util';
 import {
   addAdjustedReturnToQuotes,
@@ -69,10 +68,6 @@ jest.mock('../metamask/metamask', () => ({
   ...jest.requireActual('../metamask/metamask'),
   getGasFeeEstimates: jest.fn(),
   getNativeCurrency: jest.fn(),
-}));
-
-jest.mock('../swaps/swaps', () => ({
-  getUsedSwapsGasPrice: jest.fn(),
 }));
 
 jest.mock('../../helpers/utils/util', () => ({
@@ -296,7 +291,6 @@ describe('Send Slice Helpers', () => {
         medium: { suggestedMaxFeePerGas: '20' },
       });
       checkNetworkAndAccountSupports1559.mockReturnValue(true);
-      getUsedSwapsGasPrice.mockReturnValue('50');
       getTokenExchangeRates.mockReturnValue({ '0x22222222222': '1' });
       getConfirmationExchangeRates.mockReturnValue({});
       getNativeCurrency.mockReturnValue('ETH');
@@ -345,52 +339,6 @@ describe('Send Slice Helpers', () => {
       const bestQuote = calculateBestQuote(quotes);
 
       expect(bestQuote).toBeUndefined();
-    });
-  });
-
-  describe('getIsDraftSwapAndSend', () => {
-    it('should return true if draft transaction is a swap and send', () => {
-      const draftTransaction = {
-        sendAsset: { details: { address: '0xAddress1' } },
-        receiveAsset: { details: { address: '0xAddress2' } },
-      };
-
-      const isSwapAndSend = getIsDraftSwapAndSend(draftTransaction);
-
-      expect(isSwapAndSend).toBe(true);
-    });
-
-    it('should return false if draft transaction is not a swap and send', () => {
-      const draftTransaction = {
-        sendAsset: { details: { address: '0xAddress1' } },
-        receiveAsset: { details: { address: '0xAddress1' } },
-      };
-
-      const isSwapAndSend = getIsDraftSwapAndSend(draftTransaction);
-
-      expect(isSwapAndSend).toBe(false);
-    });
-
-    it('should return true if only one asset is native (i.e., no details)', () => {
-      const draftTransaction = {
-        sendAsset: { details: { address: '0xAddress1' } },
-        receiveAsset: { details: null },
-      };
-
-      const isSwapAndSend = getIsDraftSwapAndSend(draftTransaction);
-
-      expect(isSwapAndSend).toBe(true);
-    });
-
-    it('should return false if only both assets are native (i.e., no details)', () => {
-      const draftTransaction = {
-        sendAsset: { details: { address: '0xAddress1' } },
-        receiveAsset: { details: null },
-      };
-
-      const isSwapAndSend = getIsDraftSwapAndSend(draftTransaction);
-
-      expect(isSwapAndSend).toBe(true);
     });
   });
 });

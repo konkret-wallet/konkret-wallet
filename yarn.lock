@@ -2288,7 +2288,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ethereumjs/tx@npm:^5.2.1, @ethereumjs/tx@npm:^5.4.0":
+"@ethereumjs/tx@npm:^5.4.0":
   version: 5.4.0
   resolution: "@ethereumjs/tx@npm:5.4.0"
   dependencies:
@@ -2311,7 +2311,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ethereumjs/util@npm:^9.0.2, @ethereumjs/util@npm:^9.1.0":
+"@ethereumjs/util@npm:^9.1.0":
   version: 9.1.0
   resolution: "@ethereumjs/util@npm:9.1.0"
   dependencies:
@@ -4333,7 +4333,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@metamask/controller-utils@npm:^11.0.0, @metamask/controller-utils@npm:^11.4.0, @metamask/controller-utils@npm:^11.4.2, @metamask/controller-utils@npm:^11.4.4, @metamask/controller-utils@npm:^11.4.5, @metamask/controller-utils@npm:^11.5.0, @metamask/controller-utils@npm:^11.6.0":
+"@metamask/controller-utils@npm:^11.4.0, @metamask/controller-utils@npm:^11.4.2, @metamask/controller-utils@npm:^11.4.4, @metamask/controller-utils@npm:^11.4.5, @metamask/controller-utils@npm:^11.5.0, @metamask/controller-utils@npm:^11.6.0":
   version: 11.6.0
   resolution: "@metamask/controller-utils@npm:11.6.0"
   dependencies:
@@ -4363,8 +4363,8 @@ __metadata:
 
 "@metamask/design-tokens@patch:@metamask/design-tokens@npm%3A5.0.0#~/.yarn/patches/@metamask-design-tokens-npm-5.0.0-6db176660d.patch":
   version: 5.0.0
-  resolution: "@metamask/design-tokens@patch:@metamask/design-tokens@npm%3A5.0.0#~/.yarn/patches/@metamask-design-tokens-npm-5.0.0-6db176660d.patch::version=5.0.0&hash=32a2ff"
-  checksum: 10/93765eeed2a132bbd965ad9c14358302812540947324d17ba3e07fbf02ee4846429a98344c6a4fc66292a8f9e5a1b0d034dd03ed5d5a2d58c42982b0d16199e9
+  resolution: "@metamask/design-tokens@patch:@metamask/design-tokens@npm%3A5.0.0#~/.yarn/patches/@metamask-design-tokens-npm-5.0.0-6db176660d.patch::version=5.0.0&hash=387cda"
+  checksum: 10/1142f5088b849e742586b562eb54de1afe5cd5305cf327c968746537932351423fa738cb80da66cf6d06d84a46e21fd08f1cd0ed80ab17aa20886a8fbbeed8ee
   languageName: node
   linkType: hard
 
@@ -5283,7 +5283,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@metamask/polling-controller@npm:^12.0.0, @metamask/polling-controller@npm:^12.0.3":
+"@metamask/polling-controller@npm:^12.0.3":
   version: 12.0.3
   resolution: "@metamask/polling-controller@npm:12.0.3"
   dependencies:
@@ -5455,34 +5455,6 @@ __metadata:
   version: 4.1.0
   resolution: "@metamask/slip44@npm:4.1.0"
   checksum: 10/4265254a1800a24915bd1de15f86f196737132f9af2a084c2efc885decfc5dd87ad8f0687269d90b35e2ec64d3ea4fbff0caa793bcea6e585b1f3a290952b750
-  languageName: node
-  linkType: hard
-
-"@metamask/smart-transactions-controller@npm:^16.0.1":
-  version: 16.0.1
-  resolution: "@metamask/smart-transactions-controller@npm:16.0.1"
-  dependencies:
-    "@babel/runtime": "npm:^7.24.1"
-    "@ethereumjs/tx": "npm:^5.2.1"
-    "@ethereumjs/util": "npm:^9.0.2"
-    "@ethersproject/bytes": "npm:^5.7.0"
-    "@metamask/base-controller": "npm:^7.0.1"
-    "@metamask/controller-utils": "npm:^11.0.0"
-    "@metamask/eth-json-rpc-provider": "npm:^4.1.6"
-    "@metamask/eth-query": "npm:^4.0.0"
-    "@metamask/polling-controller": "npm:^12.0.0"
-    bignumber.js: "npm:^9.0.1"
-    fast-json-patch: "npm:^3.1.0"
-    lodash: "npm:^4.17.21"
-  peerDependencies:
-    "@metamask/network-controller": ^22.0.0
-    "@metamask/transaction-controller": ^42.0.0
-  peerDependenciesMeta:
-    "@metamask/accounts-controller":
-      optional: true
-    "@metamask/approval-controller":
-      optional: true
-  checksum: 10/9a4dba47e01c1e47f099faa74a9fdf3378c77e8ba6d699317f9b38df1d71893e5278d210f6f9cd0ff6d2641db502991f48f923e00847410be33ae1df0f69377c
   languageName: node
   linkType: hard
 
@@ -24297,7 +24269,6 @@ __metadata:
     "@metamask/permission-log-controller": "npm:^3.0.3"
     "@metamask/phishing-controller": "npm:^12.3.2"
     "@metamask/phishing-warning": "npm:^4.1.0"
-    "@metamask/polling-controller": "npm:^12.0.3"
     "@metamask/post-message-stream": "npm:^9.0.0"
     "@metamask/preferences-controller": "npm:^17.0.0"
     "@metamask/preinstalled-example-snap": "npm:^0.3.0"
@@ -24309,7 +24280,6 @@ __metadata:
     "@metamask/scure-bip39": "npm:^2.0.3"
     "@metamask/selected-network-controller": "npm:^19.0.0"
     "@metamask/signature-controller": "npm:^23.1.0"
-    "@metamask/smart-transactions-controller": "npm:^16.0.1"
     "@metamask/snaps-controllers": "npm:^10.0.1"
     "@metamask/snaps-execution-environments": "npm:^7.0.0"
     "@metamask/snaps-rpc-methods": "npm:^11.13.1"

@@ -930,34 +930,6 @@ describe('Selectors', () => {
     });
   });
 
-  describe('#accountSupportsSmartTx', () => {
-    it('returns false if the account type is "snap"', () => {
-      const state = {
-        metamask: {
-          internalAccounts: {
-            accounts: {
-              'mock-id-1': {
-                address: '0x987654321',
-                metadata: {
-                  name: 'Account 1',
-                  keyring: {
-                    type: 'Snap Keyring',
-                  },
-                },
-              },
-            },
-            selectedAccount: 'mock-id-1',
-          },
-        },
-      };
-      expect(selectors.accountSupportsSmartTx(state)).toBe(false);
-    });
-
-    it('returns true if the account type is not "snap"', () => {
-      expect(selectors.accountSupportsSmartTx(mockState)).toBe(true);
-    });
-  });
-
   describe('#getHardwareWalletType', () => {
     it('returns undefined if it is not a HW wallet', () => {
       const mockStateWithImported = modifyStateWithHWKeyring(

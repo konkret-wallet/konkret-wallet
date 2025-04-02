@@ -87,14 +87,6 @@ const SETTINGS_CONSTANTS = [
     route: `${ADVANCED_ROUTE}#clear-activity`,
     icon: 'fas fa-sliders-h',
   },
-  // advanced settingsRefs[2]
-  {
-    tabMessage: (t) => t('advanced'),
-    sectionMessage: (t) => t('smartTransactions'),
-    descriptionMessage: (t) => t('stxOptInEthereumBnbDescription'),
-    route: `${ADVANCED_ROUTE}#smart-transactions`,
-    icon: 'fas fa-upload',
-  },
   // advanced settingsRefs[3]
   {
     tabMessage: (t) => t('advanced'),

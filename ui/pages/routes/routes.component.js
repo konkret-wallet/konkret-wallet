@@ -33,7 +33,6 @@ import {
   RESTORE_VAULT_ROUTE,
   REVEAL_SEED_ROUTE,
   SEND_ROUTE,
-  SWAPS_ROUTE,
   SETTINGS_ROUTE,
   UNLOCK_ROUTE,
   CONFIRMATION_V_NEXT_ROUTE,
@@ -45,8 +44,6 @@ import {
   SNAPS_VIEW_ROUTE,
   NOTIFICATIONS_ROUTE,
   NOTIFICATIONS_SETTINGS_ROUTE,
-  CROSS_CHAIN_SWAP_ROUTE,
-  CROSS_CHAIN_SWAP_TX_DETAILS_ROUTE,
 } from '../../helpers/constants/routes';
 
 import {
@@ -72,7 +69,6 @@ import { DeprecatedNetworkModal } from '../settings/deprecated-network-modal/Dep
 import { MultichainMetaFoxLogo } from '../../components/multichain/app-header/multichain-meta-fox-logo';
 import NetworkConfirmationPopover from '../../components/multichain/network-list-menu/network-confirmation-popover/network-confirmation-popover';
 import { mmLazy } from '../../helpers/utils/mm-lazy';
-import CrossChainSwapTxDetails from '../bridge/transaction-details/transaction-details';
 import {
   isCorrectDeveloperTransactionType,
   isCorrectSignatureApprovalType,
@@ -103,8 +99,6 @@ const ConfirmTransaction = mmLazy(() =>
   import('../confirmations/confirm-transaction'),
 );
 const SendPage = mmLazy(() => import('../../components/multichain/pages/send'));
-const Swaps = mmLazy(() => import('../swaps'));
-const CrossChainSwap = mmLazy(() => import('../bridge'));
 const ConfirmAddSuggestedTokenPage = mmLazy(() =>
   import('../confirm-add-suggested-token'),
 );
@@ -298,16 +292,6 @@ export default class Routes extends Component {
             component={ConfirmTransaction}
           />
           <Authenticated path={SEND_ROUTE} component={SendPage} exact />
-          <Authenticated path={SWAPS_ROUTE} component={Swaps} />
-          <Authenticated
-            path={`${CROSS_CHAIN_SWAP_TX_DETAILS_ROUTE}/:srcTxMetaId`}
-            component={CrossChainSwapTxDetails}
-            exact
-          />
-          <Authenticated
-            path={CROSS_CHAIN_SWAP_ROUTE}
-            component={CrossChainSwap}
-          />
           <Authenticated
             path={CONFIRM_ADD_SUGGESTED_TOKEN_ROUTE}
             component={ConfirmAddSuggestedTokenPage}

@@ -39,7 +39,6 @@ import {
 import {
   TokenStandard,
   AssetType,
-  SmartTransactionStatus,
 } from '../../../../../shared/constants/transaction';
 import { INSUFFICIENT_FUNDS_ERROR } from '../../../../pages/confirmations/send/send.constants';
 import { cancelTx, showQrScanner } from '../../../../store/actions';
@@ -49,9 +48,6 @@ import {
 } from '../../../../helpers/constants/routes';
 import { getMostRecentOverviewPage } from '../../../../ducks/history/history';
 import { AssetPickerAmount } from '../..';
-import useUpdateSwapsState from '../../../../pages/swaps/hooks/useUpdateSwapsState';
-import { getIsDraftSwapAndSend } from '../../../../ducks/send/helpers';
-import { smartTransactionsListSelector } from '../../../../selectors';
 import { TextVariant } from '../../../../helpers/constants/design-system';
 import { TRANSACTION_ERRORED_EVENT } from '../../../app/transaction-activity-log/transaction-activity-log.constants';
 import {
@@ -75,7 +71,6 @@ export const SendPage = () => {
   const draftTransactionID = useSelector(getDraftTransactionID);
   const mostRecentOverviewPage = useSelector(getMostRecentOverviewPage);
   const sendStage = useSelector(getSendStage);
-  const isSwapAndSend = getIsDraftSwapAndSend(draftTransaction);
 
   const history = useHistory();
   const location = useLocation();
@@ -226,20 +221,13 @@ export const SendPage = () => {
   const sendErrors = useSelector(getSendErrors);
   const isInvalidSendForm = useSelector(isSendFormInvalid);
 
-  const smartTransactions = useSelector(smartTransactionsListSelector);
-
-  const isSmartTransactionPending = smartTransactions?.find(
-    ({ status }) => status === SmartTransactionStatus.pending,
-  );
-
   const isGasTooLow =
     sendErrors.gasFee === INSUFFICIENT_FUNDS_ERROR &&
     sendErrors.amount !== INSUFFICIENT_FUNDS_ERROR;
 
   const submitDisabled =
     (isInvalidSendForm && !isGasTooLow) ||
-    requireContractAddressAcknowledgement ||
-    (isSwapAndSend && isSmartTransactionPending);
+    requireContractAddressAcknowledgement;
 
   const isSendFormShown =
     draftTransactionExists &&
@@ -250,8 +238,6 @@ export const SendPage = () => {
     [handleSelectToken],
   );
 
-  useUpdateSwapsState();
-
   const onAmountChange = useCallback(
     (newAmountRaw, newAmountFormatted) => {
       dispatch(updateSendAmount(newAmountRaw, newAmountFormatted));
@@ -260,13 +246,7 @@ export const SendPage = () => {
     [dispatch],
   );
 
-  let tooltipTitle = '';
-
-  if (isSwapAndSend) {
-    tooltipTitle = isSmartTransactionPending
-      ? t('isSigningOrSubmitting')
-      : t('sendSwapSubmissionWarning');
-  }
+  const tooltipTitle = '';
 
   return (
     <Page className="multichain-send-page">
@@ -326,7 +306,7 @@ export const SendPage = () => {
           key={tooltipTitle}
           className="multichain-send-page__nav-button"
           title={tooltipTitle}
-          disabled={!isSwapAndSend}
+          disabled
           arrow
           hideOnClick={false}
           // explicitly inherit display since Tooltip will default to block
@@ -341,7 +321,7 @@ export const SendPage = () => {
             disabled={submitDisabled || isSubmitting}
             block
           >
-            {t(isSwapAndSend ? 'confirm' : 'continue')}
+            {t('continue')}
           </ButtonPrimary>
         </Tooltip>
       </Footer>

@@ -33,7 +33,6 @@ import {
 } from '../../../test/jest/mocks';
 import { ETH_EOA_METHODS } from '../../../shared/constants/eth-methods';
 import { mockNetworkState } from '../../../test/stub/networks';
-import * as Utils from './swap-and-send-utils';
 import sendReducer, {
   initialState,
   initializeSendState,
@@ -162,9 +161,6 @@ describe('Send Slice', () => {
     jest
       .spyOn(Actions, 'getLayer1GasFee')
       .mockReturnValue({ type: 'GET_LAYER_1_GAS_FEE' });
-    jest
-      .spyOn(Utils, 'getDisabledSwapAndSendNetworksFromAPI')
-      .mockReturnValue([]);
   });
 
   describe('Reducers', () => {

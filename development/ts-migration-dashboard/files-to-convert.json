@@ -38,8 +38,6 @@
   "app/scripts/controllers/permissions/selectors.test.js",
   "app/scripts/controllers/permissions/specifications.js",
   "app/scripts/controllers/permissions/specifications.test.js",
-  "app/scripts/controllers/swaps.js",
-  "app/scripts/controllers/swaps.test.js",
   "app/scripts/controllers/transactions/index.js",
   "app/scripts/controllers/transactions/index.test.js",
   "app/scripts/controllers/transactions/lib/tx-state-history-helpers.js",

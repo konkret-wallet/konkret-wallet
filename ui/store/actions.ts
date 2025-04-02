@@ -91,13 +91,11 @@ import {
   LedgerTransportTypes,
   LEDGER_USB_VENDOR_ID,
 } from '../../shared/constants/hardware-wallets';
-import { parseSmartTransactionsError } from '../pages/swaps/swaps.util';
 import { isEqualCaseInsensitive } from '../../shared/modules/string-utils';
 import {
   fetchLocale,
   loadRelativeTimeFormatLocaleData,
 } from '../../shared/modules/i18n';
-import { decimalToHex } from '../../shared/modules/conversion.utils';
 import { TxGasFees, PriorityLevels } from '../../shared/constants/gas';
 import {
   getErrorMessage,
@@ -3209,14 +3207,6 @@ export function setTokenNetworkFilter(value: Record<string, boolean>) {
   return setPreference('tokenNetworkFilter', value, false);
 }
 
-export function setSmartTransactionsPreferenceEnabled(
-  _value: boolean,
-): ThunkAction<void, MetaMaskReduxState, unknown, AnyAction> {
-  return async (dispatch, _getState) => {
-    await forceUpdateMetamaskState(dispatch);
-  };
-}
-
 export function setShowMultiRpcModal(value: boolean) {
   return setPreference('showMultiRpcModal', value);
 }
@@ -4861,212 +4851,6 @@ export async function setUnconnectedAccountAlertShown(origin: string) {
 
 export async function setWeb3ShimUsageAlertDismissed(origin: string) {
   await submitRequestToBackground('setWeb3ShimUsageAlertDismissed', [origin]);
-}
-
-// Smart Transactions Controller
-export function clearSmartTransactionFees() {
-  submitRequestToBackground('clearSmartTransactionFees');
-}
-
-export function fetchSmartTransactionFees(
-  unsignedTransaction: Partial<TransactionParams> & { chainId: string },
-  approveTxParams: TransactionParams,
-): ThunkAction<void, MetaMaskReduxState, unknown, AnyAction> {
-  return async (dispatch: MetaMaskReduxDispatch) => {
-    if (approveTxParams) {
-      approveTxParams.value = '0x0';
-    }
-    try {
-      const smartTransactionFees = await await submitRequestToBackground(
-        'fetchSmartTransactionFees',
-        [unsignedTransaction, approveTxParams],
-      );
-      dispatch({
-        type: actionConstants.SET_SMART_TRANSACTIONS_ERROR,
-        payload: null,
-      });
-      return smartTransactionFees;
-    } catch (err) {
-      logErrorWithMessage(err);
-      if (isErrorWithMessage(err)) {
-        const errorMessage = getErrorMessage(err);
-        if (errorMessage.startsWith('Fetch error:')) {
-          const errorObj = parseSmartTransactionsError(errorMessage);
-          dispatch({
-            type: actionConstants.SET_SMART_TRANSACTIONS_ERROR,
-            payload: errorObj,
-          });
-        }
-      }
-      throw err;
-    }
-  };
-}
-
-type TemporarySmartTransactionGasFees = {
-  maxFeePerGas: string;
-  maxPriorityFeePerGas: string;
-  gas: string;
-  value: string;
-};
-
-const createSignedTransactions = async (
-  unsignedTransaction: Partial<TransactionParams> & { chainId: string },
-  fees: TemporarySmartTransactionGasFees[],
-  areCancelTransactions?: boolean,
-): Promise<TransactionParams[]> => {
-  const unsignedTransactionsWithFees = fees.map((fee) => {
-    const unsignedTransactionWithFees = {
-      ...unsignedTransaction,
-      maxFeePerGas: decimalToHex(fee.maxFeePerGas),
-      maxPriorityFeePerGas: decimalToHex(fee.maxPriorityFeePerGas),
-      gas: areCancelTransactions
-        ? decimalToHex(21000) // It has to be 21000 for cancel transactions, otherwise the API would reject it.
-        : unsignedTransaction.gas,
-      value: unsignedTransaction.value,
-    };
-    if (areCancelTransactions) {
-      unsignedTransactionWithFees.to = unsignedTransactionWithFees.from;
-      unsignedTransactionWithFees.data = '0x';
-    }
-    return unsignedTransactionWithFees;
-  });
-  const signedTransactions = await submitRequestToBackground<
-    TransactionParams[]
-  >('approveTransactionsWithSameNonce', [unsignedTransactionsWithFees]);
-  return signedTransactions;
-};
-
-export function signAndSendSmartTransaction({
-  unsignedTransaction,
-  smartTransactionFees,
-}: {
-  unsignedTransaction: Partial<TransactionParams> & { chainId: string };
-  smartTransactionFees: {
-    fees: TemporarySmartTransactionGasFees[];
-    cancelFees: TemporarySmartTransactionGasFees[];
-  };
-}): ThunkAction<Promise<string>, MetaMaskReduxState, unknown, AnyAction> {
-  return async (dispatch: MetaMaskReduxDispatch) => {
-    const signedTransactions = await createSignedTransactions(
-      unsignedTransaction,
-      smartTransactionFees.fees,
-    );
-    try {
-      const response = await submitRequestToBackground<{ uuid: string }>(
-        'submitSignedTransactions',
-        [
-          {
-            signedTransactions,
-            // The "signedCanceledTransactions" parameter is still expected by the STX controller but is no longer used.
-            // So we are passing an empty array. The parameter may be deprecated in a future update.
-            signedCanceledTransactions: [],
-            txParams: unsignedTransaction,
-          },
-        ],
-      ); // Returns e.g.: { uuid: 'dP23W7c2kt4FK9TmXOkz1UM2F20' }
-      return response.uuid;
-    } catch (err) {
-      logErrorWithMessage(err);
-      if (isErrorWithMessage(err)) {
-        const errorMessage = getErrorMessage(err);
-        if (errorMessage.startsWith('Fetch error:')) {
-          const errorObj = parseSmartTransactionsError(errorMessage);
-          dispatch({
-            type: actionConstants.SET_SMART_TRANSACTIONS_ERROR,
-            payload: errorObj,
-          });
-        }
-      }
-      throw err;
-    }
-  };
-}
-
-export function updateSmartTransaction(
-  uuid: string,
-  txMeta: TransactionMeta,
-): ThunkAction<void, MetaMaskReduxState, unknown, AnyAction> {
-  return async (dispatch: MetaMaskReduxDispatch) => {
-    try {
-      await submitRequestToBackground('updateSmartTransaction', [
-        {
-          uuid,
-          ...txMeta,
-        },
-      ]);
-    } catch (err) {
-      logErrorWithMessage(err);
-      if (isErrorWithMessage(err)) {
-        const errorMessage = getErrorMessage(err);
-        if (errorMessage.startsWith('Fetch error:')) {
-          const errorObj = parseSmartTransactionsError(errorMessage);
-          dispatch({
-            type: actionConstants.SET_SMART_TRANSACTIONS_ERROR,
-            payload: errorObj,
-          });
-        }
-      }
-      throw err;
-    }
-  };
-}
-
-export function setSmartTransactionsRefreshInterval(
-  refreshInterval: number,
-): ThunkAction<void, MetaMaskReduxState, unknown, AnyAction> {
-  return async () => {
-    if (refreshInterval === undefined || refreshInterval === null) {
-      return;
-    }
-    try {
-      await submitRequestToBackground('setStatusRefreshInterval', [
-        refreshInterval,
-      ]);
-    } catch (err) {
-      logErrorWithMessage(err);
-    }
-  };
-}
-
-export function cancelSmartTransaction(
-  uuid: string,
-): ThunkAction<void, MetaMaskReduxState, unknown, AnyAction> {
-  return async (dispatch: MetaMaskReduxDispatch) => {
-    try {
-      await submitRequestToBackground('cancelSmartTransaction', [uuid]);
-    } catch (err) {
-      logErrorWithMessage(err);
-      if (isErrorWithMessage(err)) {
-        const errorMessage = getErrorMessage(err);
-        if (errorMessage.startsWith('Fetch error:')) {
-          const errorObj = parseSmartTransactionsError(errorMessage);
-          dispatch({
-            type: actionConstants.SET_SMART_TRANSACTIONS_ERROR,
-            payload: errorObj,
-          });
-        }
-      }
-      throw err;
-    }
-  };
-}
-
-// TODO: Not a thunk but rather a wrapper around a background call
-export function fetchSmartTransactionsLiveness() {
-  return async () => {
-    try {
-      await submitRequestToBackground('fetchSmartTransactionsLiveness');
-    } catch (err) {
-      logErrorWithMessage(err);
-    }
-  };
-}
-
-export function dismissSmartTransactionsErrorMessage(): Action {
-  return {
-    type: actionConstants.DISMISS_SMART_TRANSACTIONS_ERROR_MESSAGE,
-  };
 }
 
 // App state

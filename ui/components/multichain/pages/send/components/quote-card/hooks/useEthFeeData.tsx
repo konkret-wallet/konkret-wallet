@@ -1,5 +1,5 @@
-import { useEffect, useMemo } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useMemo } from 'react';
+import { useSelector } from 'react-redux';
 import { isHexString } from '@metamask/utils';
 import { Numeric } from '../../../../../../../../shared/modules/Numeric';
 import {
@@ -9,20 +9,11 @@ import {
   getCurrentCurrency,
 } from '../../../../../../../ducks/metamask/metamask';
 import { EtherDenomination } from '../../../../../../../../shared/constants/common';
-import {
-  checkNetworkAndAccountSupports1559,
-  getIsSwapsChain,
-} from '../../../../../../../selectors/selectors';
-import { getCurrentChainId } from '../../../../../../../../shared/modules/selectors/networks';
-import {
-  fetchAndSetSwapsGasPriceInfo,
-  getUsedSwapsGasPrice,
-} from '../../../../../../../ducks/swaps/swaps';
+import { checkNetworkAndAccountSupports1559 } from '../../../../../../../selectors/selectors';
 import { formatCurrency } from '../../../../../../../helpers/utils/confirm-tx.util';
 import { toFixedNoTrailingZeros } from './utils';
 
 export default function useEthFeeData(gasLimit = 0) {
-  const dispatch = useDispatch();
   const nativeCurrencySymbol = useSelector(getNativeCurrency);
 
   const selectedNativeConversionRate = useSelector(getConversionRate);
@@ -35,27 +26,11 @@ export default function useEthFeeData(gasLimit = 0) {
   const { medium, gasPrice: maybeGasFee } = useSelector(getGasFeeEstimates);
 
   // remove this logic once getGasFeeEstimates is typed
+  // TODO: non-1559 estimates
   const gasFee1559 = maybeGasFee ?? medium?.suggestedMaxFeePerGas;
 
-  const chainId = useSelector(getCurrentChainId);
-  const isSwapsChain = useSelector(getIsSwapsChain);
-
-  const gasPriceNon1559 = useSelector(getUsedSwapsGasPrice);
-
-  useEffect(() => {
-    if (!isSwapsChain) {
-      return;
-    }
-
-    if (!networkAndAccountSupports1559) {
-      dispatch(fetchAndSetSwapsGasPriceInfo());
-    }
-  }, [dispatch, chainId, networkAndAccountSupports1559, isSwapsChain]);
-
   return useMemo(() => {
-    const rawGasPrice = networkAndAccountSupports1559
-      ? gasFee1559
-      : gasPriceNon1559;
+    const rawGasPrice = gasFee1559;
 
     if (!rawGasPrice) {
       return { formattedFiatGasFee: '', formattedEthGasFee: '' };
@@ -85,7 +60,6 @@ export default function useEthFeeData(gasLimit = 0) {
   }, [
     networkAndAccountSupports1559,
     medium?.suggestedMaxFeePerGas,
-    gasPriceNon1559,
     gasLimit,
     selectedNativeConversionRate,
     currentCurrency,

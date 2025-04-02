@@ -295,6 +295,7 @@ describe('App State', () => {
     expect(state.accountDetail.privateKey).toStrictEqual('private key');
   });
 
+  /*
   it('smart transactions - SET_SMART_TRANSACTIONS_ERROR', () => {
     const state = reduceApp(metamaskState, {
       type: actions.SET_SMART_TRANSACTIONS_ERROR,
@@ -340,6 +341,7 @@ describe('App State', () => {
 
     expect(state.showDataDeletionErrorModal).toStrictEqual(false);
   });
+  */
 
   it('displays error in settings', () => {
     const state = reduceApp(metamaskState, {
