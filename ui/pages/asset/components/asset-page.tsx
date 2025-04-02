@@ -1,4 +1,4 @@
-import React, { ReactNode, useMemo } from 'react';
+import React, { ReactNode } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { EthMethod } from '@metamask/keyring-api';
@@ -32,7 +32,6 @@ import {
   Box,
   ButtonIcon,
   ButtonIconSize,
-  ButtonLink,
   IconName,
   Text,
 } from '../../../components/component-library';
@@ -59,7 +58,6 @@ import {
   getMultichainShouldShowFiat,
 } from '../../../selectors/multichain';
 import { getNetworkConfigurationsByChainId } from '../../../../shared/modules/selectors/networks';
-import { getPortfolioUrl } from '../../../helpers/utils/portfolio';
 import { hexToDecimal } from '../../../../shared/modules/conversion.utils';
 import AssetChart from './chart/asset-chart';
 import TokenButtons from './token-buttons';
@@ -200,10 +198,6 @@ const AssetPage = ({
     display: String(balance),
     fiat: String(tokenFiatAmount),
   };
-  const portfolioSpendingCapsUrl = useMemo(
-    () => getPortfolioUrl('', account.address),
-    [account.address],
-  );
 
   const networkConfigurationsByChainId = useSelector(
     getNetworkConfigurationsByChainId,
@@ -369,17 +363,6 @@ const AssetPage = ({
                       )}
                     </Box>
                   </Box>
-                )}
-                {renderRow(
-                  t('spendingCaps'),
-                  <ButtonLink
-                    className="asset-page__spending-caps mm-text--body-md-medium"
-                    href={portfolioSpendingCapsUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    {t('editInPortfolio')}
-                  </ButtonLink>,
                 )}
               </Box>
             </Box>
