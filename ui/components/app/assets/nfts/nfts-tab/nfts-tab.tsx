@@ -144,7 +144,7 @@ export default function NftsTab() {
                 {t('importNFT')}
               </ButtonLink>
 
-              {!isMainnet && Object.keys(collections).length < 1 ? null : (
+              {!isMainnet && Object.keys(collections).length > -1 ? null : (
                 <>
                   <Box
                     className="nfts-tab__link"
@@ -236,7 +236,7 @@ export default function NftsTab() {
                 {t('importNFT')}
               </ButtonLink>
 
-              {!isMainnet && Object.keys(collections).length < 1 ? null : (
+              {!isMainnet && Object.keys(collections).length > -1 ? null : (
                 <>
                   <Box
                     className="nfts-tab__link"

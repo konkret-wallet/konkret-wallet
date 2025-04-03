@@ -12,9 +12,7 @@ import { MILLISECOND, SECOND } from '../../../../shared/constants/time';
 import { PRIVACY_POLICY_LINK } from '../../../../shared/lib/ui-utils';
 import {
   BorderColor,
-  BorderRadius,
   IconColor,
-  TextVariant,
 } from '../../../helpers/constants/design-system';
 import {
   DEFAULT_ROUTE,
@@ -31,7 +29,6 @@ import {
   getOriginOfCurrentTab,
   getSelectedAccount,
   getSwitchedNetworkDetails,
-  getUseNftDetection,
 } from '../../../selectors';
 import {
   addPermittedAccount,
@@ -47,7 +44,6 @@ import {
 } from '../../component-library';
 import { Toast, ToastContainer } from '../../multichain';
 import {
-  selectNftDetectionEnablementToast,
   selectShowConnectAccountToast,
   selectShowPrivacyPolicyToast,
   selectSwitchedNetworkNeverShowMessage,
@@ -58,7 +54,6 @@ import {
 import {
   setNewPrivacyPolicyToastClickedOrClosed,
   setNewPrivacyPolicyToastShownDate,
-  setShowNftDetectionEnablementToast,
   setSwitchedNetworkNeverShowMessage,
   ///: BEGIN:ONLY_INCLUDE_IF(multi-srp)
   setShowNewSrpAddedToast,
@@ -80,7 +75,6 @@ export function ToastMaster() {
         <ConnectAccountToast />
         <PrivacyPolicyToast />
         <SwitchedNetworkToast />
-        <NftEnablementToast />
         <PermittedNetworkToast />
         {
           ///: BEGIN:ONLY_INCLUDE_IF(multi-srp)
@@ -236,6 +230,7 @@ function SwitchedNetworkToast() {
   );
 }
 
+/*
 function NftEnablementToast() {
   const t = useI18nContext();
   const dispatch = useDispatch();
@@ -264,6 +259,7 @@ function NftEnablementToast() {
     )
   );
 }
+*/
 
 function PermittedNetworkToast() {
   const t = useI18nContext();

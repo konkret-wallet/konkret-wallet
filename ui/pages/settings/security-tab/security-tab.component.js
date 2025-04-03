@@ -57,8 +57,6 @@ export default class SecurityTab extends PureComponent {
     history: PropTypes.object,
     openSeaEnabled: PropTypes.bool,
     setOpenSeaEnabled: PropTypes.func,
-    useNftDetection: PropTypes.bool,
-    setUseNftDetection: PropTypes.func,
     incomingTransactionsPreferences: PropTypes.object.isRequired,
     networkConfigurations: PropTypes.object.isRequired,
     setIncomingTransactionsPreferences: PropTypes.func.isRequired,
@@ -647,12 +645,7 @@ export default class SecurityTab extends PureComponent {
 
   renderDisplayNftMediaToggle() {
     const { t } = this.context;
-    const {
-      openSeaEnabled,
-      setOpenSeaEnabled,
-      useNftDetection,
-      setUseNftDetection,
-    } = this.props;
+    const { openSeaEnabled, setOpenSeaEnabled } = this.props;
 
     return (
       <Box
@@ -677,55 +670,7 @@ export default class SecurityTab extends PureComponent {
           <ToggleButton
             value={openSeaEnabled}
             onToggle={(value) => {
-              // value is positive when being toggled off
-              if (value && useNftDetection) {
-                setUseNftDetection(false);
-              }
               setOpenSeaEnabled(!value);
-            }}
-            offLabel={t('off')}
-            onLabel={t('on')}
-          />
-        </div>
-      </Box>
-    );
-  }
-
-  renderNftDetectionToggle() {
-    const { t } = this.context;
-    const {
-      openSeaEnabled,
-      setOpenSeaEnabled,
-      useNftDetection,
-      setUseNftDetection,
-    } = this.props;
-    return (
-      <Box
-        ref={this.settingsRefs[13]}
-        className="settings-page__content-row"
-        display={Display.Flex}
-        flexDirection={FlexDirection.Row}
-        justifyContent={JustifyContent.spaceBetween}
-        gap={4}
-      >
-        <div className="settings-page__content-item">
-          <span>{t('useNftDetection')}</span>
-          <div className="settings-page__content-description">
-            {t('useNftDetectionDescriptionText')}
-          </div>
-        </div>
-
-        <div
-          className="settings-page__content-item-col"
-          data-testid="useNftDetection"
-        >
-          <ToggleButton
-            value={useNftDetection}
-            onToggle={(value) => {
-              if (!value && !openSeaEnabled) {
-                setOpenSeaEnabled(!value);
-              }
-              setUseNftDetection(!value);
             }}
             offLabel={t('off')}
             onLabel={t('on')}

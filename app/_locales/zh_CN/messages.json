@@ -1380,7 +1380,7 @@
     "message": "显示 NFT 媒体"
   },
   "displayNftMediaDescription": {
-    "message": "显示 NFT 媒体和数据会将您的 IP 地址暴露给 OpenSea 或其他第三方。这可以让攻击者将您的 IP 地址与您的以太坊地址相关联。NFT 自动检测依赖于此设置，当此设置关闭时将无法使用。"
+    "message": "显示 NFT 媒体和数据会将您的 IP 地址暴露给 OpenSea 或其他第三方。这可以让攻击者将您的 IP 地址与您的以太坊地址相关联。"
   },
   "doNotShare": {
     "message": "请勿与任何人分享此信息"
