@@ -1203,7 +1203,7 @@ export default class MetamaskController extends EventEmitter {
           this.assetsContractController,
         ),
       trackMetaMetricsEvent: () => {},
-      useAccountsAPI: true,
+      useAccountsAPI: false,
       platform: 'extension',
     });
 
