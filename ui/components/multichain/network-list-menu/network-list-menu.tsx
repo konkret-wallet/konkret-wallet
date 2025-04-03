@@ -273,7 +273,7 @@ export const NetworkListMenu = ({ onClose }: { onClose: () => void }) => {
           maxPatternLength: 32,
           minMatchCharLength: 1,
           shouldSort: false, // Maintain network order instead of ordering by search score
-          keys: ['name', 'chainId', 'nativeCrrency'],
+          keys: ['name', 'chainId', 'nativeCurrency'],
         }).search(query);
 
   const searchedEnabledNetworks = searchNetworks(orderedNetworks, searchQuery);
