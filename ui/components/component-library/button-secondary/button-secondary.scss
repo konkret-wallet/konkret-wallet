@@ -4,7 +4,13 @@
     background-color: var(--color-primary-default);
     box-shadow:
       var(--shadow-size-sm)
-      var(--color-shadow-primary);;
+      var(--color-shadow-primary);
+
+    &:active {
+      color: var(--color-primary-inverse);
+      background-color: var(--color-primary-alternative);
+      border-color: var(--color-primary-alternative);
+    }
   }
 
   &:active {

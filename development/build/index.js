@@ -333,7 +333,7 @@ testDev: Create an unoptimized, live-reloading build for debugging e2e tests.`,
           type: 'boolean',
         })
         .option('lockdown', {
-          default: true,
+          default: false,
           description:
             'Whether to include SES lockdown files in the extension bundle. Setting this to `false` can be useful during development if you want to handle lockdown errors later.',
           type: 'boolean',

@@ -4,6 +4,11 @@
     box-shadow:
       var(--shadow-size-sm)
       var(--color-shadow-primary);
+
+    &:active {
+      color: var(--color-primary-inverse);
+      background-color: var(--color-primary-alternative);
+    }
   }
 
   &:active {
