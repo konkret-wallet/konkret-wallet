@@ -28,11 +28,6 @@ import {
 } from '../../../helpers/constants/design-system';
 import useLatestBalance from '../../../hooks/bridge/useLatestBalance';
 import { useIsTxSubmittable } from '../../../hooks/bridge/useIsTxSubmittable';
-import { useCrossChainSwapsEventTracker } from '../../../hooks/bridge/useCrossChainSwapsEventTracker';
-import { useRequestProperties } from '../../../hooks/bridge/events/useRequestProperties';
-import { useRequestMetadataProperties } from '../../../hooks/bridge/events/useRequestMetadataProperties';
-import { useTradeProperties } from '../../../hooks/bridge/events/useTradeProperties';
-import { MetaMetricsEventName } from '../../../../shared/constants/metametrics';
 import { SWAPS_CHAINID_DEFAULT_TOKEN_MAP } from '../../../../shared/constants/swaps';
 import { getNativeCurrency } from '../../../ducks/metamask/metamask';
 import { Row } from '../layout';
@@ -86,10 +81,6 @@ export const BridgeCTAButton = ({
   );
 
   const isTxSubmittable = useIsTxSubmittable();
-  const trackCrossChainSwapsEvent = useCrossChainSwapsEventTracker();
-  const { quoteRequestProperties } = useRequestProperties();
-  const requestMetadataProperties = useRequestMetadataProperties();
-  const tradeProperties = useTradeProperties();
 
   const ticker = useSelector(getNativeCurrency);
 
@@ -179,17 +170,6 @@ export const BridgeCTAButton = ({
             // because we route immediately to Activity list page
             setIsSubmitting(true);
 
-            quoteRequestProperties &&
-              requestMetadataProperties &&
-              tradeProperties &&
-              trackCrossChainSwapsEvent({
-                event: MetaMetricsEventName.ActionSubmitted,
-                properties: {
-                  ...quoteRequestProperties,
-                  ...requestMetadataProperties,
-                  ...tradeProperties,
-                },
-              });
             await submitBridgeTransaction(activeQuote);
           } finally {
             setIsSubmitting(false);

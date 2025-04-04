@@ -76,12 +76,6 @@ import {
 } from '../utils/quote';
 import { isValidQuoteRequest } from '../../../../shared/modules/bridge-utils/quote';
 import { getProviderConfig } from '../../../../shared/modules/selectors/networks';
-import {
-  CrossChainSwapsEventProperties,
-  useCrossChainSwapsEventTracker,
-} from '../../../hooks/bridge/useCrossChainSwapsEventTracker';
-import { useRequestProperties } from '../../../hooks/bridge/events/useRequestProperties';
-import { MetaMetricsEventName } from '../../../../shared/constants/metametrics';
 import { isNetworkAdded } from '../../../ducks/bridge/utils';
 import { Footer } from '../../../components/multichain/pages/page';
 import MascotBackgroundAnimation from '../../swaps/mascot-background-animation/mascot-background-animation';
@@ -205,9 +199,6 @@ const PrepareBridgePage = () => {
     filteredTokenListGenerator: toTokenListGenerator,
     isLoading: isToTokensLoading,
   } = useTokensWithFiltering(toChain?.chainId ?? fromChain?.chainId, fromToken);
-
-  const { flippedRequestProperties } = useRequestProperties();
-  const trackCrossChainSwapsEvent = useCrossChainSwapsEventTracker();
 
   const millisecondsUntilNextRefresh = useCountdownTimer();
 
@@ -348,18 +339,6 @@ const PrepareBridgePage = () => {
     debouncedUpdateQuoteRequestInController(quoteParams);
   }, [quoteParams, debouncedUpdateQuoteRequestInController]);
 
-  const trackInputEvent = useCallback(
-    (
-      properties: CrossChainSwapsEventProperties[MetaMetricsEventName.InputChanged],
-    ) => {
-      trackCrossChainSwapsEvent({
-        event: MetaMetricsEventName.InputChanged,
-        properties,
-      });
-    },
-    [],
-  );
-
   const { search } = useLocation();
   const history = useHistory();
 
@@ -443,22 +422,11 @@ const PrepareBridgePage = () => {
           if (token.address === toToken?.address) {
             dispatch(setToToken(null));
           }
-          bridgeToken.address &&
-            trackInputEvent({
-              input: 'token_source',
-              value: bridgeToken.address,
-            });
         }}
         networkProps={{
           network: fromChain,
           networks: isSwap ? undefined : fromChains,
           onNetworkChange: (networkConfig) => {
-            networkConfig?.chainId &&
-              networkConfig.chainId !== fromChain?.chainId &&
-              trackInputEvent({
-                input: 'chain_source',
-                value: networkConfig.chainId,
-              });
             if (
               networkConfig?.chainId &&
               networkConfig.chainId === toChain?.chainId
@@ -549,11 +517,6 @@ const PrepareBridgePage = () => {
                 return;
               }
               setRotateSwitchTokens(!rotateSwitchTokens);
-              flippedRequestProperties &&
-                trackCrossChainSwapsEvent({
-                  event: MetaMetricsEventName.InputSourceDestinationFlipped,
-                  properties: flippedRequestProperties,
-                });
               if (!isSwap) {
                 // Only flip networks if bridging
                 const toChainClientId =
@@ -591,11 +554,6 @@ const PrepareBridgePage = () => {
               ...token,
               address: token.address ?? zeroAddress(),
             };
-            bridgeToken.address &&
-              trackInputEvent({
-                input: 'token_destination',
-                value: bridgeToken.address,
-              });
             dispatch(setToToken(bridgeToken));
           }}
           networkProps={
@@ -605,11 +563,6 @@ const PrepareBridgePage = () => {
                   network: toChain,
                   networks: toChains,
                   onNetworkChange: (networkConfig) => {
-                    networkConfig.chainId !== toChain?.chainId &&
-                      trackInputEvent({
-                        input: 'chain_destination',
-                        value: networkConfig.chainId,
-                      });
                     dispatch(setToChainId(networkConfig.chainId));
                     dispatch(setToToken(null));
                   },

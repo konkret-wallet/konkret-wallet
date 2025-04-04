@@ -30,7 +30,6 @@ import { useSwapsFeatureFlags } from '../swaps/hooks/useSwapsFeatureFlags';
 import { resetBridgeState } from '../../ducks/bridge/actions';
 import { useGasFeeEstimates } from '../../hooks/useGasFeeEstimates';
 import { useBridgeExchangeRates } from '../../hooks/bridge/useBridgeExchangeRates';
-import { useQuoteFetchEvents } from '../../hooks/bridge/useQuoteFetchEvents';
 import { TextVariant } from '../../helpers/constants/design-system';
 import PrepareBridgePage from './prepare/prepare-bridge-page';
 import AwaitingSignaturesCancelButton from './awaiting-signatures/awaiting-signatures-cancel-button';
@@ -69,8 +68,6 @@ const CrossChainSwap = () => {
   useGasFeeEstimates(selectedNetworkClientId);
   // Needed for fetching exchange rates for tokens that have not been imported
   useBridgeExchangeRates();
-  // Emits events related to quote-fetching
-  useQuoteFetchEvents();
 
   const isSwap = useIsMultichainSwap();
 

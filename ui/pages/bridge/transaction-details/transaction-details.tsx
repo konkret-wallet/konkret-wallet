@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 import { useHistory, useParams, useLocation } from 'react-router-dom';
 import { TransactionMeta } from '@metamask/transaction-controller';
@@ -49,12 +49,6 @@ import { formatDate } from '../../../helpers/utils/util';
 import { ConfirmInfoRowDivider as Divider } from '../../../components/app/confirm/info/row';
 import { useI18nContext } from '../../../hooks/useI18nContext';
 import { selectedAddressTxListSelector } from '../../../selectors';
-import {
-  MetaMetricsContextProp,
-  MetaMetricsEventCategory,
-  MetaMetricsEventName,
-} from '../../../../shared/constants/metametrics';
-import { MetaMetricsContext } from '../../../contexts/metametrics';
 import { formatAmount } from '../../confirmations/components/simulation-details/formatAmount';
 import { getIntlLocale } from '../../../ducks/locale/locale';
 import { TransactionGroup } from '../../../hooks/bridge/useBridgeTxHistoryData';
@@ -161,7 +155,6 @@ const StatusToColorMap: Record<StatusTypes, TextColor> = {
 const CrossChainSwapTxDetails = () => {
   const t = useI18nContext();
   const locale = useSelector(getIntlLocale);
-  const trackEvent = useContext(MetaMetricsContext);
   const rootState = useSelector((state) => state);
   const history = useHistory();
   const location = useLocation();
@@ -297,27 +290,7 @@ const CrossChainSwapTxDetails = () => {
             >
               <Text display={Display.Flex} alignItems={AlignItems.center}>
                 {t('bridgeTxDetailsDelayedDescription')}&nbsp;
-                <ButtonLink
-                  externalLink
-                  href={SUPPORT_REQUEST_LINK}
-                  onClick={() => {
-                    trackEvent(
-                      {
-                        category: MetaMetricsEventCategory.Home,
-                        event: MetaMetricsEventName.SupportLinkClicked,
-                        properties: {
-                          url: SUPPORT_REQUEST_LINK,
-                          location: 'Bridge Tx Details',
-                        },
-                      },
-                      {
-                        contextPropsIntoEventProperties: [
-                          MetaMetricsContextProp.PageTitle,
-                        ],
-                      },
-                    );
-                  }}
-                >
+                <ButtonLink externalLink href={SUPPORT_REQUEST_LINK}>
                   {t('bridgeTxDetailsDelayedDescriptionSupport')}
                 </ButtonLink>
                 .

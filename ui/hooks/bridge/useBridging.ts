@@ -24,7 +24,6 @@ import { getPortfolioUrl } from '../../helpers/utils/portfolio';
 import { SwapsTokenObject } from '../../../shared/constants/swaps';
 import { getProviderConfig } from '../../../shared/modules/selectors/networks';
 // eslint-disable-next-line import/no-restricted-paths
-import { formatChainIdToCaip } from '../../../shared/modules/bridge-utils/caip-formatters';
 ///: END:ONLY_INCLUDE_IF
 
 const useBridging = () => {
@@ -45,7 +44,7 @@ const useBridging = () => {
 
   const openBridgeExperience = useCallback(
     (
-      location: string,
+      _location: string,
       token: SwapsTokenObject | SwapsEthToken,
       portfolioUrlSuffix?: string,
       isSwap = false,
@@ -66,10 +65,7 @@ const useBridging = () => {
         }
         history.push(url);
       } else {
-        const portfolioUrl = getPortfolioUrl(
-          'bridge',
-          'ext_bridge_button',
-        );
+        const portfolioUrl = getPortfolioUrl('bridge', 'ext_bridge_button');
         global.platform.openTab({
           url: `${portfolioUrl}${
             portfolioUrlSuffix ?? `&token=${token.address}`
@@ -77,13 +73,7 @@ const useBridging = () => {
         });
       }
     },
-    [
-      isBridgeSupported,
-      isBridgeChain,
-      dispatch,
-      history,
-      providerConfig,
-    ],
+    [isBridgeSupported, isBridgeChain, dispatch, history, providerConfig],
   );
 
   return { openBridgeExperience };

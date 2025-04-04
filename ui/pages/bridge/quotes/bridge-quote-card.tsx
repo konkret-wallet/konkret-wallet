@@ -26,11 +26,6 @@ import {
   getCurrentCurrency,
   getNativeCurrency,
 } from '../../../ducks/metamask/metamask';
-import { useCrossChainSwapsEventTracker } from '../../../hooks/bridge/useCrossChainSwapsEventTracker';
-import { useRequestProperties } from '../../../hooks/bridge/events/useRequestProperties';
-import { useRequestMetadataProperties } from '../../../hooks/bridge/events/useRequestMetadataProperties';
-import { useQuoteProperties } from '../../../hooks/bridge/events/useQuoteProperties';
-import { MetaMetricsEventName } from '../../../../shared/constants/metametrics';
 import {
   AlignItems,
   BackgroundColor,
@@ -56,11 +51,6 @@ export const BridgeQuoteCard = () => {
   const currency = useSelector(getCurrentCurrency);
   const ticker = useSelector(getNativeCurrency);
   const { isEstimatedReturnLow } = useSelector(getValidationErrors);
-
-  const trackCrossChainSwapsEvent = useCrossChainSwapsEventTracker();
-  const { quoteRequestProperties } = useRequestProperties();
-  const requestMetadataProperties = useRequestMetadataProperties();
-  const quoteListProperties = useQuoteProperties();
 
   const fromChain = useSelector(getFromChain);
   const toChain = useSelector(getToChain);
@@ -100,17 +90,6 @@ export const BridgeQuoteCard = () => {
                 variant={TextVariant.bodyMd}
                 color={TextColor.primaryDefault}
                 onClick={() => {
-                  quoteRequestProperties &&
-                    requestMetadataProperties &&
-                    quoteListProperties &&
-                    trackCrossChainSwapsEvent({
-                      event: MetaMetricsEventName.AllQuotesOpened,
-                      properties: {
-                        ...quoteRequestProperties,
-                        ...requestMetadataProperties,
-                        ...quoteListProperties,
-                      },
-                    });
                   setShowAllQuotes(true);
                 }}
               >

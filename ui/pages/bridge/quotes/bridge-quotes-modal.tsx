@@ -36,12 +36,6 @@ import {
 } from '../../../ducks/bridge/selectors';
 import { Column, Row } from '../layout';
 import { getCurrentCurrency } from '../../../ducks/metamask/metamask';
-import { useQuoteProperties } from '../../../hooks/bridge/events/useQuoteProperties';
-import { useRequestMetadataProperties } from '../../../hooks/bridge/events/useRequestMetadataProperties';
-import { useRequestProperties } from '../../../hooks/bridge/events/useRequestProperties';
-import { useCrossChainSwapsEventTracker } from '../../../hooks/bridge/useCrossChainSwapsEventTracker';
-import { MetaMetricsEventName } from '../../../../shared/constants/metametrics';
-import { useTradeProperties } from '../../../hooks/bridge/events/useTradeProperties';
 import { getIntlLocale } from '../../../ducks/locale/locale';
 import { getMultichainNativeCurrency } from '../../../selectors/multichain';
 import { useMultichainSelector } from '../../../hooks/useMultichainSelector';
@@ -53,18 +47,11 @@ export const BridgeQuotesModal = ({
   const t = useI18nContext();
   const dispatch = useDispatch();
 
-  const { sortedQuotes, activeQuote, recommendedQuote } =
-    useSelector(getBridgeQuotes);
+  const { sortedQuotes, activeQuote } = useSelector(getBridgeQuotes);
   const sortOrder = useSelector(getBridgeSortOrder);
   const currency = useSelector(getCurrentCurrency);
   const nativeCurrency = useMultichainSelector(getMultichainNativeCurrency);
   const locale = useSelector(getIntlLocale);
-
-  const trackCrossChainSwapsEvent = useCrossChainSwapsEventTracker();
-  const { quoteRequestProperties } = useRequestProperties();
-  const requestMetadataProperties = useRequestMetadataProperties();
-  const quoteListProperties = useQuoteProperties();
-  const tradeProperties = useTradeProperties();
 
   return (
     <Modal className="quotes-modal" onClose={onClose} {...modalProps}>
@@ -90,18 +77,6 @@ export const BridgeQuotesModal = ({
             <ButtonLink
               key={label}
               onClick={() => {
-                quoteRequestProperties &&
-                  requestMetadataProperties &&
-                  quoteListProperties &&
-                  trackCrossChainSwapsEvent({
-                    event: MetaMetricsEventName.AllQuotesSorted,
-                    properties: {
-                      ...quoteRequestProperties,
-                      ...requestMetadataProperties,
-                      ...quoteListProperties,
-                      sort_order: sortOrder,
-                    },
-                  });
                 dispatch(setSortOrder(sortOrderOption));
               }}
               startIconName={
@@ -157,8 +132,6 @@ export const BridgeQuotesModal = ({
                 quote: { destAsset, bridges, requestId },
               } = quote;
               const isQuoteActive = requestId === activeQuote?.quote.requestId;
-              const isRecommendedQuote =
-                requestId === recommendedQuote?.quote.requestId;
 
               return (
                 <Row
@@ -169,21 +142,6 @@ export const BridgeQuotesModal = ({
                   }
                   onClick={() => {
                     dispatch(setSelectedQuote(quote));
-                    // Emit QuoteSelected event after dispatching setSelectedQuote
-                    quoteRequestProperties &&
-                      requestMetadataProperties &&
-                      quoteListProperties &&
-                      tradeProperties &&
-                      trackCrossChainSwapsEvent({
-                        event: MetaMetricsEventName.QuoteSelected,
-                        properties: {
-                          ...quoteRequestProperties,
-                          ...requestMetadataProperties,
-                          ...quoteListProperties,
-                          ...tradeProperties,
-                          is_best_quote: isRecommendedQuote,
-                        },
-                      });
                     onClose();
                   }}
                   paddingInline={4}

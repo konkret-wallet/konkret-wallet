@@ -1,5 +1,5 @@
 import { NetworkConfiguration } from '@metamask/network-controller';
-import React, { useContext } from 'react';
+import React from 'react';
 import { Hex } from '@metamask/utils';
 import {
   Box,
@@ -7,7 +7,6 @@ import {
   ButtonSecondary,
 } from '../../../components/component-library';
 import { openBlockExplorer } from '../../../components/multichain/menu-items/view-explorer-menu-item';
-import { MetaMetricsContext } from '../../../contexts/metametrics';
 import {
   Display,
   FlexDirection,
@@ -51,8 +50,6 @@ export const getBlockExplorerUrl = (
   return `${rootUrl}/tx/${txHash}`;
 };
 
-const METRICS_LOCATION = 'Activity Tab';
-
 type ExplorerLinksProps = {
   srcChainId?: Hex;
   destChainId?: Hex;
@@ -66,7 +63,6 @@ export default function BridgeExplorerLinks({
   srcBlockExplorerUrl,
   destBlockExplorerUrl,
 }: ExplorerLinksProps) {
-  const trackEvent = useContext(MetaMetricsContext);
   const t = useI18nContext();
 
   // Not sure why but the text is not being changed to white on hover, unless it's put into a variable before the render
@@ -86,11 +82,7 @@ export default function BridgeExplorerLinks({
           endIconName={IconName.Export}
           onClick={() => {
             if (srcBlockExplorerUrl) {
-              openBlockExplorer(
-                srcBlockExplorerUrl,
-                METRICS_LOCATION,
-                trackEvent,
-              );
+              openBlockExplorer(srcBlockExplorerUrl);
             }
           }}
         >
@@ -102,11 +94,7 @@ export default function BridgeExplorerLinks({
           endIconName={IconName.Export}
           onClick={() => {
             if (destBlockExplorerUrl) {
-              openBlockExplorer(
-                destBlockExplorerUrl,
-                METRICS_LOCATION,
-                trackEvent,
-              );
+              openBlockExplorer(destBlockExplorerUrl);
             }
           }}
         >
