@@ -42,14 +42,6 @@ describe('InfoTab', () => {
       );
     });
 
-    it('should trigger support modal when click support link', () => {
-      const supportLink = getByText('Visit our support center');
-      fireEvent.click(supportLink);
-      expect(
-        getByTestId('visit-support-data-consent-modal'),
-      ).toBeInTheDocument();
-    });
-
     it('should have correct href for "Visit our website" link', () => {
       const websiteLink = getByText('Visit our website');
       expect(websiteLink).toHaveAttribute('href', 'https://metamask.io/');

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import browser from 'webextension-polyfill';
 
 import { useI18nContext } from '../../hooks/useI18nContext';
@@ -25,8 +25,6 @@ import {
   TextVariant,
 } from '../../helpers/constants/design-system';
 
-import VisitSupportDataConsentModal from '../../components/app/modals/visit-support-data-consent-modal';
-
 type ErrorPageProps = {
   error: {
     message?: string;
@@ -38,9 +36,6 @@ type ErrorPageProps = {
 
 const ErrorPage: React.FC<ErrorPageProps> = ({ error }) => {
   const t = useI18nContext();
-
-  const [isSupportDataConsentModalOpen, setIsSupportDataConsentModalOpen] =
-    useState(false);
 
   return (
     <section className="error-page">
@@ -137,12 +132,6 @@ const ErrorPage: React.FC<ErrorPageProps> = ({ error }) => {
           ) : null}
         </Box>
 
-        {isSupportDataConsentModalOpen && (
-          <VisitSupportDataConsentModal
-            isOpen={isSupportDataConsentModalOpen}
-            onClose={() => setIsSupportDataConsentModalOpen(false)}
-          />
-        )}
         <Box
           width={BlockSize.Full}
           display={Display.Flex}

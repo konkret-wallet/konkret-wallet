@@ -3,8 +3,10 @@ import HeaderNavbar from './header-navbar';
 import SettingsPage from './settings/settings-page';
 import DevelopOptionsPage from './developer-options-page';
 
+/*
 const FEEDBACK_MESSAGE =
   'Message: Unable to find value of key "developerOptions" for locale "en"';
+*/
 
 class ErrorPage {
   private readonly driver: Driver;
@@ -17,6 +19,7 @@ class ErrorPage {
 
   private readonly errorMessage = '[data-testid="error-page-error-message"]';
 
+  /*
   private readonly sendReportToSentryButton =
     '[data-testid="error-page-describe-what-happened-button"]';
 
@@ -43,6 +46,7 @@ class ErrorPage {
 
   private readonly visitSupportDataConsentModalRejectButton =
     '[data-testid="visit-support-data-consent-modal-reject-button"]';
+  */
 
   constructor(driver: Driver) {
     this.driver = driver;
@@ -77,6 +81,7 @@ class ErrorPage {
     });
   }
 
+  /*
   async submitToSentryUserFeedbackForm(): Promise<void> {
     console.log(`Open sentry user feedback form in error page`);
     await this.driver.clickElement(this.sendReportToSentryButton);
@@ -114,6 +119,7 @@ class ErrorPage {
     await this.driver.waitForSelector(this.sentryFeedbackSuccessModal);
     await this.driver.assertElementNotPresent(this.sentryFeedbackSuccessModal);
   }
+  */
 }
 
 export default ErrorPage;

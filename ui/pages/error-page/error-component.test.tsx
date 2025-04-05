@@ -136,16 +136,4 @@ describe('ErrorPage', () => {
     fireEvent.click(tryAgainButton);
     expect(browser.runtime.reload).toHaveBeenCalled();
   });
-
-  it('should open the support consent modal when the "Contact Support" button is clicked', () => {
-    window.open = jest.fn();
-
-    const { getByTestId } = renderWithProvider(<ErrorPage error={MockError} />);
-
-    const contactSupportButton = getByTestId(
-      'error-page-contact-support-button',
-    );
-    fireEvent.click(contactSupportButton);
-    expect(getByTestId('visit-support-data-consent-modal')).toBeInTheDocument();
-  });
 });
