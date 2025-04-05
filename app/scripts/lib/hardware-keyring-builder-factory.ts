@@ -11,7 +11,7 @@ import { FakeKeyringBridge } from '../../../test/stub/keyring-bridge';
  */
 export type HardwareTransportBridgeClass =
   | (new () => TrezorBridge)
-  | (new () => LedgerBridge<LedgerBridgeOptions>)
+  | (new (opts?: { bridgeUrl: string }) => LedgerBridge<LedgerBridgeOptions>)
   | (new () => FakeKeyringBridge);
 
 /**
@@ -28,8 +28,16 @@ export function hardwareKeyringBuilderFactory(
   Keyring: KeyringClass<Json>,
   Bridge: HardwareTransportBridgeClass,
 ) {
-  const builder = () => new Keyring({ bridge: new Bridge() });
+  let bridgeOpts;
+  // Defensive check: Should only need to check Bridge
+  if (
+    Bridge.name === 'LedgerIframeBridge' ||
+    Keyring.name === 'LedgerKeyring'
+  ) {
+    bridgeOpts = { bridgeUrl: '/vendor/ledger/index.html' };
+  }
 
+  const builder = () => new Keyring({ bridge: new Bridge(bridgeOpts) });
   builder.type = Keyring.type;
 
   return builder;

@@ -537,7 +537,8 @@ export function checkHardwareStatus(
 ): ThunkAction<Promise<boolean>, MetaMaskReduxState, unknown, AnyAction> {
   log.debug(`background.checkHardwareStatus`, deviceName, hdPath);
   return async (dispatch: MetaMaskReduxDispatch) => {
-    dispatch(showLoadingIndication());
+    // if submitRequestToBackground hangs, loading indicator may get stuck and block UI
+    // dispatch(showLoadingIndication());
 
     let unlocked = false;
     try {
@@ -549,8 +550,10 @@ export function checkHardwareStatus(
       logErrorWithMessage(error);
       dispatch(displayWarning(error));
       throw error;
+      /*
     } finally {
       dispatch(hideLoadingIndication());
+    */
     }
 
     await forceUpdateMetamaskState(dispatch);

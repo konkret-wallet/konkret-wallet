@@ -34,6 +34,8 @@
         "scripts/lockdown-install.js",
         "scripts/lockdown-run.js",
         "scripts/lockdown-more.js",
+        "vendor/ledger/assets/index-De2WttXQ.js",
+        "vendor/ledger/assets/vendor-9knWg-MH.js",
         "scripts/contentscript.js"
       ],
       "run_at": "document_start",
