@@ -4793,13 +4793,6 @@ export function createEventFragment(
   return `createEventFragment-${actionId}`;
 }
 
-export function createTransactionEventFragment(
-  transactionId: string,
-): Promise<string> {
-  const actionId = generateActionId(transactionId);
-  return `createTransactionEventFragment${actionId}`;
-}
-
 export function updateEventFragment(
   _id: string,
   _payload: Partial<MetaMetricsEventFragment>,

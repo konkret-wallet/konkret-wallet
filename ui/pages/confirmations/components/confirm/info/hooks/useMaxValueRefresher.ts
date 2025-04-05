@@ -24,7 +24,6 @@ import {
 import { updateEditableParams } from '../../../../../../store/actions';
 import { useConfirmContext } from '../../../../context/confirm';
 import { HEX_ZERO } from '../shared/constants';
-import { useTransactionEventFragment } from '../../../../hooks/useTransactionEventFragment';
 import { useSupportsEIP1559 } from './useSupportsEIP1559';
 
 // This hook is used to refresh the max value of the transaction
@@ -34,7 +33,6 @@ export const useMaxValueRefresher = () => {
   const { currentConfirmation: transactionMeta } =
     useConfirmContext<TransactionMeta>();
   const dispatch = useDispatch();
-  const { id: transactionId } = transactionMeta;
   const { supportsEIP1559 } = useSupportsEIP1559(transactionMeta);
   const gasLimit = transactionMeta?.txParams?.gas || HEX_ZERO;
   const gasPrice = transactionMeta?.txParams?.gasPrice || HEX_ZERO;
@@ -42,7 +40,6 @@ export const useMaxValueRefresher = () => {
   const isMaxAmountMode = useSelector((state) =>
     selectMaxValueModeForTransaction(state, transactionMeta?.id),
   );
-  const { updateTransactionEventFragment } = useTransactionEventFragment();
 
   const maxFeePerGas = getMaxFeePerGas(transactionMeta);
   const maxFee = useMemo(() => {
@@ -51,17 +48,6 @@ export const useMaxValueRefresher = () => {
       gasLimit as Hex,
     );
   }, [supportsEIP1559, maxFeePerGas, gasLimit, gasPrice]);
-
-  useEffect(() => {
-    updateTransactionEventFragment(
-      {
-        properties: {
-          is_send_max: isMaxAmountMode,
-        },
-      },
-      transactionId,
-    );
-  }, [isMaxAmountMode, transactionId]);
 
   useEffect(() => {
     if (

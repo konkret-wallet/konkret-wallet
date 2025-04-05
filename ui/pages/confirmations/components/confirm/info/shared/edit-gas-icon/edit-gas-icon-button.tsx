@@ -7,7 +7,6 @@ import {
 } from '../../../../../../../components/component-library';
 import { useTransactionModalContext } from '../../../../../../../contexts/transaction-modal';
 import { IconColor } from '../../../../../../../helpers/constants/design-system';
-import { useTransactionEventFragment } from '../../../../../hooks/useTransactionEventFragment';
 
 export const EditGasIconButton = ({
   supportsEIP1559,
@@ -19,12 +18,8 @@ export const EditGasIconButton = ({
   const { openModal } = useTransactionModalContext() as {
     openModal: (modalId: string) => void;
   };
-  const { updateTransactionEventFragment } = useTransactionEventFragment();
 
   const openEditEIP1559TxGasFeeModal = () => {
-    updateTransactionEventFragment({
-      gas_edit_attempted: 'basic',
-    });
     openModal('editGasFee');
   };
 

@@ -63,7 +63,6 @@ jest.mock('../../../store/actions', () => ({
   removePollingTokenFromAppState: jest.fn(),
   updateTransactionGasFees: () => ({ type: 'UPDATE_TRANSACTION_PARAMS' }),
   updatePreviousGasParams: () => ({ type: 'UPDATE_TRANSACTION_PARAMS' }),
-  createTransactionEventFragment: jest.fn(),
 }));
 
 jest.mock('../../../contexts/transaction-modal', () => ({

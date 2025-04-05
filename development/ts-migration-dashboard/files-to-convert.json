@@ -1112,7 +1112,6 @@
   "ui/hooks/useTokensToSearch.js",
   "ui/hooks/useTransactionDisplayData.js",
   "ui/hooks/useTransactionDisplayData.test.js",
-  "ui/hooks/useTransactionEventFragment.js",
   "ui/hooks/useUserPreferencedCurrency.js",
   "ui/hooks/useUserPreferencedCurrency.test.js",
   "ui/index.js",

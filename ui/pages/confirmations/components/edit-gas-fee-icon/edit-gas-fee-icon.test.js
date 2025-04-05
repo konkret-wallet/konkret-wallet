@@ -14,7 +14,6 @@ jest.mock('../../../../store/actions', () => ({
   getNetworkConfigurationByNetworkClientId: jest
     .fn()
     .mockResolvedValue({ chainId: '0x5' }),
-  createTransactionEventFragment: jest.fn(),
 }));
 
 const mockOpenModalFn = jest.fn();

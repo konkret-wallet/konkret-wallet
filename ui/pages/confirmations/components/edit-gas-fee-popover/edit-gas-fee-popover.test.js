@@ -26,7 +26,6 @@ jest.mock('../../../../store/actions', () => ({
       chainId: '0x5',
     }),
   ),
-  createTransactionEventFragment: jest.fn(),
 }));
 
 jest.mock('../../../../contexts/transaction-modal', () => ({

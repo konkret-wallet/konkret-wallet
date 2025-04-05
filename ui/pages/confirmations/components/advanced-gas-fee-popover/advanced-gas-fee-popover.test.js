@@ -20,7 +20,6 @@ jest.mock('../../../../store/actions', () => ({
   getNetworkConfigurationByNetworkClientId: jest
     .fn()
     .mockResolvedValue({ chainId: '0x5' }),
-  createTransactionEventFragment: jest.fn(),
 }));
 
 jest.mock('../../../../contexts/transaction-modal', () => ({

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { capitalize } from 'lodash';
-import { useTransactionEventFragment } from '../../../hooks/useTransactionEventFragment';
 import { EditGasModes } from '../../../../../../shared/constants/gas';
 
 import {
@@ -34,7 +33,6 @@ const AdvancedGasFeeDefaults = () => {
     10,
   ).toString();
   const advancedGasFeeValues = useSelector(getAdvancedGasFeeValues);
-  const { updateTransactionEventFragment } = useTransactionEventFragment();
   const { editGasMode, transaction } = useGasFeeContext();
   const { chainId } = transaction;
 
@@ -60,12 +58,6 @@ const AdvancedGasFeeDefaults = () => {
     if (isDefaultSettingsSelected) {
       dispatch(setAdvancedGasFee({ chainId, gasFeePreferences: undefined }));
       setDefaultSettingsSelected(false);
-      updateTransactionEventFragment({
-        properties: {
-          advanced_gas_defaults_updated_maxbasefee: null,
-          advanced_gas_defaults_updated_priorityfee: null,
-        },
-      });
     } else {
       dispatch(
         setAdvancedGasFee({
@@ -76,12 +68,6 @@ const AdvancedGasFeeDefaults = () => {
           },
         }),
       );
-      updateTransactionEventFragment({
-        properties: {
-          advanced_gas_defaults_updated_maxbasefee: maxBaseFee,
-          advanced_gas_defaults_updated_priorityfee: maxPriorityFeePerGas,
-        },
-      });
     }
   };
 

@@ -13,7 +13,6 @@ import { PRIMARY } from '../../../../../helpers/constants/common';
 import { toHumanReadableTime } from '../../../../../helpers/utils/util';
 import { useGasFeeContext } from '../../../../../contexts/gasFee';
 import { useI18nContext } from '../../../../../hooks/useI18nContext';
-import { useTransactionEventFragment } from '../../../hooks/useTransactionEventFragment';
 import { useTransactionModalContext } from '../../../../../contexts/transaction-modal';
 import InfoTooltip from '../../../../../components/ui/info-tooltip';
 import LoadingHeartBeat from '../../../../../components/ui/loading-heartbeat';
@@ -63,7 +62,6 @@ const EditGasItem = ({ priorityLevel }) => {
     updateTransactionUsingEstimate,
     transaction,
   } = useGasFeeContext();
-  const { updateTransactionEventFragment } = useTransactionEventFragment();
   const t = useI18nContext();
   const { closeModal, openModal } = useTransactionModalContext();
   const { dappSuggestedGasFees } = transaction;
@@ -88,19 +86,8 @@ const EditGasItem = ({ priorityLevel }) => {
 
   const onOptionSelect = () => {
     if (priorityLevel === PriorityLevels.custom) {
-      updateTransactionEventFragment({
-        properties: {
-          gas_edit_attempted: 'advanced',
-        },
-      });
       openModal('advancedGasFee');
     } else {
-      updateTransactionEventFragment({
-        properties: {
-          gas_edit_type: 'basic',
-        },
-      });
-
       closeModal(['editGasFee']);
 
       if (priorityLevel === PriorityLevels.tenPercentIncreased) {

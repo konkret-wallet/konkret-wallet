@@ -2,7 +2,6 @@ import { renderHook } from '@testing-library/react-hooks';
 import { TransactionType } from '@metamask/transaction-controller';
 import { updateEditableParams } from '../../../../../../store/actions';
 import { useConfirmContext } from '../../../../context/confirm';
-import { useTransactionEventFragment } from '../../../../hooks/useTransactionEventFragment';
 import {
   getSelectedAccountCachedBalance,
   selectMaxValueModeForTransaction,
@@ -30,8 +29,6 @@ jest.mock('../../../../context/confirm', () => ({
   useConfirmContext: jest.fn(),
 }));
 
-jest.mock('../../../../hooks/useTransactionEventFragment');
-
 jest.mock('./useSupportsEIP1559', () => ({
   useSupportsEIP1559: jest.fn(),
 }));
@@ -41,10 +38,6 @@ const BALANCE_MOCK = '0x111';
 describe('useMaxValueRefresher', () => {
   const useConfirmContextMock = jest.mocked(useConfirmContext);
   const useSupportsEIP1559Mock = jest.mocked(useSupportsEIP1559);
-  const updateTransactionEventFragmentMock = jest.fn();
-  const useTransactionEventFragmentMock = jest.mocked(
-    useTransactionEventFragment,
-  );
   const getSelectedAccountCachedBalanceMock = jest.mocked(
     getSelectedAccountCachedBalance,
   );
@@ -77,9 +70,6 @@ describe('useMaxValueRefresher', () => {
     });
     getSelectedAccountCachedBalanceMock.mockImplementation(() => BALANCE_MOCK);
     selectMaxValueModeForTransactionMock.mockImplementation(() => true);
-    useTransactionEventFragmentMock.mockImplementation(() => ({
-      updateTransactionEventFragment: updateTransactionEventFragmentMock,
-    }));
   });
 
   it('does not update transaction value if max value mode is not enabled', () => {
@@ -99,19 +89,6 @@ describe('useMaxValueRefresher', () => {
     renderHook(() => useMaxValueRefresher());
 
     expect(updateEditableParamsMock).not.toHaveBeenCalled();
-  });
-
-  it('updates transaction event fragment', () => {
-    renderHook(() => useMaxValueRefresher());
-
-    expect(updateTransactionEventFragmentMock).toHaveBeenCalledWith(
-      {
-        properties: {
-          is_send_max: true,
-        },
-      },
-      simpleSendTransactionMetaMock.id,
-    );
   });
 
   describe('updates transaction value', () => {

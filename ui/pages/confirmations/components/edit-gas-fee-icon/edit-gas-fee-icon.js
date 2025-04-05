@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { useGasFeeContext } from '../../../../contexts/gasFee';
-import { useTransactionEventFragment } from '../../hooks/useTransactionEventFragment';
 import { useTransactionModalContext } from '../../../../contexts/transaction-modal';
 import {
   ButtonVariant,
@@ -18,7 +17,6 @@ import {
 export default function EditGasFeeIcon({ userAcknowledgedGasMissing = false }) {
   const { hasSimulationError, estimateUsed, supportsEIP1559 } =
     useGasFeeContext();
-  const { updateTransactionEventFragment } = useTransactionEventFragment();
   const { openModal } = useTransactionModalContext();
   const editEnabled = !hasSimulationError || userAcknowledgedGasMissing;
 
@@ -27,9 +25,6 @@ export default function EditGasFeeIcon({ userAcknowledgedGasMissing = false }) {
   }
 
   const openEditGasFeeModal = () => {
-    updateTransactionEventFragment({
-      gas_edit_attempted: 'basic',
-    });
     openModal('editGasFee');
   };
 
