@@ -3,7 +3,6 @@ import { screen, fireEvent } from '@testing-library/react';
 import { useSelector } from 'react-redux';
 import { setTokenSortConfig } from '../../../../../store/actions';
 import { renderWithProvider } from '../../../../../../test/lib/render-helpers';
-import { MetaMetricsContext } from '../../../../../contexts/metametrics';
 import { getPreferences } from '../../../../../selectors';
 import { getCurrentCurrency } from '../../../../../ducks/metamask/metamask';
 import SortControl from './sort-control';

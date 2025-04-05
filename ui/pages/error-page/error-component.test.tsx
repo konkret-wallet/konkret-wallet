@@ -5,8 +5,6 @@ import browser from 'webextension-polyfill';
 import { fireEvent } from '@testing-library/react';
 import { renderWithProvider } from '../../../test/lib/render-helpers';
 import { useI18nContext } from '../../hooks/useI18nContext';
-import { MetaMetricsContext } from '../../contexts/metametrics';
-import { getParticipateInMetaMetrics } from '../../selectors';
 import { getMessage } from '../../helpers/utils/i18n-helper';
 // eslint-disable-next-line import/no-restricted-paths
 import messages from '../../../app/_locales/en/messages.json';
@@ -41,10 +39,7 @@ describe('ErrorPage', () => {
     );
 
   beforeEach(() => {
-    useSelectorMock.mockImplementation((selector) => {
-      if (selector === getParticipateInMetaMetrics) {
-        return true;
-      }
+    useSelectorMock.mockImplementation(() => {
       return undefined;
     });
     (useI18nContext as jest.Mock).mockImplementation(mockI18nContext);
@@ -80,54 +75,6 @@ describe('ErrorPage', () => {
     expect(queryByTestId('error-page-error-code')).toBeNull();
     expect(queryByTestId('error-page-error-name')).toBeNull();
     expect(queryByTestId('error-page-error-stack')).toBeNull();
-  });
-
-  it('should render sentry user feedback form and submit sentry report successfully when metrics is opted in', () => {
-    const { getByTestId, queryByTestId } = renderWithProvider(
-      <ErrorPage error={MockError} />,
-    );
-    const describeButton = getByTestId(
-      'error-page-describe-what-happened-button',
-    );
-    fireEvent.click(describeButton);
-    expect(
-      queryByTestId('error-page-sentry-feedback-modal'),
-    ).toBeInTheDocument();
-    const textarea = getByTestId('error-page-sentry-feedback-textarea');
-    fireEvent.change(textarea, {
-      target: { value: 'Something went wrong on develop option page' },
-    });
-    const submitButton = getByTestId(
-      'error-page-sentry-feedback-submit-button',
-    );
-    fireEvent.click(submitButton);
-    expect(
-      queryByTestId('error-page-sentry-feedback-modal'),
-    ).not.toBeInTheDocument();
-    expect(
-      queryByTestId('error-page-sentry-feedback-success-modal'),
-    ).toBeInTheDocument();
-    jest.advanceTimersByTime(5000);
-    expect(
-      queryByTestId('error-page-sentry-feedback-modal'),
-    ).not.toBeInTheDocument();
-  });
-
-  it('should render not sentry user feedback option when metrics is not opted in', () => {
-    useSelectorMock.mockImplementation((selector) => {
-      if (selector === getParticipateInMetaMetrics) {
-        return false;
-      }
-      return undefined;
-    });
-    const { queryByTestId } = renderWithProvider(
-      <ErrorPage error={MockError} />,
-    );
-    const describeButton = queryByTestId(
-      'error-page-describe-what-happened-button',
-    );
-
-    expect(describeButton).toBeNull();
   });
 
   it('should reload the extension when the "Try Again" button is clicked', () => {

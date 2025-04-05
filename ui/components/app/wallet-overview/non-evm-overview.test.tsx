@@ -11,11 +11,6 @@ import { MultichainNetworks } from '../../../../shared/constants/multichain/netw
 import { RampsMetaMaskEntry } from '../../../hooks/ramps/useRamps/useRamps';
 import { defaultBuyableChains } from '../../../ducks/ramps/constants';
 import { setBackgroundConnection } from '../../../store/background-connection';
-import { MetaMetricsContext } from '../../../contexts/metametrics';
-import {
-  MetaMetricsEventCategory,
-  MetaMetricsEventName,
-} from '../../../../shared/constants/metametrics';
 import useMultiPolling from '../../../hooks/useMultiPolling';
 import { BITCOIN_WALLET_SNAP_ID } from '../../../../shared/lib/accounts/bitcoin-wallet-snap';
 import NonEvmOverview from './non-evm-overview';
@@ -49,7 +44,6 @@ const BTC_OVERVIEW_SWAP = 'token-overview-button-swap';
 const BTC_OVERVIEW_SEND = 'coin-overview-send';
 const BTC_OVERVIEW_PRIMARY_CURRENCY = 'coin-overview__primary-currency';
 
-const mockMetaMetricsId = 'deadbeef';
 const mockNonEvmBalance = '1';
 const mockNonEvmBalanceUsd = '1.00';
 const mockNonEvmAccount = {
@@ -117,8 +111,6 @@ const mockMetamaskStore = {
   // most multichain selectors will not use non-EVM logic despite having a non-EVM
   // selected account
   completedOnboarding: true,
-  // Used when clicking on some buttons
-  metaMetricsId: mockMetaMetricsId,
   // Override state if provided
 };
 const mockRampsStore = {
@@ -296,8 +288,6 @@ describe('NonEvmOverview', () => {
       url: makePortfolioUrl('buy', {
         metamaskEntry: RampsMetaMaskEntry.BuySellButton,
         chainId: MultichainNetworks.BITCOIN,
-        metametricsId: mockMetaMetricsId,
-        metricsEnabled: String(false),
       }),
     });
   });

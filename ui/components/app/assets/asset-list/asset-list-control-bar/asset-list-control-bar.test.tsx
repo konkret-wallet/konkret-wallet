@@ -2,11 +2,6 @@ import React from 'react';
 import thunk from 'redux-thunk';
 import configureMockStore from 'redux-mock-store';
 import { renderWithProvider } from '../../../../../../test/jest';
-import { MetaMetricsContext } from '../../../../../contexts/metametrics';
-import {
-  MetaMetricsEventCategory,
-  MetaMetricsEventName,
-} from '../../../../../../shared/constants/metametrics';
 import AssetListControlBar from './asset-list-control-bar';
 
 describe('AssetListControlBar', () => {
