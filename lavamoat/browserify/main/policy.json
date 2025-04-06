@@ -129,11 +129,6 @@
         "TextEncoder": true
       }
     },
-    "@metamask/smart-transactions-controller>@ethereumjs/util>@ethereumjs/rlp": {
-      "globals": {
-        "TextEncoder": true
-      }
-    },
     "@metamask/eth-ledger-bridge-keyring>@ethereumjs/rlp": {
       "globals": {
         "TextEncoder": true
@@ -373,17 +368,6 @@
         "webpack>events": true
       }
     },
-    "@metamask/smart-transactions-controller>@ethereumjs/util": {
-      "globals": {
-        "console.warn": true,
-        "fetch": true
-      },
-      "packages": {
-        "@metamask/smart-transactions-controller>@ethereumjs/util>@ethereumjs/rlp": true,
-        "ethereum-cryptography": true,
-        "webpack>events": true
-      }
-    },
     "@ethersproject/abi": {
       "globals": {
         "console.log": true
@@ -604,16 +588,6 @@
         "ethers>@ethersproject/signing-key>elliptic": true
       }
     },
-    "ethers>@ethersproject/solidity": {
-      "packages": {
-        "@ethersproject/bignumber": true,
-        "@ethersproject/bytes": true,
-        "ethers>@ethersproject/keccak256": true,
-        "ethers>@ethersproject/logger": true,
-        "ethers>@ethersproject/sha2": true,
-        "ethers>@ethersproject/strings": true
-      }
-    },
     "ethers>@ethersproject/strings": {
       "packages": {
         "@ethersproject/bytes": true,
@@ -634,12 +608,6 @@
         "ethers>@ethersproject/signing-key": true
       }
     },
-    "ethers>@ethersproject/units": {
-      "packages": {
-        "@ethersproject/bignumber": true,
-        "ethers>@ethersproject/logger": true
-      }
-    },
     "@ethersproject/wallet": {
       "packages": {
         "ethers>@ethersproject/abstract-provider": true,
@@ -658,20 +626,6 @@
       }
     },
     "@ethersproject/providers>@ethersproject/web": {
-      "globals": {
-        "clearTimeout": true,
-        "fetch": true,
-        "setTimeout": true
-      },
-      "packages": {
-        "ethers>@ethersproject/base64": true,
-        "@ethersproject/bytes": true,
-        "ethers>@ethersproject/logger": true,
-        "ethers>@ethersproject/properties": true,
-        "ethers>@ethersproject/strings": true
-      }
-    },
-    "ethers>@ethersproject/web": {
       "globals": {
         "clearTimeout": true,
         "fetch": true,
@@ -1020,7 +974,7 @@
         "@metamask/keyring-api": true,
         "@metamask/keyring-snap-client": true,
         "@metamask/metamask-eth-abis": true,
-        "@metamask/polling-controller": true,
+        "@metamask/assets-controllers>@metamask/polling-controller": true,
         "@metamask/rpc-errors": true,
         "@metamask/assets-controllers>@metamask/snaps-utils": true,
         "@metamask/utils": true,
@@ -1461,7 +1415,7 @@
       "packages": {
         "@metamask/controller-utils": true,
         "@metamask/controller-utils>@metamask/eth-query": true,
-        "@metamask/polling-controller": true,
+        "@metamask/assets-controllers>@metamask/polling-controller": true,
         "bn.js": true,
         "uuid": true
       }
@@ -1746,7 +1700,7 @@
         "punycode": true
       }
     },
-    "@metamask/polling-controller": {
+    "@metamask/assets-controllers>@metamask/polling-controller": {
       "globals": {
         "clearTimeout": true,
         "console.error": true,
@@ -1874,29 +1828,6 @@
         "uuid": true
       }
     },
-    "@metamask/smart-transactions-controller": {
-      "globals": {
-        "URLSearchParams": true,
-        "clearInterval": true,
-        "console.error": true,
-        "console.log": true,
-        "fetch": true,
-        "setInterval": true
-      },
-      "packages": {
-        "@ethereumjs/tx": true,
-        "@metamask/smart-transactions-controller>@ethereumjs/util": true,
-        "@ethersproject/bytes": true,
-        "@metamask/controller-utils": true,
-        "@metamask/controller-utils>@metamask/eth-query": true,
-        "@metamask/polling-controller": true,
-        "@metamask/transaction-controller": true,
-        "@metamask/smart-transactions-controller>bignumber.js": true,
-        "browserify>buffer": true,
-        "fast-json-patch": true,
-        "lodash": true
-      }
-    },
     "@metamask/snaps-controllers": {
       "globals": {
         "DecompressionStream": true,
@@ -1935,6 +1866,9 @@
       }
     },
     "@metamask/snaps-execution-environments": {
+      "globals": {
+        "document.getElementById": true
+      },
       "packages": {
         "@metamask/post-message-stream": true,
         "@metamask/snaps-utils": true,
@@ -2119,7 +2053,7 @@
         "@metamask/controller-utils": true,
         "@metamask/controller-utils>@metamask/eth-query": true,
         "@metamask/gas-fee-controller": true,
-        "@metamask/polling-controller": true,
+        "@metamask/assets-controllers>@metamask/polling-controller": true,
         "@metamask/rpc-errors": true,
         "@metamask/utils>@metamask/superstruct": true,
         "@metamask/transaction-controller": true,
@@ -2879,12 +2813,6 @@
         "define": true
       }
     },
-    "@metamask/smart-transactions-controller>bignumber.js": {
-      "globals": {
-        "crypto": true,
-        "define": true
-      }
-    },
     "@ngraveio/bc-ur>bignumber.js": {
       "globals": {
         "crypto": true,
@@ -3539,31 +3467,6 @@
         "uuid": true
       }
     },
-    "ethers": {
-      "packages": {
-        "@ethersproject/abi": true,
-        "ethers>@ethersproject/address": true,
-        "ethers>@ethersproject/base64": true,
-        "ethers>@ethersproject/basex": true,
-        "@ethersproject/bytes": true,
-        "@ethersproject/hash": true,
-        "@ethersproject/hdnode": true,
-        "ethers>@ethersproject/json-wallets": true,
-        "ethers>@ethersproject/keccak256": true,
-        "ethers>@ethersproject/logger": true,
-        "ethers>@ethersproject/properties": true,
-        "ethers>@ethersproject/random": true,
-        "ethers>@ethersproject/rlp": true,
-        "ethers>@ethersproject/sha2": true,
-        "ethers>@ethersproject/signing-key": true,
-        "ethers>@ethersproject/solidity": true,
-        "ethers>@ethersproject/strings": true,
-        "ethers>@ethersproject/transactions": true,
-        "ethers>@ethersproject/units": true,
-        "@ethersproject/wallet": true,
-        "ethers>@ethersproject/web": true
-      }
-    },
     "eth-method-registry>@metamask/ethjs-contract>ethjs-abi": {
       "packages": {
         "bn.js": true,
@@ -4038,33 +3941,6 @@
         "localStorage": true,
         "log": "write",
         "navigator": true
-      }
-    },
-    "lottie-web": {
-      "globals": {
-        "Blob": true,
-        "Howl": true,
-        "OffscreenCanvas": true,
-        "URL.createObjectURL": true,
-        "Worker": true,
-        "XMLHttpRequest": true,
-        "bodymovin": "write",
-        "clearInterval": true,
-        "console": true,
-        "define": true,
-        "document.body": true,
-        "document.createElement": true,
-        "document.createElementNS": true,
-        "document.getElementsByClassName": true,
-        "document.getElementsByTagName": true,
-        "document.querySelectorAll": true,
-        "document.readyState": true,
-        "location.origin": true,
-        "location.pathname": true,
-        "navigator": true,
-        "requestAnimationFrame": true,
-        "setInterval": true,
-        "setTimeout": true
       }
     },
     "luxon": {
