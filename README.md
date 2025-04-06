@@ -1,7 +1,7 @@
 # Konkret Wallet Browser Extension
 
-<a href="https://codeberg.org/konkret-wallet/konkret-wallet">
-  <img alt="https://codeberg.org/konkret-wallet/konkret-wallet" src="./app/images/logo/metamask-fox.svg" width="256px" />
+<a href="https://codeberg.org/konkret/konkret-wallet">
+  <img alt="https://codeberg.org/konkret/konkret-wallet" src="./app/images/logo/metamask-fox.svg" width="256px" />
 </a>
 
 Privacy-preserving digital assets wallet and key manager browser extension.
