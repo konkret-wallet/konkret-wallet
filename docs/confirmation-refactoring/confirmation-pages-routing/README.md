@@ -1,6 +1,6 @@
 # Refactoring - Confirmation pages routing
 
-This document details how routing to confirmation pages is currently done and the proposed improvements in routing.
+This document details how routing to confirmation pages is currently done and the proposed improvements in routing. It is a snapshot from upstream.
 
 ## Current flow
 

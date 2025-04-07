@@ -1,6 +1,6 @@
 # Refactoring - Signature Request Pages
 
-This document details the plan to refactor and cleanup Signature Request pages in Metamask.
+This document details the plan to refactor and cleanup Signature Request pages in Konkret Wallet and Metamask. It is a snapshot inherited from upstream.
 
 ## The current structure of Signature Request pages look like:
 

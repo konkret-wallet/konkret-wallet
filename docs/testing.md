@@ -1,10 +1,10 @@
-# Automated Testing in the MetaMask Extension Repository
+# Automated Testing in the Konkret Wallet Repository
 
-The purpose of this document is to summarize the testing tactics we want to align on for this repository.
+The purpose of this document is to summarize the testing tactics we want to align on for this repository. It is inherited from upstream and in both cases aspirational.
 
-In its current version, this document does not include discussions on manual testing, performance testing, or browser testing. Our thoughts on our e2e tests will be shared on a separate file (to be linked here).
+In its current version, this document does not include discussions on manual testing, performance testing, or browser testing.
 
-To contribute, submit a PR. We encourage you to read the section about fitness functions below and include automation in your contribution.
+To contribute, submit a PR. You are encouraged to read the section about fitness functions below and include automation in your contribution.
 
 ## Why We Test
 
@@ -14,7 +14,7 @@ Without automated tests, bugs organically occur in production or during manual r
 
 This can lead to user dissatisfaction and costly rework. It also carries a big process and organizational overhead because people have to stop what they are doing multiple times and reach out to each other to uphold correctness.
 
-Speeding up the feedback loop from writing software to discovering bugs directly increases the productivity of the software delivery team. Apart from that, it minimizes context switching, increasing developer happiness and, indirectly, developer productivity.
+Speeding up the feedback loop from writing software to discovering bugs directly increases productivity. Apart from that, it minimizes context switching, increasing developer happiness and, indirectly, developer productivity.
 
 Testing is also proven to teach developers to write better and more readable code. Unit tests, for example, encourage separating functionality into smaller units that do less.
 
@@ -24,7 +24,7 @@ Tests are generally the best way to document code. They are better than comments
 
 ### Favor Jest instead of Mocha
 
-For consistency in syntax and coverage tooling, we favor using Jest for all unit tests. That means we don't need to use Sinon for mocks and stubs or Assert for assertions and that we'll eventually not need Mocha to run the tests. Jest replaces functionality from all these dependencies in one package.
+For consistency in syntax and coverage tooling, Jest is favored for unit tests. That means we don't need to use Sinon for mocks and stubs or Assert for assertions and that we'll eventually not need Mocha to run the tests. Jest replaces functionality from all these dependencies in one package.
 
 While Mocha is a test runner that can be used for unit, integration, and end-to-end testing, jest has been built specifically for unit testing and is much faster.
 
@@ -166,7 +166,7 @@ async function advanceTimersByTime(ms) {
 }
 ```
 
-Here's [an example PR](https://github.com/MetaMask/core/pull/1002/files) for this pattern in our core library.
+Here's [an example PR](https://github.com/MetaMask/core/pull/1002/files) for this pattern in the MetaMask core library.
 
 For UI tests, React Testing Library exposes another API that relies on the same idea of abstracting the passage of time instead of explicitly managing it:
 
@@ -180,13 +180,7 @@ waitFor(() => {
 
 ### Code Coverage Requirements
 
-Thanks to @brad.decker, we can now see our total test coverage using [codecov](https://app.codecov.io/gh/MetaMask/metamask-extension).
-
-Codeconv's quality gate enforces that code coverage does not decrease. As per our 2023 Q1 OKR of ["Increase platform-wide reliability by expanding test coverage, and improving tooling and infrastructure"](https://docs.google.com/document/d/1dUCE9PJA0L6EMlVgG3y0dyiDrht1-MG-DhbEXp78QAs/edit#bookmark=id.s8dqtv3asm7x), we are working towards 80 code coverage.
-
-For that to happen, simply not decreasing code coverage is not enough. Developers should progressively increase the coverage of the files they change. We don't currently have an automated way of expressing this, but it can be checked manually by using the Jest flag `--changedSince` ([read Jest docs for more info](https://jestjs.io/docs/cli#--changedsince)). Apart from our individual contributions, during PR reviews, it's OK to encourage others to continue increasing code coverage for their changes within reason. Remember that code coverage is not a silver bullet and that the quality of our tests is just as important.
-
-In the future, we may use other tools to ensure an upward trajectory for code coverage, such as [Sonarcloud](https://docs.sonarcloud.io/improving/new-code-definition/) or other static checking tools.
+Developers should progressively increase the coverage of the files they change. We don't currently have an automated way of expressing this, but it can be checked manually by using the Jest flag `--changedSince` ([read Jest docs for more info](https://jestjs.io/docs/cli#--changedsince)). Apart from individual contributions, during PR reviews, it's OK to encourage others to continue increasing code coverage for their changes within reason. Remember that code coverage is not a silver bullet and that the quality of tests is just as important.
 
 ### Fitness functions: measuring progress in code quality and preventing regressions using custom git hooks
 
@@ -196,11 +190,9 @@ This may sound like a philosophical problem initially, but it's quite pragmatic.
 
 Just as we use code coverage as an imperfect yet directionally correct way to assess the state of testing, we can extend this concept to other aspects of our codebase and tests.
 
-Widespread code coverage and static checks tools support an incremental approach to software improvement, but linting tools don't. And given the size of our codebase, it's not always realistic to make changes across the entire codebase in one PR.
+Widespread code coverage and static checks tools support an incremental approach to software improvement, but linting tools don't. And given the size of this codebase, it's not always realistic to make changes across the entire codebase in one PR.
 
 One way to go about this is to define and automate [fitness functions](https://www.thoughtworks.com/radar/techniques/architectural-fitness-function), used to drive architecture changes in complex systems and measure progress against those goals. Just as important, this framework of fitness functions allows us to prevent regressions in code quality.
-
-We use shareable git hooks using Husky to drive these incremental changes. Fitness functions are then version controlled, reviewed as part of the standard software development workflow, and permanently prevent regressions and encourage progress.
 
 ## References and further reading
 

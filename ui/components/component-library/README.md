@@ -40,7 +40,7 @@ We understand some customization to styles or access to children components is n
 
 > Note:
 >
-> - If you are seeing a disparity between styles in Figma and code that's a red flag and could mean there is bug between design system Figma and code component. We recommend posting it on our slack channel [#metamask-design-system](https://consensys.slack.com/archives/C0354T27M5M) so we can support you on it
+> - If you are seeing a disparity between styles in Figma and code that's a red flag and could mean there is bug between design system Figma and code component.
 > - If you come across the warning `Unexpected hex color` when using a hex value in a stylesheet, it is there to encourage the use of [MetaMask's design-tokens](https://github.com/MetaMask/design-tokens/) color variables instead of hardcoding hex values. This helps maintain consistency and makes updating colors across the app easier.
 
 We try to utilize the `Box` component style utility props as much as possible in our components. Style utility prop overrides should be your first option. This allows you to change styles right inside of the component and reduces the amount of CSS in the codebase. If there are no style utility props for the customization required you can attach a class name to the component using the `className` prop and add styling using CSS.
@@ -85,9 +85,5 @@ import { BannerAlert, BannerAlertSeverity } from '../../component-library';
 ### Accessibility
 
 Allowing everyone to access web3 regardless of disability is an important part of what we do at MetaMask. Ensuring accessibility in our components is a priority. We strive to achieve this by maintaining proper color contrast in our components and implementing necessary aria label props. If you have any questions regarding accessibility reach out and we will support you as much as possible. Additionally, your suggestions for improvement are welcome, as we continue our journey towards greater accessibility. Together, let's create an inclusive web3 experience for all 🦾
-
-## Support
-
-If internal folks have any questions please reach out the design system team via the internal slack channel [#metamask-design-system](https://consensys.slack.com/archives/C0354T27M5M) 💁
 
 [DS components figma file](https://www.figma.com/file/HKpPKij9V3TpsyMV1TpV7C/DS-Components?node-id=16%3A6)

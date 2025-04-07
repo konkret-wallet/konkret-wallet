@@ -4,7 +4,7 @@ Migrations are needed to change top-level state data, this can be found in the b
 
 Steps
 
-1. Create a new MetaMask directory\* folder locally with the source files before the migration, and load it as an unpacked extension in Chrome\*. If the migration is in a pull request, then build the `main` branch to load. If the migration is already in `main`, get a commit before the migration was added to build.
+1. Create a new directory\* folder locally with the source files before the migration, and load it as an unpacked extension in Chrome\*. If the migration is in a pull request, then build the `main` branch to load. If the migration is already in `main`, get a commit before the migration was added to build.
 
    ![Load unpacked extension to chrome](./assets/load-build-chrome.gif)
 

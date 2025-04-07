@@ -2,7 +2,7 @@
 
 ## Overview
 
-Given the security focused nature of self-custody, confirmations and approvals form a pivotal aspect of the MetaMask extension.
+Given the security focused nature of self-custody, confirmations and approvals form a pivotal aspect of the extension.
 
 Confirmations can be triggered by dApps and the UI itself, and are used to approve a variety of operations such as:
 
@@ -345,7 +345,7 @@ For live examples, see [storybook](https://metamask.github.io/metamask-storybook
 
 ### ApprovalController
 
-The [ApprovalController](https://github.com/MetaMask/core/blob/main/packages/approval-controller/src/ApprovalController.ts) is a controller defined in the core repository which is responsible for creating and tracking approvals and confirmations in both the MetaMask extension and MetaMask mobile.
+The [ApprovalController](https://github.com/MetaMask/core/blob/main/packages/approval-controller/src/ApprovalController.ts) is a controller defined in the core repository which is responsible for creating and tracking approvals and confirmations.
 
 The `pendingApprovals` state used by the `ApprovalController` is not currently persisted, meaning any confirmations created by it will not persist after restarting the browser for example.
 

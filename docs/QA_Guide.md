@@ -2,10 +2,9 @@
 
 Steps to mark a full pass of QA complete.
 
-- Browsers: Opera, Chrome, Firefox, Edge.
-  - Use the Chrome build for all Chromium-derived browsers (e.g. Opera and Edge)
+- Browsers: Chromium, Firefox, Konform Browser, Tor Browser, Edge.
 - OS: Ubuntu, Mac OSX, Windows
-- Load older version of MetaMask and attempt to simulate updating the extension.
+- Load older version of the extension and attempt to simulate updating the extension.
 - Open Developer Console in background and popup, inspect errors.
 - Watch the state logs
   - Transactions (unapproved txs -> rejected/submitted -> confirmed)
@@ -43,7 +42,7 @@ Steps to mark a full pass of QA complete.
   - hd keyring
   - imported keyring
 - Change network from mainnet → ropsten → rinkeby → localhost (ganache)
-- Ganache set blocktime to simulate retryTx in MetaMask
+- Ganache set blocktime to simulate retryTx in extension
 - Copy public key to clipboard
 - Export private key
 
