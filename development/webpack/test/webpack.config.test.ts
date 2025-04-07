@@ -193,10 +193,7 @@ ${Object.entries(env)
         '--zip',
         ...removeUnsupportedFeatures,
       ],
-      {
-        SEGMENT_WRITE_KEY: '-',
-        SEGMENT_PROD_WRITE_KEY: '-',
-      },
+      {},
     );
     // webpack logs a warning if we specify `watch: true`, `getWebpackInstance`
     // removes the property, so we test it here instead

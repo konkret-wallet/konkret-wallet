@@ -58,10 +58,6 @@ ${Object.entries(env)
     });
 
     it('should return valid build variables for a non-default build', () => {
-      mockRc({
-        // required by the `beta` build type
-        SEGMENT_BETA_WRITE_KEY: '.',
-      });
       const buildTypes = config.getBuildTypes();
       const { args } = parseArgv(
         ['--type', 'beta', '--test', '--env', 'production'],

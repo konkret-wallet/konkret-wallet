@@ -11,7 +11,7 @@
     "webpack:clearcache": "./development/clear-webpack-cache.js",
     "foundryup": "tsx ./test/helpers/foundry/foundryup.ts",
     "postinstall": "yarn webpack:clearcache && yarn foundryup",
-    "env:e2e": "SEGMENT_WRITE_KEY='FAKE' yarn",
+    "env:e2e": "yarn",
     "start": "yarn build:dev dev --apply-lavamoat=false --snow=false",
     "start:with-state": "node ./app/scripts/start-with-wallet-state.mjs",
     "start:mv2": "ENABLE_MV3=false yarn build:dev dev --apply-lavamoat=false --snow=false",

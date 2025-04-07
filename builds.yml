@@ -24,8 +24,6 @@ buildTypes:
       - multi-srp
     # Additional env variables that are specific to this build
     env:
-      - SEGMENT_PROD_WRITE_KEY
-      - SEGMENT_WRITE_KEY_REF: SEGMENT_PROD_WRITE_KEY
       - ALLOW_LOCAL_SNAPS: true
       - REQUIRE_SNAPS_ALLOWLIST: false
       - REJECT_INVALID_SNAPS_PLATFORM_VERSION: true
@@ -52,8 +50,6 @@ buildTypes:
       - solana-swaps
       - multi-srp
     env:
-      - SEGMENT_BETA_WRITE_KEY
-      - SEGMENT_WRITE_KEY_REF: SEGMENT_BETA_WRITE_KEY
       - SUPPORT_LINK: https://intercom.help/internal-beta-testing/
       - SUPPORT_REQUEST_LINK: https://intercom.help/internal-beta-testing/
       - ALLOW_LOCAL_SNAPS: false
@@ -81,14 +77,12 @@ buildTypes:
       - solana-swaps
       - multichain
     env:
-      - SEGMENT_FLASK_WRITE_KEY
       - ALLOW_LOCAL_SNAPS: true
       - REQUIRE_SNAPS_ALLOWLIST: false
       - REJECT_INVALID_SNAPS_PLATFORM_VERSION: false
       - IFRAME_EXECUTION_ENVIRONMENT_URL: https://execution.metamask.io/iframe/7.0.0/index.html
       - SUPPORT_LINK: https://support.metamask.io/
       - SUPPORT_REQUEST_LINK: https://support.metamask.io/
-      - SEGMENT_WRITE_KEY_REF: SEGMENT_FLASK_WRITE_KEY
       - ACCOUNT_SNAPS_DIRECTORY_URL: https://metamask.github.io/snaps-directory-staging/main/account-management
       - EIP_4337_ENTRYPOINT: '0x5FF137D4b0FDCD49DcA30c7CF57E578a026d2789'
     isPrerelease: true
@@ -201,18 +195,8 @@ env:
   - __FIREBASE_DEFAULTS__: null
 
   ###
-  # API keys to 3rd party services
+  # Unused API keys to 3rd party services
   ###
-
-  - SEGMENT_HOST: null
-  - SENTRY_DSN: null
-  - SENTRY_DSN_DEV: null
-
-  ###
-  # Build system backwards compatibility
-  ###
-
-  - SEGMENT_WRITE_KEY_REF
 
   ###
   # Variables that are modified with hardcoded code
@@ -225,8 +209,6 @@ env:
   # Used for debugging changes to the phishing warning page.
   # Modified in <root>/development/build/scripts.js:@getPhishingWarningPageUrl
   - PHISHING_WARNING_PAGE_URL: null
-  # Modified in <root>/development/build/scripts.js:@getSegmentWriteKey
-  - SEGMENT_WRITE_KEY: ''
   # Modified in <root>/development/build/scripts.js:@getAnalyticsDataDeletionSourceId
   - ANALYTICS_DATA_DELETION_SOURCE_ID: null
   # Modified in <root>/development/build/scripts.js:@getAnalyticsDataDeletionEndpoint
