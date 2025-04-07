@@ -8,39 +8,6 @@ import browser from 'webextension-polyfill';
  */
 export type ManifestFlags = {
   /**
-   * CircleCI metadata for the current run
-   */
-  circleci?: {
-    /**
-     * Whether CircleCI manifest flags are enabled.
-     */
-    enabled: boolean;
-    /**
-     * The name of the branch that triggered the current run on CircleCI
-     */
-    branch?: string;
-    /**
-     * The current CircleCI build number
-     */
-    buildNum?: number;
-    /**
-     * The name of the CircleCI job currently running
-     */
-    job?: string;
-    /**
-     * For jobs with CircleCI parallelism enabled, this is the index of the current machine.
-     */
-    nodeIndex?: number;
-    /**
-     * The number of the pull request that triggered the current run
-     */
-    prNumber?: number;
-    /**
-     * The number of minutes to allow the E2E tests to run before timing out
-     */
-    timeoutMinutes?: number;
-  };
-  /**
    * Sentry flags
    */
   sentry?: {
