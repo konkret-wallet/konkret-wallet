@@ -307,7 +307,7 @@ export const SONEIUM_DISPLAY_NAME = 'Soneium Mainnet';
 export const MODE_SEPOLIA_DISPLAY_NAME = 'Mode Sepolia';
 export const MODE_DISPLAY_NAME = 'Mode Mainnet';
 
-export const infuraProjectId = process.env.INFURA_PROJECT_ID;
+export const infuraProjectId = '';
 export const getRpcUrl = ({
   network,
   excludeProjectId = false,

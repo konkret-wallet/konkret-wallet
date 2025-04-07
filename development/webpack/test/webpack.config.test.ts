@@ -194,7 +194,6 @@ ${Object.entries(env)
         ...removeUnsupportedFeatures,
       ],
       {
-        INFURA_PROD_PROJECT_ID: '00000000000000000000000000000000',
         SEGMENT_WRITE_KEY: '-',
         SEGMENT_PROD_WRITE_KEY: '-',
       },

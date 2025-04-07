@@ -24,9 +24,7 @@ buildTypes:
       - multi-srp
     # Additional env variables that are specific to this build
     env:
-      - INFURA_PROD_PROJECT_ID
       - SEGMENT_PROD_WRITE_KEY
-      - INFURA_ENV_KEY_REF: INFURA_PROD_PROJECT_ID
       - SEGMENT_WRITE_KEY_REF: SEGMENT_PROD_WRITE_KEY
       - ALLOW_LOCAL_SNAPS: true
       - REQUIRE_SNAPS_ALLOWLIST: false
@@ -54,9 +52,7 @@ buildTypes:
       - solana-swaps
       - multi-srp
     env:
-      - INFURA_BETA_PROJECT_ID
       - SEGMENT_BETA_WRITE_KEY
-      - INFURA_ENV_KEY_REF: INFURA_BETA_PROJECT_ID
       - SEGMENT_WRITE_KEY_REF: SEGMENT_BETA_WRITE_KEY
       - SUPPORT_LINK: https://intercom.help/internal-beta-testing/
       - SUPPORT_REQUEST_LINK: https://intercom.help/internal-beta-testing/
@@ -85,7 +81,6 @@ buildTypes:
       - solana-swaps
       - multichain
     env:
-      - INFURA_FLASK_PROJECT_ID
       - SEGMENT_FLASK_WRITE_KEY
       - ALLOW_LOCAL_SNAPS: true
       - REQUIRE_SNAPS_ALLOWLIST: false
@@ -93,7 +88,6 @@ buildTypes:
       - IFRAME_EXECUTION_ENVIRONMENT_URL: https://execution.metamask.io/iframe/7.0.0/index.html
       - SUPPORT_LINK: https://support.metamask.io/
       - SUPPORT_REQUEST_LINK: https://support.metamask.io/
-      - INFURA_ENV_KEY_REF: INFURA_FLASK_PROJECT_ID
       - SEGMENT_WRITE_KEY_REF: SEGMENT_FLASK_WRITE_KEY
       - ACCOUNT_SNAPS_DIRECTORY_URL: https://metamask.github.io/snaps-directory-staging/main/account-management
       - EIP_4337_ENTRYPOINT: '0x5FF137D4b0FDCD49DcA30c7CF57E578a026d2789'
@@ -182,7 +176,6 @@ env:
   # Storybook
   ###
   - STORYBOOK: false
-  - INFURA_STORYBOOK_PROJECT_ID
 
   ###
   # Notifications Feature
@@ -214,13 +207,11 @@ env:
   - SEGMENT_HOST: null
   - SENTRY_DSN: null
   - SENTRY_DSN_DEV: null
-  # also INFURA_PROJECT_ID below
 
   ###
   # Build system backwards compatibility
   ###
 
-  - INFURA_ENV_KEY_REF
   - SEGMENT_WRITE_KEY_REF
 
   ###
@@ -234,8 +225,6 @@ env:
   # Used for debugging changes to the phishing warning page.
   # Modified in <root>/development/build/scripts.js:@getPhishingWarningPageUrl
   - PHISHING_WARNING_PAGE_URL: null
-  # Modified in <root>/development/build/scripts.js:@getInfuraProjectId
-  - INFURA_PROJECT_ID: 'none'
   # Modified in <root>/development/build/scripts.js:@getSegmentWriteKey
   - SEGMENT_WRITE_KEY: ''
   # Modified in <root>/development/build/scripts.js:@getAnalyticsDataDeletionSourceId

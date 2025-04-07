@@ -641,7 +641,7 @@ export function setupController(
   // MetaMask Controller
   //
   controller = new MetamaskController({
-    infuraProjectId: process.env.INFURA_PROJECT_ID,
+    infuraProjectId: '',
     // User confirmation callbacks:
     showUserConfirmation: triggerUi,
     // initial state
