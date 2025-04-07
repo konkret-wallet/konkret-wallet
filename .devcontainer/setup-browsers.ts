@@ -21,7 +21,7 @@ execSync(
 execSync('sudo chmod 777 /usr/local/bin/chrome-mm');
 
 execSync(
-  `sudo bash -c "echo -e '#! /bin/bash\ncd /workspaces/metamask-extension\nyarn tsx .devcontainer/launch-firefox.ts' > /usr/local/bin/firefox-mm"`,
+  `sudo bash -c "echo -e '#! /bin/bash\ncd /workspaces/konkret-wallet\nyarn tsx .devcontainer/launch-firefox.ts' > /usr/local/bin/firefox-mm"`,
 );
 
 execSync('sudo chmod 777 /usr/local/bin/firefox-mm');

@@ -131,7 +131,7 @@ session.screen0.toolbar.widthPercent: 100
 session.screen0.strftimeFormat: %a %l:%M %p
 session.screen0.toolbar.tools: RootMenu, clock, iconbar, systemtray
 session.screen0.workspaceNames: One,
-session.screen0.rootCommand: fbsetbg -c /workspaces/metamask-extension/app/images/icon-512.png
+session.screen0.rootCommand: fbsetbg -c /workspaces/konkret-wallet/app/images/icon-512.png
 EOF
 )"
 
@@ -400,7 +400,7 @@ else
 fi
 
 # Set fox as wallpaper
-fbsetbg -c /workspaces/metamask-extension/app/images/icon-512.png
+fbsetbg -c /workspaces/konkret-wallet/app/images/icon-512.png
 
 git config --global pull.rebase true
 
