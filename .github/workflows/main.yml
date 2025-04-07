@@ -122,19 +122,6 @@ jobs:
       - prep-build-test-browserify
       - prep-build-test-webpack
 
-  wait-for-circleci-workflow-status:
-    name: Wait for CircleCI workflow status
-    uses: ./.github/workflows/wait-for-circleci-workflow-status.yml
-
-  runway:
-    name: Runway
-    # For a `pull_request` event, the branch is `github.head_ref``.
-    # For a `push` event, the branch is `github.ref_name`.
-    if: ${{ startsWith(github.head_ref || github.ref_name, 'Version-v') }}
-    needs:
-      - wait-for-circleci-workflow-status
-    uses: ./.github/workflows/runway.yml
-
   build-storybook:
     name: Build storybook
     uses: ./.github/workflows/build-storybook.yml
@@ -152,17 +139,6 @@ jobs:
       contents: read
       # id-token permission is required for uploading to s3
       id-token: write
-
-  publish-prerelease:
-    name: Publish prerelease
-    if: ${{ github.event_name == 'pull_request' }}
-    needs:
-      - wait-for-circleci-workflow-status
-      - build-storybook
-      - build-beta
-    uses: ./.github/workflows/publish-prerelease.yml
-    secrets:
-      PR_COMMENT_TOKEN: ${{ secrets.PR_COMMENT_TOKEN }}
 
   # Explanation for all-jobs-completed and all-jobs-pass being separate:
   # https://github.com/MetaMask/metamask-module-template/pull/151
@@ -182,7 +158,6 @@ jobs:
       - validate-lavamoat-policy-build
       - validate-lavamoat-policy-webapp
       - run-tests
-      - wait-for-circleci-workflow-status
       - build-storybook
       - build-beta
     outputs:
@@ -205,16 +180,3 @@ jobs:
           if [[ $passed != "true" ]]; then
             exit 1
           fi
-
-  log-merge-group-failure:
-    name: Log merge group failure
-    # Only run this job if the merge group event fails, skip on forks
-    if: ${{ github.event_name == 'merge_group' && failure() && !github.event.repository.fork }}
-    needs:
-      - all-jobs-pass
-    uses: metamask/github-tools/.github/workflows/log-merge-group-failure.yml@6bbad335a01fce1a9ec1eabd9515542c225d46c0
-    secrets:
-      GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
-      GOOGLE_SERVICE_ACCOUNT: ${{ secrets.GOOGLE_SERVICE_ACCOUNT }}
-      SPREADSHEET_ID: ${{ secrets.GOOGLE_MERGE_QUEUE_SPREADSHEET_ID }}
-      SHEET_NAME: ${{ secrets.GOOGLE_MERGE_QUEUE_SHEET_NAME }}
