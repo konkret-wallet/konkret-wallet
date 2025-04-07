@@ -6,28 +6,7 @@ import browser from 'webextension-polyfill';
  *
  * These flags are added to `manifest.json` for runtime querying.
  */
-export type ManifestFlags = {
-  /**
-   * Sentry flags
-   */
-  sentry?: {
-    /**
-     * Override the performance trace sample rate
-     */
-    tracesSampleRate?: number;
-    /**
-     * Sub-sample rate for lazy-loaded components.
-     *
-     * Multiply this rate by tracesSampleRate to get the actual probability of sampling the load
-     * time of a lazy-loaded component.
-     */
-    lazyLoadSubSampleRate?: number;
-    /**
-     * Force enable Sentry (this is typically set by individual E2E tests in spec files)
-     */
-    forceEnable?: boolean;
-  };
-};
+export type ManifestFlags = object;
 
 // eslint-disable-next-line @typescript-eslint/consistent-type-definitions -- you can't extend a type, we want this to be an interface
 interface WebExtensionManifestWithFlags
