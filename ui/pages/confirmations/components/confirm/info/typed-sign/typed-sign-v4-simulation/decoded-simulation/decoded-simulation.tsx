@@ -16,15 +16,11 @@ import StaticSimulation from '../../../shared/static-simulation/static-simulatio
 import TokenValueDisplay from '../value-display/value-display';
 import NativeValueDisplay from '../native-value-display/native-value-display';
 
-export enum StateChangeType {
-  NFTListingReceive = 'NFTListingReceive',
-  NFTBiddingReceive = 'NFTBiddingReceive',
-}
-
-export const getStateChangeType = (
+export const getStateChangeToolip = (
   stateChangeList: DecodingDataStateChanges | null,
   stateChange: DecodingDataStateChange,
-): StateChangeType | undefined => {
+  t: ReturnType<typeof useI18nContext>,
+): string | undefined => {
   if (stateChange.changeType === DecodingDataChangeType.Receive) {
     if (
       stateChangeList?.some(
@@ -33,7 +29,7 @@ export const getStateChangeType = (
           change.assetType === TokenStandard.ERC721,
       )
     ) {
-      return StateChangeType.NFTListingReceive;
+      return t('signature_decoding_list_nft_tooltip');
     }
     if (
       stateChange.assetType === TokenStandard.ERC721 &&
@@ -41,50 +37,24 @@ export const getStateChangeType = (
         (change) => change.changeType === DecodingDataChangeType.Bidding,
       )
     ) {
-      return StateChangeType.NFTBiddingReceive;
+      return t('signature_decoding_bid_nft_tooltip');
     }
   }
   return undefined;
 };
 
-export const getStateChangeToolip = (
-  nftTransactionType: StateChangeType | undefined,
-  t: ReturnType<typeof useI18nContext>,
-): string | undefined => {
-  if (nftTransactionType === StateChangeType.NFTListingReceive) {
-    return t('signature_decoding_list_nft_tooltip');
-  } else if (nftTransactionType === StateChangeType.NFTBiddingReceive) {
-    return t('signature_decoding_bid_nft_tooltip');
-  }
-  return undefined;
-};
-
-const stateChangeOrder = {
-  [DecodingDataChangeType.Transfer]: 1,
-  [DecodingDataChangeType.Listing]: 2,
-  [DecodingDataChangeType.Approve]: 3,
-  [DecodingDataChangeType.Revoke]: 4,
-  [DecodingDataChangeType.Bidding]: 5,
-  [DecodingDataChangeType.Receive]: 6,
-};
-
 const getStateChangeLabelMap = (
   t: ReturnType<typeof useI18nContext>,
   changeType: string,
-  stateChangeType?: StateChangeType,
-) => {
-  return {
+) =>
+  ({
     [DecodingDataChangeType.Transfer]: t('permitSimulationChange_transfer'),
-    [DecodingDataChangeType.Receive]:
-      stateChangeType === StateChangeType.NFTListingReceive
-        ? t('permitSimulationChange_nft_listing')
-        : t('permitSimulationChange_receive'),
+    [DecodingDataChangeType.Receive]: t('permitSimulationChange_receive'),
     [DecodingDataChangeType.Approve]: t('permitSimulationChange_approve'),
     [DecodingDataChangeType.Revoke]: t('permitSimulationChange_revoke'),
     [DecodingDataChangeType.Bidding]: t('permitSimulationChange_bidding'),
     [DecodingDataChangeType.Listing]: t('permitSimulationChange_listing'),
-  }[changeType];
-};
+  }[changeType]);
 
 const StateChangeRow = ({
   stateChangeList,
@@ -100,19 +70,14 @@ const StateChangeRow = ({
   const t = useI18nContext();
   const { assetType, changeType, amount, contractAddress, tokenID } =
     stateChange;
-  const nftTransactionType = getStateChangeType(stateChangeList, stateChange);
-  const tooltip = getStateChangeToolip(nftTransactionType, t);
+  const tooltip = getStateChangeToolip(stateChangeList, stateChange, t);
   const canDisplayValueAsUnlimited =
     assetType === TokenStandard.ERC20 &&
     (changeType === DecodingDataChangeType.Approve ||
       changeType === DecodingDataChangeType.Revoke);
   return (
     <ConfirmInfoRow
-      label={
-        shouldDisplayLabel
-          ? getStateChangeLabelMap(t, changeType, nftTransactionType)
-          : ''
-      }
+      label={shouldDisplayLabel ? getStateChangeLabelMap(t, changeType) : ''}
       tooltip={tooltip}
     >
       {(assetType === TokenStandard.ERC20 ||
@@ -123,10 +88,7 @@ const StateChangeRow = ({
           value={amount}
           chainId={chainId}
           tokenId={tokenID}
-          credit={
-            nftTransactionType !== StateChangeType.NFTListingReceive &&
-            changeType === DecodingDataChangeType.Receive
-          }
+          credit={changeType === DecodingDataChangeType.Receive}
           debit={changeType === DecodingDataChangeType.Transfer}
           canDisplayValueAsUnlimited={canDisplayValueAsUnlimited}
         />
@@ -135,10 +97,7 @@ const StateChangeRow = ({
         <NativeValueDisplay
           value={amount}
           chainId={chainId}
-          credit={
-            nftTransactionType !== StateChangeType.NFTListingReceive &&
-            changeType === DecodingDataChangeType.Receive
-          }
+          credit={changeType === DecodingDataChangeType.Receive}
           debit={changeType === DecodingDataChangeType.Transfer}
         />
       )}
@@ -153,13 +112,8 @@ const DecodedSimulation: React.FC<object> = () => {
   const { decodingLoading, decodingData } = currentConfirmation;
 
   const stateChangeFragment = useMemo(() => {
-    const orderedStateChanges = decodingData?.stateChanges?.sort((c1, c2) =>
-      stateChangeOrder[c1.changeType] > stateChangeOrder[c2.changeType]
-        ? 1
-        : -1,
-    );
     const stateChangesGrouped: Record<string, DecodingDataStateChange[]> = (
-      orderedStateChanges ?? []
+      decodingData?.stateChanges ?? []
     ).reduce<Record<string, DecodingDataStateChange[]>>(
       (result, stateChange) => {
         result[stateChange.changeType] = [

@@ -3951,9 +3951,6 @@
   "permitSimulationChange_listing": {
     "message": "You list"
   },
-  "permitSimulationChange_nft_listing": {
-    "message": "Listing price"
-  },
   "permitSimulationChange_receive": {
     "message": "You receive"
   },
