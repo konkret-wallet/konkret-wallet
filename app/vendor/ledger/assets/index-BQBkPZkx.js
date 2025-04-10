@@ -34,6 +34,7 @@ var __objRest = (source, exclude) => {
     }
   return target;
 };
+var __publicField = (obj, key2, value) => __defNormalProp(obj, typeof key2 !== "symbol" ? key2 + "" : key2, value);
 var __async = (__this, __arguments, generator) => {
   return new Promise((resolve2, reject) => {
     var fulfilled = (value) => {
@@ -1876,7 +1877,7 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
   const TranscodeEncoding = buffer$2.TranscodeEncoding;
   const atob = buffer$2.atob;
   const btoa$1 = buffer$2.btoa;
-  const constants$9 = buffer$2.constants;
+  const constants$5 = buffer$2.constants;
   const isAscii = buffer$2.isAscii;
   const isUtf8 = buffer$2.isUtf8;
   const kMaxLength = buffer$2.kMaxLength;
@@ -1895,7 +1896,7 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
     TranscodeEncoding,
     atob,
     btoa: btoa$1,
-    constants: constants$9,
+    constants: constants$5,
     default: Buffer,
     isAscii,
     isUtf8,
@@ -2929,7 +2930,7 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
     log,
     trace
   }, Symbol.toStringTag, { value: "Module" }));
-  var __awaiter$g = function(thisArg, _arguments, P, generator) {
+  var __awaiter$4 = function(thisArg, _arguments, P, generator) {
     function adopt(value) {
       return value instanceof P ? value : new P(function(resolve2) {
         resolve2(value);
@@ -2963,7 +2964,7 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
       this.unresponsiveTimeout = 15e3;
       this.deviceModel = null;
       this._events = new EventEmitter$1();
-      this.send = (cla_1, ins_1, p1_1, p2_1, ...args_1) => __awaiter$g(this, [cla_1, ins_1, p1_1, p2_1, ...args_1], void 0, function* (cla, ins, p1, p2, data = Buffer.alloc(0), statusList = [StatusCodes.OK], { abortTimeoutMs } = {}) {
+      this.send = (cla_1, ins_1, p1_1, p2_1, ...args_1) => __awaiter$4(this, [cla_1, ins_1, p1_1, p2_1, ...args_1], void 0, function* (cla, ins, p1, p2, data = Buffer.alloc(0), statusList = [StatusCodes.OK], { abortTimeoutMs } = {}) {
         const tracer = this.tracer.withUpdatedContext({ function: "send" });
         if (data.length >= 256) {
           tracer.trace("data.length exceeded 256 bytes limit", { dataLength: data.length });
@@ -3009,7 +3010,7 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
       const unsubscribe = () => {
         unsubscribed = true;
       };
-      const main2 = () => __awaiter$g(this, void 0, void 0, function* () {
+      const main2 = () => __awaiter$4(this, void 0, void 0, function* () {
         if (unsubscribed)
           return;
         for (const apdu of apdus) {
@@ -3132,7 +3133,7 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
      * @returns a Promise resolving with the output of the given job
      */
     exchangeAtomicImpl(f2) {
-      return __awaiter$g(this, void 0, void 0, function* () {
+      return __awaiter$4(this, void 0, void 0, function* () {
         const tracer = this.tracer.withUpdatedContext({
           function: "exchangeAtomicImpl",
           unresponsiveTimeout: this.unresponsiveTimeout
@@ -3176,7 +3177,7 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
       }
     }
     decorateAppAPIMethod(methodName, f2, ctx, scrambleKey) {
-      return (...args) => __awaiter$g(this, void 0, void 0, function* () {
+      return (...args) => __awaiter$4(this, void 0, void 0, function* () {
         const { _appAPIlock } = this;
         if (_appAPIlock) {
           return Promise.reject(new TransportError("Ledger Device is busy (lock " + _appAPIlock + ")", "TransportLocked"));
@@ -3311,14 +3312,14 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
       }
     };
   };
-  var re$8 = { exports: {} };
-  const SEMVER_SPEC_VERSION$2 = "2.0.0";
-  const MAX_LENGTH$5 = 256;
-  const MAX_SAFE_INTEGER$7 = Number.MAX_SAFE_INTEGER || /* istanbul ignore next */
+  var re$2 = { exports: {} };
+  const SEMVER_SPEC_VERSION = "2.0.0";
+  const MAX_LENGTH$1 = 256;
+  const MAX_SAFE_INTEGER$3 = Number.MAX_SAFE_INTEGER || /* istanbul ignore next */
   9007199254740991;
-  const MAX_SAFE_COMPONENT_LENGTH$2 = 16;
-  const MAX_SAFE_BUILD_LENGTH$2 = MAX_LENGTH$5 - 6;
-  const RELEASE_TYPES$2 = [
+  const MAX_SAFE_COMPONENT_LENGTH = 16;
+  const MAX_SAFE_BUILD_LENGTH = MAX_LENGTH$1 - 6;
+  const RELEASE_TYPES = [
     "major",
     "premajor",
     "minor",
@@ -3327,13 +3328,13 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
     "prepatch",
     "prerelease"
   ];
-  var constants$8 = {
-    MAX_LENGTH: MAX_LENGTH$5,
-    MAX_SAFE_COMPONENT_LENGTH: MAX_SAFE_COMPONENT_LENGTH$2,
-    MAX_SAFE_BUILD_LENGTH: MAX_SAFE_BUILD_LENGTH$2,
-    MAX_SAFE_INTEGER: MAX_SAFE_INTEGER$7,
-    RELEASE_TYPES: RELEASE_TYPES$2,
-    SEMVER_SPEC_VERSION: SEMVER_SPEC_VERSION$2,
+  var constants$4 = {
+    MAX_LENGTH: MAX_LENGTH$1,
+    MAX_SAFE_COMPONENT_LENGTH,
+    MAX_SAFE_BUILD_LENGTH,
+    MAX_SAFE_INTEGER: MAX_SAFE_INTEGER$3,
+    RELEASE_TYPES,
+    SEMVER_SPEC_VERSION,
     FLAG_INCLUDE_PRERELEASE: 1,
     FLAG_LOOSE: 2
   };
@@ -3499,17 +3500,17 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
   };
   var browserExports$1 = browser$f.exports;
   const process$1 = /* @__PURE__ */ getDefaultExportFromCjs(browserExports$1);
-  var define_process_env_default$2 = {};
-  const debug$5 = typeof process$1 === "object" && define_process_env_default$2 && define_process_env_default$2.NODE_DEBUG && /\bsemver\b/i.test(define_process_env_default$2.NODE_DEBUG) ? (...args) => console.error("SEMVER", ...args) : () => {
+  var define_process_env_default = {};
+  const debug$1 = typeof process$1 === "object" && define_process_env_default && define_process_env_default.NODE_DEBUG && /\bsemver\b/i.test(define_process_env_default.NODE_DEBUG) ? (...args) => console.error("SEMVER", ...args) : () => {
   };
-  var debug_1$3 = debug$5;
+  var debug_1$1 = debug$1;
   (function(module, exports2) {
     const {
       MAX_SAFE_COMPONENT_LENGTH: MAX_SAFE_COMPONENT_LENGTH2,
       MAX_SAFE_BUILD_LENGTH: MAX_SAFE_BUILD_LENGTH2,
       MAX_LENGTH: MAX_LENGTH2
-    } = constants$8;
-    const debug2 = debug_1$3;
+    } = constants$4;
+    const debug2 = debug_1$1;
     exports2 = module.exports = {};
     const re2 = exports2.re = [];
     const safeRe = exports2.safeRe = [];
@@ -3583,43 +3584,43 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
     createToken("STAR", "(<|>)?=?\\s*\\*");
     createToken("GTE0", "^\\s*>=\\s*0\\.0\\.0\\s*$");
     createToken("GTE0PRE", "^\\s*>=\\s*0\\.0\\.0-0\\s*$");
-  })(re$8, re$8.exports);
-  var reExports$2 = re$8.exports;
-  const looseOption$2 = Object.freeze({ loose: true });
-  const emptyOpts$2 = Object.freeze({});
-  const parseOptions$5 = (options) => {
+  })(re$2, re$2.exports);
+  var reExports = re$2.exports;
+  const looseOption = Object.freeze({ loose: true });
+  const emptyOpts = Object.freeze({});
+  const parseOptions$1 = (options) => {
     if (!options) {
-      return emptyOpts$2;
+      return emptyOpts;
     }
     if (typeof options !== "object") {
-      return looseOption$2;
+      return looseOption;
     }
     return options;
   };
-  var parseOptions_1$2 = parseOptions$5;
-  const numeric$2 = /^[0-9]+$/;
-  const compareIdentifiers$5 = (a, b) => {
-    const anum2 = numeric$2.test(a);
-    const bnum = numeric$2.test(b);
+  var parseOptions_1 = parseOptions$1;
+  const numeric = /^[0-9]+$/;
+  const compareIdentifiers$1 = (a, b) => {
+    const anum2 = numeric.test(a);
+    const bnum = numeric.test(b);
     if (anum2 && bnum) {
       a = +a;
       b = +b;
     }
     return a === b ? 0 : anum2 && !bnum ? -1 : bnum && !anum2 ? 1 : a < b ? -1 : 1;
   };
-  const rcompareIdentifiers$2 = (a, b) => compareIdentifiers$5(b, a);
-  var identifiers$5 = {
-    compareIdentifiers: compareIdentifiers$5,
-    rcompareIdentifiers: rcompareIdentifiers$2
+  const rcompareIdentifiers = (a, b) => compareIdentifiers$1(b, a);
+  var identifiers$1 = {
+    compareIdentifiers: compareIdentifiers$1,
+    rcompareIdentifiers
   };
-  const debug$4 = debug_1$3;
-  const { MAX_LENGTH: MAX_LENGTH$4, MAX_SAFE_INTEGER: MAX_SAFE_INTEGER$6 } = constants$8;
-  const { safeRe: re$7, t: t$5 } = reExports$2;
-  const parseOptions$4 = parseOptions_1$2;
-  const { compareIdentifiers: compareIdentifiers$4 } = identifiers$5;
-  let SemVer$F = class SemVer2 {
+  const debug = debug_1$1;
+  const { MAX_LENGTH, MAX_SAFE_INTEGER: MAX_SAFE_INTEGER$2 } = constants$4;
+  const { safeRe: re$1, t: t$1 } = reExports;
+  const parseOptions = parseOptions_1;
+  const { compareIdentifiers } = identifiers$1;
+  let SemVer$d = class SemVer2 {
     constructor(version2, options) {
-      options = parseOptions$4(options);
+      options = parseOptions(options);
       if (version2 instanceof SemVer2) {
         if (version2.loose === !!options.loose && version2.includePrerelease === !!options.includePrerelease) {
           return version2;
@@ -3629,16 +3630,16 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
       } else if (typeof version2 !== "string") {
         throw new TypeError(`Invalid version. Must be a string. Got type "${typeof version2}".`);
       }
-      if (version2.length > MAX_LENGTH$4) {
+      if (version2.length > MAX_LENGTH) {
         throw new TypeError(
-          `version is longer than ${MAX_LENGTH$4} characters`
+          `version is longer than ${MAX_LENGTH} characters`
         );
       }
-      debug$4("SemVer", version2, options);
+      debug("SemVer", version2, options);
       this.options = options;
       this.loose = !!options.loose;
       this.includePrerelease = !!options.includePrerelease;
-      const m = version2.trim().match(options.loose ? re$7[t$5.LOOSE] : re$7[t$5.FULL]);
+      const m = version2.trim().match(options.loose ? re$1[t$1.LOOSE] : re$1[t$1.FULL]);
       if (!m) {
         throw new TypeError(`Invalid Version: ${version2}`);
       }
@@ -3646,13 +3647,13 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
       this.major = +m[1];
       this.minor = +m[2];
       this.patch = +m[3];
-      if (this.major > MAX_SAFE_INTEGER$6 || this.major < 0) {
+      if (this.major > MAX_SAFE_INTEGER$2 || this.major < 0) {
         throw new TypeError("Invalid major version");
       }
-      if (this.minor > MAX_SAFE_INTEGER$6 || this.minor < 0) {
+      if (this.minor > MAX_SAFE_INTEGER$2 || this.minor < 0) {
         throw new TypeError("Invalid minor version");
       }
-      if (this.patch > MAX_SAFE_INTEGER$6 || this.patch < 0) {
+      if (this.patch > MAX_SAFE_INTEGER$2 || this.patch < 0) {
         throw new TypeError("Invalid patch version");
       }
       if (!m[4]) {
@@ -3661,7 +3662,7 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
         this.prerelease = m[4].split(".").map((id2) => {
           if (/^[0-9]+$/.test(id2)) {
             const num = +id2;
-            if (num >= 0 && num < MAX_SAFE_INTEGER$6) {
+            if (num >= 0 && num < MAX_SAFE_INTEGER$2) {
               return num;
             }
           }
@@ -3682,7 +3683,7 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
       return this.version;
     }
     compare(other) {
-      debug$4("SemVer.compare", this.version, this.options, other);
+      debug("SemVer.compare", this.version, this.options, other);
       if (!(other instanceof SemVer2)) {
         if (typeof other === "string" && other === this.version) {
           return 0;
@@ -3698,7 +3699,7 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
       if (!(other instanceof SemVer2)) {
         other = new SemVer2(other, this.options);
       }
-      return compareIdentifiers$4(this.major, other.major) || compareIdentifiers$4(this.minor, other.minor) || compareIdentifiers$4(this.patch, other.patch);
+      return compareIdentifiers(this.major, other.major) || compareIdentifiers(this.minor, other.minor) || compareIdentifiers(this.patch, other.patch);
     }
     comparePre(other) {
       if (!(other instanceof SemVer2)) {
@@ -3715,7 +3716,7 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
       do {
         const a = this.prerelease[i2];
         const b = other.prerelease[i2];
-        debug$4("prerelease compare", i2, a, b);
+        debug("prerelease compare", i2, a, b);
         if (a === void 0 && b === void 0) {
           return 0;
         } else if (b === void 0) {
@@ -3725,7 +3726,7 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
         } else if (a === b) {
           continue;
         } else {
-          return compareIdentifiers$4(a, b);
+          return compareIdentifiers(a, b);
         }
       } while (++i2);
     }
@@ -3737,7 +3738,7 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
       do {
         const a = this.build[i2];
         const b = other.build[i2];
-        debug$4("build compare", i2, a, b);
+        debug("build compare", i2, a, b);
         if (a === void 0 && b === void 0) {
           return 0;
         } else if (b === void 0) {
@@ -3747,7 +3748,7 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
         } else if (a === b) {
           continue;
         } else {
-          return compareIdentifiers$4(a, b);
+          return compareIdentifiers(a, b);
         }
       } while (++i2);
     }
@@ -3827,7 +3828,7 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
             if (identifierBase === false) {
               prerelease2 = [identifier];
             }
-            if (compareIdentifiers$4(this.prerelease[0], identifier) === 0) {
+            if (compareIdentifiers(this.prerelease[0], identifier) === 0) {
               if (isNaN(this.prerelease[1])) {
                 this.prerelease = prerelease2;
               }
@@ -3847,14 +3848,14 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
       return this;
     }
   };
-  var semver$7 = SemVer$F;
-  const SemVer$E = semver$7;
-  const parse$p = (version2, options, throwErrors = false) => {
-    if (version2 instanceof SemVer$E) {
+  var semver$2 = SemVer$d;
+  const SemVer$c = semver$2;
+  const parse$b = (version2, options, throwErrors = false) => {
+    if (version2 instanceof SemVer$c) {
       return version2;
     }
     try {
-      return new SemVer$E(version2, options);
+      return new SemVer$c(version2, options);
     } catch (er) {
       if (!throwErrors) {
         return null;
@@ -3862,40 +3863,40 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
       throw er;
     }
   };
-  var parse_1$2 = parse$p;
-  const parse$o = parse_1$2;
-  const valid$8 = (version2, options) => {
-    const v = parse$o(version2, options);
+  var parse_1 = parse$b;
+  const parse$a = parse_1;
+  const valid$2 = (version2, options) => {
+    const v = parse$a(version2, options);
     return v ? v.version : null;
   };
-  var valid_1$2 = valid$8;
-  const parse$n = parse_1$2;
-  const clean$5 = (version2, options) => {
-    const s2 = parse$n(version2.trim().replace(/^[=v]+/, ""), options);
+  var valid_1 = valid$2;
+  const parse$9 = parse_1;
+  const clean$1 = (version2, options) => {
+    const s2 = parse$9(version2.trim().replace(/^[=v]+/, ""), options);
     return s2 ? s2.version : null;
   };
-  var clean_1$2 = clean$5;
-  const SemVer$D = semver$7;
-  const inc$5 = (version2, release, options, identifier, identifierBase) => {
+  var clean_1 = clean$1;
+  const SemVer$b = semver$2;
+  const inc$1 = (version2, release, options, identifier, identifierBase) => {
     if (typeof options === "string") {
       identifierBase = identifier;
       identifier = options;
       options = void 0;
     }
     try {
-      return new SemVer$D(
-        version2 instanceof SemVer$D ? version2.version : version2,
+      return new SemVer$b(
+        version2 instanceof SemVer$b ? version2.version : version2,
         options
       ).inc(release, identifier, identifierBase).version;
     } catch (er) {
       return null;
     }
   };
-  var inc_1$2 = inc$5;
-  const parse$m = parse_1$2;
-  const diff$5 = (version1, version2) => {
-    const v1 = parse$m(version1, null, true);
-    const v2 = parse$m(version2, null, true);
+  var inc_1 = inc$1;
+  const parse$8 = parse_1;
+  const diff$1 = (version1, version2) => {
+    const v1 = parse$8(version1, null, true);
+    const v2 = parse$8(version2, null, true);
     const comparison = v1.compare(v2);
     if (comparison === 0) {
       return null;
@@ -3929,69 +3930,69 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
     }
     return "prerelease";
   };
-  var diff_1$2 = diff$5;
-  const SemVer$C = semver$7;
-  const major$5 = (a, loose) => new SemVer$C(a, loose).major;
-  var major_1$2 = major$5;
-  const SemVer$B = semver$7;
-  const minor$5 = (a, loose) => new SemVer$B(a, loose).minor;
-  var minor_1$2 = minor$5;
-  const SemVer$A = semver$7;
-  const patch$5 = (a, loose) => new SemVer$A(a, loose).patch;
-  var patch_1$2 = patch$5;
-  const parse$l = parse_1$2;
-  const prerelease$5 = (version2, options) => {
-    const parsed = parse$l(version2, options);
+  var diff_1 = diff$1;
+  const SemVer$a = semver$2;
+  const major$1 = (a, loose) => new SemVer$a(a, loose).major;
+  var major_1 = major$1;
+  const SemVer$9 = semver$2;
+  const minor$1 = (a, loose) => new SemVer$9(a, loose).minor;
+  var minor_1 = minor$1;
+  const SemVer$8 = semver$2;
+  const patch$1 = (a, loose) => new SemVer$8(a, loose).patch;
+  var patch_1 = patch$1;
+  const parse$7 = parse_1;
+  const prerelease$1 = (version2, options) => {
+    const parsed = parse$7(version2, options);
     return parsed && parsed.prerelease.length ? parsed.prerelease : null;
   };
-  var prerelease_1$2 = prerelease$5;
-  const SemVer$z = semver$7;
-  const compare$A = (a, b, loose) => new SemVer$z(a, loose).compare(new SemVer$z(b, loose));
-  var compare_1$2 = compare$A;
-  const compare$z = compare_1$2;
-  const rcompare$5 = (a, b, loose) => compare$z(b, a, loose);
-  var rcompare_1$2 = rcompare$5;
-  const compare$y = compare_1$2;
-  const compareLoose$5 = (a, b) => compare$y(a, b, true);
-  var compareLoose_1$2 = compareLoose$5;
-  const SemVer$y = semver$7;
-  const compareBuild$b = (a, b, loose) => {
-    const versionA = new SemVer$y(a, loose);
-    const versionB = new SemVer$y(b, loose);
+  var prerelease_1 = prerelease$1;
+  const SemVer$7 = semver$2;
+  const compare$c = (a, b, loose) => new SemVer$7(a, loose).compare(new SemVer$7(b, loose));
+  var compare_1 = compare$c;
+  const compare$b = compare_1;
+  const rcompare$1 = (a, b, loose) => compare$b(b, a, loose);
+  var rcompare_1 = rcompare$1;
+  const compare$a = compare_1;
+  const compareLoose$1 = (a, b) => compare$a(a, b, true);
+  var compareLoose_1 = compareLoose$1;
+  const SemVer$6 = semver$2;
+  const compareBuild$3 = (a, b, loose) => {
+    const versionA = new SemVer$6(a, loose);
+    const versionB = new SemVer$6(b, loose);
     return versionA.compare(versionB) || versionA.compareBuild(versionB);
   };
-  var compareBuild_1$2 = compareBuild$b;
-  const compareBuild$a = compareBuild_1$2;
-  const sort$5 = (list, loose) => list.sort((a, b) => compareBuild$a(a, b, loose));
-  var sort_1$2 = sort$5;
-  const compareBuild$9 = compareBuild_1$2;
-  const rsort$5 = (list, loose) => list.sort((a, b) => compareBuild$9(b, a, loose));
-  var rsort_1$2 = rsort$5;
-  const compare$x = compare_1$2;
-  const gt$e = (a, b, loose) => compare$x(a, b, loose) > 0;
-  var gt_1$2 = gt$e;
-  const compare$w = compare_1$2;
-  const lt$b = (a, b, loose) => compare$w(a, b, loose) < 0;
-  var lt_1$2 = lt$b;
-  const compare$v = compare_1$2;
-  const eq$8 = (a, b, loose) => compare$v(a, b, loose) === 0;
-  var eq_1$2 = eq$8;
-  const compare$u = compare_1$2;
-  const neq$8 = (a, b, loose) => compare$u(a, b, loose) !== 0;
-  var neq_1$2 = neq$8;
-  const compare$t = compare_1$2;
-  const gte$b = (a, b, loose) => compare$t(a, b, loose) >= 0;
-  var gte_1$2 = gte$b;
-  const compare$s = compare_1$2;
-  const lte$b = (a, b, loose) => compare$s(a, b, loose) <= 0;
-  var lte_1$2 = lte$b;
-  const eq$7 = eq_1$2;
-  const neq$7 = neq_1$2;
-  const gt$d = gt_1$2;
-  const gte$a = gte_1$2;
-  const lt$a = lt_1$2;
-  const lte$a = lte_1$2;
-  const cmp$5 = (a, op, b, loose) => {
+  var compareBuild_1 = compareBuild$3;
+  const compareBuild$2 = compareBuild_1;
+  const sort$1 = (list, loose) => list.sort((a, b) => compareBuild$2(a, b, loose));
+  var sort_1 = sort$1;
+  const compareBuild$1 = compareBuild_1;
+  const rsort$1 = (list, loose) => list.sort((a, b) => compareBuild$1(b, a, loose));
+  var rsort_1 = rsort$1;
+  const compare$9 = compare_1;
+  const gt$4 = (a, b, loose) => compare$9(a, b, loose) > 0;
+  var gt_1 = gt$4;
+  const compare$8 = compare_1;
+  const lt$3 = (a, b, loose) => compare$8(a, b, loose) < 0;
+  var lt_1 = lt$3;
+  const compare$7 = compare_1;
+  const eq$2 = (a, b, loose) => compare$7(a, b, loose) === 0;
+  var eq_1 = eq$2;
+  const compare$6 = compare_1;
+  const neq$2 = (a, b, loose) => compare$6(a, b, loose) !== 0;
+  var neq_1 = neq$2;
+  const compare$5 = compare_1;
+  const gte$3 = (a, b, loose) => compare$5(a, b, loose) >= 0;
+  var gte_1 = gte$3;
+  const compare$4 = compare_1;
+  const lte$3 = (a, b, loose) => compare$4(a, b, loose) <= 0;
+  var lte_1 = lte$3;
+  const eq$1 = eq_1;
+  const neq$1 = neq_1;
+  const gt$3 = gt_1;
+  const gte$2 = gte_1;
+  const lt$2 = lt_1;
+  const lte$2 = lte_1;
+  const cmp$1 = (a, op, b, loose) => {
     switch (op) {
       case "===":
         if (typeof a === "object") {
@@ -4012,27 +4013,27 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
       case "":
       case "=":
       case "==":
-        return eq$7(a, b, loose);
+        return eq$1(a, b, loose);
       case "!=":
-        return neq$7(a, b, loose);
+        return neq$1(a, b, loose);
       case ">":
-        return gt$d(a, b, loose);
+        return gt$3(a, b, loose);
       case ">=":
-        return gte$a(a, b, loose);
+        return gte$2(a, b, loose);
       case "<":
-        return lt$a(a, b, loose);
+        return lt$2(a, b, loose);
       case "<=":
-        return lte$a(a, b, loose);
+        return lte$2(a, b, loose);
       default:
         throw new TypeError(`Invalid operator: ${op}`);
     }
   };
-  var cmp_1$2 = cmp$5;
-  const SemVer$x = semver$7;
-  const parse$k = parse_1$2;
-  const { safeRe: re$6, t: t$4 } = reExports$2;
-  const coerce$6 = (version2, options) => {
-    if (version2 instanceof SemVer$x) {
+  var cmp_1 = cmp$1;
+  const SemVer$5 = semver$2;
+  const parse$6 = parse_1;
+  const { safeRe: re, t } = reExports;
+  const coerce$2 = (version2, options) => {
+    if (version2 instanceof SemVer$5) {
       return version2;
     }
     if (typeof version2 === "number") {
@@ -4044,9 +4045,9 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
     options = options || {};
     let match = null;
     if (!options.rtl) {
-      match = version2.match(options.includePrerelease ? re$6[t$4.COERCEFULL] : re$6[t$4.COERCE]);
+      match = version2.match(options.includePrerelease ? re[t.COERCEFULL] : re[t.COERCE]);
     } else {
-      const coerceRtlRegex = options.includePrerelease ? re$6[t$4.COERCERTLFULL] : re$6[t$4.COERCERTL];
+      const coerceRtlRegex = options.includePrerelease ? re[t.COERCERTLFULL] : re[t.COERCERTL];
       let next;
       while ((next = coerceRtlRegex.exec(version2)) && (!match || match.index + match[0].length !== version2.length)) {
         if (!match || next.index + next[0].length !== match.index + match[0].length) {
@@ -4064,10 +4065,10 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
     const patch2 = match[4] || "0";
     const prerelease2 = options.includePrerelease && match[5] ? `-${match[5]}` : "";
     const build = options.includePrerelease && match[6] ? `+${match[6]}` : "";
-    return parse$k(`${major2}.${minor2}.${patch2}${prerelease2}${build}`, options);
+    return parse$6(`${major2}.${minor2}.${patch2}${prerelease2}${build}`, options);
   };
-  var coerce_1$2 = coerce$6;
-  let LRUCache$2 = class LRUCache {
+  var coerce_1 = coerce$2;
+  class LRUCache {
     constructor() {
       this.max = 1e3;
       this.map = /* @__PURE__ */ new Map();
@@ -4096,13 +4097,13 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
       }
       return this;
     }
-  };
-  var lrucache$2 = LRUCache$2;
-  var range$3;
-  var hasRequiredRange$3;
-  function requireRange$3() {
-    if (hasRequiredRange$3) return range$3;
-    hasRequiredRange$3 = 1;
+  }
+  var lrucache = LRUCache;
+  var range$1;
+  var hasRequiredRange$1;
+  function requireRange$1() {
+    if (hasRequiredRange$1) return range$1;
+    hasRequiredRange$1 = 1;
     const SPACE_CHARACTERS = /\s+/g;
     class Range2 {
       constructor(range2, options) {
@@ -4242,21 +4243,21 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
         return false;
       }
     }
-    range$3 = Range2;
-    const LRU = lrucache$2;
+    range$1 = Range2;
+    const LRU = lrucache;
     const cache = new LRU();
-    const parseOptions2 = parseOptions_1$2;
-    const Comparator2 = requireComparator$2();
-    const debug2 = debug_1$3;
-    const SemVer2 = semver$7;
+    const parseOptions2 = parseOptions_1;
+    const Comparator2 = requireComparator();
+    const debug2 = debug_1$1;
+    const SemVer2 = semver$2;
     const {
       safeRe: re2,
       t: t2,
       comparatorTrimReplace,
       tildeTrimReplace,
       caretTrimReplace
-    } = reExports$2;
-    const { FLAG_INCLUDE_PRERELEASE, FLAG_LOOSE } = constants$8;
+    } = reExports;
+    const { FLAG_INCLUDE_PRERELEASE, FLAG_LOOSE } = constants$4;
     const isNullSet = (c) => c.value === "<0.0.0-0";
     const isAny = (c) => c.value === "";
     const isSatisfiable = (comparators, options) => {
@@ -4472,13 +4473,13 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
       }
       return true;
     };
-    return range$3;
+    return range$1;
   }
-  var comparator$2;
-  var hasRequiredComparator$2;
-  function requireComparator$2() {
-    if (hasRequiredComparator$2) return comparator$2;
-    hasRequiredComparator$2 = 1;
+  var comparator;
+  var hasRequiredComparator;
+  function requireComparator() {
+    if (hasRequiredComparator) return comparator;
+    hasRequiredComparator = 1;
     const ANY2 = Symbol("SemVer ANY");
     class Comparator2 {
       static get ANY() {
@@ -4578,36 +4579,36 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
         return false;
       }
     }
-    comparator$2 = Comparator2;
-    const parseOptions2 = parseOptions_1$2;
-    const { safeRe: re2, t: t2 } = reExports$2;
-    const cmp2 = cmp_1$2;
-    const debug2 = debug_1$3;
-    const SemVer2 = semver$7;
-    const Range2 = requireRange$3();
-    return comparator$2;
+    comparator = Comparator2;
+    const parseOptions2 = parseOptions_1;
+    const { safeRe: re2, t: t2 } = reExports;
+    const cmp2 = cmp_1;
+    const debug2 = debug_1$1;
+    const SemVer2 = semver$2;
+    const Range2 = requireRange$1();
+    return comparator;
   }
-  const Range$t = requireRange$3();
-  const satisfies$e = (version2, range2, options) => {
+  const Range$9 = requireRange$1();
+  const satisfies$4 = (version2, range2, options) => {
     try {
-      range2 = new Range$t(range2, options);
+      range2 = new Range$9(range2, options);
     } catch (er) {
       return false;
     }
     return range2.test(version2);
   };
-  var satisfies_1$2 = satisfies$e;
-  const Range$s = requireRange$3();
-  const toComparators$5 = (range2, options) => new Range$s(range2, options).set.map((comp) => comp.map((c) => c.value).join(" ").trim().split(" "));
-  var toComparators_1$2 = toComparators$5;
-  const SemVer$w = semver$7;
-  const Range$r = requireRange$3();
-  const maxSatisfying$5 = (versions2, range2, options) => {
+  var satisfies_1 = satisfies$4;
+  const Range$8 = requireRange$1();
+  const toComparators$1 = (range2, options) => new Range$8(range2, options).set.map((comp) => comp.map((c) => c.value).join(" ").trim().split(" "));
+  var toComparators_1 = toComparators$1;
+  const SemVer$4 = semver$2;
+  const Range$7 = requireRange$1();
+  const maxSatisfying$1 = (versions2, range2, options) => {
     let max2 = null;
     let maxSV = null;
     let rangeObj = null;
     try {
-      rangeObj = new Range$r(range2, options);
+      rangeObj = new Range$7(range2, options);
     } catch (er) {
       return null;
     }
@@ -4615,21 +4616,21 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
       if (rangeObj.test(v)) {
         if (!max2 || maxSV.compare(v) === -1) {
           max2 = v;
-          maxSV = new SemVer$w(max2, options);
+          maxSV = new SemVer$4(max2, options);
         }
       }
     });
     return max2;
   };
-  var maxSatisfying_1$2 = maxSatisfying$5;
-  const SemVer$v = semver$7;
-  const Range$q = requireRange$3();
-  const minSatisfying$5 = (versions2, range2, options) => {
+  var maxSatisfying_1 = maxSatisfying$1;
+  const SemVer$3 = semver$2;
+  const Range$6 = requireRange$1();
+  const minSatisfying$1 = (versions2, range2, options) => {
     let min2 = null;
     let minSV = null;
     let rangeObj = null;
     try {
-      rangeObj = new Range$q(range2, options);
+      rangeObj = new Range$6(range2, options);
     } catch (er) {
       return null;
     }
@@ -4637,23 +4638,23 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
       if (rangeObj.test(v)) {
         if (!min2 || minSV.compare(v) === 1) {
           min2 = v;
-          minSV = new SemVer$v(min2, options);
+          minSV = new SemVer$3(min2, options);
         }
       }
     });
     return min2;
   };
-  var minSatisfying_1$2 = minSatisfying$5;
-  const SemVer$u = semver$7;
-  const Range$p = requireRange$3();
-  const gt$c = gt_1$2;
-  const minVersion$5 = (range2, loose) => {
-    range2 = new Range$p(range2, loose);
-    let minver = new SemVer$u("0.0.0");
+  var minSatisfying_1 = minSatisfying$1;
+  const SemVer$2 = semver$2;
+  const Range$5 = requireRange$1();
+  const gt$2 = gt_1;
+  const minVersion$1 = (range2, loose) => {
+    range2 = new Range$5(range2, loose);
+    let minver = new SemVer$2("0.0.0");
     if (range2.test(minver)) {
       return minver;
     }
-    minver = new SemVer$u("0.0.0-0");
+    minver = new SemVer$2("0.0.0-0");
     if (range2.test(minver)) {
       return minver;
     }
@@ -4662,7 +4663,7 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
       const comparators = range2.set[i2];
       let setMin = null;
       comparators.forEach((comparator2) => {
-        const compver = new SemVer$u(comparator2.semver.version);
+        const compver = new SemVer$2(comparator2.semver.version);
         switch (comparator2.operator) {
           case ">":
             if (compver.prerelease.length === 0) {
@@ -4673,7 +4674,7 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
             compver.raw = compver.format();
           case "":
           case ">=":
-            if (!setMin || gt$c(compver, setMin)) {
+            if (!setMin || gt$2(compver, setMin)) {
               setMin = compver;
             }
             break;
@@ -4684,7 +4685,7 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
             throw new Error(`Unexpected operation: ${comparator2.operator}`);
         }
       });
-      if (setMin && (!minver || gt$c(minver, setMin))) {
+      if (setMin && (!minver || gt$2(minver, setMin))) {
         minver = setMin;
       }
     }
@@ -4693,48 +4694,48 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
     }
     return null;
   };
-  var minVersion_1$2 = minVersion$5;
-  const Range$o = requireRange$3();
-  const validRange$5 = (range2, options) => {
+  var minVersion_1 = minVersion$1;
+  const Range$4 = requireRange$1();
+  const validRange$1 = (range2, options) => {
     try {
-      return new Range$o(range2, options).range || "*";
+      return new Range$4(range2, options).range || "*";
     } catch (er) {
       return null;
     }
   };
-  var valid$7 = validRange$5;
-  const SemVer$t = semver$7;
-  const Comparator$8 = requireComparator$2();
-  const { ANY: ANY$5 } = Comparator$8;
-  const Range$n = requireRange$3();
-  const satisfies$d = satisfies_1$2;
-  const gt$b = gt_1$2;
-  const lt$9 = lt_1$2;
-  const lte$9 = lte_1$2;
-  const gte$9 = gte_1$2;
-  const outside$b = (version2, range2, hilo, options) => {
-    version2 = new SemVer$t(version2, options);
-    range2 = new Range$n(range2, options);
+  var valid$1 = validRange$1;
+  const SemVer$1 = semver$2;
+  const Comparator$2 = requireComparator();
+  const { ANY: ANY$1 } = Comparator$2;
+  const Range$3 = requireRange$1();
+  const satisfies$3 = satisfies_1;
+  const gt$1 = gt_1;
+  const lt$1 = lt_1;
+  const lte$1 = lte_1;
+  const gte$1 = gte_1;
+  const outside$3 = (version2, range2, hilo, options) => {
+    version2 = new SemVer$1(version2, options);
+    range2 = new Range$3(range2, options);
     let gtfn, ltefn, ltfn, comp, ecomp;
     switch (hilo) {
       case ">":
-        gtfn = gt$b;
-        ltefn = lte$9;
-        ltfn = lt$9;
+        gtfn = gt$1;
+        ltefn = lte$1;
+        ltfn = lt$1;
         comp = ">";
         ecomp = ">=";
         break;
       case "<":
-        gtfn = lt$9;
-        ltefn = gte$9;
-        ltfn = gt$b;
+        gtfn = lt$1;
+        ltefn = gte$1;
+        ltfn = gt$1;
         comp = "<";
         ecomp = "<=";
         break;
       default:
         throw new TypeError('Must provide a hilo val of "<" or ">"');
     }
-    if (satisfies$d(version2, range2, options)) {
+    if (satisfies$3(version2, range2, options)) {
       return false;
     }
     for (let i2 = 0; i2 < range2.set.length; ++i2) {
@@ -4742,8 +4743,8 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
       let high = null;
       let low = null;
       comparators.forEach((comparator2) => {
-        if (comparator2.semver === ANY$5) {
-          comparator2 = new Comparator$8(">=0.0.0");
+        if (comparator2.semver === ANY$1) {
+          comparator2 = new Comparator$2(">=0.0.0");
         }
         high = high || comparator2;
         low = low || comparator2;
@@ -4764,29 +4765,29 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
     }
     return true;
   };
-  var outside_1$2 = outside$b;
-  const outside$a = outside_1$2;
-  const gtr$5 = (version2, range2, options) => outside$a(version2, range2, ">", options);
-  var gtr_1$2 = gtr$5;
-  const outside$9 = outside_1$2;
-  const ltr$5 = (version2, range2, options) => outside$9(version2, range2, "<", options);
-  var ltr_1$2 = ltr$5;
-  const Range$m = requireRange$3();
-  const intersects$5 = (r1, r2, options) => {
-    r1 = new Range$m(r1, options);
-    r2 = new Range$m(r2, options);
+  var outside_1 = outside$3;
+  const outside$2 = outside_1;
+  const gtr$1 = (version2, range2, options) => outside$2(version2, range2, ">", options);
+  var gtr_1 = gtr$1;
+  const outside$1 = outside_1;
+  const ltr$1 = (version2, range2, options) => outside$1(version2, range2, "<", options);
+  var ltr_1 = ltr$1;
+  const Range$2 = requireRange$1();
+  const intersects$1 = (r1, r2, options) => {
+    r1 = new Range$2(r1, options);
+    r2 = new Range$2(r2, options);
     return r1.intersects(r2, options);
   };
-  var intersects_1$2 = intersects$5;
-  const satisfies$c = satisfies_1$2;
-  const compare$r = compare_1$2;
-  var simplify$2 = (versions2, range2, options) => {
+  var intersects_1 = intersects$1;
+  const satisfies$2 = satisfies_1;
+  const compare$3 = compare_1;
+  var simplify = (versions2, range2, options) => {
     const set2 = [];
     let first = null;
     let prev = null;
-    const v = versions2.sort((a, b) => compare$r(a, b, options));
+    const v = versions2.sort((a, b) => compare$3(a, b, options));
     for (const version2 of v) {
-      const included = satisfies$c(version2, range2, options);
+      const included = satisfies$2(version2, range2, options);
       if (included) {
         prev = version2;
         if (!first) {
@@ -4821,21 +4822,21 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
     const original = typeof range2.raw === "string" ? range2.raw : String(range2);
     return simplified.length < original.length ? simplified : range2;
   };
-  const Range$l = requireRange$3();
-  const Comparator$7 = requireComparator$2();
-  const { ANY: ANY$4 } = Comparator$7;
-  const satisfies$b = satisfies_1$2;
-  const compare$q = compare_1$2;
-  const subset$5 = (sub, dom, options = {}) => {
+  const Range$1 = requireRange$1();
+  const Comparator$1 = requireComparator();
+  const { ANY } = Comparator$1;
+  const satisfies$1 = satisfies_1;
+  const compare$2 = compare_1;
+  const subset$1 = (sub, dom, options = {}) => {
     if (sub === dom) {
       return true;
     }
-    sub = new Range$l(sub, options);
-    dom = new Range$l(dom, options);
+    sub = new Range$1(sub, options);
+    dom = new Range$1(dom, options);
     let sawNonNull = false;
     OUTER: for (const simpleSub of sub.set) {
       for (const simpleDom of dom.set) {
-        const isSub = simpleSubset$2(simpleSub, simpleDom, options);
+        const isSub = simpleSubset(simpleSub, simpleDom, options);
         sawNonNull = sawNonNull || isSub !== null;
         if (isSub) {
           continue OUTER;
@@ -4847,35 +4848,35 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
     }
     return true;
   };
-  const minimumVersionWithPreRelease$2 = [new Comparator$7(">=0.0.0-0")];
-  const minimumVersion$2 = [new Comparator$7(">=0.0.0")];
-  const simpleSubset$2 = (sub, dom, options) => {
+  const minimumVersionWithPreRelease = [new Comparator$1(">=0.0.0-0")];
+  const minimumVersion = [new Comparator$1(">=0.0.0")];
+  const simpleSubset = (sub, dom, options) => {
     if (sub === dom) {
       return true;
     }
-    if (sub.length === 1 && sub[0].semver === ANY$4) {
-      if (dom.length === 1 && dom[0].semver === ANY$4) {
+    if (sub.length === 1 && sub[0].semver === ANY) {
+      if (dom.length === 1 && dom[0].semver === ANY) {
         return true;
       } else if (options.includePrerelease) {
-        sub = minimumVersionWithPreRelease$2;
+        sub = minimumVersionWithPreRelease;
       } else {
-        sub = minimumVersion$2;
+        sub = minimumVersion;
       }
     }
-    if (dom.length === 1 && dom[0].semver === ANY$4) {
+    if (dom.length === 1 && dom[0].semver === ANY) {
       if (options.includePrerelease) {
         return true;
       } else {
-        dom = minimumVersion$2;
+        dom = minimumVersion;
       }
     }
     const eqSet = /* @__PURE__ */ new Set();
     let gt2, lt2;
     for (const c of sub) {
       if (c.operator === ">" || c.operator === ">=") {
-        gt2 = higherGT$2(gt2, c, options);
+        gt2 = higherGT(gt2, c, options);
       } else if (c.operator === "<" || c.operator === "<=") {
-        lt2 = lowerLT$2(lt2, c, options);
+        lt2 = lowerLT(lt2, c, options);
       } else {
         eqSet.add(c.semver);
       }
@@ -4885,7 +4886,7 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
     }
     let gtltComp;
     if (gt2 && lt2) {
-      gtltComp = compare$q(gt2.semver, lt2.semver, options);
+      gtltComp = compare$2(gt2.semver, lt2.semver, options);
       if (gtltComp > 0) {
         return null;
       } else if (gtltComp === 0 && (gt2.operator !== ">=" || lt2.operator !== "<=")) {
@@ -4893,14 +4894,14 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
       }
     }
     for (const eq2 of eqSet) {
-      if (gt2 && !satisfies$b(eq2, String(gt2), options)) {
+      if (gt2 && !satisfies$1(eq2, String(gt2), options)) {
         return null;
       }
-      if (lt2 && !satisfies$b(eq2, String(lt2), options)) {
+      if (lt2 && !satisfies$1(eq2, String(lt2), options)) {
         return null;
       }
       for (const c of dom) {
-        if (!satisfies$b(eq2, String(c), options)) {
+        if (!satisfies$1(eq2, String(c), options)) {
           return false;
         }
       }
@@ -4923,11 +4924,11 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
           }
         }
         if (c.operator === ">" || c.operator === ">=") {
-          higher = higherGT$2(gt2, c, options);
+          higher = higherGT(gt2, c, options);
           if (higher === c && higher !== gt2) {
             return false;
           }
-        } else if (gt2.operator === ">=" && !satisfies$b(gt2.semver, String(c), options)) {
+        } else if (gt2.operator === ">=" && !satisfies$1(gt2.semver, String(c), options)) {
           return false;
         }
       }
@@ -4938,11 +4939,11 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
           }
         }
         if (c.operator === "<" || c.operator === "<=") {
-          lower = lowerLT$2(lt2, c, options);
+          lower = lowerLT(lt2, c, options);
           if (lower === c && lower !== lt2) {
             return false;
           }
-        } else if (lt2.operator === "<=" && !satisfies$b(lt2.semver, String(c), options)) {
+        } else if (lt2.operator === "<=" && !satisfies$1(lt2.semver, String(c), options)) {
           return false;
         }
       }
@@ -4961,110 +4962,110 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
     }
     return true;
   };
-  const higherGT$2 = (a, b, options) => {
+  const higherGT = (a, b, options) => {
     if (!a) {
       return b;
     }
-    const comp = compare$q(a.semver, b.semver, options);
+    const comp = compare$2(a.semver, b.semver, options);
     return comp > 0 ? a : comp < 0 ? b : b.operator === ">" && a.operator === ">=" ? b : a;
   };
-  const lowerLT$2 = (a, b, options) => {
+  const lowerLT = (a, b, options) => {
     if (!a) {
       return b;
     }
-    const comp = compare$q(a.semver, b.semver, options);
+    const comp = compare$2(a.semver, b.semver, options);
     return comp < 0 ? a : comp > 0 ? b : b.operator === "<" && a.operator === "<=" ? b : a;
   };
-  var subset_1$2 = subset$5;
-  const internalRe$2 = reExports$2;
-  const constants$7 = constants$8;
-  const SemVer$s = semver$7;
-  const identifiers$4 = identifiers$5;
-  const parse$j = parse_1$2;
-  const valid$6 = valid_1$2;
-  const clean$4 = clean_1$2;
-  const inc$4 = inc_1$2;
-  const diff$4 = diff_1$2;
-  const major$4 = major_1$2;
-  const minor$4 = minor_1$2;
-  const patch$4 = patch_1$2;
-  const prerelease$4 = prerelease_1$2;
-  const compare$p = compare_1$2;
-  const rcompare$4 = rcompare_1$2;
-  const compareLoose$4 = compareLoose_1$2;
-  const compareBuild$8 = compareBuild_1$2;
-  const sort$4 = sort_1$2;
-  const rsort$4 = rsort_1$2;
-  const gt$a = gt_1$2;
-  const lt$8 = lt_1$2;
-  const eq$6 = eq_1$2;
-  const neq$6 = neq_1$2;
-  const gte$8 = gte_1$2;
-  const lte$8 = lte_1$2;
-  const cmp$4 = cmp_1$2;
-  const coerce$5 = coerce_1$2;
-  const Comparator$6 = requireComparator$2();
-  const Range$k = requireRange$3();
-  const satisfies$a = satisfies_1$2;
-  const toComparators$4 = toComparators_1$2;
-  const maxSatisfying$4 = maxSatisfying_1$2;
-  const minSatisfying$4 = minSatisfying_1$2;
-  const minVersion$4 = minVersion_1$2;
-  const validRange$4 = valid$7;
-  const outside$8 = outside_1$2;
-  const gtr$4 = gtr_1$2;
-  const ltr$4 = ltr_1$2;
-  const intersects$4 = intersects_1$2;
-  const simplifyRange$2 = simplify$2;
-  const subset$4 = subset_1$2;
-  var semver$5 = {
-    parse: parse$j,
-    valid: valid$6,
-    clean: clean$4,
-    inc: inc$4,
-    diff: diff$4,
-    major: major$4,
-    minor: minor$4,
-    patch: patch$4,
-    prerelease: prerelease$4,
-    compare: compare$p,
-    rcompare: rcompare$4,
-    compareLoose: compareLoose$4,
-    compareBuild: compareBuild$8,
-    sort: sort$4,
-    rsort: rsort$4,
-    gt: gt$a,
-    lt: lt$8,
-    eq: eq$6,
-    neq: neq$6,
-    gte: gte$8,
-    lte: lte$8,
-    cmp: cmp$4,
-    coerce: coerce$5,
-    Comparator: Comparator$6,
-    Range: Range$k,
-    satisfies: satisfies$a,
-    toComparators: toComparators$4,
-    maxSatisfying: maxSatisfying$4,
-    minSatisfying: minSatisfying$4,
-    minVersion: minVersion$4,
-    validRange: validRange$4,
-    outside: outside$8,
-    gtr: gtr$4,
-    ltr: ltr$4,
-    intersects: intersects$4,
-    simplifyRange: simplifyRange$2,
-    subset: subset$4,
-    SemVer: SemVer$s,
-    re: internalRe$2.re,
-    src: internalRe$2.src,
-    tokens: internalRe$2.t,
-    SEMVER_SPEC_VERSION: constants$7.SEMVER_SPEC_VERSION,
-    RELEASE_TYPES: constants$7.RELEASE_TYPES,
-    compareIdentifiers: identifiers$4.compareIdentifiers,
-    rcompareIdentifiers: identifiers$4.rcompareIdentifiers
+  var subset_1 = subset$1;
+  const internalRe = reExports;
+  const constants$3 = constants$4;
+  const SemVer = semver$2;
+  const identifiers = identifiers$1;
+  const parse$5 = parse_1;
+  const valid = valid_1;
+  const clean = clean_1;
+  const inc = inc_1;
+  const diff = diff_1;
+  const major = major_1;
+  const minor = minor_1;
+  const patch = patch_1;
+  const prerelease = prerelease_1;
+  const compare$1 = compare_1;
+  const rcompare = rcompare_1;
+  const compareLoose = compareLoose_1;
+  const compareBuild = compareBuild_1;
+  const sort = sort_1;
+  const rsort = rsort_1;
+  const gt = gt_1;
+  const lt = lt_1;
+  const eq = eq_1;
+  const neq = neq_1;
+  const gte = gte_1;
+  const lte = lte_1;
+  const cmp = cmp_1;
+  const coerce$1 = coerce_1;
+  const Comparator = requireComparator();
+  const Range = requireRange$1();
+  const satisfies = satisfies_1;
+  const toComparators = toComparators_1;
+  const maxSatisfying = maxSatisfying_1;
+  const minSatisfying = minSatisfying_1;
+  const minVersion = minVersion_1;
+  const validRange = valid$1;
+  const outside = outside_1;
+  const gtr = gtr_1;
+  const ltr = ltr_1;
+  const intersects = intersects_1;
+  const simplifyRange = simplify;
+  const subset = subset_1;
+  var semver = {
+    parse: parse$5,
+    valid,
+    clean,
+    inc,
+    diff,
+    major,
+    minor,
+    patch,
+    prerelease,
+    compare: compare$1,
+    rcompare,
+    compareLoose,
+    compareBuild,
+    sort,
+    rsort,
+    gt,
+    lt,
+    eq,
+    neq,
+    gte,
+    lte,
+    cmp,
+    coerce: coerce$1,
+    Comparator,
+    Range,
+    satisfies,
+    toComparators,
+    maxSatisfying,
+    minSatisfying,
+    minVersion,
+    validRange,
+    outside,
+    gtr,
+    ltr,
+    intersects,
+    simplifyRange,
+    subset,
+    SemVer,
+    re: internalRe.re,
+    src: internalRe.src,
+    tokens: internalRe.t,
+    SEMVER_SPEC_VERSION: constants$3.SEMVER_SPEC_VERSION,
+    RELEASE_TYPES: constants$3.RELEASE_TYPES,
+    compareIdentifiers: identifiers.compareIdentifiers,
+    rcompareIdentifiers: identifiers.rcompareIdentifiers
   };
-  const semver$6 = /* @__PURE__ */ getDefaultExportFromCjs$1(semver$5);
+  const semver$1 = /* @__PURE__ */ getDefaultExportFromCjs$1(semver);
   var DeviceModelId;
   (function(DeviceModelId2) {
     DeviceModelId2["blue"] = "blue";
@@ -5095,7 +5096,7 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
       masks: [823132160],
       getBlockSize: (firmwareVersion) => {
         var _a2;
-        return semver$6.lt((_a2 = semver$6.coerce(firmwareVersion)) !== null && _a2 !== void 0 ? _a2 : "", "2.0.0") ? 4 * 1024 : 2 * 1024;
+        return semver$1.lt((_a2 = semver$1.coerce(firmwareVersion)) !== null && _a2 !== void 0 ? _a2 : "", "2.0.0") ? 4 * 1024 : 2 * 1024;
       }
     },
     [DeviceModelId.nanoX]: {
@@ -5194,7 +5195,7 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
       }
     }
   }
-  var __awaiter$f = function(thisArg, _arguments, P, generator) {
+  var __awaiter$3 = function(thisArg, _arguments, P, generator) {
     function adopt(value) {
       return value instanceof P ? value : new P(function(resolve2) {
         resolve2(value);
@@ -5227,7 +5228,7 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
     }
   ];
   function requestLedgerDevice() {
-    return __awaiter$f(this, void 0, void 0, function* () {
+    return __awaiter$3(this, void 0, void 0, function* () {
       const device = yield navigator.usb.requestDevice({
         filters: ledgerDevices$1
       });
@@ -5235,13 +5236,13 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
     });
   }
   function getLedgerDevices$1() {
-    return __awaiter$f(this, void 0, void 0, function* () {
+    return __awaiter$3(this, void 0, void 0, function* () {
       const devices2 = yield navigator.usb.getDevices();
       return devices2.filter((d) => d.vendorId === ledgerUSBVendorId);
     });
   }
   function getFirstLedgerDevice$1() {
-    return __awaiter$f(this, void 0, void 0, function* () {
+    return __awaiter$3(this, void 0, void 0, function* () {
       const existingDevices = yield getLedgerDevices$1();
       if (existingDevices.length > 0)
         return existingDevices[0];
@@ -5249,7 +5250,7 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
     });
   }
   const isSupported$2 = () => Promise.resolve(!!navigator && !!navigator.usb && typeof navigator.usb.getDevices === "function");
-  var __awaiter$e = function(thisArg, _arguments, P, generator) {
+  var __awaiter$2 = function(thisArg, _arguments, P, generator) {
     function adopt(value) {
       return value instanceof P ? value : new P(function(resolve2) {
         resolve2(value);
@@ -5298,7 +5299,7 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
      * Similar to create() except it will always display the device permission (even if some devices are already accepted).
      */
     static request() {
-      return __awaiter$e(this, void 0, void 0, function* () {
+      return __awaiter$2(this, void 0, void 0, function* () {
         const device = yield requestLedgerDevice();
         return TransportWebUSB.open(device);
       });
@@ -5307,7 +5308,7 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
      * Similar to create() except it will never display the device permission (it returns a Promise<?Transport>, null if it fails to find a device).
      */
     static openConnected() {
-      return __awaiter$e(this, void 0, void 0, function* () {
+      return __awaiter$2(this, void 0, void 0, function* () {
         const devices2 = yield getLedgerDevices$1();
         if (devices2.length === 0)
           return null;
@@ -5318,7 +5319,7 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
      * Create a Ledger transport with a USBDevice
      */
     static open(device) {
-      return __awaiter$e(this, void 0, void 0, function* () {
+      return __awaiter$2(this, void 0, void 0, function* () {
         yield device.open();
         if (device.configuration === null) {
           yield device.selectConfiguration(configurationValue);
@@ -5350,7 +5351,7 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
      * Release the transport device
      */
     close() {
-      return __awaiter$e(this, void 0, void 0, function* () {
+      return __awaiter$2(this, void 0, void 0, function* () {
         yield this.exchangeBusyPromise;
         yield this.device.releaseInterface(this.interfaceNumber);
         yield gracefullyResetDevice(this.device);
@@ -5363,8 +5364,8 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
      * @returns a promise of apdu response
      */
     exchange(apdu) {
-      return __awaiter$e(this, void 0, void 0, function* () {
-        const b = yield this.exchangeAtomicImpl(() => __awaiter$e(this, void 0, void 0, function* () {
+      return __awaiter$2(this, void 0, void 0, function* () {
+        const b = yield this.exchangeAtomicImpl(() => __awaiter$2(this, void 0, void 0, function* () {
           const { channel, packetSize } = this;
           log("apdu", "=> " + apdu.toString("hex"));
           const framing = createHIDframing(channel, packetSize);
@@ -5423,7 +5424,7 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
     };
   };
   function gracefullyResetDevice(device) {
-    return __awaiter$e(this, void 0, void 0, function* () {
+    return __awaiter$2(this, void 0, void 0, function* () {
       try {
         yield device.reset();
       } catch (err) {
@@ -5431,7 +5432,7 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
       }
     });
   }
-  var __awaiter$d = function(thisArg, _arguments, P, generator) {
+  var __awaiter$1 = function(thisArg, _arguments, P, generator) {
     function adopt(value) {
       return value instanceof P ? value : new P(function(resolve2) {
         resolve2(value);
@@ -5471,7 +5472,7 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
     return hid;
   };
   function requestLedgerDevices() {
-    return __awaiter$d(this, void 0, void 0, function* () {
+    return __awaiter$1(this, void 0, void 0, function* () {
       const device = yield getHID().requestDevice({
         filters: ledgerDevices
       });
@@ -5481,13 +5482,13 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
     });
   }
   function getLedgerDevices() {
-    return __awaiter$d(this, void 0, void 0, function* () {
+    return __awaiter$1(this, void 0, void 0, function* () {
       const devices2 = yield getHID().getDevices();
       return devices2.filter((d) => d.vendorId === ledgerUSBVendorId);
     });
   }
   function getFirstLedgerDevice() {
-    return __awaiter$d(this, void 0, void 0, function* () {
+    return __awaiter$1(this, void 0, void 0, function* () {
       const existingDevices = yield getLedgerDevices();
       if (existingDevices.length > 0)
         return existingDevices[0];
@@ -5525,8 +5526,8 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
         this._disconnectEmitted = true;
         this.emit("disconnect", e);
       };
-      this.exchange = (apdu) => __awaiter$d(this, void 0, void 0, function* () {
-        const b = yield this.exchangeAtomicImpl(() => __awaiter$d(this, void 0, void 0, function* () {
+      this.exchange = (apdu) => __awaiter$1(this, void 0, void 0, function* () {
+        const b = yield this.exchangeAtomicImpl(() => __awaiter$1(this, void 0, void 0, function* () {
           const { channel, packetSize } = this;
           log("apdu", "=> " + apdu.toString("hex"));
           const framing = createHIDframing(channel, packetSize);
@@ -5566,7 +5567,7 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
      * Similar to create() except it will always display the device permission (even if some devices are already accepted).
      */
     static request() {
-      return __awaiter$d(this, void 0, void 0, function* () {
+      return __awaiter$1(this, void 0, void 0, function* () {
         const [device] = yield requestLedgerDevices();
         return TransportWebHID.open(device);
       });
@@ -5575,7 +5576,7 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
      * Similar to create() except it will never display the device permission (it returns a Promise<?Transport>, null if it fails to find a device).
      */
     static openConnected() {
-      return __awaiter$d(this, void 0, void 0, function* () {
+      return __awaiter$1(this, void 0, void 0, function* () {
         const devices2 = yield getLedgerDevices();
         if (devices2.length === 0)
           return null;
@@ -5586,7 +5587,7 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
      * Create a Ledger transport with a HIDDevice
      */
     static open(device) {
-      return __awaiter$d(this, void 0, void 0, function* () {
+      return __awaiter$1(this, void 0, void 0, function* () {
         yield device.open();
         const transport = new TransportWebHID(device);
         const onDisconnect = (e) => {
@@ -5603,7 +5604,7 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
      * Release the transport device
      */
     close() {
-      return __awaiter$d(this, void 0, void 0, function* () {
+      return __awaiter$1(this, void 0, void 0, function* () {
         yield this.exchangeBusyPromise;
         this.device.removeEventListener("inputreport", this.onInputReport);
         yield this.device.close();
@@ -5638,7 +5639,7 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
       unsubscribe
     };
   };
-  var isNumeric = /^-?(?:\d+(?:\.\d*)?|\.\d+)(?:e[+-]?\d+)?$/i, mathceil = Math.ceil, mathfloor = Math.floor, bignumberError = "[BigNumber Error] ", tooManyDigits = bignumberError + "Number primitive has more than 15 significant digits: ", BASE = 1e14, LOG_BASE = 14, MAX_SAFE_INTEGER$5 = 9007199254740991, POWS_TEN = [1, 10, 100, 1e3, 1e4, 1e5, 1e6, 1e7, 1e8, 1e9, 1e10, 1e11, 1e12, 1e13], SQRT_BASE = 1e7, MAX = 1e9;
+  var isNumeric = /^-?(?:\d+(?:\.\d*)?|\.\d+)(?:e[+-]?\d+)?$/i, mathceil = Math.ceil, mathfloor = Math.floor, bignumberError = "[BigNumber Error] ", tooManyDigits = bignumberError + "Number primitive has more than 15 significant digits: ", BASE = 1e14, LOG_BASE = 14, MAX_SAFE_INTEGER$1 = 9007199254740991, POWS_TEN = [1, 10, 100, 1e3, 1e4, 1e5, 1e6, 1e7, 1e8, 1e9, 1e10, 1e11, 1e12, 1e13], SQRT_BASE = 1e7, MAX = 1e9;
   function clone(configObject) {
     var div, convertBase, parseNumeric, P = BigNumber2.prototype = { constructor: BigNumber2, toString: null, valueOf: null }, ONE = new BigNumber2(1), DECIMAL_PLACES = 20, ROUNDING_MODE = 4, TO_EXP_NEG = -7, TO_EXP_POS = 21, MIN_EXP = -1e7, MAX_EXP = 1e7, CRYPTO = false, MODULO_MODE = 1, POW_PRECISION = 0, FORMAT = {
       prefix: "",
@@ -5650,7 +5651,7 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
       fractionGroupSeparator: " ",
       // non-breaking space
       suffix: ""
-    }, ALPHABET2 = "0123456789abcdefghijklmnopqrstuvwxyz", alphabetHasNormalDecimalDigits = true;
+    }, ALPHABET = "0123456789abcdefghijklmnopqrstuvwxyz", alphabetHasNormalDecimalDigits = true;
     function BigNumber2(v, b) {
       var alphabet, c, caseChanged, e, i2, isNum, len2, str, x = this;
       if (!(x instanceof BigNumber2)) return new BigNumber2(v, b);
@@ -5693,7 +5694,7 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
           e = str.length;
         }
       } else {
-        intCheck(b, 2, ALPHABET2.length, "Base");
+        intCheck(b, 2, ALPHABET.length, "Base");
         if (b == 10 && alphabetHasNormalDecimalDigits) {
           x = new BigNumber2(v);
           return round2(x, DECIMAL_PLACES + x.e + 1, ROUNDING_MODE);
@@ -5708,7 +5709,7 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
         } else {
           x.s = str.charCodeAt(0) === 45 ? (str = str.slice(1), -1) : 1;
         }
-        alphabet = ALPHABET2.slice(0, b);
+        alphabet = ALPHABET.slice(0, b);
         e = i2 = 0;
         for (len2 = str.length; i2 < len2; i2++) {
           if (alphabet.indexOf(c = str.charAt(i2)) < 0) {
@@ -5737,7 +5738,7 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
       for (len2 = str.length; str.charCodeAt(--len2) === 48; ) ;
       if (str = str.slice(i2, ++len2)) {
         len2 -= i2;
-        if (isNum && BigNumber2.DEBUG && len2 > 15 && (v > MAX_SAFE_INTEGER$5 || v !== mathfloor(v))) {
+        if (isNum && BigNumber2.DEBUG && len2 > 15 && (v > MAX_SAFE_INTEGER$1 || v !== mathfloor(v))) {
           throw Error(tooManyDigits + x.s * v);
         }
         if ((e = e - i2 - 1) > MAX_EXP) {
@@ -5854,7 +5855,7 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
             v = obj[p];
             if (typeof v == "string" && !/^.?$|[+\-.\s]|(.).*\1/.test(v)) {
               alphabetHasNormalDecimalDigits = v.slice(0, 10) == "0123456789";
-              ALPHABET2 = v;
+              ALPHABET = v;
             } else {
               throw Error(bignumberError + p + " invalid: " + v);
             }
@@ -5872,7 +5873,7 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
         MODULO_MODE,
         POW_PRECISION,
         FORMAT,
-        ALPHABET: ALPHABET2
+        ALPHABET
       };
     };
     BigNumber2.isBigNumber = function(v) {
@@ -6014,7 +6015,7 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
           );
           y.e = y.c.length;
         }
-        xc = toBaseOut(str, baseIn, baseOut, callerIsToString ? (alphabet = ALPHABET2, decimal) : (alphabet = decimal, ALPHABET2));
+        xc = toBaseOut(str, baseIn, baseOut, callerIsToString ? (alphabet = ALPHABET, decimal) : (alphabet = decimal, ALPHABET));
         e = k = xc.length;
         for (; xc[--k] == 0; xc.pop()) ;
         if (!xc[0]) return alphabet.charAt(0);
@@ -6234,7 +6235,7 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
       var k, y, i2 = 1, x = new BigNumber2(args[0]);
       for (; i2 < args.length; i2++) {
         y = new BigNumber2(args[i2]);
-        if (!y.s || (k = compare$o(x, y)) === n || k === 0 && x.s === n) {
+        if (!y.s || (k = compare(x, y)) === n || k === 0 && x.s === n) {
           x = y;
         }
       }
@@ -6379,7 +6380,7 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
       return x;
     };
     P.comparedTo = function(y, b) {
-      return compare$o(this, new BigNumber2(y, b));
+      return compare(this, new BigNumber2(y, b));
     };
     P.decimalPlaces = P.dp = function(dp, rm) {
       var c, n, v, x = this;
@@ -6477,25 +6478,25 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
       return round2(n, n.e + 1, rm);
     };
     P.isEqualTo = P.eq = function(y, b) {
-      return compare$o(this, new BigNumber2(y, b)) === 0;
+      return compare(this, new BigNumber2(y, b)) === 0;
     };
     P.isFinite = function() {
       return !!this.c;
     };
     P.isGreaterThan = P.gt = function(y, b) {
-      return compare$o(this, new BigNumber2(y, b)) > 0;
+      return compare(this, new BigNumber2(y, b)) > 0;
     };
     P.isGreaterThanOrEqualTo = P.gte = function(y, b) {
-      return (b = compare$o(this, new BigNumber2(y, b))) === 1 || b === 0;
+      return (b = compare(this, new BigNumber2(y, b))) === 1 || b === 0;
     };
     P.isInteger = function() {
       return !!this.c && bitFloor(this.e / LOG_BASE) > this.c.length - 2;
     };
     P.isLessThan = P.lt = function(y, b) {
-      return compare$o(this, new BigNumber2(y, b)) < 0;
+      return compare(this, new BigNumber2(y, b)) < 0;
     };
     P.isLessThanOrEqualTo = P.lte = function(y, b) {
-      return (b = compare$o(this, new BigNumber2(y, b))) === -1 || b === 0;
+      return (b = compare(this, new BigNumber2(y, b))) === -1 || b === 0;
     };
     P.isNaN = function() {
       return !this.s;
@@ -6720,7 +6721,7 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
       return n;
     };
     P.shiftedBy = function(k) {
-      intCheck(k, -9007199254740991, MAX_SAFE_INTEGER$5);
+      intCheck(k, -9007199254740991, MAX_SAFE_INTEGER$1);
       return this.times("1e" + k);
     };
     P.squareRoot = P.sqrt = function() {
@@ -6894,7 +6895,7 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
           n = round2(new BigNumber2(n), DECIMAL_PLACES + e + 1, ROUNDING_MODE);
           str = toFixedPoint(coeffToString(n.c), n.e, "0");
         } else {
-          intCheck(b, 2, ALPHABET2.length, "Base");
+          intCheck(b, 2, ALPHABET.length, "Base");
           str = convertBase(toFixedPoint(coeffToString(n.c), e, "0"), 10, b, s2, true);
         }
         if (s2 < 0 && n.c[0]) str = "-" + str;
@@ -6925,7 +6926,7 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
     for (j = r2.length; r2.charCodeAt(--j) === 48; ) ;
     return r2.slice(0, j + 1 || 1);
   }
-  function compare$o(x, y) {
+  function compare(x, y) {
     var a, b, xc = x.c, yc = y.c, i2 = x.s, j = y.s, k = x.e, l = y.e;
     if (!i2 || !j) return null;
     a = xc && !xc[0];
@@ -11368,7 +11369,7 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
     }
     return "0x" + chars.join("");
   }
-  const MAX_SAFE_INTEGER$4 = 9007199254740991;
+  const MAX_SAFE_INTEGER = 9007199254740991;
   function log10(x) {
     if (Math.log10) {
       return Math.log10(x);
@@ -11382,7 +11383,7 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
   for (let i2 = 0; i2 < 26; i2++) {
     ibanLookup[String.fromCharCode(65 + i2)] = String(10 + i2);
   }
-  const safeDigits = Math.floor(log10(MAX_SAFE_INTEGER$4));
+  const safeDigits = Math.floor(log10(MAX_SAFE_INTEGER));
   function ibanChecksum(address2) {
     address2 = address2.toUpperCase();
     address2 = address2.substring(4) + address2.substring(0, 2) + "00";
@@ -18045,7 +18046,7 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
     tx.type = null;
     return tx;
   }
-  function parse$i(rawTransaction) {
+  function parse$4(rawTransaction) {
     const payload = arrayify(rawTransaction);
     if (payload[0] > 127) {
       return _parse(payload);
@@ -18063,1598 +18064,6 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
   }
   const EthAppPleaseEnableContractData = createCustomErrorClass("EthAppPleaseEnableContractData");
   const EthAppNftNotSupported = createCustomErrorClass("EthAppNftNotSupported");
-  var re$5 = { exports: {} };
-  const SEMVER_SPEC_VERSION$1 = "2.0.0";
-  const MAX_LENGTH$3 = 256;
-  const MAX_SAFE_INTEGER$3 = Number.MAX_SAFE_INTEGER || /* istanbul ignore next */
-  9007199254740991;
-  const MAX_SAFE_COMPONENT_LENGTH$1 = 16;
-  const MAX_SAFE_BUILD_LENGTH$1 = MAX_LENGTH$3 - 6;
-  const RELEASE_TYPES$1 = [
-    "major",
-    "premajor",
-    "minor",
-    "preminor",
-    "patch",
-    "prepatch",
-    "prerelease"
-  ];
-  var constants$6 = {
-    MAX_LENGTH: MAX_LENGTH$3,
-    MAX_SAFE_COMPONENT_LENGTH: MAX_SAFE_COMPONENT_LENGTH$1,
-    MAX_SAFE_BUILD_LENGTH: MAX_SAFE_BUILD_LENGTH$1,
-    MAX_SAFE_INTEGER: MAX_SAFE_INTEGER$3,
-    RELEASE_TYPES: RELEASE_TYPES$1,
-    SEMVER_SPEC_VERSION: SEMVER_SPEC_VERSION$1,
-    FLAG_INCLUDE_PRERELEASE: 1,
-    FLAG_LOOSE: 2
-  };
-  var define_process_env_default$1 = {};
-  const debug$3 = typeof process$1 === "object" && define_process_env_default$1 && define_process_env_default$1.NODE_DEBUG && /\bsemver\b/i.test(define_process_env_default$1.NODE_DEBUG) ? (...args) => console.error("SEMVER", ...args) : () => {
-  };
-  var debug_1$2 = debug$3;
-  (function(module, exports2) {
-    const {
-      MAX_SAFE_COMPONENT_LENGTH: MAX_SAFE_COMPONENT_LENGTH2,
-      MAX_SAFE_BUILD_LENGTH: MAX_SAFE_BUILD_LENGTH2,
-      MAX_LENGTH: MAX_LENGTH2
-    } = constants$6;
-    const debug2 = debug_1$2;
-    exports2 = module.exports = {};
-    const re2 = exports2.re = [];
-    const safeRe = exports2.safeRe = [];
-    const src = exports2.src = [];
-    const t2 = exports2.t = {};
-    let R2 = 0;
-    const LETTERDASHNUMBER = "[a-zA-Z0-9-]";
-    const safeRegexReplacements = [
-      ["\\s", 1],
-      ["\\d", MAX_LENGTH2],
-      [LETTERDASHNUMBER, MAX_SAFE_BUILD_LENGTH2]
-    ];
-    const makeSafeRegex = (value) => {
-      for (const [token, max2] of safeRegexReplacements) {
-        value = value.split(`${token}*`).join(`${token}{0,${max2}}`).split(`${token}+`).join(`${token}{1,${max2}}`);
-      }
-      return value;
-    };
-    const createToken = (name2, value, isGlobal) => {
-      const safe = makeSafeRegex(value);
-      const index = R2++;
-      debug2(name2, index, value);
-      t2[name2] = index;
-      src[index] = value;
-      re2[index] = new RegExp(value, isGlobal ? "g" : void 0);
-      safeRe[index] = new RegExp(safe, isGlobal ? "g" : void 0);
-    };
-    createToken("NUMERICIDENTIFIER", "0|[1-9]\\d*");
-    createToken("NUMERICIDENTIFIERLOOSE", "\\d+");
-    createToken("NONNUMERICIDENTIFIER", `\\d*[a-zA-Z-]${LETTERDASHNUMBER}*`);
-    createToken("MAINVERSION", `(${src[t2.NUMERICIDENTIFIER]})\\.(${src[t2.NUMERICIDENTIFIER]})\\.(${src[t2.NUMERICIDENTIFIER]})`);
-    createToken("MAINVERSIONLOOSE", `(${src[t2.NUMERICIDENTIFIERLOOSE]})\\.(${src[t2.NUMERICIDENTIFIERLOOSE]})\\.(${src[t2.NUMERICIDENTIFIERLOOSE]})`);
-    createToken("PRERELEASEIDENTIFIER", `(?:${src[t2.NUMERICIDENTIFIER]}|${src[t2.NONNUMERICIDENTIFIER]})`);
-    createToken("PRERELEASEIDENTIFIERLOOSE", `(?:${src[t2.NUMERICIDENTIFIERLOOSE]}|${src[t2.NONNUMERICIDENTIFIER]})`);
-    createToken("PRERELEASE", `(?:-(${src[t2.PRERELEASEIDENTIFIER]}(?:\\.${src[t2.PRERELEASEIDENTIFIER]})*))`);
-    createToken("PRERELEASELOOSE", `(?:-?(${src[t2.PRERELEASEIDENTIFIERLOOSE]}(?:\\.${src[t2.PRERELEASEIDENTIFIERLOOSE]})*))`);
-    createToken("BUILDIDENTIFIER", `${LETTERDASHNUMBER}+`);
-    createToken("BUILD", `(?:\\+(${src[t2.BUILDIDENTIFIER]}(?:\\.${src[t2.BUILDIDENTIFIER]})*))`);
-    createToken("FULLPLAIN", `v?${src[t2.MAINVERSION]}${src[t2.PRERELEASE]}?${src[t2.BUILD]}?`);
-    createToken("FULL", `^${src[t2.FULLPLAIN]}$`);
-    createToken("LOOSEPLAIN", `[v=\\s]*${src[t2.MAINVERSIONLOOSE]}${src[t2.PRERELEASELOOSE]}?${src[t2.BUILD]}?`);
-    createToken("LOOSE", `^${src[t2.LOOSEPLAIN]}$`);
-    createToken("GTLT", "((?:<|>)?=?)");
-    createToken("XRANGEIDENTIFIERLOOSE", `${src[t2.NUMERICIDENTIFIERLOOSE]}|x|X|\\*`);
-    createToken("XRANGEIDENTIFIER", `${src[t2.NUMERICIDENTIFIER]}|x|X|\\*`);
-    createToken("XRANGEPLAIN", `[v=\\s]*(${src[t2.XRANGEIDENTIFIER]})(?:\\.(${src[t2.XRANGEIDENTIFIER]})(?:\\.(${src[t2.XRANGEIDENTIFIER]})(?:${src[t2.PRERELEASE]})?${src[t2.BUILD]}?)?)?`);
-    createToken("XRANGEPLAINLOOSE", `[v=\\s]*(${src[t2.XRANGEIDENTIFIERLOOSE]})(?:\\.(${src[t2.XRANGEIDENTIFIERLOOSE]})(?:\\.(${src[t2.XRANGEIDENTIFIERLOOSE]})(?:${src[t2.PRERELEASELOOSE]})?${src[t2.BUILD]}?)?)?`);
-    createToken("XRANGE", `^${src[t2.GTLT]}\\s*${src[t2.XRANGEPLAIN]}$`);
-    createToken("XRANGELOOSE", `^${src[t2.GTLT]}\\s*${src[t2.XRANGEPLAINLOOSE]}$`);
-    createToken("COERCEPLAIN", `${"(^|[^\\d])(\\d{1,"}${MAX_SAFE_COMPONENT_LENGTH2}})(?:\\.(\\d{1,${MAX_SAFE_COMPONENT_LENGTH2}}))?(?:\\.(\\d{1,${MAX_SAFE_COMPONENT_LENGTH2}}))?`);
-    createToken("COERCE", `${src[t2.COERCEPLAIN]}(?:$|[^\\d])`);
-    createToken("COERCEFULL", src[t2.COERCEPLAIN] + `(?:${src[t2.PRERELEASE]})?(?:${src[t2.BUILD]})?(?:$|[^\\d])`);
-    createToken("COERCERTL", src[t2.COERCE], true);
-    createToken("COERCERTLFULL", src[t2.COERCEFULL], true);
-    createToken("LONETILDE", "(?:~>?)");
-    createToken("TILDETRIM", `(\\s*)${src[t2.LONETILDE]}\\s+`, true);
-    exports2.tildeTrimReplace = "$1~";
-    createToken("TILDE", `^${src[t2.LONETILDE]}${src[t2.XRANGEPLAIN]}$`);
-    createToken("TILDELOOSE", `^${src[t2.LONETILDE]}${src[t2.XRANGEPLAINLOOSE]}$`);
-    createToken("LONECARET", "(?:\\^)");
-    createToken("CARETTRIM", `(\\s*)${src[t2.LONECARET]}\\s+`, true);
-    exports2.caretTrimReplace = "$1^";
-    createToken("CARET", `^${src[t2.LONECARET]}${src[t2.XRANGEPLAIN]}$`);
-    createToken("CARETLOOSE", `^${src[t2.LONECARET]}${src[t2.XRANGEPLAINLOOSE]}$`);
-    createToken("COMPARATORLOOSE", `^${src[t2.GTLT]}\\s*(${src[t2.LOOSEPLAIN]})$|^$`);
-    createToken("COMPARATOR", `^${src[t2.GTLT]}\\s*(${src[t2.FULLPLAIN]})$|^$`);
-    createToken("COMPARATORTRIM", `(\\s*)${src[t2.GTLT]}\\s*(${src[t2.LOOSEPLAIN]}|${src[t2.XRANGEPLAIN]})`, true);
-    exports2.comparatorTrimReplace = "$1$2$3";
-    createToken("HYPHENRANGE", `^\\s*(${src[t2.XRANGEPLAIN]})\\s+-\\s+(${src[t2.XRANGEPLAIN]})\\s*$`);
-    createToken("HYPHENRANGELOOSE", `^\\s*(${src[t2.XRANGEPLAINLOOSE]})\\s+-\\s+(${src[t2.XRANGEPLAINLOOSE]})\\s*$`);
-    createToken("STAR", "(<|>)?=?\\s*\\*");
-    createToken("GTE0", "^\\s*>=\\s*0\\.0\\.0\\s*$");
-    createToken("GTE0PRE", "^\\s*>=\\s*0\\.0\\.0-0\\s*$");
-  })(re$5, re$5.exports);
-  var reExports$1 = re$5.exports;
-  const looseOption$1 = Object.freeze({ loose: true });
-  const emptyOpts$1 = Object.freeze({});
-  const parseOptions$3 = (options) => {
-    if (!options) {
-      return emptyOpts$1;
-    }
-    if (typeof options !== "object") {
-      return looseOption$1;
-    }
-    return options;
-  };
-  var parseOptions_1$1 = parseOptions$3;
-  const numeric$1 = /^[0-9]+$/;
-  const compareIdentifiers$3 = (a, b) => {
-    const anum2 = numeric$1.test(a);
-    const bnum = numeric$1.test(b);
-    if (anum2 && bnum) {
-      a = +a;
-      b = +b;
-    }
-    return a === b ? 0 : anum2 && !bnum ? -1 : bnum && !anum2 ? 1 : a < b ? -1 : 1;
-  };
-  const rcompareIdentifiers$1 = (a, b) => compareIdentifiers$3(b, a);
-  var identifiers$3 = {
-    compareIdentifiers: compareIdentifiers$3,
-    rcompareIdentifiers: rcompareIdentifiers$1
-  };
-  const debug$2 = debug_1$2;
-  const { MAX_LENGTH: MAX_LENGTH$2, MAX_SAFE_INTEGER: MAX_SAFE_INTEGER$2 } = constants$6;
-  const { safeRe: re$4, t: t$3 } = reExports$1;
-  const parseOptions$2 = parseOptions_1$1;
-  const { compareIdentifiers: compareIdentifiers$2 } = identifiers$3;
-  let SemVer$r = class SemVer2 {
-    constructor(version2, options) {
-      options = parseOptions$2(options);
-      if (version2 instanceof SemVer2) {
-        if (version2.loose === !!options.loose && version2.includePrerelease === !!options.includePrerelease) {
-          return version2;
-        } else {
-          version2 = version2.version;
-        }
-      } else if (typeof version2 !== "string") {
-        throw new TypeError(`Invalid version. Must be a string. Got type "${typeof version2}".`);
-      }
-      if (version2.length > MAX_LENGTH$2) {
-        throw new TypeError(
-          `version is longer than ${MAX_LENGTH$2} characters`
-        );
-      }
-      debug$2("SemVer", version2, options);
-      this.options = options;
-      this.loose = !!options.loose;
-      this.includePrerelease = !!options.includePrerelease;
-      const m = version2.trim().match(options.loose ? re$4[t$3.LOOSE] : re$4[t$3.FULL]);
-      if (!m) {
-        throw new TypeError(`Invalid Version: ${version2}`);
-      }
-      this.raw = version2;
-      this.major = +m[1];
-      this.minor = +m[2];
-      this.patch = +m[3];
-      if (this.major > MAX_SAFE_INTEGER$2 || this.major < 0) {
-        throw new TypeError("Invalid major version");
-      }
-      if (this.minor > MAX_SAFE_INTEGER$2 || this.minor < 0) {
-        throw new TypeError("Invalid minor version");
-      }
-      if (this.patch > MAX_SAFE_INTEGER$2 || this.patch < 0) {
-        throw new TypeError("Invalid patch version");
-      }
-      if (!m[4]) {
-        this.prerelease = [];
-      } else {
-        this.prerelease = m[4].split(".").map((id2) => {
-          if (/^[0-9]+$/.test(id2)) {
-            const num = +id2;
-            if (num >= 0 && num < MAX_SAFE_INTEGER$2) {
-              return num;
-            }
-          }
-          return id2;
-        });
-      }
-      this.build = m[5] ? m[5].split(".") : [];
-      this.format();
-    }
-    format() {
-      this.version = `${this.major}.${this.minor}.${this.patch}`;
-      if (this.prerelease.length) {
-        this.version += `-${this.prerelease.join(".")}`;
-      }
-      return this.version;
-    }
-    toString() {
-      return this.version;
-    }
-    compare(other) {
-      debug$2("SemVer.compare", this.version, this.options, other);
-      if (!(other instanceof SemVer2)) {
-        if (typeof other === "string" && other === this.version) {
-          return 0;
-        }
-        other = new SemVer2(other, this.options);
-      }
-      if (other.version === this.version) {
-        return 0;
-      }
-      return this.compareMain(other) || this.comparePre(other);
-    }
-    compareMain(other) {
-      if (!(other instanceof SemVer2)) {
-        other = new SemVer2(other, this.options);
-      }
-      return compareIdentifiers$2(this.major, other.major) || compareIdentifiers$2(this.minor, other.minor) || compareIdentifiers$2(this.patch, other.patch);
-    }
-    comparePre(other) {
-      if (!(other instanceof SemVer2)) {
-        other = new SemVer2(other, this.options);
-      }
-      if (this.prerelease.length && !other.prerelease.length) {
-        return -1;
-      } else if (!this.prerelease.length && other.prerelease.length) {
-        return 1;
-      } else if (!this.prerelease.length && !other.prerelease.length) {
-        return 0;
-      }
-      let i2 = 0;
-      do {
-        const a = this.prerelease[i2];
-        const b = other.prerelease[i2];
-        debug$2("prerelease compare", i2, a, b);
-        if (a === void 0 && b === void 0) {
-          return 0;
-        } else if (b === void 0) {
-          return 1;
-        } else if (a === void 0) {
-          return -1;
-        } else if (a === b) {
-          continue;
-        } else {
-          return compareIdentifiers$2(a, b);
-        }
-      } while (++i2);
-    }
-    compareBuild(other) {
-      if (!(other instanceof SemVer2)) {
-        other = new SemVer2(other, this.options);
-      }
-      let i2 = 0;
-      do {
-        const a = this.build[i2];
-        const b = other.build[i2];
-        debug$2("build compare", i2, a, b);
-        if (a === void 0 && b === void 0) {
-          return 0;
-        } else if (b === void 0) {
-          return 1;
-        } else if (a === void 0) {
-          return -1;
-        } else if (a === b) {
-          continue;
-        } else {
-          return compareIdentifiers$2(a, b);
-        }
-      } while (++i2);
-    }
-    // preminor will bump the version up to the next minor release, and immediately
-    // down to pre-release. premajor and prepatch work the same way.
-    inc(release, identifier, identifierBase) {
-      switch (release) {
-        case "premajor":
-          this.prerelease.length = 0;
-          this.patch = 0;
-          this.minor = 0;
-          this.major++;
-          this.inc("pre", identifier, identifierBase);
-          break;
-        case "preminor":
-          this.prerelease.length = 0;
-          this.patch = 0;
-          this.minor++;
-          this.inc("pre", identifier, identifierBase);
-          break;
-        case "prepatch":
-          this.prerelease.length = 0;
-          this.inc("patch", identifier, identifierBase);
-          this.inc("pre", identifier, identifierBase);
-          break;
-        case "prerelease":
-          if (this.prerelease.length === 0) {
-            this.inc("patch", identifier, identifierBase);
-          }
-          this.inc("pre", identifier, identifierBase);
-          break;
-        case "major":
-          if (this.minor !== 0 || this.patch !== 0 || this.prerelease.length === 0) {
-            this.major++;
-          }
-          this.minor = 0;
-          this.patch = 0;
-          this.prerelease = [];
-          break;
-        case "minor":
-          if (this.patch !== 0 || this.prerelease.length === 0) {
-            this.minor++;
-          }
-          this.patch = 0;
-          this.prerelease = [];
-          break;
-        case "patch":
-          if (this.prerelease.length === 0) {
-            this.patch++;
-          }
-          this.prerelease = [];
-          break;
-        case "pre": {
-          const base2 = Number(identifierBase) ? 1 : 0;
-          if (!identifier && identifierBase === false) {
-            throw new Error("invalid increment argument: identifier is empty");
-          }
-          if (this.prerelease.length === 0) {
-            this.prerelease = [base2];
-          } else {
-            let i2 = this.prerelease.length;
-            while (--i2 >= 0) {
-              if (typeof this.prerelease[i2] === "number") {
-                this.prerelease[i2]++;
-                i2 = -2;
-              }
-            }
-            if (i2 === -1) {
-              if (identifier === this.prerelease.join(".") && identifierBase === false) {
-                throw new Error("invalid increment argument: identifier already exists");
-              }
-              this.prerelease.push(base2);
-            }
-          }
-          if (identifier) {
-            let prerelease2 = [identifier, base2];
-            if (identifierBase === false) {
-              prerelease2 = [identifier];
-            }
-            if (compareIdentifiers$2(this.prerelease[0], identifier) === 0) {
-              if (isNaN(this.prerelease[1])) {
-                this.prerelease = prerelease2;
-              }
-            } else {
-              this.prerelease = prerelease2;
-            }
-          }
-          break;
-        }
-        default:
-          throw new Error(`invalid increment argument: ${release}`);
-      }
-      this.raw = this.format();
-      if (this.build.length) {
-        this.raw += `+${this.build.join(".")}`;
-      }
-      return this;
-    }
-  };
-  var semver$4 = SemVer$r;
-  const SemVer$q = semver$4;
-  const parse$h = (version2, options, throwErrors = false) => {
-    if (version2 instanceof SemVer$q) {
-      return version2;
-    }
-    try {
-      return new SemVer$q(version2, options);
-    } catch (er) {
-      if (!throwErrors) {
-        return null;
-      }
-      throw er;
-    }
-  };
-  var parse_1$1 = parse$h;
-  const parse$g = parse_1$1;
-  const valid$5 = (version2, options) => {
-    const v = parse$g(version2, options);
-    return v ? v.version : null;
-  };
-  var valid_1$1 = valid$5;
-  const parse$f = parse_1$1;
-  const clean$3 = (version2, options) => {
-    const s2 = parse$f(version2.trim().replace(/^[=v]+/, ""), options);
-    return s2 ? s2.version : null;
-  };
-  var clean_1$1 = clean$3;
-  const SemVer$p = semver$4;
-  const inc$3 = (version2, release, options, identifier, identifierBase) => {
-    if (typeof options === "string") {
-      identifierBase = identifier;
-      identifier = options;
-      options = void 0;
-    }
-    try {
-      return new SemVer$p(
-        version2 instanceof SemVer$p ? version2.version : version2,
-        options
-      ).inc(release, identifier, identifierBase).version;
-    } catch (er) {
-      return null;
-    }
-  };
-  var inc_1$1 = inc$3;
-  const parse$e = parse_1$1;
-  const diff$3 = (version1, version2) => {
-    const v1 = parse$e(version1, null, true);
-    const v2 = parse$e(version2, null, true);
-    const comparison = v1.compare(v2);
-    if (comparison === 0) {
-      return null;
-    }
-    const v1Higher = comparison > 0;
-    const highVersion = v1Higher ? v1 : v2;
-    const lowVersion = v1Higher ? v2 : v1;
-    const highHasPre = !!highVersion.prerelease.length;
-    const lowHasPre = !!lowVersion.prerelease.length;
-    if (lowHasPre && !highHasPre) {
-      if (!lowVersion.patch && !lowVersion.minor) {
-        return "major";
-      }
-      if (highVersion.patch) {
-        return "patch";
-      }
-      if (highVersion.minor) {
-        return "minor";
-      }
-      return "major";
-    }
-    const prefix = highHasPre ? "pre" : "";
-    if (v1.major !== v2.major) {
-      return prefix + "major";
-    }
-    if (v1.minor !== v2.minor) {
-      return prefix + "minor";
-    }
-    if (v1.patch !== v2.patch) {
-      return prefix + "patch";
-    }
-    return "prerelease";
-  };
-  var diff_1$1 = diff$3;
-  const SemVer$o = semver$4;
-  const major$3 = (a, loose) => new SemVer$o(a, loose).major;
-  var major_1$1 = major$3;
-  const SemVer$n = semver$4;
-  const minor$3 = (a, loose) => new SemVer$n(a, loose).minor;
-  var minor_1$1 = minor$3;
-  const SemVer$m = semver$4;
-  const patch$3 = (a, loose) => new SemVer$m(a, loose).patch;
-  var patch_1$1 = patch$3;
-  const parse$d = parse_1$1;
-  const prerelease$3 = (version2, options) => {
-    const parsed = parse$d(version2, options);
-    return parsed && parsed.prerelease.length ? parsed.prerelease : null;
-  };
-  var prerelease_1$1 = prerelease$3;
-  const SemVer$l = semver$4;
-  const compare$n = (a, b, loose) => new SemVer$l(a, loose).compare(new SemVer$l(b, loose));
-  var compare_1$1 = compare$n;
-  const compare$m = compare_1$1;
-  const rcompare$3 = (a, b, loose) => compare$m(b, a, loose);
-  var rcompare_1$1 = rcompare$3;
-  const compare$l = compare_1$1;
-  const compareLoose$3 = (a, b) => compare$l(a, b, true);
-  var compareLoose_1$1 = compareLoose$3;
-  const SemVer$k = semver$4;
-  const compareBuild$7 = (a, b, loose) => {
-    const versionA = new SemVer$k(a, loose);
-    const versionB = new SemVer$k(b, loose);
-    return versionA.compare(versionB) || versionA.compareBuild(versionB);
-  };
-  var compareBuild_1$1 = compareBuild$7;
-  const compareBuild$6 = compareBuild_1$1;
-  const sort$3 = (list, loose) => list.sort((a, b) => compareBuild$6(a, b, loose));
-  var sort_1$1 = sort$3;
-  const compareBuild$5 = compareBuild_1$1;
-  const rsort$3 = (list, loose) => list.sort((a, b) => compareBuild$5(b, a, loose));
-  var rsort_1$1 = rsort$3;
-  const compare$k = compare_1$1;
-  const gt$9 = (a, b, loose) => compare$k(a, b, loose) > 0;
-  var gt_1$1 = gt$9;
-  const compare$j = compare_1$1;
-  const lt$7 = (a, b, loose) => compare$j(a, b, loose) < 0;
-  var lt_1$1 = lt$7;
-  const compare$i = compare_1$1;
-  const eq$5 = (a, b, loose) => compare$i(a, b, loose) === 0;
-  var eq_1$1 = eq$5;
-  const compare$h = compare_1$1;
-  const neq$5 = (a, b, loose) => compare$h(a, b, loose) !== 0;
-  var neq_1$1 = neq$5;
-  const compare$g = compare_1$1;
-  const gte$7 = (a, b, loose) => compare$g(a, b, loose) >= 0;
-  var gte_1$1 = gte$7;
-  const compare$f = compare_1$1;
-  const lte$7 = (a, b, loose) => compare$f(a, b, loose) <= 0;
-  var lte_1$1 = lte$7;
-  const eq$4 = eq_1$1;
-  const neq$4 = neq_1$1;
-  const gt$8 = gt_1$1;
-  const gte$6 = gte_1$1;
-  const lt$6 = lt_1$1;
-  const lte$6 = lte_1$1;
-  const cmp$3 = (a, op, b, loose) => {
-    switch (op) {
-      case "===":
-        if (typeof a === "object") {
-          a = a.version;
-        }
-        if (typeof b === "object") {
-          b = b.version;
-        }
-        return a === b;
-      case "!==":
-        if (typeof a === "object") {
-          a = a.version;
-        }
-        if (typeof b === "object") {
-          b = b.version;
-        }
-        return a !== b;
-      case "":
-      case "=":
-      case "==":
-        return eq$4(a, b, loose);
-      case "!=":
-        return neq$4(a, b, loose);
-      case ">":
-        return gt$8(a, b, loose);
-      case ">=":
-        return gte$6(a, b, loose);
-      case "<":
-        return lt$6(a, b, loose);
-      case "<=":
-        return lte$6(a, b, loose);
-      default:
-        throw new TypeError(`Invalid operator: ${op}`);
-    }
-  };
-  var cmp_1$1 = cmp$3;
-  const SemVer$j = semver$4;
-  const parse$c = parse_1$1;
-  const { safeRe: re$3, t: t$2 } = reExports$1;
-  const coerce$4 = (version2, options) => {
-    if (version2 instanceof SemVer$j) {
-      return version2;
-    }
-    if (typeof version2 === "number") {
-      version2 = String(version2);
-    }
-    if (typeof version2 !== "string") {
-      return null;
-    }
-    options = options || {};
-    let match = null;
-    if (!options.rtl) {
-      match = version2.match(options.includePrerelease ? re$3[t$2.COERCEFULL] : re$3[t$2.COERCE]);
-    } else {
-      const coerceRtlRegex = options.includePrerelease ? re$3[t$2.COERCERTLFULL] : re$3[t$2.COERCERTL];
-      let next;
-      while ((next = coerceRtlRegex.exec(version2)) && (!match || match.index + match[0].length !== version2.length)) {
-        if (!match || next.index + next[0].length !== match.index + match[0].length) {
-          match = next;
-        }
-        coerceRtlRegex.lastIndex = next.index + next[1].length + next[2].length;
-      }
-      coerceRtlRegex.lastIndex = -1;
-    }
-    if (match === null) {
-      return null;
-    }
-    const major2 = match[2];
-    const minor2 = match[3] || "0";
-    const patch2 = match[4] || "0";
-    const prerelease2 = options.includePrerelease && match[5] ? `-${match[5]}` : "";
-    const build = options.includePrerelease && match[6] ? `+${match[6]}` : "";
-    return parse$c(`${major2}.${minor2}.${patch2}${prerelease2}${build}`, options);
-  };
-  var coerce_1$1 = coerce$4;
-  let LRUCache$1 = class LRUCache {
-    constructor() {
-      this.max = 1e3;
-      this.map = /* @__PURE__ */ new Map();
-    }
-    get(key2) {
-      const value = this.map.get(key2);
-      if (value === void 0) {
-        return void 0;
-      } else {
-        this.map.delete(key2);
-        this.map.set(key2, value);
-        return value;
-      }
-    }
-    delete(key2) {
-      return this.map.delete(key2);
-    }
-    set(key2, value) {
-      const deleted = this.delete(key2);
-      if (!deleted && value !== void 0) {
-        if (this.map.size >= this.max) {
-          const firstKey = this.map.keys().next().value;
-          this.delete(firstKey);
-        }
-        this.map.set(key2, value);
-      }
-      return this;
-    }
-  };
-  var lrucache$1 = LRUCache$1;
-  var range$2;
-  var hasRequiredRange$2;
-  function requireRange$2() {
-    if (hasRequiredRange$2) return range$2;
-    hasRequiredRange$2 = 1;
-    const SPACE_CHARACTERS = /\s+/g;
-    class Range2 {
-      constructor(range2, options) {
-        options = parseOptions2(options);
-        if (range2 instanceof Range2) {
-          if (range2.loose === !!options.loose && range2.includePrerelease === !!options.includePrerelease) {
-            return range2;
-          } else {
-            return new Range2(range2.raw, options);
-          }
-        }
-        if (range2 instanceof Comparator2) {
-          this.raw = range2.value;
-          this.set = [[range2]];
-          this.formatted = void 0;
-          return this;
-        }
-        this.options = options;
-        this.loose = !!options.loose;
-        this.includePrerelease = !!options.includePrerelease;
-        this.raw = range2.trim().replace(SPACE_CHARACTERS, " ");
-        this.set = this.raw.split("||").map((r2) => this.parseRange(r2.trim())).filter((c) => c.length);
-        if (!this.set.length) {
-          throw new TypeError(`Invalid SemVer Range: ${this.raw}`);
-        }
-        if (this.set.length > 1) {
-          const first = this.set[0];
-          this.set = this.set.filter((c) => !isNullSet(c[0]));
-          if (this.set.length === 0) {
-            this.set = [first];
-          } else if (this.set.length > 1) {
-            for (const c of this.set) {
-              if (c.length === 1 && isAny(c[0])) {
-                this.set = [c];
-                break;
-              }
-            }
-          }
-        }
-        this.formatted = void 0;
-      }
-      get range() {
-        if (this.formatted === void 0) {
-          this.formatted = "";
-          for (let i2 = 0; i2 < this.set.length; i2++) {
-            if (i2 > 0) {
-              this.formatted += "||";
-            }
-            const comps = this.set[i2];
-            for (let k = 0; k < comps.length; k++) {
-              if (k > 0) {
-                this.formatted += " ";
-              }
-              this.formatted += comps[k].toString().trim();
-            }
-          }
-        }
-        return this.formatted;
-      }
-      format() {
-        return this.range;
-      }
-      toString() {
-        return this.range;
-      }
-      parseRange(range2) {
-        const memoOpts = (this.options.includePrerelease && FLAG_INCLUDE_PRERELEASE) | (this.options.loose && FLAG_LOOSE);
-        const memoKey = memoOpts + ":" + range2;
-        const cached = cache.get(memoKey);
-        if (cached) {
-          return cached;
-        }
-        const loose = this.options.loose;
-        const hr = loose ? re2[t2.HYPHENRANGELOOSE] : re2[t2.HYPHENRANGE];
-        range2 = range2.replace(hr, hyphenReplace(this.options.includePrerelease));
-        debug2("hyphen replace", range2);
-        range2 = range2.replace(re2[t2.COMPARATORTRIM], comparatorTrimReplace);
-        debug2("comparator trim", range2);
-        range2 = range2.replace(re2[t2.TILDETRIM], tildeTrimReplace);
-        debug2("tilde trim", range2);
-        range2 = range2.replace(re2[t2.CARETTRIM], caretTrimReplace);
-        debug2("caret trim", range2);
-        let rangeList = range2.split(" ").map((comp) => parseComparator(comp, this.options)).join(" ").split(/\s+/).map((comp) => replaceGTE0(comp, this.options));
-        if (loose) {
-          rangeList = rangeList.filter((comp) => {
-            debug2("loose invalid filter", comp, this.options);
-            return !!comp.match(re2[t2.COMPARATORLOOSE]);
-          });
-        }
-        debug2("range list", rangeList);
-        const rangeMap = /* @__PURE__ */ new Map();
-        const comparators = rangeList.map((comp) => new Comparator2(comp, this.options));
-        for (const comp of comparators) {
-          if (isNullSet(comp)) {
-            return [comp];
-          }
-          rangeMap.set(comp.value, comp);
-        }
-        if (rangeMap.size > 1 && rangeMap.has("")) {
-          rangeMap.delete("");
-        }
-        const result = [...rangeMap.values()];
-        cache.set(memoKey, result);
-        return result;
-      }
-      intersects(range2, options) {
-        if (!(range2 instanceof Range2)) {
-          throw new TypeError("a Range is required");
-        }
-        return this.set.some((thisComparators) => {
-          return isSatisfiable(thisComparators, options) && range2.set.some((rangeComparators) => {
-            return isSatisfiable(rangeComparators, options) && thisComparators.every((thisComparator) => {
-              return rangeComparators.every((rangeComparator) => {
-                return thisComparator.intersects(rangeComparator, options);
-              });
-            });
-          });
-        });
-      }
-      // if ANY of the sets match ALL of its comparators, then pass
-      test(version2) {
-        if (!version2) {
-          return false;
-        }
-        if (typeof version2 === "string") {
-          try {
-            version2 = new SemVer2(version2, this.options);
-          } catch (er) {
-            return false;
-          }
-        }
-        for (let i2 = 0; i2 < this.set.length; i2++) {
-          if (testSet(this.set[i2], version2, this.options)) {
-            return true;
-          }
-        }
-        return false;
-      }
-    }
-    range$2 = Range2;
-    const LRU = lrucache$1;
-    const cache = new LRU();
-    const parseOptions2 = parseOptions_1$1;
-    const Comparator2 = requireComparator$1();
-    const debug2 = debug_1$2;
-    const SemVer2 = semver$4;
-    const {
-      safeRe: re2,
-      t: t2,
-      comparatorTrimReplace,
-      tildeTrimReplace,
-      caretTrimReplace
-    } = reExports$1;
-    const { FLAG_INCLUDE_PRERELEASE, FLAG_LOOSE } = constants$6;
-    const isNullSet = (c) => c.value === "<0.0.0-0";
-    const isAny = (c) => c.value === "";
-    const isSatisfiable = (comparators, options) => {
-      let result = true;
-      const remainingComparators = comparators.slice();
-      let testComparator = remainingComparators.pop();
-      while (result && remainingComparators.length) {
-        result = remainingComparators.every((otherComparator) => {
-          return testComparator.intersects(otherComparator, options);
-        });
-        testComparator = remainingComparators.pop();
-      }
-      return result;
-    };
-    const parseComparator = (comp, options) => {
-      debug2("comp", comp, options);
-      comp = replaceCarets(comp, options);
-      debug2("caret", comp);
-      comp = replaceTildes(comp, options);
-      debug2("tildes", comp);
-      comp = replaceXRanges(comp, options);
-      debug2("xrange", comp);
-      comp = replaceStars(comp, options);
-      debug2("stars", comp);
-      return comp;
-    };
-    const isX = (id2) => !id2 || id2.toLowerCase() === "x" || id2 === "*";
-    const replaceTildes = (comp, options) => {
-      return comp.trim().split(/\s+/).map((c) => replaceTilde(c, options)).join(" ");
-    };
-    const replaceTilde = (comp, options) => {
-      const r2 = options.loose ? re2[t2.TILDELOOSE] : re2[t2.TILDE];
-      return comp.replace(r2, (_, M, m, p, pr) => {
-        debug2("tilde", comp, _, M, m, p, pr);
-        let ret;
-        if (isX(M)) {
-          ret = "";
-        } else if (isX(m)) {
-          ret = `>=${M}.0.0 <${+M + 1}.0.0-0`;
-        } else if (isX(p)) {
-          ret = `>=${M}.${m}.0 <${M}.${+m + 1}.0-0`;
-        } else if (pr) {
-          debug2("replaceTilde pr", pr);
-          ret = `>=${M}.${m}.${p}-${pr} <${M}.${+m + 1}.0-0`;
-        } else {
-          ret = `>=${M}.${m}.${p} <${M}.${+m + 1}.0-0`;
-        }
-        debug2("tilde return", ret);
-        return ret;
-      });
-    };
-    const replaceCarets = (comp, options) => {
-      return comp.trim().split(/\s+/).map((c) => replaceCaret(c, options)).join(" ");
-    };
-    const replaceCaret = (comp, options) => {
-      debug2("caret", comp, options);
-      const r2 = options.loose ? re2[t2.CARETLOOSE] : re2[t2.CARET];
-      const z = options.includePrerelease ? "-0" : "";
-      return comp.replace(r2, (_, M, m, p, pr) => {
-        debug2("caret", comp, _, M, m, p, pr);
-        let ret;
-        if (isX(M)) {
-          ret = "";
-        } else if (isX(m)) {
-          ret = `>=${M}.0.0${z} <${+M + 1}.0.0-0`;
-        } else if (isX(p)) {
-          if (M === "0") {
-            ret = `>=${M}.${m}.0${z} <${M}.${+m + 1}.0-0`;
-          } else {
-            ret = `>=${M}.${m}.0${z} <${+M + 1}.0.0-0`;
-          }
-        } else if (pr) {
-          debug2("replaceCaret pr", pr);
-          if (M === "0") {
-            if (m === "0") {
-              ret = `>=${M}.${m}.${p}-${pr} <${M}.${m}.${+p + 1}-0`;
-            } else {
-              ret = `>=${M}.${m}.${p}-${pr} <${M}.${+m + 1}.0-0`;
-            }
-          } else {
-            ret = `>=${M}.${m}.${p}-${pr} <${+M + 1}.0.0-0`;
-          }
-        } else {
-          debug2("no pr");
-          if (M === "0") {
-            if (m === "0") {
-              ret = `>=${M}.${m}.${p}${z} <${M}.${m}.${+p + 1}-0`;
-            } else {
-              ret = `>=${M}.${m}.${p}${z} <${M}.${+m + 1}.0-0`;
-            }
-          } else {
-            ret = `>=${M}.${m}.${p} <${+M + 1}.0.0-0`;
-          }
-        }
-        debug2("caret return", ret);
-        return ret;
-      });
-    };
-    const replaceXRanges = (comp, options) => {
-      debug2("replaceXRanges", comp, options);
-      return comp.split(/\s+/).map((c) => replaceXRange(c, options)).join(" ");
-    };
-    const replaceXRange = (comp, options) => {
-      comp = comp.trim();
-      const r2 = options.loose ? re2[t2.XRANGELOOSE] : re2[t2.XRANGE];
-      return comp.replace(r2, (ret, gtlt, M, m, p, pr) => {
-        debug2("xRange", comp, ret, gtlt, M, m, p, pr);
-        const xM = isX(M);
-        const xm = xM || isX(m);
-        const xp = xm || isX(p);
-        const anyX = xp;
-        if (gtlt === "=" && anyX) {
-          gtlt = "";
-        }
-        pr = options.includePrerelease ? "-0" : "";
-        if (xM) {
-          if (gtlt === ">" || gtlt === "<") {
-            ret = "<0.0.0-0";
-          } else {
-            ret = "*";
-          }
-        } else if (gtlt && anyX) {
-          if (xm) {
-            m = 0;
-          }
-          p = 0;
-          if (gtlt === ">") {
-            gtlt = ">=";
-            if (xm) {
-              M = +M + 1;
-              m = 0;
-              p = 0;
-            } else {
-              m = +m + 1;
-              p = 0;
-            }
-          } else if (gtlt === "<=") {
-            gtlt = "<";
-            if (xm) {
-              M = +M + 1;
-            } else {
-              m = +m + 1;
-            }
-          }
-          if (gtlt === "<") {
-            pr = "-0";
-          }
-          ret = `${gtlt + M}.${m}.${p}${pr}`;
-        } else if (xm) {
-          ret = `>=${M}.0.0${pr} <${+M + 1}.0.0-0`;
-        } else if (xp) {
-          ret = `>=${M}.${m}.0${pr} <${M}.${+m + 1}.0-0`;
-        }
-        debug2("xRange return", ret);
-        return ret;
-      });
-    };
-    const replaceStars = (comp, options) => {
-      debug2("replaceStars", comp, options);
-      return comp.trim().replace(re2[t2.STAR], "");
-    };
-    const replaceGTE0 = (comp, options) => {
-      debug2("replaceGTE0", comp, options);
-      return comp.trim().replace(re2[options.includePrerelease ? t2.GTE0PRE : t2.GTE0], "");
-    };
-    const hyphenReplace = (incPr) => ($0, from, fM, fm, fp, fpr, fb, to, tM, tm, tp, tpr) => {
-      if (isX(fM)) {
-        from = "";
-      } else if (isX(fm)) {
-        from = `>=${fM}.0.0${incPr ? "-0" : ""}`;
-      } else if (isX(fp)) {
-        from = `>=${fM}.${fm}.0${incPr ? "-0" : ""}`;
-      } else if (fpr) {
-        from = `>=${from}`;
-      } else {
-        from = `>=${from}${incPr ? "-0" : ""}`;
-      }
-      if (isX(tM)) {
-        to = "";
-      } else if (isX(tm)) {
-        to = `<${+tM + 1}.0.0-0`;
-      } else if (isX(tp)) {
-        to = `<${tM}.${+tm + 1}.0-0`;
-      } else if (tpr) {
-        to = `<=${tM}.${tm}.${tp}-${tpr}`;
-      } else if (incPr) {
-        to = `<${tM}.${tm}.${+tp + 1}-0`;
-      } else {
-        to = `<=${to}`;
-      }
-      return `${from} ${to}`.trim();
-    };
-    const testSet = (set2, version2, options) => {
-      for (let i2 = 0; i2 < set2.length; i2++) {
-        if (!set2[i2].test(version2)) {
-          return false;
-        }
-      }
-      if (version2.prerelease.length && !options.includePrerelease) {
-        for (let i2 = 0; i2 < set2.length; i2++) {
-          debug2(set2[i2].semver);
-          if (set2[i2].semver === Comparator2.ANY) {
-            continue;
-          }
-          if (set2[i2].semver.prerelease.length > 0) {
-            const allowed = set2[i2].semver;
-            if (allowed.major === version2.major && allowed.minor === version2.minor && allowed.patch === version2.patch) {
-              return true;
-            }
-          }
-        }
-        return false;
-      }
-      return true;
-    };
-    return range$2;
-  }
-  var comparator$1;
-  var hasRequiredComparator$1;
-  function requireComparator$1() {
-    if (hasRequiredComparator$1) return comparator$1;
-    hasRequiredComparator$1 = 1;
-    const ANY2 = Symbol("SemVer ANY");
-    class Comparator2 {
-      static get ANY() {
-        return ANY2;
-      }
-      constructor(comp, options) {
-        options = parseOptions2(options);
-        if (comp instanceof Comparator2) {
-          if (comp.loose === !!options.loose) {
-            return comp;
-          } else {
-            comp = comp.value;
-          }
-        }
-        comp = comp.trim().split(/\s+/).join(" ");
-        debug2("comparator", comp, options);
-        this.options = options;
-        this.loose = !!options.loose;
-        this.parse(comp);
-        if (this.semver === ANY2) {
-          this.value = "";
-        } else {
-          this.value = this.operator + this.semver.version;
-        }
-        debug2("comp", this);
-      }
-      parse(comp) {
-        const r2 = this.options.loose ? re2[t2.COMPARATORLOOSE] : re2[t2.COMPARATOR];
-        const m = comp.match(r2);
-        if (!m) {
-          throw new TypeError(`Invalid comparator: ${comp}`);
-        }
-        this.operator = m[1] !== void 0 ? m[1] : "";
-        if (this.operator === "=") {
-          this.operator = "";
-        }
-        if (!m[2]) {
-          this.semver = ANY2;
-        } else {
-          this.semver = new SemVer2(m[2], this.options.loose);
-        }
-      }
-      toString() {
-        return this.value;
-      }
-      test(version2) {
-        debug2("Comparator.test", version2, this.options.loose);
-        if (this.semver === ANY2 || version2 === ANY2) {
-          return true;
-        }
-        if (typeof version2 === "string") {
-          try {
-            version2 = new SemVer2(version2, this.options);
-          } catch (er) {
-            return false;
-          }
-        }
-        return cmp2(version2, this.operator, this.semver, this.options);
-      }
-      intersects(comp, options) {
-        if (!(comp instanceof Comparator2)) {
-          throw new TypeError("a Comparator is required");
-        }
-        if (this.operator === "") {
-          if (this.value === "") {
-            return true;
-          }
-          return new Range2(comp.value, options).test(this.value);
-        } else if (comp.operator === "") {
-          if (comp.value === "") {
-            return true;
-          }
-          return new Range2(this.value, options).test(comp.semver);
-        }
-        options = parseOptions2(options);
-        if (options.includePrerelease && (this.value === "<0.0.0-0" || comp.value === "<0.0.0-0")) {
-          return false;
-        }
-        if (!options.includePrerelease && (this.value.startsWith("<0.0.0") || comp.value.startsWith("<0.0.0"))) {
-          return false;
-        }
-        if (this.operator.startsWith(">") && comp.operator.startsWith(">")) {
-          return true;
-        }
-        if (this.operator.startsWith("<") && comp.operator.startsWith("<")) {
-          return true;
-        }
-        if (this.semver.version === comp.semver.version && this.operator.includes("=") && comp.operator.includes("=")) {
-          return true;
-        }
-        if (cmp2(this.semver, "<", comp.semver, options) && this.operator.startsWith(">") && comp.operator.startsWith("<")) {
-          return true;
-        }
-        if (cmp2(this.semver, ">", comp.semver, options) && this.operator.startsWith("<") && comp.operator.startsWith(">")) {
-          return true;
-        }
-        return false;
-      }
-    }
-    comparator$1 = Comparator2;
-    const parseOptions2 = parseOptions_1$1;
-    const { safeRe: re2, t: t2 } = reExports$1;
-    const cmp2 = cmp_1$1;
-    const debug2 = debug_1$2;
-    const SemVer2 = semver$4;
-    const Range2 = requireRange$2();
-    return comparator$1;
-  }
-  const Range$j = requireRange$2();
-  const satisfies$9 = (version2, range2, options) => {
-    try {
-      range2 = new Range$j(range2, options);
-    } catch (er) {
-      return false;
-    }
-    return range2.test(version2);
-  };
-  var satisfies_1$1 = satisfies$9;
-  const Range$i = requireRange$2();
-  const toComparators$3 = (range2, options) => new Range$i(range2, options).set.map((comp) => comp.map((c) => c.value).join(" ").trim().split(" "));
-  var toComparators_1$1 = toComparators$3;
-  const SemVer$i = semver$4;
-  const Range$h = requireRange$2();
-  const maxSatisfying$3 = (versions2, range2, options) => {
-    let max2 = null;
-    let maxSV = null;
-    let rangeObj = null;
-    try {
-      rangeObj = new Range$h(range2, options);
-    } catch (er) {
-      return null;
-    }
-    versions2.forEach((v) => {
-      if (rangeObj.test(v)) {
-        if (!max2 || maxSV.compare(v) === -1) {
-          max2 = v;
-          maxSV = new SemVer$i(max2, options);
-        }
-      }
-    });
-    return max2;
-  };
-  var maxSatisfying_1$1 = maxSatisfying$3;
-  const SemVer$h = semver$4;
-  const Range$g = requireRange$2();
-  const minSatisfying$3 = (versions2, range2, options) => {
-    let min2 = null;
-    let minSV = null;
-    let rangeObj = null;
-    try {
-      rangeObj = new Range$g(range2, options);
-    } catch (er) {
-      return null;
-    }
-    versions2.forEach((v) => {
-      if (rangeObj.test(v)) {
-        if (!min2 || minSV.compare(v) === 1) {
-          min2 = v;
-          minSV = new SemVer$h(min2, options);
-        }
-      }
-    });
-    return min2;
-  };
-  var minSatisfying_1$1 = minSatisfying$3;
-  const SemVer$g = semver$4;
-  const Range$f = requireRange$2();
-  const gt$7 = gt_1$1;
-  const minVersion$3 = (range2, loose) => {
-    range2 = new Range$f(range2, loose);
-    let minver = new SemVer$g("0.0.0");
-    if (range2.test(minver)) {
-      return minver;
-    }
-    minver = new SemVer$g("0.0.0-0");
-    if (range2.test(minver)) {
-      return minver;
-    }
-    minver = null;
-    for (let i2 = 0; i2 < range2.set.length; ++i2) {
-      const comparators = range2.set[i2];
-      let setMin = null;
-      comparators.forEach((comparator2) => {
-        const compver = new SemVer$g(comparator2.semver.version);
-        switch (comparator2.operator) {
-          case ">":
-            if (compver.prerelease.length === 0) {
-              compver.patch++;
-            } else {
-              compver.prerelease.push(0);
-            }
-            compver.raw = compver.format();
-          case "":
-          case ">=":
-            if (!setMin || gt$7(compver, setMin)) {
-              setMin = compver;
-            }
-            break;
-          case "<":
-          case "<=":
-            break;
-          default:
-            throw new Error(`Unexpected operation: ${comparator2.operator}`);
-        }
-      });
-      if (setMin && (!minver || gt$7(minver, setMin))) {
-        minver = setMin;
-      }
-    }
-    if (minver && range2.test(minver)) {
-      return minver;
-    }
-    return null;
-  };
-  var minVersion_1$1 = minVersion$3;
-  const Range$e = requireRange$2();
-  const validRange$3 = (range2, options) => {
-    try {
-      return new Range$e(range2, options).range || "*";
-    } catch (er) {
-      return null;
-    }
-  };
-  var valid$4 = validRange$3;
-  const SemVer$f = semver$4;
-  const Comparator$5 = requireComparator$1();
-  const { ANY: ANY$3 } = Comparator$5;
-  const Range$d = requireRange$2();
-  const satisfies$8 = satisfies_1$1;
-  const gt$6 = gt_1$1;
-  const lt$5 = lt_1$1;
-  const lte$5 = lte_1$1;
-  const gte$5 = gte_1$1;
-  const outside$7 = (version2, range2, hilo, options) => {
-    version2 = new SemVer$f(version2, options);
-    range2 = new Range$d(range2, options);
-    let gtfn, ltefn, ltfn, comp, ecomp;
-    switch (hilo) {
-      case ">":
-        gtfn = gt$6;
-        ltefn = lte$5;
-        ltfn = lt$5;
-        comp = ">";
-        ecomp = ">=";
-        break;
-      case "<":
-        gtfn = lt$5;
-        ltefn = gte$5;
-        ltfn = gt$6;
-        comp = "<";
-        ecomp = "<=";
-        break;
-      default:
-        throw new TypeError('Must provide a hilo val of "<" or ">"');
-    }
-    if (satisfies$8(version2, range2, options)) {
-      return false;
-    }
-    for (let i2 = 0; i2 < range2.set.length; ++i2) {
-      const comparators = range2.set[i2];
-      let high = null;
-      let low = null;
-      comparators.forEach((comparator2) => {
-        if (comparator2.semver === ANY$3) {
-          comparator2 = new Comparator$5(">=0.0.0");
-        }
-        high = high || comparator2;
-        low = low || comparator2;
-        if (gtfn(comparator2.semver, high.semver, options)) {
-          high = comparator2;
-        } else if (ltfn(comparator2.semver, low.semver, options)) {
-          low = comparator2;
-        }
-      });
-      if (high.operator === comp || high.operator === ecomp) {
-        return false;
-      }
-      if ((!low.operator || low.operator === comp) && ltefn(version2, low.semver)) {
-        return false;
-      } else if (low.operator === ecomp && ltfn(version2, low.semver)) {
-        return false;
-      }
-    }
-    return true;
-  };
-  var outside_1$1 = outside$7;
-  const outside$6 = outside_1$1;
-  const gtr$3 = (version2, range2, options) => outside$6(version2, range2, ">", options);
-  var gtr_1$1 = gtr$3;
-  const outside$5 = outside_1$1;
-  const ltr$3 = (version2, range2, options) => outside$5(version2, range2, "<", options);
-  var ltr_1$1 = ltr$3;
-  const Range$c = requireRange$2();
-  const intersects$3 = (r1, r2, options) => {
-    r1 = new Range$c(r1, options);
-    r2 = new Range$c(r2, options);
-    return r1.intersects(r2, options);
-  };
-  var intersects_1$1 = intersects$3;
-  const satisfies$7 = satisfies_1$1;
-  const compare$e = compare_1$1;
-  var simplify$1 = (versions2, range2, options) => {
-    const set2 = [];
-    let first = null;
-    let prev = null;
-    const v = versions2.sort((a, b) => compare$e(a, b, options));
-    for (const version2 of v) {
-      const included = satisfies$7(version2, range2, options);
-      if (included) {
-        prev = version2;
-        if (!first) {
-          first = version2;
-        }
-      } else {
-        if (prev) {
-          set2.push([first, prev]);
-        }
-        prev = null;
-        first = null;
-      }
-    }
-    if (first) {
-      set2.push([first, null]);
-    }
-    const ranges = [];
-    for (const [min2, max2] of set2) {
-      if (min2 === max2) {
-        ranges.push(min2);
-      } else if (!max2 && min2 === v[0]) {
-        ranges.push("*");
-      } else if (!max2) {
-        ranges.push(`>=${min2}`);
-      } else if (min2 === v[0]) {
-        ranges.push(`<=${max2}`);
-      } else {
-        ranges.push(`${min2} - ${max2}`);
-      }
-    }
-    const simplified = ranges.join(" || ");
-    const original = typeof range2.raw === "string" ? range2.raw : String(range2);
-    return simplified.length < original.length ? simplified : range2;
-  };
-  const Range$b = requireRange$2();
-  const Comparator$4 = requireComparator$1();
-  const { ANY: ANY$2 } = Comparator$4;
-  const satisfies$6 = satisfies_1$1;
-  const compare$d = compare_1$1;
-  const subset$3 = (sub, dom, options = {}) => {
-    if (sub === dom) {
-      return true;
-    }
-    sub = new Range$b(sub, options);
-    dom = new Range$b(dom, options);
-    let sawNonNull = false;
-    OUTER: for (const simpleSub of sub.set) {
-      for (const simpleDom of dom.set) {
-        const isSub = simpleSubset$1(simpleSub, simpleDom, options);
-        sawNonNull = sawNonNull || isSub !== null;
-        if (isSub) {
-          continue OUTER;
-        }
-      }
-      if (sawNonNull) {
-        return false;
-      }
-    }
-    return true;
-  };
-  const minimumVersionWithPreRelease$1 = [new Comparator$4(">=0.0.0-0")];
-  const minimumVersion$1 = [new Comparator$4(">=0.0.0")];
-  const simpleSubset$1 = (sub, dom, options) => {
-    if (sub === dom) {
-      return true;
-    }
-    if (sub.length === 1 && sub[0].semver === ANY$2) {
-      if (dom.length === 1 && dom[0].semver === ANY$2) {
-        return true;
-      } else if (options.includePrerelease) {
-        sub = minimumVersionWithPreRelease$1;
-      } else {
-        sub = minimumVersion$1;
-      }
-    }
-    if (dom.length === 1 && dom[0].semver === ANY$2) {
-      if (options.includePrerelease) {
-        return true;
-      } else {
-        dom = minimumVersion$1;
-      }
-    }
-    const eqSet = /* @__PURE__ */ new Set();
-    let gt2, lt2;
-    for (const c of sub) {
-      if (c.operator === ">" || c.operator === ">=") {
-        gt2 = higherGT$1(gt2, c, options);
-      } else if (c.operator === "<" || c.operator === "<=") {
-        lt2 = lowerLT$1(lt2, c, options);
-      } else {
-        eqSet.add(c.semver);
-      }
-    }
-    if (eqSet.size > 1) {
-      return null;
-    }
-    let gtltComp;
-    if (gt2 && lt2) {
-      gtltComp = compare$d(gt2.semver, lt2.semver, options);
-      if (gtltComp > 0) {
-        return null;
-      } else if (gtltComp === 0 && (gt2.operator !== ">=" || lt2.operator !== "<=")) {
-        return null;
-      }
-    }
-    for (const eq2 of eqSet) {
-      if (gt2 && !satisfies$6(eq2, String(gt2), options)) {
-        return null;
-      }
-      if (lt2 && !satisfies$6(eq2, String(lt2), options)) {
-        return null;
-      }
-      for (const c of dom) {
-        if (!satisfies$6(eq2, String(c), options)) {
-          return false;
-        }
-      }
-      return true;
-    }
-    let higher, lower;
-    let hasDomLT, hasDomGT;
-    let needDomLTPre = lt2 && !options.includePrerelease && lt2.semver.prerelease.length ? lt2.semver : false;
-    let needDomGTPre = gt2 && !options.includePrerelease && gt2.semver.prerelease.length ? gt2.semver : false;
-    if (needDomLTPre && needDomLTPre.prerelease.length === 1 && lt2.operator === "<" && needDomLTPre.prerelease[0] === 0) {
-      needDomLTPre = false;
-    }
-    for (const c of dom) {
-      hasDomGT = hasDomGT || c.operator === ">" || c.operator === ">=";
-      hasDomLT = hasDomLT || c.operator === "<" || c.operator === "<=";
-      if (gt2) {
-        if (needDomGTPre) {
-          if (c.semver.prerelease && c.semver.prerelease.length && c.semver.major === needDomGTPre.major && c.semver.minor === needDomGTPre.minor && c.semver.patch === needDomGTPre.patch) {
-            needDomGTPre = false;
-          }
-        }
-        if (c.operator === ">" || c.operator === ">=") {
-          higher = higherGT$1(gt2, c, options);
-          if (higher === c && higher !== gt2) {
-            return false;
-          }
-        } else if (gt2.operator === ">=" && !satisfies$6(gt2.semver, String(c), options)) {
-          return false;
-        }
-      }
-      if (lt2) {
-        if (needDomLTPre) {
-          if (c.semver.prerelease && c.semver.prerelease.length && c.semver.major === needDomLTPre.major && c.semver.minor === needDomLTPre.minor && c.semver.patch === needDomLTPre.patch) {
-            needDomLTPre = false;
-          }
-        }
-        if (c.operator === "<" || c.operator === "<=") {
-          lower = lowerLT$1(lt2, c, options);
-          if (lower === c && lower !== lt2) {
-            return false;
-          }
-        } else if (lt2.operator === "<=" && !satisfies$6(lt2.semver, String(c), options)) {
-          return false;
-        }
-      }
-      if (!c.operator && (lt2 || gt2) && gtltComp !== 0) {
-        return false;
-      }
-    }
-    if (gt2 && hasDomLT && !lt2 && gtltComp !== 0) {
-      return false;
-    }
-    if (lt2 && hasDomGT && !gt2 && gtltComp !== 0) {
-      return false;
-    }
-    if (needDomGTPre || needDomLTPre) {
-      return false;
-    }
-    return true;
-  };
-  const higherGT$1 = (a, b, options) => {
-    if (!a) {
-      return b;
-    }
-    const comp = compare$d(a.semver, b.semver, options);
-    return comp > 0 ? a : comp < 0 ? b : b.operator === ">" && a.operator === ">=" ? b : a;
-  };
-  const lowerLT$1 = (a, b, options) => {
-    if (!a) {
-      return b;
-    }
-    const comp = compare$d(a.semver, b.semver, options);
-    return comp < 0 ? a : comp > 0 ? b : b.operator === "<" && a.operator === "<=" ? b : a;
-  };
-  var subset_1$1 = subset$3;
-  const internalRe$1 = reExports$1;
-  const constants$5 = constants$6;
-  const SemVer$e = semver$4;
-  const identifiers$2 = identifiers$3;
-  const parse$b = parse_1$1;
-  const valid$3 = valid_1$1;
-  const clean$2 = clean_1$1;
-  const inc$2 = inc_1$1;
-  const diff$2 = diff_1$1;
-  const major$2 = major_1$1;
-  const minor$2 = minor_1$1;
-  const patch$2 = patch_1$1;
-  const prerelease$2 = prerelease_1$1;
-  const compare$c = compare_1$1;
-  const rcompare$2 = rcompare_1$1;
-  const compareLoose$2 = compareLoose_1$1;
-  const compareBuild$4 = compareBuild_1$1;
-  const sort$2 = sort_1$1;
-  const rsort$2 = rsort_1$1;
-  const gt$5 = gt_1$1;
-  const lt$4 = lt_1$1;
-  const eq$3 = eq_1$1;
-  const neq$3 = neq_1$1;
-  const gte$4 = gte_1$1;
-  const lte$4 = lte_1$1;
-  const cmp$2 = cmp_1$1;
-  const coerce$3 = coerce_1$1;
-  const Comparator$3 = requireComparator$1();
-  const Range$a = requireRange$2();
-  const satisfies$5 = satisfies_1$1;
-  const toComparators$2 = toComparators_1$1;
-  const maxSatisfying$2 = maxSatisfying_1$1;
-  const minSatisfying$2 = minSatisfying_1$1;
-  const minVersion$2 = minVersion_1$1;
-  const validRange$2 = valid$4;
-  const outside$4 = outside_1$1;
-  const gtr$2 = gtr_1$1;
-  const ltr$2 = ltr_1$1;
-  const intersects$2 = intersects_1$1;
-  const simplifyRange$1 = simplify$1;
-  const subset$2 = subset_1$1;
-  var semver$2 = {
-    parse: parse$b,
-    valid: valid$3,
-    clean: clean$2,
-    inc: inc$2,
-    diff: diff$2,
-    major: major$2,
-    minor: minor$2,
-    patch: patch$2,
-    prerelease: prerelease$2,
-    compare: compare$c,
-    rcompare: rcompare$2,
-    compareLoose: compareLoose$2,
-    compareBuild: compareBuild$4,
-    sort: sort$2,
-    rsort: rsort$2,
-    gt: gt$5,
-    lt: lt$4,
-    eq: eq$3,
-    neq: neq$3,
-    gte: gte$4,
-    lte: lte$4,
-    cmp: cmp$2,
-    coerce: coerce$3,
-    Comparator: Comparator$3,
-    Range: Range$a,
-    satisfies: satisfies$5,
-    toComparators: toComparators$2,
-    maxSatisfying: maxSatisfying$2,
-    minSatisfying: minSatisfying$2,
-    minVersion: minVersion$2,
-    validRange: validRange$2,
-    outside: outside$4,
-    gtr: gtr$2,
-    ltr: ltr$2,
-    intersects: intersects$2,
-    simplifyRange: simplifyRange$1,
-    subset: subset$2,
-    SemVer: SemVer$e,
-    re: internalRe$1.re,
-    src: internalRe$1.src,
-    tokens: internalRe$1.t,
-    SEMVER_SPEC_VERSION: constants$5.SEMVER_SPEC_VERSION,
-    RELEASE_TYPES: constants$5.RELEASE_TYPES,
-    compareIdentifiers: identifiers$2.compareIdentifiers,
-    rcompareIdentifiers: identifiers$2.rcompareIdentifiers
-  };
-  const semver$3 = /* @__PURE__ */ getDefaultExportFromCjs$1(semver$2);
   function bind(fn, thisArg) {
     return function wrap() {
       return fn.apply(thisArg, arguments);
@@ -19915,21 +18324,6 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
   const toFiniteNumber = (value, defaultValue) => {
     return value != null && Number.isFinite(value = +value) ? value : defaultValue;
   };
-  const ALPHA = "abcdefghijklmnopqrstuvwxyz";
-  const DIGIT = "0123456789";
-  const ALPHABET = {
-    DIGIT,
-    ALPHA,
-    ALPHA_DIGIT: ALPHA + ALPHA.toUpperCase() + DIGIT
-  };
-  const generateString = (size2 = 16, alphabet = ALPHABET.ALPHA_DIGIT) => {
-    let str = "";
-    const { length } = alphabet;
-    while (size2--) {
-      str += alphabet[Math.random() * length | 0];
-    }
-    return str;
-  };
   function isSpecCompliantForm(thing) {
     return !!(thing && isFunction$1(thing.append) && thing[Symbol.toStringTag] === "FormData" && thing[Symbol.iterator]);
   }
@@ -20028,8 +18422,6 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
     findKey,
     global: _global,
     isContextDefined,
-    ALPHABET,
-    generateString,
     isSpecCompliantForm,
     toJSONObject,
     isAsyncFn,
@@ -20257,6 +18649,11 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
       return url2;
     }
     const _encode2 = options && options.encode || encode$2;
+    if (utils$e.isFunction(options)) {
+      options = {
+        serialize: options
+      };
+    }
     const serializeFn = options && options.serialize;
     let serializedParams;
     if (serializeFn) {
@@ -20933,45 +19330,13 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
     }), throttled[1]];
   };
   const asyncDecorator = (fn) => (...args) => utils$e.asap(() => fn(...args));
-  const isURLSameOrigin = platform.hasStandardBrowserEnv ? (
-    // Standard browser envs have full support of the APIs needed to test
-    // whether the request URL is of the same origin as current location.
-    function standardBrowserEnv() {
-      const msie = platform.navigator && /(msie|trident)/i.test(platform.navigator.userAgent);
-      const urlParsingNode = document.createElement("a");
-      let originURL;
-      function resolveURL(url2) {
-        let href = url2;
-        if (msie) {
-          urlParsingNode.setAttribute("href", href);
-          href = urlParsingNode.href;
-        }
-        urlParsingNode.setAttribute("href", href);
-        return {
-          href: urlParsingNode.href,
-          protocol: urlParsingNode.protocol ? urlParsingNode.protocol.replace(/:$/, "") : "",
-          host: urlParsingNode.host,
-          search: urlParsingNode.search ? urlParsingNode.search.replace(/^\?/, "") : "",
-          hash: urlParsingNode.hash ? urlParsingNode.hash.replace(/^#/, "") : "",
-          hostname: urlParsingNode.hostname,
-          port: urlParsingNode.port,
-          pathname: urlParsingNode.pathname.charAt(0) === "/" ? urlParsingNode.pathname : "/" + urlParsingNode.pathname
-        };
-      }
-      originURL = resolveURL(window.location.href);
-      return function isURLSameOrigin2(requestURL) {
-        const parsed = utils$e.isString(requestURL) ? resolveURL(requestURL) : requestURL;
-        return parsed.protocol === originURL.protocol && parsed.host === originURL.host;
-      };
-    }()
-  ) : (
-    // Non standard browser envs (web workers, react-native) lack needed support.
-    /* @__PURE__ */ function nonStandardBrowserEnv() {
-      return function isURLSameOrigin2() {
-        return true;
-      };
-    }()
-  );
+  const isURLSameOrigin = platform.hasStandardBrowserEnv ? /* @__PURE__ */ ((origin2, isMSIE) => (url2) => {
+    url2 = new URL(url2, platform.origin);
+    return origin2.protocol === url2.protocol && origin2.host === url2.host && (isMSIE || origin2.port === url2.port);
+  })(
+    new URL(platform.origin),
+    platform.navigator && /(msie|trident)/i.test(platform.navigator.userAgent)
+  ) : () => true;
   const cookies = platform.hasStandardBrowserEnv ? (
     // Standard browser envs support document.cookie
     {
@@ -21009,8 +19374,9 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
   function combineURLs(baseURL, relativeURL) {
     return relativeURL ? baseURL.replace(/\/?\/$/, "") + "/" + relativeURL.replace(/^\/+/, "") : baseURL;
   }
-  function buildFullPath(baseURL, requestedURL) {
-    if (baseURL && !isAbsoluteURL(requestedURL)) {
+  function buildFullPath(baseURL, requestedURL, allowAbsoluteUrls) {
+    let isRelativeUrl = !isAbsoluteURL(requestedURL);
+    if (baseURL && (isRelativeUrl || allowAbsoluteUrls == false)) {
       return combineURLs(baseURL, requestedURL);
     }
     return requestedURL;
@@ -21019,7 +19385,7 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
   function mergeConfig(config1, config2) {
     config2 = config2 || {};
     const config3 = {};
-    function getMergedValue(target, source, caseless) {
+    function getMergedValue(target, source, prop, caseless) {
       if (utils$e.isPlainObject(target) && utils$e.isPlainObject(source)) {
         return utils$e.merge.call({ caseless }, target, source);
       } else if (utils$e.isPlainObject(source)) {
@@ -21029,11 +19395,11 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
       }
       return source;
     }
-    function mergeDeepProperties(a, b, caseless) {
+    function mergeDeepProperties(a, b, prop, caseless) {
       if (!utils$e.isUndefined(b)) {
-        return getMergedValue(a, b, caseless);
+        return getMergedValue(a, b, prop, caseless);
       } else if (!utils$e.isUndefined(a)) {
-        return getMergedValue(void 0, a, caseless);
+        return getMergedValue(void 0, a, prop, caseless);
       }
     }
     function valueFromConfig2(a, b) {
@@ -21084,7 +19450,7 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
       socketPath: defaultToConfig2,
       responseEncoding: defaultToConfig2,
       validateStatus: mergeDirectKeys,
-      headers: (a, b) => mergeDeepProperties(headersToObject(a), headersToObject(b), true)
+      headers: (a, b, prop) => mergeDeepProperties(headersToObject(a), headersToObject(b), prop, true)
     };
     utils$e.forEach(Object.keys(Object.assign({}, config1, config2)), function computeConfigValue(prop) {
       const merge2 = mergeMap[prop] || mergeDeepProperties;
@@ -21097,7 +19463,7 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
     const newConfig = mergeConfig({}, config2);
     let { data, withXSRFToken, xsrfHeaderName, xsrfCookieName, headers, auth } = newConfig;
     newConfig.headers = headers = AxiosHeaders.from(headers);
-    newConfig.url = buildURL(buildFullPath(newConfig.baseURL, newConfig.url), config2.params, config2.paramsSerializer);
+    newConfig.url = buildURL(buildFullPath(newConfig.baseURL, newConfig.url, newConfig.allowAbsoluteUrls), config2.params, config2.paramsSerializer);
     if (auth) {
       headers.set(
         "Authorization",
@@ -21633,7 +19999,7 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
       return Promise.reject(reason);
     });
   }
-  const VERSION = "1.7.7";
+  const VERSION = "1.8.4";
   const validators$1 = {};
   ["object", "boolean", "number", "function", "string", "symbol"].forEach((type2, i2) => {
     validators$1[type2] = function validator2(thing) {
@@ -21662,6 +20028,12 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
         );
       }
       return validator2 ? validator2(value, opt, opts) : true;
+    };
+  };
+  validators$1.spelling = function spelling(correctSpelling) {
+    return (value, opt) => {
+      console.warn(`${opt} is likely a misspelling of ${correctSpelling}`);
+      return true;
     };
   };
   function assertOptions(options, schema, allowUnknown) {
@@ -21713,8 +20085,8 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
           return yield this._request(configOrUrl, config2);
         } catch (err) {
           if (err instanceof Error) {
-            let dummy;
-            Error.captureStackTrace ? Error.captureStackTrace(dummy = {}) : dummy = new Error();
+            let dummy = {};
+            Error.captureStackTrace ? Error.captureStackTrace(dummy) : dummy = new Error();
             const stack = dummy.stack ? dummy.stack.replace(/^.+\n/, "") : "";
             try {
               if (!err.stack) {
@@ -21757,6 +20129,16 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
           }, true);
         }
       }
+      if (config2.allowAbsoluteUrls !== void 0) ;
+      else if (this.defaults.allowAbsoluteUrls !== void 0) {
+        config2.allowAbsoluteUrls = this.defaults.allowAbsoluteUrls;
+      } else {
+        config2.allowAbsoluteUrls = true;
+      }
+      validator.assertOptions(config2, {
+        baseUrl: validators.spelling("baseURL"),
+        withXsrfToken: validators.spelling("withXSRFToken")
+      }, true);
       config2.method = (config2.method || this.defaults.method || "get").toLowerCase();
       let contextHeaders = headers && utils$e.merge(
         headers.common,
@@ -21823,7 +20205,7 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
     }
     getUri(config2) {
       config2 = mergeConfig(this.defaults, config2);
-      const fullPath = buildFullPath(config2.baseURL, config2.url);
+      const fullPath = buildFullPath(config2.baseURL, config2.url, config2.allowAbsoluteUrls);
       return buildURL(fullPath, config2.params, config2.paramsSerializer);
     }
   }
@@ -22260,13 +20642,13 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
     _eval = EvalError;
     return _eval;
   }
-  var range$1;
-  var hasRequiredRange$1;
-  function requireRange$1() {
-    if (hasRequiredRange$1) return range$1;
-    hasRequiredRange$1 = 1;
-    range$1 = RangeError;
-    return range$1;
+  var range;
+  var hasRequiredRange;
+  function requireRange() {
+    if (hasRequiredRange) return range;
+    hasRequiredRange = 1;
+    range = RangeError;
+    return range;
   }
   var ref;
   var hasRequiredRef;
@@ -22655,7 +21037,7 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
     var $Object = requireEsObjectAtoms();
     var $Error = requireEsErrors();
     var $EvalError = require_eval();
-    var $RangeError = requireRange$1();
+    var $RangeError = requireRange();
     var $ReferenceError = requireRef();
     var $SyntaxError = requireSyntax();
     var $TypeError2 = type;
@@ -46573,7 +44955,7 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
     })(base);
     return base;
   }
-  var constants$4 = {};
+  var constants$2 = {};
   var der = {};
   var hasRequiredDer$2;
   function requireDer$2() {
@@ -46625,7 +45007,7 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
   }
   var hasRequiredConstants$1;
   function requireConstants$1() {
-    if (hasRequiredConstants$1) return constants$4;
+    if (hasRequiredConstants$1) return constants$2;
     hasRequiredConstants$1 = 1;
     (function(exports2) {
       var constants2 = exports2;
@@ -46640,8 +45022,8 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
         return res;
       };
       constants2.der = requireDer$2();
-    })(constants$4);
-    return constants$4;
+    })(constants$2);
+    return constants$2;
   }
   var decoders = {};
   var der_1$1;
@@ -50052,15 +48434,15 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
       def: "https://polkadot-fullnodes.api.live.ledger.com",
       desc: "Polkadot Node"
     },
-    ELROND_API_ENDPOINT: {
+    MULTIVERSX_API_ENDPOINT: {
       parser: stringParser,
       def: "https://elrond.coin.ledger.com",
-      desc: "Elrond API url"
+      desc: "MultiversX API url"
     },
-    ELROND_DELEGATION_API_ENDPOINT: {
+    MULTIVERSX_DELEGATION_API_ENDPOINT: {
       parser: stringParser,
       def: "https://delegations-elrond.coin.ledger.com",
-      desc: "Elrond DELEGATION API url"
+      desc: "MultiversX DELEGATION API url"
     },
     API_STELLAR_HORIZON: {
       parser: stringParser,
@@ -50071,6 +48453,11 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
       parser: intParser,
       def: 100,
       desc: "Limit of operation that Horizon will fetch per page"
+    },
+    API_STELLAR_HORIZON_INITIAL_FETCH_MAX_OPERATIONS: {
+      parser: intParser,
+      def: 1e3,
+      desc: "Limit of operation that Horizon will fetch on initial sync"
     },
     API_STELLAR_HORIZON_STATIC_FEE: {
       def: false,
@@ -50106,6 +48493,11 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
       parser: stringParser,
       def: "https://solana.coin.ledger.com",
       desc: "proxy url for solana API"
+    },
+    API_SUI_NODE_PROXY: {
+      parser: stringParser,
+      def: "https://sui.coin.ledger.com",
+      desc: "reverse proxy url for sui node"
     },
     SOLANA_VALIDATORS_APP_BASE_URL: {
       parser: stringParser,
@@ -50481,7 +48873,7 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
       parser: stringArrayParser,
       desc: "set the currencies where NFT is active"
     },
-    NFT_ETH_METADATA_SERVICE: {
+    NFT_METADATA_SERVICE: {
       def: "https://nft.api.live.ledger.com",
       parser: stringParser,
       desc: "service uri used to get the metadata of an nft"
@@ -50805,9 +49197,11 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
     }
   };
   const defaults$2 = Object.keys(envDefinitions).reduce((acc, curr) => {
-    return Object.assign(Object.assign({}, acc), { [curr]: envDefinitions[curr].def });
+    return __spreadProps(__spreadValues({}, acc), {
+      [curr]: envDefinitions[curr].def
+    });
   }, {});
-  Object.assign({}, defaults$2);
+  __spreadValues({}, defaults$2);
   new Subject();
   const version$1 = "strings/5.7.0";
   const logger$5 = new Logger(version$1);
@@ -63503,44 +61897,6 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
       ]
     }
   };
-  var __awaiter$c = function(thisArg, _arguments, P, generator) {
-    function adopt(value) {
-      return value instanceof P ? value : new P(function(resolve2) {
-        resolve2(value);
-      });
-    }
-    return new (P || (P = Promise))(function(resolve2, reject) {
-      function fulfilled(value) {
-        try {
-          step(generator.next(value));
-        } catch (e) {
-          reject(e);
-        }
-      }
-      function rejected(value) {
-        try {
-          step(generator["throw"](value));
-        } catch (e) {
-          reject(e);
-        }
-      }
-      function step(result) {
-        result.done ? resolve2(result.value) : adopt(result.value).then(fulfilled, rejected);
-      }
-      step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-  };
-  (function(s2, e) {
-    var t2 = {};
-    for (var p in s2) if (Object.prototype.hasOwnProperty.call(s2, p) && e.indexOf(p) < 0)
-      t2[p] = s2[p];
-    if (s2 != null && typeof Object.getOwnPropertySymbols === "function")
-      for (var i2 = 0, p = Object.getOwnPropertySymbols(s2); i2 < p.length; i2++) {
-        if (e.indexOf(p[i2]) < 0 && Object.prototype.propertyIsEnumerable.call(s2, p[i2]))
-          t2[p[i2]] = s2[p[i2]];
-      }
-    return t2;
-  });
   const sortObjectAlphabetically = (obj) => {
     const keys = Object.keys(obj).sort();
     return keys.reduce((acc, curr) => {
@@ -63559,21 +61915,25 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
     const sortedTypes = sortObjectAlphabetically(types2);
     return SHA224$1(JSON.stringify(sortedTypes).replace(" ", "")).toString();
   };
-  const getFiltersForMessage = (message, shouldUseV1Filters, calServiceURL) => __awaiter$c(void 0, void 0, void 0, function* () {
-    var _a2, _b, _c, _d, _e, _f, _g, _h;
+  const getFiltersForMessage = (message, shouldUseV1Filters, calServiceURL) => __async(this, null, function* () {
+    var _a2, _b, _c, _d, _e, _f, _g;
     const schemaHash = getSchemaHashForMessage(message);
-    const verifyingContract = ((_b = (_a2 = message.domain) === null || _a2 === void 0 ? void 0 : _a2.verifyingContract) === null || _b === void 0 ? void 0 : _b.toLowerCase()) || AddressZero;
+    const verifyingContract = ((_b = (_a2 = message.domain) == null ? void 0 : _a2.verifyingContract) == null ? void 0 : _b.toLowerCase()) || AddressZero;
     try {
       if (calServiceURL) {
         const { data } = yield axios.get(`${calServiceURL}/v1/dapps`, {
           params: {
             output: "eip712_signatures",
             eip712_signatures_version: shouldUseV1Filters ? "v1" : "v2",
-            chain_id: (_c = message.domain) === null || _c === void 0 ? void 0 : _c.chainId,
+            chain_id: (_c = message.domain) == null ? void 0 : _c.chainId,
             contracts: verifyingContract
           }
         });
-        const filters = (_f = (_e = (_d = data === null || data === void 0 ? void 0 : data[0]) === null || _d === void 0 ? void 0 : _d.eip712_signatures) === null || _e === void 0 ? void 0 : _e[verifyingContract]) === null || _f === void 0 ? void 0 : _f[schemaHash];
+        const targetObject = data.find((item) => {
+          var _a3, _b2;
+          return (_b2 = (_a3 = item == null ? void 0 : item.eip712_signatures) == null ? void 0 : _a3[verifyingContract]) == null ? void 0 : _b2[schemaHash];
+        });
+        const filters = (_e = (_d = targetObject == null ? void 0 : targetObject.eip712_signatures) == null ? void 0 : _d[verifyingContract]) == null ? void 0 : _e[schemaHash];
         if (!filters) {
           throw new Error("Fallback to static file");
         }
@@ -63581,7 +61941,7 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
       }
       throw new Error("Fallback to static file");
     } catch (e) {
-      const messageId = `${(_h = (_g = message.domain) === null || _g === void 0 ? void 0 : _g.chainId) !== null && _h !== void 0 ? _h : 0}:${verifyingContract}:${schemaHash}`;
+      const messageId = `${(_g = (_f = message.domain) == null ? void 0 : _f.chainId) != null ? _g : 0}:${verifyingContract}:${schemaHash}`;
       if (shouldUseV1Filters) {
         return EIP712$1[messageId];
       }
@@ -63665,40 +62025,13 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
     calServiceURL: "https://crypto-assets-service.api.ledger.com"
   };
   function getLoadConfig(userLoadConfig) {
-    return Object.assign(Object.assign({}, defaultLoadConfig), userLoadConfig);
+    return __spreadValues(__spreadValues({}, defaultLoadConfig), userLoadConfig);
   }
-  var __awaiter$b = function(thisArg, _arguments, P, generator) {
-    function adopt(value) {
-      return value instanceof P ? value : new P(function(resolve2) {
-        resolve2(value);
-      });
-    }
-    return new (P || (P = Promise))(function(resolve2, reject) {
-      function fulfilled(value) {
-        try {
-          step(generator.next(value));
-        } catch (e) {
-          reject(e);
-        }
-      }
-      function rejected(value) {
-        try {
-          step(generator["throw"](value));
-        } catch (e) {
-          reject(e);
-        }
-      }
-      function step(result) {
-        result.done ? resolve2(result.value) : adopt(result.value).then(fulfilled, rejected);
-      }
-      step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-  };
   const asContractAddress = (addr) => {
     const a = addr.toLowerCase();
     return a.startsWith("0x") ? a : "0x" + a;
   };
-  const findERC20SignaturesInfo = (userLoadConfig, chainId) => __awaiter$b(void 0, void 0, void 0, function* () {
+  const findERC20SignaturesInfo = (userLoadConfig, chainId) => __async(this, null, function* () {
     const { cryptoassetsBaseURL } = getLoadConfig(userLoadConfig);
     if (!cryptoassetsBaseURL)
       return null;
@@ -63718,14 +62051,14 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
     var _a2, _b;
     if (erc20SignaturesBlob) {
       try {
-        return parse$a(erc20SignaturesBlob).byContractAndChainId(asContractAddress(contract), chainId);
+        return parse$3(erc20SignaturesBlob).byContractAndChainId(asContractAddress(contract), chainId);
       } catch (e) {
-        return (_a2 = get(chainId)) === null || _a2 === void 0 ? void 0 : _a2.byContractAndChainId(asContractAddress(contract), chainId);
+        return (_a2 = get(chainId)) == null ? void 0 : _a2.byContractAndChainId(asContractAddress(contract), chainId);
       }
     }
-    return (_b = get(chainId)) === null || _b === void 0 ? void 0 : _b.byContractAndChainId(asContractAddress(contract), chainId);
+    return (_b = get(chainId)) == null ? void 0 : _b.byContractAndChainId(asContractAddress(contract), chainId);
   };
-  const parse$a = (erc20SignaturesBlob) => {
+  const parse$3 = (erc20SignaturesBlob) => {
     const buf = Buffer.from(erc20SignaturesBlob, "base64");
     const map = {};
     const entries = [];
@@ -63771,7 +62104,7 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
       const signatureBlob = signatures[chainId];
       if (!signatureBlob)
         return null;
-      const api2 = parse$a(signatureBlob);
+      const api2 = parse$3(signatureBlob);
       cache[chainId] = api2;
       return api2;
     };
@@ -63909,33 +62242,6 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
     const chunks = Math.ceil(payload.length / chunkSize);
     return new Array(chunks).fill(null).map((_, i2) => payload.subarray(i2 * chunkSize, (i2 + 1) * chunkSize));
   };
-  var __awaiter$a = function(thisArg, _arguments, P, generator) {
-    function adopt(value) {
-      return value instanceof P ? value : new P(function(resolve2) {
-        resolve2(value);
-      });
-    }
-    return new (P || (P = Promise))(function(resolve2, reject) {
-      function fulfilled(value) {
-        try {
-          step(generator.next(value));
-        } catch (e) {
-          reject(e);
-        }
-      }
-      function rejected(value) {
-        try {
-          step(generator["throw"](value));
-        } catch (e) {
-          reject(e);
-        }
-      }
-      function step(result) {
-        result.done ? resolve2(result.value) : adopt(result.value).then(fulfilled, rejected);
-      }
-      step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-  };
   var EIP712_ARRAY_TYPE_VALUE;
   (function(EIP712_ARRAY_TYPE_VALUE2) {
     EIP712_ARRAY_TYPE_VALUE2[EIP712_ARRAY_TYPE_VALUE2["DYNAMIC"] = 0] = "DYNAMIC";
@@ -63973,8 +62279,8 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
   };
   const EIP712_TYPE_ENCODERS = {
     INT(value, size2 = 256) {
-      const failSafeValue = value !== null && value !== void 0 ? value : "0";
-      if (typeof failSafeValue === "string" && (failSafeValue === null || failSafeValue === void 0 ? void 0 : failSafeValue.startsWith("0x"))) {
+      const failSafeValue = value != null ? value : "0";
+      if (typeof failSafeValue === "string" && (failSafeValue == null ? void 0 : failSafeValue.startsWith("0x"))) {
         return hexBuffer(failSafeValue);
       }
       let valueAsBN = new BigNumber$1(failSafeValue);
@@ -63993,14 +62299,14 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
       return this.INT(typeof value === "boolean" ? Number(value).toString() : value);
     },
     ADDRESS(value) {
-      return hexBuffer(value !== null && value !== void 0 ? value : "").slice(0, 20);
+      return hexBuffer(value != null ? value : "").slice(0, 20);
     },
     STRING(value) {
-      return Buffer.from(value !== null && value !== void 0 ? value : "", "utf-8");
+      return Buffer.from(value != null ? value : "", "utf-8");
     },
     BYTES(value, size2) {
-      const failSafeValue = value !== null && value !== void 0 ? value : "";
-      return hexBuffer(failSafeValue).slice(0, size2 !== null && size2 !== void 0 ? size2 : ((failSafeValue === null || failSafeValue === void 0 ? void 0 : failSafeValue.length) - 2) / 2);
+      const failSafeValue = value != null ? value : "";
+      return hexBuffer(failSafeValue).slice(0, size2 != null ? size2 : ((failSafeValue == null ? void 0 : failSafeValue.length) - 2) / 2);
     }
   };
   const destructTypeFromString = (typeName) => {
@@ -64028,14 +62334,14 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
     var _a2, _b, _c, _d;
     const [typeDescription, arrSizes] = destructTypeFromString(type2);
     const isTypeAnArray = Boolean(arrSizes.length);
-    const typeProperties = EIP712_TYPE_PROPERTIES[((_a2 = typeDescription === null || typeDescription === void 0 ? void 0 : typeDescription.name) === null || _a2 === void 0 ? void 0 : _a2.toUpperCase()) || ""] || EIP712_TYPE_PROPERTIES.CUSTOM;
-    const typeKey = typeProperties.key(typeDescription === null || typeDescription === void 0 ? void 0 : typeDescription.size);
-    const typeSize = typeProperties.size(typeDescription === null || typeDescription === void 0 ? void 0 : typeDescription.size);
+    const typeProperties = EIP712_TYPE_PROPERTIES[((_a2 = typeDescription == null ? void 0 : typeDescription.name) == null ? void 0 : _a2.toUpperCase()) || ""] || EIP712_TYPE_PROPERTIES.CUSTOM;
+    const typeKey = typeProperties.key(typeDescription == null ? void 0 : typeDescription.size);
+    const typeSize = typeProperties.size(typeDescription == null ? void 0 : typeDescription.size);
     const typeDescData = constructTypeDescByteString(isTypeAnArray, typeSize, typeKey);
     const bufferArray = [Buffer.from(typeDescData, "hex")];
     if (typeProperties === EIP712_TYPE_PROPERTIES.CUSTOM) {
-      bufferArray.push(Buffer.from(intAsHexBytes((_c = (_b = typeDescription === null || typeDescription === void 0 ? void 0 : typeDescription.name) === null || _b === void 0 ? void 0 : _b.length) !== null && _c !== void 0 ? _c : 0, 1), "hex"));
-      bufferArray.push(Buffer.from((_d = typeDescription === null || typeDescription === void 0 ? void 0 : typeDescription.name) !== null && _d !== void 0 ? _d : "", "utf-8"));
+      bufferArray.push(Buffer.from(intAsHexBytes((_c = (_b = typeDescription == null ? void 0 : typeDescription.name) == null ? void 0 : _b.length) != null ? _c : 0, 1), "hex"));
+      bufferArray.push(Buffer.from((_d = typeDescription == null ? void 0 : typeDescription.name) != null ? _d : "", "utf-8"));
     }
     if (typeof typeSize === "number") {
       bufferArray.push(Buffer.from(intAsHexBytes(typeSize, 1), "hex"));
@@ -64074,7 +62380,7 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
     }
     return coinRefsTokensMap;
   };
-  const getAppAndVersion = (transport) => __awaiter$a(void 0, void 0, void 0, function* () {
+  const getAppAndVersion = (transport) => __async(this, null, function* () {
     const appAndVersionHex = yield transport.send(176, 1, 0, 0);
     let offset = 1;
     const nameLength = appAndVersionHex[offset];
@@ -64123,44 +62429,17 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
         throw new Error("Invalid format");
     }
   };
-  var __awaiter$9 = function(thisArg, _arguments, P, generator) {
-    function adopt(value) {
-      return value instanceof P ? value : new P(function(resolve2) {
-        resolve2(value);
-      });
-    }
-    return new (P || (P = Promise))(function(resolve2, reject) {
-      function fulfilled(value) {
-        try {
-          step(generator.next(value));
-        } catch (e) {
-          reject(e);
-        }
-      }
-      function rejected(value) {
-        try {
-          step(generator["throw"](value));
-        } catch (e) {
-          reject(e);
-        }
-      }
-      function step(result) {
-        result.done ? resolve2(result.value) : adopt(result.value).then(fulfilled, rejected);
-      }
-      step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-  };
   const makeRecursiveFieldStructImplem = ({ transport, loadConfig, chainId, erc20SignaturesBlob, types: types2, filters, shouldUseV1Filters, shouldUseDiscardedFields, coinRefsTokensMap }) => {
     var _a2;
     const typesMap = {};
     for (const type2 in types2) {
-      typesMap[type2] = (_a2 = types2[type2]) === null || _a2 === void 0 ? void 0 : _a2.reduce((acc, curr) => Object.assign(Object.assign({}, acc), { [curr.name]: curr.type }), {});
+      typesMap[type2] = (_a2 = types2[type2]) == null ? void 0 : _a2.reduce((acc, curr) => __spreadProps(__spreadValues({}, acc), { [curr.name]: curr.type }), {});
     }
-    const recursiveFieldStructImplem = (destructedType_1, data_1, ...args_1) => __awaiter$9(void 0, [destructedType_1, data_1, ...args_1], void 0, function* (destructedType, data, path = "") {
-      var _b, _c;
+    const recursiveFieldStructImplem = (destructedType, data, path = "") => __async(this, null, function* () {
+      var _a3, _b;
       const [typeDescription, arrSizes] = destructedType;
       const [currSize, ...restSizes] = arrSizes;
-      const isCustomType = !EIP712_TYPE_PROPERTIES[((_b = typeDescription === null || typeDescription === void 0 ? void 0 : typeDescription.name) === null || _b === void 0 ? void 0 : _b.toUpperCase()) || ""];
+      const isCustomType = !EIP712_TYPE_PROPERTIES[((_a3 = typeDescription == null ? void 0 : typeDescription.name) == null ? void 0 : _a3.toUpperCase()) || ""];
       if (Array.isArray(data) && typeof currSize !== "undefined") {
         yield sendStructImplem(transport, {
           structType: "array",
@@ -64168,7 +62447,7 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
         });
         const entryPath = `${path}.[]`;
         if (!data.length) {
-          const entryFilters = filters === null || filters === void 0 ? void 0 : filters.fields.filter((f2) => f2.path.startsWith(entryPath));
+          const entryFilters = filters == null ? void 0 : filters.fields.filter((f2) => f2.path.startsWith(entryPath));
           if (entryFilters && shouldUseDiscardedFields) {
             for (const entryFilter of entryFilters) {
               yield sendFilteringInfo(transport, "discardField", loadConfig, {
@@ -64192,15 +62471,15 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
           yield recursiveFieldStructImplem([typeDescription, restSizes], entry, entryPath);
         }
       } else if (isCustomType) {
-        for (const fieldName of Object.keys(typesMap[(typeDescription === null || typeDescription === void 0 ? void 0 : typeDescription.name) || ""])) {
+        for (const fieldName of Object.keys(typesMap[(typeDescription == null ? void 0 : typeDescription.name) || ""])) {
           const fieldValue = data[fieldName];
-          const fieldType = (_c = typesMap[(typeDescription === null || typeDescription === void 0 ? void 0 : typeDescription.name) || ""]) === null || _c === void 0 ? void 0 : _c[fieldName];
+          const fieldType = (_b = typesMap[(typeDescription == null ? void 0 : typeDescription.name) || ""]) == null ? void 0 : _b[fieldName];
           if (fieldType) {
             yield recursiveFieldStructImplem(destructTypeFromString(fieldType), fieldValue, `${path}.${fieldName}`);
           }
         }
       } else {
-        const filter2 = filters === null || filters === void 0 ? void 0 : filters.fields.find((f2) => path === f2.path);
+        const filter2 = filters == null ? void 0 : filters.fields.find((f2) => path === f2.path);
         if (filter2) {
           yield sendFilteringInfo(transport, "showField", loadConfig, {
             displayName: filter2.label,
@@ -64218,8 +62497,8 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
           structType: "field",
           value: {
             data,
-            type: (typeDescription === null || typeDescription === void 0 ? void 0 : typeDescription.name) || "",
-            sizeInBits: typeDescription === null || typeDescription === void 0 ? void 0 : typeDescription.size
+            type: (typeDescription == null ? void 0 : typeDescription.name) || "",
+            sizeInBits: typeDescription == null ? void 0 : typeDescription.size
           }
         });
       }
@@ -64240,7 +62519,7 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
     const data = structType === "name" && typeof value === "string" ? Buffer.from(value, "utf-8") : value;
     return transport.send(APDU_FIELDS.CLA, APDU_FIELDS.INS, APDU_FIELDS.P1_complete, structType === "name" ? APDU_FIELDS.P2_name : APDU_FIELDS.P2_field, data);
   };
-  const sendStructImplem = (transport, structImplem) => __awaiter$9(void 0, void 0, void 0, function* () {
+  const sendStructImplem = (transport, structImplem) => __async(this, null, function* () {
     var _a2;
     let APDU_FIELDS;
     (function(APDU_FIELDS2) {
@@ -64261,7 +62540,7 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
     }
     if (structType === "field") {
       const { data: rawData, type: type2, sizeInBits } = value;
-      const encodedData = (_a2 = EIP712_TYPE_ENCODERS[type2.toUpperCase()]) === null || _a2 === void 0 ? void 0 : _a2.call(EIP712_TYPE_ENCODERS, rawData, sizeInBits);
+      const encodedData = (_a2 = EIP712_TYPE_ENCODERS[type2.toUpperCase()]) == null ? void 0 : _a2.call(EIP712_TYPE_ENCODERS, rawData, sizeInBits);
       if (encodedData) {
         const dataLengthPer16Bits = Math.floor(encodedData.length / 256);
         const dataLengthModulo16Bits = encodedData.length % 256;
@@ -64279,7 +62558,7 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
     return Promise.resolve();
   });
   function sendFilteringInfo(transport, type2, loadConfig, data) {
-    return __awaiter$9(this, void 0, void 0, function* () {
+    return __async(this, null, function* () {
       let APDU_FIELDS;
       (function(APDU_FIELDS2) {
         APDU_FIELDS2[APDU_FIELDS2["CLA"] = 224] = "CLA";
@@ -64361,7 +62640,7 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
       }
     });
   }
-  const signEIP712Message = (transport_1, path_1, typedMessage_1, ...args_1) => __awaiter$9(void 0, [transport_1, path_1, typedMessage_1, ...args_1], void 0, function* (transport, path, typedMessage, fullImplem = false, loadConfig) {
+  const signEIP712Message = (transport, path, typedMessage, fullImplem = false, loadConfig) => __async(this, null, function* () {
     let APDU_FIELDS;
     (function(APDU_FIELDS2) {
       APDU_FIELDS2[APDU_FIELDS2["CLA"] = 224] = "CLA";
@@ -64374,8 +62653,8 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
     const { calServiceURL } = getLoadConfig(loadConfig);
     const types2 = sortObjectAlphabetically(unsortedTypes);
     const { version: version2 } = yield getAppAndVersion(transport);
-    const shouldUseV1Filters = !semver$3.gte(version2, "1.11.1-0", { includePrerelease: true });
-    const shouldUseDiscardedFields = semver$3.gte(version2, "1.12.0-0", { includePrerelease: true });
+    const shouldUseV1Filters = !semver$1.gte(version2, "1.11.1-0", { includePrerelease: true });
+    const shouldUseDiscardedFields = semver$1.gte(version2, "1.12.0-0", { includePrerelease: true });
     const filters = yield getFiltersForMessage(typedMessage, shouldUseV1Filters, calServiceURL);
     const coinRefsTokensMap = getCoinRefTokensMap(filters, shouldUseV1Filters, typedMessage);
     const typeEntries = Object.entries(types2);
@@ -66436,33 +64715,6 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
       return !!(value && value._isInterface);
     }
   }
-  var __awaiter$8 = function(thisArg, _arguments, P, generator) {
-    function adopt(value) {
-      return value instanceof P ? value : new P(function(resolve2) {
-        resolve2(value);
-      });
-    }
-    return new (P || (P = Promise))(function(resolve2, reject) {
-      function fulfilled(value) {
-        try {
-          step(generator.next(value));
-        } catch (e) {
-          reject(e);
-        }
-      }
-      function rejected(value) {
-        try {
-          step(generator["throw"](value));
-        } catch (e) {
-          reject(e);
-        }
-      }
-      function step(result) {
-        result.done ? resolve2(result.value) : adopt(result.value).then(fulfilled, rejected);
-      }
-      step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-  };
   const REGISTRIES = [
     {
       name: "ens",
@@ -66481,7 +64733,7 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
       coinTypes: [60]
     }
   ];
-  const getRegistries = () => __awaiter$8(void 0, void 0, void 0, function* () {
+  const getRegistries = () => __async(this, null, function* () {
     return REGISTRIES;
   });
   const validateDomain = (domain) => {
@@ -66492,34 +64744,7 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
     const containsOnlyValidChars = new RegExp("^[a-zA-Z0-9\\-\\_\\.]+$").test(domain);
     return lengthIsValid && containsOnlyValidChars;
   };
-  var __awaiter$7 = function(thisArg, _arguments, P, generator) {
-    function adopt(value) {
-      return value instanceof P ? value : new P(function(resolve2) {
-        resolve2(value);
-      });
-    }
-    return new (P || (P = Promise))(function(resolve2, reject) {
-      function fulfilled(value) {
-        try {
-          step(generator.next(value));
-        } catch (e) {
-          reject(e);
-        }
-      }
-      function rejected(value) {
-        try {
-          step(generator["throw"](value));
-        } catch (e) {
-          reject(e);
-        }
-      }
-      function step(result) {
-        result.done ? resolve2(result.value) : adopt(result.value).then(fulfilled, rejected);
-      }
-      step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-  };
-  const signDomainResolution = (domain, registryName, challenge) => __awaiter$7(void 0, void 0, void 0, function* () {
+  const signDomainResolution = (domain, registryName, challenge) => __async(this, null, function* () {
     if (!validateDomain(domain)) {
       throw new Error(`Domains with more than 255 caracters or with unicode are not supported on the nano. Domain: ${domain}`);
     }
@@ -66541,7 +64766,7 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
       return null;
     });
   });
-  const signAddressResolution = (address2, registryName, challenge) => __awaiter$7(void 0, void 0, void 0, function* () {
+  const signAddressResolution = (address2, registryName, challenge) => __async(this, null, function* () {
     const registries = yield getRegistries();
     const registry = registries.find((r2) => r2.name === registryName);
     if (!registry)
@@ -66654,36 +64879,9 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
     PAY_PORTION: noDecoder,
     SWEEP: sweepDecoder
   };
-  var __awaiter$6 = function(thisArg, _arguments, P, generator) {
-    function adopt(value) {
-      return value instanceof P ? value : new P(function(resolve2) {
-        resolve2(value);
-      });
-    }
-    return new (P || (P = Promise))(function(resolve2, reject) {
-      function fulfilled(value) {
-        try {
-          step(generator.next(value));
-        } catch (e) {
-          reject(e);
-        }
-      }
-      function rejected(value) {
-        try {
-          step(generator["throw"](value));
-        } catch (e) {
-          reject(e);
-        }
-      }
-      function step(result) {
-        result.done ? resolve2(result.value) : adopt(result.value).then(fulfilled, rejected);
-      }
-      step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-  };
   const isSupported = (calldata, to, chainId, commandsAndTokens) => {
     const selector = calldata.slice(0, 10);
-    const contractAddress = to === null || to === void 0 ? void 0 : to.toLowerCase();
+    const contractAddress = to == null ? void 0 : to.toLowerCase();
     if (selector !== UNISWAP_EXECUTE_SELECTOR || contractAddress !== UNISWAP_UNIVERSAL_ROUTER_ADDRESS || !commandsAndTokens.length) {
       return false;
     }
@@ -66727,17 +64925,17 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
       return [];
     }
   };
-  const loadInfosForUniswap = (transaction, chainId, userConfig) => __awaiter$6(void 0, void 0, void 0, function* () {
+  const loadInfosForUniswap = (transaction, chainId, userConfig) => __async(this, null, function* () {
     const selector = transaction.data.slice(0, 10);
     const commandsAndTokens = getCommandsAndTokensFromUniswapCalldata(transaction.data, chainId);
     if (!isSupported(selector, transaction.to, chainId, commandsAndTokens)) {
       return {};
     }
     const uniqueTokens = Array.from(new Set(commandsAndTokens.flatMap(([, tokens]) => tokens)));
-    const tokenDescriptorsPromises = Promise.all(uniqueTokens.map((token) => __awaiter$6(void 0, void 0, void 0, function* () {
+    const tokenDescriptorsPromises = Promise.all(uniqueTokens.map((token) => __async(this, null, function* () {
       var _a2;
       const erc20SignaturesBlob = yield findERC20SignaturesInfo({}, chainId);
-      return (_a2 = byContractAddressAndChainId(token, chainId, erc20SignaturesBlob)) === null || _a2 === void 0 ? void 0 : _a2.data;
+      return (_a2 = byContractAddressAndChainId(token, chainId, erc20SignaturesBlob)) == null ? void 0 : _a2.data;
     })));
     const tokenDescriptors = yield tokenDescriptorsPromises.then((descriptors2) => descriptors2.filter((descriptor) => !!descriptor));
     const pluginName = "Uniswap";
@@ -66763,34 +64961,7 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
       tokenDescriptors
     };
   });
-  var __awaiter$5 = function(thisArg, _arguments, P, generator) {
-    function adopt(value) {
-      return value instanceof P ? value : new P(function(resolve2) {
-        resolve2(value);
-      });
-    }
-    return new (P || (P = Promise))(function(resolve2, reject) {
-      function fulfilled(value) {
-        try {
-          step(generator.next(value));
-        } catch (e) {
-          reject(e);
-        }
-      }
-      function rejected(value) {
-        try {
-          step(generator["throw"](value));
-        } catch (e) {
-          reject(e);
-        }
-      }
-      function step(result) {
-        result.done ? resolve2(result.value) : adopt(result.value).then(fulfilled, rejected);
-      }
-      step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-  };
-  const loadInfosForContractMethod = (contractAddress, selector, chainId, userLoadConfig) => __awaiter$5(void 0, void 0, void 0, function* () {
+  const loadInfosForContractMethod = (contractAddress, selector, chainId, userLoadConfig) => __async(this, null, function* () {
     const { pluginBaseURL, extraPlugins } = getLoadConfig(userLoadConfig);
     let data = {};
     if (pluginBaseURL) {
@@ -66801,7 +64972,7 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
       });
     }
     if (extraPlugins) {
-      data = Object.assign(Object.assign({}, data), extraPlugins);
+      data = __spreadValues(__spreadValues({}, data), extraPlugins);
     }
     if (!data)
       return;
@@ -66820,34 +64991,7 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
       }
     }
   });
-  var __awaiter$4 = function(thisArg, _arguments, P, generator) {
-    function adopt(value) {
-      return value instanceof P ? value : new P(function(resolve2) {
-        resolve2(value);
-      });
-    }
-    return new (P || (P = Promise))(function(resolve2, reject) {
-      function fulfilled(value) {
-        try {
-          step(generator.next(value));
-        } catch (e) {
-          reject(e);
-        }
-      }
-      function rejected(value) {
-        try {
-          step(generator["throw"](value));
-        } catch (e) {
-          reject(e);
-        }
-      }
-      function step(result) {
-        result.done ? resolve2(result.value) : adopt(result.value).then(fulfilled, rejected);
-      }
-      step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-  };
-  const getNFTInfo = (contractAddress, chainId, userLoadConfig) => __awaiter$4(void 0, void 0, void 0, function* () {
+  const getNFTInfo = (contractAddress, chainId, userLoadConfig) => __async(this, null, function* () {
     var _a2;
     const { nftExplorerBaseURL } = getLoadConfig(userLoadConfig);
     if (!nftExplorerBaseURL)
@@ -66862,14 +65006,14 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
     const payload = response2["payload"];
     const collectionNameLength = parseInt(payload.slice(4, 6), 16);
     const collectionNameHex = payload.substr(6, collectionNameLength * 2);
-    const collectionName = (_a2 = collectionNameHex.match(/.{2}/g)) === null || _a2 === void 0 ? void 0 : _a2.reduce((acc, curr) => acc += String.fromCharCode(parseInt(curr, 16)), "");
+    const collectionName = (_a2 = collectionNameHex.match(/.{2}/g)) == null ? void 0 : _a2.reduce((acc, curr) => acc += String.fromCharCode(parseInt(curr, 16)), "");
     return {
       contractAddress,
       collectionName: collectionName || "",
       data: payload
     };
   });
-  const loadNftPlugin = (contractAddress, selector, chainId, userLoadConfig) => __awaiter$4(void 0, void 0, void 0, function* () {
+  const loadNftPlugin = (contractAddress, selector, chainId, userLoadConfig) => __async(this, null, function* () {
     const { nftExplorerBaseURL } = getLoadConfig(userLoadConfig);
     if (!nftExplorerBaseURL)
       return;
@@ -66883,34 +65027,7 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
     const payload = response2["payload"];
     return payload;
   });
-  var __awaiter$3 = function(thisArg, _arguments, P, generator) {
-    function adopt(value) {
-      return value instanceof P ? value : new P(function(resolve2) {
-        resolve2(value);
-      });
-    }
-    return new (P || (P = Promise))(function(resolve2, reject) {
-      function fulfilled(value) {
-        try {
-          step(generator.next(value));
-        } catch (e) {
-          reject(e);
-        }
-      }
-      function rejected(value) {
-        try {
-          step(generator["throw"](value));
-        } catch (e) {
-          reject(e);
-        }
-      }
-      function step(result) {
-        result.done ? resolve2(result.value) : adopt(result.value).then(fulfilled, rejected);
-      }
-      step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-  };
-  const getAdditionalDataForContract = (contractAddress, chainIdUint32, loadConfig, shouldResolve) => __awaiter$3(void 0, void 0, void 0, function* () {
+  const getAdditionalDataForContract = (contractAddress, chainIdUint32, loadConfig, shouldResolve) => __async(this, null, function* () {
     const resolution = {
       nfts: [],
       erc20Tokens: []
@@ -66936,7 +65053,7 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
     }
     return resolution;
   });
-  const loadNanoAppPlugins = (contractAddress, selector, parsedTransaction, chainIdUint32, loadConfig, shouldResolve) => __awaiter$3(void 0, void 0, void 0, function* () {
+  const loadNanoAppPlugins = (contractAddress, selector, parsedTransaction, chainIdUint32, loadConfig, shouldResolve) => __async(this, null, function* () {
     let resolution = {
       externalPlugin: [],
       plugin: [],
@@ -66996,13 +65113,13 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
     }
     return resolution;
   });
-  const resolveTransaction = (rawTxHex, loadConfig, resolutionConfig) => __awaiter$3(void 0, void 0, void 0, function* () {
+  const resolveTransaction = (rawTxHex, loadConfig, resolutionConfig) => __async(this, null, function* () {
     var _a2;
     const rawTx = Buffer.from(rawTxHex, "hex");
-    const parsedTransaction = parse$i(`0x${rawTx.toString("hex")}`);
+    const parsedTransaction = parse$4(`0x${rawTx.toString("hex")}`);
     const chainIdUint32 = getChainIdAsUint32(parsedTransaction.chainId);
     const { domains } = resolutionConfig;
-    const contractAddress = (_a2 = parsedTransaction.to) === null || _a2 === void 0 ? void 0 : _a2.toLowerCase();
+    const contractAddress = (_a2 = parsedTransaction.to) == null ? void 0 : _a2.toLowerCase();
     if (!contractAddress)
       return {
         nfts: [],
@@ -67042,34 +65159,7 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
     signDomainResolution,
     signAddressResolution
   };
-  var __awaiter$2 = function(thisArg, _arguments, P, generator) {
-    function adopt(value) {
-      return value instanceof P ? value : new P(function(resolve2) {
-        resolve2(value);
-      });
-    }
-    return new (P || (P = Promise))(function(resolve2, reject) {
-      function fulfilled(value) {
-        try {
-          step(generator.next(value));
-        } catch (e) {
-          reject(e);
-        }
-      }
-      function rejected(value) {
-        try {
-          step(generator["throw"](value));
-        } catch (e) {
-          reject(e);
-        }
-      }
-      function step(result) {
-        result.done ? resolve2(result.value) : adopt(result.value).then(fulfilled, rejected);
-      }
-      step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-  };
-  const domainResolutionFlow = (appBinding, domainDescriptor) => __awaiter$2(void 0, void 0, void 0, function* () {
+  const domainResolutionFlow = (appBinding, domainDescriptor) => __async(this, null, function* () {
     if (!domainDescriptor)
       return;
     const { domain, address: address2, registry, type: type2 } = domainDescriptor;
@@ -67079,33 +65169,6 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
       yield appBinding.provideDomainName(domainAPDU);
     }
   });
-  var __awaiter$1 = function(thisArg, _arguments, P, generator) {
-    function adopt(value) {
-      return value instanceof P ? value : new P(function(resolve2) {
-        resolve2(value);
-      });
-    }
-    return new (P || (P = Promise))(function(resolve2, reject) {
-      function fulfilled(value) {
-        try {
-          step(generator.next(value));
-        } catch (e) {
-          reject(e);
-        }
-      }
-      function rejected(value) {
-        try {
-          step(generator["throw"](value));
-        } catch (e) {
-          reject(e);
-        }
-      }
-      function step(result) {
-        result.done ? resolve2(result.value) : adopt(result.value).then(fulfilled, rejected);
-      }
-      step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-  };
   const starkQuantizationTypeMap = {
     eth: 1,
     erc20: 2,
@@ -67120,10 +65183,9 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
     return e;
   };
   class Eth {
-    setLoadConfig(loadConfig) {
-      this.loadConfig = loadConfig;
-    }
     constructor(transport, scrambleKey = "w0w", loadConfig = {}) {
+      __publicField(this, "transport");
+      __publicField(this, "loadConfig");
       this.transport = transport;
       this.loadConfig = loadConfig;
       transport.decorateAppAPIMethods(this, [
@@ -67152,6 +65214,9 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
         "getEIP1024PublicEncryptionKey",
         "getEIP1024SharedSecret"
       ], scrambleKey);
+    }
+    setLoadConfig(loadConfig) {
+      this.loadConfig = loadConfig;
     }
     /**
      * get Ethereum address for a given BIP 32 path.
@@ -67200,7 +65265,7 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
      console.log(result);
      */
     signTransaction(path, rawTxHex, resolution) {
-      return __awaiter$1(this, void 0, void 0, function* () {
+      return __async(this, null, function* () {
         let APDU_FIELDS;
         (function(APDU_FIELDS2) {
           APDU_FIELDS2[APDU_FIELDS2["CLA"] = 224] = "CLA";
@@ -67243,7 +65308,7 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
           }
         }
         const rawTx = Buffer.from(rawTxHex, "hex");
-        const parsedTransaction = parse$i(`0x${rawTx.toString("hex")}`);
+        const parsedTransaction = parse$4(`0x${rawTx.toString("hex")}`);
         const chainId = new BigNumber$1(parsedTransaction.chainId);
         const paths = splitPath(path);
         const derivationPathBuff = Buffer.alloc(1 + paths.length * 4);
@@ -67277,8 +65342,8 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
      const result = eth.clearSignTransaction("44'/60'/0'/0/0", tx, { erc20: true, externalPlugins: true, nft: true});
      console.log(result);
      */
-    clearSignTransaction(path_1, rawTxHex_1, resolutionConfig_1) {
-      return __awaiter$1(this, arguments, void 0, function* (path, rawTxHex, resolutionConfig, throwOnError = false) {
+    clearSignTransaction(path, rawTxHex, resolutionConfig, throwOnError = false) {
+      return __async(this, null, function* () {
         const resolution = yield ledgerService.resolveTransaction(rawTxHex, this.loadConfig, resolutionConfig).catch((e) => {
           console.warn("an error occurred in resolveTransaction => fallback to blind signing: " + String(e));
           if (throwOnError) {
@@ -67315,7 +65380,7 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
     })
      */
     signPersonalMessage(path, messageHex) {
-      return __awaiter$1(this, void 0, void 0, function* () {
+      return __async(this, null, function* () {
         const paths = splitPath(path);
         let offset = 0;
         const message = Buffer.from(messageHex, "hex");
@@ -67390,8 +65455,8 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
      * @param {Boolean} fullImplem use the legacy implementation
      * @returns {Promise}
      */
-    signEIP712Message(path_1, jsonMessage_1) {
-      return __awaiter$1(this, arguments, void 0, function* (path, jsonMessage, fullImplem = false) {
+    signEIP712Message(path, jsonMessage, fullImplem = false) {
+      return __async(this, null, function* () {
         return signEIP712Message(this.transport, path, jsonMessage, fullImplem, this.loadConfig);
       });
     }
@@ -67401,7 +65466,7 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
      * @returns {Promise<string>}
      */
     getChallenge() {
-      return __awaiter$1(this, void 0, void 0, function* () {
+      return __async(this, null, function* () {
         let APDU_FIELDS;
         (function(APDU_FIELDS2) {
           APDU_FIELDS2[APDU_FIELDS2["CLA"] = 224] = "CLA";
@@ -67897,7 +65962,7 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
      */
     setExternalPlugin(payload, signature2) {
       const payloadBuffer = Buffer.from(payload, "hex");
-      const signatureBuffer = Buffer.from(signature2 !== null && signature2 !== void 0 ? signature2 : "", "hex");
+      const signatureBuffer = Buffer.from(signature2 != null ? signature2 : "", "hex");
       const buffer2 = Buffer.concat([payloadBuffer, signatureBuffer]);
       return this.transport.send(224, 18, 0, 0, buffer2).then(() => true, (e) => {
         if (e && e.statusCode === 27264) {
@@ -67951,7 +66016,7 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
      * @returns a boolean
      */
     provideDomainName(data) {
-      return __awaiter$1(this, void 0, void 0, function* () {
+      return __async(this, null, function* () {
         let APDU_FIELDS;
         (function(APDU_FIELDS2) {
           APDU_FIELDS2[APDU_FIELDS2["CLA"] = 224] = "CLA";
@@ -68139,7 +66204,7 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
   var dist$5 = {};
   var personalSign$1 = {};
   var dist$4 = {};
-  var constants$3 = {};
+  var constants$1 = {};
   var secp256k1$1 = {};
   var secp256k1 = {};
   var sha256 = {};
@@ -70709,7 +68774,7 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
     exports2.KECCAK256_RLP = buffer_1.Buffer.from(exports2.KECCAK256_RLP_S, "hex");
     exports2.RLP_EMPTY_STRING = buffer_1.Buffer.from([128]);
     exports2.MAX_WITHDRAWALS_PER_PAYLOAD = 16;
-  })(constants$3);
+  })(constants$1);
   var units = {};
   Object.defineProperty(units, "__esModule", { value: true });
   units.GWEI_TO_WEI = void 0;
@@ -71649,7 +69714,7 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
     const secp256k1_12 = secp256k1$1;
     const utils_12 = utilsExports;
     const bytes_12 = bytes$2;
-    const constants_12 = constants$3;
+    const constants_12 = constants$1;
     const helpers_12 = helpers$1;
     const internal_12 = internal;
     const _0n2 = BigInt(0);
@@ -72117,7 +70182,7 @@ var __forAwait = (obj, it, method) => (it = obj[__knownSymbol("asyncIterator")])
   const keccak_1$1 = keccak;
   const secp256k1_1 = secp256k1$1;
   const bytes_1$2 = bytes$2;
-  const constants_1 = constants$3;
+  const constants_1 = constants$1;
   const helpers_1 = helpers$1;
   function ecsign(msgHash, privateKey, chainId) {
     const sig = secp256k1_1.secp256k1.sign(msgHash, privateKey);
@@ -74832,7 +72897,7 @@ ${message.length}`, "utf-8");
       throwOnLimitExceeded: typeof opts.throwOnLimitExceeded === "boolean" ? opts.throwOnLimitExceeded : false
     };
   };
-  var parse$9 = function(str, opts) {
+  var parse$2 = function(str, opts) {
     var options = normalizeParseOptions(opts);
     if (str === "" || str === null || typeof str === "undefined") {
       return options.plainObjects ? { __proto__: null } : {};
@@ -74851,11 +72916,11 @@ ${message.length}`, "utf-8");
     return utils$4.compact(obj);
   };
   var stringify = stringify_1;
-  var parse$8 = parse$9;
+  var parse$1 = parse$2;
   var formats = formats$3;
   var lib$3 = {
     formats,
-    parse: parse$8,
+    parse: parse$1,
     stringify
   };
   const require$$1$1 = /* @__PURE__ */ getDefaultExportFromCjs$1(lib$3);
@@ -75382,7 +73447,7 @@ ${message.length}`, "utf-8");
       this.hostname = host;
     }
   };
-  var parse$7 = urlParse;
+  var parse = urlParse;
   var resolve$1 = urlResolve;
   var resolveObject = urlResolveObject;
   var format = urlFormat;
@@ -75459,7 +73524,7 @@ ${message.length}`, "utf-8");
   );
   var parseImport = (
     /** @type {parseImport}*/
-    parse$7
+    parse
   );
   var resolveImport = (
     /** @type {resolveImport}*/
@@ -81558,12 +79623,12 @@ ${message.length}`, "utf-8");
     inflate.inflateInfo = "pako inflate (from Nodeca project)";
     return inflate;
   }
-  var constants$2;
+  var constants;
   var hasRequiredConstants;
   function requireConstants() {
-    if (hasRequiredConstants) return constants$2;
+    if (hasRequiredConstants) return constants;
     hasRequiredConstants = 1;
-    constants$2 = {
+    constants = {
       /* Allowed flush values; see deflate() and inflate() below for details */
       Z_NO_FLUSH: 0,
       Z_PARTIAL_FLUSH: 1,
@@ -81603,7 +79668,7 @@ ${message.length}`, "utf-8");
       Z_DEFLATED: 8
       //Z_NULL:                 null // Use -1 or null inline, depending on var type
     };
-    return constants$2;
+    return constants;
   }
   var hasRequiredBinding;
   function requireBinding() {
@@ -82691,7 +80756,7 @@ ${message.length}`, "utf-8");
     };
     Object.defineProperty(exports2, "__esModule", { value: true });
     exports2.toAscii = exports2.stripHexPrefix = exports2.padToEven = exports2.isHexString = exports2.isHexPrefixed = exports2.getKeys = exports2.getBinarySize = exports2.fromUtf8 = exports2.fromAscii = exports2.arrayContainsArray = void 0;
-    __exportStar(constants$3, exports2);
+    __exportStar(constants$1, exports2);
     __exportStar(units, exports2);
     __exportStar(account, exports2);
     __exportStar(address$1, exports2);
@@ -83452,16 +81517,16 @@ ${message.length}`, "utf-8");
   const struct_js_1$1 = struct;
   const utils_js_1$2 = utils$2;
   const types_js_1 = requireTypes();
-  function coerce$2(struct2, condition, coercer) {
+  function coerce(struct2, condition, coercer) {
     return new struct_js_1$1.Struct(__spreadProps(__spreadValues({}, struct2), {
       coercer: (value, ctx) => {
         return (0, struct_js_1$1.is)(value, condition) ? struct2.coercer(coercer(value, ctx), ctx) : struct2.coercer(value, ctx);
       }
     }));
   }
-  coercions.coerce = coerce$2;
+  coercions.coerce = coerce;
   function defaulted(struct2, fallback, options = {}) {
-    return coerce$2(struct2, (0, types_js_1.unknown)(), (value) => {
+    return coerce(struct2, (0, types_js_1.unknown)(), (value) => {
       const result = typeof fallback === "function" ? fallback() : fallback;
       if (value === void 0) {
         return result;
@@ -83484,7 +81549,7 @@ ${message.length}`, "utf-8");
   }
   coercions.defaulted = defaulted;
   function trimmed(struct2) {
-    return coerce$2(struct2, (0, types_js_1.string)(), (value) => value.trim());
+    return coerce(struct2, (0, types_js_1.string)(), (value) => value.trim());
   }
   coercions.trimmed = trimmed;
   var refinements = {};
@@ -86140,8 +84205,8 @@ ${message.length}`, "utf-8");
   };
   Object.defineProperty(logging, "__esModule", { value: true });
   logging.createModuleLogger = logging.createProjectLogger = void 0;
-  const debug_1$1 = __importDefault(browserExports);
-  const globalLogger = (0, debug_1$1.default)("metamask");
+  const debug_1 = __importDefault(browserExports);
+  const globalLogger = (0, debug_1.default)("metamask");
   function createProjectLogger(projectName) {
     return globalLogger.extend(projectName);
   }
@@ -86232,1597 +84297,6 @@ ${message.length}`, "utf-8");
   var transactionTypes = {};
   Object.defineProperty(transactionTypes, "__esModule", { value: true });
   var versions = {};
-  var re$2 = { exports: {} };
-  const SEMVER_SPEC_VERSION = "2.0.0";
-  const MAX_LENGTH$1 = 256;
-  const MAX_SAFE_INTEGER$1 = Number.MAX_SAFE_INTEGER || /* istanbul ignore next */
-  9007199254740991;
-  const MAX_SAFE_COMPONENT_LENGTH = 16;
-  const MAX_SAFE_BUILD_LENGTH = MAX_LENGTH$1 - 6;
-  const RELEASE_TYPES = [
-    "major",
-    "premajor",
-    "minor",
-    "preminor",
-    "patch",
-    "prepatch",
-    "prerelease"
-  ];
-  var constants$1 = {
-    MAX_LENGTH: MAX_LENGTH$1,
-    MAX_SAFE_COMPONENT_LENGTH,
-    MAX_SAFE_BUILD_LENGTH,
-    MAX_SAFE_INTEGER: MAX_SAFE_INTEGER$1,
-    RELEASE_TYPES,
-    SEMVER_SPEC_VERSION,
-    FLAG_INCLUDE_PRERELEASE: 1,
-    FLAG_LOOSE: 2
-  };
-  var define_process_env_default = {};
-  const debug$1 = typeof process$1 === "object" && define_process_env_default && define_process_env_default.NODE_DEBUG && /\bsemver\b/i.test(define_process_env_default.NODE_DEBUG) ? (...args) => console.error("SEMVER", ...args) : () => {
-  };
-  var debug_1 = debug$1;
-  (function(module, exports2) {
-    const {
-      MAX_SAFE_COMPONENT_LENGTH: MAX_SAFE_COMPONENT_LENGTH2,
-      MAX_SAFE_BUILD_LENGTH: MAX_SAFE_BUILD_LENGTH2,
-      MAX_LENGTH: MAX_LENGTH2
-    } = constants$1;
-    const debug2 = debug_1;
-    exports2 = module.exports = {};
-    const re2 = exports2.re = [];
-    const safeRe = exports2.safeRe = [];
-    const src = exports2.src = [];
-    const t2 = exports2.t = {};
-    let R2 = 0;
-    const LETTERDASHNUMBER = "[a-zA-Z0-9-]";
-    const safeRegexReplacements = [
-      ["\\s", 1],
-      ["\\d", MAX_LENGTH2],
-      [LETTERDASHNUMBER, MAX_SAFE_BUILD_LENGTH2]
-    ];
-    const makeSafeRegex = (value) => {
-      for (const [token, max2] of safeRegexReplacements) {
-        value = value.split(`${token}*`).join(`${token}{0,${max2}}`).split(`${token}+`).join(`${token}{1,${max2}}`);
-      }
-      return value;
-    };
-    const createToken = (name2, value, isGlobal) => {
-      const safe = makeSafeRegex(value);
-      const index = R2++;
-      debug2(name2, index, value);
-      t2[name2] = index;
-      src[index] = value;
-      re2[index] = new RegExp(value, isGlobal ? "g" : void 0);
-      safeRe[index] = new RegExp(safe, isGlobal ? "g" : void 0);
-    };
-    createToken("NUMERICIDENTIFIER", "0|[1-9]\\d*");
-    createToken("NUMERICIDENTIFIERLOOSE", "\\d+");
-    createToken("NONNUMERICIDENTIFIER", `\\d*[a-zA-Z-]${LETTERDASHNUMBER}*`);
-    createToken("MAINVERSION", `(${src[t2.NUMERICIDENTIFIER]})\\.(${src[t2.NUMERICIDENTIFIER]})\\.(${src[t2.NUMERICIDENTIFIER]})`);
-    createToken("MAINVERSIONLOOSE", `(${src[t2.NUMERICIDENTIFIERLOOSE]})\\.(${src[t2.NUMERICIDENTIFIERLOOSE]})\\.(${src[t2.NUMERICIDENTIFIERLOOSE]})`);
-    createToken("PRERELEASEIDENTIFIER", `(?:${src[t2.NUMERICIDENTIFIER]}|${src[t2.NONNUMERICIDENTIFIER]})`);
-    createToken("PRERELEASEIDENTIFIERLOOSE", `(?:${src[t2.NUMERICIDENTIFIERLOOSE]}|${src[t2.NONNUMERICIDENTIFIER]})`);
-    createToken("PRERELEASE", `(?:-(${src[t2.PRERELEASEIDENTIFIER]}(?:\\.${src[t2.PRERELEASEIDENTIFIER]})*))`);
-    createToken("PRERELEASELOOSE", `(?:-?(${src[t2.PRERELEASEIDENTIFIERLOOSE]}(?:\\.${src[t2.PRERELEASEIDENTIFIERLOOSE]})*))`);
-    createToken("BUILDIDENTIFIER", `${LETTERDASHNUMBER}+`);
-    createToken("BUILD", `(?:\\+(${src[t2.BUILDIDENTIFIER]}(?:\\.${src[t2.BUILDIDENTIFIER]})*))`);
-    createToken("FULLPLAIN", `v?${src[t2.MAINVERSION]}${src[t2.PRERELEASE]}?${src[t2.BUILD]}?`);
-    createToken("FULL", `^${src[t2.FULLPLAIN]}$`);
-    createToken("LOOSEPLAIN", `[v=\\s]*${src[t2.MAINVERSIONLOOSE]}${src[t2.PRERELEASELOOSE]}?${src[t2.BUILD]}?`);
-    createToken("LOOSE", `^${src[t2.LOOSEPLAIN]}$`);
-    createToken("GTLT", "((?:<|>)?=?)");
-    createToken("XRANGEIDENTIFIERLOOSE", `${src[t2.NUMERICIDENTIFIERLOOSE]}|x|X|\\*`);
-    createToken("XRANGEIDENTIFIER", `${src[t2.NUMERICIDENTIFIER]}|x|X|\\*`);
-    createToken("XRANGEPLAIN", `[v=\\s]*(${src[t2.XRANGEIDENTIFIER]})(?:\\.(${src[t2.XRANGEIDENTIFIER]})(?:\\.(${src[t2.XRANGEIDENTIFIER]})(?:${src[t2.PRERELEASE]})?${src[t2.BUILD]}?)?)?`);
-    createToken("XRANGEPLAINLOOSE", `[v=\\s]*(${src[t2.XRANGEIDENTIFIERLOOSE]})(?:\\.(${src[t2.XRANGEIDENTIFIERLOOSE]})(?:\\.(${src[t2.XRANGEIDENTIFIERLOOSE]})(?:${src[t2.PRERELEASELOOSE]})?${src[t2.BUILD]}?)?)?`);
-    createToken("XRANGE", `^${src[t2.GTLT]}\\s*${src[t2.XRANGEPLAIN]}$`);
-    createToken("XRANGELOOSE", `^${src[t2.GTLT]}\\s*${src[t2.XRANGEPLAINLOOSE]}$`);
-    createToken("COERCEPLAIN", `${"(^|[^\\d])(\\d{1,"}${MAX_SAFE_COMPONENT_LENGTH2}})(?:\\.(\\d{1,${MAX_SAFE_COMPONENT_LENGTH2}}))?(?:\\.(\\d{1,${MAX_SAFE_COMPONENT_LENGTH2}}))?`);
-    createToken("COERCE", `${src[t2.COERCEPLAIN]}(?:$|[^\\d])`);
-    createToken("COERCEFULL", src[t2.COERCEPLAIN] + `(?:${src[t2.PRERELEASE]})?(?:${src[t2.BUILD]})?(?:$|[^\\d])`);
-    createToken("COERCERTL", src[t2.COERCE], true);
-    createToken("COERCERTLFULL", src[t2.COERCEFULL], true);
-    createToken("LONETILDE", "(?:~>?)");
-    createToken("TILDETRIM", `(\\s*)${src[t2.LONETILDE]}\\s+`, true);
-    exports2.tildeTrimReplace = "$1~";
-    createToken("TILDE", `^${src[t2.LONETILDE]}${src[t2.XRANGEPLAIN]}$`);
-    createToken("TILDELOOSE", `^${src[t2.LONETILDE]}${src[t2.XRANGEPLAINLOOSE]}$`);
-    createToken("LONECARET", "(?:\\^)");
-    createToken("CARETTRIM", `(\\s*)${src[t2.LONECARET]}\\s+`, true);
-    exports2.caretTrimReplace = "$1^";
-    createToken("CARET", `^${src[t2.LONECARET]}${src[t2.XRANGEPLAIN]}$`);
-    createToken("CARETLOOSE", `^${src[t2.LONECARET]}${src[t2.XRANGEPLAINLOOSE]}$`);
-    createToken("COMPARATORLOOSE", `^${src[t2.GTLT]}\\s*(${src[t2.LOOSEPLAIN]})$|^$`);
-    createToken("COMPARATOR", `^${src[t2.GTLT]}\\s*(${src[t2.FULLPLAIN]})$|^$`);
-    createToken("COMPARATORTRIM", `(\\s*)${src[t2.GTLT]}\\s*(${src[t2.LOOSEPLAIN]}|${src[t2.XRANGEPLAIN]})`, true);
-    exports2.comparatorTrimReplace = "$1$2$3";
-    createToken("HYPHENRANGE", `^\\s*(${src[t2.XRANGEPLAIN]})\\s+-\\s+(${src[t2.XRANGEPLAIN]})\\s*$`);
-    createToken("HYPHENRANGELOOSE", `^\\s*(${src[t2.XRANGEPLAINLOOSE]})\\s+-\\s+(${src[t2.XRANGEPLAINLOOSE]})\\s*$`);
-    createToken("STAR", "(<|>)?=?\\s*\\*");
-    createToken("GTE0", "^\\s*>=\\s*0\\.0\\.0\\s*$");
-    createToken("GTE0PRE", "^\\s*>=\\s*0\\.0\\.0-0\\s*$");
-  })(re$2, re$2.exports);
-  var reExports = re$2.exports;
-  const looseOption = Object.freeze({ loose: true });
-  const emptyOpts = Object.freeze({});
-  const parseOptions$1 = (options) => {
-    if (!options) {
-      return emptyOpts;
-    }
-    if (typeof options !== "object") {
-      return looseOption;
-    }
-    return options;
-  };
-  var parseOptions_1 = parseOptions$1;
-  const numeric = /^[0-9]+$/;
-  const compareIdentifiers$1 = (a, b) => {
-    const anum2 = numeric.test(a);
-    const bnum = numeric.test(b);
-    if (anum2 && bnum) {
-      a = +a;
-      b = +b;
-    }
-    return a === b ? 0 : anum2 && !bnum ? -1 : bnum && !anum2 ? 1 : a < b ? -1 : 1;
-  };
-  const rcompareIdentifiers = (a, b) => compareIdentifiers$1(b, a);
-  var identifiers$1 = {
-    compareIdentifiers: compareIdentifiers$1,
-    rcompareIdentifiers
-  };
-  const debug = debug_1;
-  const { MAX_LENGTH, MAX_SAFE_INTEGER } = constants$1;
-  const { safeRe: re$1, t: t$1 } = reExports;
-  const parseOptions = parseOptions_1;
-  const { compareIdentifiers } = identifiers$1;
-  let SemVer$d = class SemVer2 {
-    constructor(version2, options) {
-      options = parseOptions(options);
-      if (version2 instanceof SemVer2) {
-        if (version2.loose === !!options.loose && version2.includePrerelease === !!options.includePrerelease) {
-          return version2;
-        } else {
-          version2 = version2.version;
-        }
-      } else if (typeof version2 !== "string") {
-        throw new TypeError(`Invalid version. Must be a string. Got type "${typeof version2}".`);
-      }
-      if (version2.length > MAX_LENGTH) {
-        throw new TypeError(
-          `version is longer than ${MAX_LENGTH} characters`
-        );
-      }
-      debug("SemVer", version2, options);
-      this.options = options;
-      this.loose = !!options.loose;
-      this.includePrerelease = !!options.includePrerelease;
-      const m = version2.trim().match(options.loose ? re$1[t$1.LOOSE] : re$1[t$1.FULL]);
-      if (!m) {
-        throw new TypeError(`Invalid Version: ${version2}`);
-      }
-      this.raw = version2;
-      this.major = +m[1];
-      this.minor = +m[2];
-      this.patch = +m[3];
-      if (this.major > MAX_SAFE_INTEGER || this.major < 0) {
-        throw new TypeError("Invalid major version");
-      }
-      if (this.minor > MAX_SAFE_INTEGER || this.minor < 0) {
-        throw new TypeError("Invalid minor version");
-      }
-      if (this.patch > MAX_SAFE_INTEGER || this.patch < 0) {
-        throw new TypeError("Invalid patch version");
-      }
-      if (!m[4]) {
-        this.prerelease = [];
-      } else {
-        this.prerelease = m[4].split(".").map((id2) => {
-          if (/^[0-9]+$/.test(id2)) {
-            const num = +id2;
-            if (num >= 0 && num < MAX_SAFE_INTEGER) {
-              return num;
-            }
-          }
-          return id2;
-        });
-      }
-      this.build = m[5] ? m[5].split(".") : [];
-      this.format();
-    }
-    format() {
-      this.version = `${this.major}.${this.minor}.${this.patch}`;
-      if (this.prerelease.length) {
-        this.version += `-${this.prerelease.join(".")}`;
-      }
-      return this.version;
-    }
-    toString() {
-      return this.version;
-    }
-    compare(other) {
-      debug("SemVer.compare", this.version, this.options, other);
-      if (!(other instanceof SemVer2)) {
-        if (typeof other === "string" && other === this.version) {
-          return 0;
-        }
-        other = new SemVer2(other, this.options);
-      }
-      if (other.version === this.version) {
-        return 0;
-      }
-      return this.compareMain(other) || this.comparePre(other);
-    }
-    compareMain(other) {
-      if (!(other instanceof SemVer2)) {
-        other = new SemVer2(other, this.options);
-      }
-      return compareIdentifiers(this.major, other.major) || compareIdentifiers(this.minor, other.minor) || compareIdentifiers(this.patch, other.patch);
-    }
-    comparePre(other) {
-      if (!(other instanceof SemVer2)) {
-        other = new SemVer2(other, this.options);
-      }
-      if (this.prerelease.length && !other.prerelease.length) {
-        return -1;
-      } else if (!this.prerelease.length && other.prerelease.length) {
-        return 1;
-      } else if (!this.prerelease.length && !other.prerelease.length) {
-        return 0;
-      }
-      let i2 = 0;
-      do {
-        const a = this.prerelease[i2];
-        const b = other.prerelease[i2];
-        debug("prerelease compare", i2, a, b);
-        if (a === void 0 && b === void 0) {
-          return 0;
-        } else if (b === void 0) {
-          return 1;
-        } else if (a === void 0) {
-          return -1;
-        } else if (a === b) {
-          continue;
-        } else {
-          return compareIdentifiers(a, b);
-        }
-      } while (++i2);
-    }
-    compareBuild(other) {
-      if (!(other instanceof SemVer2)) {
-        other = new SemVer2(other, this.options);
-      }
-      let i2 = 0;
-      do {
-        const a = this.build[i2];
-        const b = other.build[i2];
-        debug("build compare", i2, a, b);
-        if (a === void 0 && b === void 0) {
-          return 0;
-        } else if (b === void 0) {
-          return 1;
-        } else if (a === void 0) {
-          return -1;
-        } else if (a === b) {
-          continue;
-        } else {
-          return compareIdentifiers(a, b);
-        }
-      } while (++i2);
-    }
-    // preminor will bump the version up to the next minor release, and immediately
-    // down to pre-release. premajor and prepatch work the same way.
-    inc(release, identifier, identifierBase) {
-      switch (release) {
-        case "premajor":
-          this.prerelease.length = 0;
-          this.patch = 0;
-          this.minor = 0;
-          this.major++;
-          this.inc("pre", identifier, identifierBase);
-          break;
-        case "preminor":
-          this.prerelease.length = 0;
-          this.patch = 0;
-          this.minor++;
-          this.inc("pre", identifier, identifierBase);
-          break;
-        case "prepatch":
-          this.prerelease.length = 0;
-          this.inc("patch", identifier, identifierBase);
-          this.inc("pre", identifier, identifierBase);
-          break;
-        case "prerelease":
-          if (this.prerelease.length === 0) {
-            this.inc("patch", identifier, identifierBase);
-          }
-          this.inc("pre", identifier, identifierBase);
-          break;
-        case "major":
-          if (this.minor !== 0 || this.patch !== 0 || this.prerelease.length === 0) {
-            this.major++;
-          }
-          this.minor = 0;
-          this.patch = 0;
-          this.prerelease = [];
-          break;
-        case "minor":
-          if (this.patch !== 0 || this.prerelease.length === 0) {
-            this.minor++;
-          }
-          this.patch = 0;
-          this.prerelease = [];
-          break;
-        case "patch":
-          if (this.prerelease.length === 0) {
-            this.patch++;
-          }
-          this.prerelease = [];
-          break;
-        case "pre": {
-          const base2 = Number(identifierBase) ? 1 : 0;
-          if (!identifier && identifierBase === false) {
-            throw new Error("invalid increment argument: identifier is empty");
-          }
-          if (this.prerelease.length === 0) {
-            this.prerelease = [base2];
-          } else {
-            let i2 = this.prerelease.length;
-            while (--i2 >= 0) {
-              if (typeof this.prerelease[i2] === "number") {
-                this.prerelease[i2]++;
-                i2 = -2;
-              }
-            }
-            if (i2 === -1) {
-              if (identifier === this.prerelease.join(".") && identifierBase === false) {
-                throw new Error("invalid increment argument: identifier already exists");
-              }
-              this.prerelease.push(base2);
-            }
-          }
-          if (identifier) {
-            let prerelease2 = [identifier, base2];
-            if (identifierBase === false) {
-              prerelease2 = [identifier];
-            }
-            if (compareIdentifiers(this.prerelease[0], identifier) === 0) {
-              if (isNaN(this.prerelease[1])) {
-                this.prerelease = prerelease2;
-              }
-            } else {
-              this.prerelease = prerelease2;
-            }
-          }
-          break;
-        }
-        default:
-          throw new Error(`invalid increment argument: ${release}`);
-      }
-      this.raw = this.format();
-      if (this.build.length) {
-        this.raw += `+${this.build.join(".")}`;
-      }
-      return this;
-    }
-  };
-  var semver$1 = SemVer$d;
-  const SemVer$c = semver$1;
-  const parse$6 = (version2, options, throwErrors = false) => {
-    if (version2 instanceof SemVer$c) {
-      return version2;
-    }
-    try {
-      return new SemVer$c(version2, options);
-    } catch (er) {
-      if (!throwErrors) {
-        return null;
-      }
-      throw er;
-    }
-  };
-  var parse_1 = parse$6;
-  const parse$5 = parse_1;
-  const valid$2 = (version2, options) => {
-    const v = parse$5(version2, options);
-    return v ? v.version : null;
-  };
-  var valid_1 = valid$2;
-  const parse$4 = parse_1;
-  const clean$1 = (version2, options) => {
-    const s2 = parse$4(version2.trim().replace(/^[=v]+/, ""), options);
-    return s2 ? s2.version : null;
-  };
-  var clean_1 = clean$1;
-  const SemVer$b = semver$1;
-  const inc$1 = (version2, release, options, identifier, identifierBase) => {
-    if (typeof options === "string") {
-      identifierBase = identifier;
-      identifier = options;
-      options = void 0;
-    }
-    try {
-      return new SemVer$b(
-        version2 instanceof SemVer$b ? version2.version : version2,
-        options
-      ).inc(release, identifier, identifierBase).version;
-    } catch (er) {
-      return null;
-    }
-  };
-  var inc_1 = inc$1;
-  const parse$3 = parse_1;
-  const diff$1 = (version1, version2) => {
-    const v1 = parse$3(version1, null, true);
-    const v2 = parse$3(version2, null, true);
-    const comparison = v1.compare(v2);
-    if (comparison === 0) {
-      return null;
-    }
-    const v1Higher = comparison > 0;
-    const highVersion = v1Higher ? v1 : v2;
-    const lowVersion = v1Higher ? v2 : v1;
-    const highHasPre = !!highVersion.prerelease.length;
-    const lowHasPre = !!lowVersion.prerelease.length;
-    if (lowHasPre && !highHasPre) {
-      if (!lowVersion.patch && !lowVersion.minor) {
-        return "major";
-      }
-      if (highVersion.patch) {
-        return "patch";
-      }
-      if (highVersion.minor) {
-        return "minor";
-      }
-      return "major";
-    }
-    const prefix = highHasPre ? "pre" : "";
-    if (v1.major !== v2.major) {
-      return prefix + "major";
-    }
-    if (v1.minor !== v2.minor) {
-      return prefix + "minor";
-    }
-    if (v1.patch !== v2.patch) {
-      return prefix + "patch";
-    }
-    return "prerelease";
-  };
-  var diff_1 = diff$1;
-  const SemVer$a = semver$1;
-  const major$1 = (a, loose) => new SemVer$a(a, loose).major;
-  var major_1 = major$1;
-  const SemVer$9 = semver$1;
-  const minor$1 = (a, loose) => new SemVer$9(a, loose).minor;
-  var minor_1 = minor$1;
-  const SemVer$8 = semver$1;
-  const patch$1 = (a, loose) => new SemVer$8(a, loose).patch;
-  var patch_1 = patch$1;
-  const parse$2 = parse_1;
-  const prerelease$1 = (version2, options) => {
-    const parsed = parse$2(version2, options);
-    return parsed && parsed.prerelease.length ? parsed.prerelease : null;
-  };
-  var prerelease_1 = prerelease$1;
-  const SemVer$7 = semver$1;
-  const compare$b = (a, b, loose) => new SemVer$7(a, loose).compare(new SemVer$7(b, loose));
-  var compare_1 = compare$b;
-  const compare$a = compare_1;
-  const rcompare$1 = (a, b, loose) => compare$a(b, a, loose);
-  var rcompare_1 = rcompare$1;
-  const compare$9 = compare_1;
-  const compareLoose$1 = (a, b) => compare$9(a, b, true);
-  var compareLoose_1 = compareLoose$1;
-  const SemVer$6 = semver$1;
-  const compareBuild$3 = (a, b, loose) => {
-    const versionA = new SemVer$6(a, loose);
-    const versionB = new SemVer$6(b, loose);
-    return versionA.compare(versionB) || versionA.compareBuild(versionB);
-  };
-  var compareBuild_1 = compareBuild$3;
-  const compareBuild$2 = compareBuild_1;
-  const sort$1 = (list, loose) => list.sort((a, b) => compareBuild$2(a, b, loose));
-  var sort_1 = sort$1;
-  const compareBuild$1 = compareBuild_1;
-  const rsort$1 = (list, loose) => list.sort((a, b) => compareBuild$1(b, a, loose));
-  var rsort_1 = rsort$1;
-  const compare$8 = compare_1;
-  const gt$4 = (a, b, loose) => compare$8(a, b, loose) > 0;
-  var gt_1 = gt$4;
-  const compare$7 = compare_1;
-  const lt$3 = (a, b, loose) => compare$7(a, b, loose) < 0;
-  var lt_1 = lt$3;
-  const compare$6 = compare_1;
-  const eq$2 = (a, b, loose) => compare$6(a, b, loose) === 0;
-  var eq_1 = eq$2;
-  const compare$5 = compare_1;
-  const neq$2 = (a, b, loose) => compare$5(a, b, loose) !== 0;
-  var neq_1 = neq$2;
-  const compare$4 = compare_1;
-  const gte$3 = (a, b, loose) => compare$4(a, b, loose) >= 0;
-  var gte_1 = gte$3;
-  const compare$3 = compare_1;
-  const lte$3 = (a, b, loose) => compare$3(a, b, loose) <= 0;
-  var lte_1 = lte$3;
-  const eq$1 = eq_1;
-  const neq$1 = neq_1;
-  const gt$3 = gt_1;
-  const gte$2 = gte_1;
-  const lt$2 = lt_1;
-  const lte$2 = lte_1;
-  const cmp$1 = (a, op, b, loose) => {
-    switch (op) {
-      case "===":
-        if (typeof a === "object") {
-          a = a.version;
-        }
-        if (typeof b === "object") {
-          b = b.version;
-        }
-        return a === b;
-      case "!==":
-        if (typeof a === "object") {
-          a = a.version;
-        }
-        if (typeof b === "object") {
-          b = b.version;
-        }
-        return a !== b;
-      case "":
-      case "=":
-      case "==":
-        return eq$1(a, b, loose);
-      case "!=":
-        return neq$1(a, b, loose);
-      case ">":
-        return gt$3(a, b, loose);
-      case ">=":
-        return gte$2(a, b, loose);
-      case "<":
-        return lt$2(a, b, loose);
-      case "<=":
-        return lte$2(a, b, loose);
-      default:
-        throw new TypeError(`Invalid operator: ${op}`);
-    }
-  };
-  var cmp_1 = cmp$1;
-  const SemVer$5 = semver$1;
-  const parse$1 = parse_1;
-  const { safeRe: re, t } = reExports;
-  const coerce$1 = (version2, options) => {
-    if (version2 instanceof SemVer$5) {
-      return version2;
-    }
-    if (typeof version2 === "number") {
-      version2 = String(version2);
-    }
-    if (typeof version2 !== "string") {
-      return null;
-    }
-    options = options || {};
-    let match = null;
-    if (!options.rtl) {
-      match = version2.match(options.includePrerelease ? re[t.COERCEFULL] : re[t.COERCE]);
-    } else {
-      const coerceRtlRegex = options.includePrerelease ? re[t.COERCERTLFULL] : re[t.COERCERTL];
-      let next;
-      while ((next = coerceRtlRegex.exec(version2)) && (!match || match.index + match[0].length !== version2.length)) {
-        if (!match || next.index + next[0].length !== match.index + match[0].length) {
-          match = next;
-        }
-        coerceRtlRegex.lastIndex = next.index + next[1].length + next[2].length;
-      }
-      coerceRtlRegex.lastIndex = -1;
-    }
-    if (match === null) {
-      return null;
-    }
-    const major2 = match[2];
-    const minor2 = match[3] || "0";
-    const patch2 = match[4] || "0";
-    const prerelease2 = options.includePrerelease && match[5] ? `-${match[5]}` : "";
-    const build = options.includePrerelease && match[6] ? `+${match[6]}` : "";
-    return parse$1(`${major2}.${minor2}.${patch2}${prerelease2}${build}`, options);
-  };
-  var coerce_1 = coerce$1;
-  class LRUCache {
-    constructor() {
-      this.max = 1e3;
-      this.map = /* @__PURE__ */ new Map();
-    }
-    get(key2) {
-      const value = this.map.get(key2);
-      if (value === void 0) {
-        return void 0;
-      } else {
-        this.map.delete(key2);
-        this.map.set(key2, value);
-        return value;
-      }
-    }
-    delete(key2) {
-      return this.map.delete(key2);
-    }
-    set(key2, value) {
-      const deleted = this.delete(key2);
-      if (!deleted && value !== void 0) {
-        if (this.map.size >= this.max) {
-          const firstKey = this.map.keys().next().value;
-          this.delete(firstKey);
-        }
-        this.map.set(key2, value);
-      }
-      return this;
-    }
-  }
-  var lrucache = LRUCache;
-  var range;
-  var hasRequiredRange;
-  function requireRange() {
-    if (hasRequiredRange) return range;
-    hasRequiredRange = 1;
-    const SPACE_CHARACTERS = /\s+/g;
-    class Range2 {
-      constructor(range2, options) {
-        options = parseOptions2(options);
-        if (range2 instanceof Range2) {
-          if (range2.loose === !!options.loose && range2.includePrerelease === !!options.includePrerelease) {
-            return range2;
-          } else {
-            return new Range2(range2.raw, options);
-          }
-        }
-        if (range2 instanceof Comparator2) {
-          this.raw = range2.value;
-          this.set = [[range2]];
-          this.formatted = void 0;
-          return this;
-        }
-        this.options = options;
-        this.loose = !!options.loose;
-        this.includePrerelease = !!options.includePrerelease;
-        this.raw = range2.trim().replace(SPACE_CHARACTERS, " ");
-        this.set = this.raw.split("||").map((r2) => this.parseRange(r2.trim())).filter((c) => c.length);
-        if (!this.set.length) {
-          throw new TypeError(`Invalid SemVer Range: ${this.raw}`);
-        }
-        if (this.set.length > 1) {
-          const first = this.set[0];
-          this.set = this.set.filter((c) => !isNullSet(c[0]));
-          if (this.set.length === 0) {
-            this.set = [first];
-          } else if (this.set.length > 1) {
-            for (const c of this.set) {
-              if (c.length === 1 && isAny(c[0])) {
-                this.set = [c];
-                break;
-              }
-            }
-          }
-        }
-        this.formatted = void 0;
-      }
-      get range() {
-        if (this.formatted === void 0) {
-          this.formatted = "";
-          for (let i2 = 0; i2 < this.set.length; i2++) {
-            if (i2 > 0) {
-              this.formatted += "||";
-            }
-            const comps = this.set[i2];
-            for (let k = 0; k < comps.length; k++) {
-              if (k > 0) {
-                this.formatted += " ";
-              }
-              this.formatted += comps[k].toString().trim();
-            }
-          }
-        }
-        return this.formatted;
-      }
-      format() {
-        return this.range;
-      }
-      toString() {
-        return this.range;
-      }
-      parseRange(range2) {
-        const memoOpts = (this.options.includePrerelease && FLAG_INCLUDE_PRERELEASE) | (this.options.loose && FLAG_LOOSE);
-        const memoKey = memoOpts + ":" + range2;
-        const cached = cache.get(memoKey);
-        if (cached) {
-          return cached;
-        }
-        const loose = this.options.loose;
-        const hr = loose ? re2[t2.HYPHENRANGELOOSE] : re2[t2.HYPHENRANGE];
-        range2 = range2.replace(hr, hyphenReplace(this.options.includePrerelease));
-        debug2("hyphen replace", range2);
-        range2 = range2.replace(re2[t2.COMPARATORTRIM], comparatorTrimReplace);
-        debug2("comparator trim", range2);
-        range2 = range2.replace(re2[t2.TILDETRIM], tildeTrimReplace);
-        debug2("tilde trim", range2);
-        range2 = range2.replace(re2[t2.CARETTRIM], caretTrimReplace);
-        debug2("caret trim", range2);
-        let rangeList = range2.split(" ").map((comp) => parseComparator(comp, this.options)).join(" ").split(/\s+/).map((comp) => replaceGTE0(comp, this.options));
-        if (loose) {
-          rangeList = rangeList.filter((comp) => {
-            debug2("loose invalid filter", comp, this.options);
-            return !!comp.match(re2[t2.COMPARATORLOOSE]);
-          });
-        }
-        debug2("range list", rangeList);
-        const rangeMap = /* @__PURE__ */ new Map();
-        const comparators = rangeList.map((comp) => new Comparator2(comp, this.options));
-        for (const comp of comparators) {
-          if (isNullSet(comp)) {
-            return [comp];
-          }
-          rangeMap.set(comp.value, comp);
-        }
-        if (rangeMap.size > 1 && rangeMap.has("")) {
-          rangeMap.delete("");
-        }
-        const result = [...rangeMap.values()];
-        cache.set(memoKey, result);
-        return result;
-      }
-      intersects(range2, options) {
-        if (!(range2 instanceof Range2)) {
-          throw new TypeError("a Range is required");
-        }
-        return this.set.some((thisComparators) => {
-          return isSatisfiable(thisComparators, options) && range2.set.some((rangeComparators) => {
-            return isSatisfiable(rangeComparators, options) && thisComparators.every((thisComparator) => {
-              return rangeComparators.every((rangeComparator) => {
-                return thisComparator.intersects(rangeComparator, options);
-              });
-            });
-          });
-        });
-      }
-      // if ANY of the sets match ALL of its comparators, then pass
-      test(version2) {
-        if (!version2) {
-          return false;
-        }
-        if (typeof version2 === "string") {
-          try {
-            version2 = new SemVer2(version2, this.options);
-          } catch (er) {
-            return false;
-          }
-        }
-        for (let i2 = 0; i2 < this.set.length; i2++) {
-          if (testSet(this.set[i2], version2, this.options)) {
-            return true;
-          }
-        }
-        return false;
-      }
-    }
-    range = Range2;
-    const LRU = lrucache;
-    const cache = new LRU();
-    const parseOptions2 = parseOptions_1;
-    const Comparator2 = requireComparator();
-    const debug2 = debug_1;
-    const SemVer2 = semver$1;
-    const {
-      safeRe: re2,
-      t: t2,
-      comparatorTrimReplace,
-      tildeTrimReplace,
-      caretTrimReplace
-    } = reExports;
-    const { FLAG_INCLUDE_PRERELEASE, FLAG_LOOSE } = constants$1;
-    const isNullSet = (c) => c.value === "<0.0.0-0";
-    const isAny = (c) => c.value === "";
-    const isSatisfiable = (comparators, options) => {
-      let result = true;
-      const remainingComparators = comparators.slice();
-      let testComparator = remainingComparators.pop();
-      while (result && remainingComparators.length) {
-        result = remainingComparators.every((otherComparator) => {
-          return testComparator.intersects(otherComparator, options);
-        });
-        testComparator = remainingComparators.pop();
-      }
-      return result;
-    };
-    const parseComparator = (comp, options) => {
-      debug2("comp", comp, options);
-      comp = replaceCarets(comp, options);
-      debug2("caret", comp);
-      comp = replaceTildes(comp, options);
-      debug2("tildes", comp);
-      comp = replaceXRanges(comp, options);
-      debug2("xrange", comp);
-      comp = replaceStars(comp, options);
-      debug2("stars", comp);
-      return comp;
-    };
-    const isX = (id2) => !id2 || id2.toLowerCase() === "x" || id2 === "*";
-    const replaceTildes = (comp, options) => {
-      return comp.trim().split(/\s+/).map((c) => replaceTilde(c, options)).join(" ");
-    };
-    const replaceTilde = (comp, options) => {
-      const r2 = options.loose ? re2[t2.TILDELOOSE] : re2[t2.TILDE];
-      return comp.replace(r2, (_, M, m, p, pr) => {
-        debug2("tilde", comp, _, M, m, p, pr);
-        let ret;
-        if (isX(M)) {
-          ret = "";
-        } else if (isX(m)) {
-          ret = `>=${M}.0.0 <${+M + 1}.0.0-0`;
-        } else if (isX(p)) {
-          ret = `>=${M}.${m}.0 <${M}.${+m + 1}.0-0`;
-        } else if (pr) {
-          debug2("replaceTilde pr", pr);
-          ret = `>=${M}.${m}.${p}-${pr} <${M}.${+m + 1}.0-0`;
-        } else {
-          ret = `>=${M}.${m}.${p} <${M}.${+m + 1}.0-0`;
-        }
-        debug2("tilde return", ret);
-        return ret;
-      });
-    };
-    const replaceCarets = (comp, options) => {
-      return comp.trim().split(/\s+/).map((c) => replaceCaret(c, options)).join(" ");
-    };
-    const replaceCaret = (comp, options) => {
-      debug2("caret", comp, options);
-      const r2 = options.loose ? re2[t2.CARETLOOSE] : re2[t2.CARET];
-      const z = options.includePrerelease ? "-0" : "";
-      return comp.replace(r2, (_, M, m, p, pr) => {
-        debug2("caret", comp, _, M, m, p, pr);
-        let ret;
-        if (isX(M)) {
-          ret = "";
-        } else if (isX(m)) {
-          ret = `>=${M}.0.0${z} <${+M + 1}.0.0-0`;
-        } else if (isX(p)) {
-          if (M === "0") {
-            ret = `>=${M}.${m}.0${z} <${M}.${+m + 1}.0-0`;
-          } else {
-            ret = `>=${M}.${m}.0${z} <${+M + 1}.0.0-0`;
-          }
-        } else if (pr) {
-          debug2("replaceCaret pr", pr);
-          if (M === "0") {
-            if (m === "0") {
-              ret = `>=${M}.${m}.${p}-${pr} <${M}.${m}.${+p + 1}-0`;
-            } else {
-              ret = `>=${M}.${m}.${p}-${pr} <${M}.${+m + 1}.0-0`;
-            }
-          } else {
-            ret = `>=${M}.${m}.${p}-${pr} <${+M + 1}.0.0-0`;
-          }
-        } else {
-          debug2("no pr");
-          if (M === "0") {
-            if (m === "0") {
-              ret = `>=${M}.${m}.${p}${z} <${M}.${m}.${+p + 1}-0`;
-            } else {
-              ret = `>=${M}.${m}.${p}${z} <${M}.${+m + 1}.0-0`;
-            }
-          } else {
-            ret = `>=${M}.${m}.${p} <${+M + 1}.0.0-0`;
-          }
-        }
-        debug2("caret return", ret);
-        return ret;
-      });
-    };
-    const replaceXRanges = (comp, options) => {
-      debug2("replaceXRanges", comp, options);
-      return comp.split(/\s+/).map((c) => replaceXRange(c, options)).join(" ");
-    };
-    const replaceXRange = (comp, options) => {
-      comp = comp.trim();
-      const r2 = options.loose ? re2[t2.XRANGELOOSE] : re2[t2.XRANGE];
-      return comp.replace(r2, (ret, gtlt, M, m, p, pr) => {
-        debug2("xRange", comp, ret, gtlt, M, m, p, pr);
-        const xM = isX(M);
-        const xm = xM || isX(m);
-        const xp = xm || isX(p);
-        const anyX = xp;
-        if (gtlt === "=" && anyX) {
-          gtlt = "";
-        }
-        pr = options.includePrerelease ? "-0" : "";
-        if (xM) {
-          if (gtlt === ">" || gtlt === "<") {
-            ret = "<0.0.0-0";
-          } else {
-            ret = "*";
-          }
-        } else if (gtlt && anyX) {
-          if (xm) {
-            m = 0;
-          }
-          p = 0;
-          if (gtlt === ">") {
-            gtlt = ">=";
-            if (xm) {
-              M = +M + 1;
-              m = 0;
-              p = 0;
-            } else {
-              m = +m + 1;
-              p = 0;
-            }
-          } else if (gtlt === "<=") {
-            gtlt = "<";
-            if (xm) {
-              M = +M + 1;
-            } else {
-              m = +m + 1;
-            }
-          }
-          if (gtlt === "<") {
-            pr = "-0";
-          }
-          ret = `${gtlt + M}.${m}.${p}${pr}`;
-        } else if (xm) {
-          ret = `>=${M}.0.0${pr} <${+M + 1}.0.0-0`;
-        } else if (xp) {
-          ret = `>=${M}.${m}.0${pr} <${M}.${+m + 1}.0-0`;
-        }
-        debug2("xRange return", ret);
-        return ret;
-      });
-    };
-    const replaceStars = (comp, options) => {
-      debug2("replaceStars", comp, options);
-      return comp.trim().replace(re2[t2.STAR], "");
-    };
-    const replaceGTE0 = (comp, options) => {
-      debug2("replaceGTE0", comp, options);
-      return comp.trim().replace(re2[options.includePrerelease ? t2.GTE0PRE : t2.GTE0], "");
-    };
-    const hyphenReplace = (incPr) => ($0, from, fM, fm, fp, fpr, fb, to, tM, tm, tp, tpr) => {
-      if (isX(fM)) {
-        from = "";
-      } else if (isX(fm)) {
-        from = `>=${fM}.0.0${incPr ? "-0" : ""}`;
-      } else if (isX(fp)) {
-        from = `>=${fM}.${fm}.0${incPr ? "-0" : ""}`;
-      } else if (fpr) {
-        from = `>=${from}`;
-      } else {
-        from = `>=${from}${incPr ? "-0" : ""}`;
-      }
-      if (isX(tM)) {
-        to = "";
-      } else if (isX(tm)) {
-        to = `<${+tM + 1}.0.0-0`;
-      } else if (isX(tp)) {
-        to = `<${tM}.${+tm + 1}.0-0`;
-      } else if (tpr) {
-        to = `<=${tM}.${tm}.${tp}-${tpr}`;
-      } else if (incPr) {
-        to = `<${tM}.${tm}.${+tp + 1}-0`;
-      } else {
-        to = `<=${to}`;
-      }
-      return `${from} ${to}`.trim();
-    };
-    const testSet = (set2, version2, options) => {
-      for (let i2 = 0; i2 < set2.length; i2++) {
-        if (!set2[i2].test(version2)) {
-          return false;
-        }
-      }
-      if (version2.prerelease.length && !options.includePrerelease) {
-        for (let i2 = 0; i2 < set2.length; i2++) {
-          debug2(set2[i2].semver);
-          if (set2[i2].semver === Comparator2.ANY) {
-            continue;
-          }
-          if (set2[i2].semver.prerelease.length > 0) {
-            const allowed = set2[i2].semver;
-            if (allowed.major === version2.major && allowed.minor === version2.minor && allowed.patch === version2.patch) {
-              return true;
-            }
-          }
-        }
-        return false;
-      }
-      return true;
-    };
-    return range;
-  }
-  var comparator;
-  var hasRequiredComparator;
-  function requireComparator() {
-    if (hasRequiredComparator) return comparator;
-    hasRequiredComparator = 1;
-    const ANY2 = Symbol("SemVer ANY");
-    class Comparator2 {
-      static get ANY() {
-        return ANY2;
-      }
-      constructor(comp, options) {
-        options = parseOptions2(options);
-        if (comp instanceof Comparator2) {
-          if (comp.loose === !!options.loose) {
-            return comp;
-          } else {
-            comp = comp.value;
-          }
-        }
-        comp = comp.trim().split(/\s+/).join(" ");
-        debug2("comparator", comp, options);
-        this.options = options;
-        this.loose = !!options.loose;
-        this.parse(comp);
-        if (this.semver === ANY2) {
-          this.value = "";
-        } else {
-          this.value = this.operator + this.semver.version;
-        }
-        debug2("comp", this);
-      }
-      parse(comp) {
-        const r2 = this.options.loose ? re2[t2.COMPARATORLOOSE] : re2[t2.COMPARATOR];
-        const m = comp.match(r2);
-        if (!m) {
-          throw new TypeError(`Invalid comparator: ${comp}`);
-        }
-        this.operator = m[1] !== void 0 ? m[1] : "";
-        if (this.operator === "=") {
-          this.operator = "";
-        }
-        if (!m[2]) {
-          this.semver = ANY2;
-        } else {
-          this.semver = new SemVer2(m[2], this.options.loose);
-        }
-      }
-      toString() {
-        return this.value;
-      }
-      test(version2) {
-        debug2("Comparator.test", version2, this.options.loose);
-        if (this.semver === ANY2 || version2 === ANY2) {
-          return true;
-        }
-        if (typeof version2 === "string") {
-          try {
-            version2 = new SemVer2(version2, this.options);
-          } catch (er) {
-            return false;
-          }
-        }
-        return cmp2(version2, this.operator, this.semver, this.options);
-      }
-      intersects(comp, options) {
-        if (!(comp instanceof Comparator2)) {
-          throw new TypeError("a Comparator is required");
-        }
-        if (this.operator === "") {
-          if (this.value === "") {
-            return true;
-          }
-          return new Range2(comp.value, options).test(this.value);
-        } else if (comp.operator === "") {
-          if (comp.value === "") {
-            return true;
-          }
-          return new Range2(this.value, options).test(comp.semver);
-        }
-        options = parseOptions2(options);
-        if (options.includePrerelease && (this.value === "<0.0.0-0" || comp.value === "<0.0.0-0")) {
-          return false;
-        }
-        if (!options.includePrerelease && (this.value.startsWith("<0.0.0") || comp.value.startsWith("<0.0.0"))) {
-          return false;
-        }
-        if (this.operator.startsWith(">") && comp.operator.startsWith(">")) {
-          return true;
-        }
-        if (this.operator.startsWith("<") && comp.operator.startsWith("<")) {
-          return true;
-        }
-        if (this.semver.version === comp.semver.version && this.operator.includes("=") && comp.operator.includes("=")) {
-          return true;
-        }
-        if (cmp2(this.semver, "<", comp.semver, options) && this.operator.startsWith(">") && comp.operator.startsWith("<")) {
-          return true;
-        }
-        if (cmp2(this.semver, ">", comp.semver, options) && this.operator.startsWith("<") && comp.operator.startsWith(">")) {
-          return true;
-        }
-        return false;
-      }
-    }
-    comparator = Comparator2;
-    const parseOptions2 = parseOptions_1;
-    const { safeRe: re2, t: t2 } = reExports;
-    const cmp2 = cmp_1;
-    const debug2 = debug_1;
-    const SemVer2 = semver$1;
-    const Range2 = requireRange();
-    return comparator;
-  }
-  const Range$9 = requireRange();
-  const satisfies$4 = (version2, range2, options) => {
-    try {
-      range2 = new Range$9(range2, options);
-    } catch (er) {
-      return false;
-    }
-    return range2.test(version2);
-  };
-  var satisfies_1 = satisfies$4;
-  const Range$8 = requireRange();
-  const toComparators$1 = (range2, options) => new Range$8(range2, options).set.map((comp) => comp.map((c) => c.value).join(" ").trim().split(" "));
-  var toComparators_1 = toComparators$1;
-  const SemVer$4 = semver$1;
-  const Range$7 = requireRange();
-  const maxSatisfying$1 = (versions2, range2, options) => {
-    let max2 = null;
-    let maxSV = null;
-    let rangeObj = null;
-    try {
-      rangeObj = new Range$7(range2, options);
-    } catch (er) {
-      return null;
-    }
-    versions2.forEach((v) => {
-      if (rangeObj.test(v)) {
-        if (!max2 || maxSV.compare(v) === -1) {
-          max2 = v;
-          maxSV = new SemVer$4(max2, options);
-        }
-      }
-    });
-    return max2;
-  };
-  var maxSatisfying_1 = maxSatisfying$1;
-  const SemVer$3 = semver$1;
-  const Range$6 = requireRange();
-  const minSatisfying$1 = (versions2, range2, options) => {
-    let min2 = null;
-    let minSV = null;
-    let rangeObj = null;
-    try {
-      rangeObj = new Range$6(range2, options);
-    } catch (er) {
-      return null;
-    }
-    versions2.forEach((v) => {
-      if (rangeObj.test(v)) {
-        if (!min2 || minSV.compare(v) === 1) {
-          min2 = v;
-          minSV = new SemVer$3(min2, options);
-        }
-      }
-    });
-    return min2;
-  };
-  var minSatisfying_1 = minSatisfying$1;
-  const SemVer$2 = semver$1;
-  const Range$5 = requireRange();
-  const gt$2 = gt_1;
-  const minVersion$1 = (range2, loose) => {
-    range2 = new Range$5(range2, loose);
-    let minver = new SemVer$2("0.0.0");
-    if (range2.test(minver)) {
-      return minver;
-    }
-    minver = new SemVer$2("0.0.0-0");
-    if (range2.test(minver)) {
-      return minver;
-    }
-    minver = null;
-    for (let i2 = 0; i2 < range2.set.length; ++i2) {
-      const comparators = range2.set[i2];
-      let setMin = null;
-      comparators.forEach((comparator2) => {
-        const compver = new SemVer$2(comparator2.semver.version);
-        switch (comparator2.operator) {
-          case ">":
-            if (compver.prerelease.length === 0) {
-              compver.patch++;
-            } else {
-              compver.prerelease.push(0);
-            }
-            compver.raw = compver.format();
-          case "":
-          case ">=":
-            if (!setMin || gt$2(compver, setMin)) {
-              setMin = compver;
-            }
-            break;
-          case "<":
-          case "<=":
-            break;
-          default:
-            throw new Error(`Unexpected operation: ${comparator2.operator}`);
-        }
-      });
-      if (setMin && (!minver || gt$2(minver, setMin))) {
-        minver = setMin;
-      }
-    }
-    if (minver && range2.test(minver)) {
-      return minver;
-    }
-    return null;
-  };
-  var minVersion_1 = minVersion$1;
-  const Range$4 = requireRange();
-  const validRange$1 = (range2, options) => {
-    try {
-      return new Range$4(range2, options).range || "*";
-    } catch (er) {
-      return null;
-    }
-  };
-  var valid$1 = validRange$1;
-  const SemVer$1 = semver$1;
-  const Comparator$2 = requireComparator();
-  const { ANY: ANY$1 } = Comparator$2;
-  const Range$3 = requireRange();
-  const satisfies$3 = satisfies_1;
-  const gt$1 = gt_1;
-  const lt$1 = lt_1;
-  const lte$1 = lte_1;
-  const gte$1 = gte_1;
-  const outside$3 = (version2, range2, hilo, options) => {
-    version2 = new SemVer$1(version2, options);
-    range2 = new Range$3(range2, options);
-    let gtfn, ltefn, ltfn, comp, ecomp;
-    switch (hilo) {
-      case ">":
-        gtfn = gt$1;
-        ltefn = lte$1;
-        ltfn = lt$1;
-        comp = ">";
-        ecomp = ">=";
-        break;
-      case "<":
-        gtfn = lt$1;
-        ltefn = gte$1;
-        ltfn = gt$1;
-        comp = "<";
-        ecomp = "<=";
-        break;
-      default:
-        throw new TypeError('Must provide a hilo val of "<" or ">"');
-    }
-    if (satisfies$3(version2, range2, options)) {
-      return false;
-    }
-    for (let i2 = 0; i2 < range2.set.length; ++i2) {
-      const comparators = range2.set[i2];
-      let high = null;
-      let low = null;
-      comparators.forEach((comparator2) => {
-        if (comparator2.semver === ANY$1) {
-          comparator2 = new Comparator$2(">=0.0.0");
-        }
-        high = high || comparator2;
-        low = low || comparator2;
-        if (gtfn(comparator2.semver, high.semver, options)) {
-          high = comparator2;
-        } else if (ltfn(comparator2.semver, low.semver, options)) {
-          low = comparator2;
-        }
-      });
-      if (high.operator === comp || high.operator === ecomp) {
-        return false;
-      }
-      if ((!low.operator || low.operator === comp) && ltefn(version2, low.semver)) {
-        return false;
-      } else if (low.operator === ecomp && ltfn(version2, low.semver)) {
-        return false;
-      }
-    }
-    return true;
-  };
-  var outside_1 = outside$3;
-  const outside$2 = outside_1;
-  const gtr$1 = (version2, range2, options) => outside$2(version2, range2, ">", options);
-  var gtr_1 = gtr$1;
-  const outside$1 = outside_1;
-  const ltr$1 = (version2, range2, options) => outside$1(version2, range2, "<", options);
-  var ltr_1 = ltr$1;
-  const Range$2 = requireRange();
-  const intersects$1 = (r1, r2, options) => {
-    r1 = new Range$2(r1, options);
-    r2 = new Range$2(r2, options);
-    return r1.intersects(r2, options);
-  };
-  var intersects_1 = intersects$1;
-  const satisfies$2 = satisfies_1;
-  const compare$2 = compare_1;
-  var simplify = (versions2, range2, options) => {
-    const set2 = [];
-    let first = null;
-    let prev = null;
-    const v = versions2.sort((a, b) => compare$2(a, b, options));
-    for (const version2 of v) {
-      const included = satisfies$2(version2, range2, options);
-      if (included) {
-        prev = version2;
-        if (!first) {
-          first = version2;
-        }
-      } else {
-        if (prev) {
-          set2.push([first, prev]);
-        }
-        prev = null;
-        first = null;
-      }
-    }
-    if (first) {
-      set2.push([first, null]);
-    }
-    const ranges = [];
-    for (const [min2, max2] of set2) {
-      if (min2 === max2) {
-        ranges.push(min2);
-      } else if (!max2 && min2 === v[0]) {
-        ranges.push("*");
-      } else if (!max2) {
-        ranges.push(`>=${min2}`);
-      } else if (min2 === v[0]) {
-        ranges.push(`<=${max2}`);
-      } else {
-        ranges.push(`${min2} - ${max2}`);
-      }
-    }
-    const simplified = ranges.join(" || ");
-    const original = typeof range2.raw === "string" ? range2.raw : String(range2);
-    return simplified.length < original.length ? simplified : range2;
-  };
-  const Range$1 = requireRange();
-  const Comparator$1 = requireComparator();
-  const { ANY } = Comparator$1;
-  const satisfies$1 = satisfies_1;
-  const compare$1 = compare_1;
-  const subset$1 = (sub, dom, options = {}) => {
-    if (sub === dom) {
-      return true;
-    }
-    sub = new Range$1(sub, options);
-    dom = new Range$1(dom, options);
-    let sawNonNull = false;
-    OUTER: for (const simpleSub of sub.set) {
-      for (const simpleDom of dom.set) {
-        const isSub = simpleSubset(simpleSub, simpleDom, options);
-        sawNonNull = sawNonNull || isSub !== null;
-        if (isSub) {
-          continue OUTER;
-        }
-      }
-      if (sawNonNull) {
-        return false;
-      }
-    }
-    return true;
-  };
-  const minimumVersionWithPreRelease = [new Comparator$1(">=0.0.0-0")];
-  const minimumVersion = [new Comparator$1(">=0.0.0")];
-  const simpleSubset = (sub, dom, options) => {
-    if (sub === dom) {
-      return true;
-    }
-    if (sub.length === 1 && sub[0].semver === ANY) {
-      if (dom.length === 1 && dom[0].semver === ANY) {
-        return true;
-      } else if (options.includePrerelease) {
-        sub = minimumVersionWithPreRelease;
-      } else {
-        sub = minimumVersion;
-      }
-    }
-    if (dom.length === 1 && dom[0].semver === ANY) {
-      if (options.includePrerelease) {
-        return true;
-      } else {
-        dom = minimumVersion;
-      }
-    }
-    const eqSet = /* @__PURE__ */ new Set();
-    let gt2, lt2;
-    for (const c of sub) {
-      if (c.operator === ">" || c.operator === ">=") {
-        gt2 = higherGT(gt2, c, options);
-      } else if (c.operator === "<" || c.operator === "<=") {
-        lt2 = lowerLT(lt2, c, options);
-      } else {
-        eqSet.add(c.semver);
-      }
-    }
-    if (eqSet.size > 1) {
-      return null;
-    }
-    let gtltComp;
-    if (gt2 && lt2) {
-      gtltComp = compare$1(gt2.semver, lt2.semver, options);
-      if (gtltComp > 0) {
-        return null;
-      } else if (gtltComp === 0 && (gt2.operator !== ">=" || lt2.operator !== "<=")) {
-        return null;
-      }
-    }
-    for (const eq2 of eqSet) {
-      if (gt2 && !satisfies$1(eq2, String(gt2), options)) {
-        return null;
-      }
-      if (lt2 && !satisfies$1(eq2, String(lt2), options)) {
-        return null;
-      }
-      for (const c of dom) {
-        if (!satisfies$1(eq2, String(c), options)) {
-          return false;
-        }
-      }
-      return true;
-    }
-    let higher, lower;
-    let hasDomLT, hasDomGT;
-    let needDomLTPre = lt2 && !options.includePrerelease && lt2.semver.prerelease.length ? lt2.semver : false;
-    let needDomGTPre = gt2 && !options.includePrerelease && gt2.semver.prerelease.length ? gt2.semver : false;
-    if (needDomLTPre && needDomLTPre.prerelease.length === 1 && lt2.operator === "<" && needDomLTPre.prerelease[0] === 0) {
-      needDomLTPre = false;
-    }
-    for (const c of dom) {
-      hasDomGT = hasDomGT || c.operator === ">" || c.operator === ">=";
-      hasDomLT = hasDomLT || c.operator === "<" || c.operator === "<=";
-      if (gt2) {
-        if (needDomGTPre) {
-          if (c.semver.prerelease && c.semver.prerelease.length && c.semver.major === needDomGTPre.major && c.semver.minor === needDomGTPre.minor && c.semver.patch === needDomGTPre.patch) {
-            needDomGTPre = false;
-          }
-        }
-        if (c.operator === ">" || c.operator === ">=") {
-          higher = higherGT(gt2, c, options);
-          if (higher === c && higher !== gt2) {
-            return false;
-          }
-        } else if (gt2.operator === ">=" && !satisfies$1(gt2.semver, String(c), options)) {
-          return false;
-        }
-      }
-      if (lt2) {
-        if (needDomLTPre) {
-          if (c.semver.prerelease && c.semver.prerelease.length && c.semver.major === needDomLTPre.major && c.semver.minor === needDomLTPre.minor && c.semver.patch === needDomLTPre.patch) {
-            needDomLTPre = false;
-          }
-        }
-        if (c.operator === "<" || c.operator === "<=") {
-          lower = lowerLT(lt2, c, options);
-          if (lower === c && lower !== lt2) {
-            return false;
-          }
-        } else if (lt2.operator === "<=" && !satisfies$1(lt2.semver, String(c), options)) {
-          return false;
-        }
-      }
-      if (!c.operator && (lt2 || gt2) && gtltComp !== 0) {
-        return false;
-      }
-    }
-    if (gt2 && hasDomLT && !lt2 && gtltComp !== 0) {
-      return false;
-    }
-    if (lt2 && hasDomGT && !gt2 && gtltComp !== 0) {
-      return false;
-    }
-    if (needDomGTPre || needDomLTPre) {
-      return false;
-    }
-    return true;
-  };
-  const higherGT = (a, b, options) => {
-    if (!a) {
-      return b;
-    }
-    const comp = compare$1(a.semver, b.semver, options);
-    return comp > 0 ? a : comp < 0 ? b : b.operator === ">" && a.operator === ">=" ? b : a;
-  };
-  const lowerLT = (a, b, options) => {
-    if (!a) {
-      return b;
-    }
-    const comp = compare$1(a.semver, b.semver, options);
-    return comp < 0 ? a : comp > 0 ? b : b.operator === "<" && a.operator === "<=" ? b : a;
-  };
-  var subset_1 = subset$1;
-  const internalRe = reExports;
-  const constants = constants$1;
-  const SemVer = semver$1;
-  const identifiers = identifiers$1;
-  const parse = parse_1;
-  const valid = valid_1;
-  const clean = clean_1;
-  const inc = inc_1;
-  const diff = diff_1;
-  const major = major_1;
-  const minor = minor_1;
-  const patch = patch_1;
-  const prerelease = prerelease_1;
-  const compare = compare_1;
-  const rcompare = rcompare_1;
-  const compareLoose = compareLoose_1;
-  const compareBuild = compareBuild_1;
-  const sort = sort_1;
-  const rsort = rsort_1;
-  const gt = gt_1;
-  const lt = lt_1;
-  const eq = eq_1;
-  const neq = neq_1;
-  const gte = gte_1;
-  const lte = lte_1;
-  const cmp = cmp_1;
-  const coerce = coerce_1;
-  const Comparator = requireComparator();
-  const Range = requireRange();
-  const satisfies = satisfies_1;
-  const toComparators = toComparators_1;
-  const maxSatisfying = maxSatisfying_1;
-  const minSatisfying = minSatisfying_1;
-  const minVersion = minVersion_1;
-  const validRange = valid$1;
-  const outside = outside_1;
-  const gtr = gtr_1;
-  const ltr = ltr_1;
-  const intersects = intersects_1;
-  const simplifyRange = simplify;
-  const subset = subset_1;
-  var semver = {
-    parse,
-    valid,
-    clean,
-    inc,
-    diff,
-    major,
-    minor,
-    patch,
-    prerelease,
-    compare,
-    rcompare,
-    compareLoose,
-    compareBuild,
-    sort,
-    rsort,
-    gt,
-    lt,
-    eq,
-    neq,
-    gte,
-    lte,
-    cmp,
-    coerce,
-    Comparator,
-    Range,
-    satisfies,
-    toComparators,
-    maxSatisfying,
-    minSatisfying,
-    minVersion,
-    validRange,
-    outside,
-    gtr,
-    ltr,
-    intersects,
-    simplifyRange,
-    subset,
-    SemVer,
-    re: internalRe.re,
-    src: internalRe.src,
-    tokens: internalRe.t,
-    SEMVER_SPEC_VERSION: constants.SEMVER_SPEC_VERSION,
-    RELEASE_TYPES: constants.RELEASE_TYPES,
-    compareIdentifiers: identifiers.compareIdentifiers,
-    rcompareIdentifiers: identifiers.rcompareIdentifiers
-  };
   (function(exports2) {
     Object.defineProperty(exports2, "__esModule", { value: true });
     exports2.satisfiesVersionRange = exports2.gtRange = exports2.gtVersion = exports2.assertIsSemVerRange = exports2.assertIsSemVerVersion = exports2.isValidSemVerRange = exports2.isValidSemVerVersion = exports2.VersionRangeStruct = exports2.VersionStruct = void 0;

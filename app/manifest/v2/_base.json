@@ -36,7 +36,7 @@
         "scripts/lockdown-run.js",
         "scripts/lockdown-more.js",
         "scripts/contentscript.js",
-        "vendor/ledger/assets/index-RKC1Jc25.js",
+        "vendor/ledger/assets/index-BQBkPZkx.js",
         "scripts/inpage.js"
       ],
       "run_at": "document_start",
