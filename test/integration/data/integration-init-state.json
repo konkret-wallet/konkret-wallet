@@ -432,7 +432,6 @@
     }
   },
   "hadAdvancedGasFeesSetPriorToMigration92_3": false,
-  "hasDismissedOpenSeaToBlockaidBanner": false,
   "hiddenAccountList": [],
   "identities": {
     "0x0dcd5d886577d5081b0c52e242ef29e70be3e7bc": {
@@ -818,7 +817,6 @@
   "preventPollingOnNetworkRestart": true,
   "previousAppVersion": "11.14.4",
   "previousMigrationVersion": 112,
-  "securityAlertsEnabled": true,
   "seedPhraseBackedUp": true,
   "selectedAddress": "0x0dcd5d886577d5081b0c52e242ef29e70be3e7bc",
   "selectedMultichainNetworkChainId": "bip122:000000000019d6689c085ae165831e93",
@@ -829,7 +827,6 @@
   "showPermissionsTour": true,
   "showProductTour": false,
   "showTestnetMessageInDropdown": true,
-  "signatureSecurityAlertResponses": {},
   "slides": [],
   "smartTransactionsState": {
     "fees": {},

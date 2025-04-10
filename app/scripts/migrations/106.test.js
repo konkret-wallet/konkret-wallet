@@ -15,58 +15,6 @@ describe('migration #106', () => {
     });
   });
 
-  it('should set securityAlertsEnabled to true in PreferencesController', async () => {
-    const oldStorage = {
-      meta: {
-        version: 105,
-      },
-      data: {
-        PreferencesController: {
-          securityAlertsEnabled: false,
-        },
-      },
-    };
-
-    const newStorage = await migrate(oldStorage);
-    expect(newStorage).toStrictEqual({
-      meta: {
-        version: 106,
-      },
-      data: {
-        PreferencesController: {
-          securityAlertsEnabled: true,
-        },
-      },
-    });
-  });
-
-  it('should not set securityAlertsEnabled to true in PreferencesController if transactionSecurityCheckEnabled is set to true', async () => {
-    const oldStorage = {
-      meta: {
-        version: 105,
-      },
-      data: {
-        PreferencesController: {
-          securityAlertsEnabled: false,
-          transactionSecurityCheckEnabled: true,
-        },
-      },
-    };
-
-    const newStorage = await migrate(oldStorage);
-    expect(newStorage).toStrictEqual({
-      meta: {
-        version: 106,
-      },
-      data: {
-        PreferencesController: {
-          securityAlertsEnabled: false,
-          transactionSecurityCheckEnabled: true,
-        },
-      },
-    });
-  });
-
   it('should preserve other PreferencesController state', async () => {
     const oldStorage = {
       meta: {
@@ -77,7 +25,6 @@ describe('migration #106', () => {
           currentLocale: 'en',
           dismissSeedBackUpReminder: false,
           ipfsGateway: 'dweb.link',
-          securityAlertsEnabled: false,
           openSeaEnabled: false,
           useTokenDetection: false,
         },
@@ -94,7 +41,6 @@ describe('migration #106', () => {
           currentLocale: 'en',
           dismissSeedBackUpReminder: false,
           ipfsGateway: 'dweb.link',
-          securityAlertsEnabled: true,
           openSeaEnabled: false,
           useTokenDetection: false,
         },
@@ -109,7 +55,7 @@ describe('migration #106', () => {
       },
       data: {
         PreferencesController: {
-          securityAlertsEnabled: false,
+          ipfsGateway: 'foo.local',
         },
         data: {
           FooController: { a: 'b' },
@@ -124,7 +70,7 @@ describe('migration #106', () => {
       },
       data: {
         PreferencesController: {
-          securityAlertsEnabled: true,
+          ipfsGateway: 'foo.local',
         },
         data: {
           FooController: { a: 'b' },

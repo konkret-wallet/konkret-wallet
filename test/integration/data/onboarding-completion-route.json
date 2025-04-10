@@ -108,7 +108,6 @@
   "gasFeeEstimates": {},
   "gasFeeEstimatesByChainId": {},
   "hadAdvancedGasFeesSetPriorToMigration92_3": false,
-  "hasDismissedOpenSeaToBlockaidBanner": false,
   "hiddenAccountList": [],
   "identities": {
     "0x03cf1158b58ccdfc04dd518f11f85c3ee7fa0189": {
@@ -266,7 +265,6 @@
   "qrHardware": {},
   "recoveryPhraseReminderHasBeenShown": false,
   "recoveryPhraseReminderLastShown": 1715943225448,
-  "securityAlertsEnabled": true,
   "seedPhraseBackedUp": true,
   "segmentApiCalls": {
     "6QHUuopP26ok11pDgrCt": {
@@ -291,7 +289,6 @@
   "showNetworkBanner": true,
   "showPermissionsTour": true,
   "showTestnetMessageInDropdown": true,
-  "signatureSecurityAlertResponses": {},
   "slides": [],
   "smartTransactionsState": {
     "smartTransactions": { "0x1": [] },

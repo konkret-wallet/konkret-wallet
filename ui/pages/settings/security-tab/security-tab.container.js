@@ -17,13 +17,9 @@ import {
   setUseSafeChainsListValidation,
   setUseExternalNameSources,
   setUseTransactionSimulations,
-  setSecurityAlertsEnabled,
   updateDataDeletionTaskStatus,
 } from '../../../store/actions';
-import {
-  getIsSecurityAlertsEnabled,
-  getPetnamesEnabled,
-} from '../../../selectors/selectors';
+import { getPetnamesEnabled } from '../../../selectors/selectors';
 import { getNetworkConfigurationsByChainId } from '../../../../shared/modules/selectors/networks';
 import SecurityTab from './security-tab.component';
 
@@ -66,7 +62,6 @@ const mapStateToProps = (state) => {
     useExternalNameSources,
     useExternalServices,
     petnamesEnabled,
-    securityAlertsEnabled: getIsSecurityAlertsEnabled(state),
     useTransactionSimulations: metamask.useTransactionSimulations,
   };
 };
@@ -103,7 +98,6 @@ const mapDispatchToProps = (dispatch) => {
     updateDataDeletionTaskStatus: () => {
       return updateDataDeletionTaskStatus();
     },
-    setSecurityAlertsEnabled: (value) => setSecurityAlertsEnabled(value),
   };
 };
 

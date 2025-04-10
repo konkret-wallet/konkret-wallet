@@ -1,8 +1,9 @@
-import { strict as assert } from 'assert';
-import { MockedEndpoint } from 'mockttp';
+// import { strict as assert } from 'assert';
+// import { MockedEndpoint } from 'mockttp';
+/* eslint-disable jsdoc/require-asterisk-prefix */
 import {
   WINDOW_TITLES,
-  getEventPayloads,
+  // getEventPayloads,
   unlockWallet,
 } from '../../../helpers';
 import { Driver } from '../../../webdriver/driver';
@@ -10,10 +11,12 @@ import TestDapp from '../../../page-objects/pages/test-dapp';
 import { DAPP_URL } from '../../../constants';
 import Confirmation from '../../../page-objects/pages/confirmations/redesign/confirmation';
 import AccountDetailsModal from '../../../page-objects/pages/confirmations/redesign/accountDetailsModal';
+/*
 import {
   BlockaidReason,
   BlockaidResultType,
 } from '../../../../../shared/constants/security-provider';
+*/
 
 export const WALLET_ADDRESS = '0x5CfE73b6021E818B776b421B1c4Db2474086a7e1';
 export const WALLET_ETH_BALANCE = '25';
@@ -28,6 +31,7 @@ export enum SignatureType {
   SIWE_BadDomain = '#siweBadDomain',
 }
 
+/*
 type AssertSignatureMetricsOptions = {
   driver: Driver;
   mockedEndpoints: MockedEndpoint[];
@@ -68,6 +72,7 @@ const signatureAnonProperties = {
   eip712_domain_version: '1',
   eip712_domain_name: 'Ether Mail',
 };
+*/
 
 let testDapp: TestDapp;
 let accountDetailsModal: AccountDetailsModal;
@@ -78,21 +83,10 @@ export async function initializePages(driver: Driver) {
 }
 
 /**
- * Generates expected signature metric properties
  *
- * @param signatureType
- * @param primaryType
- * @param uiCustomizations
- * @param securityAlertReason
- * @param securityAlertResponse
- * @param securityAlertSource
- * @param decodingChangeTypes
- * @param decodingResponse
- * @param decodingDescription
- */
-function getSignatureEventProperty(
-  signatureType: string,
-  primaryType: string,
+ * function getSignatureEventProperty(
+ * signatureType: string,
+ * primaryType: string,
   uiCustomizations: string[],
   securityAlertReason: string = BlockaidReason.inProgress,
   securityAlertResponse: string = BlockaidResultType.Loading,
@@ -113,20 +107,20 @@ function getSignatureEventProperty(
     security_alert_source: securityAlertSource,
     ui_customizations: uiCustomizations,
   };
-
+ 
   if (primaryType !== '') {
     signatureEventProperty.eip712_primary_type = primaryType;
   }
-
+ 
   if (decodingResponse) {
     signatureEventProperty.decoding_change_types = decodingChangeTypes;
     signatureEventProperty.decoding_response = decodingResponse;
     signatureEventProperty.decoding_description = decodingDescription;
   }
-
+ 
   return signatureEventProperty;
 }
-
+ 
 function assertSignatureRequestedMetrics(
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   events: any[],
@@ -138,7 +132,7 @@ function assertSignatureRequestedMetrics(
     'Signature Requested',
     signatureEventProperty,
   );
-
+ 
   if (withAnonEvents) {
     assertEventPropertiesMatch(events, 'Signature Requested Anon', {
       ...signatureEventProperty,
@@ -146,7 +140,7 @@ function assertSignatureRequestedMetrics(
     });
   }
 }
-
+ 
 export async function assertSignatureConfirmedMetrics({
   driver,
   mockedEndpoints,
@@ -173,19 +167,19 @@ export async function assertSignatureConfirmedMetrics({
     decodingResponse,
     decodingDescription,
   );
-
+ 
   assertSignatureRequestedMetrics(
     events,
     signatureEventProperty,
     withAnonEvents,
   );
-
+ 
   assertEventPropertiesMatch(
     events,
     'Signature Approved',
     signatureEventProperty,
   );
-
+ 
   if (withAnonEvents) {
     assertEventPropertiesMatch(events, 'Signature Approved Anon', {
       ...signatureEventProperty,
@@ -193,7 +187,7 @@ export async function assertSignatureConfirmedMetrics({
     });
   }
 }
-
+ 
 export async function assertSignatureRejectedMetrics({
   driver,
   mockedEndpoints,
@@ -222,19 +216,19 @@ export async function assertSignatureRejectedMetrics({
     decodingResponse,
     decodingDescription,
   );
-
+ 
   assertSignatureRequestedMetrics(
     events,
     signatureEventProperty,
     withAnonEvents,
   );
-
+ 
   assertEventPropertiesMatch(events, 'Signature Rejected', {
     ...signatureEventProperty,
     location,
     ...expectedProps,
   });
-
+ 
   if (withAnonEvents) {
     assertEventPropertiesMatch(events, 'Signature Rejected Anon', {
       ...signatureEventProperty,
@@ -242,14 +236,14 @@ export async function assertSignatureRejectedMetrics({
     });
   }
 }
-
+ 
 export async function assertAccountDetailsMetrics(
   driver: Driver,
   mockedEndpoints: MockedEndpoint[],
   type: string,
 ) {
   const events = await getEventPayloads(driver, mockedEndpoints);
-
+ 
   assertEventPropertiesMatch(events, 'Account Details Opened', {
     action: 'Confirm Screen',
     location: 'signature_confirmation',
@@ -260,7 +254,7 @@ export async function assertAccountDetailsMetrics(
     environment_type: 'notification',
   });
 }
-
+ 
 function assertEventPropertiesMatch(
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   events: any[],
@@ -268,14 +262,14 @@ function assertEventPropertiesMatch(
   expectedProperties: object,
 ) {
   const event = events.find((e) => e.event === eventName);
-
+ 
   const actualProperties = { ...event.properties };
   const expectedProps = { ...expectedProperties };
-
+ 
   compareDecodingAPIResponse(actualProperties, expectedProps, eventName);
-
+ 
   compareSecurityAlertProperties(actualProperties, expectedProps, eventName);
-
+ 
   assert(event, `${eventName} event not found`);
   assert.deepStrictEqual(
     actualProperties,
@@ -283,7 +277,7 @@ function assertEventPropertiesMatch(
     `${eventName} event properties do not match`,
   );
 }
-
+ 
 function compareSecurityAlertProperties(
   actualProperties: Record<string, unknown>,
   expectedProperties: Record<string, unknown>,
@@ -306,7 +300,7 @@ function compareSecurityAlertProperties(
     delete actualProperties.security_alert_response;
     delete expectedProperties.security_alert_response;
   }
-
+ 
   if (expectedProperties.security_alert_source) {
     if (
       actualProperties.security_alert_source !== 'api' &&
@@ -320,7 +314,7 @@ function compareSecurityAlertProperties(
     delete expectedProperties.security_alert_source;
   }
 }
-
+ 
 function compareDecodingAPIResponse(
   actualProperties: Record<string, unknown>,
   expectedProperties: Record<string, unknown>,
@@ -362,6 +356,7 @@ function compareDecodingAPIResponse(
   delete actualProperties.decoding_description;
   delete actualProperties.decoding_latency;
 }
+ */
 
 export async function clickHeaderInfoBtn(driver: Driver) {
   const confirmation = new Confirmation(driver);

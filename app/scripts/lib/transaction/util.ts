@@ -21,7 +21,6 @@ export type AddTransactionOptions = NonNullable<
 type BaseAddTransactionRequest = {
   chainId: Hex;
   networkClientId: string;
-  securityAlertsEnabled: boolean;
   selectedAccount: InternalAccount;
   transactionParams: TransactionParams;
   transactionController: TransactionController;
@@ -48,7 +47,7 @@ export async function addDappTransaction(
 ): Promise<string> {
   const { dappRequest } = request;
   const { id: actionId, method, origin } = dappRequest;
-  const { securityAlertResponse, traceContext } = dappRequest;
+  const { traceContext } = dappRequest;
 
   const transactionOptions: Partial<AddTransactionOptions> = {
     actionId,
@@ -56,7 +55,6 @@ export async function addDappTransaction(
     origin,
     // This is the default behaviour but specified here for clarity
     requireApproval: true,
-    securityAlertResponse,
   };
 
   endTrace({ name: TraceName.Middleware, id: actionId });

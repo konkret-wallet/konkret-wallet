@@ -7,10 +7,6 @@ import {
 } from '@metamask/transaction-controller';
 import { UserOperationController } from '@metamask/user-operation-controller';
 import { cloneDeep } from 'lodash';
-import {
-  BlockaidReason,
-  BlockaidResultType,
-} from '../../../../shared/constants/security-provider';
 import { flushPromises } from '../../../../test/lib/timer-helpers';
 import { createMockInternalAccount } from '../../../../test/jest/mocks';
 import {
@@ -53,7 +49,6 @@ const DAPP_REQUEST_MOCK = {
   id: TRANSACTION_OPTIONS_MOCK.actionId,
   method: 'eth_sendTransaction',
   origin: TRANSACTION_OPTIONS_MOCK.origin,
-  securityAlertResponse: { test: 'value' },
 };
 
 const TRANSACTION_META_MOCK: TransactionMeta = {
@@ -365,121 +360,6 @@ describe('Transaction Utils', () => {
         );
       });
     });
-
-    describe('validates using security provider', () => {
-      it('adds loading response to request options', async () => {
-        await addTransaction({
-          ...request,
-          securityAlertsEnabled: true,
-          chainId: '0x1',
-        });
-
-        expect(
-          request.transactionController.addTransaction,
-        ).toHaveBeenCalledTimes(1);
-
-        expect(
-          request.transactionController.addTransaction,
-        ).toHaveBeenCalledWith(TRANSACTION_PARAMS_MOCK, {
-          ...TRANSACTION_OPTIONS_MOCK,
-          securityAlertResponse: {
-            reason: BlockaidReason.inProgress,
-            result_type: BlockaidResultType.Loading,
-            securityAlertId: SECURITY_ALERT_ID_MOCK,
-          },
-        });
-      });
-
-      it('unless blockaid is disabled', async () => {
-        await addTransaction({
-          ...request,
-          securityAlertsEnabled: false,
-          chainId: '0x1',
-        });
-
-        expect(
-          request.transactionController.addTransaction,
-        ).toHaveBeenCalledTimes(1);
-
-        expect(
-          request.transactionController.addTransaction,
-        ).toHaveBeenCalledWith(
-          TRANSACTION_PARAMS_MOCK,
-          TRANSACTION_OPTIONS_MOCK,
-        );
-      });
-
-      it('send to users own account', async () => {
-        const sendRequest = {
-          ...request,
-          transactionParams: {
-            ...request.transactionParams,
-            to: INTERNAL_ACCOUNT_ADDRESS,
-          },
-        };
-        await addTransaction({
-          ...sendRequest,
-          securityAlertsEnabled: false,
-          chainId: '0x1',
-          internalAccounts: [INTERNAL_ACCOUNT],
-        });
-
-        expect(
-          request.transactionController.addTransaction,
-        ).toHaveBeenCalledTimes(1);
-
-        expect(
-          request.transactionController.addTransaction,
-        ).toHaveBeenCalledWith(
-          sendRequest.transactionParams,
-          TRANSACTION_OPTIONS_MOCK,
-        );
-      });
-
-      it('unless transaction type is swap', async () => {
-        const swapRequest = { ...request };
-        swapRequest.transactionOptions.type = TransactionType.swap;
-
-        await addTransaction({
-          ...swapRequest,
-          securityAlertsEnabled: true,
-          chainId: '0x1',
-        });
-
-        expect(
-          request.transactionController.addTransaction,
-        ).toHaveBeenCalledTimes(1);
-
-        expect(
-          request.transactionController.addTransaction,
-        ).toHaveBeenCalledWith(TRANSACTION_PARAMS_MOCK, {
-          ...TRANSACTION_OPTIONS_MOCK,
-          type: TransactionType.swap,
-        });
-      });
-
-      it('unless transaction type is swapApproval', async () => {
-        const swapRequest = { ...request };
-        swapRequest.transactionOptions.type = TransactionType.swapApproval;
-
-        await addTransaction({
-          ...swapRequest,
-          securityAlertsEnabled: true,
-          chainId: '0x1',
-        });
-
-        expect(
-          request.transactionController.addTransaction,
-        ).toHaveBeenCalledTimes(1);
-
-        expect(
-          request.transactionController.addTransaction,
-        ).toHaveBeenCalledWith(TRANSACTION_PARAMS_MOCK, {
-          ...TRANSACTION_OPTIONS_MOCK,
-          type: TransactionType.swapApproval,
-        });
-      });
-    });
   });
 
   describe('addDappTransaction', () => {
@@ -496,7 +376,6 @@ describe('Transaction Utils', () => {
           ...TRANSACTION_OPTIONS_MOCK,
           method: DAPP_REQUEST_MOCK.method,
           requireApproval: true,
-          securityAlertResponse: DAPP_REQUEST_MOCK.securityAlertResponse,
           type: undefined,
         });
       });

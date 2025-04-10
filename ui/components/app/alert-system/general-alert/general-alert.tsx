@@ -1,74 +1,31 @@
 import React from 'react';
-import {
-  BannerAlert,
-  Box,
-  ButtonLink,
-  ButtonLinkSize,
-  Text,
-} from '../../../component-library';
+import { BannerAlert, Box, Text } from '../../../component-library';
 import Disclosure from '../../../ui/disclosure';
 import { DisclosureVariant } from '../../../ui/disclosure/disclosure.constants';
 import { useI18nContext } from '../../../../hooks/useI18nContext';
 import {
-  Display,
   FontWeight,
   TextVariant,
 } from '../../../../helpers/constants/design-system';
-import { SecurityProvider } from '../../../../../shared/constants/security-provider';
-import ZENDESK_URLS from '../../../../helpers/constants/zendesk-url';
 import { getBannerAlertSeverity } from '../utils';
-import { AlertProvider } from '../alert-provider';
 import { AlertSeverity } from '../../../../ducks/confirm-alerts/confirm-alerts';
 
 export type GeneralAlertProps = {
   description?: string;
   details?: React.ReactNode | string[];
   onClickSupportLink?: () => void;
-  provider?: SecurityProvider;
   reportUrl?: string;
   severity: AlertSeverity;
   title?: string;
   children?: React.ReactNode;
 };
 
-function ReportLink({
-  reportUrl,
-  provider,
-  onClickSupportLink,
-}: {
-  reportUrl?: string;
-  provider?: SecurityProvider;
-  onClickSupportLink?: () => void;
-}) {
-  const t = useI18nContext();
-  return (
-    <Text marginTop={1} display={Display.Flex}>
-      {t('somethingDoesntLookRight', [
-        <ButtonLink
-          data-testid="alert-provider-report-link"
-          key={`security-provider-button-supporturl-${provider}`}
-          size={ButtonLinkSize.Inherit}
-          href={reportUrl ?? ZENDESK_URLS.SUPPORT_URL}
-          externalLink
-          onClick={onClickSupportLink}
-        >
-          {t('reportIssue')}
-        </ButtonLink>,
-      ])}
-    </Text>
-  );
-}
-
 function AlertDetails({
   details,
-  reportUrl,
-  onClickSupportLink,
-  provider,
 }: {
   details?: React.ReactNode | string[];
   reportUrl?: string;
   onClickSupportLink?: () => void;
-  provider?: SecurityProvider;
 }) {
   const t = useI18nContext();
   if (!details) {
@@ -94,11 +51,6 @@ function AlertDetails({
         ) : (
           details
         )}
-        <ReportLink
-          reportUrl={reportUrl}
-          provider={provider}
-          onClickSupportLink={onClickSupportLink}
-        />
       </Disclosure>
     </Box>
   );
@@ -108,7 +60,6 @@ function GeneralAlert({
   description,
   details,
   onClickSupportLink,
-  provider,
   severity,
   title,
   reportUrl,
@@ -126,9 +77,7 @@ function GeneralAlert({
         details={details}
         reportUrl={reportUrl}
         onClickSupportLink={onClickSupportLink}
-        provider={provider}
       />
-      <AlertProvider provider={provider} />
     </BannerAlert>
   );
 }

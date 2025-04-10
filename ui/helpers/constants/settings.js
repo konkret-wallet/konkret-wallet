@@ -281,22 +281,6 @@ const SETTINGS_CONSTANTS = [
     route: `${SECURITY_ROUTE}#proposed-nicknames`,
     icon: 'fa fa-lock',
   },
-  // securityAndPrivacy settingsRefs[16]
-  {
-    tabMessage: (t) => t('securityAndPrivacy'),
-    sectionMessage: (t) => t('securityAlerts'),
-    descriptionMessage: (t) => t('securityAlertsDescription'),
-    route: `${SECURITY_ROUTE}#security-alerts`,
-    icon: 'fa fa-lock',
-  },
-  // securityAndPrivacy settingsRefs[17]
-  {
-    tabMessage: (t) => t('securityAndPrivacy'),
-    sectionMessage: (t) => t('blockaid'),
-    descriptionMessage: (t) => t('blockaidMessage'),
-    route: `${SECURITY_ROUTE}#security-alerts-blockaid`,
-    icon: 'fa fa-lock',
-  },
   // securityAndPrivacy settingsRefs[18]
   {
     tabMessage: (t) => t('securityAndPrivacy'),
@@ -306,13 +290,6 @@ const SETTINGS_CONSTANTS = [
     icon: 'fa fa-lock',
   },
   // securityAndPrivacy settingsRefs[19]
-  {
-    tabMessage: (t) => t('securityAndPrivacy'),
-    sectionMessage: (t) => t('dataCollectionForMarketing'),
-    descriptionMessage: (t) => t('dataCollectionForMarketingDescription'),
-    route: `${SECURITY_ROUTE}#dataCollectionForMarketing`,
-    icon: 'fa fa-lock',
-  },
   {
     tabMessage: (t) => t('networks'),
     sectionMessage: (t) => t('mainnet'),

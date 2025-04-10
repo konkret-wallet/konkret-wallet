@@ -2750,16 +2750,6 @@ export function getIstokenDetectionInactiveOnNonMainnetSupportedNetwork(state) {
   return isDynamicTokenListAvailable && !useTokenDetection && !isMainnet;
 }
 
-/**
- * To get the `getIsSecurityAlertsEnabled` value which determines whether security check is enabled
- *
- * @param {*} state
- * @returns Boolean
- */
-export function getIsSecurityAlertsEnabled(state) {
-  return state.metamask.securityAlertsEnabled;
-}
-
 ///: BEGIN:ONLY_INCLUDE_IF(keyring-snaps)
 /**
  * Get the state of the `addSnapAccountEnabled` flag.

@@ -4,6 +4,8 @@
 // @reduxjs/toolkit to be patched by our patch files. The patch is 6000+ lines.
 // I don't want to try to figure that one out.
 /* eslint-disable no-empty-function */
+/* eslint-disable jsdoc/require-asterisk-prefix */
+
 import { ReactFragment } from 'react';
 import log from 'loglevel';
 import { capitalize, isEqual } from 'lodash';
@@ -4776,26 +4778,23 @@ export async function closeNotificationPopup() {
 }
 
 /**
-export function trackMetaMetricsEvent(
-  _payload: MetaMetricsEventPayload,
-  _options?: MetaMetricsEventOptions,
-) {}
-
-export function createEventFragment(
-  _options: MetaMetricsEventFragment,
-): Promise<string> {
-  const actionId = generateActionId();
-  return submitRequestToBackground('createEventFragment', [
-    { ...options, actionId },
-  ]);
+ * export function trackMetaMetricsEvent(
+ * _payload: MetaMetricsEventPayload,
+ * _options?: MetaMetricsEventOptions,
+ * ) {}
+ * ): Promise<string> {
+ * const actionId = generateActionId();
+ * return submitRequestToBackground('createEventFragment', [
+ * { ...options, actionId },
+ ]);
   return `createEventFragment-${actionId}`;
 }
-
+ 
 export function updateEventFragment(
   _id: string,
   _payload: Partial<MetaMetricsEventFragment>,
 ) {}
-
+ 
 export function finalizeEventFragment(
   _id: string,
   _options?: {
@@ -4804,12 +4803,12 @@ export function finalizeEventFragment(
     referrer?: MetaMetricsReferrerObject;
   },
 ) {}
-
+ 
 export function trackMetaMetricsPage(
   _payload: MetaMetricsPagePayload,
   _options: MetaMetricsPageOptions,
 ) {}
-*/
+ */
 
 export function resetViewedNotifications() {
   return submitRequestToBackground('resetViewedNotifications');

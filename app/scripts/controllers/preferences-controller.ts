@@ -245,7 +245,7 @@ export const getDefaultPreferencesControllerState =
     snapsAddSnapAccountModalDismissed: false,
     ///: END:ONLY_INCLUDE_IF
     useExternalNameSources: false,
-    useTransactionSimulations: true,
+    useTransactionSimulations: false,
     enableMV3TimestampSave: true,
     // Turning OFF basic functionality toggle means turning OFF this useExternalServices flag.
     // Whenever useExternalServices is false, certain features will be disabled.
@@ -334,7 +334,7 @@ const controllerMetadata = {
   },
   securityAlertsEnabled: {
     persist: true,
-    anonymous: false,
+    anonymous: true,
   },
   watchEthereumAccountEnabled: {
     persist: true,
@@ -617,17 +617,6 @@ export class PreferencesController extends BaseController<
   setOpenSeaEnabled(openSeaEnabled: boolean): void {
     this.update((state) => {
       state.openSeaEnabled = openSeaEnabled;
-    });
-  }
-
-  /**
-   * Setter for the `securityAlertsEnabled` property
-   *
-   * @param securityAlertsEnabled - Whether or not the user prefers to use the security alerts.
-   */
-  setSecurityAlertsEnabled(securityAlertsEnabled: boolean): void {
-    this.update((state) => {
-      state.securityAlertsEnabled = securityAlertsEnabled;
     });
   }
 

@@ -1,5 +1,4 @@
 import { ReactNode } from 'react';
-import { SecurityProvider } from '../../../shared/constants/security-provider';
 import { Severity } from '../../helpers/constants/design-system';
 
 export type AlertSeverity = Severity.Danger | Severity.Warning | Severity.Info;
@@ -33,11 +32,6 @@ export type Alert = {
    * from proceeding and relying on actions to proceed. The default is `false`.
    */
   isBlocking?: boolean;
-
-  /**
-   * The security provider associated with the alert.
-   */
-  provider?: SecurityProvider;
 
   /**
    * The reason for the alert.

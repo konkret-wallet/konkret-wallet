@@ -164,19 +164,6 @@ describe('Transaction Controller Init', () => {
     });
   });
 
-  it('determines if first time interaction enabled using preference', () => {
-    const isFirstTimeInteractionEnabled = testConstructorOption(
-      'isFirstTimeInteractionEnabled',
-      {
-        state: {
-          securityAlertsEnabled: true,
-        },
-      },
-    );
-
-    expect(isFirstTimeInteractionEnabled?.()).toBe(true);
-  });
-
   it('determines if simulation enabled using preference', () => {
     const isSimulationEnabled = testConstructorOption('isSimulationEnabled', {
       state: {

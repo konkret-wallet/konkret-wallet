@@ -1875,7 +1875,6 @@ export default class MetamaskController extends EventEmitter {
   getPreferences() {
     const {
       preferences,
-      securityAlertsEnabled,
       useCurrencyRateCheck,
       useTransactionSimulations,
       useTokenDetection,
@@ -1886,7 +1885,6 @@ export default class MetamaskController extends EventEmitter {
 
     return {
       privacyMode: preferences.privacyMode,
-      securityAlertsEnabled,
       useCurrencyRateCheck,
       useTransactionSimulations,
       useTokenDetection,
@@ -1910,7 +1908,6 @@ export default class MetamaskController extends EventEmitter {
             const currency = this.currencyRateController.state.currentCurrency;
             const {
               privacyMode,
-              securityAlertsEnabled,
               useCurrencyRateCheck,
               useTransactionSimulations,
               useTokenDetection,
@@ -1922,7 +1919,6 @@ export default class MetamaskController extends EventEmitter {
               locale,
               currency,
               hideBalances: privacyMode,
-              useSecurityAlerts: securityAlertsEnabled,
               useExternalPricingData: useCurrencyRateCheck,
               simulateOnChainActions: useTransactionSimulations,
               useTokenDetection,
@@ -2445,10 +2441,6 @@ export default class MetamaskController extends EventEmitter {
       grantPermissions: this.permissionController.grantPermissions.bind(
         this.permissionController,
       ),
-      setSecurityAlertsEnabled:
-        preferencesController.setSecurityAlertsEnabled.bind(
-          preferencesController,
-        ),
       ///: BEGIN:ONLY_INCLUDE_IF(keyring-snaps)
       setAddSnapAccountEnabled:
         preferencesController.setAddSnapAccountEnabled.bind(
@@ -4424,8 +4416,6 @@ export default class MetamaskController extends EventEmitter {
       transactionParams,
       userOperationController: this.userOperationController,
       chainId: this.#getGlobalChainId(),
-      securityAlertsEnabled:
-        this.preferencesController.state?.securityAlertsEnabled,
       ...otherParams,
     };
   }

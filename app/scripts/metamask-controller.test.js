@@ -566,8 +566,6 @@ describe('MetaMaskController', () => {
           transactionParams,
           userOperationController: expect.any(Object),
           chainId: '0x1',
-          securityAlertsEnabled: expect.any(Boolean),
-          updateSecurityAlertResponse: expect.any(Function),
         });
       });
       it('passes through any additional params to the object', () => {
@@ -2873,9 +2871,6 @@ describe('MetaMaskController', () => {
 
       beforeEach(() => {
         initializeMockMiddlewareLog();
-        metamaskController.preferencesController.setSecurityAlertsEnabled(
-          false,
-        );
         jest
           .spyOn(metamaskController.onboardingController, 'state', 'get')
           .mockReturnValue({ completedOnboarding: true });

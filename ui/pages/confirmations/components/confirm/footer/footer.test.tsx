@@ -3,7 +3,6 @@ import {
   LedgerTransportTypes,
   WebHIDConnectedStatuses,
 } from '../../../../../../shared/constants/hardware-wallets';
-import { BlockaidResultType } from '../../../../../../shared/constants/security-provider';
 import { genUnapprovedContractInteractionConfirmation } from '../../../../../../test/data/confirmations/contract-interaction';
 import {
   getMockContractInteractionConfirmState,
@@ -163,38 +162,6 @@ describe('ConfirmFooter', () => {
     expect(resolveSpy).toHaveBeenCalled();
     expect(updateCustomNonceSpy).toHaveBeenCalledWith('');
     expect(setNextNonceSpy).toHaveBeenCalledWith('');
-  });
-
-  it('displays a danger "Confirm" button there are danger alerts', async () => {
-    const mockSecurityAlertId = '8';
-    const { getAllByRole } = await render(
-      getMockPersonalSignConfirmStateForRequest(
-        { ...unapprovedPersonalSignMsg, id: '123' },
-        {
-          confirmAlerts: {
-            alerts: {
-              '123': [
-                {
-                  key: 'Contract',
-                  severity: Severity.Danger,
-                  message: 'Alert Info',
-                },
-              ],
-            },
-            confirmed: { '123': { Contract: false } },
-          },
-          metamask: {
-            signatureSecurityAlertResponses: {
-              [mockSecurityAlertId]: {
-                result_type: BlockaidResultType.Malicious,
-              },
-            },
-          },
-        },
-      ),
-    );
-    const submitButton = getAllByRole('button')[1];
-    expect(submitButton).toHaveClass('mm-button-primary--type-danger');
   });
 
   it('no action is taken when the origin is on threshold and cancel button is clicked', () => {
