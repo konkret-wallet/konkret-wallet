@@ -1,4 +1,3 @@
-import { EthAccountType } from '@metamask/keyring-api';
 import { InternalAccount } from '@metamask/keyring-internal-api';
 import {
   TransactionController,
@@ -104,8 +103,7 @@ async function addTransactionOrUserOperation(
 ) {
   const { selectedAccount } = request;
 
-  const isSmartContractAccount =
-    selectedAccount.type === EthAccountType.Erc4337;
+  const isSmartContractAccount = selectedAccount.type === 'eip155:erc4337';
 
   if (isSmartContractAccount) {
     return addUserOperationWithController(request);

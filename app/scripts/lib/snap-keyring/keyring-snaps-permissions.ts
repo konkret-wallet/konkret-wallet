@@ -5,11 +5,6 @@ import {
 import { KeyringRpcMethod } from '@metamask/keyring-api';
 
 /**
- * The origin of the Portfolio dapp.
- */
-const PORTFOLIO_ORIGIN = 'https://portfolio.metamask.io';
-
-/**
  * List of keyring methods MetaMask can call.
  */
 const METAMASK_ALLOWED_METHODS: string[] = [
@@ -39,16 +34,6 @@ const WEBSITE_ALLOWED_METHODS: string[] = [
   KeyringRpcMethod.GetRequest,
   KeyringRpcMethod.ApproveRequest,
   KeyringRpcMethod.RejectRequest,
-];
-
-/**
- * List of keyring methods that Portfolio can call.
- */
-const PORTFOLIO_ALLOWED_METHODS: string[] = [
-  KeyringRpcMethod.ListAccounts,
-  KeyringRpcMethod.GetAccount,
-  KeyringRpcMethod.GetAccountBalances,
-  KeyringRpcMethod.SubmitRequest,
 ];
 
 /**
@@ -92,10 +77,6 @@ export function keyringSnapPermissionsBuilder(
   return () => {
     if (origin === 'metamask') {
       return METAMASK_ALLOWED_METHODS;
-    }
-
-    if (origin === PORTFOLIO_ORIGIN) {
-      return PORTFOLIO_ALLOWED_METHODS;
     }
 
     const originMetadata = controller.getSubjectMetadata(origin);

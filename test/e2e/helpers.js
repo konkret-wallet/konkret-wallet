@@ -15,13 +15,8 @@ const { buildWebDriver } = require('./webdriver');
 const { PAGES } = require('./webdriver/driver');
 const AnvilSeeder = require('./seeder/anvil-seeder');
 const GanacheSeeder = require('./seeder/ganache-seeder');
-const { Bundler } = require('./bundler');
-const { SMART_CONTRACTS } = require('./seeder/smart-contracts');
 const { setManifestFlags } = require('./set-manifest-flags');
-const {
-  ERC_4337_ACCOUNT,
-  DEFAULT_GANACHE_ETH_BALANCE_DEC,
-} = require('./constants');
+const { DEFAULT_GANACHE_ETH_BALANCE_DEC } = require('./constants');
 const {
   getServerMochaToBackground,
 } = require('./background-socket/server-mocha-to-background');
@@ -38,8 +33,6 @@ const createDownloadFolder = async (downloadsFolder) => {
 };
 
 const convertToHexValue = (val) => `0x${new BigNumber(val, 10).toString(16)}`;
-
-const convertETHToHexGwei = (eth) => convertToHexValue(eth * 10 ** 18);
 
 /**
  * Normalizes the localNodeOptions into a consistent format to handle different data structures.
@@ -93,7 +86,6 @@ function normalizeLocalNodeOptions(localNodeOptions) {
  * @property {ContractAddressRegistry | undefined} contractRegistry - The contract registry.
  * @property {string | object | Array} localNodeOptions - The local node(s) and options chosen ('ganache', 'anvil'...).
  * @property {mockttp.MockedEndpoint[]} mockedEndpoint - The mocked endpoint.
- * @property {Bundler} bundlerServer - The bundler server.
  * @property {mockttp.Mockttp} mockServer - The mock server.
  * @property {object} manifestFlags - Flags to add to the manifest in order to change things at runtime.
  * @property {string} extensionId - The extension ID (useful for connecting via `externally_connectable`).
@@ -121,8 +113,6 @@ async function withFixtures(options, testSuite) {
     testSpecificMock = function () {
       // do nothing.
     },
-    useBundler,
-    usePaymaster,
     ethConversionInUsd,
     manifestFlags,
   } = options;
@@ -131,8 +121,7 @@ async function withFixtures(options, testSuite) {
   const localNodeOptsNormalized = normalizeLocalNodeOptions(localNodeOptions);
 
   const fixtureServer = new FixtureServer();
-
-  const bundlerServer = new Bundler();
+  // const ganacheServer = new Ganache();
   const https = await mockttp.generateCACertificate();
   const mockServer = mockttp.getLocal({ https, cors: true });
   let numberOfDapps = dapp ? 1 : 0;
@@ -215,10 +204,6 @@ async function withFixtures(options, testSuite) {
     await fixtureServer.start();
     fixtureServer.loadJsonState(fixtures, contractRegistry);
 
-    if (ganacheServer && useBundler) {
-      await initBundler(bundlerServer, ganacheServer, usePaymaster);
-    }
-
     await phishingPageServer.start();
     if (dapp) {
       if (dappOptions?.numberOfDapps) {
@@ -298,7 +283,6 @@ async function withFixtures(options, testSuite) {
     console.log(`\nExecuting testcase: '${title}'\n`);
 
     await testSuite({
-      bundlerServer,
       contractRegistry,
       driver: driverProxy ?? driver,
       ganacheServer,
@@ -390,11 +374,6 @@ async function withFixtures(options, testSuite) {
           await server.quit();
         }
       }
-
-      if (useBundler) {
-        await bundlerServer.stop();
-      }
-
       if (webDriver) {
         await driver.quit();
       }
@@ -436,7 +415,6 @@ const WINDOW_TITLES = Object.freeze({
   SnapSimpleKeyringDapp: 'SSK - Simple Snap Keyring',
   TestDApp: 'E2E Test Dapp',
   TestSnaps: 'Test Snaps',
-  ERC4337Snap: 'Account Abstraction Snap',
 });
 
 /**
@@ -534,6 +512,8 @@ const PRIVATE_KEY_TWO =
 
 const ACCOUNT_1 = '0x5cfe73b6021e818b776b421b1c4db2474086a7e1';
 const ACCOUNT_2 = '0x09781764c08de8ca82e156bbf156a3ca217c7950';
+
+const convertETHToHexGwei = (eth) => convertToHexValue(eth * 10 ** 18);
 
 const defaultGanacheOptions = {
   accounts: [
@@ -894,33 +874,6 @@ async function getCleanAppState(driver) {
   );
 }
 
-async function initBundler(bundlerServer, localNodeServer, usePaymaster) {
-  try {
-    const ganacheSeeder = new GanacheSeeder(localNodeServer.getProvider());
-
-    await ganacheSeeder.deploySmartContract(SMART_CONTRACTS.ENTRYPOINT);
-
-    await ganacheSeeder.deploySmartContract(
-      SMART_CONTRACTS.SIMPLE_ACCOUNT_FACTORY,
-    );
-
-    if (usePaymaster) {
-      await ganacheSeeder.deploySmartContract(
-        SMART_CONTRACTS.VERIFYING_PAYMASTER,
-      );
-
-      await ganacheSeeder.paymasterDeposit(convertETHToHexGwei(1));
-    }
-
-    await ganacheSeeder.transfer(ERC_4337_ACCOUNT, convertETHToHexGwei(10));
-
-    await bundlerServer.start();
-  } catch (error) {
-    console.log('Failed to initialize bundler', error);
-    throw error;
-  }
-}
-
 /**
  * Opens the account options menu safely
  *
@@ -930,8 +883,6 @@ async function initBundler(bundlerServer, localNodeServer, usePaymaster) {
 async function openMenuSafe(driver) {
   await driver.clickElement('[data-testid="account-options-menu-button"]');
 }
-
-const sentryRegEx = /^https:\/\/sentry\.io\/api\/\d+\/envelope/gu;
 
 module.exports = {
   DAPP_HOST_ADDRESS,
@@ -982,6 +933,5 @@ module.exports = {
   editGasFeeForm,
   clickNestedButton,
   openMenuSafe,
-  sentryRegEx,
   createWebSocketConnection,
 };
