@@ -12,7 +12,7 @@ const baradDurManifest = isManifestV3
   : require('../../app/manifest/v2/_barad_dur.json');
 const { loadBuildTypesConfig } = require('../lib/build-type');
 
-const { TASKS, ENVIRONMENT } = require('./constants');
+const { TASKS } = require('./constants');
 const { createTask, composeSeries } = require('./task');
 const { getEnvironment, getBuildName } = require('./utils');
 const { fromIniFile } = require('./config');
@@ -79,7 +79,7 @@ function createManifestTasks({
           // Only include _flags if manifestFlags has content
           manifestFlags,
         );
-        modifyNameAndDescForNonProd(result);
+        modifyNameAndDesc(result);
 
         const dir = path.join('.', 'dist', platform);
         await fs.mkdir(dir, { recursive: true });
@@ -153,13 +153,9 @@ function createManifestTasks({
     };
   }
 
-  // For non-production builds only, modify the extension's name and description
-  function modifyNameAndDescForNonProd(manifest) {
+  // modify the extension's name and description
+  function modifyNameAndDesc(manifest) {
     const environment = getEnvironment({ buildTarget: entryTask });
-
-    if (environment === ENVIRONMENT.PRODUCTION) {
-      return;
-    }
 
     // Get the first 8 characters of the git revision id
     const gitRevisionStr = childProcess
