@@ -4,13 +4,8 @@ import {
   CHAIN_IDS,
   TransactionController,
   TransactionControllerMessenger,
-  TransactionMeta,
 } from '@metamask/transaction-controller';
 import { Hex } from '@metamask/utils';
-import {
-  getFeatureFlagsByChainId,
-  isHardwareWallet,
-} from '../../../../shared/modules/selectors';
 import { trace } from '../../../../shared/lib/trace';
 import {
   ControllerInitFunction,
@@ -18,7 +13,6 @@ import {
   ControllerInitResult,
 } from '../types';
 import { TransactionControllerInitMessenger } from '../messengers/transaction-controller-messenger';
-import { ControllerFlatState } from '../controller-list';
 
 export const TransactionControllerInit: ControllerInitFunction<
   TransactionController,
@@ -28,7 +22,6 @@ export const TransactionControllerInit: ControllerInitFunction<
   const {
     controllerMessenger,
     initMessenger,
-    getFlatState,
     getGlobalChainId,
     getPermittedAccounts,
     persistedState,
@@ -47,7 +40,7 @@ export const TransactionControllerInit: ControllerInitFunction<
       // @ts-expect-error Controller type does not support undefined return value
       initMessenger.call('NetworkController:getEIP1559Compatibility'),
     getCurrentAccountEIP1559Compatibility: async () => true,
-    getExternalPendingTransactions: (address) => [],
+    getExternalPendingTransactions: (_address) => [],
     getGasFeeEstimates: (...args) =>
       gasFeeController().fetchGasFeeEstimates(...args),
     getNetworkClientRegistry: (...args) =>
@@ -76,8 +69,6 @@ export const TransactionControllerInit: ControllerInitFunction<
       queryEntireHistory: false,
       updateTransactions: false,
     },
-    isFirstTimeInteractionEnabled: () =>
-      preferencesController().state.securityAlertsEnabled,
     isSimulationEnabled: () =>
       preferencesController().state.useTransactionSimulations,
     messenger: controllerMessenger,
@@ -89,14 +80,12 @@ export const TransactionControllerInit: ControllerInitFunction<
     trace,
     hooks: {
       // @ts-expect-error used to be handled by smart-transactions-controller
-      publish: (transactionMeta, rawTx: Hex) => {},
+      publish: (_transactionMeta, _rawTx: Hex) => {},
     },
     // @ts-expect-error Keyring controller expects TxData returned but TransactionController expects TypedTransaction
     sign: (...args) => keyringController().signTransaction(...args),
     state: persistedState.TransactionController,
   });
-
-  addTransactionControllerListeners(initMessenger);
 
   const api = getApi(controller);
 
@@ -133,25 +122,5 @@ function getControllers(
     networkController: () => request.getController('NetworkController'),
     onboardingController: () => request.getController('OnboardingController'),
     preferencesController: () => request.getController('PreferencesController'),
-    smartTransactionsController: () =>
-      request.getController('SmartTransactionsController'),
   };
-}
-
-function getExternalPendingTransactions(
-  smartTransactionsController: SmartTransactionsController,
-  address: string,
-) {
-  return smartTransactionsController.getTransactions({
-    addressFrom: address,
-    status: SmartTransactionStatuses.PENDING,
-  });
-}
-
-function addTransactionControllerListeners(
-  initMessenger: TransactionControllerInitMessenger,
-) {}
-
-function getUIState(flatState: ControllerFlatState) {
-  return { metamask: flatState };
 }

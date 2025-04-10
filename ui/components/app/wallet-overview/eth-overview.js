@@ -9,7 +9,7 @@ import {
   getIsSwapsChain,
   getSelectedInternalAccount,
   getSelectedAccountCachedBalance,
-  ///: BEGIN:ONLY_INCLUDE_IF(build-main,build-beta,build-flask)
+  ///: BEGIN:ONLY_INCLUDE_IF(build-beta)
   getSwapsDefaultToken,
   getIsBridgeChain,
   ///: END:ONLY_INCLUDE_IF
@@ -17,7 +17,7 @@ import {
 import { CoinOverview } from './coin-overview';
 
 const EthOverview = ({ className }) => {
-  ///: BEGIN:ONLY_INCLUDE_IF(build-main,build-beta,build-flask)
+  ///: BEGIN:ONLY_INCLUDE_IF(build-beta)
   const isBridgeChain = useSelector(getIsBridgeChain);
   // FIXME: This causes re-renders, so use isEqual to avoid this
   const defaultSwapsToken = useSelector(getSwapsDefaultToken, isEqual);
@@ -43,7 +43,7 @@ const EthOverview = ({ className }) => {
       chainId={chainId}
       isSigningEnabled={isSigningEnabled}
       isSwapsChain={isSwapsChain}
-      ///: BEGIN:ONLY_INCLUDE_IF(build-main,build-beta,build-flask)
+      ///: BEGIN:ONLY_INCLUDE_IF(build-beta)
       isBridgeChain={isBridgeChain}
       defaultSwapsToken={defaultSwapsToken}
       ///: END:ONLY_INCLUDE_IF

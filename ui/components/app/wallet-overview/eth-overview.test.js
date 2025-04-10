@@ -1,7 +1,7 @@
 import React from 'react';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-import { fireEvent, waitFor } from '@testing-library/react';
+import { fireEvent } from '@testing-library/react';
 import { EthAccountType, EthMethod } from '@metamask/keyring-api';
 import { CHAIN_IDS } from '../../../../shared/constants/network';
 import { renderWithProvider } from '../../../../test/jest/rendering';
@@ -10,7 +10,6 @@ import { useIsOriginalNativeTokenSymbol } from '../../../hooks/useIsOriginalNati
 import useMultiPolling from '../../../hooks/useMultiPolling';
 import { ETH_EOA_METHODS } from '../../../../shared/constants/eth-methods';
 import { getIntlLocale } from '../../../ducks/locale/locale';
-import { setBackgroundConnection } from '../../../store/background-connection';
 import { mockNetworkState } from '../../../../test/stub/networks';
 import EthOverview from './eth-overview';
 
@@ -132,7 +131,6 @@ describe('EthOverview', () => {
   };
 
   const store = configureMockStore([thunk])(mockStore);
-  const ETH_OVERVIEW_BRIDGE = 'eth-overview-bridge';
   const ETH_OVERVIEW_SEND = 'eth-overview-send';
   const ETH_OVERVIEW_PRIMARY_CURRENCY = 'eth-overview__primary-currency';
 
@@ -149,7 +147,6 @@ describe('EthOverview', () => {
         },
       });
       openTabSpy = jest.spyOn(global.platform, 'openTab');
-      setBackgroundConnection({ setBridgeFeatureFlags: jest.fn() });
     });
 
     beforeEach(() => {
@@ -215,90 +212,6 @@ describe('EthOverview', () => {
       expect(primaryBalance).toBeInTheDocument();
       expect(primaryBalance).toHaveTextContent('0.0104ETH');
       expect(queryByText('*')).toBeInTheDocument();
-    });
-
-    it('should have the Bridge button enabled if chain id is part of supported chains', () => {
-      const mockedAvalancheStore = {
-        ...mockStore,
-        metamask: {
-          ...mockStore.metamask,
-          ...mockNetworkState({ chainId: '0xa86a' }),
-        },
-      };
-      const mockedStore = configureMockStore([thunk])(mockedAvalancheStore);
-
-      const { queryByTestId, queryByText } = renderWithProvider(
-        <EthOverview />,
-        mockedStore,
-      );
-      const bridgeButton = queryByTestId(ETH_OVERVIEW_BRIDGE);
-      expect(bridgeButton).toBeInTheDocument();
-      expect(bridgeButton).toBeEnabled();
-      expect(queryByText('Bridge').parentElement).not.toHaveAttribute(
-        'data-original-title',
-        'Unavailable on this network',
-      );
-    });
-
-    it('should open the Bridge URI when clicking on Bridge button on supported network', async () => {
-      const mockedStore = configureMockStore([thunk])({
-        ...store,
-        metamask: {
-          ...mockStore.metamask,
-          ...mockNetworkState({ chainId: '0xa86a' }),
-          useExternalServices: true,
-          bridgeState: {
-            bridgeFeatureFlags: {
-              extensionConfig: {
-                support: false,
-              },
-            },
-          },
-        },
-      });
-      const { queryByTestId } = renderWithProvider(
-        <EthOverview />,
-        mockedStore,
-      );
-
-      const bridgeButton = queryByTestId(ETH_OVERVIEW_BRIDGE);
-
-      expect(bridgeButton).toBeInTheDocument();
-      expect(bridgeButton).not.toBeDisabled();
-
-      fireEvent.click(bridgeButton);
-
-      await waitFor(() => {
-        expect(openTabSpy).toHaveBeenCalledTimes(1);
-        expect(openTabSpy).toHaveBeenCalledWith({
-          url: expect.stringContaining(
-            '/bridge?metamaskEntry=ext_bridge_button',
-          ),
-        });
-      });
-    });
-
-    it('should have the Bridge button disabled if chain id is not part of supported chains', () => {
-      const mockedFantomStore = {
-        ...mockStore,
-        metamask: {
-          ...mockStore.metamask,
-          ...mockNetworkState({ chainId: CHAIN_IDS.SEPOLIA }),
-        },
-      };
-      const mockedStore = configureMockStore([thunk])(mockedFantomStore);
-
-      const { queryByTestId, queryByText } = renderWithProvider(
-        <EthOverview />,
-        mockedStore,
-      );
-      const bridgeButton = queryByTestId(ETH_OVERVIEW_BRIDGE);
-      expect(bridgeButton).toBeInTheDocument();
-      expect(bridgeButton).toBeDisabled();
-      expect(queryByText('Bridge').parentElement).toHaveAttribute(
-        'data-original-title',
-        'Unavailable on this network',
-      );
     });
   });
 
