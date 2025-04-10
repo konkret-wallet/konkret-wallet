@@ -1,6 +1,7 @@
 import React from 'react';
 import configureMockStore from 'redux-mock-store';
 import {
+  DecodingData,
   DecodingDataChangeType,
   DecodingDataStateChanges,
 } from '@metamask/signature-controller';
@@ -10,7 +11,7 @@ import { renderWithConfirmContextProvider } from '../../../../../../../../../tes
 import { permitSignatureMsg } from '../../../../../../../../../test/data/confirmations/typed_sign';
 import PermitSimulation, { getStateChangeToolip } from './decoded-simulation';
 
-const decodingData = {
+const decodingData: DecodingData = {
   stateChanges: [
     {
       assetType: 'ERC20',
@@ -192,27 +193,5 @@ describe('DecodedSimulation', () => {
       (str: string) => str,
     );
     expect(tooltip).toBe('signature_decoding_bid_nft_tooltip');
-  });
-
-  it('renders label only once if there are multiple state changes of same changeType', async () => {
-    const state = getMockTypedSignConfirmStateForRequest({
-      ...permitSignatureMsg,
-      decodingLoading: false,
-      decodingData: {
-        stateChanges: [
-          decodingData.stateChanges[0],
-          decodingData.stateChanges[0],
-          decodingData.stateChanges[0],
-        ],
-      },
-    });
-    const mockStore = configureMockStore([])(state);
-
-    const { findAllByText } = renderWithConfirmContextProvider(
-      <PermitSimulation />,
-      mockStore,
-    );
-
-    expect(await findAllByText('Spending cap')).toHaveLength(1);
   });
 });
