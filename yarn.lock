@@ -4677,7 +4677,7 @@ __metadata:
 
 "@metamask/gas-fee-controller@patch:@metamask/gas-fee-controller@npm%3A22.0.3#~/.yarn/patches/@metamask-gas-fee-controller-npm-22.0.3-28ac09bf89.patch":
   version: 22.0.3
-  resolution: "@metamask/gas-fee-controller@patch:@metamask/gas-fee-controller@npm%3A22.0.3#~/.yarn/patches/@metamask-gas-fee-controller-npm-22.0.3-28ac09bf89.patch::version=22.0.3&hash=61faf9"
+  resolution: "@metamask/gas-fee-controller@patch:@metamask/gas-fee-controller@npm%3A22.0.3#~/.yarn/patches/@metamask-gas-fee-controller-npm-22.0.3-28ac09bf89.patch::version=22.0.3&hash=25d74a"
   dependencies:
     "@metamask/base-controller": "npm:^8.0.0"
     "@metamask/controller-utils": "npm:^11.5.0"
@@ -4692,7 +4692,7 @@ __metadata:
   peerDependencies:
     "@babel/runtime": ^7.0.0
     "@metamask/network-controller": ^22.0.0
-  checksum: 10/12133a5411688caa2cc17bcbc9c721716e96052c967e5fbbd2ab45b0022e4b771183dfa34c3de436fbf8fac08f6d0c5cf4656298c3ddba6143d8a559ae894267
+  checksum: 10/c641a4872c2838dd4cd7381b513ff4cbc3d6c65cb6c9a3bcb376d84d4d043d9cb1044f1bdbd728597c2868c3505f44fc48fd1cb0ed7d63007b9d4c3ec671dcfb
   languageName: node
   linkType: hard
 
