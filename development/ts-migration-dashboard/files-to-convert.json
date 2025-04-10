@@ -1085,8 +1085,6 @@
   "ui/hooks/useCurrentAsset.js",
   "ui/hooks/useEqualityCheck.js",
   "ui/hooks/useEthFiatAmount.js",
-  "ui/hooks/useEventFragment.js",
-  "ui/hooks/useEventFragment.test.js",
   "ui/hooks/useGasFeeErrors.js",
   "ui/hooks/useGasFeeErrors.test.js",
   "ui/hooks/useGasFeeEstimates.js",

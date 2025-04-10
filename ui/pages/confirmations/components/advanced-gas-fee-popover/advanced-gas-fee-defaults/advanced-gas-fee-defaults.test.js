@@ -32,7 +32,6 @@ jest.mock('../../../../../store/actions', () => ({
     .fn()
     .mockResolvedValue({ chainId: '0x5' }),
   setAdvancedGasFee: jest.fn(),
-  updateEventFragment: jest.fn(),
 }));
 
 const mockSelectedInternalAccount =

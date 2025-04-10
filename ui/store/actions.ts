@@ -4776,9 +4776,6 @@ export async function closeNotificationPopup() {
 }
 
 /**
- * @param _payload - details of the event to track
- * @param _options - options for routing/handling of event
- */
 export function trackMetaMetricsEvent(
   _payload: MetaMetricsEventPayload,
   _options?: MetaMetricsEventOptions,
@@ -4788,11 +4785,9 @@ export function createEventFragment(
   _options: MetaMetricsEventFragment,
 ): Promise<string> {
   const actionId = generateActionId();
-  /*
   return submitRequestToBackground('createEventFragment', [
     { ...options, actionId },
   ]);
-  */
   return `createEventFragment-${actionId}`;
 }
 
@@ -4810,14 +4805,11 @@ export function finalizeEventFragment(
   },
 ) {}
 
-/**
- * @param _payload - details of the page viewed
- * @param _options - options for handling the page view
- */
 export function trackMetaMetricsPage(
   _payload: MetaMetricsPagePayload,
   _options: MetaMetricsPageOptions,
 ) {}
+*/
 
 export function resetViewedNotifications() {
   return submitRequestToBackground('resetViewedNotifications');

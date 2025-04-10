@@ -23,7 +23,6 @@ import TypedSignInfo from './typed-sign';
 jest.mock('../../../../../../store/actions', () => {
   return {
     getTokenStandardAndDetails: jest.fn().mockResolvedValue({ decimals: 2 }),
-    updateEventFragment: jest.fn(),
   };
 });
 
