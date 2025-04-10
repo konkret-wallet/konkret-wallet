@@ -213,7 +213,7 @@ const getBorderedThemeInputProps = ({
       max,
       autoComplete,
     },
-    disableUnderline: 'true',
+    disableUnderline: true,
   },
 });
 
