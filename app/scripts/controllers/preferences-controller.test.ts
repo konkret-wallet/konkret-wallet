@@ -346,8 +346,8 @@ describe('preferences controller', () => {
 
   describe('setUsePhishDetect', () => {
     const { controller } = setupController({});
-    it('should default to true', () => {
-      expect(controller.state.usePhishDetect).toStrictEqual(true);
+    it('should default to false', () => {
+      expect(controller.state.usePhishDetect).toStrictEqual(false);
     });
 
     it('should set the usePhishDetect property in state', () => {
@@ -358,9 +358,9 @@ describe('preferences controller', () => {
 
   describe('setUseMultiAccountBalanceChecker', () => {
     const { controller } = setupController({});
-    it('should default to true', () => {
+    it('should default to false', () => {
       expect(controller.state.useMultiAccountBalanceChecker).toStrictEqual(
-        true,
+        false,
       );
     });
 
@@ -374,14 +374,14 @@ describe('preferences controller', () => {
 
   describe('setUseSafeChainsListValidation', function () {
     const { controller } = setupController({});
-    it('should default to true', function () {
+    it('should default to false', function () {
       const { state } = controller;
 
-      expect(state.useSafeChainsListValidation).toStrictEqual(true);
+      expect(state.useSafeChainsListValidation).toStrictEqual(false);
     });
 
     it('should set the `setUseSafeChainsListValidation` property in state', function () {
-      expect(controller.state.useSafeChainsListValidation).toStrictEqual(true);
+      expect(controller.state.useSafeChainsListValidation).toStrictEqual(false);
 
       controller.setUseSafeChainsListValidation(false);
 
@@ -391,10 +391,10 @@ describe('preferences controller', () => {
 
   describe('setUseTokenDetection', function () {
     const { controller } = setupController({});
-    it('should default to true for new users', function () {
+    it('should default to false for new users', function () {
       const { state } = controller;
 
-      expect(state.useTokenDetection).toStrictEqual(true);
+      expect(state.useTokenDetection).toStrictEqual(false);
     });
 
     it('should set the useTokenDetection property in state', () => {
@@ -417,8 +417,8 @@ describe('preferences controller', () => {
 
   describe('setUseNftDetection', () => {
     const { controller } = setupController({});
-    it('should default to true', () => {
-      expect(controller.state.useNftDetection).toStrictEqual(true);
+    it('should default to false', () => {
+      expect(controller.state.useNftDetection).toStrictEqual(false);
     });
 
     it('should set the useNftDetection property in state', () => {
@@ -430,8 +430,8 @@ describe('preferences controller', () => {
 
   describe('setUse4ByteResolution', () => {
     const { controller } = setupController({});
-    it('should default to true', () => {
-      expect(controller.state.use4ByteResolution).toStrictEqual(true);
+    it('should default to false', () => {
+      expect(controller.state.use4ByteResolution).toStrictEqual(false);
     });
 
     it('should set the use4ByteResolution property in state', () => {
@@ -442,8 +442,8 @@ describe('preferences controller', () => {
 
   describe('setOpenSeaEnabled', () => {
     const { controller } = setupController({});
-    it('should default to true', () => {
-      expect(controller.state.openSeaEnabled).toStrictEqual(true);
+    it('should default to false', () => {
+      expect(controller.state.openSeaEnabled).toStrictEqual(false);
     });
 
     it('should set the openSeaEnabled property in state', () => {
@@ -490,7 +490,7 @@ describe('preferences controller', () => {
   describe('setUseCurrencyRateCheck', () => {
     const { controller } = setupController({});
     it('should default to false', () => {
-      expect(controller.state.useCurrencyRateCheck).toStrictEqual(true);
+      expect(controller.state.useCurrencyRateCheck).toStrictEqual(false);
     });
 
     it('should set the useCurrencyRateCheck property in state', () => {
@@ -506,34 +506,34 @@ describe('preferences controller', () => {
     it('should have default value combined', () => {
       const { state } = controller;
       expect(state.incomingTransactionsPreferences).toStrictEqual({
-        [CHAIN_IDS.MAINNET]: true,
-        [CHAIN_IDS.LINEA_MAINNET]: true,
+        [CHAIN_IDS.MAINNET]: false,
+        [CHAIN_IDS.LINEA_MAINNET]: false,
         [NETWORK_CONFIGURATION_DATA[addedNonTestNetworks[0] as Hex].chainId]:
-          true,
+          false,
         [NETWORK_CONFIGURATION_DATA[addedNonTestNetworks[1] as Hex].chainId]:
-          true,
-        [CHAIN_IDS.GOERLI]: true,
-        [CHAIN_IDS.SEPOLIA]: true,
-        [CHAIN_IDS.LINEA_SEPOLIA]: true,
+          false,
+        [CHAIN_IDS.GOERLI]: false,
+        [CHAIN_IDS.SEPOLIA]: false,
+        [CHAIN_IDS.LINEA_SEPOLIA]: false,
       });
     });
 
     it('should update incomingTransactionsPreferences with given value set', () => {
       controller.setIncomingTransactionsPreferences(
         CHAIN_IDS.LINEA_MAINNET,
-        false,
+        true,
       );
       const { state } = controller;
       expect(state.incomingTransactionsPreferences).toStrictEqual({
-        [CHAIN_IDS.MAINNET]: true,
-        [CHAIN_IDS.LINEA_MAINNET]: false,
+        [CHAIN_IDS.MAINNET]: false,
+        [CHAIN_IDS.LINEA_MAINNET]: true,
         [NETWORK_CONFIGURATION_DATA[addedNonTestNetworks[0] as Hex].chainId]:
-          true,
+          false,
         [NETWORK_CONFIGURATION_DATA[addedNonTestNetworks[1] as Hex].chainId]:
-          true,
-        [CHAIN_IDS.GOERLI]: true,
-        [CHAIN_IDS.SEPOLIA]: true,
-        [CHAIN_IDS.LINEA_SEPOLIA]: true,
+          false,
+        [CHAIN_IDS.GOERLI]: false,
+        [CHAIN_IDS.SEPOLIA]: false,
+        [CHAIN_IDS.LINEA_SEPOLIA]: false,
       });
     });
   });
@@ -576,8 +576,8 @@ describe('preferences controller', () => {
   ///: BEGIN:ONLY_INCLUDE_IF(petnames)
   describe('setUseExternalNameSources', () => {
     const { controller } = setupController({});
-    it('should default to true', () => {
-      expect(controller.state.useExternalNameSources).toStrictEqual(true);
+    it('should default to false', () => {
+      expect(controller.state.useExternalNameSources).toStrictEqual(false);
     });
 
     it('should set the useExternalNameSources property in state', () => {
@@ -589,8 +589,8 @@ describe('preferences controller', () => {
 
   describe('setUseTransactionSimulations', () => {
     const { controller } = setupController({});
-    it('should default to true', () => {
-      expect(controller.state.useExternalNameSources).toStrictEqual(true);
+    it('should default to false', () => {
+      expect(controller.state.useExternalNameSources).toStrictEqual(false);
     });
 
     it('should set the setUseTransactionSimulations property in state', () => {
@@ -613,8 +613,8 @@ describe('preferences controller', () => {
 
   describe('setBitcoinSupportEnabled', () => {
     const { controller } = setupController({});
-    it('has the default value as false', () => {
-      expect(controller.state.bitcoinSupportEnabled).toStrictEqual(false);
+    it('has the default value as true', () => {
+      expect(controller.state.bitcoinSupportEnabled).toStrictEqual(true);
     });
 
     it('sets the bitcoinSupportEnabled property in state to true and then false', () => {
@@ -637,16 +637,15 @@ describe('preferences controller', () => {
   });
 
   describe('useExternalServices', () => {
-    it('defaults useExternalServices to true', () => {
+    it('defaults useExternalServices to false', () => {
       const { controller } = setupController({});
-      expect(controller.state.useExternalServices).toStrictEqual(true);
-      expect(controller.state.useExternalServices).toStrictEqual(true);
-      expect(controller.state.useTokenDetection).toStrictEqual(true);
-      expect(controller.state.useCurrencyRateCheck).toStrictEqual(true);
-      expect(controller.state.usePhishDetect).toStrictEqual(true);
-      expect(controller.state.useAddressBarEnsResolution).toStrictEqual(true);
-      expect(controller.state.openSeaEnabled).toStrictEqual(true);
-      expect(controller.state.useNftDetection).toStrictEqual(true);
+      expect(controller.state.useExternalServices).toStrictEqual(false);
+      expect(controller.state.useTokenDetection).toStrictEqual(false);
+      expect(controller.state.useCurrencyRateCheck).toStrictEqual(false);
+      expect(controller.state.usePhishDetect).toStrictEqual(false);
+      expect(controller.state.useAddressBarEnsResolution).toStrictEqual(false);
+      expect(controller.state.openSeaEnabled).toStrictEqual(false);
+      expect(controller.state.useNftDetection).toStrictEqual(false);
     });
 
     it('useExternalServices to false', () => {
@@ -741,17 +740,17 @@ describe('preferences controller', () => {
         showExtensionInFullSizeView: false,
         privacyMode: false,
         showFiatInTestnets: false,
-        showTestNetworks: false,
+        showTestNetworks: true,
         smartTransactionsMigrationApplied: false,
-        smartTransactionsOptInStatus: true,
+        smartTransactionsOptInStatus: false,
         useNativeCurrencyAsPrimaryCurrency: true,
         hideZeroBalanceTokens: false,
         petnamesEnabled: true,
-        shouldShowAggregatedBalancePopover: true,
+        shouldShowAggregatedBalancePopover: false,
         featureNotificationsEnabled: false,
-        showConfirmationAdvancedDetails: false,
+        showConfirmationAdvancedDetails: true,
         showMultiRpcModal: false,
-        showNativeTokenAsMainBalance: false,
+        showNativeTokenAsMainBalance: true,
         tokenSortConfig: {
           key: 'tokenFiatAmount',
           order: 'dsc',
@@ -768,18 +767,18 @@ describe('preferences controller', () => {
         autoLockTimeLimit: undefined,
         showExtensionInFullSizeView: false,
         showFiatInTestnets: false,
-        showTestNetworks: false,
+        showTestNetworks: true,
         smartTransactionsMigrationApplied: false,
-        smartTransactionsOptInStatus: true,
+        smartTransactionsOptInStatus: false,
         useNativeCurrencyAsPrimaryCurrency: true,
         hideZeroBalanceTokens: false,
         petnamesEnabled: true,
         privacyMode: false,
-        shouldShowAggregatedBalancePopover: true,
+        shouldShowAggregatedBalancePopover: false,
         featureNotificationsEnabled: false,
         showConfirmationAdvancedDetails: true,
         showMultiRpcModal: false,
-        showNativeTokenAsMainBalance: false,
+        showNativeTokenAsMainBalance: true,
         tokenSortConfig: {
           key: 'tokenFiatAmount',
           order: 'dsc',
@@ -804,9 +803,9 @@ describe('preferences controller', () => {
   });
 
   describe('isIpfsGatewayEnabled', () => {
-    it('defaults isIpfsGatewayEnabled to true', () => {
+    it('defaults isIpfsGatewayEnabled to false', () => {
       const { controller } = setupController({});
-      expect(controller.state.isIpfsGatewayEnabled).toStrictEqual(true);
+      expect(controller.state.isIpfsGatewayEnabled).toStrictEqual(false);
     });
 
     it('set isIpfsGatewayEnabled to false', () => {
@@ -817,15 +816,15 @@ describe('preferences controller', () => {
   });
 
   describe('useAddressBarEnsResolution', () => {
-    it('defaults useAddressBarEnsResolution to true', () => {
+    it('defaults useAddressBarEnsResolution to false', () => {
       const { controller } = setupController({});
-      expect(controller.state.useAddressBarEnsResolution).toStrictEqual(true);
+      expect(controller.state.useAddressBarEnsResolution).toStrictEqual(false);
     });
 
     it('set useAddressBarEnsResolution to false', () => {
       const { controller } = setupController({});
-      controller.setUseAddressBarEnsResolution(false);
-      expect(controller.state.useAddressBarEnsResolution).toStrictEqual(false);
+      controller.setUseAddressBarEnsResolution(true);
+      expect(controller.state.useAddressBarEnsResolution).toStrictEqual(true);
     });
   });
 
