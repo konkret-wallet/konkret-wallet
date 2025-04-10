@@ -59,10 +59,6 @@ jest.mock('./hex', () => ({
   SendHexData: jest.fn(() => <div>SendHexData</div>),
 }));
 
-jest.mock('./quote-card', () => ({
-  QuoteCard: jest.fn(() => <div>QuoteCard</div>),
-}));
-
 jest.mock('./send-page-row', () => ({
   SendPageRow: jest.fn(({ children }) => <div>{children}</div>),
 }));
@@ -127,7 +123,6 @@ describe('SendPageRecipientContent', () => {
     render(<SendPageRecipientContent {...defaultProps} />);
 
     expect(screen.getByText('AssetPickerAmount')).toBeInTheDocument();
-    expect(screen.getByText('QuoteCard')).toBeInTheDocument();
   });
 
   it('renders SendHexData if showHexDataFlag is true', () => {
