@@ -270,9 +270,9 @@ function getBuildName({
 
   let name =
     config.buildTypes[buildType].buildNameOverride ||
-    `MetaMask ${capitalize(buildType)}`;
+    `Konkret Wallet ${capitalize(buildType)}`;
 
-  if (environment !== ENVIRONMENT.PRODUCTION) {
+  if (environment === ENVIRONMENT.TESTING) {
     const mv3Str = isManifestV3 ? ' MV3' : '';
     const lavamoatStr = applyLavaMoat ? ' lavamoat' : '';
     const snowStr = shouldIncludeSnow ? ' snow' : '';
