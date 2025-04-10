@@ -17,7 +17,7 @@ exports[`switch-ethereum-chain confirmation should match snapshot 1`] = `
       <h6
         class="box box--margin-top-1 box--margin-bottom-1 box--sm:padding-4 box--lg:padding-4 box--flex-direction-row typography typography--h7 typography--weight-normal typography--style-normal typography--align-center typography--color-text-alternative"
       >
-        This will switch the selected network within MetaMask to a previously added network:
+        This will switch the selected network within Konkret Wallet to a previously added network:
       </h6>
       <div
         class="box box--flex-direction-row box--justify-content-center box--display-flex"
@@ -109,7 +109,7 @@ exports[`switch-ethereum-chain confirmation should show alert if there are pendi
       <h6
         class="box box--margin-top-1 box--margin-bottom-1 box--sm:padding-4 box--lg:padding-4 box--flex-direction-row typography typography--h7 typography--weight-normal typography--style-normal typography--align-center typography--color-text-alternative"
       >
-        This will switch the selected network within MetaMask to a previously added network:
+        This will switch the selected network within Konkret Wallet to a previously added network:
       </h6>
       <div
         class="box box--flex-direction-row box--justify-content-center box--display-flex"

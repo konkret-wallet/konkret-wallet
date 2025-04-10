@@ -311,7 +311,7 @@ exports[`remove-snap-account confirmation should match snapshot 1`] = `
               <p
                 class="mm-box mm-text mm-text--body-md mm-text--text-align-center mm-text--overflow-wrap-anywhere mm-box--color-text-default"
               >
-                If you proceed, this account will no longer be available in MetaMask.
+                If you proceed, this account will no longer be available in Konkret Wallet.
               </p>
             </div>
           </div>

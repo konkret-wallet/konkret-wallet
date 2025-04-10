@@ -128,9 +128,7 @@ exports[`TokenListItem should display warning scam modal 1`] = `
         >
           <p
             class="mm-box mm-text mm-text--body-md mm-text--font-weight-medium mm-text--ellipsis mm-box--color-text-default"
-          >
-            
-          </p>
+          />
           <button
             aria-label=""
             class="mm-box mm-button-icon mm-button-icon--size-md mm-box--display-inline-flex mm-box--justify-content-center mm-box--align-items-center mm-box--color-error-default mm-box--background-color-transparent mm-box--rounded-lg"
@@ -206,9 +204,7 @@ exports[`TokenListItem should display warning scam modal fallback when safechain
         >
           <p
             class="mm-box mm-text mm-text--body-md mm-text--font-weight-medium mm-text--ellipsis mm-box--color-text-default"
-          >
-            
-          </p>
+          />
           <button
             aria-label=""
             class="mm-box mm-button-icon mm-button-icon--size-md mm-box--display-inline-flex mm-box--justify-content-center mm-box--align-items-center mm-box--color-error-default mm-box--background-color-transparent mm-box--rounded-lg"

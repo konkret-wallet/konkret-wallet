@@ -102,6 +102,58 @@ exports[`NetworkListMenu renders properly 1`] = `
                   aria-describedby="rbd-hidden-text-0-hidden-text-0"
                   class="mm-box"
                   data-rbd-drag-handle-context-id="0"
+                  data-rbd-drag-handle-draggable-id="solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp"
+                  data-rbd-draggable-context-id="0"
+                  data-rbd-draggable-id="solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp"
+                  draggable="false"
+                  role="button"
+                  tabindex="0"
+                >
+                  <div
+                    class="mm-box multichain-network-list-item mm-box--padding-top-4 mm-box--padding-right-4 mm-box--padding-bottom-4 mm-box--padding-left-4 mm-box--display-flex mm-box--gap-4 mm-box--justify-content-space-between mm-box--align-items-center mm-box--width-full mm-box--background-color-transparent"
+                  >
+                    <div
+                      class="mm-box mm-text mm-avatar-base mm-avatar-base--size-sm mm-avatar-network mm-text--body-sm mm-text--text-transform-uppercase mm-box--display-flex mm-box--justify-content-center mm-box--align-items-center mm-box--color-text-default mm-box--background-color-background-alternative mm-box--rounded-md mm-box--border-color-background-default mm-box--border-width-1 box--border-style-solid"
+                    >
+                      <img
+                        alt="Solana Mainnet logo"
+                        class="mm-avatar-network__network-image"
+                        src="./images/solana-logo.svg"
+                      />
+                    </div>
+                    <div
+                      class="mm-box mm-box--display-flex mm-box--flex-direction-column mm-box--justify-content-flex-start mm-box--align-items-flex-start mm-box--width-full"
+                      style="overflow: hidden;"
+                    >
+                      <div
+                        class="mm-box mm-box--display-flex mm-box--align-items-center mm-box--width-full"
+                        data-testid="Solana Mainnet"
+                      >
+                        <div
+                          class="multichain-network-list-item__tooltip"
+                        >
+                          <div
+                            class=""
+                            style="display: inline;"
+                            tabindex="0"
+                            title=""
+                          >
+                            <p
+                              class="mm-box mm-text mm-text--body-md mm-text--ellipsis mm-box--color-text-default mm-box--background-color-transparent"
+                              tabindex="0"
+                            >
+                              Solana Mainnet
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  aria-describedby="rbd-hidden-text-0-hidden-text-0"
+                  class="mm-box"
+                  data-rbd-drag-handle-context-id="0"
                   data-rbd-drag-handle-draggable-id="eip155:1"
                   data-rbd-draggable-context-id="0"
                   data-rbd-draggable-id="eip155:1"
@@ -347,263 +399,6 @@ exports[`NetworkListMenu renders properly 1`] = `
                 </div>
               </div>
               <div
-                class="mm-box new-network-list__networks-container"
-              >
-                <div
-                  class="mm-box mm-box--margin-top-4 mm-box--margin-bottom-1 mm-box--padding-right-4 mm-box--padding-left-4"
-                >
-                  <div
-                    class="mm-box mm-box--margin-top-4 mm-box--margin-bottom-4 mm-box--display-flex mm-box--justify-content-space-between"
-                  >
-                    <div
-                      class="mm-box mm-box--display-inline-flex"
-                    >
-                      <p
-                        class="mm-box mm-text mm-text--body-md mm-box--color-text-alternative"
-                      >
-                        Additional networks
-                      </p>
-                      <div
-                        class="mm-box mm-box--margin-top-1"
-                      >
-                        <span
-                          class="mm-box add-network__warning-icon mm-icon mm-icon--size-sm mm-box--margin-left-2 mm-box--display-inline-block mm-box--color-icon-muted"
-                          style="mask-image: url('./images/icons/info.svg');"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                  <div
-                    class="mm-box new-network-list__list-of-networks mm-box--padding-top-4 mm-box--padding-bottom-4 mm-box--display-flex mm-box--justify-content-space-between mm-box--align-items-center"
-                    data-testid="popular-network-0xa4b1"
-                  >
-                    <div
-                      class="mm-box mm-box--display-flex mm-box--align-items-center"
-                    >
-                      <div
-                        class="mm-box mm-text mm-avatar-base mm-avatar-base--size-sm mm-avatar-network mm-text--body-sm mm-text--text-transform-uppercase mm-box--display-flex mm-box--justify-content-center mm-box--align-items-center mm-box--color-text-default mm-box--background-color-background-alternative mm-box--rounded-md mm-box--border-color-background-default mm-box--border-width-1 box--border-style-solid"
-                      >
-                        <img
-                          alt="Arbitrum One logo"
-                          class="mm-avatar-network__network-image"
-                          src="./images/arbitrum.svg"
-                        />
-                      </div>
-                      <div
-                        class="mm-box mm-box--margin-left-4"
-                      >
-                        <p
-                          class="mm-box mm-text mm-text--body-md mm-text--ellipsis mm-box--color-text-default mm-box--background-color-transparent"
-                        >
-                          Arbitrum One
-                        </p>
-                      </div>
-                    </div>
-                    <div
-                      class="mm-box mm-box--margin-left-1 mm-box--display-flex mm-box--align-items-center"
-                    >
-                      <button
-                        class="mm-box mm-text mm-button-base add-network__add-button mm-button-link mm-button-link--size-auto mm-text--body-md-medium mm-box--padding-0 mm-box--padding-right-0 mm-box--padding-left-0 mm-box--display-inline-flex mm-box--justify-content-center mm-box--align-items-center mm-box--color-primary-default mm-box--background-color-transparent"
-                        data-testid="test-add-button"
-                        type="link"
-                      >
-                        Add
-                      </button>
-                    </div>
-                  </div>
-                  <div
-                    class="mm-box new-network-list__list-of-networks mm-box--padding-top-4 mm-box--padding-bottom-4 mm-box--display-flex mm-box--justify-content-space-between mm-box--align-items-center"
-                    data-testid="popular-network-0xa86a"
-                  >
-                    <div
-                      class="mm-box mm-box--display-flex mm-box--align-items-center"
-                    >
-                      <div
-                        class="mm-box mm-text mm-avatar-base mm-avatar-base--size-sm mm-avatar-network mm-text--body-sm mm-text--text-transform-uppercase mm-box--display-flex mm-box--justify-content-center mm-box--align-items-center mm-box--color-text-default mm-box--background-color-background-alternative mm-box--rounded-md mm-box--border-color-background-default mm-box--border-width-1 box--border-style-solid"
-                      >
-                        <img
-                          alt="Avalanche Network C-Chain logo"
-                          class="mm-avatar-network__network-image"
-                          src="./images/avax-token.svg"
-                        />
-                      </div>
-                      <div
-                        class="mm-box mm-box--margin-left-4"
-                      >
-                        <p
-                          class="mm-box mm-text mm-text--body-md mm-text--ellipsis mm-box--color-text-default mm-box--background-color-transparent"
-                        >
-                          Avalanche Network C-Chain
-                        </p>
-                      </div>
-                    </div>
-                    <div
-                      class="mm-box mm-box--margin-left-1 mm-box--display-flex mm-box--align-items-center"
-                    >
-                      <button
-                        class="mm-box mm-text mm-button-base add-network__add-button mm-button-link mm-button-link--size-auto mm-text--body-md-medium mm-box--padding-0 mm-box--padding-right-0 mm-box--padding-left-0 mm-box--display-inline-flex mm-box--justify-content-center mm-box--align-items-center mm-box--color-primary-default mm-box--background-color-transparent"
-                        data-testid="test-add-button"
-                        type="link"
-                      >
-                        Add
-                      </button>
-                    </div>
-                  </div>
-                  <div
-                    class="mm-box new-network-list__list-of-networks mm-box--padding-top-4 mm-box--padding-bottom-4 mm-box--display-flex mm-box--justify-content-space-between mm-box--align-items-center"
-                    data-testid="popular-network-0x2105"
-                  >
-                    <div
-                      class="mm-box mm-box--display-flex mm-box--align-items-center"
-                    >
-                      <div
-                        class="mm-box mm-text mm-avatar-base mm-avatar-base--size-sm mm-avatar-network mm-text--body-sm mm-text--text-transform-uppercase mm-box--display-flex mm-box--justify-content-center mm-box--align-items-center mm-box--color-text-default mm-box--background-color-background-alternative mm-box--rounded-md mm-box--border-color-background-default mm-box--border-width-1 box--border-style-solid"
-                      >
-                        <img
-                          alt="Base Mainnet logo"
-                          class="mm-avatar-network__network-image"
-                          src="./images/base.svg"
-                        />
-                      </div>
-                      <div
-                        class="mm-box mm-box--margin-left-4"
-                      >
-                        <p
-                          class="mm-box mm-text mm-text--body-md mm-text--ellipsis mm-box--color-text-default mm-box--background-color-transparent"
-                        >
-                          Base Mainnet
-                        </p>
-                      </div>
-                    </div>
-                    <div
-                      class="mm-box mm-box--margin-left-1 mm-box--display-flex mm-box--align-items-center"
-                    >
-                      <button
-                        class="mm-box mm-text mm-button-base add-network__add-button mm-button-link mm-button-link--size-auto mm-text--body-md-medium mm-box--padding-0 mm-box--padding-right-0 mm-box--padding-left-0 mm-box--display-inline-flex mm-box--justify-content-center mm-box--align-items-center mm-box--color-primary-default mm-box--background-color-transparent"
-                        data-testid="test-add-button"
-                        type="link"
-                      >
-                        Add
-                      </button>
-                    </div>
-                  </div>
-                  <div
-                    class="mm-box new-network-list__list-of-networks mm-box--padding-top-4 mm-box--padding-bottom-4 mm-box--display-flex mm-box--justify-content-space-between mm-box--align-items-center"
-                    data-testid="popular-network-0xa"
-                  >
-                    <div
-                      class="mm-box mm-box--display-flex mm-box--align-items-center"
-                    >
-                      <div
-                        class="mm-box mm-text mm-avatar-base mm-avatar-base--size-sm mm-avatar-network mm-text--body-sm mm-text--text-transform-uppercase mm-box--display-flex mm-box--justify-content-center mm-box--align-items-center mm-box--color-text-default mm-box--background-color-background-alternative mm-box--rounded-md mm-box--border-color-background-default mm-box--border-width-1 box--border-style-solid"
-                      >
-                        <img
-                          alt="OP Mainnet logo"
-                          class="mm-avatar-network__network-image"
-                          src="./images/optimism.svg"
-                        />
-                      </div>
-                      <div
-                        class="mm-box mm-box--margin-left-4"
-                      >
-                        <p
-                          class="mm-box mm-text mm-text--body-md mm-text--ellipsis mm-box--color-text-default mm-box--background-color-transparent"
-                        >
-                          OP Mainnet
-                        </p>
-                      </div>
-                    </div>
-                    <div
-                      class="mm-box mm-box--margin-left-1 mm-box--display-flex mm-box--align-items-center"
-                    >
-                      <button
-                        class="mm-box mm-text mm-button-base add-network__add-button mm-button-link mm-button-link--size-auto mm-text--body-md-medium mm-box--padding-0 mm-box--padding-right-0 mm-box--padding-left-0 mm-box--display-inline-flex mm-box--justify-content-center mm-box--align-items-center mm-box--color-primary-default mm-box--background-color-transparent"
-                        data-testid="test-add-button"
-                        type="link"
-                      >
-                        Add
-                      </button>
-                    </div>
-                  </div>
-                  <div
-                    class="mm-box new-network-list__list-of-networks mm-box--padding-top-4 mm-box--padding-bottom-4 mm-box--display-flex mm-box--justify-content-space-between mm-box--align-items-center"
-                    data-testid="popular-network-0x89"
-                  >
-                    <div
-                      class="mm-box mm-box--display-flex mm-box--align-items-center"
-                    >
-                      <div
-                        class="mm-box mm-text mm-avatar-base mm-avatar-base--size-sm mm-avatar-network mm-text--body-sm mm-text--text-transform-uppercase mm-box--display-flex mm-box--justify-content-center mm-box--align-items-center mm-box--color-text-default mm-box--background-color-background-alternative mm-box--rounded-md mm-box--border-color-background-default mm-box--border-width-1 box--border-style-solid"
-                      >
-                        <img
-                          alt="Polygon Mainnet logo"
-                          class="mm-avatar-network__network-image"
-                          src="./images/pol-token.svg"
-                        />
-                      </div>
-                      <div
-                        class="mm-box mm-box--margin-left-4"
-                      >
-                        <p
-                          class="mm-box mm-text mm-text--body-md mm-text--ellipsis mm-box--color-text-default mm-box--background-color-transparent"
-                        >
-                          Polygon Mainnet
-                        </p>
-                      </div>
-                    </div>
-                    <div
-                      class="mm-box mm-box--margin-left-1 mm-box--display-flex mm-box--align-items-center"
-                    >
-                      <button
-                        class="mm-box mm-text mm-button-base add-network__add-button mm-button-link mm-button-link--size-auto mm-text--body-md-medium mm-box--padding-0 mm-box--padding-right-0 mm-box--padding-left-0 mm-box--display-inline-flex mm-box--justify-content-center mm-box--align-items-center mm-box--color-primary-default mm-box--background-color-transparent"
-                        data-testid="test-add-button"
-                        type="link"
-                      >
-                        Add
-                      </button>
-                    </div>
-                  </div>
-                  <div
-                    class="mm-box new-network-list__list-of-networks mm-box--padding-top-4 mm-box--padding-bottom-4 mm-box--display-flex mm-box--justify-content-space-between mm-box--align-items-center"
-                    data-testid="popular-network-0x144"
-                  >
-                    <div
-                      class="mm-box mm-box--display-flex mm-box--align-items-center"
-                    >
-                      <div
-                        class="mm-box mm-text mm-avatar-base mm-avatar-base--size-sm mm-avatar-network mm-text--body-sm mm-text--text-transform-uppercase mm-box--display-flex mm-box--justify-content-center mm-box--align-items-center mm-box--color-text-default mm-box--background-color-background-alternative mm-box--rounded-md mm-box--border-color-background-default mm-box--border-width-1 box--border-style-solid"
-                      >
-                        <img
-                          alt="zkSync Era Mainnet logo"
-                          class="mm-avatar-network__network-image"
-                          src="./images/zk-sync.svg"
-                        />
-                      </div>
-                      <div
-                        class="mm-box mm-box--margin-left-4"
-                      >
-                        <p
-                          class="mm-box mm-text mm-text--body-md mm-text--ellipsis mm-box--color-text-default mm-box--background-color-transparent"
-                        >
-                          zkSync Era Mainnet
-                        </p>
-                      </div>
-                    </div>
-                    <div
-                      class="mm-box mm-box--margin-left-1 mm-box--display-flex mm-box--align-items-center"
-                    >
-                      <button
-                        class="mm-box mm-text mm-button-base add-network__add-button mm-button-link mm-button-link--size-auto mm-text--body-md-medium mm-box--padding-0 mm-box--padding-right-0 mm-box--padding-left-0 mm-box--display-inline-flex mm-box--justify-content-center mm-box--align-items-center mm-box--color-primary-default mm-box--background-color-transparent"
-                        data-testid="test-add-button"
-                        type="link"
-                      >
-                        Add
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div
                 class="mm-box mm-box--padding-top-4 mm-box--padding-bottom-4 mm-box--padding-left-4 mm-box--display-flex mm-box--justify-content-space-between"
               >
                 <p
@@ -659,7 +454,7 @@ exports[`NetworkListMenu renders properly 1`] = `
             class="mm-box mm-box--padding-4"
           >
             <button
-              class="mm-box mm-text mm-button-base mm-button-base--size-lg mm-button-base--block mm-button-secondary mm-text--body-md-medium mm-box--padding-0 mm-box--padding-right-4 mm-box--padding-left-4 mm-box--display-inline-flex mm-box--justify-content-center mm-box--align-items-center mm-box--color-primary-default mm-box--background-color-transparent mm-box--rounded-pill mm-box--border-color-primary-default box--border-style-solid box--border-width-1"
+              class="mm-box mm-text mm-button-base mm-button-base--size-md mm-button-base--block mm-button-secondary mm-text--body-md-medium mm-box--padding-0 mm-box--padding-right-4 mm-box--padding-left-4 mm-box--display-inline-flex mm-box--justify-content-center mm-box--align-items-center mm-box--color-primary-default mm-box--background-color-transparent mm-box--rounded-lg mm-box--border-color-primary-default box--border-style-solid box--border-width-1"
             >
               <span
                 class="mm-box mm-icon mm-icon--size-sm mm-box--margin-right-2 mm-box--margin-inline-end-1 mm-box--display-inline-block mm-box--color-inherit"
@@ -943,7 +738,7 @@ exports[`NetworkListMenu should match snapshot when adding a network 1`] = `
               class="mm-box networks-tab__network-form__footer mm-box--padding-4 mm-box--width-full mm-box--background-color-background-default"
             >
               <button
-                class="mm-box mm-text mm-button-base mm-button-base--size-lg mm-button-base--disabled mm-button-primary mm-button-primary--disabled mm-text--body-md-medium mm-box--padding-0 mm-box--padding-right-4 mm-box--padding-left-4 mm-box--display-inline-flex mm-box--justify-content-center mm-box--align-items-center mm-box--width-full mm-box--color-primary-inverse mm-box--background-color-primary-default mm-box--rounded-pill"
+                class="mm-box mm-text mm-button-base mm-button-base--size-lg mm-button-base--disabled mm-button-primary mm-button-primary--disabled mm-text--body-md-medium mm-box--padding-0 mm-box--padding-right-4 mm-box--padding-left-4 mm-box--display-inline-flex mm-box--justify-content-center mm-box--align-items-center mm-box--width-full mm-box--color-primary-inverse mm-box--background-color-primary-default mm-box--rounded-lg"
                 data-theme="light"
                 disabled=""
               >
@@ -1062,7 +857,59 @@ exports[`NetworkListMenu should match snapshot when editing a network 1`] = `
                 data-rbd-droppable-id="characters"
               >
                 <div
-                  aria-describedby="rbd-hidden-text-1-hidden-text-6"
+                  aria-describedby="rbd-hidden-text-1-hidden-text-7"
+                  class="mm-box"
+                  data-rbd-drag-handle-context-id="1"
+                  data-rbd-drag-handle-draggable-id="solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp"
+                  data-rbd-draggable-context-id="1"
+                  data-rbd-draggable-id="solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp"
+                  draggable="false"
+                  role="button"
+                  tabindex="0"
+                >
+                  <div
+                    class="mm-box multichain-network-list-item mm-box--padding-top-4 mm-box--padding-right-4 mm-box--padding-bottom-4 mm-box--padding-left-4 mm-box--display-flex mm-box--gap-4 mm-box--justify-content-space-between mm-box--align-items-center mm-box--width-full mm-box--background-color-transparent"
+                  >
+                    <div
+                      class="mm-box mm-text mm-avatar-base mm-avatar-base--size-sm mm-avatar-network mm-text--body-sm mm-text--text-transform-uppercase mm-box--display-flex mm-box--justify-content-center mm-box--align-items-center mm-box--color-text-default mm-box--background-color-background-alternative mm-box--rounded-md mm-box--border-color-background-default mm-box--border-width-1 box--border-style-solid"
+                    >
+                      <img
+                        alt="Solana Mainnet logo"
+                        class="mm-avatar-network__network-image"
+                        src="./images/solana-logo.svg"
+                      />
+                    </div>
+                    <div
+                      class="mm-box mm-box--display-flex mm-box--flex-direction-column mm-box--justify-content-flex-start mm-box--align-items-flex-start mm-box--width-full"
+                      style="overflow: hidden;"
+                    >
+                      <div
+                        class="mm-box mm-box--display-flex mm-box--align-items-center mm-box--width-full"
+                        data-testid="Solana Mainnet"
+                      >
+                        <div
+                          class="multichain-network-list-item__tooltip"
+                        >
+                          <div
+                            class=""
+                            style="display: inline;"
+                            tabindex="0"
+                            title=""
+                          >
+                            <p
+                              class="mm-box mm-text mm-text--body-md mm-text--ellipsis mm-box--color-text-default mm-box--background-color-transparent"
+                              tabindex="0"
+                            >
+                              Solana Mainnet
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  aria-describedby="rbd-hidden-text-1-hidden-text-7"
                   class="mm-box"
                   data-rbd-drag-handle-context-id="1"
                   data-rbd-drag-handle-draggable-id="eip155:1"
@@ -1127,7 +974,7 @@ exports[`NetworkListMenu should match snapshot when editing a network 1`] = `
                   </div>
                 </div>
                 <div
-                  aria-describedby="rbd-hidden-text-1-hidden-text-6"
+                  aria-describedby="rbd-hidden-text-1-hidden-text-7"
                   class="mm-box"
                   data-rbd-drag-handle-context-id="1"
                   data-rbd-drag-handle-draggable-id="eip155:59144"
@@ -1189,7 +1036,7 @@ exports[`NetworkListMenu should match snapshot when editing a network 1`] = `
                   </div>
                 </div>
                 <div
-                  aria-describedby="rbd-hidden-text-1-hidden-text-6"
+                  aria-describedby="rbd-hidden-text-1-hidden-text-7"
                   class="mm-box"
                   data-rbd-drag-handle-context-id="1"
                   data-rbd-drag-handle-draggable-id="eip155:56"
@@ -1251,7 +1098,7 @@ exports[`NetworkListMenu should match snapshot when editing a network 1`] = `
                   </div>
                 </div>
                 <div
-                  aria-describedby="rbd-hidden-text-1-hidden-text-6"
+                  aria-describedby="rbd-hidden-text-1-hidden-text-7"
                   class="mm-box"
                   data-rbd-drag-handle-context-id="1"
                   data-rbd-drag-handle-draggable-id="eip155:5"
@@ -1306,263 +1153,6 @@ exports[`NetworkListMenu should match snapshot when editing a network 1`] = `
                         style="mask-image: url('./images/icons/more-vertical.svg');"
                       />
                     </button>
-                  </div>
-                </div>
-              </div>
-              <div
-                class="mm-box new-network-list__networks-container"
-              >
-                <div
-                  class="mm-box mm-box--margin-top-4 mm-box--margin-bottom-1 mm-box--padding-right-4 mm-box--padding-left-4"
-                >
-                  <div
-                    class="mm-box mm-box--margin-top-4 mm-box--margin-bottom-4 mm-box--display-flex mm-box--justify-content-space-between"
-                  >
-                    <div
-                      class="mm-box mm-box--display-inline-flex"
-                    >
-                      <p
-                        class="mm-box mm-text mm-text--body-md mm-box--color-text-alternative"
-                      >
-                        Additional networks
-                      </p>
-                      <div
-                        class="mm-box mm-box--margin-top-1"
-                      >
-                        <span
-                          class="mm-box add-network__warning-icon mm-icon mm-icon--size-sm mm-box--margin-left-2 mm-box--display-inline-block mm-box--color-icon-muted"
-                          style="mask-image: url('./images/icons/info.svg');"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                  <div
-                    class="mm-box new-network-list__list-of-networks mm-box--padding-top-4 mm-box--padding-bottom-4 mm-box--display-flex mm-box--justify-content-space-between mm-box--align-items-center"
-                    data-testid="popular-network-0xa4b1"
-                  >
-                    <div
-                      class="mm-box mm-box--display-flex mm-box--align-items-center"
-                    >
-                      <div
-                        class="mm-box mm-text mm-avatar-base mm-avatar-base--size-sm mm-avatar-network mm-text--body-sm mm-text--text-transform-uppercase mm-box--display-flex mm-box--justify-content-center mm-box--align-items-center mm-box--color-text-default mm-box--background-color-background-alternative mm-box--rounded-md mm-box--border-color-background-default mm-box--border-width-1 box--border-style-solid"
-                      >
-                        <img
-                          alt="Arbitrum One logo"
-                          class="mm-avatar-network__network-image"
-                          src="./images/arbitrum.svg"
-                        />
-                      </div>
-                      <div
-                        class="mm-box mm-box--margin-left-4"
-                      >
-                        <p
-                          class="mm-box mm-text mm-text--body-md mm-text--ellipsis mm-box--color-text-default mm-box--background-color-transparent"
-                        >
-                          Arbitrum One
-                        </p>
-                      </div>
-                    </div>
-                    <div
-                      class="mm-box mm-box--margin-left-1 mm-box--display-flex mm-box--align-items-center"
-                    >
-                      <button
-                        class="mm-box mm-text mm-button-base add-network__add-button mm-button-link mm-button-link--size-auto mm-text--body-md-medium mm-box--padding-0 mm-box--padding-right-0 mm-box--padding-left-0 mm-box--display-inline-flex mm-box--justify-content-center mm-box--align-items-center mm-box--color-primary-default mm-box--background-color-transparent"
-                        data-testid="test-add-button"
-                        type="link"
-                      >
-                        Add
-                      </button>
-                    </div>
-                  </div>
-                  <div
-                    class="mm-box new-network-list__list-of-networks mm-box--padding-top-4 mm-box--padding-bottom-4 mm-box--display-flex mm-box--justify-content-space-between mm-box--align-items-center"
-                    data-testid="popular-network-0xa86a"
-                  >
-                    <div
-                      class="mm-box mm-box--display-flex mm-box--align-items-center"
-                    >
-                      <div
-                        class="mm-box mm-text mm-avatar-base mm-avatar-base--size-sm mm-avatar-network mm-text--body-sm mm-text--text-transform-uppercase mm-box--display-flex mm-box--justify-content-center mm-box--align-items-center mm-box--color-text-default mm-box--background-color-background-alternative mm-box--rounded-md mm-box--border-color-background-default mm-box--border-width-1 box--border-style-solid"
-                      >
-                        <img
-                          alt="Avalanche Network C-Chain logo"
-                          class="mm-avatar-network__network-image"
-                          src="./images/avax-token.svg"
-                        />
-                      </div>
-                      <div
-                        class="mm-box mm-box--margin-left-4"
-                      >
-                        <p
-                          class="mm-box mm-text mm-text--body-md mm-text--ellipsis mm-box--color-text-default mm-box--background-color-transparent"
-                        >
-                          Avalanche Network C-Chain
-                        </p>
-                      </div>
-                    </div>
-                    <div
-                      class="mm-box mm-box--margin-left-1 mm-box--display-flex mm-box--align-items-center"
-                    >
-                      <button
-                        class="mm-box mm-text mm-button-base add-network__add-button mm-button-link mm-button-link--size-auto mm-text--body-md-medium mm-box--padding-0 mm-box--padding-right-0 mm-box--padding-left-0 mm-box--display-inline-flex mm-box--justify-content-center mm-box--align-items-center mm-box--color-primary-default mm-box--background-color-transparent"
-                        data-testid="test-add-button"
-                        type="link"
-                      >
-                        Add
-                      </button>
-                    </div>
-                  </div>
-                  <div
-                    class="mm-box new-network-list__list-of-networks mm-box--padding-top-4 mm-box--padding-bottom-4 mm-box--display-flex mm-box--justify-content-space-between mm-box--align-items-center"
-                    data-testid="popular-network-0x2105"
-                  >
-                    <div
-                      class="mm-box mm-box--display-flex mm-box--align-items-center"
-                    >
-                      <div
-                        class="mm-box mm-text mm-avatar-base mm-avatar-base--size-sm mm-avatar-network mm-text--body-sm mm-text--text-transform-uppercase mm-box--display-flex mm-box--justify-content-center mm-box--align-items-center mm-box--color-text-default mm-box--background-color-background-alternative mm-box--rounded-md mm-box--border-color-background-default mm-box--border-width-1 box--border-style-solid"
-                      >
-                        <img
-                          alt="Base Mainnet logo"
-                          class="mm-avatar-network__network-image"
-                          src="./images/base.svg"
-                        />
-                      </div>
-                      <div
-                        class="mm-box mm-box--margin-left-4"
-                      >
-                        <p
-                          class="mm-box mm-text mm-text--body-md mm-text--ellipsis mm-box--color-text-default mm-box--background-color-transparent"
-                        >
-                          Base Mainnet
-                        </p>
-                      </div>
-                    </div>
-                    <div
-                      class="mm-box mm-box--margin-left-1 mm-box--display-flex mm-box--align-items-center"
-                    >
-                      <button
-                        class="mm-box mm-text mm-button-base add-network__add-button mm-button-link mm-button-link--size-auto mm-text--body-md-medium mm-box--padding-0 mm-box--padding-right-0 mm-box--padding-left-0 mm-box--display-inline-flex mm-box--justify-content-center mm-box--align-items-center mm-box--color-primary-default mm-box--background-color-transparent"
-                        data-testid="test-add-button"
-                        type="link"
-                      >
-                        Add
-                      </button>
-                    </div>
-                  </div>
-                  <div
-                    class="mm-box new-network-list__list-of-networks mm-box--padding-top-4 mm-box--padding-bottom-4 mm-box--display-flex mm-box--justify-content-space-between mm-box--align-items-center"
-                    data-testid="popular-network-0xa"
-                  >
-                    <div
-                      class="mm-box mm-box--display-flex mm-box--align-items-center"
-                    >
-                      <div
-                        class="mm-box mm-text mm-avatar-base mm-avatar-base--size-sm mm-avatar-network mm-text--body-sm mm-text--text-transform-uppercase mm-box--display-flex mm-box--justify-content-center mm-box--align-items-center mm-box--color-text-default mm-box--background-color-background-alternative mm-box--rounded-md mm-box--border-color-background-default mm-box--border-width-1 box--border-style-solid"
-                      >
-                        <img
-                          alt="OP Mainnet logo"
-                          class="mm-avatar-network__network-image"
-                          src="./images/optimism.svg"
-                        />
-                      </div>
-                      <div
-                        class="mm-box mm-box--margin-left-4"
-                      >
-                        <p
-                          class="mm-box mm-text mm-text--body-md mm-text--ellipsis mm-box--color-text-default mm-box--background-color-transparent"
-                        >
-                          OP Mainnet
-                        </p>
-                      </div>
-                    </div>
-                    <div
-                      class="mm-box mm-box--margin-left-1 mm-box--display-flex mm-box--align-items-center"
-                    >
-                      <button
-                        class="mm-box mm-text mm-button-base add-network__add-button mm-button-link mm-button-link--size-auto mm-text--body-md-medium mm-box--padding-0 mm-box--padding-right-0 mm-box--padding-left-0 mm-box--display-inline-flex mm-box--justify-content-center mm-box--align-items-center mm-box--color-primary-default mm-box--background-color-transparent"
-                        data-testid="test-add-button"
-                        type="link"
-                      >
-                        Add
-                      </button>
-                    </div>
-                  </div>
-                  <div
-                    class="mm-box new-network-list__list-of-networks mm-box--padding-top-4 mm-box--padding-bottom-4 mm-box--display-flex mm-box--justify-content-space-between mm-box--align-items-center"
-                    data-testid="popular-network-0x89"
-                  >
-                    <div
-                      class="mm-box mm-box--display-flex mm-box--align-items-center"
-                    >
-                      <div
-                        class="mm-box mm-text mm-avatar-base mm-avatar-base--size-sm mm-avatar-network mm-text--body-sm mm-text--text-transform-uppercase mm-box--display-flex mm-box--justify-content-center mm-box--align-items-center mm-box--color-text-default mm-box--background-color-background-alternative mm-box--rounded-md mm-box--border-color-background-default mm-box--border-width-1 box--border-style-solid"
-                      >
-                        <img
-                          alt="Polygon Mainnet logo"
-                          class="mm-avatar-network__network-image"
-                          src="./images/pol-token.svg"
-                        />
-                      </div>
-                      <div
-                        class="mm-box mm-box--margin-left-4"
-                      >
-                        <p
-                          class="mm-box mm-text mm-text--body-md mm-text--ellipsis mm-box--color-text-default mm-box--background-color-transparent"
-                        >
-                          Polygon Mainnet
-                        </p>
-                      </div>
-                    </div>
-                    <div
-                      class="mm-box mm-box--margin-left-1 mm-box--display-flex mm-box--align-items-center"
-                    >
-                      <button
-                        class="mm-box mm-text mm-button-base add-network__add-button mm-button-link mm-button-link--size-auto mm-text--body-md-medium mm-box--padding-0 mm-box--padding-right-0 mm-box--padding-left-0 mm-box--display-inline-flex mm-box--justify-content-center mm-box--align-items-center mm-box--color-primary-default mm-box--background-color-transparent"
-                        data-testid="test-add-button"
-                        type="link"
-                      >
-                        Add
-                      </button>
-                    </div>
-                  </div>
-                  <div
-                    class="mm-box new-network-list__list-of-networks mm-box--padding-top-4 mm-box--padding-bottom-4 mm-box--display-flex mm-box--justify-content-space-between mm-box--align-items-center"
-                    data-testid="popular-network-0x144"
-                  >
-                    <div
-                      class="mm-box mm-box--display-flex mm-box--align-items-center"
-                    >
-                      <div
-                        class="mm-box mm-text mm-avatar-base mm-avatar-base--size-sm mm-avatar-network mm-text--body-sm mm-text--text-transform-uppercase mm-box--display-flex mm-box--justify-content-center mm-box--align-items-center mm-box--color-text-default mm-box--background-color-background-alternative mm-box--rounded-md mm-box--border-color-background-default mm-box--border-width-1 box--border-style-solid"
-                      >
-                        <img
-                          alt="zkSync Era Mainnet logo"
-                          class="mm-avatar-network__network-image"
-                          src="./images/zk-sync.svg"
-                        />
-                      </div>
-                      <div
-                        class="mm-box mm-box--margin-left-4"
-                      >
-                        <p
-                          class="mm-box mm-text mm-text--body-md mm-text--ellipsis mm-box--color-text-default mm-box--background-color-transparent"
-                        >
-                          zkSync Era Mainnet
-                        </p>
-                      </div>
-                    </div>
-                    <div
-                      class="mm-box mm-box--margin-left-1 mm-box--display-flex mm-box--align-items-center"
-                    >
-                      <button
-                        class="mm-box mm-text mm-button-base add-network__add-button mm-button-link mm-button-link--size-auto mm-text--body-md-medium mm-box--padding-0 mm-box--padding-right-0 mm-box--padding-left-0 mm-box--display-inline-flex mm-box--justify-content-center mm-box--align-items-center mm-box--color-primary-default mm-box--background-color-transparent"
-                        data-testid="test-add-button"
-                        type="link"
-                      >
-                        Add
-                      </button>
-                    </div>
                   </div>
                 </div>
               </div>
@@ -1622,7 +1212,7 @@ exports[`NetworkListMenu should match snapshot when editing a network 1`] = `
             class="mm-box mm-box--padding-4"
           >
             <button
-              class="mm-box mm-text mm-button-base mm-button-base--size-lg mm-button-base--block mm-button-secondary mm-text--body-md-medium mm-box--padding-0 mm-box--padding-right-4 mm-box--padding-left-4 mm-box--display-inline-flex mm-box--justify-content-center mm-box--align-items-center mm-box--color-primary-default mm-box--background-color-transparent mm-box--rounded-pill mm-box--border-color-primary-default box--border-style-solid box--border-width-1"
+              class="mm-box mm-text mm-button-base mm-button-base--size-md mm-button-base--block mm-button-secondary mm-text--body-md-medium mm-box--padding-0 mm-box--padding-right-4 mm-box--padding-left-4 mm-box--display-inline-flex mm-box--justify-content-center mm-box--align-items-center mm-box--color-primary-default mm-box--background-color-transparent mm-box--rounded-lg mm-box--border-color-primary-default box--border-style-solid box--border-width-1"
             >
               <span
                 class="mm-box mm-icon mm-icon--size-sm mm-box--margin-right-2 mm-box--margin-inline-end-1 mm-box--display-inline-block mm-box--color-inherit"
@@ -1647,7 +1237,7 @@ exports[`NetworkListMenu should match snapshot when editing a network 1`] = `
     style="position: absolute; width: 1px; height: 1px; margin: -1px; border: 0px; padding: 0px; overflow: hidden; clip-path: inset(100%);"
   />
   <div
-    id="rbd-hidden-text-1-hidden-text-6"
+    id="rbd-hidden-text-1-hidden-text-7"
     style="display: none;"
   >
     

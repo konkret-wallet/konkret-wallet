@@ -12,11 +12,11 @@ exports[`Unlock Page should match snapshot 1`] = `
       <div
         class="unlock-page__mascot-container"
       >
-        <div
-          style="z-index: 0;"
-        >
-          <svg />
-        </div>
+        <img
+          height="120"
+          src="./images/logo/metamask-fox.svg"
+          width="120"
+        />
       </div>
       <h1
         class="mm-box mm-text mm-text--heading-lg mm-box--margin-top-1 mm-box--color-text-alternative"
@@ -76,23 +76,6 @@ exports[`Unlock Page should match snapshot 1`] = `
         >
           Forgot password?
         </a>
-      </div>
-      <div
-        class="unlock-page__support"
-      >
-        <span>
-           
-          Need help? Contact 
-          <a
-            href="https://support.metamask.io"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            MetaMask support
-          </a>
-          
-           
-        </span>
       </div>
     </div>
   </div>

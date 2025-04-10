@@ -55,12 +55,12 @@ exports[`ReviewPermissions should render correctly 1`] = `
           <p
             class="mm-box mm-text mm-text--body-md-medium mm-text--text-align-center mm-box--color-text-default"
           >
-            MetaMask isn’t connected to this site
+            Konkret Wallet isn’t connected to this site
           </p>
           <p
             class="mm-box mm-text mm-text--body-md mm-text--text-align-center mm-box--color-text-default"
           >
-            To connect to a site, find and select the "connect" button. Remember MetaMask can only connect to sites on web3
+            To connect to a site, find and select the "connect" button. Remember Konkret Wallet can only connect to sites on web3
           </p>
         </div>
       </div>
