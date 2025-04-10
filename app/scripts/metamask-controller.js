@@ -1302,9 +1302,8 @@ export default class MetamaskController extends EventEmitter {
         ],
       }),
       trace,
-      decodingApiUrl: process.env.DECODING_API_URL,
-      isDecodeSignatureRequestEnabled: () =>
-        this.preferencesController.state.useTransactionSimulations,
+      decodingApiUrl: null,
+      isDecodeSignatureRequestEnabled: () => false,
     });
 
     this.signatureController.hub.on('cancelWithReason', () => {});

@@ -15,7 +15,6 @@ import {
   permitSignatureMsg,
   permitSignatureMsgWithNoDeadline,
   unapprovedTypedSignMsgV3,
-  unapprovedTypedSignMsgV4,
 } from '../../../../../../../test/data/confirmations/typed_sign';
 import { renderWithConfirmContextProvider } from '../../../../../../../test/lib/confirmations/render-helpers';
 import TypedSignInfo from './typed-sign';
@@ -135,7 +134,6 @@ describe('TypedSignInfo', () => {
 
   it('displays "requestFromInfoSnap" tooltip when origin is a snap', async () => {
     const mockState = getMockTypedSignConfirmStateForRequest({
-      ...unapprovedTypedSignMsgV4,
       id: '123',
       type: TransactionType.signTypedData,
       chainId: '0x5',
@@ -159,7 +157,6 @@ describe('TypedSignInfo', () => {
 
   it('displays "requestFromInfo" tooltip when origin is not a snap', async () => {
     const mockState = getMockTypedSignConfirmStateForRequest({
-      ...unapprovedTypedSignMsgV4,
       id: '123',
       type: TransactionType.signTypedData,
       chainId: '0x5',

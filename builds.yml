@@ -197,8 +197,10 @@ env:
   # Variables that are modified with hardcoded code
   ###
 
+  # Used to enable signature decoding
+  - ENABLE_SIGNATURE_DECODING: ''
   # URL of the decoding API used to provide additional data from signature requests
-  - DECODING_API_URL: 'http://localhost:1238/signature-insights.api.cx.metamask.io/v1'
+  - DECODING_API_URL: null
   # Determines if feature flagged Settings Page - Developer Options should be used
   - ENABLE_SETTINGS_PAGE_DEV_OPTIONS: false
   # Used for debugging changes to the phishing warning page.

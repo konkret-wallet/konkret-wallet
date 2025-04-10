@@ -1,14 +1,11 @@
-import { strict as assert } from 'assert';
 import { TransactionEnvelopeType } from '@metamask/transaction-controller';
 import { Suite } from 'mocha';
-import { MockedEndpoint } from 'mockttp';
 import { openDapp, unlockWallet, WINDOW_TITLES } from '../../../helpers';
 import { Ganache } from '../../../seeder/ganache';
 import { Driver } from '../../../webdriver/driver';
 import {
-  mockPermitDecoding,
-  mockSignatureApprovedWithDecoding,
-  mockSignatureRejectedWithDecoding,
+  mockSignatureApproved,
+  mockSignatureRejected,
   scrollAndConfirmAndAssertConfirm,
   withTransactionEnvelopeTypeFixtures,
 } from '../helpers';
@@ -17,12 +14,9 @@ import TestDapp from '../../../page-objects/pages/test-dapp';
 import Confirmation from '../../../page-objects/pages/confirmations/redesign/confirmation';
 import PermitConfirmation from '../../../page-objects/pages/confirmations/redesign/permit-confirmation';
 import {
-  assertAccountDetailsMetrics,
   assertHeaderInfoBalance,
   assertPastedAddress,
   assertRejectedSignature,
-  assertSignatureConfirmedMetrics,
-  assertSignatureRejectedMetrics,
   clickHeaderInfoBtn,
   copyAddressAndPasteWalletAddress,
   initializePages,
@@ -35,11 +29,7 @@ describe('Confirmation Signature - Permit', function (this: Suite) {
     await withTransactionEnvelopeTypeFixtures(
       this.test?.fullTitle(),
       TransactionEnvelopeType.legacy,
-      async ({
-        driver,
-        ganacheServer,
-        mockedEndpoint: mockedEndpoints,
-      }: TestSuiteArguments) => {
+      async ({ driver, ganacheServer }: TestSuiteArguments) => {
         const addresses = await (ganacheServer as Ganache).getAccounts();
         const publicAddress = addresses?.[0] as string;
         await initializePages(driver);
@@ -57,26 +47,9 @@ describe('Confirmation Signature - Permit', function (this: Suite) {
         await scrollAndConfirmAndAssertConfirm(driver);
         await driver.delay(1000);
 
-        await assertAccountDetailsMetrics(
-          driver,
-          mockedEndpoints as MockedEndpoint[],
-          'eth_signTypedData_v4',
-        );
-
-        await assertSignatureConfirmedMetrics({
-          driver,
-          mockedEndpoints: mockedEndpoints as MockedEndpoint[],
-          signatureType: 'eth_signTypedData_v4',
-          primaryType: 'Permit',
-          uiCustomizations: ['redesigned_confirmation', 'permit'],
-          decodingChangeTypes: ['RECEIVE', 'LISTING'],
-          decodingResponse: 'CHANGE',
-          decodingDescription: null,
-        });
-
         await assertVerifiedResults(driver, publicAddress);
       },
-      mockSignatureApprovedWithDecoding,
+      mockSignatureApproved,
     );
   });
 
@@ -84,10 +57,7 @@ describe('Confirmation Signature - Permit', function (this: Suite) {
     await withTransactionEnvelopeTypeFixtures(
       this.test?.fullTitle(),
       TransactionEnvelopeType.legacy,
-      async ({
-        driver,
-        mockedEndpoint: mockedEndpoints,
-      }: TestSuiteArguments) => {
+      async ({ driver }: TestSuiteArguments) => {
         const testDapp = new TestDapp(driver);
         const confirmation = new Confirmation(driver);
         await unlockWallet(driver);
@@ -100,46 +70,8 @@ describe('Confirmation Signature - Permit', function (this: Suite) {
         await driver.switchToWindowWithTitle(WINDOW_TITLES.TestDApp);
 
         await assertRejectedSignature();
-
-        await assertSignatureRejectedMetrics({
-          driver,
-          mockedEndpoints: mockedEndpoints as MockedEndpoint[],
-          signatureType: 'eth_signTypedData_v4',
-          primaryType: 'Permit',
-          uiCustomizations: ['redesigned_confirmation', 'permit'],
-          location: 'confirmation',
-          decodingChangeTypes: ['RECEIVE', 'LISTING'],
-          decodingResponse: 'CHANGE',
-          decodingDescription: null,
-        });
       },
-      mockSignatureRejectedWithDecoding,
-    );
-  });
-
-  it('display decoding information if available', async function () {
-    await withTransactionEnvelopeTypeFixtures(
-      this.test?.fullTitle(),
-      TransactionEnvelopeType.legacy,
-      async ({ driver }: TestSuiteArguments) => {
-        await initializePages(driver);
-        await openDappAndTriggerSignature(driver, SignatureType.Permit);
-
-        const simulationSection = driver.findElement({
-          text: 'Estimated changes',
-        });
-        const receiveChange = driver.findElement({ text: 'You receive' });
-        const listChange = driver.findElement({ text: 'You list' });
-        const listChangeValue = driver.findElement({ text: '#2101' });
-
-        assert.ok(await simulationSection, 'Estimated changes');
-        assert.ok(await receiveChange, 'You receive');
-        assert.ok(await listChange, 'You list');
-        assert.ok(await listChangeValue, '#2101');
-
-        await driver.delay(10000);
-      },
-      mockPermitDecoding,
+      mockSignatureRejected,
     );
   });
 });

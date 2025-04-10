@@ -72,9 +72,6 @@ describe('Confirmation Signature - NFT Permit', function (this: Suite) {
           signatureType: 'eth_signTypedData_v4',
           primaryType: 'Permit',
           uiCustomizations: ['redesigned_confirmation', 'permit'],
-          decodingChangeTypes: ['RECEIVE', 'LISTING'],
-          decodingResponse: 'CHANGE',
-          decodingDescription: null,
         });
 
         await assertVerifiedResults(driver, publicAddress);
@@ -116,9 +113,6 @@ describe('Confirmation Signature - NFT Permit', function (this: Suite) {
           primaryType: 'Permit',
           uiCustomizations: ['redesigned_confirmation', 'permit'],
           location: 'confirmation',
-          decodingChangeTypes: ['RECEIVE', 'LISTING'],
-          decodingResponse: 'CHANGE',
-          decodingDescription: null,
         });
       },
       mockSignatureRejectedWithDecoding,
