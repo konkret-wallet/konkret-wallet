@@ -99,14 +99,14 @@ var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "sy
   }
   var ieee754$1 = {};
   /*! ieee754. BSD-3-Clause License. Feross Aboukhadijeh <https://feross.org/opensource> */
-  ieee754$1.read = function(buffer2, offset, isLE, mLen, nBytes) {
+  ieee754$1.read = function(buffer2, offset, isLE2, mLen, nBytes) {
     var e, m;
     var eLen = nBytes * 8 - mLen - 1;
     var eMax = (1 << eLen) - 1;
     var eBias = eMax >> 1;
     var nBits = -7;
-    var i2 = isLE ? nBytes - 1 : 0;
-    var d = isLE ? -1 : 1;
+    var i2 = isLE2 ? nBytes - 1 : 0;
+    var d = isLE2 ? -1 : 1;
     var s2 = buffer2[offset + i2];
     i2 += d;
     e = s2 & (1 << -nBits) - 1;
@@ -129,14 +129,14 @@ var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "sy
     }
     return (s2 ? -1 : 1) * m * Math.pow(2, e - mLen);
   };
-  ieee754$1.write = function(buffer2, value, offset, isLE, mLen, nBytes) {
+  ieee754$1.write = function(buffer2, value, offset, isLE2, mLen, nBytes) {
     var e, m, c;
     var eLen = nBytes * 8 - mLen - 1;
     var eMax = (1 << eLen) - 1;
     var eBias = eMax >> 1;
     var rt = mLen === 23 ? Math.pow(2, -24) - Math.pow(2, -77) : 0;
-    var i2 = isLE ? 0 : nBytes - 1;
-    var d = isLE ? 1 : -1;
+    var i2 = isLE2 ? 0 : nBytes - 1;
+    var d = isLE2 ? 1 : -1;
     var s2 = value < 0 || value === 0 && 1 / value < 0 ? 1 : 0;
     value = Math.abs(value);
     if (isNaN(value) || value === Infinity) {
@@ -1768,7 +1768,6 @@ var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "sy
     }
   })(buffer$2);
   const Buffer2 = buffer$2.Buffer;
-  var commonjsGlobal = typeof globalThis !== "undefined" ? globalThis : typeof window !== "undefined" ? window : typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : {};
   function getDefaultExportFromCjs(x) {
     return x && x.__esModule && Object.prototype.hasOwnProperty.call(x, "default") ? x["default"] : x;
   }
@@ -6661,7 +6660,7 @@ var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "sy
     return str;
   }
   var BigNumber$1 = clone();
-  const version$9 = "logger/5.7.0";
+  const version$9 = "logger/5.8.0";
   let _permanentCensorErrors = false;
   let _censorErrors = false;
   const LogLevels = { debug: 1, "default": 2, info: 2, warning: 3, error: 4, off: 5 };
@@ -6944,7 +6943,7 @@ var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "sy
   }
   Logger.errors = ErrorCode;
   Logger.levels = LogLevel;
-  const version$8 = "bytes/5.7.0";
+  const version$8 = "bytes/5.8.0";
   const logger$c = new Logger(version$8);
   function isHexable(value) {
     return !!value.toHexString;
@@ -6960,12 +6959,12 @@ var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "sy
     return array2;
   }
   function isBytesLike(value) {
-    return isHexString$1(value) && !(value.length % 2) || isBytes$3(value);
+    return isHexString$1(value) && !(value.length % 2) || isBytes$5(value);
   }
   function isInteger(value) {
     return typeof value === "number" && value == value && value % 1 === 0;
   }
-  function isBytes$3(value) {
+  function isBytes$5(value) {
     if (value == null) {
       return false;
     }
@@ -7025,7 +7024,7 @@ var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "sy
       }
       return addSlice(new Uint8Array(result));
     }
-    if (isBytes$3(value)) {
+    if (isBytes$5(value)) {
       return addSlice(new Uint8Array(value));
     }
     return logger$c.throwArgumentError("invalid arrayify value", "value", value);
@@ -7117,7 +7116,7 @@ var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "sy
       }
       return value.toLowerCase();
     }
-    if (isBytes$3(value)) {
+    if (isBytes$5(value)) {
       let result = "0x";
       for (let i2 = 0; i2 < value.length; i2++) {
         let v = value[i2];
@@ -10024,11 +10023,11 @@ var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "sy
         var res = this.imod(a._invmp(this.m).mul(this.r2));
         return res._forceRed(this);
       };
-    })(module, commonjsGlobal);
+    })(module, globalThis);
   })(bn$1);
   var bnExports$1 = bn$1.exports;
   const _BN = /* @__PURE__ */ getDefaultExportFromCjs(bnExports$1);
-  const version$7 = "bignumber/5.7.0";
+  const version$7 = "bignumber/5.8.0";
   var BN$1 = _BN.BN;
   const logger$b = new Logger(version$7);
   const _constructorGuard$1 = {};
@@ -10211,7 +10210,7 @@ var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "sy
       if (typeof anyValue === "bigint") {
         return BigNumber.from(anyValue.toString());
       }
-      if (isBytes$3(anyValue)) {
+      if (isBytes$5(anyValue)) {
         return BigNumber.from(hexlify(anyValue));
       }
       if (anyValue) {
@@ -10291,9 +10290,9 @@ var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "sy
   /**
    * [js-sha3]{@link https://github.com/emn178/js-sha3}
    *
-   * @version 0.8.0
+   * @version 0.9.3
    * @author Chen, Yi-Cyuan [emn178@gmail.com]
-   * @copyright Chen, Yi-Cyuan 2015-2018
+   * @copyright Chen, Yi-Cyuan 2015-2023
    * @license MIT
    */
   (function(module) {
@@ -10308,7 +10307,7 @@ var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "sy
       var WEB_WORKER = !WINDOW && typeof self === "object";
       var NODE_JS = !root.JS_SHA3_NO_NODE_JS && typeof process === "object" && process.versions && process.versions.node;
       if (NODE_JS) {
-        root = commonjsGlobal;
+        root = globalThis;
       } else if (WEB_WORKER) {
         root = self;
       }
@@ -10377,16 +10376,38 @@ var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "sy
         "128": 168,
         "256": 136
       };
-      if (root.JS_SHA3_NO_NODE_JS || !Array.isArray) {
-        Array.isArray = function(obj) {
-          return Object.prototype.toString.call(obj) === "[object Array]";
-        };
-      }
-      if (ARRAY_BUFFER && (root.JS_SHA3_NO_ARRAY_BUFFER_IS_VIEW || !ArrayBuffer.isView)) {
-        ArrayBuffer.isView = function(obj) {
-          return typeof obj === "object" && obj.buffer && obj.buffer.constructor === ArrayBuffer;
-        };
-      }
+      var isArray = root.JS_SHA3_NO_NODE_JS || !Array.isArray ? function(obj) {
+        return Object.prototype.toString.call(obj) === "[object Array]";
+      } : Array.isArray;
+      var isView = ARRAY_BUFFER && (root.JS_SHA3_NO_ARRAY_BUFFER_IS_VIEW || !ArrayBuffer.isView) ? function(obj) {
+        return typeof obj === "object" && obj.buffer && obj.buffer.constructor === ArrayBuffer;
+      } : ArrayBuffer.isView;
+      var formatMessage = function(message) {
+        var type = typeof message;
+        if (type === "string") {
+          return [message, true];
+        }
+        if (type !== "object" || message === null) {
+          throw new Error(INPUT_ERROR);
+        }
+        if (ARRAY_BUFFER && message.constructor === ArrayBuffer) {
+          return [new Uint8Array(message), false];
+        }
+        if (!isArray(message) && !isView(message)) {
+          throw new Error(INPUT_ERROR);
+        }
+        return [message, false];
+      };
+      var empty2 = function(message) {
+        return formatMessage(message)[0].length === 0;
+      };
+      var cloneArray = function(array2) {
+        var newArray = [];
+        for (var i3 = 0; i3 < array2.length; ++i3) {
+          newArray[i3] = array2[i3];
+        }
+        return newArray;
+      };
       var createOutputMethod = function(bits2, padding, outputType) {
         return function(message) {
           return new Keccak2(bits2, padding, bits2).update(message)[outputType]();
@@ -10438,7 +10459,7 @@ var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "sy
         var w = CSHAKE_BYTEPAD[bits2];
         var method = createCshakeOutputMethod(bits2, padding, "hex");
         method.create = function(outputBits, n, s2) {
-          if (!n && !s2) {
+          if (empty2(n) && empty2(s2)) {
             return methods["shake" + bits2].create(outputBits);
           } else {
             return new Keccak2(bits2, padding, outputBits).bytepad([n, s2], w);
@@ -10503,23 +10524,9 @@ var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "sy
         if (this.finalized) {
           throw new Error(FINALIZE_ERROR);
         }
-        var notString, type = typeof message;
-        if (type !== "string") {
-          if (type === "object") {
-            if (message === null) {
-              throw new Error(INPUT_ERROR);
-            } else if (ARRAY_BUFFER && message.constructor === ArrayBuffer) {
-              message = new Uint8Array(message);
-            } else if (!Array.isArray(message)) {
-              if (!ARRAY_BUFFER || !ArrayBuffer.isView(message)) {
-                throw new Error(INPUT_ERROR);
-              }
-            }
-          } else {
-            throw new Error(INPUT_ERROR);
-          }
-          notString = true;
-        }
+        var result = formatMessage(message);
+        message = result[0];
+        var isString = result[1];
         var blocks = this.blocks, byteCount = this.byteCount, length = message.length, blockCount = this.blockCount, index = 0, s2 = this.s, i3, code2;
         while (index < length) {
           if (this.reset) {
@@ -10529,11 +10536,7 @@ var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "sy
               blocks[i3] = 0;
             }
           }
-          if (notString) {
-            for (i3 = this.start; index < length && i3 < byteCount; ++index) {
-              blocks[i3 >> 2] |= message[index] << SHIFT[i3++ & 3];
-            }
-          } else {
+          if (isString) {
             for (i3 = this.start; index < length && i3 < byteCount; ++index) {
               code2 = message.charCodeAt(index);
               if (code2 < 128) {
@@ -10552,6 +10555,10 @@ var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "sy
                 blocks[i3 >> 2] |= (128 | code2 >> 6 & 63) << SHIFT[i3++ & 3];
                 blocks[i3 >> 2] |= (128 | code2 & 63) << SHIFT[i3++ & 3];
               }
+            }
+          } else {
+            for (i3 = this.start; index < length && i3 < byteCount; ++index) {
+              blocks[i3 >> 2] |= message[index] << SHIFT[i3++ & 3];
             }
           }
           this.lastByteIndex = i3;
@@ -10589,27 +10596,11 @@ var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "sy
         return bytes2.length;
       };
       Keccak2.prototype.encodeString = function(str) {
-        var notString, type = typeof str;
-        if (type !== "string") {
-          if (type === "object") {
-            if (str === null) {
-              throw new Error(INPUT_ERROR);
-            } else if (ARRAY_BUFFER && str.constructor === ArrayBuffer) {
-              str = new Uint8Array(str);
-            } else if (!Array.isArray(str)) {
-              if (!ARRAY_BUFFER || !ArrayBuffer.isView(str)) {
-                throw new Error(INPUT_ERROR);
-              }
-            }
-          } else {
-            throw new Error(INPUT_ERROR);
-          }
-          notString = true;
-        }
+        var result = formatMessage(str);
+        str = result[0];
+        var isString = result[1];
         var bytes2 = 0, length = str.length;
-        if (notString) {
-          bytes2 = length;
-        } else {
+        if (isString) {
           for (var i3 = 0; i3 < str.length; ++i3) {
             var code2 = str.charCodeAt(i3);
             if (code2 < 128) {
@@ -10623,6 +10614,8 @@ var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "sy
               bytes2 += 4;
             }
           }
+        } else {
+          bytes2 = length;
         }
         bytes2 += this.encode(bytes2 * 8);
         this.update(str);
@@ -10633,7 +10626,7 @@ var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "sy
         for (var i3 = 0; i3 < strs.length; ++i3) {
           bytes2 += this.encodeString(strs[i3]);
         }
-        var paddingBytes = w - bytes2 % w;
+        var paddingBytes = (w - bytes2 % w) % w;
         var zeros = [];
         zeros.length = paddingBytes;
         this.update(zeros);
@@ -10668,6 +10661,7 @@ var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "sy
             hex2 += HEX_CHARS[block >> 4 & 15] + HEX_CHARS[block & 15] + HEX_CHARS[block >> 12 & 15] + HEX_CHARS[block >> 8 & 15] + HEX_CHARS[block >> 20 & 15] + HEX_CHARS[block >> 16 & 15] + HEX_CHARS[block >> 28 & 15] + HEX_CHARS[block >> 24 & 15];
           }
           if (j2 % blockCount === 0) {
+            s2 = cloneArray(s2);
             f2(s2);
             i3 = 0;
           }
@@ -10700,11 +10694,12 @@ var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "sy
             array2[j2] = s2[i3];
           }
           if (j2 % blockCount === 0) {
+            s2 = cloneArray(s2);
             f2(s2);
           }
         }
         if (extraBytes) {
-          array2[i3] = s2[i3];
+          array2[j2] = s2[i3];
           buffer2 = buffer2.slice(0, bytes2);
         }
         return buffer2;
@@ -10724,6 +10719,7 @@ var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "sy
             array2[offset + 3] = block >> 24 & 255;
           }
           if (j2 % blockCount === 0) {
+            s2 = cloneArray(s2);
             f2(s2);
           }
         }
@@ -10939,7 +10935,7 @@ var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "sy
   function keccak256(data) {
     return "0x" + sha3$2.keccak_256(arrayify(data));
   }
-  const version$6 = "rlp/5.7.0";
+  const version$6 = "rlp/5.8.0";
   const logger$a = new Logger(version$6);
   function arrayifyInteger(value) {
     const result = [];
@@ -11048,7 +11044,7 @@ var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "sy
     }
     return decoded.result;
   }
-  const version$5 = "address/5.7.0";
+  const version$5 = "address/5.8.0";
   const logger$9 = new Logger(version$5);
   function getChecksumAddress(address2) {
     if (!isHexString$1(address2, 20)) {
@@ -11134,7 +11130,7 @@ var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "sy
   const Zero = /* @__PURE__ */ BigNumber.from(0);
   const One = /* @__PURE__ */ BigNumber.from(1);
   const MaxUint256 = /* @__PURE__ */ BigNumber.from("0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
-  const version$4 = "properties/5.7.0";
+  const version$4 = "properties/5.8.0";
   const logger$8 = new Logger(version$4);
   function defineReadOnly(object, name, value) {
     Object.defineProperty(object, name, {
@@ -13949,12 +13945,12 @@ var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "sy
         var res = this.imod(a._invmp(this.m).mul(this.r2));
         return res._forceRed(this);
       };
-    })(module, commonjsGlobal);
+    })(module, globalThis);
   })(bn);
   var bnExports = bn.exports;
   const BN = /* @__PURE__ */ getDefaultExportFromCjs(bnExports);
   var hash$2 = {};
-  var utils$g = {};
+  var utils$h = {};
   var minimalisticAssert$1 = assert$b;
   function assert$b(val, msg) {
     if (!val)
@@ -13994,7 +13990,7 @@ var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "sy
   var inherits_browserExports = inherits_browser$1.exports;
   var assert$a = minimalisticAssert$1;
   var inherits = inherits_browserExports;
-  utils$g.inherits = inherits;
+  utils$h.inherits = inherits;
   function isSurrogatePair(msg, i2) {
     if ((msg.charCodeAt(i2) & 64512) !== 55296) {
       return false;
@@ -14045,19 +14041,19 @@ var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "sy
     }
     return res;
   }
-  utils$g.toArray = toArray;
+  utils$h.toArray = toArray;
   function toHex(msg) {
     var res = "";
     for (var i2 = 0; i2 < msg.length; i2++)
       res += zero2(msg[i2].toString(16));
     return res;
   }
-  utils$g.toHex = toHex;
+  utils$h.toHex = toHex;
   function htonl(w) {
     var res = w >>> 24 | w >>> 8 & 65280 | w << 8 & 16711680 | (w & 255) << 24;
     return res >>> 0;
   }
-  utils$g.htonl = htonl;
+  utils$h.htonl = htonl;
   function toHex32(msg, endian) {
     var res = "";
     for (var i2 = 0; i2 < msg.length; i2++) {
@@ -14068,14 +14064,14 @@ var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "sy
     }
     return res;
   }
-  utils$g.toHex32 = toHex32;
+  utils$h.toHex32 = toHex32;
   function zero2(word) {
     if (word.length === 1)
       return "0" + word;
     else
       return word;
   }
-  utils$g.zero2 = zero2;
+  utils$h.zero2 = zero2;
   function zero8(word) {
     if (word.length === 7)
       return "0" + word;
@@ -14094,7 +14090,7 @@ var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "sy
     else
       return word;
   }
-  utils$g.zero8 = zero8;
+  utils$h.zero8 = zero8;
   function join32(msg, start, end, endian) {
     var len2 = end - start;
     assert$a(len2 % 4 === 0);
@@ -14109,7 +14105,7 @@ var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "sy
     }
     return res;
   }
-  utils$g.join32 = join32;
+  utils$h.join32 = join32;
   function split32(msg, endian) {
     var res = new Array(msg.length * 4);
     for (var i2 = 0, k = 0; i2 < msg.length; i2++, k += 4) {
@@ -14128,31 +14124,31 @@ var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "sy
     }
     return res;
   }
-  utils$g.split32 = split32;
+  utils$h.split32 = split32;
   function rotr32$1(w, b) {
     return w >>> b | w << 32 - b;
   }
-  utils$g.rotr32 = rotr32$1;
+  utils$h.rotr32 = rotr32$1;
   function rotl32$2(w, b) {
     return w << b | w >>> 32 - b;
   }
-  utils$g.rotl32 = rotl32$2;
+  utils$h.rotl32 = rotl32$2;
   function sum32$3(a, b) {
     return a + b >>> 0;
   }
-  utils$g.sum32 = sum32$3;
+  utils$h.sum32 = sum32$3;
   function sum32_3$1(a, b, c) {
     return a + b + c >>> 0;
   }
-  utils$g.sum32_3 = sum32_3$1;
+  utils$h.sum32_3 = sum32_3$1;
   function sum32_4$2(a, b, c, d) {
     return a + b + c + d >>> 0;
   }
-  utils$g.sum32_4 = sum32_4$2;
+  utils$h.sum32_4 = sum32_4$2;
   function sum32_5$2(a, b, c, d, e) {
     return a + b + c + d + e >>> 0;
   }
-  utils$g.sum32_5 = sum32_5$2;
+  utils$h.sum32_5 = sum32_5$2;
   function sum64$1(buf, pos, ah, al) {
     var bh = buf[pos];
     var bl = buf[pos + 1];
@@ -14161,18 +14157,18 @@ var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "sy
     buf[pos] = hi >>> 0;
     buf[pos + 1] = lo;
   }
-  utils$g.sum64 = sum64$1;
+  utils$h.sum64 = sum64$1;
   function sum64_hi$1(ah, al, bh, bl) {
     var lo = al + bl >>> 0;
     var hi = (lo < al ? 1 : 0) + ah + bh;
     return hi >>> 0;
   }
-  utils$g.sum64_hi = sum64_hi$1;
+  utils$h.sum64_hi = sum64_hi$1;
   function sum64_lo$1(ah, al, bh, bl) {
     var lo = al + bl;
     return lo >>> 0;
   }
-  utils$g.sum64_lo = sum64_lo$1;
+  utils$h.sum64_lo = sum64_lo$1;
   function sum64_4_hi$1(ah, al, bh, bl, ch, cl, dh, dl) {
     var carry = 0;
     var lo = al;
@@ -14185,12 +14181,12 @@ var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "sy
     var hi = ah + bh + ch + dh + carry;
     return hi >>> 0;
   }
-  utils$g.sum64_4_hi = sum64_4_hi$1;
+  utils$h.sum64_4_hi = sum64_4_hi$1;
   function sum64_4_lo$1(ah, al, bh, bl, ch, cl, dh, dl) {
     var lo = al + bl + cl + dl;
     return lo >>> 0;
   }
-  utils$g.sum64_4_lo = sum64_4_lo$1;
+  utils$h.sum64_4_lo = sum64_4_lo$1;
   function sum64_5_hi$1(ah, al, bh, bl, ch, cl, dh, dl, eh, el) {
     var carry = 0;
     var lo = al;
@@ -14205,33 +14201,33 @@ var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "sy
     var hi = ah + bh + ch + dh + eh + carry;
     return hi >>> 0;
   }
-  utils$g.sum64_5_hi = sum64_5_hi$1;
+  utils$h.sum64_5_hi = sum64_5_hi$1;
   function sum64_5_lo$1(ah, al, bh, bl, ch, cl, dh, dl, eh, el) {
     var lo = al + bl + cl + dl + el;
     return lo >>> 0;
   }
-  utils$g.sum64_5_lo = sum64_5_lo$1;
+  utils$h.sum64_5_lo = sum64_5_lo$1;
   function rotr64_hi$1(ah, al, num) {
     var r2 = al << 32 - num | ah >>> num;
     return r2 >>> 0;
   }
-  utils$g.rotr64_hi = rotr64_hi$1;
+  utils$h.rotr64_hi = rotr64_hi$1;
   function rotr64_lo$1(ah, al, num) {
     var r2 = ah << 32 - num | al >>> num;
     return r2 >>> 0;
   }
-  utils$g.rotr64_lo = rotr64_lo$1;
+  utils$h.rotr64_lo = rotr64_lo$1;
   function shr64_hi$1(ah, al, num) {
     return ah >>> num;
   }
-  utils$g.shr64_hi = shr64_hi$1;
+  utils$h.shr64_hi = shr64_hi$1;
   function shr64_lo$1(ah, al, num) {
     var r2 = ah << 32 - num | al >>> num;
     return r2 >>> 0;
   }
-  utils$g.shr64_lo = shr64_lo$1;
+  utils$h.shr64_lo = shr64_lo$1;
   var common$6 = {};
-  var utils$f = utils$g;
+  var utils$g = utils$h;
   var assert$9 = minimalisticAssert$1;
   function BlockHash$4() {
     this.pending = null;
@@ -14246,7 +14242,7 @@ var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "sy
   }
   common$6.BlockHash = BlockHash$4;
   BlockHash$4.prototype.update = function update(msg, enc) {
-    msg = utils$f.toArray(msg, enc);
+    msg = utils$g.toArray(msg, enc);
     if (!this.pending)
       this.pending = msg;
     else
@@ -14258,7 +14254,7 @@ var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "sy
       this.pending = msg.slice(msg.length - r2, msg.length);
       if (this.pending.length === 0)
         this.pending = null;
-      msg = utils$f.join32(msg, 0, msg.length - r2, this.endian);
+      msg = utils$g.join32(msg, 0, msg.length - r2, this.endian);
       for (var i2 = 0; i2 < msg.length; i2 += this._delta32)
         this._update(msg, i2, i2 + this._delta32);
     }
@@ -14305,8 +14301,8 @@ var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "sy
   };
   var sha = {};
   var common$5 = {};
-  var utils$e = utils$g;
-  var rotr32 = utils$e.rotr32;
+  var utils$f = utils$h;
+  var rotr32 = utils$f.rotr32;
   function ft_1$1(s2, x, y, z) {
     if (s2 === 0)
       return ch32$1(x, y, z);
@@ -14344,12 +14340,12 @@ var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "sy
     return rotr32(x, 17) ^ rotr32(x, 19) ^ x >>> 10;
   }
   common$5.g1_256 = g1_256$1;
-  var utils$d = utils$g;
+  var utils$e = utils$h;
   var common$4 = common$6;
   var shaCommon$1 = common$5;
-  var rotl32$1 = utils$d.rotl32;
-  var sum32$2 = utils$d.sum32;
-  var sum32_5$1 = utils$d.sum32_5;
+  var rotl32$1 = utils$e.rotl32;
+  var sum32$2 = utils$e.sum32;
+  var sum32_5$1 = utils$e.sum32_5;
   var ft_1 = shaCommon$1.ft_1;
   var BlockHash$3 = common$4.BlockHash;
   var sha1_K = [
@@ -14371,7 +14367,7 @@ var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "sy
     ];
     this.W = new Array(80);
   }
-  utils$d.inherits(SHA1, BlockHash$3);
+  utils$e.inherits(SHA1, BlockHash$3);
   var _1 = SHA1;
   SHA1.blockSize = 512;
   SHA1.outSize = 160;
@@ -14405,17 +14401,17 @@ var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "sy
   };
   SHA1.prototype._digest = function digest(enc) {
     if (enc === "hex")
-      return utils$d.toHex32(this.h, "big");
+      return utils$e.toHex32(this.h, "big");
     else
-      return utils$d.split32(this.h, "big");
+      return utils$e.split32(this.h, "big");
   };
-  var utils$c = utils$g;
+  var utils$d = utils$h;
   var common$3 = common$6;
   var shaCommon = common$5;
   var assert$8 = minimalisticAssert$1;
-  var sum32$1 = utils$c.sum32;
-  var sum32_4$1 = utils$c.sum32_4;
-  var sum32_5 = utils$c.sum32_5;
+  var sum32$1 = utils$d.sum32;
+  var sum32_4$1 = utils$d.sum32_4;
+  var sum32_5 = utils$d.sum32_5;
   var ch32 = shaCommon.ch32;
   var maj32 = shaCommon.maj32;
   var s0_256 = shaCommon.s0_256;
@@ -14489,9 +14485,9 @@ var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "sy
     3204031479,
     3329325298
   ];
-  function SHA256$2() {
-    if (!(this instanceof SHA256$2))
-      return new SHA256$2();
+  function SHA256$3() {
+    if (!(this instanceof SHA256$3))
+      return new SHA256$3();
     BlockHash$2.call(this);
     this.h = [
       1779033703,
@@ -14506,13 +14502,13 @@ var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "sy
     this.k = sha256_K;
     this.W = new Array(64);
   }
-  utils$c.inherits(SHA256$2, BlockHash$2);
-  var _256 = SHA256$2;
-  SHA256$2.blockSize = 512;
-  SHA256$2.outSize = 256;
-  SHA256$2.hmacStrength = 192;
-  SHA256$2.padLength = 64;
-  SHA256$2.prototype._update = function _update(msg, start) {
+  utils$d.inherits(SHA256$3, BlockHash$2);
+  var _256 = SHA256$3;
+  SHA256$3.blockSize = 512;
+  SHA256$3.outSize = 256;
+  SHA256$3.hmacStrength = 192;
+  SHA256$3.padLength = 64;
+  SHA256$3.prototype._update = function _update(msg, start) {
     var W = this.W;
     for (var i2 = 0; i2 < 16; i2++)
       W[i2] = msg[start + i2];
@@ -14548,18 +14544,18 @@ var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "sy
     this.h[6] = sum32$1(this.h[6], g);
     this.h[7] = sum32$1(this.h[7], h);
   };
-  SHA256$2.prototype._digest = function digest(enc) {
+  SHA256$3.prototype._digest = function digest(enc) {
     if (enc === "hex")
-      return utils$c.toHex32(this.h, "big");
+      return utils$d.toHex32(this.h, "big");
     else
-      return utils$c.split32(this.h, "big");
+      return utils$d.split32(this.h, "big");
   };
-  var utils$b = utils$g;
-  var SHA256$1 = _256;
+  var utils$c = utils$h;
+  var SHA256$2 = _256;
   function SHA224$2() {
     if (!(this instanceof SHA224$2))
       return new SHA224$2();
-    SHA256$1.call(this);
+    SHA256$2.call(this);
     this.h = [
       3238371032,
       914150663,
@@ -14571,7 +14567,7 @@ var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "sy
       3204075428
     ];
   }
-  utils$b.inherits(SHA224$2, SHA256$1);
+  utils$c.inherits(SHA224$2, SHA256$2);
   var _224 = SHA224$2;
   SHA224$2.blockSize = 512;
   SHA224$2.outSize = 224;
@@ -14579,24 +14575,24 @@ var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "sy
   SHA224$2.padLength = 64;
   SHA224$2.prototype._digest = function digest(enc) {
     if (enc === "hex")
-      return utils$b.toHex32(this.h.slice(0, 7), "big");
+      return utils$c.toHex32(this.h.slice(0, 7), "big");
     else
-      return utils$b.split32(this.h.slice(0, 7), "big");
+      return utils$c.split32(this.h.slice(0, 7), "big");
   };
-  var utils$a = utils$g;
+  var utils$b = utils$h;
   var common$2 = common$6;
   var assert$7 = minimalisticAssert$1;
-  var rotr64_hi = utils$a.rotr64_hi;
-  var rotr64_lo = utils$a.rotr64_lo;
-  var shr64_hi = utils$a.shr64_hi;
-  var shr64_lo = utils$a.shr64_lo;
-  var sum64 = utils$a.sum64;
-  var sum64_hi = utils$a.sum64_hi;
-  var sum64_lo = utils$a.sum64_lo;
-  var sum64_4_hi = utils$a.sum64_4_hi;
-  var sum64_4_lo = utils$a.sum64_4_lo;
-  var sum64_5_hi = utils$a.sum64_5_hi;
-  var sum64_5_lo = utils$a.sum64_5_lo;
+  var rotr64_hi = utils$b.rotr64_hi;
+  var rotr64_lo = utils$b.rotr64_lo;
+  var shr64_hi = utils$b.shr64_hi;
+  var shr64_lo = utils$b.shr64_lo;
+  var sum64 = utils$b.sum64;
+  var sum64_hi = utils$b.sum64_hi;
+  var sum64_lo = utils$b.sum64_lo;
+  var sum64_4_hi = utils$b.sum64_4_hi;
+  var sum64_4_lo = utils$b.sum64_4_lo;
+  var sum64_5_hi = utils$b.sum64_5_hi;
+  var sum64_5_lo = utils$b.sum64_5_lo;
   var BlockHash$1 = common$2.BlockHash;
   var sha512_K = [
     1116352408,
@@ -14785,7 +14781,7 @@ var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "sy
     this.k = sha512_K;
     this.W = new Array(160);
   }
-  utils$a.inherits(SHA512$1, BlockHash$1);
+  utils$b.inherits(SHA512$1, BlockHash$1);
   var _512 = SHA512$1;
   SHA512$1.blockSize = 1024;
   SHA512$1.outSize = 512;
@@ -14915,9 +14911,9 @@ var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "sy
   };
   SHA512$1.prototype._digest = function digest(enc) {
     if (enc === "hex")
-      return utils$a.toHex32(this.h, "big");
+      return utils$b.toHex32(this.h, "big");
     else
-      return utils$a.split32(this.h, "big");
+      return utils$b.split32(this.h, "big");
   };
   function ch64_hi(xh, xl, yh, yl, zh) {
     var r2 = xh & yh ^ ~xh & zh;
@@ -15015,7 +15011,7 @@ var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "sy
       r2 += 4294967296;
     return r2;
   }
-  var utils$9 = utils$g;
+  var utils$a = utils$h;
   var SHA512 = _512;
   function SHA384() {
     if (!(this instanceof SHA384))
@@ -15040,7 +15036,7 @@ var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "sy
       3204075428
     ];
   }
-  utils$9.inherits(SHA384, SHA512);
+  utils$a.inherits(SHA384, SHA512);
   var _384 = SHA384;
   SHA384.blockSize = 1024;
   SHA384.outSize = 384;
@@ -15048,9 +15044,9 @@ var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "sy
   SHA384.padLength = 128;
   SHA384.prototype._digest = function digest(enc) {
     if (enc === "hex")
-      return utils$9.toHex32(this.h.slice(0, 12), "big");
+      return utils$a.toHex32(this.h.slice(0, 12), "big");
     else
-      return utils$9.split32(this.h.slice(0, 12), "big");
+      return utils$a.split32(this.h.slice(0, 12), "big");
   };
   sha.sha1 = _1;
   sha.sha224 = _224;
@@ -15058,12 +15054,12 @@ var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "sy
   sha.sha384 = _384;
   sha.sha512 = _512;
   var ripemd = {};
-  var utils$8 = utils$g;
+  var utils$9 = utils$h;
   var common$1 = common$6;
-  var rotl32 = utils$8.rotl32;
-  var sum32 = utils$8.sum32;
-  var sum32_3 = utils$8.sum32_3;
-  var sum32_4 = utils$8.sum32_4;
+  var rotl32 = utils$9.rotl32;
+  var sum32 = utils$9.sum32;
+  var sum32_3 = utils$9.sum32_3;
+  var sum32_4 = utils$9.sum32_4;
   var BlockHash = common$1.BlockHash;
   function RIPEMD160() {
     if (!(this instanceof RIPEMD160))
@@ -15072,7 +15068,7 @@ var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "sy
     this.h = [1732584193, 4023233417, 2562383102, 271733878, 3285377520];
     this.endian = "little";
   }
-  utils$8.inherits(RIPEMD160, BlockHash);
+  utils$9.inherits(RIPEMD160, BlockHash);
   ripemd.ripemd160 = RIPEMD160;
   RIPEMD160.blockSize = 512;
   RIPEMD160.outSize = 160;
@@ -15124,9 +15120,9 @@ var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "sy
   };
   RIPEMD160.prototype._digest = function digest(enc) {
     if (enc === "hex")
-      return utils$8.toHex32(this.h, "little");
+      return utils$9.toHex32(this.h, "little");
     else
-      return utils$8.split32(this.h, "little");
+      return utils$9.split32(this.h, "little");
   };
   function f(j, x, y, z) {
     if (j <= 15)
@@ -15492,7 +15488,7 @@ var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "sy
     11,
     11
   ];
-  var utils$7 = utils$g;
+  var utils$8 = utils$h;
   var assert$6 = minimalisticAssert$1;
   function Hmac(hash2, key2, enc) {
     if (!(this instanceof Hmac))
@@ -15502,7 +15498,7 @@ var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "sy
     this.outSize = hash2.outSize / 8;
     this.inner = null;
     this.outer = null;
-    this._init(utils$7.toArray(key2, enc));
+    this._init(utils$8.toArray(key2, enc));
   }
   var hmac$1 = Hmac;
   Hmac.prototype._init = function init(key2) {
@@ -15528,7 +15524,7 @@ var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "sy
   };
   (function(exports) {
     var hash2 = exports;
-    hash2.utils = utils$g;
+    hash2.utils = utils$h;
     hash2.common = common$6;
     hash2.sha = sha;
     hash2.ripemd = ripemd;
@@ -15625,10 +15621,13 @@ var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "sy
     utils2.encode = utils_1$9.encode;
     function getNAF2(num, w, bits) {
       var naf = new Array(Math.max(num.bitLength(), bits) + 1);
-      naf.fill(0);
+      var i2;
+      for (i2 = 0; i2 < naf.length; i2 += 1) {
+        naf[i2] = 0;
+      }
       var ws = 1 << w + 1;
       var k = num.clone();
-      for (var i2 = 0; i2 < naf.length; i2++) {
+      for (i2 = 0; i2 < naf.length; i2++) {
         var z;
         var mod2 = k.andln(ws - 1);
         if (k.isOdd()) {
@@ -17079,8 +17078,8 @@ var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "sy
   KeyPair.prototype.sign = function sign(msg, enc, options) {
     return this.ec.sign(msg, this, enc, options);
   };
-  KeyPair.prototype.verify = function verify(msg, signature2) {
-    return this.ec.verify(msg, signature2, this);
+  KeyPair.prototype.verify = function verify(msg, signature2, options) {
+    return this.ec.verify(msg, signature2, this, void 0, options);
   };
   KeyPair.prototype.inspect = function inspect() {
     return "<Key priv: " + (this.priv && this.priv.toString(16, 2)) + " pub: " + (this.pub && this.pub.inspect()) + " >";
@@ -17110,6 +17109,9 @@ var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "sy
     }
     var octetLen = initial & 15;
     if (octetLen === 0 || octetLen > 4) {
+      return false;
+    }
+    if (buf[p.place] === 0) {
       return false;
     }
     var val = 0;
@@ -17155,6 +17157,9 @@ var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "sy
     if (rlen === false) {
       return false;
     }
+    if ((data[p.place] & 128) !== 0) {
+      return false;
+    }
     var r2 = data.slice(p.place, rlen + p.place);
     p.place += rlen;
     if (data[p.place++] !== 2) {
@@ -17165,6 +17170,9 @@ var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "sy
       return false;
     }
     if (data.length !== slen + p.place) {
+      return false;
+    }
+    if ((data[p.place] & 128) !== 0) {
       return false;
     }
     var s2 = data.slice(p.place, slen + p.place);
@@ -17280,8 +17288,23 @@ var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "sy
       return this.keyFromPrivate(priv);
     }
   };
-  EC.prototype._truncateToN = function _truncateToN(msg, truncOnly) {
-    var delta = msg.byteLength() * 8 - this.n.bitLength();
+  EC.prototype._truncateToN = function _truncateToN(msg, truncOnly, bitLength) {
+    var byteLength2;
+    if (BN.isBN(msg) || typeof msg === "number") {
+      msg = new BN(msg, 16);
+      byteLength2 = msg.byteLength();
+    } else if (typeof msg === "object") {
+      byteLength2 = msg.length;
+      msg = new BN(msg, 16);
+    } else {
+      var str = msg.toString();
+      byteLength2 = str.length + 1 >>> 1;
+      msg = new BN(str, 16);
+    }
+    if (typeof bitLength !== "number") {
+      bitLength = byteLength2 * 8;
+    }
+    var delta = bitLength - this.n.bitLength();
     if (delta > 0)
       msg = msg.ushrn(delta);
     if (!truncOnly && msg.cmp(this.n) >= 0)
@@ -17296,11 +17319,21 @@ var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "sy
     }
     if (!options)
       options = {};
+    if (typeof msg !== "string" && typeof msg !== "number" && !BN.isBN(msg)) {
+      assert$5(
+        typeof msg === "object" && msg && typeof msg.length === "number",
+        "Expected message to be an array-like, a hex string, or a BN instance"
+      );
+      assert$5(msg.length >>> 0 === msg.length);
+      for (var i2 = 0; i2 < msg.length; i2++) assert$5((msg[i2] & 255) === msg[i2]);
+    }
     key2 = this.keyFromPrivate(key2, enc);
-    msg = this._truncateToN(new BN(msg, 16));
+    msg = this._truncateToN(msg, false, options.msgBitLength);
+    assert$5(!msg.isNeg(), "Can not sign a negative message");
     var bytes2 = this.n.byteLength();
     var bkey = key2.getPrivate().toArray("be", bytes2);
     var nonce = msg.toArray("be", bytes2);
+    assert$5(new BN(nonce).eq(msg), "Can not sign message");
     var drbg = new hmacDrbg({
       hash: this.hash,
       entropy: bkey,
@@ -17333,8 +17366,10 @@ var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "sy
       return new signature$1({ r: r2, s: s2, recoveryParam });
     }
   };
-  EC.prototype.verify = function verify(msg, signature$1$1, key2, enc) {
-    msg = this._truncateToN(new BN(msg, 16));
+  EC.prototype.verify = function verify(msg, signature$1$1, key2, enc, options) {
+    if (!options)
+      options = {};
+    msg = this._truncateToN(msg, false, options.msgBitLength);
     key2 = this.keyFromPublic(key2, enc);
     signature$1$1 = new signature$1(signature$1$1, "hex");
     var r2 = signature$1$1.r;
@@ -17397,7 +17432,7 @@ var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "sy
   var elliptic_1 = createCommonjsModule(function(module, exports) {
     var elliptic = exports;
     elliptic.version = /*RicMoo:ethers*/
-    { version: "6.5.4" }.version;
+    { version: "6.6.1" }.version;
     elliptic.utils = utils_1$1$1;
     elliptic.rand = /*RicMoo:ethers:require(brorand)*/
     function() {
@@ -17410,7 +17445,7 @@ var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "sy
     null;
   });
   var EC$1 = elliptic_1.ec;
-  const version$3 = "signing-key/5.7.0";
+  const version$3 = "signing-key/5.8.0";
   const logger$7 = new Logger(version$3);
   let _curve = null;
   function getCurve() {
@@ -17477,7 +17512,7 @@ var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "sy
     }
     return logger$7.throwArgumentError("invalid public or private key", "key", "[REDACTED]");
   }
-  const version$2 = "transactions/5.7.0";
+  const version$2 = "transactions/5.8.0";
   const logger$6 = new Logger(version$2);
   var TransactionTypes;
   (function(TransactionTypes2) {
@@ -17732,187 +17767,455 @@ var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "sy
   }
   const EthAppPleaseEnableContractData = createCustomErrorClass("EthAppPleaseEnableContractData");
   const EthAppNftNotSupported = createCustomErrorClass("EthAppNftNotSupported");
-  var sha224 = { exports: {} };
-  function commonjsRequire(path) {
-    throw new Error('Could not dynamically require "' + path + '". Please configure the dynamicRequireTargets or/and ignoreDynamicRequires option of @rollup/plugin-commonjs appropriately for this require call to work.');
+  function isBytes$4(a) {
+    return a instanceof Uint8Array || a != null && typeof a === "object" && a.constructor.name === "Uint8Array";
   }
-  var core = { exports: {} };
-  var hasRequiredCore;
-  function requireCore() {
-    if (hasRequiredCore) return core.exports;
-    hasRequiredCore = 1;
-    (function(module, exports) {
-      (function(root, factory) {
-        {
-          module.exports = factory();
-        }
-      })(commonjsGlobal, function() {
-        var CryptoJS = CryptoJS;
-        return CryptoJS;
-      });
-    })(core);
-    return core.exports;
+  function bytes$4(b, ...lengths) {
+    if (!isBytes$4(b))
+      throw new Error("Uint8Array expected");
+    if (lengths.length > 0 && !lengths.includes(b.length))
+      throw new Error(`Uint8Array expected of length ${lengths}, not of length=${b.length}`);
   }
-  var sha256$1 = { exports: {} };
-  var hasRequiredSha256;
-  function requireSha256() {
-    if (hasRequiredSha256) return sha256$1.exports;
-    hasRequiredSha256 = 1;
-    (function(module, exports) {
-      (function(root, factory) {
-        {
-          module.exports = factory(requireCore());
-        }
-      })(commonjsGlobal, function(CryptoJS) {
-        (function(Math2) {
-          var C = CryptoJS;
-          var C_lib = C.lib;
-          var WordArray = C_lib.WordArray;
-          var Hasher = C_lib.Hasher;
-          var C_algo = C.algo;
-          var H = [];
-          var K2 = [];
-          (function() {
-            function isPrime(n2) {
-              var sqrtN = Math2.sqrt(n2);
-              for (var factor = 2; factor <= sqrtN; factor++) {
-                if (!(n2 % factor)) {
-                  return false;
-                }
-              }
-              return true;
-            }
-            function getFractionalBits(n2) {
-              return (n2 - (n2 | 0)) * 4294967296 | 0;
-            }
-            var n = 2;
-            var nPrime = 0;
-            while (nPrime < 64) {
-              if (isPrime(n)) {
-                if (nPrime < 8) {
-                  H[nPrime] = getFractionalBits(Math2.pow(n, 1 / 2));
-                }
-                K2[nPrime] = getFractionalBits(Math2.pow(n, 1 / 3));
-                nPrime++;
-              }
-              n++;
-            }
-          })();
-          var W = [];
-          var SHA2562 = C_algo.SHA256 = Hasher.extend({
-            _doReset: function() {
-              this._hash = new WordArray.init(H.slice(0));
-            },
-            _doProcessBlock: function(M, offset) {
-              var H2 = this._hash.words;
-              var a = H2[0];
-              var b = H2[1];
-              var c = H2[2];
-              var d = H2[3];
-              var e = H2[4];
-              var f2 = H2[5];
-              var g = H2[6];
-              var h = H2[7];
-              for (var i2 = 0; i2 < 64; i2++) {
-                if (i2 < 16) {
-                  W[i2] = M[offset + i2] | 0;
-                } else {
-                  var gamma0x = W[i2 - 15];
-                  var gamma0 = (gamma0x << 25 | gamma0x >>> 7) ^ (gamma0x << 14 | gamma0x >>> 18) ^ gamma0x >>> 3;
-                  var gamma1x = W[i2 - 2];
-                  var gamma1 = (gamma1x << 15 | gamma1x >>> 17) ^ (gamma1x << 13 | gamma1x >>> 19) ^ gamma1x >>> 10;
-                  W[i2] = gamma0 + W[i2 - 7] + gamma1 + W[i2 - 16];
-                }
-                var ch = e & f2 ^ ~e & g;
-                var maj = a & b ^ a & c ^ b & c;
-                var sigma0 = (a << 30 | a >>> 2) ^ (a << 19 | a >>> 13) ^ (a << 10 | a >>> 22);
-                var sigma1 = (e << 26 | e >>> 6) ^ (e << 21 | e >>> 11) ^ (e << 7 | e >>> 25);
-                var t1 = h + sigma1 + ch + K2[i2] + W[i2];
-                var t2 = sigma0 + maj;
-                h = g;
-                g = f2;
-                f2 = e;
-                e = d + t1 | 0;
-                d = c;
-                c = b;
-                b = a;
-                a = t1 + t2 | 0;
-              }
-              H2[0] = H2[0] + a | 0;
-              H2[1] = H2[1] + b | 0;
-              H2[2] = H2[2] + c | 0;
-              H2[3] = H2[3] + d | 0;
-              H2[4] = H2[4] + e | 0;
-              H2[5] = H2[5] + f2 | 0;
-              H2[6] = H2[6] + g | 0;
-              H2[7] = H2[7] + h | 0;
-            },
-            _doFinalize: function() {
-              var data = this._data;
-              var dataWords = data.words;
-              var nBitsTotal = this._nDataBytes * 8;
-              var nBitsLeft = data.sigBytes * 8;
-              dataWords[nBitsLeft >>> 5] |= 128 << 24 - nBitsLeft % 32;
-              dataWords[(nBitsLeft + 64 >>> 9 << 4) + 14] = Math2.floor(nBitsTotal / 4294967296);
-              dataWords[(nBitsLeft + 64 >>> 9 << 4) + 15] = nBitsTotal;
-              data.sigBytes = dataWords.length * 4;
-              this._process();
-              return this._hash;
-            },
-            clone: function() {
-              var clone2 = Hasher.clone.call(this);
-              clone2._hash = this._hash.clone();
-              return clone2;
-            }
-          });
-          C.SHA256 = Hasher._createHelper(SHA2562);
-          C.HmacSHA256 = Hasher._createHmacHelper(SHA2562);
-        })(Math);
-        return CryptoJS.SHA256;
-      });
-    })(sha256$1);
-    return sha256$1.exports;
+  function exists$1(instance, checkFinished = true) {
+    if (instance.destroyed)
+      throw new Error("Hash instance has been destroyed");
+    if (checkFinished && instance.finished)
+      throw new Error("Hash#digest() has already been called");
   }
-  (function(module, exports) {
-    (function(root, factory, undef) {
-      {
-        module.exports = factory(requireCore(), requireSha256());
+  function output$1(out, instance) {
+    bytes$4(out);
+    const min2 = instance.outputLen;
+    if (out.length < min2) {
+      throw new Error(`digestInto() expects output buffer of length at least ${min2}`);
+    }
+  }
+  const crypto$3 = typeof globalThis === "object" && "crypto" in globalThis ? globalThis.crypto : void 0;
+  /*! noble-hashes - MIT License (c) 2022 Paul Miller (paulmillr.com) */
+  function isBytes$3(a) {
+    return a instanceof Uint8Array || a != null && typeof a === "object" && a.constructor.name === "Uint8Array";
+  }
+  const u8 = (arr) => new Uint8Array(arr.buffer, arr.byteOffset, arr.byteLength);
+  const u32 = (arr) => new Uint32Array(arr.buffer, arr.byteOffset, Math.floor(arr.byteLength / 4));
+  const createView = (arr) => new DataView(arr.buffer, arr.byteOffset, arr.byteLength);
+  const rotr = (word, shift) => word << 32 - shift | word >>> shift;
+  const rotl = (word, shift) => word << shift | word >>> 32 - shift >>> 0;
+  const isLE = new Uint8Array(new Uint32Array([287454020]).buffer)[0] === 68;
+  const byteSwap = (word) => word << 24 & 4278190080 | word << 8 & 16711680 | word >>> 8 & 65280 | word >>> 24 & 255;
+  const byteSwapIfBE = isLE ? (n) => n : (n) => byteSwap(n);
+  function byteSwap32(arr) {
+    for (let i2 = 0; i2 < arr.length; i2++) {
+      arr[i2] = byteSwap(arr[i2]);
+    }
+  }
+  const hexes$1 = /* @__PURE__ */ Array.from({ length: 256 }, (_, i2) => i2.toString(16).padStart(2, "0"));
+  function bytesToHex$2(bytes2) {
+    bytes$4(bytes2);
+    let hex2 = "";
+    for (let i2 = 0; i2 < bytes2.length; i2++) {
+      hex2 += hexes$1[bytes2[i2]];
+    }
+    return hex2;
+  }
+  const asciis$1 = { _0: 48, _9: 57, _A: 65, _F: 70, _a: 97, _f: 102 };
+  function asciiToBase16$1(char) {
+    if (char >= asciis$1._0 && char <= asciis$1._9)
+      return char - asciis$1._0;
+    if (char >= asciis$1._A && char <= asciis$1._F)
+      return char - (asciis$1._A - 10);
+    if (char >= asciis$1._a && char <= asciis$1._f)
+      return char - (asciis$1._a - 10);
+    return;
+  }
+  function hexToBytes$2(hex2) {
+    if (typeof hex2 !== "string")
+      throw new Error("hex string expected, got " + typeof hex2);
+    const hl = hex2.length;
+    const al = hl / 2;
+    if (hl % 2)
+      throw new Error("padded hex string expected, got unpadded hex of length " + hl);
+    const array2 = new Uint8Array(al);
+    for (let ai = 0, hi = 0; ai < al; ai++, hi += 2) {
+      const n1 = asciiToBase16$1(hex2.charCodeAt(hi));
+      const n2 = asciiToBase16$1(hex2.charCodeAt(hi + 1));
+      if (n1 === void 0 || n2 === void 0) {
+        const char = hex2[hi] + hex2[hi + 1];
+        throw new Error('hex string expected, got non-hex character "' + char + '" at index ' + hi);
       }
-    })(commonjsGlobal, function(CryptoJS) {
-      (function() {
-        var C = CryptoJS;
-        var C_lib = C.lib;
-        var WordArray = C_lib.WordArray;
-        var C_algo = C.algo;
-        var SHA2562 = C_algo.SHA256;
-        var SHA2242 = C_algo.SHA224 = SHA2562.extend({
-          _doReset: function() {
-            this._hash = new WordArray.init([
-              3238371032,
-              914150663,
-              812702999,
-              4144912697,
-              4290775857,
-              1750603025,
-              1694076839,
-              3204075428
-            ]);
-          },
-          _doFinalize: function() {
-            var hash2 = SHA2562._doFinalize.call(this);
-            hash2.sigBytes -= 4;
-            return hash2;
-          }
-        });
-        C.SHA224 = SHA2562._createHelper(SHA2242);
-        C.HmacSHA224 = SHA2562._createHmacHelper(SHA2242);
-      })();
-      return CryptoJS.SHA224;
-    });
-  })(sha224);
-  var sha224Exports = sha224.exports;
-  const SHA224$1 = /* @__PURE__ */ getDefaultExportFromCjs(sha224Exports);
-  const version$1 = "strings/5.7.0";
+      array2[ai] = n1 * 16 + n2;
+    }
+    return array2;
+  }
+  const nextTick$1 = async () => {
+  };
+  async function asyncLoop(iters, tick, cb) {
+    let ts = Date.now();
+    for (let i2 = 0; i2 < iters; i2++) {
+      cb(i2);
+      const diff2 = Date.now() - ts;
+      if (diff2 >= 0 && diff2 < tick)
+        continue;
+      await nextTick$1();
+      ts += diff2;
+    }
+  }
+  function utf8ToBytes$2(str) {
+    if (typeof str !== "string")
+      throw new Error(`utf8ToBytes expected string, got ${typeof str}`);
+    return new Uint8Array(new TextEncoder().encode(str));
+  }
+  function toBytes$1(data) {
+    if (typeof data === "string")
+      data = utf8ToBytes$2(data);
+    bytes$4(data);
+    return data;
+  }
+  function concatBytes$2(...arrays) {
+    let sum = 0;
+    for (let i2 = 0; i2 < arrays.length; i2++) {
+      const a = arrays[i2];
+      bytes$4(a);
+      sum += a.length;
+    }
+    const res = new Uint8Array(sum);
+    for (let i2 = 0, pad = 0; i2 < arrays.length; i2++) {
+      const a = arrays[i2];
+      res.set(a, pad);
+      pad += a.length;
+    }
+    return res;
+  }
+  class Hash {
+    // Safe version that clones internal state
+    clone() {
+      return this._cloneInto();
+    }
+  }
+  const toStr = {}.toString;
+  function checkOpts(defaults, opts) {
+    if (opts !== void 0 && toStr.call(opts) !== "[object Object]")
+      throw new Error("Options should be object or undefined");
+    const merged = Object.assign(defaults, opts);
+    return merged;
+  }
+  function wrapConstructor(hashCons) {
+    const hashC = (msg) => hashCons().update(toBytes$1(msg)).digest();
+    const tmp = hashCons();
+    hashC.outputLen = tmp.outputLen;
+    hashC.blockLen = tmp.blockLen;
+    hashC.create = () => hashCons();
+    return hashC;
+  }
+  function wrapConstructorWithOpts(hashCons) {
+    const hashC = (msg, opts) => hashCons(opts).update(toBytes$1(msg)).digest();
+    const tmp = hashCons({});
+    hashC.outputLen = tmp.outputLen;
+    hashC.blockLen = tmp.blockLen;
+    hashC.create = (opts) => hashCons(opts);
+    return hashC;
+  }
+  function wrapXOFConstructorWithOpts(hashCons) {
+    const hashC = (msg, opts) => hashCons(opts).update(toBytes$1(msg)).digest();
+    const tmp = hashCons({});
+    hashC.outputLen = tmp.outputLen;
+    hashC.blockLen = tmp.blockLen;
+    hashC.create = (opts) => hashCons(opts);
+    return hashC;
+  }
+  function randomBytes(bytesLength = 32) {
+    if (crypto$3 && typeof crypto$3.getRandomValues === "function") {
+      return crypto$3.getRandomValues(new Uint8Array(bytesLength));
+    }
+    throw new Error("crypto.getRandomValues must be defined");
+  }
+  const utils$7 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+    __proto__: null,
+    Hash,
+    asyncLoop,
+    byteSwap,
+    byteSwap32,
+    byteSwapIfBE,
+    bytesToHex: bytesToHex$2,
+    checkOpts,
+    concatBytes: concatBytes$2,
+    createView,
+    hexToBytes: hexToBytes$2,
+    isBytes: isBytes$3,
+    isLE,
+    nextTick: nextTick$1,
+    randomBytes,
+    rotl,
+    rotr,
+    toBytes: toBytes$1,
+    u32,
+    u8,
+    utf8ToBytes: utf8ToBytes$2,
+    wrapConstructor,
+    wrapConstructorWithOpts,
+    wrapXOFConstructorWithOpts
+  }, Symbol.toStringTag, { value: "Module" }));
+  function setBigUint64$1(view, byteOffset, value, isLE2) {
+    if (typeof view.setBigUint64 === "function")
+      return view.setBigUint64(byteOffset, value, isLE2);
+    const _32n2 = BigInt(32);
+    const _u32_max = BigInt(4294967295);
+    const wh = Number(value >> _32n2 & _u32_max);
+    const wl = Number(value & _u32_max);
+    const h = isLE2 ? 4 : 0;
+    const l = isLE2 ? 0 : 4;
+    view.setUint32(byteOffset + h, wh, isLE2);
+    view.setUint32(byteOffset + l, wl, isLE2);
+  }
+  const Chi$1 = (a, b, c) => a & b ^ ~a & c;
+  const Maj$1 = (a, b, c) => a & b ^ a & c ^ b & c;
+  let HashMD$1 = class HashMD extends Hash {
+    constructor(blockLen, outputLen, padOffset, isLE2) {
+      super();
+      this.blockLen = blockLen;
+      this.outputLen = outputLen;
+      this.padOffset = padOffset;
+      this.isLE = isLE2;
+      this.finished = false;
+      this.length = 0;
+      this.pos = 0;
+      this.destroyed = false;
+      this.buffer = new Uint8Array(blockLen);
+      this.view = createView(this.buffer);
+    }
+    update(data) {
+      exists$1(this);
+      const { view, buffer: buffer2, blockLen } = this;
+      data = toBytes$1(data);
+      const len2 = data.length;
+      for (let pos = 0; pos < len2; ) {
+        const take = Math.min(blockLen - this.pos, len2 - pos);
+        if (take === blockLen) {
+          const dataView = createView(data);
+          for (; blockLen <= len2 - pos; pos += blockLen)
+            this.process(dataView, pos);
+          continue;
+        }
+        buffer2.set(data.subarray(pos, pos + take), this.pos);
+        this.pos += take;
+        pos += take;
+        if (this.pos === blockLen) {
+          this.process(view, 0);
+          this.pos = 0;
+        }
+      }
+      this.length += data.length;
+      this.roundClean();
+      return this;
+    }
+    digestInto(out) {
+      exists$1(this);
+      output$1(out, this);
+      this.finished = true;
+      const { buffer: buffer2, view, blockLen, isLE: isLE2 } = this;
+      let { pos } = this;
+      buffer2[pos++] = 128;
+      this.buffer.subarray(pos).fill(0);
+      if (this.padOffset > blockLen - pos) {
+        this.process(view, 0);
+        pos = 0;
+      }
+      for (let i2 = pos; i2 < blockLen; i2++)
+        buffer2[i2] = 0;
+      setBigUint64$1(view, blockLen - 8, BigInt(this.length * 8), isLE2);
+      this.process(view, 0);
+      const oview = createView(out);
+      const len2 = this.outputLen;
+      if (len2 % 4)
+        throw new Error("_sha2: outputLen should be aligned to 32bit");
+      const outLen = len2 / 4;
+      const state = this.get();
+      if (outLen > state.length)
+        throw new Error("_sha2: outputLen bigger than state");
+      for (let i2 = 0; i2 < outLen; i2++)
+        oview.setUint32(4 * i2, state[i2], isLE2);
+    }
+    digest() {
+      const { buffer: buffer2, outputLen } = this;
+      this.digestInto(buffer2);
+      const res = buffer2.slice(0, outputLen);
+      this.destroy();
+      return res;
+    }
+    _cloneInto(to) {
+      to || (to = new this.constructor());
+      to.set(...this.get());
+      const { blockLen, buffer: buffer2, length, finished, destroyed, pos } = this;
+      to.length = length;
+      to.pos = pos;
+      to.finished = finished;
+      to.destroyed = destroyed;
+      if (length % blockLen)
+        to.buffer.set(buffer2);
+      return to;
+    }
+  };
+  const SHA256_K$1 = /* @__PURE__ */ new Uint32Array([
+    1116352408,
+    1899447441,
+    3049323471,
+    3921009573,
+    961987163,
+    1508970993,
+    2453635748,
+    2870763221,
+    3624381080,
+    310598401,
+    607225278,
+    1426881987,
+    1925078388,
+    2162078206,
+    2614888103,
+    3248222580,
+    3835390401,
+    4022224774,
+    264347078,
+    604807628,
+    770255983,
+    1249150122,
+    1555081692,
+    1996064986,
+    2554220882,
+    2821834349,
+    2952996808,
+    3210313671,
+    3336571891,
+    3584528711,
+    113926993,
+    338241895,
+    666307205,
+    773529912,
+    1294757372,
+    1396182291,
+    1695183700,
+    1986661051,
+    2177026350,
+    2456956037,
+    2730485921,
+    2820302411,
+    3259730800,
+    3345764771,
+    3516065817,
+    3600352804,
+    4094571909,
+    275423344,
+    430227734,
+    506948616,
+    659060556,
+    883997877,
+    958139571,
+    1322822218,
+    1537002063,
+    1747873779,
+    1955562222,
+    2024104815,
+    2227730452,
+    2361852424,
+    2428436474,
+    2756734187,
+    3204031479,
+    3329325298
+  ]);
+  const SHA256_IV$1 = /* @__PURE__ */ new Uint32Array([
+    1779033703,
+    3144134277,
+    1013904242,
+    2773480762,
+    1359893119,
+    2600822924,
+    528734635,
+    1541459225
+  ]);
+  const SHA256_W$1 = /* @__PURE__ */ new Uint32Array(64);
+  let SHA256$1 = class SHA256 extends HashMD$1 {
+    constructor() {
+      super(64, 32, 8, false);
+      this.A = SHA256_IV$1[0] | 0;
+      this.B = SHA256_IV$1[1] | 0;
+      this.C = SHA256_IV$1[2] | 0;
+      this.D = SHA256_IV$1[3] | 0;
+      this.E = SHA256_IV$1[4] | 0;
+      this.F = SHA256_IV$1[5] | 0;
+      this.G = SHA256_IV$1[6] | 0;
+      this.H = SHA256_IV$1[7] | 0;
+    }
+    get() {
+      const { A, B, C, D, E, F, G, H } = this;
+      return [A, B, C, D, E, F, G, H];
+    }
+    // prettier-ignore
+    set(A, B, C, D, E, F, G, H) {
+      this.A = A | 0;
+      this.B = B | 0;
+      this.C = C | 0;
+      this.D = D | 0;
+      this.E = E | 0;
+      this.F = F | 0;
+      this.G = G | 0;
+      this.H = H | 0;
+    }
+    process(view, offset) {
+      for (let i2 = 0; i2 < 16; i2++, offset += 4)
+        SHA256_W$1[i2] = view.getUint32(offset, false);
+      for (let i2 = 16; i2 < 64; i2++) {
+        const W15 = SHA256_W$1[i2 - 15];
+        const W2 = SHA256_W$1[i2 - 2];
+        const s0 = rotr(W15, 7) ^ rotr(W15, 18) ^ W15 >>> 3;
+        const s1 = rotr(W2, 17) ^ rotr(W2, 19) ^ W2 >>> 10;
+        SHA256_W$1[i2] = s1 + SHA256_W$1[i2 - 7] + s0 + SHA256_W$1[i2 - 16] | 0;
+      }
+      let { A, B, C, D, E, F, G, H } = this;
+      for (let i2 = 0; i2 < 64; i2++) {
+        const sigma1 = rotr(E, 6) ^ rotr(E, 11) ^ rotr(E, 25);
+        const T1 = H + sigma1 + Chi$1(E, F, G) + SHA256_K$1[i2] + SHA256_W$1[i2] | 0;
+        const sigma0 = rotr(A, 2) ^ rotr(A, 13) ^ rotr(A, 22);
+        const T2 = sigma0 + Maj$1(A, B, C) | 0;
+        H = G;
+        G = F;
+        F = E;
+        E = D + T1 | 0;
+        D = C;
+        C = B;
+        B = A;
+        A = T1 + T2 | 0;
+      }
+      A = A + this.A | 0;
+      B = B + this.B | 0;
+      C = C + this.C | 0;
+      D = D + this.D | 0;
+      E = E + this.E | 0;
+      F = F + this.F | 0;
+      G = G + this.G | 0;
+      H = H + this.H | 0;
+      this.set(A, B, C, D, E, F, G, H);
+    }
+    roundClean() {
+      SHA256_W$1.fill(0);
+    }
+    destroy() {
+      this.set(0, 0, 0, 0, 0, 0, 0, 0);
+      this.buffer.fill(0);
+    }
+  };
+  let SHA224$1 = class SHA224 extends SHA256$1 {
+    constructor() {
+      super();
+      this.A = 3238371032 | 0;
+      this.B = 914150663 | 0;
+      this.C = 812702999 | 0;
+      this.D = 4144912697 | 0;
+      this.E = 4290775857 | 0;
+      this.F = 1750603025 | 0;
+      this.G = 1694076839 | 0;
+      this.H = 3204075428 | 0;
+      this.outputLen = 28;
+    }
+  };
+  const sha224 = /* @__PURE__ */ wrapConstructor(() => new SHA224$1());
+  const version$1 = "strings/5.8.0";
   const logger$5 = new Logger(version$1);
   var UnicodeNormalizationForm;
   (function(UnicodeNormalizationForm2) {
@@ -30622,7 +30925,10 @@ var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "sy
   const getSchemaHashForMessage = (message) => {
     const { types: types2 } = message;
     const sortedTypes = sortObjectAlphabetically(types2);
-    return SHA224$1(JSON.stringify(sortedTypes).replace(" ", "")).toString();
+    const hash2 = sha224.create();
+    hash2.update(JSON.stringify(sortedTypes).replace(" ", ""));
+    const digest = hash2.digest();
+    return bytesToHex$2(digest);
   };
   const getFiltersForMessage = async (message, shouldUseV1Filters, calServiceURL) => {
     const schemaHash = getSchemaHashForMessage(message);
@@ -31461,7 +31767,7 @@ var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "sy
       };
     });
   };
-  const version = "abi/5.7.0";
+  const version = "abi/5.8.0";
   const logger$4 = new Logger(version);
   const _constructorGuard = {};
   let ModifiersBytes = { calldata: true, memory: true, storage: true };
@@ -34720,7 +35026,7 @@ var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "sy
   }
   var WebSocketTransport$1 = {};
   const require$$0$1 = /* @__PURE__ */ getAugmentedNamespace(Transport$1);
-  const require$$1$1 = /* @__PURE__ */ getAugmentedNamespace(libEs$1);
+  const require$$1$2 = /* @__PURE__ */ getAugmentedNamespace(libEs$1);
   const require$$2 = /* @__PURE__ */ getAugmentedNamespace(libEs);
   var browser$1;
   var hasRequiredBrowser;
@@ -34734,14 +35040,14 @@ var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "sy
     };
     return browser$1;
   }
-  var __importDefault$1 = commonjsGlobal && commonjsGlobal.__importDefault || function(mod2) {
+  var __importDefault$1 = globalThis && globalThis.__importDefault || function(mod2) {
     return mod2 && mod2.__esModule ? mod2 : { "default": mod2 };
   };
   Object.defineProperty(WebSocketTransport$1, "__esModule", { value: true });
   const hw_transport_1 = __importDefault$1(require$$0$1);
-  const errors_1$1 = require$$1$1;
+  const errors_1$1 = require$$1$2;
   const logs_1 = require$$2;
-  const WebSocket = commonjsGlobal.WebSocket || requireBrowser();
+  const WebSocket = globalThis.WebSocket || requireBrowser();
   const _WebSocketTransport = class _WebSocketTransport extends hw_transport_1.default {
     constructor(hook) {
       super();
@@ -34949,14 +35255,14 @@ var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "sy
   }
   var ieee754 = {};
   /*! ieee754. BSD-3-Clause License. Feross Aboukhadijeh <https://feross.org/opensource> */
-  ieee754.read = function(buffer2, offset, isLE, mLen, nBytes) {
+  ieee754.read = function(buffer2, offset, isLE2, mLen, nBytes) {
     var e, m;
     var eLen = nBytes * 8 - mLen - 1;
     var eMax = (1 << eLen) - 1;
     var eBias = eMax >> 1;
     var nBits = -7;
-    var i2 = isLE ? nBytes - 1 : 0;
-    var d = isLE ? -1 : 1;
+    var i2 = isLE2 ? nBytes - 1 : 0;
+    var d = isLE2 ? -1 : 1;
     var s2 = buffer2[offset + i2];
     i2 += d;
     e = s2 & (1 << -nBits) - 1;
@@ -34979,14 +35285,14 @@ var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "sy
     }
     return (s2 ? -1 : 1) * m * Math.pow(2, e - mLen);
   };
-  ieee754.write = function(buffer2, value, offset, isLE, mLen, nBytes) {
+  ieee754.write = function(buffer2, value, offset, isLE2, mLen, nBytes) {
     var e, m, c;
     var eLen = nBytes * 8 - mLen - 1;
     var eMax = (1 << eLen) - 1;
     var eBias = eMax >> 1;
     var rt = mLen === 23 ? Math.pow(2, -24) - Math.pow(2, -77) : 0;
-    var i2 = isLE ? 0 : nBytes - 1;
-    var d = isLE ? 1 : -1;
+    var i2 = isLE2 ? 0 : nBytes - 1;
+    var d = isLE2 ? 1 : -1;
     var s2 = value < 0 || value === 0 && 1 / value < 0 ? 1 : 0;
     value = Math.abs(value);
     if (isNaN(value) || value === Infinity) {
@@ -36465,26 +36771,26 @@ var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "sy
       return a instanceof Uint8Array || a != null && typeof a === "object" && a.constructor.name === "Uint8Array";
     }
     exports.isBytes = isBytes2;
-    const u8 = (arr) => new Uint8Array(arr.buffer, arr.byteOffset, arr.byteLength);
-    exports.u8 = u8;
-    const u32 = (arr) => new Uint32Array(arr.buffer, arr.byteOffset, Math.floor(arr.byteLength / 4));
-    exports.u32 = u32;
-    const createView = (arr) => new DataView(arr.buffer, arr.byteOffset, arr.byteLength);
-    exports.createView = createView;
-    const rotr = (word, shift) => word << 32 - shift | word >>> shift;
-    exports.rotr = rotr;
-    const rotl = (word, shift) => word << shift | word >>> 32 - shift >>> 0;
-    exports.rotl = rotl;
+    const u82 = (arr) => new Uint8Array(arr.buffer, arr.byteOffset, arr.byteLength);
+    exports.u8 = u82;
+    const u322 = (arr) => new Uint32Array(arr.buffer, arr.byteOffset, Math.floor(arr.byteLength / 4));
+    exports.u32 = u322;
+    const createView2 = (arr) => new DataView(arr.buffer, arr.byteOffset, arr.byteLength);
+    exports.createView = createView2;
+    const rotr2 = (word, shift) => word << 32 - shift | word >>> shift;
+    exports.rotr = rotr2;
+    const rotl2 = (word, shift) => word << shift | word >>> 32 - shift >>> 0;
+    exports.rotl = rotl2;
     exports.isLE = new Uint8Array(new Uint32Array([287454020]).buffer)[0] === 68;
-    const byteSwap = (word) => word << 24 & 4278190080 | word << 8 & 16711680 | word >>> 8 & 65280 | word >>> 24 & 255;
-    exports.byteSwap = byteSwap;
+    const byteSwap2 = (word) => word << 24 & 4278190080 | word << 8 & 16711680 | word >>> 8 & 65280 | word >>> 24 & 255;
+    exports.byteSwap = byteSwap2;
     exports.byteSwapIfBE = exports.isLE ? (n) => n : (n) => (0, exports.byteSwap)(n);
-    function byteSwap32(arr) {
+    function byteSwap322(arr) {
       for (let i2 = 0; i2 < arr.length; i2++) {
         arr[i2] = (0, exports.byteSwap)(arr[i2]);
       }
     }
-    exports.byteSwap32 = byteSwap32;
+    exports.byteSwap32 = byteSwap322;
     const hexes2 = /* @__PURE__ */ Array.from({ length: 256 }, (_, i2) => i2.toString(16).padStart(2, "0"));
     function bytesToHex2(bytes2) {
       (0, _assert_js_12.bytes)(bytes2);
@@ -36528,7 +36834,7 @@ var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "sy
     const nextTick2 = async () => {
     };
     exports.nextTick = nextTick2;
-    async function asyncLoop(iters, tick, cb) {
+    async function asyncLoop2(iters, tick, cb) {
       let ts = Date.now();
       for (let i2 = 0; i2 < iters; i2++) {
         cb(i2);
@@ -36539,7 +36845,7 @@ var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "sy
         ts += diff2;
       }
     }
-    exports.asyncLoop = asyncLoop;
+    exports.asyncLoop = asyncLoop2;
     function utf8ToBytes2(str) {
       if (typeof str !== "string")
         throw new Error(`utf8ToBytes expected string, got ${typeof str}`);
@@ -36569,22 +36875,22 @@ var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "sy
       return res;
     }
     exports.concatBytes = concatBytes2;
-    class Hash {
+    class Hash2 {
       // Safe version that clones internal state
       clone() {
         return this._cloneInto();
       }
     }
-    exports.Hash = Hash;
-    const toStr = {}.toString;
-    function checkOpts(defaults, opts) {
-      if (opts !== void 0 && toStr.call(opts) !== "[object Object]")
+    exports.Hash = Hash2;
+    const toStr2 = {}.toString;
+    function checkOpts2(defaults, opts) {
+      if (opts !== void 0 && toStr2.call(opts) !== "[object Object]")
         throw new Error("Options should be object or undefined");
       const merged = Object.assign(defaults, opts);
       return merged;
     }
-    exports.checkOpts = checkOpts;
-    function wrapConstructor(hashCons) {
+    exports.checkOpts = checkOpts2;
+    function wrapConstructor2(hashCons) {
       const hashC = (msg) => hashCons().update(toBytes2(msg)).digest();
       const tmp = hashCons();
       hashC.outputLen = tmp.outputLen;
@@ -36592,8 +36898,8 @@ var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "sy
       hashC.create = () => hashCons();
       return hashC;
     }
-    exports.wrapConstructor = wrapConstructor;
-    function wrapConstructorWithOpts(hashCons) {
+    exports.wrapConstructor = wrapConstructor2;
+    function wrapConstructorWithOpts2(hashCons) {
       const hashC = (msg, opts) => hashCons(opts).update(toBytes2(msg)).digest();
       const tmp = hashCons({});
       hashC.outputLen = tmp.outputLen;
@@ -36601,8 +36907,8 @@ var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "sy
       hashC.create = (opts) => hashCons(opts);
       return hashC;
     }
-    exports.wrapConstructorWithOpts = wrapConstructorWithOpts;
-    function wrapXOFConstructorWithOpts(hashCons) {
+    exports.wrapConstructorWithOpts = wrapConstructorWithOpts2;
+    function wrapXOFConstructorWithOpts2(hashCons) {
       const hashC = (msg, opts) => hashCons(opts).update(toBytes2(msg)).digest();
       const tmp = hashCons({});
       hashC.outputLen = tmp.outputLen;
@@ -36610,42 +36916,42 @@ var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "sy
       hashC.create = (opts) => hashCons(opts);
       return hashC;
     }
-    exports.wrapXOFConstructorWithOpts = wrapXOFConstructorWithOpts;
-    function randomBytes(bytesLength = 32) {
+    exports.wrapXOFConstructorWithOpts = wrapXOFConstructorWithOpts2;
+    function randomBytes2(bytesLength = 32) {
       if (crypto_1.crypto && typeof crypto_1.crypto.getRandomValues === "function") {
         return crypto_1.crypto.getRandomValues(new Uint8Array(bytesLength));
       }
       throw new Error("crypto.getRandomValues must be defined");
     }
-    exports.randomBytes = randomBytes;
+    exports.randomBytes = randomBytes2;
   })(utils$6);
   Object.defineProperty(_md, "__esModule", { value: true });
   _md.HashMD = _md.Maj = _md.Chi = void 0;
   const _assert_js_1$2 = _assert$1;
   const utils_js_1$a = utils$6;
-  function setBigUint64(view, byteOffset, value, isLE) {
+  function setBigUint64(view, byteOffset, value, isLE2) {
     if (typeof view.setBigUint64 === "function")
-      return view.setBigUint64(byteOffset, value, isLE);
+      return view.setBigUint64(byteOffset, value, isLE2);
     const _32n2 = BigInt(32);
     const _u32_max = BigInt(4294967295);
     const wh = Number(value >> _32n2 & _u32_max);
     const wl = Number(value & _u32_max);
-    const h = isLE ? 4 : 0;
-    const l = isLE ? 0 : 4;
-    view.setUint32(byteOffset + h, wh, isLE);
-    view.setUint32(byteOffset + l, wl, isLE);
+    const h = isLE2 ? 4 : 0;
+    const l = isLE2 ? 0 : 4;
+    view.setUint32(byteOffset + h, wh, isLE2);
+    view.setUint32(byteOffset + l, wl, isLE2);
   }
   const Chi = (a, b, c) => a & b ^ ~a & c;
   _md.Chi = Chi;
   const Maj = (a, b, c) => a & b ^ a & c ^ b & c;
   _md.Maj = Maj;
   class HashMD extends utils_js_1$a.Hash {
-    constructor(blockLen, outputLen, padOffset, isLE) {
+    constructor(blockLen, outputLen, padOffset, isLE2) {
       super();
       this.blockLen = blockLen;
       this.outputLen = outputLen;
       this.padOffset = padOffset;
-      this.isLE = isLE;
+      this.isLE = isLE2;
       this.finished = false;
       this.length = 0;
       this.pos = 0;
@@ -36682,7 +36988,7 @@ var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "sy
       (0, _assert_js_1$2.exists)(this);
       (0, _assert_js_1$2.output)(out, this);
       this.finished = true;
-      const { buffer: buffer2, view, blockLen, isLE } = this;
+      const { buffer: buffer2, view, blockLen, isLE: isLE2 } = this;
       let { pos } = this;
       buffer2[pos++] = 128;
       this.buffer.subarray(pos).fill(0);
@@ -36692,7 +36998,7 @@ var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "sy
       }
       for (let i2 = pos; i2 < blockLen; i2++)
         buffer2[i2] = 0;
-      setBigUint64(view, blockLen - 8, BigInt(this.length * 8), isLE);
+      setBigUint64(view, blockLen - 8, BigInt(this.length * 8), isLE2);
       this.process(view, 0);
       const oview = (0, utils_js_1$a.createView)(out);
       const len2 = this.outputLen;
@@ -36703,7 +37009,7 @@ var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "sy
       if (outLen > state.length)
         throw new Error("_sha2: outputLen bigger than state");
       for (let i2 = 0; i2 < outLen; i2++)
-        oview.setUint32(4 * i2, state[i2], isLE);
+        oview.setUint32(4 * i2, state[i2], isLE2);
     }
     digest() {
       const { buffer: buffer2, outputLen } = this;
@@ -36893,6 +37199,7 @@ var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "sy
   }
   sha256.sha256 = (0, utils_js_1$9.wrapConstructor)(() => new SHA256());
   sha256.sha224 = (0, utils_js_1$9.wrapConstructor)(() => new SHA224());
+  const require$$1$1 = /* @__PURE__ */ getAugmentedNamespace(utils$7);
   var _shortw_utils = {};
   var hmac = {};
   (function(exports) {
@@ -37426,7 +37733,7 @@ var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "sy
     const nByteLength = Math.ceil(_nBitLength / 8);
     return { nBitLength: _nBitLength, nByteLength };
   }
-  function Field(ORDER, bitLen2, isLE = false, redef = {}) {
+  function Field(ORDER, bitLen2, isLE2 = false, redef = {}) {
     if (ORDER <= _0n$3)
       throw new Error(`Expected Field ORDER > 0, got ${ORDER}`);
     const { nBitLength: BITS, nByteLength: BYTES } = nLength(ORDER, bitLen2);
@@ -37467,11 +37774,11 @@ var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "sy
       // TODO: do we really need constant cmov?
       // We don't have const-time bigints anyway, so probably will be not very useful
       cmov: (a, b, c) => c ? b : a,
-      toBytes: (num) => isLE ? (0, utils_js_1$8.numberToBytesLE)(num, BYTES) : (0, utils_js_1$8.numberToBytesBE)(num, BYTES),
+      toBytes: (num) => isLE2 ? (0, utils_js_1$8.numberToBytesLE)(num, BYTES) : (0, utils_js_1$8.numberToBytesBE)(num, BYTES),
       fromBytes: (bytes2) => {
         if (bytes2.length !== BYTES)
           throw new Error(`Fp.fromBytes: expected ${BYTES}, got ${bytes2.length}`);
-        return isLE ? (0, utils_js_1$8.bytesToNumberLE)(bytes2) : (0, utils_js_1$8.bytesToNumberBE)(bytes2);
+        return isLE2 ? (0, utils_js_1$8.bytesToNumberLE)(bytes2) : (0, utils_js_1$8.bytesToNumberBE)(bytes2);
       }
     });
     return Object.freeze(f2);
@@ -37488,13 +37795,13 @@ var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "sy
     const root = Fp.sqrt(elm);
     return Fp.isOdd(root) ? Fp.neg(root) : root;
   }
-  function hashToPrivateScalar(hash2, groupOrder, isLE = false) {
+  function hashToPrivateScalar(hash2, groupOrder, isLE2 = false) {
     hash2 = (0, utils_js_1$8.ensureBytes)("privateHash", hash2);
     const hashLen = hash2.length;
     const minLen = nLength(groupOrder).nByteLength + 8;
     if (minLen < 24 || hashLen < minLen || hashLen > 1024)
       throw new Error(`hashToPrivateScalar: expected ${minLen}-1024 bytes of input, got ${hashLen}`);
-    const num = isLE ? (0, utils_js_1$8.bytesToNumberLE)(hash2) : (0, utils_js_1$8.bytesToNumberBE)(hash2);
+    const num = isLE2 ? (0, utils_js_1$8.bytesToNumberLE)(hash2) : (0, utils_js_1$8.bytesToNumberBE)(hash2);
     return mod(num, groupOrder - _1n$3) + _1n$3;
   }
   function getFieldBytesLength(fieldOrder) {
@@ -37507,15 +37814,15 @@ var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "sy
     const length = getFieldBytesLength(fieldOrder);
     return length + Math.ceil(length / 2);
   }
-  function mapHashToField(key2, fieldOrder, isLE = false) {
+  function mapHashToField(key2, fieldOrder, isLE2 = false) {
     const len2 = key2.length;
     const fieldLen = getFieldBytesLength(fieldOrder);
     const minLen = getMinHashLength(fieldOrder);
     if (len2 < 16 || len2 < minLen || len2 > 1024)
       throw new Error(`expected ${minLen}-1024 bytes of input, got ${len2}`);
-    const num = isLE ? (0, utils_js_1$8.bytesToNumberBE)(key2) : (0, utils_js_1$8.bytesToNumberLE)(key2);
+    const num = isLE2 ? (0, utils_js_1$8.bytesToNumberBE)(key2) : (0, utils_js_1$8.bytesToNumberLE)(key2);
     const reduced = mod(num, fieldOrder - _1n$3) + _1n$3;
-    return isLE ? (0, utils_js_1$8.numberToBytesLE)(reduced, fieldLen) : (0, utils_js_1$8.numberToBytesBE)(reduced, fieldLen);
+    return isLE2 ? (0, utils_js_1$8.numberToBytesLE)(reduced, fieldLen) : (0, utils_js_1$8.numberToBytesBE)(reduced, fieldLen);
   }
   Object.defineProperty(curve, "__esModule", { value: true });
   curve.wNAF = wNAF;
@@ -38339,7 +38646,7 @@ var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "sy
       function prepSig(msgHash, privateKey, opts = defaultSigOpts) {
         if (["recovered", "canonical"].some((k) => k in opts))
           throw new Error("sign() legacy options not supported");
-        const { hash: hash2, randomBytes } = CURVE;
+        const { hash: hash2, randomBytes: randomBytes2 } = CURVE;
         let { lowS, prehash, extraEntropy: ent } = opts;
         if (lowS == null)
           lowS = true;
@@ -38350,7 +38657,7 @@ var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "sy
         const d = normPrivateKeyToScalar(privateKey);
         const seedArgs = [int2octets(d), int2octets(h1int)];
         if (ent != null && ent !== false) {
-          const e = ent === true ? randomBytes(Fp.BYTES) : ent;
+          const e = ent === true ? randomBytes2(Fp.BYTES) : ent;
           seedArgs.push((0, utils_js_12.ensureBytes)("extraEntropy", e));
         }
         const seed = ut.concatBytes(...seedArgs);
@@ -38547,7 +38854,7 @@ var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "sy
   _shortw_utils.createCurve = createCurve;
   /*! noble-curves - MIT License (c) 2022 Paul Miller (paulmillr.com) */
   const hmac_1 = hmac;
-  const utils_1$8 = utils$6;
+  const utils_1$8 = require$$1$1;
   const weierstrass_js_1 = weierstrass;
   function getHash(hash2) {
     return {
@@ -38713,7 +39020,7 @@ var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "sy
     exports.encodeToCurve = exports.hashToCurve = exports.schnorr = exports.secp256k1 = void 0;
     /*! noble-curves - MIT License (c) 2022 Paul Miller (paulmillr.com) */
     const sha256_1 = sha256;
-    const utils_12 = utils$6;
+    const utils_12 = require$$1$1;
     const _shortw_utils_js_1 = _shortw_utils;
     const hash_to_curve_js_1 = hashToCurve;
     const modular_js_12 = modular;
@@ -39474,9 +39781,12 @@ var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "sy
   const genShake$1 = (suffix, blockLen, outputLen) => (0, utils_js_1$5.wrapXOFConstructorWithOpts)((opts = {}) => new Keccak$1(blockLen, suffix, opts.dkLen === void 0 ? outputLen : opts.dkLen, true));
   sha3$1.shake128 = genShake$1(31, 168, 128 / 8);
   sha3$1.shake256 = genShake$1(31, 136, 256 / 8);
+  function commonjsRequire(path) {
+    throw new Error('Could not dynamically require "' + path + '". Please configure the dynamicRequireTargets or/and ignoreDynamicRequires option of @rollup/plugin-commonjs appropriately for this require call to work.');
+  }
   var utils$4 = { exports: {} };
   (function(module, exports) {
-    var __importDefault2 = commonjsGlobal && commonjsGlobal.__importDefault || function(mod2) {
+    var __importDefault2 = globalThis && globalThis.__importDefault || function(mod2) {
       return mod2 && mod2.__esModule ? mod2 : { "default": mod2 };
     };
     Object.defineProperty(exports, "__esModule", { value: true });
@@ -39486,12 +39796,12 @@ var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "sy
     exports.equalsBytes = equalsBytes;
     exports.wrapHash = wrapHash;
     const _assert_1 = __importDefault2(_assert$1);
-    const utils_12 = utils$6;
+    const utils_12 = require$$1$1;
     const assertBool = _assert_1.default.bool;
     exports.assertBool = assertBool;
     const assertBytes = _assert_1.default.bytes;
     exports.assertBytes = assertBytes;
-    var utils_22 = utils$6;
+    var utils_22 = require$$1$1;
     Object.defineProperty(exports, "bytesToHex", { enumerable: true, get: function() {
       return utils_22.bytesToHex;
     } });
@@ -41005,7 +41315,7 @@ ${message.length}`, "utf-8");
   };
   provider.getProvider = getProvider;
   (function(exports) {
-    var __createBinding2 = commonjsGlobal && commonjsGlobal.__createBinding || (Object.create ? function(o, m, k, k2) {
+    var __createBinding2 = globalThis && globalThis.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0) k2 = k;
       var desc = Object.getOwnPropertyDescriptor(m, k);
       if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
@@ -41018,7 +41328,7 @@ ${message.length}`, "utf-8");
       if (k2 === void 0) k2 = k;
       o[k2] = m[k];
     });
-    var __exportStar = commonjsGlobal && commonjsGlobal.__exportStar || function(m, exports2) {
+    var __exportStar = globalThis && globalThis.__exportStar || function(m, exports2) {
       for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports2, p)) __createBinding2(exports2, m, p);
     };
     Object.defineProperty(exports, "__esModule", { value: true });
@@ -41898,7 +42208,7 @@ ${message.length}`, "utf-8");
   }
   refinements.refine = refine;
   (function(exports) {
-    var __createBinding2 = commonjsGlobal && commonjsGlobal.__createBinding || (Object.create ? function(o, m, k, k2) {
+    var __createBinding2 = globalThis && globalThis.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0) k2 = k;
       var desc = Object.getOwnPropertyDescriptor(m, k);
       if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
@@ -41911,7 +42221,7 @@ ${message.length}`, "utf-8");
       if (k2 === void 0) k2 = k;
       o[k2] = m[k];
     });
-    var __exportStar = commonjsGlobal && commonjsGlobal.__exportStar || function(m, exports2) {
+    var __exportStar = globalThis && globalThis.__exportStar || function(m, exports2) {
       for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports2, p)) __createBinding2(exports2, m, p);
     };
     Object.defineProperty(exports, "__esModule", { value: true });
@@ -42832,52 +43142,52 @@ ${message.length}`, "utf-8");
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.Hash = exports.nextTick = exports.byteSwapIfBE = exports.isLE = void 0;
     exports.isBytes = isBytes2;
-    exports.u8 = u8;
-    exports.u32 = u32;
-    exports.createView = createView;
-    exports.rotr = rotr;
-    exports.rotl = rotl;
-    exports.byteSwap = byteSwap;
-    exports.byteSwap32 = byteSwap32;
+    exports.u8 = u82;
+    exports.u32 = u322;
+    exports.createView = createView2;
+    exports.rotr = rotr2;
+    exports.rotl = rotl2;
+    exports.byteSwap = byteSwap2;
+    exports.byteSwap32 = byteSwap322;
     exports.bytesToHex = bytesToHex2;
     exports.hexToBytes = hexToBytes2;
-    exports.asyncLoop = asyncLoop;
+    exports.asyncLoop = asyncLoop2;
     exports.utf8ToBytes = utf8ToBytes2;
     exports.toBytes = toBytes2;
     exports.concatBytes = concatBytes2;
-    exports.checkOpts = checkOpts;
-    exports.wrapConstructor = wrapConstructor;
-    exports.wrapConstructorWithOpts = wrapConstructorWithOpts;
-    exports.wrapXOFConstructorWithOpts = wrapXOFConstructorWithOpts;
-    exports.randomBytes = randomBytes;
+    exports.checkOpts = checkOpts2;
+    exports.wrapConstructor = wrapConstructor2;
+    exports.wrapConstructorWithOpts = wrapConstructorWithOpts2;
+    exports.wrapXOFConstructorWithOpts = wrapXOFConstructorWithOpts2;
+    exports.randomBytes = randomBytes2;
     const crypto_1 = crypto$1;
     const _assert_js_12 = _assert;
     function isBytes2(a) {
       return a instanceof Uint8Array || ArrayBuffer.isView(a) && a.constructor.name === "Uint8Array";
     }
-    function u8(arr) {
+    function u82(arr) {
       return new Uint8Array(arr.buffer, arr.byteOffset, arr.byteLength);
     }
-    function u32(arr) {
+    function u322(arr) {
       return new Uint32Array(arr.buffer, arr.byteOffset, Math.floor(arr.byteLength / 4));
     }
-    function createView(arr) {
+    function createView2(arr) {
       return new DataView(arr.buffer, arr.byteOffset, arr.byteLength);
     }
-    function rotr(word, shift) {
+    function rotr2(word, shift) {
       return word << 32 - shift | word >>> shift;
     }
-    function rotl(word, shift) {
+    function rotl2(word, shift) {
       return word << shift | word >>> 32 - shift >>> 0;
     }
     exports.isLE = (() => new Uint8Array(new Uint32Array([287454020]).buffer)[0] === 68)();
-    function byteSwap(word) {
+    function byteSwap2(word) {
       return word << 24 & 4278190080 | word << 8 & 16711680 | word >>> 8 & 65280 | word >>> 24 & 255;
     }
-    exports.byteSwapIfBE = exports.isLE ? (n) => n : (n) => byteSwap(n);
-    function byteSwap32(arr) {
+    exports.byteSwapIfBE = exports.isLE ? (n) => n : (n) => byteSwap2(n);
+    function byteSwap322(arr) {
       for (let i2 = 0; i2 < arr.length; i2++) {
-        arr[i2] = byteSwap(arr[i2]);
+        arr[i2] = byteSwap2(arr[i2]);
       }
     }
     const hexes2 = /* @__PURE__ */ Array.from({ length: 256 }, (_, i2) => i2.toString(16).padStart(2, "0"));
@@ -42921,7 +43231,7 @@ ${message.length}`, "utf-8");
     const nextTick2 = async () => {
     };
     exports.nextTick = nextTick2;
-    async function asyncLoop(iters, tick, cb) {
+    async function asyncLoop2(iters, tick, cb) {
       let ts = Date.now();
       for (let i2 = 0; i2 < iters; i2++) {
         cb(i2);
@@ -42958,20 +43268,20 @@ ${message.length}`, "utf-8");
       }
       return res;
     }
-    class Hash {
+    class Hash2 {
       // Safe version that clones internal state
       clone() {
         return this._cloneInto();
       }
     }
-    exports.Hash = Hash;
-    function checkOpts(defaults, opts) {
+    exports.Hash = Hash2;
+    function checkOpts2(defaults, opts) {
       if (opts !== void 0 && {}.toString.call(opts) !== "[object Object]")
         throw new Error("Options should be object or undefined");
       const merged = Object.assign(defaults, opts);
       return merged;
     }
-    function wrapConstructor(hashCons) {
+    function wrapConstructor2(hashCons) {
       const hashC = (msg) => hashCons().update(toBytes2(msg)).digest();
       const tmp = hashCons();
       hashC.outputLen = tmp.outputLen;
@@ -42979,7 +43289,7 @@ ${message.length}`, "utf-8");
       hashC.create = () => hashCons();
       return hashC;
     }
-    function wrapConstructorWithOpts(hashCons) {
+    function wrapConstructorWithOpts2(hashCons) {
       const hashC = (msg, opts) => hashCons(opts).update(toBytes2(msg)).digest();
       const tmp = hashCons({});
       hashC.outputLen = tmp.outputLen;
@@ -42987,7 +43297,7 @@ ${message.length}`, "utf-8");
       hashC.create = (opts) => hashCons(opts);
       return hashC;
     }
-    function wrapXOFConstructorWithOpts(hashCons) {
+    function wrapXOFConstructorWithOpts2(hashCons) {
       const hashC = (msg, opts) => hashCons(opts).update(toBytes2(msg)).digest();
       const tmp = hashCons({});
       hashC.outputLen = tmp.outputLen;
@@ -42995,7 +43305,7 @@ ${message.length}`, "utf-8");
       hashC.create = (opts) => hashCons(opts);
       return hashC;
     }
-    function randomBytes(bytesLength = 32) {
+    function randomBytes2(bytesLength = 32) {
       if (crypto_1.crypto && typeof crypto_1.crypto.getRandomValues === "function") {
         return crypto_1.crypto.getRandomValues(new Uint8Array(bytesLength));
       }
@@ -43727,12 +44037,12 @@ ${message.length}`, "utf-8");
   }
   coercers.createHex = createHex;
   var collections = {};
-  var __classPrivateFieldGet = commonjsGlobal && commonjsGlobal.__classPrivateFieldGet || function(receiver, state, kind, f2) {
+  var __classPrivateFieldGet = globalThis && globalThis.__classPrivateFieldGet || function(receiver, state, kind, f2) {
     if (kind === "a" && !f2) throw new TypeError("Private accessor was defined without a getter");
     if (typeof state === "function" ? receiver !== state || !f2 : !state.has(receiver)) throw new TypeError("Cannot read private member from an object whose class did not declare it");
     return kind === "m" ? f2 : kind === "a" ? f2.call(receiver) : f2 ? f2.value : state.get(receiver);
   };
-  var __classPrivateFieldSet = commonjsGlobal && commonjsGlobal.__classPrivateFieldSet || function(receiver, state, value, kind, f2) {
+  var __classPrivateFieldSet = globalThis && globalThis.__classPrivateFieldSet || function(receiver, state, value, kind, f2) {
     if (kind === "m") throw new TypeError("Private method is not writable");
     if (kind === "a" && !f2) throw new TypeError("Private accessor was defined without a setter");
     if (typeof state === "function" ? receiver !== state || !f2 : !state.has(receiver)) throw new TypeError("Cannot write private member to an object whose class did not declare it");
@@ -44467,7 +44777,7 @@ ${message.length}`, "utf-8");
     };
   })(browser, browser.exports);
   var browserExports = browser.exports;
-  var __importDefault = commonjsGlobal && commonjsGlobal.__importDefault || function(mod2) {
+  var __importDefault = globalThis && globalThis.__importDefault || function(mod2) {
     return mod2 && mod2.__esModule ? mod2 : { "default": mod2 };
   };
   Object.defineProperty(logging, "__esModule", { value: true });
@@ -44614,7 +44924,7 @@ ${message.length}`, "utf-8");
     exports.satisfiesVersionRange = satisfiesVersionRange;
   })(versions);
   (function(exports) {
-    var __createBinding2 = commonjsGlobal && commonjsGlobal.__createBinding || (Object.create ? function(o, m, k, k2) {
+    var __createBinding2 = globalThis && globalThis.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0) k2 = k;
       var desc = Object.getOwnPropertyDescriptor(m, k);
       if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
@@ -44627,7 +44937,7 @@ ${message.length}`, "utf-8");
       if (k2 === void 0) k2 = k;
       o[k2] = m[k];
     });
-    var __exportStar = commonjsGlobal && commonjsGlobal.__exportStar || function(m, exports2) {
+    var __exportStar = globalThis && globalThis.__exportStar || function(m, exports2) {
       for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports2, p)) __createBinding2(exports2, m, p);
     };
     Object.defineProperty(exports, "__esModule", { value: true });
@@ -44840,7 +45150,7 @@ ${message.length}`, "utf-8");
   };
   buffer.padEnd = padEnd;
   (function(exports) {
-    var __createBinding2 = commonjsGlobal && commonjsGlobal.__createBinding || (Object.create ? function(o, m, k, k2) {
+    var __createBinding2 = globalThis && globalThis.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0) k2 = k;
       var desc = Object.getOwnPropertyDescriptor(m, k);
       if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
@@ -44853,7 +45163,7 @@ ${message.length}`, "utf-8");
       if (k2 === void 0) k2 = k;
       o[k2] = m[k];
     });
-    var __exportStar = commonjsGlobal && commonjsGlobal.__exportStar || function(m, exports2) {
+    var __exportStar = globalThis && globalThis.__exportStar || function(m, exports2) {
       for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports2, p)) __createBinding2(exports2, m, p);
     };
     Object.defineProperty(exports, "__esModule", { value: true });
@@ -45664,7 +45974,7 @@ ${message.length}`, "utf-8");
     if (hasRequiredParsers) return parsers;
     hasRequiredParsers = 1;
     (function(exports) {
-      var __createBinding2 = commonjsGlobal && commonjsGlobal.__createBinding || (Object.create ? function(o, m, k, k2) {
+      var __createBinding2 = globalThis && globalThis.__createBinding || (Object.create ? function(o, m, k, k2) {
         if (k2 === void 0) k2 = k;
         var desc = Object.getOwnPropertyDescriptor(m, k);
         if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
@@ -45677,7 +45987,7 @@ ${message.length}`, "utf-8");
         if (k2 === void 0) k2 = k;
         o[k2] = m[k];
       });
-      var __exportStar = commonjsGlobal && commonjsGlobal.__exportStar || function(m, exports2) {
+      var __exportStar = globalThis && globalThis.__exportStar || function(m, exports2) {
         for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports2, p)) __createBinding2(exports2, m, p);
       };
       Object.defineProperty(exports, "__esModule", { value: true });
@@ -45856,7 +46166,7 @@ ${message.length}`, "utf-8");
   var abi = {};
   Object.defineProperty(abi, "__esModule", { value: true });
   (function(exports) {
-    var __createBinding2 = commonjsGlobal && commonjsGlobal.__createBinding || (Object.create ? function(o, m, k, k2) {
+    var __createBinding2 = globalThis && globalThis.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0) k2 = k;
       var desc = Object.getOwnPropertyDescriptor(m, k);
       if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
@@ -45869,14 +46179,14 @@ ${message.length}`, "utf-8");
       if (k2 === void 0) k2 = k;
       o[k2] = m[k];
     });
-    var __exportStar = commonjsGlobal && commonjsGlobal.__exportStar || function(m, exports2) {
+    var __exportStar = globalThis && globalThis.__exportStar || function(m, exports2) {
       for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports2, p)) __createBinding2(exports2, m, p);
     };
     Object.defineProperty(exports, "__esModule", { value: true });
     __exportStar(abi, exports);
   })(types);
   (function(exports) {
-    var __createBinding2 = commonjsGlobal && commonjsGlobal.__createBinding || (Object.create ? function(o, m, k, k2) {
+    var __createBinding2 = globalThis && globalThis.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0) k2 = k;
       var desc = Object.getOwnPropertyDescriptor(m, k);
       if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
@@ -45889,7 +46199,7 @@ ${message.length}`, "utf-8");
       if (k2 === void 0) k2 = k;
       o[k2] = m[k];
     });
-    var __exportStar = commonjsGlobal && commonjsGlobal.__exportStar || function(m, exports2) {
+    var __exportStar = globalThis && globalThis.__exportStar || function(m, exports2) {
       for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports2, p)) __createBinding2(exports2, m, p);
     };
     Object.defineProperty(exports, "__esModule", { value: true });
@@ -48968,7 +49278,7 @@ ${message.length}`, "utf-8");
     })(module.exports ? module.exports : self.nacl = self.nacl || {});
   })(naclFast);
   var naclFastExports = naclFast.exports;
-  var __createBinding = commonjsGlobal && commonjsGlobal.__createBinding || (Object.create ? function(o, m, k, k2) {
+  var __createBinding = globalThis && globalThis.__createBinding || (Object.create ? function(o, m, k, k2) {
     if (k2 === void 0) k2 = k;
     var desc = Object.getOwnPropertyDescriptor(m, k);
     if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
@@ -48981,12 +49291,12 @@ ${message.length}`, "utf-8");
     if (k2 === void 0) k2 = k;
     o[k2] = m[k];
   });
-  var __setModuleDefault = commonjsGlobal && commonjsGlobal.__setModuleDefault || (Object.create ? function(o, v) {
+  var __setModuleDefault = globalThis && globalThis.__setModuleDefault || (Object.create ? function(o, v) {
     Object.defineProperty(o, "default", { enumerable: true, value: v });
   } : function(o, v) {
     o["default"] = v;
   });
-  var __importStar = commonjsGlobal && commonjsGlobal.__importStar || function(mod2) {
+  var __importStar = globalThis && globalThis.__importStar || function(mod2) {
     if (mod2 && mod2.__esModule) return mod2;
     var result = {};
     if (mod2 != null) {
@@ -49171,7 +49481,7 @@ ${message.length}`, "utf-8");
     }
   }
   (function(exports) {
-    var __createBinding2 = commonjsGlobal && commonjsGlobal.__createBinding || (Object.create ? function(o, m, k, k2) {
+    var __createBinding2 = globalThis && globalThis.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0) k2 = k;
       var desc = Object.getOwnPropertyDescriptor(m, k);
       if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
@@ -49184,7 +49494,7 @@ ${message.length}`, "utf-8");
       if (k2 === void 0) k2 = k;
       o[k2] = m[k];
     });
-    var __exportStar = commonjsGlobal && commonjsGlobal.__exportStar || function(m, exports2) {
+    var __exportStar = globalThis && globalThis.__exportStar || function(m, exports2) {
       for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports2, p)) __createBinding2(exports2, m, p);
     };
     Object.defineProperty(exports, "__esModule", { value: true });
