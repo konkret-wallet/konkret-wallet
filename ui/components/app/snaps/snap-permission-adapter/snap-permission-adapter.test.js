@@ -58,7 +58,7 @@ describe('Snap Permission Adapter', () => {
       },
     },
     {
-      label: 'Display dialog windows in MetaMask.',
+      label: 'Display dialog windows in Konkret Wallet.',
       description: {},
       leftIcon: 'messages',
       weight: 4,
@@ -80,7 +80,7 @@ describe('Snap Permission Adapter', () => {
       store,
     );
     expect(
-      screen.queryByText('Display dialog windows in MetaMask.'),
+      screen.queryByText('Display dialog windows in Konkret Wallet.'),
     ).toBeInTheDocument();
     expect(
       screen.queryByText(

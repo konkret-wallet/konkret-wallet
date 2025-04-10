@@ -139,7 +139,9 @@ describe('ConnectPage', () => {
 
   it('should render subtitle correctly', () => {
     const { getByText } = render();
-    expect(getByText('Connect this website with MetaMask.')).toBeDefined();
+    expect(
+      getByText('Connect this website with Konkret Wallet.'),
+    ).toBeDefined();
   });
 
   it('should render learn more link correctly', () => {

@@ -44,7 +44,7 @@ describe('ImportTokensModal', () => {
     it('renders expected elements', () => {
       const { getByText, getByPlaceholderText } = render();
       expect(
-        getByText(`Add the tokens you've acquired using MetaMask`),
+        getByText(`Add the tokens you've acquired using Konkret Wallet`),
       ).toBeInTheDocument();
       expect(getByText('Next')).toBeDisabled();
       expect(getByPlaceholderText('Search tokens')).toBeInTheDocument();

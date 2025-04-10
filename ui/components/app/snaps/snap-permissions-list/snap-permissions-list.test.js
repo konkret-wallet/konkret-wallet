@@ -61,7 +61,7 @@ describe('Snap Permission List', () => {
       store,
     );
     expect(
-      screen.getByText('Display dialog windows in MetaMask.'),
+      screen.getByText('Display dialog windows in Konkret Wallet.'),
     ).toBeInTheDocument();
     expect(screen.getByText('Approved on 2023-04-05')).toBeInTheDocument();
   });
