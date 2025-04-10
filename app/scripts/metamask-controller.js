@@ -3433,10 +3433,12 @@ export default class MetamaskController extends EventEmitter {
       }
     } catch (e) {
       log.warn(`Failed to add accounts with balance. Error: ${e}`);
+    /*
     } finally {
       await this.userStorageController.setIsAccountSyncingReadyToBeDispatched(
         true,
       );
+    */
     }
   }
 
