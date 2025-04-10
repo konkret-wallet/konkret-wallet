@@ -102,7 +102,7 @@ export default class Home extends PureComponent {
     hideWhatsNewPopup: PropTypes.func.isRequired,
     announcementsToShow: PropTypes.bool.isRequired,
     onboardedInThisUISession: PropTypes.bool,
-    showMultiRpcModal: PropTypes.bool.isRequired,
+    showMultiRpcModal: PropTypes.bool,
     ///: END:ONLY_INCLUDE_IF
     newNetworkAddedConfigurationId: PropTypes.string,
     isNotification: PropTypes.bool.isRequired,
