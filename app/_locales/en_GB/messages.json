@@ -400,9 +400,6 @@
   "alertReasonChangeInSimulationResults": {
     "message": "Results have changed"
   },
-  "alertReasonFirstTimeInteraction": {
-    "message": "1st interaction"
-  },
   "alertReasonGasEstimateFailed": {
     "message": "Inaccurate fee"
   },

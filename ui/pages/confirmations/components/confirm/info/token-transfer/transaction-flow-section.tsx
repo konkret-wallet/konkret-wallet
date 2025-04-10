@@ -17,7 +17,10 @@ import {
   IconColor,
   JustifyContent,
 } from '../../../../../../helpers/constants/design-system';
-import { ConfirmInfoRowAddress } from '../../../../../../components/app/confirm/info/row';
+import {
+  ConfirmInfoRow,
+  ConfirmInfoRowAddress,
+} from '../../../../../../components/app/confirm/info/row';
 import { ConfirmInfoAlertRow } from '../../../../../../components/app/confirm/info/row/alert-row/alert-row';
 import { RowAlertKey } from '../../../../../../components/app/confirm/info/row/constants';
 import { useI18nContext } from '../../../../../../hooks/useI18nContext';
@@ -51,9 +54,7 @@ export const TransactionFlowSection = () => {
           alertKey={RowAlertKey.SigningInWith}
           label={t('from')}
           ownerId={transactionMeta.id}
-          style={{
-            flexDirection: FlexDirection.Column,
-          }}
+          style={{ flexDirection: FlexDirection.Column }}
         >
           <Box marginTop={1} data-testid="sender-address">
             <ConfirmInfoRowAddress
@@ -69,12 +70,11 @@ export const TransactionFlowSection = () => {
           color={IconColor.iconMuted}
         />
         {recipientAddress && (
-          <ConfirmInfoAlertRow
-            alertKey={RowAlertKey.To}
+          <ConfirmInfoRow
             label={t('to')}
-            ownerId={transactionMeta.id}
             style={{
               flexDirection: FlexDirection.Column,
+              alignItems: AlignItems.flexStart,
             }}
           >
             <Box marginTop={1} data-testid="recipient-address">
@@ -83,7 +83,7 @@ export const TransactionFlowSection = () => {
                 chainId={chainId}
               />
             </Box>
-          </ConfirmInfoAlertRow>
+          </ConfirmInfoRow>
         )}
       </Box>
     </ConfirmInfoSection>
