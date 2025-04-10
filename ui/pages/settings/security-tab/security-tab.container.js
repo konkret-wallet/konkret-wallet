@@ -25,7 +25,6 @@ import {
   getPetnamesEnabled,
 } from '../../../selectors/selectors';
 import { getNetworkConfigurationsByChainId } from '../../../../shared/modules/selectors/networks';
-import { openBasicFunctionalityModal } from '../../../ducks/app/app';
 import SecurityTab from './security-tab.component';
 
 const mapStateToProps = (state) => {
@@ -87,8 +86,6 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(setUseAddressBarEnsResolution(val)),
     setUseSafeChainsListValidation: (val) =>
       dispatch(setUseSafeChainsListValidation(val)),
-    setBasicFunctionalityModalOpen: () =>
-      dispatch(openBasicFunctionalityModal()),
     setOpenSeaEnabled: (val) => dispatch(setOpenSeaEnabled(val)),
     setUseNftDetection: (val) => dispatch(setUseNftDetection(val)),
     setUse4ByteResolution: (value) => {

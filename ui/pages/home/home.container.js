@@ -48,10 +48,7 @@ import {
   setDataCollectionForMarketing,
   setEditedNetwork,
 } from '../../store/actions';
-import {
-  hideWhatsNewPopup,
-  openBasicFunctionalityModal,
-} from '../../ducks/app/app';
+import { hideWhatsNewPopup } from '../../ducks/app/app';
 import { getWeb3ShimUsageAlertEnabledness } from '../../ducks/metamask/metamask';
 // TODO: Remove restricted import
 // eslint-disable-next-line import/no-restricted-paths
@@ -117,7 +114,6 @@ const mapStateToProps = (state) => {
 
   return {
     useExternalServices: getUseExternalServices(state),
-    isBasicConfigurationModalOpen: appState.showBasicFunctionalityModal,
     forgottenPassword,
     shouldShowSeedPhraseReminder: getShouldShowSeedPhraseReminder(state),
     isPopup,
@@ -204,8 +200,6 @@ const mapDispatchToProps = (dispatch) => {
     setActiveNetwork: (networkConfigurationId) => {
       dispatch(setActiveNetwork(networkConfigurationId));
     },
-    setBasicFunctionalityModalOpen: () =>
-      dispatch(openBasicFunctionalityModal()),
   };
 };
 

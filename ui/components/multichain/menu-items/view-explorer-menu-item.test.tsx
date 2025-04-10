@@ -31,10 +31,7 @@ const render = (account = mockAccount) => {
   };
   const store = configureStore(defaultState);
   return renderWithProvider(
-    <ViewExplorerMenuItem
-      closeMenu={jest.fn()}
-      account={account}
-    />,
+    <ViewExplorerMenuItem closeMenu={jest.fn()} account={account} />,
     store,
   );
 };

@@ -12,9 +12,7 @@ import {
   generateERC20TransferData,
   generateERC721TransferData,
 } from '../../pages/confirmations/send/send.utils';
-import {
-  generateTransactionParams,
-} from './helpers';
+import { generateTransactionParams } from './helpers';
 
 jest.mock('human-standard-token-abi', () => ({}));
 

@@ -1072,22 +1072,16 @@ describe('Actions', () => {
         rpcEndpoints: [{ blockExplorerUrl: 'etherscan.io' }],
       };
 
-      await store.dispatch(
-        actions.updateNetwork(networkConfiguration, {
-        }),
-      );
+      await store.dispatch(actions.updateNetwork(networkConfiguration, {}));
 
       expect(
-        updateNetworkStub.calledOnceWith(
-          '0x',
-          {
-            rpcUrl: 'newRpc',
-            chainId: '0x',
-            nativeCurrency: 'ETH',
-            name: 'nickname',
-            rpcEndpoints: [{ blockExplorerUrl: 'etherscan.io' }],
-          },
-        ),
+        updateNetworkStub.calledOnceWith('0x', {
+          rpcUrl: 'newRpc',
+          chainId: '0x',
+          nativeCurrency: 'ETH',
+          name: 'nickname',
+          rpcEndpoints: [{ blockExplorerUrl: 'etherscan.io' }],
+        }),
       ).toBe(true);
     });
 

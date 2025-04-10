@@ -9,18 +9,8 @@ import { SHOW_BASIC_FUNCTIONALITY_MODAL_OPEN } from '../../../store/actionConsta
 import { mockNetworkState } from '../../../../test/stub/networks';
 import PrivacySettings from './privacy-settings';
 
-const mockOpenBasicFunctionalityModal = jest.fn().mockImplementation(() => {
-  return {
-    type: SHOW_BASIC_FUNCTIONALITY_MODAL_OPEN,
-  };
-});
-
 jest.mock('../../../ducks/app/app.ts', () => {
-  return {
-    openBasicFunctionalityModal: () => {
-      return mockOpenBasicFunctionalityModal();
-    },
-  };
+  return {};
 });
 
 describe('Privacy Settings Onboarding View', () => {
@@ -68,7 +58,6 @@ describe('Privacy Settings Onboarding View', () => {
   const setUseMultiAccountBalanceCheckerStub = jest.fn();
   const setUseAddressBarEnsResolutionStub = jest.fn();
   const setIncomingTransactionsPreferencesStub = jest.fn();
-  const onboardingToggleBasicFunctionalityOnStub = jest.fn();
   const toggleExternalServicesStub = jest.fn();
   const setUseTransactionSimulationsStub = jest.fn();
   const setPreferenceStub = jest.fn();
@@ -86,8 +75,6 @@ describe('Privacy Settings Onboarding View', () => {
     setUseAddressBarEnsResolution: setUseAddressBarEnsResolutionStub,
     setIncomingTransactionsPreferences: setIncomingTransactionsPreferencesStub,
     toggleExternalServices: toggleExternalServicesStub,
-    onboardingToggleBasicFunctionalityOn:
-      onboardingToggleBasicFunctionalityOnStub,
     setUseTransactionSimulations: setUseTransactionSimulationsStub,
     setPreference: setPreferenceStub,
     enableProfileSyncing: enableProfileSyncingStub,
