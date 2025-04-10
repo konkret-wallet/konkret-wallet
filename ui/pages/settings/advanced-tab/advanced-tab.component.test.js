@@ -17,7 +17,7 @@ jest.mock('../../../store/actions.ts', () => {
     setAutoLockTimeLimit: (...args) => mockSetAutoLockTimeLimit(...args),
     setShowTestNetworks: () => mockSetShowTestNetworks,
     setShowFiatConversionOnTestnetsPreference: () =>
-      mockSetShowFiatConversionOnTestnetsPreference,
+      mockSetShowFiatConversionOnTestnetsPreference(),
   };
 });
 
