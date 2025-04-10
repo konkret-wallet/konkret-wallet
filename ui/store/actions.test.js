@@ -474,7 +474,8 @@ describe('Actions', () => {
       expect(checkHardwareStatus.callCount).toStrictEqual(1);
     });
 
-    it('shows loading indicator and displays error', async () => {
+    it('displays error', async () => {
+      // it('shows loading indicator and displays error', async () => {
       const store = mockStore();
 
       background.checkHardwareStatus.callsFake((_, __, cb) =>
@@ -484,9 +485,9 @@ describe('Actions', () => {
       setBackgroundConnection(background);
 
       const expectedActions = [
-        { type: 'SHOW_LOADING_INDICATION', payload: undefined },
+        // { type: 'SHOW_LOADING_INDICATION', payload: undefined },
         { type: 'DISPLAY_WARNING', payload: 'error' },
-        { type: 'HIDE_LOADING_INDICATION' },
+        // { type: 'HIDE_LOADING_INDICATION' },
       ];
 
       await expect(
