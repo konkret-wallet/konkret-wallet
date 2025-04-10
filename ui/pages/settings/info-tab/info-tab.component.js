@@ -47,7 +47,7 @@ export default class InfoTab extends PureComponent {
         <div ref={this.settingsRefs[3]} className="info-tab__link-item">
           <Button
             type="link"
-            href="https://raw.githubusercontent.com/MetaMask/metamask-extension/a3713ad7f27d43e6a68bcacd71812babefa6c2fc/LICENSE"
+            href={`https://codeberg.org/konkret/konkret-wallet/raw/tag/v${this.state.version}/LICENSE.txt`}
             target="_blank"
             rel="noopener noreferrer"
             className="info-tab__link-text"
@@ -58,7 +58,7 @@ export default class InfoTab extends PureComponent {
         <div ref={this.settingsRefs[4]} className="info-tab__link-item">
           <Button
             type="link"
-            href={`https://raw.githubusercontent.com/MetaMask/metamask-extension/v${this.state.version}/attribution.txt`}
+            href={`https://codeberg.org/konkret/konkret-wallet/raw/tag/v${this.state.version}/attribution.txt`}
             target="_blank"
             rel="noopener noreferrer"
             className="info-tab__link-text"

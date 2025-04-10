@@ -21,7 +21,7 @@ describe('InfoTab', () => {
       const attributionsLink = getByText('Attributions');
       expect(attributionsLink).toHaveAttribute(
         'href',
-        `https://raw.githubusercontent.com/MetaMask/metamask-extension/vMOCK_VERSION/attribution.txt`,
+        `https://codeberg.org/konkret/konkret-wallet/raw/tag/vMOCK_VERSION/attribution.txt`,
       );
     });
   });

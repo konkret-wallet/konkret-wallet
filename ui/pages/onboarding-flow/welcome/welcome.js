@@ -72,7 +72,7 @@ export default function OnboardingWelcome() {
     <a
       className="create-new-vault__terms-link"
       key="create-new-vault__link-text"
-      href="https://raw.githubusercontent.com/MetaMask/metamask-extension/a3713ad7f27d43e6a68bcacd71812babefa6c2fc/LICENSE"
+      href={`https://codeberg.org/konkret/konkret-wallet/raw/tag/${process.env.METAMASK_VERSION}/LICENSE.txt`}
       target="_blank"
       rel="noopener noreferrer"
     >
