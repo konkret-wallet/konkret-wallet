@@ -417,7 +417,6 @@
       "showFiatInTestnets": false,
       "showNativeTokenAsMainBalance": true,
       "showTestNetworks": true,
-      "smartTransactionsOptInStatus": true,
       "tokenNetworkFilter": {},
       "tokenSortConfig": {
         "key": "tokenFiatAmount",

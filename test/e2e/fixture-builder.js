@@ -71,7 +71,6 @@ function onboardingFixture() {
           showFiatInTestnets: false,
           privacyMode: false,
           showTestNetworks: false,
-          smartTransactionsOptInStatus: true,
           showNativeTokenAsMainBalance: true,
           petnamesEnabled: true,
           showMultiRpcModal: false,
@@ -116,7 +115,6 @@ function onboardingFixture() {
           [ETHERSCAN_SUPPORTED_CHAIN_IDS.GNOSIS]: true,
         },
         showTestNetworks: false,
-        smartTransactionsOptInStatus: true,
         tokenNetworkFilter: {},
       },
       QueuedRequestController: {
@@ -124,15 +122,6 @@ function onboardingFixture() {
       },
       SelectedNetworkController: {
         domains: {},
-      },
-      SmartTransactionsController: {
-        smartTransactionsState: {
-          fees: {},
-          liveness: true,
-          smartTransactions: {
-            [CHAIN_IDS.MAINNET]: [],
-          },
-        },
       },
       UserStorageController: {},
       TokensController: {
@@ -899,11 +888,6 @@ class FixtureBuilder {
       }),
       this,
     );
-  }
-
-  withSmartTransactionsController(data) {
-    merge(this.fixture.data.SmartTransactionsController, data);
-    return this;
   }
 
   withSubjectMetadataController(data) {

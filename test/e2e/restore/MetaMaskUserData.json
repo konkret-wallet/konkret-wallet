@@ -35,8 +35,7 @@
       "hideZeroBalanceTokens": false,
       "showExtensionInFullSizeView": false,
       "showFiatInTestnets": false,
-      "showTestNetworks": false,
-      "smartTransactionsOptInStatus": true
+      "showTestNetworks": false
     },
     "theme": "light",
     "useBlockie": false,

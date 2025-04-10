@@ -382,24 +382,6 @@ export default function TransactionList({
               {pendingTransactions.map((dateGroup) => {
                 return dateGroup.transactionGroups.map(
                   (transactionGroup, index) => {
-                    /*
-                    if (
-                      transactionGroup.initialTransaction?.isSmartTransaction
-                    ) {
-                      return (
-                        <Fragment key={`${transactionGroup.nonce}:${index}`}>
-                          {renderDateStamp(index, dateGroup)}
-                          <SmartTransactionListItem
-                            isEarliestNonce={index === 0}
-                            smartTransaction={
-                              transactionGroup.initialTransaction
-                            }
-                            transactionGroup={transactionGroup}
-                          />
-                        </Fragment>
-                      );
-                    }
-                    */
                     return (
                       <Fragment key={`${transactionGroup.nonce}:${index}`}>
                         {renderDateStamp(index, dateGroup)}
@@ -433,21 +415,9 @@ export default function TransactionList({
                             }`}
                           >
                             {renderDateStamp(index, dateGroup)}
-                            {
-                              /* transactionGroup.initialTransaction
-                              ?.isSmartTransaction ? (
-                              <SmartTransactionListItem
-                                transactionGroup={transactionGroup}
-                                smartTransaction={
-                                  transactionGroup.initialTransaction
-                                }
-                              />
-                            ) : (*/
-                              <TransactionListItem
-                                transactionGroup={transactionGroup}
-                              />
-                              /* )*/
-                            }
+                            <TransactionListItem
+                              transactionGroup={transactionGroup}
+                            />
                           </Fragment>
                         );
                       },

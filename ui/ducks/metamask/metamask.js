@@ -42,7 +42,6 @@ const initialState = {
     showExtensionInFullSizeView: false,
     showFiatInTestnets: false,
     showTestNetworks: true,
-    smartTransactionsOptInStatus: false,
     petnamesEnabled: true,
     featureNotificationsEnabled: false,
     privacyMode: false,

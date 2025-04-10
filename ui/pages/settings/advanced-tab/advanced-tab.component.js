@@ -1,12 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { PureComponent } from 'react';
 import { DEFAULT_AUTO_LOCK_TIME_LIMIT } from '../../../../shared/constants/preferences';
-// import { SMART_TRANSACTIONS_LEARN_MORE_URL } from '../../../../shared/constants/smartTransactions';
-import {
-  Box,
-  // ButtonLink,
-  // ButtonLinkSize,
-} from '../../../components/component-library';
+import { Box } from '../../../components/component-library';
 import Button from '../../../components/ui/button';
 import TextField from '../../../components/ui/text-field';
 import ToggleButton from '../../../components/ui/toggle-button';
@@ -14,8 +9,6 @@ import {
   Display,
   FlexDirection,
   JustifyContent,
-  // TextVariant,
-  // AlignItems,
 } from '../../../helpers/constants/design-system';
 import {
   ExportableContentType,
@@ -40,12 +33,10 @@ export default class AdvancedTab extends PureComponent {
     sendHexData: PropTypes.bool,
     showFiatInTestnets: PropTypes.bool,
     showTestNetworks: PropTypes.bool,
-    // smartTransactionsEnabled: PropTypes.bool,
     autoLockTimeLimit: PropTypes.number,
     setAutoLockTimeLimit: PropTypes.func.isRequired,
     setShowFiatConversionOnTestnetsPreference: PropTypes.func.isRequired,
     setShowTestNetworks: PropTypes.func.isRequired,
-    // setSmartTransactionsEnabled: PropTypes.func.isRequired,
     setDismissSeedBackUpReminder: PropTypes.func.isRequired,
     dismissSeedBackUpReminder: PropTypes.bool.isRequired,
     backupUserData: PropTypes.func.isRequired,
@@ -187,69 +178,13 @@ export default class AdvancedTab extends PureComponent {
     );
   }
 
-  /*
-  renderToggleStxOptIn() {
-    const { t } = this.context;
-    const { smartTransactionsEnabled, setSmartTransactionsEnabled } =
-      this.props;
-
-    const learMoreLink = (
-      <ButtonLink
-        size={ButtonLinkSize.Inherit}
-        textProps={{
-          variant: TextVariant.bodyMd,
-          alignItems: AlignItems.flexStart,
-        }}
-        as="a"
-        href={SMART_TRANSACTIONS_LEARN_MORE_URL}
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        {t('learnMoreUpperCase')}
-      </ButtonLink>
-    );
-
-    return (
-      <Box
-        ref={this.settingsRefs[2]}
-        className="settings-page__content-row"
-        data-testid="advanced-setting-enable-smart-transactions"
-        display={Display.Flex}
-        flexDirection={FlexDirection.Row}
-        justifyContent={JustifyContent.spaceBetween}
-        gap={4}
-      >
-        <div className="settings-page__content-item">
-          <span>{t('smartTransactions')}</span>
-          <div className="settings-page__content-description">
-            {t('stxOptInEthereumBnbDescription', [learMoreLink])}
-          </div>
-        </div>
-
-        <div className="settings-page__content-item-col">
-          <ToggleButton
-            value={smartTransactionsEnabled}
-            onToggle={(oldValue) => {
-              const newValue = !oldValue;
-              setSmartTransactionsEnabled(newValue);
-            }}
-            offLabel={t('off')}
-            onLabel={t('on')}
-            dataTestId="settings-page-stx-opt-in-toggle"
-          />
-        </div>
-      </Box>
-    );
-  }
-  */
-
   renderHexDataOptIn() {
     const { t } = this.context;
     const { sendHexData, setHexDataFeatureFlag } = this.props;
 
     return (
       <Box
-        ref={this.settingsRefs[3]}
+        ref={this.settingsRefs[2]}
         className="settings-page__content-row"
         display={Display.Flex}
         flexDirection={FlexDirection.Row}
@@ -283,7 +218,7 @@ export default class AdvancedTab extends PureComponent {
 
     return (
       <Box
-        ref={this.settingsRefs[4]}
+        ref={this.settingsRefs[3]}
         className="settings-page__content-row"
         display={Display.Flex}
         flexDirection={FlexDirection.Row}
@@ -319,7 +254,7 @@ export default class AdvancedTab extends PureComponent {
 
     return (
       <Box
-        ref={this.settingsRefs[5]}
+        ref={this.settingsRefs[4]}
         className="settings-page__content-row"
         data-testid="advanced-setting-show-testnet-conversion"
         display={Display.Flex}
@@ -353,7 +288,7 @@ export default class AdvancedTab extends PureComponent {
 
     return (
       <Box
-        ref={this.settingsRefs[8]}
+        ref={this.settingsRefs[7]}
         className="settings-page__content-row"
         data-testid="advanced-setting-show-extension-in-full-size-view"
         display={Display.Flex}
@@ -387,7 +322,7 @@ export default class AdvancedTab extends PureComponent {
 
     return (
       <Box
-        ref={this.settingsRefs[7]}
+        ref={this.settingsRefs[6]}
         className="settings-page__content-row"
         data-testid="advanced-setting-auto-lock"
         display={Display.Flex}
@@ -436,7 +371,7 @@ export default class AdvancedTab extends PureComponent {
 
     return (
       <Box
-        ref={this.settingsRefs[9]}
+        ref={this.settingsRefs[8]}
         className="settings-page__content-row"
         data-testid="advanced-setting-dismiss-reminder"
         display={Display.Flex}

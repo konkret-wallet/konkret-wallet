@@ -165,7 +165,6 @@ const jsonData = JSON.stringify({
       showExtensionInFullSizeView: false,
       showFiatInTestnets: false,
       showTestNetworks: true,
-      smartTransactionsOptInStatus: true,
       useNativeCurrencyAsPrimaryCurrency: true,
       showMultiRpcModal: false,
     },
