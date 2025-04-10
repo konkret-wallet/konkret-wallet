@@ -6,7 +6,6 @@ import configureStore from '../../../store/store';
 import Name, { NameProps } from './name';
 import mockState from '../../../../test/data/mock-state.json';
 import {
-  EXPERIENCES_TYPE,
   FIRST_PARTY_CONTRACT_NAMES,
 } from '../../../../shared/constants/first-party-contracts';
 import { cloneDeep } from 'lodash';
@@ -17,7 +16,7 @@ const VARIATION_MOCK = '0x1';
 const NAME_MOCK = 'Saved Name';
 
 const ADDRESS_FIRST_PARTY_MOCK =
-  FIRST_PARTY_CONTRACT_NAMES[EXPERIENCES_TYPE.METAMASK_BRIDGE][
+  FIRST_PARTY_CONTRACT_NAMES["MetaMask Bridge"][
     VARIATION_MOCK
   ].toLowerCase();
 

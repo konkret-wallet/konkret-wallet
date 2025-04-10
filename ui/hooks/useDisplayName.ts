@@ -1,10 +1,7 @@
 import { NameType } from '@metamask/name-controller';
 import { Hex } from '@metamask/utils';
 import { useSelector } from 'react-redux';
-import {
-  EXPERIENCES_TYPE,
-  FIRST_PARTY_CONTRACT_NAMES,
-} from '../../shared/constants/first-party-contracts';
+import { FIRST_PARTY_CONTRACT_NAMES } from '../../shared/constants/first-party-contracts';
 import { toChecksumHexAddress } from '../../shared/modules/hexstring-utils';
 import { getDomainResolutions } from '../ducks/domains';
 import { selectERC20TokensByChain } from '../selectors';
@@ -188,9 +185,7 @@ function useFirstPartyContractNames(nameRequests: UseDisplayNameRequest[]) {
 
     const normalizedContractAddress = value.toLowerCase();
 
-    const contractNames = Object.keys(
-      FIRST_PARTY_CONTRACT_NAMES,
-    ) as EXPERIENCES_TYPE[];
+    const contractNames = Object.keys(FIRST_PARTY_CONTRACT_NAMES);
 
     return contractNames.find((contractName) => {
       const currentContractAddress =

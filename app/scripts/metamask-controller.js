@@ -186,7 +186,6 @@ import { getTokenValueParam } from '../../shared/lib/metamask-controller-utils';
 import { isManifestV3 } from '../../shared/modules/mv3.utils';
 import { convertNetworkId } from '../../shared/modules/network.utils';
 import { createCaipStream } from '../../shared/modules/caip-stream';
-import { BaseUrl } from '../../shared/constants/urls';
 import {
   TOKEN_TRANSFER_LOG_TOPIC_HASH,
   TRANSFER_SINFLE_LOG_TOPIC_HASH,
@@ -262,7 +261,6 @@ import { LatticeKeyringOffscreen } from './lib/offscreen-bridge/lattice-offscree
 import { WeakRefObjectMap } from './lib/WeakRefObjectMap';
 
 // Notification controllers
-import { createTxVerificationMiddleware } from './lib/tx-verification/tx-verification-middleware';
 import createEvmMethodsToNonEvmAccountReqFilterMiddleware from './lib/createEvmMethodsToNonEvmAccountReqFilterMiddleware';
 import { isEthAddress } from './lib/multichain/address';
 import { decodeTransactionData } from './lib/transaction/decode/util';
@@ -4993,10 +4991,6 @@ export default class MetamaskController extends EventEmitter {
 
     engine.push(createLoggerMiddleware({ origin }));
     engine.push(this.permissionLogController.createMiddleware());
-
-    if (origin === BaseUrl.Portfolio) {
-      engine.push(createTxVerificationMiddleware(this.networkController));
-    }
 
     engine.push(createTracingMiddleware());
 

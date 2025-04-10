@@ -2,10 +2,7 @@ import { NameType } from '@metamask/name-controller';
 import { CHAIN_IDS } from '@metamask/transaction-controller';
 import { Hex } from '@metamask/utils';
 import { cloneDeep } from 'lodash';
-import {
-  EXPERIENCES_TYPE,
-  FIRST_PARTY_CONTRACT_NAMES,
-} from '../../shared/constants/first-party-contracts';
+import { FIRST_PARTY_CONTRACT_NAMES } from '../../shared/constants/first-party-contracts';
 import mockState from '../../test/data/mock-state.json';
 import { renderHookWithProvider } from '../../test/lib/render-helpers';
 import { getDomainResolutions } from '../ducks/domains';
@@ -110,7 +107,7 @@ describe('useDisplayName', () => {
     variation: string,
     name: string,
   ) {
-    FIRST_PARTY_CONTRACT_NAMES[name as EXPERIENCES_TYPE] = {
+    FIRST_PARTY_CONTRACT_NAMES[name] = {
       [variation as Hex]: value as Hex,
     };
   }
@@ -131,9 +128,7 @@ describe('useDisplayName', () => {
 
     state = cloneDeep(mockState);
 
-    delete FIRST_PARTY_CONTRACT_NAMES[
-      FIRST_PARTY_CONTRACT_NAME_MOCK as EXPERIENCES_TYPE
-    ];
+    delete FIRST_PARTY_CONTRACT_NAMES[FIRST_PARTY_CONTRACT_NAME_MOCK];
   });
 
   it('returns no name if no defaults found', () => {
@@ -294,9 +289,7 @@ describe('useDisplayName', () => {
         () =>
           useDisplayName({
             value:
-              FIRST_PARTY_CONTRACT_NAMES[EXPERIENCES_TYPE.METAMASK_BRIDGE][
-                CHAIN_IDS.OPTIMISM
-              ],
+              FIRST_PARTY_CONTRACT_NAMES['MetaMask Bridge'][CHAIN_IDS.OPTIMISM],
             type: OTHER_NAME_TYPE,
             variation: CHAIN_IDS.OPTIMISM,
           }),
