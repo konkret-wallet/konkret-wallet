@@ -4,7 +4,6 @@ import { Page } from '../../../components/multichain/pages/page';
 import { GasFeeContextProvider } from '../../../contexts/gasFee';
 import { TransactionModalContextProvider } from '../../../contexts/transaction-modal';
 import AdvancedGasFeePopover from '../components/advanced-gas-fee-popover';
-import { BlockaidLoadingIndicator } from '../components/confirm/blockaid-loading-indicator';
 import { ConfirmAlerts } from '../components/confirm/confirm-alerts';
 import { Footer } from '../components/confirm/footer';
 import { Header } from '../components/confirm/header';
@@ -49,7 +48,6 @@ const Confirm = () => (
             <ConfirmNav />
             <Header />
             <ScrollToBottom>
-              <BlockaidLoadingIndicator />
               <LedgerInfo />
               <Title />
               <Info />

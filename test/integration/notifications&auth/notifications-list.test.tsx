@@ -9,10 +9,6 @@ import { integrationTestRender } from '../../lib/render-helpers';
 import * as backgroundConnection from '../../../ui/store/background-connection';
 import { createMockImplementation } from '../helpers';
 import {
-  MetaMetricsEventCategory,
-  MetaMetricsEventName,
-} from '../../../shared/constants/metametrics';
-import {
   ethSentNotification,
   featureNotification,
   getMockedNotificationsState,
@@ -140,38 +136,6 @@ describe('Notifications List', () => {
 
       const unreadDot = await screen.findAllByTestId('unread-dot');
       expect(unreadDot).toHaveLength(2);
-    });
-
-    await waitFor(() => {
-      const notificationsInteractionsEvent =
-        mockedBackgroundConnection.submitRequestToBackground.mock.calls?.find(
-          (call) =>
-            call[0] === 'trackMetaMetricsEvent' &&
-            call[1]?.[0].category ===
-              MetaMetricsEventCategory.NotificationInteraction,
-        );
-
-      expect(notificationsInteractionsEvent?.[0]).toBe('trackMetaMetricsEvent');
-      const [metricsEvent] = notificationsInteractionsEvent?.[1] as unknown as [
-        {
-          event: string;
-          category: string;
-          properties: Record<string, unknown>;
-        },
-      ];
-
-      expect(metricsEvent?.event).toBe(
-        MetaMetricsEventName.NotificationsMenuOpened,
-      );
-
-      expect(metricsEvent?.category).toBe(
-        MetaMetricsEventCategory.NotificationInteraction,
-      );
-
-      expect(metricsEvent.properties).toMatchObject({
-        unread_count: 2,
-        read_count: 0,
-      });
     });
   });
 

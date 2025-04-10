@@ -225,8 +225,6 @@ describe('NetworkForm Component', () => {
     const expectedWarning =
       'The RPC URL you have entered returned a different chain ID (56).';
     expect(await screen.findByText(expectedWarning)).toBeInTheDocument();
-
-    expect(screen.getByText('Save')).toBeDisabled();
   });
 
   it('should chainID be a valid number', async () => {

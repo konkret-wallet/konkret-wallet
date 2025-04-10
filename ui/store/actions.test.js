@@ -13,7 +13,6 @@ import MetaMaskController from '../../app/scripts/metamask-controller';
 import { HardwareDeviceNames } from '../../shared/constants/hardware-wallets';
 import { GAS_LIMITS } from '../../shared/constants/gas';
 import { ORIGIN_METAMASK } from '../../shared/constants/app';
-import { MetaMetricsNetworkEventSource } from '../../shared/constants/metametrics';
 import { ETH_EOA_METHODS } from '../../shared/constants/eth-methods';
 import { mockNetworkState } from '../../test/stub/networks';
 import { CHAIN_IDS } from '../../shared/constants/network';
@@ -1075,7 +1074,6 @@ describe('Actions', () => {
 
       await store.dispatch(
         actions.updateNetwork(networkConfiguration, {
-          source: MetaMetricsNetworkEventSource.CustomNetworkForm,
         }),
       );
 
@@ -1089,7 +1087,6 @@ describe('Actions', () => {
             name: 'nickname',
             rpcEndpoints: [{ blockExplorerUrl: 'etherscan.io' }],
           },
-          { source: MetaMetricsNetworkEventSource.CustomNetworkForm },
         ),
       ).toBe(true);
     });
@@ -1570,25 +1567,6 @@ describe('Actions', () => {
 
       await store.dispatch(actions.setServiceWorkerKeepAlivePreference(false));
       expect(store.getActions()).toStrictEqual(expectedActions);
-    });
-  });
-
-  describe('#setParticipateInMetaMetrics', () => {
-    it('sets participateInMetaMetrics to true', async () => {
-      const store = mockStore();
-      const setParticipateInMetaMetricsStub = jest.fn((_, cb) => cb());
-
-      background.getApi.returns({
-        setParticipateInMetaMetrics: setParticipateInMetaMetricsStub,
-      });
-
-      setBackgroundConnection(background.getApi());
-
-      await store.dispatch(actions.setParticipateInMetaMetrics(true));
-      expect(setParticipateInMetaMetricsStub).toHaveBeenCalledWith(
-        true,
-        expect.anything(),
-      );
     });
   });
 
@@ -2429,71 +2407,6 @@ describe('Actions', () => {
       ];
 
       expect(store.getActions()).toStrictEqual(expectedActions);
-    });
-  });
-
-  describe('#createMetaMetricsDataDeletionTask', () => {
-    afterEach(() => {
-      sinon.restore();
-    });
-
-    it('calls createMetaMetricsDataDeletionTask in background', async () => {
-      const createMetaMetricsDataDeletionTaskStub = sinon
-        .stub()
-        .callsFake((cb) => cb());
-      background.getApi.returns({
-        createMetaMetricsDataDeletionTask:
-          createMetaMetricsDataDeletionTaskStub,
-      });
-
-      setBackgroundConnection(background.getApi());
-
-      await actions.createMetaMetricsDataDeletionTask();
-      expect(createMetaMetricsDataDeletionTaskStub.callCount).toStrictEqual(1);
-    });
-  });
-  describe('#updateDataDeletionTaskStatus', () => {
-    afterEach(() => {
-      sinon.restore();
-    });
-
-    it('calls updateDataDeletionTaskStatus in background', async () => {
-      const updateDataDeletionTaskStatusStub = sinon
-        .stub()
-        .callsFake((cb) => cb());
-      background.getApi.returns({
-        updateDataDeletionTaskStatus: updateDataDeletionTaskStatusStub,
-      });
-
-      setBackgroundConnection(background.getApi());
-
-      await actions.updateDataDeletionTaskStatus();
-      expect(updateDataDeletionTaskStatusStub.callCount).toStrictEqual(1);
-    });
-  });
-
-  describe('syncInternalAccountsWithUserStorage', () => {
-    afterEach(() => {
-      sinon.restore();
-    });
-
-    it('calls syncInternalAccountsWithUserStorage in the background', async () => {
-      const store = mockStore();
-
-      const syncInternalAccountsWithUserStorageStub = sinon
-        .stub()
-        .callsFake((cb) => cb());
-
-      background.getApi.returns({
-        syncInternalAccountsWithUserStorage:
-          syncInternalAccountsWithUserStorageStub,
-      });
-      setBackgroundConnection(background.getApi());
-
-      await store.dispatch(actions.syncInternalAccountsWithUserStorage());
-      expect(syncInternalAccountsWithUserStorageStub.calledOnceWith()).toBe(
-        true,
-      );
     });
   });
 

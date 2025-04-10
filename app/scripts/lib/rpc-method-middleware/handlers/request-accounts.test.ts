@@ -11,7 +11,6 @@ import requestEthereumAccounts from './request-accounts';
 
 jest.mock('../../util', () => ({
   ...jest.requireActual('../../util'),
-  shouldEmitDappViewedEvent: jest.fn(),
 }));
 const MockUtil = jest.mocked(Util);
 

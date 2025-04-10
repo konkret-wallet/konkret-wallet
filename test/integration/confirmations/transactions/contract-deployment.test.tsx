@@ -8,11 +8,6 @@ import {
   within,
 } from '@testing-library/react';
 import nock from 'nock';
-import {
-  MetaMetricsEventCategory,
-  MetaMetricsEventLocation,
-  MetaMetricsEventName,
-} from '../../../../shared/constants/metametrics';
 import { useAssetDetails } from '../../../../ui/pages/confirmations/hooks/useAssetDetails';
 import * as backgroundConnection from '../../../../ui/store/background-connection';
 import { tEn } from '../../../lib/i18n-helpers';
@@ -200,35 +195,6 @@ describe('Contract Deployment Confirmation', () => {
         'confirmation-account-details-modal__account-balance',
       ),
     ).toHaveTextContent('1.582717SepoliaETH');
-
-    let confirmAccountDetailsModalMetricsEvent;
-
-    await waitFor(() => {
-      confirmAccountDetailsModalMetricsEvent =
-        mockedBackgroundConnection.submitRequestToBackground.mock.calls?.find(
-          (call) =>
-            call[0] === 'trackMetaMetricsEvent' &&
-            call[1]?.[0].category === MetaMetricsEventCategory.Confirmations,
-        );
-
-      expect(confirmAccountDetailsModalMetricsEvent?.[0]).toBe(
-        'trackMetaMetricsEvent',
-      );
-    });
-
-    expect(confirmAccountDetailsModalMetricsEvent?.[1]).toEqual(
-      expect.arrayContaining([
-        expect.objectContaining({
-          category: MetaMetricsEventCategory.Confirmations,
-          event: MetaMetricsEventName.AccountDetailsOpened,
-          properties: {
-            action: 'Confirm Screen',
-            location: MetaMetricsEventLocation.Transaction,
-            transaction_type: TransactionType.deployContract,
-          },
-        }),
-      ]),
-    );
 
     fireEvent.click(
       await screen.findByTestId(

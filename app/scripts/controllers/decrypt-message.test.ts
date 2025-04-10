@@ -3,7 +3,6 @@ import {
   DecryptMessageParams,
 } from '@metamask/message-manager';
 import type { DecryptMessageManagerMessenger } from '@metamask/message-manager';
-import { MetaMetricsEventCategory } from '../../../shared/constants/metametrics';
 import DecryptMessageController, {
   DecryptMessageControllerMessenger,
   DecryptMessageControllerOptions,
@@ -77,7 +76,6 @@ describe('DecryptMessageController', () => {
   const keyringControllerMock = createKeyringControllerMock();
   const messengerMock = createMessengerMock();
   const managerMessengerMock = createManagerMessengerMock();
-  const metricsEventMock = jest.fn();
 
   const decryptMessageManagerMock =
     createDecryptMessageManagerMock<DecryptMessageManager>();
@@ -116,7 +114,6 @@ describe('DecryptMessageController', () => {
       messenger: messengerMock as any,
       // TODO: Replace `any` with type
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      metricsEvent: metricsEventMock as any,
       managerMessenger: managerMessengerMock,
     } as DecryptMessageControllerOptions);
   });
@@ -288,13 +285,5 @@ describe('DecryptMessageController', () => {
     expect(decryptMessageManagerMock.rejectMessage).toBeCalledWith(
       messageIdMock,
     );
-    expect(metricsEventMock).toBeCalledTimes(1);
-    expect(metricsEventMock).toBeCalledWith({
-      event: 'reason to cancel',
-      category: MetaMetricsEventCategory.Messages,
-      properties: {
-        action: 'Decrypt Message Request',
-      },
-    });
   });
 });

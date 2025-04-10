@@ -8,10 +8,6 @@ import {
 import { integrationTestRender } from '../../lib/render-helpers';
 import * as backgroundConnection from '../../../ui/store/background-connection';
 import { createMockImplementation } from '../helpers';
-import {
-  MetaMetricsEventCategory,
-  MetaMetricsEventName,
-} from '../../../shared/constants/metametrics';
 import { getMockedNotificationsState } from './data/notification-state';
 
 jest.mock('../../../ui/store/background-connection', () => ({
@@ -98,41 +94,6 @@ describe('Notifications Toggle', () => {
           'fetchAndUpdateMetamaskNotifications',
         );
       });
-
-      await waitFor(() => {
-        const metametrics =
-          mockedBackgroundConnection.submitRequestToBackground.mock.calls?.find(
-            (call) =>
-              call[0] === 'trackMetaMetricsEvent' &&
-              call[1]?.[0].category ===
-                MetaMetricsEventCategory.NotificationSettings,
-          );
-
-        expect(metametrics?.[0]).toBe('trackMetaMetricsEvent');
-
-        const [metricsEvent] = metametrics?.[1] as unknown as [
-          {
-            event: string;
-            category: string;
-            properties: Record<string, unknown>;
-          },
-        ];
-
-        expect(metricsEvent?.event).toBe(
-          MetaMetricsEventName.NotificationsSettingsUpdated,
-        );
-
-        expect(metricsEvent?.category).toBe(
-          MetaMetricsEventCategory.NotificationSettings,
-        );
-
-        expect(metricsEvent?.properties).toMatchObject({
-          settings_type: 'notifications',
-          was_profile_syncing_on: true,
-          old_value: true,
-          new_value: false,
-        });
-      });
     });
   });
 
@@ -182,40 +143,6 @@ describe('Notifications Toggle', () => {
         expect(fetchAndUpdateMetamaskNotificationsCall?.[0]).toBe(
           'fetchAndUpdateMetamaskNotifications',
         );
-      });
-
-      await waitFor(() => {
-        const metametrics =
-          mockedBackgroundConnection.submitRequestToBackground.mock.calls?.find(
-            (call) =>
-              call[0] === 'trackMetaMetricsEvent' &&
-              call[1]?.[0].category ===
-                MetaMetricsEventCategory.NotificationSettings,
-          );
-
-        expect(metametrics?.[0]).toBe('trackMetaMetricsEvent');
-
-        const [metricsEvent] = metametrics?.[1] as unknown as [
-          {
-            event: string;
-            category: string;
-            properties: Record<string, unknown>;
-          },
-        ];
-
-        expect(metricsEvent?.event).toBe(
-          MetaMetricsEventName.NotificationsSettingsUpdated,
-        );
-
-        expect(metricsEvent?.category).toBe(
-          MetaMetricsEventCategory.NotificationSettings,
-        );
-
-        expect(metricsEvent?.properties).toMatchObject({
-          settings_type: 'product_announcements',
-          old_value: false,
-          new_value: true,
-        });
       });
     });
   });

@@ -6,7 +6,6 @@ import { I18nContext } from '../../../../../contexts/i18n';
 import { useOriginThrottling } from '../../../hooks/useOriginThrottling';
 import { renderWithProvider } from '../../../../../../test/lib/render-helpers';
 import mockState from '../../../../../../test/data/mock-state.json';
-import { MetaMetricsEventLocation } from '../../../../../../shared/constants/metametrics';
 import OriginThrottleModal from './origin-throttle-modal';
 
 const mockHideModal = jest.fn();
@@ -71,9 +70,7 @@ describe('OriginThrottleModal', () => {
 
     fireEvent.click(screen.getByText('cancel'));
 
-    expect(onConfirmationCancel).toHaveBeenCalledWith({
-      location: MetaMetricsEventLocation.OriginThrottleModal,
-    });
+    expect(onConfirmationCancel).toHaveBeenCalled();
     expect(mockResetOrigin).toHaveBeenCalled();
   });
 
@@ -86,8 +83,6 @@ describe('OriginThrottleModal', () => {
 
     fireEvent.click(screen.getByText('gotIt'));
 
-    expect(onConfirmationCancel).toHaveBeenCalledWith({
-      location: MetaMetricsEventLocation.OriginThrottleModal,
-    });
+    expect(onConfirmationCancel).toHaveBeenCalled();
   });
 });

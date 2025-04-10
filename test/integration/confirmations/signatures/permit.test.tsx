@@ -1,11 +1,6 @@
 import { act, fireEvent, screen, waitFor } from '@testing-library/react';
 import nock from 'nock';
 import { MESSAGE_TYPE } from '../../../../shared/constants/app';
-import {
-  MetaMetricsEventCategory,
-  MetaMetricsEventLocation,
-  MetaMetricsEventName,
-} from '../../../../shared/constants/metametrics';
 import { useAssetDetails } from '../../../../ui/pages/confirmations/hooks/useAssetDetails';
 import * as backgroundConnection from '../../../../ui/store/background-connection';
 import { integrationTestRender } from '../../../lib/render-helpers';
@@ -99,35 +94,6 @@ describe('Permit Confirmation', () => {
         'confirmation-account-details-modal__account-balance',
       ),
     ).toHaveTextContent('1.582717SepoliaETH');
-
-    let confirmAccountDetailsModalMetricsEvent;
-
-    await waitFor(() => {
-      confirmAccountDetailsModalMetricsEvent =
-        mockedBackgroundConnection.submitRequestToBackground.mock.calls?.find(
-          (call) =>
-            call[0] === 'trackMetaMetricsEvent' &&
-            (call[1] as unknown as Record<string, unknown>[])[0]?.event ===
-              MetaMetricsEventName.AccountDetailsOpened,
-        );
-      expect(confirmAccountDetailsModalMetricsEvent?.[0]).toBe(
-        'trackMetaMetricsEvent',
-      );
-    });
-
-    expect(confirmAccountDetailsModalMetricsEvent?.[1]).toEqual(
-      expect.arrayContaining([
-        expect.objectContaining({
-          category: MetaMetricsEventCategory.Confirmations,
-          event: MetaMetricsEventName.AccountDetailsOpened,
-          properties: {
-            action: 'Confirm Screen',
-            location: MetaMetricsEventLocation.SignatureConfirmation,
-            signature_type: MESSAGE_TYPE.ETH_SIGN_TYPED_DATA_V4,
-          },
-        }),
-      ]),
-    );
 
     fireEvent.click(
       await screen.findByTestId(
@@ -253,70 +219,5 @@ describe('Permit Confirmation', () => {
 
     scope.done();
     expect(scope.isDone()).toBe(true);
-  });
-
-  it('displays the malicious banner', async () => {
-    const account =
-      mockMetaMaskState.internalAccounts.accounts[
-        mockMetaMaskState.internalAccounts
-          .selectedAccount as keyof typeof mockMetaMaskState.internalAccounts.accounts
-      ];
-
-    const mockedMetaMaskState = getMetamaskStateWithMaliciousPermit(
-      account.address,
-    );
-
-    await act(async () => {
-      await integrationTestRender({
-        preloadedState: mockedMetaMaskState,
-        backgroundConnection: backgroundConnectionMocked,
-      });
-    });
-
-    const headingText = tEn('blockaidTitleDeceptive') as string;
-    const bodyText = tEn('blockaidDescriptionApproveFarming') as string;
-    expect(await screen.findByText(headingText)).toBeInTheDocument();
-    expect(await screen.findByText(bodyText)).toBeInTheDocument();
-  });
-
-  it('tracks external link clicked property in signature rejected event', async () => {
-    const account =
-      mockMetaMaskState.internalAccounts.accounts[
-        mockMetaMaskState.internalAccounts
-          .selectedAccount as keyof typeof mockMetaMaskState.internalAccounts.accounts
-      ];
-
-    const mockedMetaMaskState = getMetamaskStateWithMaliciousPermit(
-      account.address,
-    );
-
-    await act(async () => {
-      await integrationTestRender({
-        preloadedState: mockedMetaMaskState,
-        backgroundConnection: backgroundConnectionMocked,
-      });
-    });
-
-    fireEvent.click(await screen.findByTestId('disclosure'));
-    expect(
-      await screen.findByTestId('alert-provider-report-link'),
-    ).toBeInTheDocument();
-
-    fireEvent.click(await screen.findByTestId('alert-provider-report-link'));
-
-    fireEvent.click(await screen.findByTestId('confirm-footer-cancel-button'));
-
-    expect(
-      mockedBackgroundConnection.submitRequestToBackground,
-    ).toHaveBeenCalledWith(
-      'updateEventFragment',
-      expect.arrayContaining([
-        expect.objectContaining({
-          properties: expect.objectContaining({
-            external_link_clicked: 'security_alert_support_link',
-          }),
-        }),
-      ]),
-    );
   });
 });

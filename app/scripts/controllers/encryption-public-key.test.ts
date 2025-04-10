@@ -5,7 +5,6 @@ import {
   EncryptionPublicKeyManagerMessenger,
 } from '@metamask/message-manager';
 import { KeyringType } from '../../../shared/constants/keyring';
-import { MetaMetricsEventCategory } from '../../../shared/constants/metametrics';
 import EncryptionPublicKeyController, {
   EncryptionPublicKeyControllerMessenger,
   EncryptionPublicKeyControllerOptions,
@@ -84,7 +83,6 @@ describe('EncryptionPublicKeyController', () => {
   const getEncryptionPublicKeyMock = jest.fn();
   const getAccountKeyringTypeMock = jest.fn();
   const getStateMock = jest.fn();
-  const metricsEventMock = jest.fn();
 
   beforeEach(() => {
     jest.resetAllMocks();
@@ -108,7 +106,6 @@ describe('EncryptionPublicKeyController', () => {
       getState: getStateMock as any,
       // TODO: Replace `any` with type
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      metricsEvent: metricsEventMock as any,
       managerMessenger: managerMessengerMock,
     } as EncryptionPublicKeyControllerOptions);
   });
@@ -175,18 +172,6 @@ describe('EncryptionPublicKeyController', () => {
       expect(encryptionPublicKeyManagerMock.rejectMessage).toHaveBeenCalledWith(
         messageIdMock2,
       );
-    });
-
-    it('fires metrics event with reject reason', () => {
-      encryptionPublicKeyController.rejectUnapproved('Test Reason');
-      expect(metricsEventMock).toHaveBeenCalledTimes(2);
-      expect(metricsEventMock).toHaveBeenLastCalledWith({
-        event: 'Test Reason',
-        category: MetaMetricsEventCategory.Messages,
-        properties: {
-          action: 'Encryption public key Request',
-        },
-      });
     });
   });
 

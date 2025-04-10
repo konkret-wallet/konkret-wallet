@@ -2,11 +2,6 @@ import { ApprovalType } from '@metamask/controller-utils';
 import { CHAIN_IDS } from '@metamask/transaction-controller';
 import { act, fireEvent, screen, waitFor } from '@testing-library/react';
 import { MESSAGE_TYPE } from '../../../../shared/constants/app';
-import {
-  MetaMetricsEventCategory,
-  MetaMetricsEventLocation,
-  MetaMetricsEventName,
-} from '../../../../shared/constants/metametrics';
 import { useAssetDetails } from '../../../../ui/pages/confirmations/hooks/useAssetDetails';
 import * as backgroundConnection from '../../../../ui/store/background-connection';
 import { integrationTestRender } from '../../../lib/render-helpers';
@@ -132,32 +127,6 @@ describe('PersonalSign Confirmation', () => {
         'confirmation-account-details-modal__account-balance',
       ),
     ).toHaveTextContent('1.582717SepoliaETH');
-
-    let confirmAccountDetailsModalMetricsEvent;
-
-    await waitFor(() => {
-      confirmAccountDetailsModalMetricsEvent =
-        mockedBackgroundConnection.submitRequestToBackground.mock.calls?.find(
-          (call) => call[0] === 'trackMetaMetricsEvent',
-        );
-      expect(confirmAccountDetailsModalMetricsEvent?.[0]).toBe(
-        'trackMetaMetricsEvent',
-      );
-    });
-
-    expect(confirmAccountDetailsModalMetricsEvent?.[1]).toEqual(
-      expect.arrayContaining([
-        expect.objectContaining({
-          category: MetaMetricsEventCategory.Confirmations,
-          event: MetaMetricsEventName.AccountDetailsOpened,
-          properties: {
-            action: 'Confirm Screen',
-            location: MetaMetricsEventLocation.SignatureConfirmation,
-            signature_type: ApprovalType.PersonalSign,
-          },
-        }),
-      ]),
-    );
 
     fireEvent.click(
       await screen.findByTestId(

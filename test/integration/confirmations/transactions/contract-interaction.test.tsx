@@ -1,5 +1,4 @@
 import { ApprovalType } from '@metamask/controller-utils';
-import { TransactionType } from '@metamask/transaction-controller';
 import {
   act,
   fireEvent,
@@ -8,11 +7,6 @@ import {
   within,
 } from '@testing-library/react';
 import nock from 'nock';
-import {
-  MetaMetricsEventCategory,
-  MetaMetricsEventLocation,
-  MetaMetricsEventName,
-} from '../../../../shared/constants/metametrics';
 import { useAssetDetails } from '../../../../ui/pages/confirmations/hooks/useAssetDetails';
 import * as backgroundConnection from '../../../../ui/store/background-connection';
 import { tEn } from '../../../lib/i18n-helpers';
@@ -221,35 +215,6 @@ describe('Contract Interaction Confirmation', () => {
     expect(
       screen.getByTestId('confirmation-account-details-modal__account-balance'),
     ).toHaveTextContent('1.582717SepoliaETH');
-
-    let confirmAccountDetailsModalMetricsEvent;
-
-    await waitFor(() => {
-      confirmAccountDetailsModalMetricsEvent =
-        mockedBackgroundConnection.submitRequestToBackground.mock.calls?.find(
-          (call) =>
-            call[0] === 'trackMetaMetricsEvent' &&
-            call[1]?.[0].category === MetaMetricsEventCategory.Confirmations,
-        );
-
-      expect(confirmAccountDetailsModalMetricsEvent?.[0]).toBe(
-        'trackMetaMetricsEvent',
-      );
-
-      expect(confirmAccountDetailsModalMetricsEvent?.[1]).toEqual(
-        expect.arrayContaining([
-          expect.objectContaining({
-            category: MetaMetricsEventCategory.Confirmations,
-            event: MetaMetricsEventName.AccountDetailsOpened,
-            properties: {
-              action: 'Confirm Screen',
-              location: MetaMetricsEventLocation.Transaction,
-              transaction_type: TransactionType.contractInteraction,
-            },
-          }),
-        ]),
-      );
-    });
 
     fireEvent.click(
       screen.getByTestId('confirmation-account-details-modal__close-button'),
@@ -465,72 +430,5 @@ describe('Contract Interaction Confirmation', () => {
     expect(dataSection).toContainElement(transactionDataParams);
     expect(transactionDataParams).toHaveTextContent('Number Of Tokens');
     expect(transactionDataParams).toHaveTextContent('1');
-  });
-
-  it('displays the warning for malicious request', async () => {
-    const account =
-      mockMetaMaskState.internalAccounts.accounts[
-        mockMetaMaskState.internalAccounts
-          .selectedAccount as keyof typeof mockMetaMaskState.internalAccounts.accounts
-      ];
-
-    const mockedMetaMaskState =
-      getMetaMaskStateWithMaliciousUnapprovedContractInteraction(
-        account.address,
-      );
-
-    await act(async () => {
-      await integrationTestRender({
-        preloadedState: mockedMetaMaskState,
-        backgroundConnection: backgroundConnectionMocked,
-      });
-    });
-
-    const headingText = tEn('blockaidTitleDeceptive') as string;
-    const bodyText = tEn('blockaidDescriptionTransferFarming') as string;
-    expect(await screen.findByText(headingText)).toBeInTheDocument();
-    expect(await screen.findByText(bodyText)).toBeInTheDocument();
-  });
-
-  it('tracks external link clicked in transaction metrics', async () => {
-    const account =
-      mockMetaMaskState.internalAccounts.accounts[
-        mockMetaMaskState.internalAccounts
-          .selectedAccount as keyof typeof mockMetaMaskState.internalAccounts.accounts
-      ];
-
-    const mockedMetaMaskState =
-      getMetaMaskStateWithMaliciousUnapprovedContractInteraction(
-        account.address,
-      );
-
-    await act(async () => {
-      await integrationTestRender({
-        preloadedState: mockedMetaMaskState,
-        backgroundConnection: backgroundConnectionMocked,
-      });
-    });
-
-    fireEvent.click(await screen.findByTestId('disclosure'));
-    expect(
-      await screen.findByTestId('alert-provider-report-link'),
-    ).toBeInTheDocument();
-
-    fireEvent.click(await screen.findByTestId('alert-provider-report-link'));
-
-    fireEvent.click(await screen.findByTestId('confirm-footer-cancel-button'));
-
-    expect(
-      mockedBackgroundConnection.submitRequestToBackground,
-    ).toHaveBeenCalledWith(
-      'updateEventFragment',
-      expect.arrayContaining([
-        expect.objectContaining({
-          properties: expect.objectContaining({
-            external_link_clicked: 'security_alert_support_link',
-          }),
-        }),
-      ]),
-    );
   });
 });

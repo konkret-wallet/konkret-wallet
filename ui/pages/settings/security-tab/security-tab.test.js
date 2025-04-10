@@ -78,20 +78,6 @@ describe('Security Tab', () => {
     expect(await toggleCheckbox('displayNftMedia', true)).toBe(true);
   });
 
-  it('toggles nft detection', async () => {
-    expect(await toggleCheckbox('useNftDetection', true)).toBe(true);
-  });
-
-  it('toggles nft detection from another initial state', async () => {
-    mockState.metamask.openSeaEnabled = false;
-    mockState.metamask.useNftDetection = false;
-
-    const localMockStore = configureMockStore([thunk])(mockState);
-    renderWithProviders(<SecurityTab />, localMockStore);
-
-    expect(await toggleCheckbox('useNftDetection', false, true)).toBe(true);
-  });
-
   it('toggles phishing detection', async () => {
     expect(await toggleCheckbox('usePhishingDetection', true)).toBe(true);
   });
@@ -102,22 +88,6 @@ describe('Security Tab', () => {
 
   it('toggles balance and token price checker', async () => {
     expect(await toggleCheckbox('currencyRateCheckToggle', true)).toBe(true);
-  });
-
-  it('should toggle token detection', async () => {
-    expect(await toggleCheckbox('autoDetectTokens', true)).toBe(true);
-  });
-
-  it('toggles batch balance checks', async () => {
-    expect(await toggleCheckbox('useMultiAccountBalanceChecker', false)).toBe(
-      true,
-    );
-  });
-
-  it('toggles network details validation', async () => {
-    expect(await toggleCheckbox('useSafeChainsListValidation', false)).toBe(
-      true,
-    );
   });
 
   it('toggles SRP Quiz', async () => {

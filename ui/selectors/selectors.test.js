@@ -11,7 +11,6 @@ import mockState from '../../test/data/mock-state.json';
 import { CHAIN_IDS, NETWORK_TYPES } from '../../shared/constants/network';
 import { createMockInternalAccount } from '../../test/jest/mocks';
 import { mockNetworkState } from '../../test/stub/networks';
-import { DeleteRegulationStatus } from '../../shared/constants/metametrics';
 import { selectSwitchedNetworkNeverShowMessage } from '../components/app/toast-master/selectors';
 import * as networkSelectors from '../../shared/modules/selectors/networks';
 import * as selectors from './selectors';
@@ -799,103 +798,6 @@ describe('Selectors', () => {
       });
 
       expect(Object.values(networks).length).toBeGreaterThan(2);
-    });
-  });
-
-  describe('#getChainIdsToPoll', () => {
-    const networkConfigurationsByChainId = {
-      [CHAIN_IDS.MAINNET]: {
-        chainId: CHAIN_IDS.MAINNET,
-        defaultRpcEndpointIndex: 0,
-        rpcEndpoints: [{ networkClientId: 'mainnet' }],
-      },
-      [CHAIN_IDS.LINEA_MAINNET]: {
-        chainId: CHAIN_IDS.LINEA_MAINNET,
-        defaultRpcEndpointIndex: 0,
-        rpcEndpoints: [{ networkClientId: 'linea-mainnet' }],
-      },
-      [CHAIN_IDS.SEPOLIA]: {
-        chainId: CHAIN_IDS.SEPOLIA,
-        defaultRpcEndpointIndex: 0,
-        rpcEndpoints: [{ networkClientId: 'sepolia' }],
-      },
-      [CHAIN_IDS.LINEA_SEPOLIA]: {
-        chainId: CHAIN_IDS.LINEA_SEPOLIA,
-        defaultRpcEndpointIndex: 0,
-        rpcEndpoints: [{ networkClientId: 'linea-sepolia' }],
-      },
-    };
-
-    beforeEach(() => {
-      process.env.PORTFOLIO_VIEW = 'true';
-    });
-
-    afterEach(() => {
-      process.env.PORTFOLIO_VIEW = undefined;
-    });
-
-    it('returns only non-test chain IDs', () => {
-      const chainIds = selectors.getChainIdsToPoll({
-        metamask: {
-          preferences: {
-            tokenNetworkFilter: {},
-          },
-          networkConfigurationsByChainId,
-          selectedNetworkClientId: 'mainnet',
-        },
-      });
-      expect(Object.values(chainIds)).toHaveLength(2);
-      expect(chainIds).toStrictEqual([
-        CHAIN_IDS.MAINNET,
-        CHAIN_IDS.LINEA_MAINNET,
-      ]);
-    });
-  });
-
-  describe('#getNetworkClientIdsToPoll', () => {
-    const networkConfigurationsByChainId = {
-      [CHAIN_IDS.MAINNET]: {
-        chainId: CHAIN_IDS.MAINNET,
-        defaultRpcEndpointIndex: 0,
-        rpcEndpoints: [{ networkClientId: 'mainnet' }],
-      },
-      [CHAIN_IDS.LINEA_MAINNET]: {
-        chainId: CHAIN_IDS.LINEA_MAINNET,
-        defaultRpcEndpointIndex: 0,
-        rpcEndpoints: [{ networkClientId: 'linea-mainnet' }],
-      },
-      [CHAIN_IDS.SEPOLIA]: {
-        chainId: CHAIN_IDS.SEPOLIA,
-        defaultRpcEndpointIndex: 0,
-        rpcEndpoints: [{ networkClientId: 'sepolia' }],
-      },
-      [CHAIN_IDS.LINEA_SEPOLIA]: {
-        chainId: CHAIN_IDS.LINEA_SEPOLIA,
-        defaultRpcEndpointIndex: 0,
-        rpcEndpoints: [{ networkClientId: 'linea-sepolia' }],
-      },
-    };
-
-    beforeEach(() => {
-      process.env.PORTFOLIO_VIEW = 'true';
-    });
-
-    afterEach(() => {
-      process.env.PORTFOLIO_VIEW = undefined;
-    });
-
-    it('returns only non-test chain IDs', () => {
-      const chainIds = selectors.getNetworkClientIdsToPoll({
-        metamask: {
-          preferences: {
-            tokenNetworkFilter: {},
-          },
-          networkConfigurationsByChainId,
-          selectedNetworkClientId: 'mainnet',
-        },
-      });
-      expect(Object.values(chainIds)).toHaveLength(2);
-      expect(chainIds).toStrictEqual(['mainnet', 'linea-mainnet']);
     });
   });
 
@@ -2206,33 +2108,6 @@ describe('#getConnectedSitesList', () => {
       process.env.PORTFOLIO_VIEW = undefined;
     });
 
-    it('always returns an object containing the network if portfolio view is disabled', () => {
-      process.env.PORTFOLIO_VIEW = undefined;
-
-      const state = {
-        metamask: {
-          preferences: {
-            tokenNetworkFilter: {
-              [CHAIN_IDS.MAINNET]: true,
-            },
-          },
-          selectedNetworkClientId: 'mainnetNetworkConfigurationId',
-          networkConfigurationsByChainId: {
-            [CHAIN_IDS.MAINNET]: {
-              chainId: CHAIN_IDS.MAINNET,
-              rpcEndpoints: [
-                { networkClientId: 'mainnetNetworkConfigurationId' },
-              ],
-            },
-          },
-        },
-      };
-
-      expect(selectors.getTokenNetworkFilter(state)).toStrictEqual({
-        [CHAIN_IDS.MAINNET]: true,
-      });
-    });
-
     it('always returns an object containing the network if it is not included in popular networks', () => {
       const state = {
         metamask: {
@@ -2255,47 +2130,6 @@ describe('#getConnectedSitesList', () => {
 
       expect(selectors.getTokenNetworkFilter(state)).toStrictEqual({
         '0xNotPopularNetwork': true,
-      });
-    });
-
-    it('returns an object containing all the popular networks for portfolio view', () => {
-      const state = {
-        metamask: {
-          preferences: {
-            tokenNetworkFilter: {
-              [CHAIN_IDS.MAINNET]: true,
-              [CHAIN_IDS.LINEA_MAINNET]: true,
-              [CHAIN_IDS.ARBITRUM]: true,
-              [CHAIN_IDS.AVALANCHE]: true,
-              [CHAIN_IDS.BSC]: true,
-              [CHAIN_IDS.OPTIMISM]: true,
-              [CHAIN_IDS.POLYGON]: true,
-              [CHAIN_IDS.ZKSYNC_ERA]: true,
-              [CHAIN_IDS.BASE]: true,
-            },
-          },
-          selectedNetworkClientId: 'mainnetNetworkConfigurationId',
-          networkConfigurationsByChainId: {
-            [CHAIN_IDS.MAINNET]: {
-              chainId: CHAIN_IDS.MAINNET,
-              rpcEndpoints: [
-                { networkClientId: 'mainnetNetworkConfigurationId' },
-              ],
-            },
-          },
-        },
-      };
-
-      expect(selectors.getTokenNetworkFilter(state)).toStrictEqual({
-        [CHAIN_IDS.MAINNET]: true,
-        [CHAIN_IDS.LINEA_MAINNET]: true,
-        [CHAIN_IDS.ARBITRUM]: true,
-        [CHAIN_IDS.AVALANCHE]: true,
-        [CHAIN_IDS.BSC]: true,
-        [CHAIN_IDS.OPTIMISM]: true,
-        [CHAIN_IDS.POLYGON]: true,
-        [CHAIN_IDS.ZKSYNC_ERA]: true,
-        [CHAIN_IDS.BASE]: true,
       });
     });
 

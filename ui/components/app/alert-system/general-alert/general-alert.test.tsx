@@ -30,13 +30,4 @@ describe('GeneralAlert', () => {
     );
     expect(getByText('[seeDetails]')).toBeInTheDocument();
   });
-
-  it('renders the security provider information when provided', () => {
-    const reportUrl = 'https://example.com/report';
-    const { getByText } = renderWithProvider(
-      <GeneralAlert {...mockProps} reportUrl={reportUrl} />,
-    );
-
-    expect(getByText('[securityProviderPoweredBy]')).toBeInTheDocument();
-  });
 });

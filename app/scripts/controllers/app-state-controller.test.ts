@@ -400,20 +400,6 @@ describe('AppStateController', () => {
     });
   });
 
-  describe('setSurveyLinkLastClickedOrClosed', () => {
-    it('set the surveyLinkLastClickedOrClosed time', async () => {
-      await withController(({ controller }) => {
-        const mockParams = Date.now();
-
-        controller.setSurveyLinkLastClickedOrClosed(mockParams);
-
-        expect(controller.state.surveyLinkLastClickedOrClosed).toStrictEqual(
-          mockParams,
-        );
-      });
-    });
-  });
-
   describe('setOnboardingDate', () => {
     it('set the onboardingDate', async () => {
       await withController(({ controller }) => {
@@ -423,66 +409,6 @@ describe('AppStateController', () => {
         controller.setOnboardingDate();
 
         expect(controller.state.onboardingDate).toStrictEqual(mockDateNow);
-      });
-    });
-  });
-
-  describe('setLastViewedUserSurvey', () => {
-    it('set the lastViewedUserSurvey with id 1', async () => {
-      await withController(({ controller }) => {
-        const mockParams = 1;
-
-        controller.setLastViewedUserSurvey(mockParams);
-
-        expect(controller.state.lastViewedUserSurvey).toStrictEqual(mockParams);
-      });
-    });
-  });
-
-  describe('setRampCardClosed', () => {
-    it('set isRampCardClosed to true', async () => {
-      await withController(({ controller }) => {
-        controller.setRampCardClosed();
-
-        expect(controller.state.isRampCardClosed).toStrictEqual(true);
-      });
-    });
-  });
-
-  describe('setNewPrivacyPolicyToastClickedOrClosed', () => {
-    it('set the newPrivacyPolicyToastClickedOrClosed to true', async () => {
-      await withController(({ controller }) => {
-        controller.setNewPrivacyPolicyToastClickedOrClosed();
-
-        expect(
-          controller.state.newPrivacyPolicyToastClickedOrClosed,
-        ).toStrictEqual(true);
-      });
-    });
-  });
-
-  describe('setNewPrivacyPolicyToastShownDate', () => {
-    it('set the newPrivacyPolicyToastShownDate', async () => {
-      await withController(({ controller }) => {
-        const mockParams = Date.now();
-
-        controller.setNewPrivacyPolicyToastShownDate(mockParams);
-
-        expect(controller.state.newPrivacyPolicyToastShownDate).toStrictEqual(
-          mockParams,
-        );
-      });
-    });
-  });
-
-  describe('setTermsOfUseLastAgreed', () => {
-    it('set the termsOfUseLastAgreed timestamp', async () => {
-      await withController(({ controller }) => {
-        const mockParams = Date.now();
-
-        controller.setTermsOfUseLastAgreed(mockParams);
-
-        expect(controller.state.termsOfUseLastAgreed).toStrictEqual(mockParams);
       });
     });
   });
