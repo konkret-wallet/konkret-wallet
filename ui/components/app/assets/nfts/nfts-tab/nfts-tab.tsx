@@ -36,10 +36,7 @@ import {
   detectNfts,
   showImportNftsModal,
 } from '../../../../../store/actions';
-import {
-  ASSET_ROUTE,
-  SECURITY_ROUTE,
-} from '../../../../../helpers/constants/routes';
+import { ASSET_ROUTE } from '../../../../../helpers/constants/routes';
 import NftGrid from '../nft-grid/nft-grid';
 ///: BEGIN:ONLY_INCLUDE_IF(build-main,build-beta,build-flask)
 import ZENDESK_URLS from '../../../../../helpers/constants/zendesk-url';
@@ -78,10 +75,6 @@ export default function NftsTab() {
     history.push(
       `${ASSET_ROUTE}/${currentChain.chainId}/${nft.address}/${nft.tokenId}`,
     );
-  };
-
-  const onEnableAutoDetect = () => {
-    history.push(SECURITY_ROUTE);
   };
 
   const onRefresh = () => {
@@ -144,22 +137,13 @@ export default function NftsTab() {
                 {t('importNFT')}
               </ButtonLink>
 
-              {!isMainnet && Object.keys(collections).length > -1 ? null : (
+              {!isMainnet && Object.keys(collections).length < 1 ? null : (
                 <>
                   <Box
                     className="nfts-tab__link"
                     justifyContent={JustifyContent.flexEnd}
                   >
-                    {isMainnet && !useNftDetection ? (
-                      <ButtonLink
-                        size={ButtonLinkSize.Md}
-                        startIconName={IconName.Setting}
-                        data-testid="refresh-list-button"
-                        onClick={onEnableAutoDetect}
-                      >
-                        {t('enableAutoDetect')}
-                      </ButtonLink>
-                    ) : (
+                    {useNftDetection ? (
                       <ButtonLink
                         size={ButtonLinkSize.Md}
                         startIconName={IconName.Refresh}
@@ -168,7 +152,7 @@ export default function NftsTab() {
                       >
                         {t('refreshList')}
                       </ButtonLink>
-                    )}
+                    ) : null}
                   </Box>
                 </>
               )}
@@ -236,22 +220,13 @@ export default function NftsTab() {
                 {t('importNFT')}
               </ButtonLink>
 
-              {!isMainnet && Object.keys(collections).length > -1 ? null : (
+              {!isMainnet && Object.keys(collections).length < 1 ? null : (
                 <>
                   <Box
                     className="nfts-tab__link"
                     justifyContent={JustifyContent.flexEnd}
                   >
-                    {isMainnet && !useNftDetection ? (
-                      <ButtonLink
-                        size={ButtonLinkSize.Md}
-                        startIconName={IconName.Setting}
-                        data-testid="refresh-list-button"
-                        onClick={onEnableAutoDetect}
-                      >
-                        {t('enableAutoDetect')}
-                      </ButtonLink>
-                    ) : (
+                    {useNftDetection ? (
                       <ButtonLink
                         size={ButtonLinkSize.Md}
                         startIconName={IconName.Refresh}
@@ -260,7 +235,7 @@ export default function NftsTab() {
                       >
                         {t('refreshList')}
                       </ButtonLink>
-                    )}
+                    ) : null}
                   </Box>
                 </>
               )}
