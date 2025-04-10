@@ -82,6 +82,7 @@ The following functionality is removed due to reliance on closed, proprietary an
 The following functionality is disabled due to reliance on remote endpoints and/or exposure of user metadata in upstream implementation. Contributions implementing them in a compatible manner are welcome:
 
 - [ ] Hardware Wallets
+  - [ ] Ledger: Not verified working
   - [ ] Trezor: Loads execution iframe remotely
   - [ ] Lattice: Loads execution iframe remotely
 - Phishing detection

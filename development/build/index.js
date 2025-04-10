@@ -140,6 +140,26 @@ async function defineAndRunBuildTasks() {
       //
       'AggregateError',
       //
+      // ledger hardware wallet connection
+      'parseInt',
+      'parent', // parent.postMessage
+      'postMessage',
+      'ArrayBuffer',
+      'BigInt',
+      'Boolean',
+      'DataView',
+      'Map',
+      'RegExp',
+      'TextDecoder',
+      'TextEncoder',
+      'TypeError',
+      'URLSearchParams',
+      'WeakMap',
+      'WebSocket',
+      'Float64Array',
+      'Int32Array',
+      'Uint16Array',
+      'Uint32Array',
       // globals sentry needs to function
       '__SENTRY__',
       'appState',
