@@ -1417,6 +1417,7 @@
         "@metamask/controller-utils>@metamask/eth-query": true,
         "@metamask/assets-controllers>@metamask/polling-controller": true,
         "bn.js": true,
+        "browserify>buffer": true,
         "uuid": true
       }
     },

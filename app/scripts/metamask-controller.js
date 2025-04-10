@@ -137,11 +137,6 @@ import {
 
 import { TokenStandard } from '../../shared/constants/transaction';
 import {
-  GAS_API_BASE_URL,
-  GAS_DEV_API_BASE_URL,
-  SWAPS_CLIENT_ID,
-} from '../../shared/constants/swaps';
-import {
   CHAIN_IDS,
   CHAIN_SPEC_URL,
   NETWORK_TYPES,
@@ -679,15 +674,11 @@ export default class MetamaskController extends EventEmitter {
       allowedEvents: ['NetworkController:stateChange'],
     });
 
-    const gasApiBaseUrl = process.env.SWAPS_USE_DEV_APIS
-      ? GAS_DEV_API_BASE_URL
-      : GAS_API_BASE_URL;
-
     this.gasFeeController = new GasFeeController({
       state: initState.GasFeeController,
       interval: 10000,
       messenger: gasFeeMessenger,
-      clientId: SWAPS_CLIENT_ID,
+      clientId: 'extension',
       getProvider: () =>
         this.networkController.getProviderAndBlockTracker().provider,
       onNetworkDidChange: (eventHandler) => {
@@ -702,8 +693,6 @@ export default class MetamaskController extends EventEmitter {
         ),
       getCurrentAccountEIP1559Compatibility:
         this.getCurrentAccountEIP1559Compatibility.bind(this),
-      legacyAPIEndpoint: `${gasApiBaseUrl}/networks/<chain_id>/gasPrices`,
-      EIP1559APIEndpoint: `${gasApiBaseUrl}/networks/<chain_id>/suggestedGasFees`,
       getCurrentNetworkLegacyGasAPICompatibility: () => {
         const chainId = this.#getGlobalChainId();
         return chainId === CHAIN_IDS.BSC;

@@ -267,7 +267,7 @@
     "@metamask/eth-token-tracker": "^10.0.2",
     "@metamask/eth-trezor-keyring": "^8.0.0",
     "@metamask/etherscan-link": "^3.0.0",
-    "@metamask/gas-fee-controller": "^22.0.3",
+    "@metamask/gas-fee-controller": "patch:@metamask/gas-fee-controller@npm%3A22.0.3#~/.yarn/patches/@metamask-gas-fee-controller-npm-22.0.3-28ac09bf89.patch",
     "@metamask/jazzicon": "^2.0.0",
     "@metamask/json-rpc-engine": "^10.0.0",
     "@metamask/json-rpc-middleware-stream": "^8.0.4",
