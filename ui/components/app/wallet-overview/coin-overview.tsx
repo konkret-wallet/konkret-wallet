@@ -47,7 +47,7 @@ import {
   getShouldShowAggregatedBalancePopover,
   getIsTokenNetworkFilterEqualCurrentNetwork,
   getChainIdsToPoll,
-  ///: BEGIN:ONLY_INCLUDE_IF(build-main,build-beta,build-flask)
+  ///: BEGIN:ONLY_INCLUDE_IF(build-beta)
   SwapsEthToken,
   ///: END:ONLY_INCLUDE_IF
 } from '../../../selectors';
@@ -82,7 +82,7 @@ export type CoinOverviewProps = {
   className?: string;
   classPrefix?: string;
   chainId: CaipChainId | Hex;
-  ///: BEGIN:ONLY_INCLUDE_IF(build-main,build-beta,build-flask)
+  ///: BEGIN:ONLY_INCLUDE_IF(build-beta)
   // FIXME: This seems to be for Ethereum only
   defaultSwapsToken?: SwapsEthToken;
   isBridgeChain: boolean;
@@ -184,14 +184,14 @@ export const CoinOverview = ({
   className,
   classPrefix = 'coin',
   chainId,
-  ///: BEGIN:ONLY_INCLUDE_IF(build-main,build-beta,build-flask)
+  ///: BEGIN:ONLY_INCLUDE_IF(build-beta)
   defaultSwapsToken,
   isBridgeChain,
   ///: END:ONLY_INCLUDE_IF
   isSwapsChain,
   isSigningEnabled,
 }: CoinOverviewProps) => {
-  ///: BEGIN:ONLY_INCLUDE_IF(build-main,build-beta,build-flask)
+  ///: BEGIN:ONLY_INCLUDE_IF(build-beta)
   // Pre-conditions
   if (isSwapsChain && defaultSwapsToken === undefined) {
     throw new Error('defaultSwapsToken is required');
@@ -431,7 +431,7 @@ export const CoinOverview = ({
             chainId,
             isSwapsChain,
             isSigningEnabled,
-            ///: BEGIN:ONLY_INCLUDE_IF(build-main,build-beta,build-flask)
+            ///: BEGIN:ONLY_INCLUDE_IF(build-beta)
             isBridgeChain,
             defaultSwapsToken,
             ///: END:ONLY_INCLUDE_IF

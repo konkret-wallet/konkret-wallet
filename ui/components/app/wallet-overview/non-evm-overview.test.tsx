@@ -32,9 +32,7 @@ jest.mock('../../../hooks/useMultiPolling', () => ({
   default: jest.fn(),
 }));
 
-const BTC_OVERVIEW_BRIDGE = 'coin-overview-bridge';
 const BTC_OVERVIEW_RECEIVE = 'coin-overview-receive';
-const BTC_OVERVIEW_SWAP = 'token-overview-button-swap';
 const BTC_OVERVIEW_SEND = 'coin-overview-send';
 const BTC_OVERVIEW_PRIMARY_CURRENCY = 'coin-overview__primary-currency';
 
@@ -183,19 +181,6 @@ describe('NonEvmOverview', () => {
       '.coin-overview__balance .coin-overview__primary-container .spinner',
     );
     expect(spinner).toBeInTheDocument();
-  });
-
-  it('buttons Swap/Bridge are disabled', () => {
-    const { queryByTestId } = renderWithProvider(
-      <NonEvmOverview />,
-      getStore(),
-    );
-
-    for (const buttonTestId of [BTC_OVERVIEW_SWAP, BTC_OVERVIEW_BRIDGE]) {
-      const button = queryByTestId(buttonTestId);
-      expect(button).toBeInTheDocument();
-      expect(button).toBeDisabled();
-    }
   });
 
   it('always show the Receive button', () => {
