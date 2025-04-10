@@ -21,6 +21,6 @@
     "128": "images/icon-128.png",
     "512": "images/icon-512.png"
   },
-  "name": "__MSG_appNameMmi__",
-  "short_name": "__MSG_appNameMmi__"
+  "name": "__MSG_appName__",
+  "short_name": "__MSG_appName__"
 }
