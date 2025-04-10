@@ -10299,6 +10299,8 @@ var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "sy
     (function() {
       var INPUT_ERROR = "input is invalid type";
       var FINALIZE_ERROR = "finalize already called";
+      const root = globalThis;
+      /*
       var WINDOW = typeof window === "object";
       var root = WINDOW ? window : {};
       if (root.JS_SHA3_NO_WINDOW) {
@@ -10311,6 +10313,7 @@ var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "sy
       } else if (WEB_WORKER) {
         root = self;
       }
+      */
       var COMMON_JS = !root.JS_SHA3_NO_COMMON_JS && true && module.exports;
       var ARRAY_BUFFER = !root.JS_SHA3_NO_ARRAY_BUFFER && typeof ArrayBuffer !== "undefined";
       var HEX_CHARS = "0123456789abcdef".split("");
@@ -49253,7 +49256,7 @@ ${message.length}`, "utf-8");
         randombytes = fn;
       };
       (function() {
-        var crypto2 = typeof self !== "undefined" ? self.crypto || self.msCrypto : null;
+        var crypto2 = crypto;
         if (crypto2 && crypto2.getRandomValues) {
           var QUOTA = 65536;
           nacl2.setPRNG(function(x, n) {
