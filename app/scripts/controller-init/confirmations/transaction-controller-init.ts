@@ -69,8 +69,7 @@ export const TransactionControllerInit: ControllerInitFunction<
       queryEntireHistory: false,
       updateTransactions: false,
     },
-    isSimulationEnabled: () =>
-      preferencesController().state.useTransactionSimulations,
+    isSimulationEnabled: () => false,
     messenger: controllerMessenger,
     pendingTransactions: {
       isResubmitEnabled: () => true,
