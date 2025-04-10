@@ -151,7 +151,7 @@ exports[`Security Tab should match snapshot 1`] = `
                   value="dweb.link"
                 />
               </div>
-
+              
             </div>
           </div>
         </div>
@@ -531,8 +531,8 @@ exports[`Security Tab should match snapshot 1`] = `
             class="settings-page__content-description"
           >
             <span>
-
-              We use
+               
+              We use 
               <a
                 href="https://www.coingecko.com/"
                 rel="noreferrer"
@@ -540,7 +540,7 @@ exports[`Security Tab should match snapshot 1`] = `
               >
                 CoinGecko
               </a>
-               and
+               and 
               <a
                 href="https://www.cryptocompare.com/"
                 rel="noreferrer"
@@ -548,9 +548,9 @@ exports[`Security Tab should match snapshot 1`] = `
               >
                 CryptoCompare
               </a>
-               APIs to display your balance and token price.
-
-
+               APIs to display your balance and token price. 
+              
+               
             </span>
           </div>
         </div>
