@@ -132,12 +132,7 @@ describe('useInsufficientBalanceAlerts', () => {
 
     expect(alerts).toEqual([
       {
-        actions: [
-          {
-            key: 'buy',
-            label: 'Buy ETH',
-          },
-        ],
+        actions: [],
         field: RowAlertKey.EstimatedFee,
         isBlocking: true,
         key: 'insufficientBalance',

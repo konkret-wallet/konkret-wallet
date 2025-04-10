@@ -11,10 +11,7 @@ import { getMultichainNativeCurrency } from '../../../../../selectors/multichain
 import { isBalanceSufficient } from '../../../send/send.utils';
 import { useI18nContext } from '../../../../../hooks/useI18nContext';
 import { Severity } from '../../../../../helpers/constants/design-system';
-import {
-  AlertActionKey,
-  RowAlertKey,
-} from '../../../../../components/app/confirm/info/row/constants';
+import { RowAlertKey } from '../../../../../components/app/confirm/info/row/constants';
 import { useConfirmContext } from '../../../context/confirm';
 
 export function useInsufficientBalanceAlerts(): Alert[] {
@@ -49,12 +46,7 @@ export function useInsufficientBalanceAlerts(): Alert[] {
 
     return [
       {
-        actions: [
-          {
-            key: AlertActionKey.Buy,
-            label: t('alertActionBuyWithNativeCurrency', [nativeCurrency]),
-          },
-        ],
+        actions: [],
         field: RowAlertKey.EstimatedFee,
         isBlocking: true,
         key: 'insufficientBalance',

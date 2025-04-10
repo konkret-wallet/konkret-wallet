@@ -147,7 +147,6 @@ export default class Home extends PureComponent {
     hasAllowedPopupRedirectApprovals: PropTypes.bool.isRequired,
     useExternalServices: PropTypes.bool,
     setBasicFunctionalityModalOpen: PropTypes.func,
-    fetchBuyableChains: PropTypes.func.isRequired,
   };
 
   state = {
@@ -220,8 +219,6 @@ export default class Home extends PureComponent {
 
   componentDidMount() {
     this.checkStatusAndNavigate();
-
-    this.props.fetchBuyableChains();
   }
 
   static getDerivedStateFromProps(props) {

@@ -11,7 +11,6 @@ import {
   DEFAULT_BTC_BLOCK_NUMBER,
   SATS_IN_1_BTC,
 } from '../../constants';
-import { MultichainNetworks } from '../../../../shared/constants/multichain/networks';
 import { Driver } from '../../webdriver/driver';
 import { loginWithBalanceValidation } from '../../page-objects/flows/login.flow';
 import AccountListPage from '../../page-objects/pages/account-list-page';
@@ -151,34 +150,6 @@ export async function mockRatesCall(mockServer: Mockttp) {
     });
 }
 
-export async function mockRampsDynamicFeatureFlag(
-  mockServer: Mockttp,
-  subDomain: string,
-) {
-  return await mockServer
-    .forGet(
-      `https://on-ramp-content.${subDomain}.cx.metamask.io/regions/networks`,
-    )
-    .withQuery({
-      context: 'extension',
-    })
-    .thenCallback(() => ({
-      statusCode: 200,
-      json: {
-        networks: [
-          {
-            active: true,
-            chainId: MultichainNetworks.BITCOIN,
-            chainName: 'Bitcoin',
-            shortName: 'Bitcoin',
-            nativeTokenSupported: true,
-            isEvm: false,
-          },
-        ],
-      },
-    }));
-}
-
 export async function mockBtcSatProtectionService(
   mockServer: Mockttp,
   address: string = DEFAULT_BTC_ACCOUNT,
@@ -228,10 +199,6 @@ export async function withBtcAccountSnap(
       testSpecificMock: async (mockServer: Mockttp) => [
         await mockRatesCall(mockServer),
         await mockBtcBalanceQuote(mockServer),
-        // See: PROD_RAMP_API_BASE_URL
-        await mockRampsDynamicFeatureFlag(mockServer, 'api'),
-        // See: UAT_RAMP_API_BASE_URL
-        await mockRampsDynamicFeatureFlag(mockServer, 'uat-api'),
         await mockMempoolInfo(mockServer),
         await mockBtcFeeCallQuote(mockServer),
         await mockGetUTXO(mockServer),

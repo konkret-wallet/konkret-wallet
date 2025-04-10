@@ -12,21 +12,6 @@ import {
 } from '../../helpers';
 import { Driver } from '../../webdriver/driver';
 import {
-  BUY_ERC1155_REQUEST_1_MOCK,
-  BUY_ERC1155_REQUEST_2_MOCK,
-  BUY_ERC1155_TRANSACTION_MOCK,
-} from './mock-request-buy-erc1155';
-import {
-  BUY_ERC20_REQUEST_1_MOCK,
-  BUY_ERC20_REQUEST_2_MOCK,
-  BUY_ERC20_TRANSACTION,
-} from './mock-request-buy-erc20';
-import {
-  BUY_ERC721_REQUEST_1_MOCK,
-  BUY_ERC721_REQUEST_2_MOCK,
-  BUY_ERC721_TRANSACTION_MOCK,
-} from './mock-request-buy-erc721';
-import {
   INSUFFICIENT_GAS_REQUEST_MOCK,
   INSUFFICIENT_GAS_TRANSACTION_MOCK,
 } from './mock-request-error-insuffient-gas';
@@ -124,69 +109,6 @@ describe('Simulation Details', () => {
 
         await driver.switchToWindowWithTitle(WINDOW_TITLES.Dialog);
         await expectBalanceChange(driver, true, 0, '- 0.001', 'ETH');
-      },
-    );
-  });
-
-  it('renders buy ERC20 transaction', async function (this: Mocha.Context) {
-    const mockRequests = async (mockServer: MockttpServer) => {
-      await mockRequest(mockServer, BUY_ERC20_REQUEST_1_MOCK);
-      await mockRequest(mockServer, BUY_ERC20_REQUEST_2_MOCK);
-    };
-    await withFixturesForSimulationDetails(
-      { title: this.test?.fullTitle(), mockRequests },
-      async ({ driver }) => {
-        await createDappTransaction(driver, BUY_ERC20_TRANSACTION);
-
-        await driver.switchToWindowWithTitle(WINDOW_TITLES.Dialog);
-        await expectBalanceChange(driver, true, 0, '- 0.002', 'ETH');
-        await expectBalanceChange(driver, false, 0, '+ 6.756', 'DAI');
-      },
-    );
-  });
-
-  it('renders buy ERC721 transaction', async function (this: Mocha.Context) {
-    const mockRequests = async (mockServer: MockttpServer) => {
-      await mockRequest(mockServer, BUY_ERC721_REQUEST_1_MOCK);
-      await mockRequest(mockServer, BUY_ERC721_REQUEST_2_MOCK);
-    };
-    await withFixturesForSimulationDetails(
-      { title: this.test?.fullTitle(), mockRequests },
-      async ({ driver }) => {
-        await createDappTransaction(driver, BUY_ERC721_TRANSACTION_MOCK);
-
-        await driver.switchToWindowWithTitle(WINDOW_TITLES.Dialog);
-        await expectBalanceChange(driver, true, 0, '- 0.014', 'ETH');
-        await expectBalanceChange(
-          driver,
-          false,
-          0,
-          '+ #719',
-          '0xEF9c2...2AD6e',
-        );
-      },
-    );
-  });
-
-  it('renders buy ERC1155 transaction', async function (this: Mocha.Context) {
-    const mockRequests = async (mockServer: MockttpServer) => {
-      await mockRequest(mockServer, BUY_ERC1155_REQUEST_1_MOCK);
-      await mockRequest(mockServer, BUY_ERC1155_REQUEST_2_MOCK);
-    };
-    await withFixturesForSimulationDetails(
-      { title: this.test?.fullTitle(), mockRequests },
-      async ({ driver }) => {
-        await createDappTransaction(driver, BUY_ERC1155_TRANSACTION_MOCK);
-
-        await driver.switchToWindowWithTitle(WINDOW_TITLES.Dialog);
-        await expectBalanceChange(driver, true, 0, '- 0.00045', 'ETH');
-        await expectBalanceChange(
-          driver,
-          false,
-          0,
-          '+ 1 #10340',
-          '0x76BE3...E8E77',
-        );
       },
     );
   });

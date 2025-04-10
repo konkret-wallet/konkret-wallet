@@ -12,8 +12,6 @@ const PORTFOLIO_ORIGINS: string[] = [
   ///: BEGIN:ONLY_INCLUDE_IF(build-flask)
   'https://dev.portfolio.metamask.io',
   'https://stage.portfolio.metamask.io',
-  'https://ramps-dev.portfolio.metamask.io',
-  'https://portfolio-builds.metafi-dev.codefi.network',
   ///: END:ONLY_INCLUDE_IF
 ];
 

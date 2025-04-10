@@ -1,7 +1,7 @@
 import React from 'react';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-import { fireEvent, waitFor } from '@testing-library/react';
+import { waitFor } from '@testing-library/react';
 import { EthAccountType } from '@metamask/keyring-api';
 import nock from 'nock';
 import {
@@ -135,7 +135,6 @@ describe('AssetPage', () => {
     openTabSpy = jest.spyOn(global.platform, 'openTab');
     setBackgroundConnection({
       getTokenSymbol: jest.fn(),
-      setBridgeFeatureFlags: jest.fn(),
     } as never);
   });
 
@@ -223,96 +222,6 @@ describe('AssetPage', () => {
       name: 'CONVERT_TOKEN_TO_NFT',
       tokenAddress: token.address,
     });
-  });
-
-  it('should enable the buy button on supported chains', () => {
-    const { queryByTestId } = renderWithProvider(
-      <AssetPage asset={token} optionsButton={null} />,
-      store,
-    );
-    const buyButton = queryByTestId('token-overview-buy');
-    expect(buyButton).toBeInTheDocument();
-    expect(buyButton).toBeEnabled();
-  });
-
-  it('should disable the buy button on unsupported chains', () => {
-    const { queryByTestId } = renderWithProvider(
-      <AssetPage asset={token} optionsButton={null} />,
-      configureMockStore([thunk])({
-        ...mockStore,
-        metamask: {
-          ...mockStore.metamask,
-          ...mockNetworkState({ chainId: CHAIN_IDS.SEPOLIA }),
-        },
-      }),
-    );
-    const buyButton = queryByTestId('token-overview-buy');
-    expect(buyButton).toBeInTheDocument();
-    expect(buyButton).toBeDisabled();
-  });
-
-  it('should open the buy crypto URL for a buyable chain ID', async () => {
-    const mockedStoreWithBuyableChainId = {
-      ...mockStore,
-      metamask: {
-        ...mockStore.metamask,
-        ...mockNetworkState({ chainId: CHAIN_IDS.POLYGON }),
-      },
-    };
-    const mockedStore = configureMockStore([thunk])(
-      mockedStoreWithBuyableChainId,
-    );
-
-    const { queryByTestId } = renderWithProvider(
-      <AssetPage asset={token} optionsButton={null} />,
-      mockedStore,
-    );
-    const buyButton = queryByTestId('token-overview-buy');
-    expect(buyButton).toBeInTheDocument();
-    expect(buyButton).not.toBeDisabled();
-
-    fireEvent.click(buyButton as HTMLElement);
-    expect(openTabSpy).toHaveBeenCalledTimes(1);
-
-    await waitFor(() =>
-      expect(openTabSpy).toHaveBeenCalledWith({
-        url: expect.stringContaining(`/buy?metamaskEntry=ext_buy_sell_button`),
-      }),
-    );
-  });
-
-  it('should show the Bridge button if chain id is supported', async () => {
-    const { queryByTestId } = renderWithProvider(
-      <AssetPage asset={token} optionsButton={null} />,
-      store,
-    );
-    const bridgeButton = queryByTestId('token-overview-bridge');
-    expect(bridgeButton).toBeInTheDocument();
-    expect(bridgeButton).not.toBeDisabled();
-
-    fireEvent.click(bridgeButton as HTMLElement);
-
-    await waitFor(() => {
-      expect(openTabSpy).toHaveBeenCalledTimes(1);
-      expect(openTabSpy).toHaveBeenCalledWith({
-        url: `https://portfolio.test/bridge?metamaskEntry=ext_bridge_button&metametricsId=&metricsEnabled=false&marketingEnabled=false&token=${token.address}`,
-      });
-    });
-  });
-
-  it('should not show the Bridge button if chain id is not supported', async () => {
-    const { queryByTestId } = renderWithProvider(
-      <AssetPage asset={token} optionsButton={null} />,
-      configureMockStore([thunk])({
-        ...mockStore,
-        metamask: {
-          ...mockStore.metamask,
-          ...mockNetworkState({ chainId: CHAIN_IDS.SEPOLIA }),
-        },
-      }),
-    );
-    const bridgeButton = queryByTestId('token-overview-bridge');
-    expect(bridgeButton).not.toBeInTheDocument();
   });
 
   it('should render the network name', async () => {

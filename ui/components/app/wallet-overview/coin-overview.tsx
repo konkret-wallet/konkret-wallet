@@ -86,7 +86,6 @@ export type CoinOverviewProps = {
   // FIXME: This seems to be for Ethereum only
   defaultSwapsToken?: SwapsEthToken;
   isBridgeChain: boolean;
-  isBuyableChain: boolean;
   ///: END:ONLY_INCLUDE_IF
   isSwapsChain: boolean;
   isSigningEnabled: boolean;
@@ -188,7 +187,6 @@ export const CoinOverview = ({
   ///: BEGIN:ONLY_INCLUDE_IF(build-main,build-beta,build-flask)
   defaultSwapsToken,
   isBridgeChain,
-  isBuyableChain,
   ///: END:ONLY_INCLUDE_IF
   isSwapsChain,
   isSigningEnabled,
@@ -435,7 +433,6 @@ export const CoinOverview = ({
             isSigningEnabled,
             ///: BEGIN:ONLY_INCLUDE_IF(build-main,build-beta,build-flask)
             isBridgeChain,
-            isBuyableChain,
             defaultSwapsToken,
             ///: END:ONLY_INCLUDE_IF
             classPrefix,

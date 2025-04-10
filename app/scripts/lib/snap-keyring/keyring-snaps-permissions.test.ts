@@ -11,7 +11,6 @@ import {
 const PORTFOLIO_ORIGINS: string[] = [
   'https://portfolio.metamask.io',
   'https://dev.portfolio.metamask.io',
-  'https://ramps-dev.portfolio.metamask.io',
 ];
 
 describe('keyringSnapPermissionsBuilder', () => {

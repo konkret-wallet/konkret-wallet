@@ -4,24 +4,15 @@ import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import { renderWithProvider } from '../../../../test/jest/rendering';
 import mockState from '../../../../test/data/mock-state.json';
-import useRamps from '../../../hooks/ramps/useRamps/useRamps';
 import { FundingMethodModal } from './funding-method-modal';
-
-jest.mock('../../../hooks/ramps/useRamps/useRamps', () => ({
-  __esModule: true,
-  default: jest.fn(),
-}));
 
 const mockStore = configureMockStore([thunk]);
 
 describe('FundingMethodModal', () => {
   let store = configureMockStore([thunk])(mockState);
-  let openBuyCryptoInPdapp: jest.Mock<() => void>;
 
   beforeEach(() => {
     store = mockStore(mockState);
-    openBuyCryptoInPdapp = jest.fn();
-    (useRamps as jest.Mock).mockReturnValue({ openBuyCryptoInPdapp });
   });
 
   afterEach(() => {
@@ -55,21 +46,6 @@ describe('FundingMethodModal', () => {
     );
 
     expect(queryByTestId('funding-method-modal')).toBeNull();
-  });
-
-  it('should call openBuyCryptoInPdapp when the Token Marketplace item is clicked', () => {
-    const { getByText } = renderWithProvider(
-      <FundingMethodModal
-        isOpen={true}
-        onClose={jest.fn()}
-        title="Test Modal"
-        onClickReceive={jest.fn()}
-      />,
-      store,
-    );
-
-    fireEvent.click(getByText('Token marketplace'));
-    expect(openBuyCryptoInPdapp).toHaveBeenCalled();
   });
 
   it('should call onClickReceive when the Receive Crypto item is clicked', () => {

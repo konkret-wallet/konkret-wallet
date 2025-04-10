@@ -10,10 +10,6 @@ export default {
     account: accounts[selectedAccount],
     chainId: '1',
     trackingLocation: 'home',
-    isSwapsChain: true,
-    isSigningEnabled: true,
-    isBridgeChain: true,
-    isBuyableChain: true,
     defaultSwapsToken: {
       symbol: 'ETH',
       name: 'Ether',

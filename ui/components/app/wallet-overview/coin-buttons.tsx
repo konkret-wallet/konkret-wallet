@@ -8,23 +8,12 @@ import React, {
 } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-///: BEGIN:ONLY_INCLUDE_IF(build-beta)
-import { toHex } from '@metamask/controller-utils';
-///: END:ONLY_INCLUDE_IF
-import {
-  ///: BEGIN:ONLY_INCLUDE_IF(build-beta)
-  isCaipChainId,
-  ///: END:ONLY_INCLUDE_IF
-  CaipChainId,
-} from '@metamask/utils';
+import { CaipChainId } from '@metamask/utils';
 
 ///: BEGIN:ONLY_INCLUDE_IF(multichain)
 import { isEvmAccountType } from '@metamask/keyring-api';
 import { InternalAccount } from '@metamask/keyring-internal-api';
 import { SnapId } from '@metamask/snaps-sdk';
-///: END:ONLY_INCLUDE_IF
-///: BEGIN:ONLY_INCLUDE_IF(build-beta)
-import { ChainId } from '../../../../shared/constants/network';
 ///: END:ONLY_INCLUDE_IF
 
 import { I18nContext } from '../../../contexts/i18n';
@@ -50,9 +39,6 @@ import {
 } from '../../../helpers/constants/design-system';
 import { Box, Icon, IconName, IconSize } from '../../component-library';
 import IconButton from '../../ui/icon-button';
-///: BEGIN:ONLY_INCLUDE_IF(build-beta)
-import useRamps from '../../../hooks/ramps/useRamps/useRamps';
-///: END:ONLY_INCLUDE_IF
 import { ReceiveModal } from '../../multichain/receive-modal';
 import {
   setSwitchedNetworkDetails,
@@ -76,9 +62,6 @@ type CoinButtonsProps = {
   ///: BEGIN:ONLY_INCLUDE_IF(build-beta)
   isBridgeChain: boolean;
   ///: END:ONLY_INCLUDE_IF
-  ///: BEGIN:ONLY_INCLUDE_IF(build-beta)
-  isBuyableChain: boolean;
-  ///: END:ONLY_INCLUDE_IF
   classPrefix?: string;
   iconButtonClassName?: string;
 };
@@ -89,9 +72,6 @@ const CoinButtons = ({
   isSigningEnabled,
   ///: BEGIN:ONLY_INCLUDE_IF(build-beta)
   isBridgeChain,
-  ///: END:ONLY_INCLUDE_IF
-  ///: BEGIN:ONLY_INCLUDE_IF(build-beta)
-  isBuyableChain,
   ///: END:ONLY_INCLUDE_IF
   classPrefix = 'coin',
   iconButtonClassName = '',
@@ -120,11 +100,6 @@ const CoinButtons = ({
     account,
   );
   const buttonTooltips = {
-    buyButton: [
-      ///: BEGIN:ONLY_INCLUDE_IF(build-beta)
-      { condition: !isBuyableChain, message: '' },
-      ///: END:ONLY_INCLUDE_IF
-    ],
     sendButton: [
       { condition: !isSigningEnabled, message: 'methodNotSupported' },
     ],
@@ -151,20 +126,6 @@ const CoinButtons = ({
     }
     return contents;
   };
-
-  ///: BEGIN:ONLY_INCLUDE_IF(build-beta)
-  const getChainId = (): CaipChainId | ChainId => {
-    if (isCaipChainId(chainId)) {
-      return chainId as CaipChainId;
-    }
-    // Otherwise we assume that's an EVM chain ID, so use the usual 0x prefix
-    return toHex(chainId) as ChainId;
-  };
-  ///: END:ONLY_INCLUDE_IF
-
-  ///: BEGIN:ONLY_INCLUDE_IF(build-beta)
-  const { openBuyCryptoInPdapp } = useRamps();
-  ///: END:ONLY_INCLUDE_IF
 
   ///: BEGIN:ONLY_INCLUDE_IF(multichain)
   const unapprovedTemplatedConfirmations = useSelector(
@@ -247,39 +208,8 @@ const CoinButtons = ({
     history.push(SEND_ROUTE);
   }, [chainId, account, setCorrectChain]);
 
-  ///: BEGIN:ONLY_INCLUDE_IF(build-beta)
-  const handleBuyAndSellOnClick = useCallback(() => {
-    openBuyCryptoInPdapp(getChainId());
-    // TODO: memozie chainId?
-    // openBuyCryptoInPdapp(chainId);
-    // }, [chainId]);
-  }, []);
-  ///: END:ONLY_INCLUDE_IF
-
   return (
     <Box display={Display.Flex} justifyContent={JustifyContent.spaceEvenly}>
-      {
-        ///: BEGIN:ONLY_INCLUDE_IF(build-beta)
-        <IconButton
-          className={`${classPrefix}-overview__button`}
-          iconButtonClassName={iconButtonClassName}
-          Icon={
-            <Icon
-              name={IconName.PlusMinus}
-              color={IconColor.primaryInverse}
-              size={IconSize.Sm}
-            />
-          }
-          disabled={!isBuyableChain}
-          data-testid={`${classPrefix}-overview-buy`}
-          label={t('buyAndSell')}
-          onClick={handleBuyAndSellOnClick}
-          tooltipRender={(contents: React.ReactElement) =>
-            generateTooltip('buyButton', contents)
-          }
-        />
-        ///: END:ONLY_INCLUDE_IF
-      }
       <IconButton
         className={`${classPrefix}-overview__button`}
         iconButtonClassName={iconButtonClassName}

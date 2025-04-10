@@ -9,9 +9,6 @@ jest.mock('../../../contexts/transaction-modal', () => ({
   useTransactionModalContext: jest.fn(),
 }));
 
-const EXPECTED_BUY_URL =
-  'https://portfolio.test/buy?metamaskEntry=ext_buy_sell_button&chainId=0x5&metricsEnabled=false';
-
 function processAlertActionKey(actionKey: string) {
   const { result } = renderHookWithProvider(
     useConfirmationAlertActions,
@@ -36,15 +33,6 @@ describe('useConfirmationAlertActions', () => {
     });
 
     global.platform = { openTab: jest.fn() } as unknown as Platform;
-  });
-
-  it('opens portfolio tab if action key is Buy', () => {
-    processAlertActionKey(AlertActionKey.Buy);
-
-    expect(global.platform.openTab).toHaveBeenCalledTimes(1);
-    expect(global.platform.openTab).toHaveBeenCalledWith({
-      url: EXPECTED_BUY_URL,
-    });
   });
 
   it('opens advanced gas fee modal if action key is ShowAdvancedGasFeeModal', () => {

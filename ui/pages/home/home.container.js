@@ -53,7 +53,6 @@ import {
   openBasicFunctionalityModal,
 } from '../../ducks/app/app';
 import { getWeb3ShimUsageAlertEnabledness } from '../../ducks/metamask/metamask';
-import { fetchBuyableChains } from '../../ducks/ramps';
 // TODO: Remove restricted import
 // eslint-disable-next-line import/no-restricted-paths
 import { getEnvironmentType } from '../../../app/scripts/lib/util';
@@ -207,7 +206,6 @@ const mapDispatchToProps = (dispatch) => {
     },
     setBasicFunctionalityModalOpen: () =>
       dispatch(openBasicFunctionalityModal()),
-    fetchBuyableChains: () => dispatch(fetchBuyableChains()),
   };
 };
 

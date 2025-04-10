@@ -49,7 +49,6 @@ import {
 } from '../../../ducks/metamask/metamask';
 import { toChecksumHexAddress } from '../../../../shared/modules/hexstring-utils';
 import CoinButtons from '../../../components/app/wallet-overview/coin-buttons';
-import { getIsNativeTokenBuyable } from '../../../ducks/ramps';
 import { calculateTokenBalance } from '../../../components/app/assets/util/calculateTokenBalance';
 import { useTokenBalances } from '../../../hooks/useTokenBalances';
 import { useMultichainSelector } from '../../../hooks/useMultichainSelector';
@@ -106,7 +105,6 @@ const AssetPage = ({
   const selectedAccount = useSelector(getSelectedAccount);
   const currency = useSelector(getCurrentCurrency);
   const conversionRate = useSelector(getConversionRate);
-  const isBuyableChain = useSelector(getIsNativeTokenBuyable);
 
   const { chainId, type, symbol, name, image, decimals } = asset;
 
@@ -248,7 +246,6 @@ const AssetPage = ({
           <CoinButtons
             {...{
               account,
-              isBuyableChain,
               isSigningEnabled,
               isSwapsChain,
               isBridgeChain,
