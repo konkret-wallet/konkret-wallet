@@ -186,7 +186,7 @@ export function getNewNetworkAdded(state) {
  * @returns {{ chainId: import('@metamask/utils').Hex; nickname: string; editCompleted: boolean} | undefined}
  */
 export function getEditedNetwork(state) {
-  return state.appState.editedNetwork;
+  return state.appState?.editedNetwork;
 }
 
 export function getIsAddingNewNetwork(state) {
