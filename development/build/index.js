@@ -149,6 +149,7 @@ async function defineAndRunBuildTasks() {
       'Boolean',
       'DataView',
       'Map',
+      'RangeError',
       'RegExp',
       'TextDecoder',
       'TextEncoder',
